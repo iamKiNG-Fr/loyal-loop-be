@@ -1,9 +1,26 @@
-import express from "express";
+import express, { Request } from "express";
 import sequelize from "./config/sequelize";
+import * as dotevnv from "dotenv"
+import cors, { CorsOptions } from "cors"
+import * as helmet from "helmet"
+
+dotevnv.config()
+
 const app = express();
 const PORT = process.env.PORT || 5000
 
-import waitlistRouter from "./routes/waitlist"
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+const corsOptions: CorsOptions = {
+  origin: "*", // Change to specific domains in production
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+
+app.use(cors<Request>());
+// app.use(helmet())
 
 //  Test database connection
 (async () => {
@@ -15,6 +32,8 @@ import waitlistRouter from "./routes/waitlist"
     console.error("Unable to connect to the database:", error);
   }
 })();
+
+import waitlistRouter from "./routes/waitlist.route"
 
 app.use('/waitlist', waitlistRouter)
 

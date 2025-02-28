@@ -12,16 +12,25 @@ export const waitlist = async(
   const parsedBody = AddToWaitlistSchema.safeParse(req.body);
 
   if (!parsedBody.success) {
-    return res.status(400).json({ errors: parsedBody.error.format() });
+    res.status(400).json({ errors: parsedBody.error.format() });
+    return 
   }
 
   const data = parsedBody.data;
 
   try {
     const waitlist = await waitlistService.addToWaitlist(data);
-    return res.status(200).json(waitlist);
+    res.status(200).json({success: true, message: "Successfully joined the waitlist", data: waitlist});
+    return 
+    
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Failed to add to waitlist" });
+    if (error instanceof Error) {
+      if (error.message === "Email is already on the waitlist") {
+        res.status(400).json({ success: false, data: null, message: error.message });
+        return 
+      }
+    }
+    res.status(500).json({ success: false, data: null, message: "Internal Server Error" });
+    return 
   }
 }
