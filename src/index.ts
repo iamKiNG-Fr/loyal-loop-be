@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const corsOptions: CorsOptions = {
-  origin: "*", // Change to specific domains in production
+  origin: ["https://www.theloyalloop.com/", "http://localhost:3000"], // Change to specific domains in production
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
