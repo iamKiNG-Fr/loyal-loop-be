@@ -19,7 +19,7 @@ const corsOptions: CorsOptions = {
 };
 
 
-app.use(cors<Request>());
+app.use(cors<Request>(corsOptions));
 // app.use(helmet())
 
 //  Test database connection
