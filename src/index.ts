@@ -13,13 +13,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const corsOptions: CorsOptions = {
-  origin: ["https://www.theloyalloop.com/", "http://localhost:3000", "https://api.theloyalloop.com/"], // Change to specific domains in production
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: ["https://www.theloyalloop.com", "http://localhost:3000"], // Change to specific domains in production
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 
 app.use(cors<Request>(corsOptions));
+app.options("*", cors(corsOptions));
 // app.use(helmet())
 
 //  Test database connection
