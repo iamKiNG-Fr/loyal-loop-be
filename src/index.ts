@@ -2,6 +2,7 @@ import express, { Request } from "express";
 import sequelize from "./config/sequelize";
 import * as dotevnv from "dotenv"
 import cors, { CorsOptions } from "cors"
+import morgan from "morgan"
 import * as helmet from "helmet"
 
 dotevnv.config()
@@ -21,7 +22,8 @@ const corsOptions: CorsOptions = {
 
 app.use(cors<Request>(corsOptions));
 app.options("*", cors(corsOptions));
-// app.use(helmet())
+app.use(morgan("dev"));
+// app.use(helmet());
 
 //  Test database connection
 (async () => {
