@@ -9,16 +9,17 @@ export const waitlist = async (
   req: Request<{}, {}, AddToWaitlistDTO>,
   res: Response
 ) => {
-  const parsedBody = AddToWaitlistSchema.safeParse(req.body);
-
-  if (!parsedBody.success) {
-    res.status(400).json({ errors: parsedBody.error.format() });
-    return;
-  }
-
-  const data = parsedBody.data;
-
+  
   try {
+    const parsedBody = AddToWaitlistSchema.safeParse(req.body);
+
+    if (!parsedBody.success) {
+      res.status(400).json({ errors: parsedBody.error.format() });
+      return;
+    }
+  
+    const data = parsedBody.data;
+    
     const waitlist = await waitlistService.addToWaitlist(data);
     res
       .status(200)
@@ -29,6 +30,8 @@ export const waitlist = async (
       });
     return;
   } catch (error) {
+    console.error(error);
+    
     if (error instanceof Error) {
       if (error.message === "Email is already on the waitlist") {
         res

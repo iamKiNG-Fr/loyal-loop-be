@@ -10,7 +10,7 @@ export class EmailService {
     to: string,
     name: string,
     businessName: string,
-    refLink?: string
+    refCode: string
   ) {
     try {
       const msg: MailDataRequired = {
@@ -29,7 +29,7 @@ export class EmailService {
               subject: `Welcome to the Loyal Loop, ${name}! 🚀`,
               name,
               businessName,
-              refLink,
+              refLink: `https://theloyalloop.com/waitlist?code=${refCode}`,
             },
           },
         ],
