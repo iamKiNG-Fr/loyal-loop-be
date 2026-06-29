@@ -5,6 +5,7 @@ import {
   IsArray,
   IsEnum,
   IsInt,
+  IsNumber,
   IsOptional,
   IsString,
   Length,
@@ -13,6 +14,7 @@ import {
   ValidateNested,
 } from "class-validator";
 import {
+  FulfillmentType,
   OrderRequestStatus,
   ProductInterestType,
   SalesChannel,
@@ -40,6 +42,43 @@ export class CreateOrderRequestDto {
 
   @IsEnum(SalesChannel)
   channel!: SalesChannel;
+
+  @IsOptional()
+  @IsEnum(FulfillmentType)
+  fulfillment?: FulfillmentType;
+
+  @IsOptional()
+  @IsString()
+  customerAddressId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(5, 500)
+  deliveryAddress?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 240)
+  deliveryPlaceId?: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(-90)
+  @Max(90)
+  deliveryLatitude?: number;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(-180)
+  @Max(180)
+  deliveryLongitude?: number;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 500)
+  deliveryNotes?: string;
 
   @IsOptional()
   @IsString()

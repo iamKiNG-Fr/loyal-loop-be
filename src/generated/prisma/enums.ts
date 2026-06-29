@@ -182,6 +182,7 @@ export type SalesChannel = (typeof SalesChannel)[keyof typeof SalesChannel]
 export const FulfillmentType = {
   DELIVERY: 'DELIVERY',
   PICKUP: 'PICKUP',
+  ARRANGE_LATER: 'ARRANGE_LATER',
   NOT_REQUIRED: 'NOT_REQUIRED'
 } as const
 

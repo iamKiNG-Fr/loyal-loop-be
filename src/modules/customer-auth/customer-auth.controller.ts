@@ -1,6 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
   Post,
   Req,
   Res,
@@ -18,6 +22,10 @@ import {
 } from "../../common/http.util";
 import { ok } from "../../common/api-response";
 import type { CustomerAuthContext } from "../../common/request-context";
+import {
+  CreateCustomerAddressDto,
+  UpdateCustomerAddressDto,
+} from "./dto/customer-address.dto";
 import { CustomerAuthService } from "./customer-auth.service";
 import { StartCustomerOtpDto, VerifyCustomerOtpDto } from "./dto/customer-otp.dto";
 
@@ -73,5 +81,46 @@ export class CustomerAuthController {
     await this.auth.logout(customer.sessionId);
     clearSessionCookie(response, CUSTOMER_SESSION_COOKIE);
     return ok(null, "Customer signed out");
+  }
+
+  @Get("me/addresses")
+  @UseGuards(CustomerAuthGuard)
+  addresses(@CurrentCustomer() customer: CustomerAuthContext) {
+    return this.auth
+      .listAddresses(customer.customerAccountId)
+      .then((data) => ok(data));
+  }
+
+  @Post("me/addresses")
+  @UseGuards(CustomerAuthGuard)
+  createAddress(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Body() dto: CreateCustomerAddressDto,
+  ) {
+    return this.auth
+      .createAddress(customer.customerAccountId, dto)
+      .then((data) => ok(data, "Address saved"));
+  }
+
+  @Patch("me/addresses/:id")
+  @UseGuards(CustomerAuthGuard)
+  updateAddress(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Param("id") id: string,
+    @Body() dto: UpdateCustomerAddressDto,
+  ) {
+    return this.auth
+      .updateAddress(customer.customerAccountId, id, dto)
+      .then((data) => ok(data, "Address updated"));
+  }
+
+  @Delete("me/addresses/:id")
+  @UseGuards(CustomerAuthGuard)
+  async deleteAddress(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Param("id") id: string,
+  ) {
+    await this.auth.deleteAddress(customer.customerAccountId, id);
+    return ok(null, "Address deleted");
   }
 }

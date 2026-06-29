@@ -115,6 +115,11 @@ export type Customer = Prisma.CustomerModel
  */
 export type CustomerContact = Prisma.CustomerContactModel
 /**
+ * Model CustomerAddress
+ * 
+ */
+export type CustomerAddress = Prisma.CustomerAddressModel
+/**
  * Model CustomerNote
  * 
  */

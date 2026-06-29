@@ -185,6 +185,7 @@ export type CustomerAccountWhereInput = {
   sessions?: Prisma.CustomerAccountSessionListRelationFilter
   challenges?: Prisma.CustomerOtpChallengeListRelationFilter
   customers?: Prisma.CustomerListRelationFilter
+  addresses?: Prisma.CustomerAddressListRelationFilter
   wishlist?: Prisma.WishlistItemListRelationFilter
   interests?: Prisma.ProductInterestListRelationFilter
   requests?: Prisma.OrderRequestListRelationFilter
@@ -200,6 +201,7 @@ export type CustomerAccountOrderByWithRelationInput = {
   sessions?: Prisma.CustomerAccountSessionOrderByRelationAggregateInput
   challenges?: Prisma.CustomerOtpChallengeOrderByRelationAggregateInput
   customers?: Prisma.CustomerOrderByRelationAggregateInput
+  addresses?: Prisma.CustomerAddressOrderByRelationAggregateInput
   wishlist?: Prisma.WishlistItemOrderByRelationAggregateInput
   interests?: Prisma.ProductInterestOrderByRelationAggregateInput
   requests?: Prisma.OrderRequestOrderByRelationAggregateInput
@@ -218,6 +220,7 @@ export type CustomerAccountWhereUniqueInput = Prisma.AtLeast<{
   sessions?: Prisma.CustomerAccountSessionListRelationFilter
   challenges?: Prisma.CustomerOtpChallengeListRelationFilter
   customers?: Prisma.CustomerListRelationFilter
+  addresses?: Prisma.CustomerAddressListRelationFilter
   wishlist?: Prisma.WishlistItemListRelationFilter
   interests?: Prisma.ProductInterestListRelationFilter
   requests?: Prisma.OrderRequestListRelationFilter
@@ -255,6 +258,7 @@ export type CustomerAccountCreateInput = {
   sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
@@ -270,6 +274,7 @@ export type CustomerAccountUncheckedCreateInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
@@ -285,6 +290,7 @@ export type CustomerAccountUpdateInput = {
   sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
@@ -300,6 +306,7 @@ export type CustomerAccountUncheckedUpdateInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
@@ -410,6 +417,20 @@ export type CustomerAccountUpdateOneWithoutCustomersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutCustomersInput, Prisma.CustomerAccountUpdateWithoutCustomersInput>, Prisma.CustomerAccountUncheckedUpdateWithoutCustomersInput>
 }
 
+export type CustomerAccountCreateNestedOneWithoutAddressesInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutAddressesInput, Prisma.CustomerAccountUncheckedCreateWithoutAddressesInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutAddressesInput
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+}
+
+export type CustomerAccountUpdateOneRequiredWithoutAddressesNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutAddressesInput, Prisma.CustomerAccountUncheckedCreateWithoutAddressesInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutAddressesInput
+  upsert?: Prisma.CustomerAccountUpsertWithoutAddressesInput
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutAddressesInput, Prisma.CustomerAccountUpdateWithoutAddressesInput>, Prisma.CustomerAccountUncheckedUpdateWithoutAddressesInput>
+}
+
 export type CustomerAccountCreateNestedOneWithoutWishlistInput = {
   create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutWishlistInput, Prisma.CustomerAccountUncheckedCreateWithoutWishlistInput>
   connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutWishlistInput
@@ -478,6 +499,7 @@ export type CustomerAccountCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
@@ -492,6 +514,7 @@ export type CustomerAccountUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
@@ -522,6 +545,7 @@ export type CustomerAccountUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
@@ -536,6 +560,7 @@ export type CustomerAccountUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
@@ -550,6 +575,7 @@ export type CustomerAccountCreateWithoutChallengesInput = {
   updatedAt?: Date | string
   sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
@@ -564,6 +590,7 @@ export type CustomerAccountUncheckedCreateWithoutChallengesInput = {
   updatedAt?: Date | string
   sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
@@ -594,6 +621,7 @@ export type CustomerAccountUpdateWithoutChallengesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
@@ -608,6 +636,7 @@ export type CustomerAccountUncheckedUpdateWithoutChallengesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
@@ -622,6 +651,7 @@ export type CustomerAccountCreateWithoutCustomersInput = {
   updatedAt?: Date | string
   sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
@@ -636,6 +666,7 @@ export type CustomerAccountUncheckedCreateWithoutCustomersInput = {
   updatedAt?: Date | string
   sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
@@ -666,6 +697,7 @@ export type CustomerAccountUpdateWithoutCustomersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
@@ -680,6 +712,83 @@ export type CustomerAccountUncheckedUpdateWithoutCustomersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountCreateWithoutAddressesInput = {
+  id?: string
+  phone: string
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountUncheckedCreateWithoutAddressesInput = {
+  id?: string
+  phone: string
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountCreateOrConnectWithoutAddressesInput = {
+  where: Prisma.CustomerAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutAddressesInput, Prisma.CustomerAccountUncheckedCreateWithoutAddressesInput>
+}
+
+export type CustomerAccountUpsertWithoutAddressesInput = {
+  update: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutAddressesInput, Prisma.CustomerAccountUncheckedUpdateWithoutAddressesInput>
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutAddressesInput, Prisma.CustomerAccountUncheckedCreateWithoutAddressesInput>
+  where?: Prisma.CustomerAccountWhereInput
+}
+
+export type CustomerAccountUpdateToOneWithWhereWithoutAddressesInput = {
+  where?: Prisma.CustomerAccountWhereInput
+  data: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutAddressesInput, Prisma.CustomerAccountUncheckedUpdateWithoutAddressesInput>
+}
+
+export type CustomerAccountUpdateWithoutAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountUncheckedUpdateWithoutAddressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
   wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
@@ -695,6 +804,7 @@ export type CustomerAccountCreateWithoutWishlistInput = {
   sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
@@ -709,6 +819,7 @@ export type CustomerAccountUncheckedCreateWithoutWishlistInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
@@ -739,6 +850,7 @@ export type CustomerAccountUpdateWithoutWishlistInput = {
   sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
@@ -753,6 +865,7 @@ export type CustomerAccountUncheckedUpdateWithoutWishlistInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
@@ -767,6 +880,7 @@ export type CustomerAccountCreateWithoutInterestsInput = {
   sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
@@ -781,6 +895,7 @@ export type CustomerAccountUncheckedCreateWithoutInterestsInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
@@ -811,6 +926,7 @@ export type CustomerAccountUpdateWithoutInterestsInput = {
   sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
@@ -825,6 +941,7 @@ export type CustomerAccountUncheckedUpdateWithoutInterestsInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
@@ -839,6 +956,7 @@ export type CustomerAccountCreateWithoutRequestsInput = {
   sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
@@ -853,6 +971,7 @@ export type CustomerAccountUncheckedCreateWithoutRequestsInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
@@ -883,6 +1002,7 @@ export type CustomerAccountUpdateWithoutRequestsInput = {
   sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
@@ -897,6 +1017,7 @@ export type CustomerAccountUncheckedUpdateWithoutRequestsInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
@@ -911,6 +1032,7 @@ export type CustomerAccountCreateWithoutEventsInput = {
   sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
@@ -925,6 +1047,7 @@ export type CustomerAccountUncheckedCreateWithoutEventsInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
   wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
@@ -955,6 +1078,7 @@ export type CustomerAccountUpdateWithoutEventsInput = {
   sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
@@ -969,6 +1093,7 @@ export type CustomerAccountUncheckedUpdateWithoutEventsInput = {
   sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
   challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
   wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
@@ -983,6 +1108,7 @@ export type CustomerAccountCountOutputType = {
   sessions: number
   challenges: number
   customers: number
+  addresses: number
   wishlist: number
   interests: number
   requests: number
@@ -993,6 +1119,7 @@ export type CustomerAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.E
   sessions?: boolean | CustomerAccountCountOutputTypeCountSessionsArgs
   challenges?: boolean | CustomerAccountCountOutputTypeCountChallengesArgs
   customers?: boolean | CustomerAccountCountOutputTypeCountCustomersArgs
+  addresses?: boolean | CustomerAccountCountOutputTypeCountAddressesArgs
   wishlist?: boolean | CustomerAccountCountOutputTypeCountWishlistArgs
   interests?: boolean | CustomerAccountCountOutputTypeCountInterestsArgs
   requests?: boolean | CustomerAccountCountOutputTypeCountRequestsArgs
@@ -1033,6 +1160,13 @@ export type CustomerAccountCountOutputTypeCountCustomersArgs<ExtArgs extends run
 /**
  * CustomerAccountCountOutputType without action
  */
+export type CustomerAccountCountOutputTypeCountAddressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerAddressWhereInput
+}
+
+/**
+ * CustomerAccountCountOutputType without action
+ */
 export type CustomerAccountCountOutputTypeCountWishlistArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.WishlistItemWhereInput
 }
@@ -1068,6 +1202,7 @@ export type CustomerAccountSelect<ExtArgs extends runtime.Types.Extensions.Inter
   sessions?: boolean | Prisma.CustomerAccount$sessionsArgs<ExtArgs>
   challenges?: boolean | Prisma.CustomerAccount$challengesArgs<ExtArgs>
   customers?: boolean | Prisma.CustomerAccount$customersArgs<ExtArgs>
+  addresses?: boolean | Prisma.CustomerAccount$addressesArgs<ExtArgs>
   wishlist?: boolean | Prisma.CustomerAccount$wishlistArgs<ExtArgs>
   interests?: boolean | Prisma.CustomerAccount$interestsArgs<ExtArgs>
   requests?: boolean | Prisma.CustomerAccount$requestsArgs<ExtArgs>
@@ -1104,6 +1239,7 @@ export type CustomerAccountInclude<ExtArgs extends runtime.Types.Extensions.Inte
   sessions?: boolean | Prisma.CustomerAccount$sessionsArgs<ExtArgs>
   challenges?: boolean | Prisma.CustomerAccount$challengesArgs<ExtArgs>
   customers?: boolean | Prisma.CustomerAccount$customersArgs<ExtArgs>
+  addresses?: boolean | Prisma.CustomerAccount$addressesArgs<ExtArgs>
   wishlist?: boolean | Prisma.CustomerAccount$wishlistArgs<ExtArgs>
   interests?: boolean | Prisma.CustomerAccount$interestsArgs<ExtArgs>
   requests?: boolean | Prisma.CustomerAccount$requestsArgs<ExtArgs>
@@ -1119,6 +1255,7 @@ export type $CustomerAccountPayload<ExtArgs extends runtime.Types.Extensions.Int
     sessions: Prisma.$CustomerAccountSessionPayload<ExtArgs>[]
     challenges: Prisma.$CustomerOtpChallengePayload<ExtArgs>[]
     customers: Prisma.$CustomerPayload<ExtArgs>[]
+    addresses: Prisma.$CustomerAddressPayload<ExtArgs>[]
     wishlist: Prisma.$WishlistItemPayload<ExtArgs>[]
     interests: Prisma.$ProductInterestPayload<ExtArgs>[]
     requests: Prisma.$OrderRequestPayload<ExtArgs>[]
@@ -1527,6 +1664,7 @@ export interface Prisma__CustomerAccountClient<T, Null = never, ExtArgs extends 
   sessions<T extends Prisma.CustomerAccount$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerAccountSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   challenges<T extends Prisma.CustomerAccount$challengesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$challengesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerOtpChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customers<T extends Prisma.CustomerAccount$customersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$customersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  addresses<T extends Prisma.CustomerAccount$addressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$addressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerAddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   wishlist<T extends Prisma.CustomerAccount$wishlistArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$wishlistArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WishlistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   interests<T extends Prisma.CustomerAccount$interestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$interestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductInterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   requests<T extends Prisma.CustomerAccount$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2027,6 +2165,30 @@ export type CustomerAccount$customersArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.CustomerScalarFieldEnum | Prisma.CustomerScalarFieldEnum[]
+}
+
+/**
+ * CustomerAccount.addresses
+ */
+export type CustomerAccount$addressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerAddress
+   */
+  select?: Prisma.CustomerAddressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerAddress
+   */
+  omit?: Prisma.CustomerAddressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerAddressInclude<ExtArgs> | null
+  where?: Prisma.CustomerAddressWhereInput
+  orderBy?: Prisma.CustomerAddressOrderByWithRelationInput | Prisma.CustomerAddressOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerAddressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerAddressScalarFieldEnum | Prisma.CustomerAddressScalarFieldEnum[]
 }
 
 /**

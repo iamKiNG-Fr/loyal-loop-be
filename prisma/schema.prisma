@@ -132,6 +132,7 @@ enum SalesChannel {
 enum FulfillmentType {
   DELIVERY
   PICKUP
+  ARRANGE_LATER
   NOT_REQUIRED
 }
 
@@ -487,6 +488,7 @@ model CustomerAccount {
   sessions   CustomerAccountSession[]
   challenges CustomerOtpChallenge[]
   customers  Customer[]
+  addresses  CustomerAddress[]
   wishlist   WishlistItem[]
   interests  ProductInterest[]
   requests   OrderRequest[]
@@ -540,6 +542,7 @@ model Customer {
   business        Business                @relation(fields: [businessId], references: [id], onDelete: Cascade)
   account         CustomerAccount?        @relation(fields: [accountId], references: [id], onDelete: SetNull)
   contacts        CustomerContact[]
+  addresses       CustomerAddress[]
   notes           CustomerNote[]
   tagAssignments  CustomerTagAssignment[]
   sales           Sale[]
@@ -570,6 +573,30 @@ model CustomerContact {
   @@unique([customerId, platform, value])
   @@index([customerId])
   @@map("customer_contacts")
+}
+
+model CustomerAddress {
+  id                String          @id @default(cuid())
+  customerAccountId String
+  customerId        String?
+  label             String?
+  recipientName     String?
+  phone             String?
+  address           String
+  googlePlaceId     String?
+  latitude          Float?
+  longitude         Float?
+  deliveryNotes     String?
+  isDefault         Boolean         @default(false)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  customerAccount   CustomerAccount @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+  customer          Customer?       @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  orderRequests     OrderRequest[]
+
+  @@index([customerAccountId, isDefault])
+  @@index([customerId])
+  @@map("customer_addresses")
 }
 
 model CustomerNote {
@@ -699,6 +726,13 @@ model OrderRequest {
   customerName      String
   customerPhone     String
   channel           SalesChannel
+  fulfillment       FulfillmentType    @default(ARRANGE_LATER)
+  customerAddressId String?
+  deliveryAddress   String?
+  deliveryPlaceId   String?
+  deliveryLatitude  Float?
+  deliveryLongitude Float?
+  deliveryNotes     String?
   note              String?
   status            OrderRequestStatus @default(SENT)
   createdAt         DateTime           @default(now())
@@ -706,11 +740,13 @@ model OrderRequest {
   business          Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
   customerAccount   CustomerAccount?   @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
   customer          Customer?          @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerAddress   CustomerAddress?   @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
   items             OrderRequestItem[]
   convertedSale     Sale?              @relation("RequestConversion")
   events            CommerceEvent[]
 
   @@index([businessId, status, createdAt])
+  @@index([customerAddressId])
   @@map("order_requests")
 }
 

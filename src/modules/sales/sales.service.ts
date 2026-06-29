@@ -238,14 +238,14 @@ export class SalesService {
       let delivery:
         | { id: string; status: string }
         | undefined;
-      if (fulfillment !== "NOT_REQUIRED") {
+      if (fulfillment === "DELIVERY") {
         delivery = await tx.delivery.create({
           data: {
             businessId: auth.businessId,
             customerId: customer.id,
             saleId: created.id,
             tokenHash: deliveryToken.tokenHash,
-            status: fulfillment === "PICKUP" ? "READY_FOR_PICKUP" : "PREPARING",
+            status: "PREPARING",
             address: dto.deliveryAddress?.trim(),
             googlePlaceId: dto.deliveryPlaceId?.trim(),
             latitude: dto.deliveryLatitude,
@@ -253,8 +253,8 @@ export class SalesService {
             events: {
               create: {
                 actorId: auth.userId,
-                status: fulfillment === "PICKUP" ? "READY_FOR_PICKUP" : "PREPARING",
-                note: "Fulfilment created with sale",
+                status: "PREPARING",
+                note: dto.deliveryNotes?.trim() || "Delivery created with sale",
               },
             },
           },
@@ -324,7 +324,7 @@ export class SalesService {
     return {
       sale,
       receiptToken: receiptToken.token,
-      ...(fulfillment !== "NOT_REQUIRED"
+      ...(fulfillment === "DELIVERY"
         ? { deliveryToken: deliveryToken.token }
         : {}),
     };

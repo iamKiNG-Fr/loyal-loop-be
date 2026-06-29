@@ -66,6 +66,7 @@ export const ModelName = {
   CustomerOtpChallenge: 'CustomerOtpChallenge',
   Customer: 'Customer',
   CustomerContact: 'CustomerContact',
+  CustomerAddress: 'CustomerAddress',
   CustomerNote: 'CustomerNote',
   CustomerTag: 'CustomerTag',
   CustomerTagAssignment: 'CustomerTagAssignment',
@@ -352,6 +353,26 @@ export const CustomerContactScalarFieldEnum = {
 export type CustomerContactScalarFieldEnum = (typeof CustomerContactScalarFieldEnum)[keyof typeof CustomerContactScalarFieldEnum]
 
 
+export const CustomerAddressScalarFieldEnum = {
+  id: 'id',
+  customerAccountId: 'customerAccountId',
+  customerId: 'customerId',
+  label: 'label',
+  recipientName: 'recipientName',
+  phone: 'phone',
+  address: 'address',
+  googlePlaceId: 'googlePlaceId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  deliveryNotes: 'deliveryNotes',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerAddressScalarFieldEnum = (typeof CustomerAddressScalarFieldEnum)[keyof typeof CustomerAddressScalarFieldEnum]
+
+
 export const CustomerNoteScalarFieldEnum = {
   id: 'id',
   customerId: 'customerId',
@@ -452,6 +473,13 @@ export const OrderRequestScalarFieldEnum = {
   customerName: 'customerName',
   customerPhone: 'customerPhone',
   channel: 'channel',
+  fulfillment: 'fulfillment',
+  customerAddressId: 'customerAddressId',
+  deliveryAddress: 'deliveryAddress',
+  deliveryPlaceId: 'deliveryPlaceId',
+  deliveryLatitude: 'deliveryLatitude',
+  deliveryLongitude: 'deliveryLongitude',
+  deliveryNotes: 'deliveryNotes',
   note: 'note',
   status: 'status',
   createdAt: 'createdAt',

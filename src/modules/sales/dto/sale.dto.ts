@@ -124,6 +124,11 @@ export class CreateSaleDto {
   @Min(-180)
   @Max(180)
   deliveryLongitude?: number;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 500)
+  deliveryNotes?: string;
 }
 
 export class RecordPaymentDto {

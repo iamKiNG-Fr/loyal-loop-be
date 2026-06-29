@@ -2,11 +2,16 @@ import {
   BadRequestException,
   Inject,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import { PrismaService } from "../prisma/prisma.service";
+import {
+  CreateCustomerAddressDto,
+  UpdateCustomerAddressDto,
+} from "./dto/customer-address.dto";
 import { OTP_PROVIDER, type OtpProvider } from "./otp-provider";
 
 @Injectable()
@@ -113,6 +118,69 @@ export class CustomerAuthService {
     });
   }
 
+  listAddresses(customerAccountId: string) {
+    return this.prisma.customerAddress.findMany({
+      where: { customerAccountId },
+      orderBy: [{ isDefault: "desc" }, { updatedAt: "desc" }],
+    });
+  }
+
+  async createAddress(customerAccountId: string, dto: CreateCustomerAddressDto) {
+    const shouldDefault =
+      dto.isDefault ||
+      (await this.prisma.customerAddress.count({ where: { customerAccountId } })) === 0;
+    return this.prisma.$transaction(async (tx) => {
+      if (shouldDefault) {
+        await tx.customerAddress.updateMany({
+          where: { customerAccountId },
+          data: { isDefault: false },
+        });
+      }
+      return tx.customerAddress.create({
+        data: {
+          customerAccountId,
+          ...addressData(dto),
+          isDefault: shouldDefault,
+        },
+      });
+    });
+  }
+
+  async updateAddress(
+    customerAccountId: string,
+    addressId: string,
+    dto: UpdateCustomerAddressDto,
+  ) {
+    const existing = await this.prisma.customerAddress.findFirst({
+      where: { id: addressId, customerAccountId },
+    });
+    if (!existing) throw new NotFoundException("Address not found");
+    return this.prisma.$transaction(async (tx) => {
+      if (dto.isDefault) {
+        await tx.customerAddress.updateMany({
+          where: { customerAccountId, id: { not: addressId } },
+          data: { isDefault: false },
+        });
+      }
+      return tx.customerAddress.update({
+        where: { id: addressId },
+        data: {
+          ...addressData(dto),
+          ...(typeof dto.isDefault === "boolean"
+            ? { isDefault: dto.isDefault }
+            : {}),
+        },
+      });
+    });
+  }
+
+  async deleteAddress(customerAccountId: string, addressId: string) {
+    const deleted = await this.prisma.customerAddress.deleteMany({
+      where: { id: addressId, customerAccountId },
+    });
+    if (!deleted.count) throw new NotFoundException("Address not found");
+  }
+
   private async createSession(customerAccountId: string) {
     const generated = createOpaqueToken();
     const expiresAt = this.expiry();
@@ -126,4 +194,19 @@ export class CustomerAuthService {
     const days = this.config.get<number>("CUSTOMER_SESSION_DAYS", 90);
     return new Date(Date.now() + days * 24 * 60 * 60 * 1000);
   }
+}
+
+function addressData(
+  dto: CreateCustomerAddressDto | UpdateCustomerAddressDto,
+) {
+  return {
+    label: dto.label?.trim(),
+    recipientName: dto.recipientName?.trim(),
+    phone: dto.phone?.trim(),
+    address: dto.address?.trim(),
+    googlePlaceId: dto.googlePlaceId?.trim(),
+    latitude: dto.latitude,
+    longitude: dto.longitude,
+    deliveryNotes: dto.deliveryNotes?.trim(),
+  };
 }

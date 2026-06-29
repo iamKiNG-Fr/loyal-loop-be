@@ -11,7 +11,10 @@ import {
   hashToken,
 } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
-import type { CustomerChannel } from "../../generated/prisma/client";
+import type {
+  CustomerChannel,
+  FulfillmentType,
+} from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { SalesService } from "../sales/sales.service";
@@ -117,6 +120,15 @@ export class ShopsService {
     const customerAccountId = rawCustomerSession
       ? await this.resolveCustomerAccount(rawCustomerSession)
       : undefined;
+    const fulfillment: FulfillmentType = dto.fulfillment ?? "ARRANGE_LATER";
+    const savedAddress = dto.customerAddressId
+      ? await this.resolveCustomerAddress(customerAccountId, dto.customerAddressId)
+      : undefined;
+    const deliveryAddress =
+      savedAddress?.address.trim() || dto.deliveryAddress?.trim();
+    if (fulfillment === "DELIVERY" && !deliveryAddress) {
+      throw new BadRequestException("Delivery address is required for delivery requests");
+    }
     const generated = createOpaqueToken();
     const request = await this.prisma.orderRequest.create({
       data: {
@@ -127,6 +139,15 @@ export class ShopsService {
         customerName: dto.customerName.trim(),
         customerPhone: dto.customerPhone.trim(),
         channel: dto.channel,
+        fulfillment,
+        customerAddressId: savedAddress?.id,
+        deliveryAddress,
+        deliveryPlaceId:
+          savedAddress?.googlePlaceId?.trim() || dto.deliveryPlaceId?.trim(),
+        deliveryLatitude: savedAddress?.latitude ?? dto.deliveryLatitude,
+        deliveryLongitude: savedAddress?.longitude ?? dto.deliveryLongitude,
+        deliveryNotes:
+          savedAddress?.deliveryNotes?.trim() || dto.deliveryNotes?.trim(),
         note: dto.note?.trim(),
         items: {
           create: dto.items.map((item) => {
@@ -248,7 +269,12 @@ export class ShopsService {
         customerId: customer.id,
         sourceRequestId: request.id,
         channel: request.channel,
-        fulfillment: "DELIVERY",
+        fulfillment: request.fulfillment,
+        deliveryAddress: request.deliveryAddress ?? undefined,
+        deliveryPlaceId: request.deliveryPlaceId ?? undefined,
+        deliveryLatitude: request.deliveryLatitude ?? undefined,
+        deliveryLongitude: request.deliveryLongitude ?? undefined,
+        deliveryNotes: request.deliveryNotes ?? undefined,
         items: request.items.map((item) => ({
           productId: item.productId ?? undefined,
           name: item.name,
@@ -387,6 +413,20 @@ export class ShopsService {
       return undefined;
     }
     return session.customerAccountId;
+  }
+
+  private async resolveCustomerAddress(
+    customerAccountId: string | undefined,
+    addressId: string,
+  ) {
+    if (!customerAccountId) {
+      throw new BadRequestException("Sign in before using a saved address");
+    }
+    const address = await this.prisma.customerAddress.findFirst({
+      where: { id: addressId, customerAccountId },
+    });
+    if (!address) throw new BadRequestException("Saved address is not available");
+    return address;
   }
 
   private async recordCommerceEvent(

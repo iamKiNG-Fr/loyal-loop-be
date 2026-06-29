@@ -793,14 +793,6 @@ export type EnumDeliveryStatusFieldUpdateOperationsInput = {
   set?: $Enums.DeliveryStatus
 }
 
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type DeliveryCreateNestedOneWithoutEventsInput = {
   create?: Prisma.XOR<Prisma.DeliveryCreateWithoutEventsInput, Prisma.DeliveryUncheckedCreateWithoutEventsInput>
   connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutEventsInput

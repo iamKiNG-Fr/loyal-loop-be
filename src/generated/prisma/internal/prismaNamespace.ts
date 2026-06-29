@@ -399,6 +399,7 @@ export const ModelName = {
   CustomerOtpChallenge: 'CustomerOtpChallenge',
   Customer: 'Customer',
   CustomerContact: 'CustomerContact',
+  CustomerAddress: 'CustomerAddress',
   CustomerNote: 'CustomerNote',
   CustomerTag: 'CustomerTag',
   CustomerTagAssignment: 'CustomerTagAssignment',
@@ -437,7 +438,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "user" | "ownerSession" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "saleItem" | "paymentEntry" | "receipt" | "delivery" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
+    modelProps: "waitlistEntry" | "user" | "ownerSession" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "saleItem" | "paymentEntry" | "receipt" | "delivery" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1548,6 +1549,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CustomerContactCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CustomerContactCountAggregateOutputType> | number
+        }
+      }
+    }
+    CustomerAddress: {
+      payload: Prisma.$CustomerAddressPayload<ExtArgs>
+      fields: Prisma.CustomerAddressFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerAddressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerAddressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerAddressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerAddressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        findMany: {
+          args: Prisma.CustomerAddressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>[]
+        }
+        create: {
+          args: Prisma.CustomerAddressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        createMany: {
+          args: Prisma.CustomerAddressCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerAddressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerAddressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        update: {
+          args: Prisma.CustomerAddressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerAddressDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerAddressUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerAddressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerAddressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerAddressPayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerAddressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerAddress>
+        }
+        groupBy: {
+          args: Prisma.CustomerAddressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerAddressGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerAddressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerAddressCountAggregateOutputType> | number
         }
       }
     }
@@ -3537,6 +3612,26 @@ export const CustomerContactScalarFieldEnum = {
 export type CustomerContactScalarFieldEnum = (typeof CustomerContactScalarFieldEnum)[keyof typeof CustomerContactScalarFieldEnum]
 
 
+export const CustomerAddressScalarFieldEnum = {
+  id: 'id',
+  customerAccountId: 'customerAccountId',
+  customerId: 'customerId',
+  label: 'label',
+  recipientName: 'recipientName',
+  phone: 'phone',
+  address: 'address',
+  googlePlaceId: 'googlePlaceId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  deliveryNotes: 'deliveryNotes',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerAddressScalarFieldEnum = (typeof CustomerAddressScalarFieldEnum)[keyof typeof CustomerAddressScalarFieldEnum]
+
+
 export const CustomerNoteScalarFieldEnum = {
   id: 'id',
   customerId: 'customerId',
@@ -3637,6 +3732,13 @@ export const OrderRequestScalarFieldEnum = {
   customerName: 'customerName',
   customerPhone: 'customerPhone',
   channel: 'channel',
+  fulfillment: 'fulfillment',
+  customerAddressId: 'customerAddressId',
+  deliveryAddress: 'deliveryAddress',
+  deliveryPlaceId: 'deliveryPlaceId',
+  deliveryLatitude: 'deliveryLatitude',
+  deliveryLongitude: 'deliveryLongitude',
+  deliveryNotes: 'deliveryNotes',
   note: 'note',
   status: 'status',
   createdAt: 'createdAt',
@@ -4215,6 +4317,20 @@ export type ListEnumCustomerChannelFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
  * Reference to a field of type 'Decimal'
  */
 export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -4299,6 +4415,20 @@ export type ListEnumSalesChannelFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
+ * Reference to a field of type 'FulfillmentType'
+ */
+export type EnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType'>
+    
+
+
+/**
+ * Reference to a field of type 'FulfillmentType[]'
+ */
+export type ListEnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType[]'>
+    
+
+
+/**
  * Reference to a field of type 'OrderRequestStatus'
  */
 export type EnumOrderRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderRequestStatus'>
@@ -4355,20 +4485,6 @@ export type ListEnumSaleStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
- * Reference to a field of type 'FulfillmentType'
- */
-export type EnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType'>
-    
-
-
-/**
- * Reference to a field of type 'FulfillmentType[]'
- */
-export type ListEnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType[]'>
-    
-
-
-/**
  * Reference to a field of type 'PaymentEntryType'
  */
 export type EnumPaymentEntryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentEntryType'>
@@ -4421,20 +4537,6 @@ export type EnumDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'DeliveryStatus[]'
  */
 export type ListEnumDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -4618,6 +4720,7 @@ export type GlobalOmitConfig = {
   customerOtpChallenge?: Prisma.CustomerOtpChallengeOmit
   customer?: Prisma.CustomerOmit
   customerContact?: Prisma.CustomerContactOmit
+  customerAddress?: Prisma.CustomerAddressOmit
   customerNote?: Prisma.CustomerNoteOmit
   customerTag?: Prisma.CustomerTagOmit
   customerTagAssignment?: Prisma.CustomerTagAssignmentOmit
