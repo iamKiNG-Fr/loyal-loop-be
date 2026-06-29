@@ -85,6 +85,38 @@ export class MailService {
       ].join("\n"),
     });
   }
+
+  async sendPasswordResetEmail(params: {
+    to: string;
+    name: string;
+    token: string;
+  }) {
+    if (!this.resend) {
+      this.logger.warn("RESEND_API_KEY is not set. Skipping password reset email.");
+      return;
+    }
+
+    const appUrl = this.configService
+      .get<string>("APP_URL", "https://useloyalloop.com")
+      .replace(/\/$/, "");
+    const resetUrl = `${appUrl}/auth/reset-password?token=${encodeURIComponent(params.token)}`;
+    const from = this.configService.get<string>(
+      "EMAIL_FROM",
+      "Francis King <francis@mail.useloyalloop.com>",
+    );
+
+    await this.resend.emails.send({
+      from,
+      to: params.to,
+      replyTo: this.configService.get<string>(
+        "EMAIL_REPLY_TO",
+        "support@useloyalloop.com",
+      ),
+      subject: "Reset your Loyal Loop password",
+      text: `Hi ${params.name},\n\nReset your Loyal Loop password within 30 minutes:\n${resetUrl}\n\nIf you did not request this, you can ignore this email.`,
+      html: `<p>Hi ${escapeHtml(params.name)},</p><p>Use the link below within 30 minutes to reset your Loyal Loop password.</p><p><a href="${escapeHtml(resetUrl)}">Reset password</a></p><p>If you did not request this, you can ignore this email.</p>`,
+    });
+  }
 }
 
 function buildWaitlistWelcomeEmail(params: {

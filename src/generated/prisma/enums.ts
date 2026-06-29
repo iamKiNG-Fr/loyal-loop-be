@@ -9,7 +9,350 @@
 * 🟢 You can import this file directly.
 */
 
+export const BusinessRole = {
+  OWNER: 'OWNER',
+  MANAGER: 'MANAGER',
+  SALES: 'SALES',
+  DELIVERY: 'DELIVERY',
+  VIEWER: 'VIEWER'
+} as const
+
+export type BusinessRole = (typeof BusinessRole)[keyof typeof BusinessRole]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const MemberStatus = {
+  INVITED: 'INVITED',
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type MemberStatus = (typeof MemberStatus)[keyof typeof MemberStatus]
+
+
+export const BusinessPlan = {
+  PRIVATE_TESTER: 'PRIVATE_TESTER',
+  STARTER: 'STARTER',
+  GROWTH: 'GROWTH',
+  TEAM: 'TEAM'
+} as const
+
+export type BusinessPlan = (typeof BusinessPlan)[keyof typeof BusinessPlan]
+
+
+export const SubscriptionStatus = {
+  TRIALING: 'TRIALING',
+  ACTIVE: 'ACTIVE',
+  PAST_DUE: 'PAST_DUE',
+  CANCELED: 'CANCELED',
+  INTERNAL_TEST: 'INTERNAL_TEST'
+} as const
+
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
+
+
+export const BusinessTheme = {
+  LOYAL_PURPLE: 'LOYAL_PURPLE',
+  MIDNIGHT: 'MIDNIGHT',
+  FRESH: 'FRESH',
+  BLUSH: 'BLUSH'
+} as const
+
+export type BusinessTheme = (typeof BusinessTheme)[keyof typeof BusinessTheme]
+
+
+export const StoreStatus = {
+  OPEN: 'OPEN',
+  PAUSED: 'PAUSED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type StoreStatus = (typeof StoreStatus)[keyof typeof StoreStatus]
+
+
+export const WorkspaceAppearance = {
+  LIGHT: 'LIGHT',
+  DARK: 'DARK',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type WorkspaceAppearance = (typeof WorkspaceAppearance)[keyof typeof WorkspaceAppearance]
+
+
+export const ContactPlatform = {
+  EMAIL: 'EMAIL',
+  FACEBOOK: 'FACEBOOK',
+  INSTAGRAM: 'INSTAGRAM',
+  PHONE: 'PHONE',
+  SNAPCHAT: 'SNAPCHAT',
+  TIKTOK: 'TIKTOK',
+  WEBSITE: 'WEBSITE',
+  WHATSAPP: 'WHATSAPP',
+  OTHER: 'OTHER'
+} as const
+
+export type ContactPlatform = (typeof ContactPlatform)[keyof typeof ContactPlatform]
+
+
+export const CustomerChannel = {
+  WHATSAPP: 'WHATSAPP',
+  INSTAGRAM: 'INSTAGRAM',
+  FACEBOOK: 'FACEBOOK',
+  TIKTOK: 'TIKTOK',
+  SNAPCHAT: 'SNAPCHAT',
+  PHONE: 'PHONE',
+  WALK_IN: 'WALK_IN',
+  REFERRAL: 'REFERRAL',
+  WEBSITE: 'WEBSITE',
+  OTHER: 'OTHER'
+} as const
+
+export type CustomerChannel = (typeof CustomerChannel)[keyof typeof CustomerChannel]
+
+
+export const ProductStatus = {
+  ACTIVE: 'ACTIVE',
+  DRAFT: 'DRAFT',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus]
+
+
+export const ProductPlacement = {
+  STANDARD: 'STANDARD',
+  TRENDING: 'TRENDING',
+  RECOMMENDED: 'RECOMMENDED',
+  LATEST_ARRIVAL: 'LATEST_ARRIVAL'
+} as const
+
+export type ProductPlacement = (typeof ProductPlacement)[keyof typeof ProductPlacement]
+
+
+export const ProductVisibility = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE'
+} as const
+
+export type ProductVisibility = (typeof ProductVisibility)[keyof typeof ProductVisibility]
+
+
+export const PaymentStatus = {
+  UNPAID: 'UNPAID',
+  PARTIAL: 'PARTIAL',
+  PAID: 'PAID',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const PaymentEntryType = {
+  PAYMENT: 'PAYMENT',
+  REFUND: 'REFUND',
+  ADJUSTMENT: 'ADJUSTMENT'
+} as const
+
+export type PaymentEntryType = (typeof PaymentEntryType)[keyof typeof PaymentEntryType]
+
+
+export const SaleStatus = {
+  DRAFT: 'DRAFT',
+  COMPLETED: 'COMPLETED',
+  CANCELED: 'CANCELED'
+} as const
+
+export type SaleStatus = (typeof SaleStatus)[keyof typeof SaleStatus]
+
+
+export const SalesChannel = {
+  WHATSAPP: 'WHATSAPP',
+  INSTAGRAM: 'INSTAGRAM',
+  FACEBOOK: 'FACEBOOK',
+  TIKTOK: 'TIKTOK',
+  SNAPCHAT: 'SNAPCHAT',
+  WALK_IN: 'WALK_IN',
+  REFERRAL: 'REFERRAL',
+  WEBSITE: 'WEBSITE',
+  OTHER: 'OTHER'
+} as const
+
+export type SalesChannel = (typeof SalesChannel)[keyof typeof SalesChannel]
+
+
+export const FulfillmentType = {
+  DELIVERY: 'DELIVERY',
+  PICKUP: 'PICKUP',
+  NOT_REQUIRED: 'NOT_REQUIRED'
+} as const
+
+export type FulfillmentType = (typeof FulfillmentType)[keyof typeof FulfillmentType]
+
+
+export const ReceiptStatus = {
+  CREATED: 'CREATED',
+  SENT: 'SENT',
+  VIEWED: 'VIEWED',
+  VOID: 'VOID'
+} as const
+
+export type ReceiptStatus = (typeof ReceiptStatus)[keyof typeof ReceiptStatus]
+
+
+export const ReceiptTheme = {
+  CLASSIC_POS: 'CLASSIC_POS',
+  LOOP_PURPLE: 'LOOP_PURPLE',
+  MALL_FRESH: 'MALL_FRESH'
+} as const
+
+export type ReceiptTheme = (typeof ReceiptTheme)[keyof typeof ReceiptTheme]
+
+
+export const DeliveryStatus = {
+  PREPARING: 'PREPARING',
+  READY_FOR_PICKUP: 'READY_FOR_PICKUP',
+  IN_TRANSIT: 'IN_TRANSIT',
+  DELIVERED: 'DELIVERED',
+  CONFIRMED: 'CONFIRMED',
+  ISSUE: 'ISSUE',
+  CANCELED: 'CANCELED'
+} as const
+
+export type DeliveryStatus = (typeof DeliveryStatus)[keyof typeof DeliveryStatus]
+
+
+export const ActivityEventType = {
+  BUSINESS_CREATED: 'BUSINESS_CREATED',
+  BUSINESS_UPDATED: 'BUSINESS_UPDATED',
+  OWNER_PLEDGED: 'OWNER_PLEDGED',
+  CUSTOMER_ADDED: 'CUSTOMER_ADDED',
+  CUSTOMER_NOTE_ADDED: 'CUSTOMER_NOTE_ADDED',
+  PRODUCT_ADDED: 'PRODUCT_ADDED',
+  PRODUCT_UPDATED: 'PRODUCT_UPDATED',
+  SALE_LOGGED: 'SALE_LOGGED',
+  PAYMENT_UPDATED: 'PAYMENT_UPDATED',
+  RECEIPT_CREATED: 'RECEIPT_CREATED',
+  RECEIPT_SENT: 'RECEIPT_SENT',
+  RECEIPT_VIEWED: 'RECEIPT_VIEWED',
+  RECEIPT_ACKNOWLEDGED: 'RECEIPT_ACKNOWLEDGED',
+  DELIVERY_STATUS_UPDATED: 'DELIVERY_STATUS_UPDATED',
+  DELIVERY_CONFIRMED: 'DELIVERY_CONFIRMED',
+  FEEDBACK_SUBMITTED: 'FEEDBACK_SUBMITTED',
+  ISSUE_OPENED: 'ISSUE_OPENED',
+  ISSUE_RESOLVED: 'ISSUE_RESOLVED',
+  FOLLOW_UP_SENT: 'FOLLOW_UP_SENT',
+  INVENTORY_CHECKED: 'INVENTORY_CHECKED',
+  STREAK_COMPLETED: 'STREAK_COMPLETED'
+} as const
+
+export type ActivityEventType = (typeof ActivityEventType)[keyof typeof ActivityEventType]
+
+
+export const MediaPurpose = {
+  BUSINESS_LOGO: 'BUSINESS_LOGO',
+  PRODUCT_IMAGE: 'PRODUCT_IMAGE',
+  TRUST_CARD: 'TRUST_CARD',
+  RECEIPT_EXPORT: 'RECEIPT_EXPORT'
+} as const
+
+export type MediaPurpose = (typeof MediaPurpose)[keyof typeof MediaPurpose]
+
+
+export const MediaStatus = {
+  ACTIVE: 'ACTIVE',
+  DELETED: 'DELETED'
+} as const
+
+export type MediaStatus = (typeof MediaStatus)[keyof typeof MediaStatus]
+
+
+export const OrderRequestStatus = {
+  SENT: 'SENT',
+  ACCEPTED: 'ACCEPTED',
+  NEEDS_CHANGES: 'NEEDS_CHANGES',
+  CONVERTED: 'CONVERTED',
+  CANCELED: 'CANCELED'
+} as const
+
+export type OrderRequestStatus = (typeof OrderRequestStatus)[keyof typeof OrderRequestStatus]
+
+
+export const ProductInterestType = {
+  WISHLIST: 'WISHLIST',
+  RESTOCK: 'RESTOCK'
+} as const
+
+export type ProductInterestType = (typeof ProductInterestType)[keyof typeof ProductInterestType]
+
+
+export const CommerceEventType = {
+  SHOP_VIEWED: 'SHOP_VIEWED',
+  PRODUCT_VIEWED: 'PRODUCT_VIEWED',
+  PRODUCT_SHARED: 'PRODUCT_SHARED',
+  PRODUCT_WISHLISTED: 'PRODUCT_WISHLISTED',
+  RESTOCK_INTERESTED: 'RESTOCK_INTERESTED',
+  REQUEST_SUBMITTED: 'REQUEST_SUBMITTED'
+} as const
+
+export type CommerceEventType = (typeof CommerceEventType)[keyof typeof CommerceEventType]
+
+
+export const CustomerIssueStatus = {
+  OPEN: 'OPEN',
+  RESOLVED: 'RESOLVED',
+  DISMISSED: 'DISMISSED'
+} as const
+
+export type CustomerIssueStatus = (typeof CustomerIssueStatus)[keyof typeof CustomerIssueStatus]
+
+
+export const FollowUpStatus = {
+  SUGGESTED: 'SUGGESTED',
+  APPROVED: 'APPROVED',
+  COMPLETED: 'COMPLETED',
+  DISMISSED: 'DISMISSED'
+} as const
+
+export type FollowUpStatus = (typeof FollowUpStatus)[keyof typeof FollowUpStatus]
+
+
+export const SupportRequestStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  RESOLVED: 'RESOLVED'
+} as const
+
+export type SupportRequestStatus = (typeof SupportRequestStatus)[keyof typeof SupportRequestStatus]
+
+
+export const ExportAccess = {
+  OWNER_ONLY: 'OWNER_ONLY',
+  OWNER_AND_MANAGERS: 'OWNER_AND_MANAGERS'
+} as const
+
+export type ExportAccess = (typeof ExportAccess)[keyof typeof ExportAccess]
+
+
+export const RetentionPolicy = {
+  MANUAL: 'MANUAL',
+  ONE_YEAR: 'ONE_YEAR',
+  THREE_YEARS: 'THREE_YEARS'
+} as const
+
+export type RetentionPolicy = (typeof RetentionPolicy)[keyof typeof RetentionPolicy]
+
+
+export const NumberFormat = {
+  COMMA_DECIMAL: 'COMMA_DECIMAL',
+  DOT_DECIMAL: 'DOT_DECIMAL'
+} as const
+
+export type NumberFormat = (typeof NumberFormat)[keyof typeof NumberFormat]
+
+
+export const ReceiptDeliveryLine = {
+  OPTIONAL: 'OPTIONAL',
+  ALWAYS_SHOW: 'ALWAYS_SHOW',
+  HIDE_BY_DEFAULT: 'HIDE_BY_DEFAULT'
+} as const
+
+export type ReceiptDeliveryLine = (typeof ReceiptDeliveryLine)[keyof typeof ReceiptDeliveryLine]

@@ -22,3 +22,188 @@ export * from './enums';
  * 
  */
 export type WaitlistEntry = Prisma.WaitlistEntryModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel
+/**
+ * Model OwnerSession
+ * 
+ */
+export type OwnerSession = Prisma.OwnerSessionModel
+/**
+ * Model PasswordRecoveryToken
+ * 
+ */
+export type PasswordRecoveryToken = Prisma.PasswordRecoveryTokenModel
+/**
+ * Model Business
+ * 
+ */
+export type Business = Prisma.BusinessModel
+/**
+ * Model BusinessPreferences
+ * 
+ */
+export type BusinessPreferences = Prisma.BusinessPreferencesModel
+/**
+ * Model BusinessContact
+ * 
+ */
+export type BusinessContact = Prisma.BusinessContactModel
+/**
+ * Model BusinessMember
+ * 
+ */
+export type BusinessMember = Prisma.BusinessMemberModel
+/**
+ * Model BusinessInvitation
+ * 
+ */
+export type BusinessInvitation = Prisma.BusinessInvitationModel
+/**
+ * Model MediaAsset
+ * 
+ */
+export type MediaAsset = Prisma.MediaAssetModel
+/**
+ * Model CustomerAccount
+ * 
+ */
+export type CustomerAccount = Prisma.CustomerAccountModel
+/**
+ * Model CustomerAccountSession
+ * 
+ */
+export type CustomerAccountSession = Prisma.CustomerAccountSessionModel
+/**
+ * Model CustomerOtpChallenge
+ * 
+ */
+export type CustomerOtpChallenge = Prisma.CustomerOtpChallengeModel
+/**
+ * Model Customer
+ * 
+ */
+export type Customer = Prisma.CustomerModel
+/**
+ * Model CustomerContact
+ * 
+ */
+export type CustomerContact = Prisma.CustomerContactModel
+/**
+ * Model CustomerNote
+ * 
+ */
+export type CustomerNote = Prisma.CustomerNoteModel
+/**
+ * Model CustomerTag
+ * 
+ */
+export type CustomerTag = Prisma.CustomerTagModel
+/**
+ * Model CustomerTagAssignment
+ * 
+ */
+export type CustomerTagAssignment = Prisma.CustomerTagAssignmentModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model ProductImage
+ * 
+ */
+export type ProductImage = Prisma.ProductImageModel
+/**
+ * Model WishlistItem
+ * 
+ */
+export type WishlistItem = Prisma.WishlistItemModel
+/**
+ * Model ProductInterest
+ * 
+ */
+export type ProductInterest = Prisma.ProductInterestModel
+/**
+ * Model OrderRequest
+ * 
+ */
+export type OrderRequest = Prisma.OrderRequestModel
+/**
+ * Model OrderRequestItem
+ * 
+ */
+export type OrderRequestItem = Prisma.OrderRequestItemModel
+/**
+ * Model CommerceEvent
+ * 
+ */
+export type CommerceEvent = Prisma.CommerceEventModel
+/**
+ * Model Sale
+ * 
+ */
+export type Sale = Prisma.SaleModel
+/**
+ * Model SaleItem
+ * 
+ */
+export type SaleItem = Prisma.SaleItemModel
+/**
+ * Model PaymentEntry
+ * 
+ */
+export type PaymentEntry = Prisma.PaymentEntryModel
+/**
+ * Model Receipt
+ * 
+ */
+export type Receipt = Prisma.ReceiptModel
+/**
+ * Model Delivery
+ * 
+ */
+export type Delivery = Prisma.DeliveryModel
+/**
+ * Model DeliveryEvent
+ * 
+ */
+export type DeliveryEvent = Prisma.DeliveryEventModel
+/**
+ * Model ActivityEvent
+ * 
+ */
+export type ActivityEvent = Prisma.ActivityEventModel
+/**
+ * Model FollowUpTemplate
+ * 
+ */
+export type FollowUpTemplate = Prisma.FollowUpTemplateModel
+/**
+ * Model FollowUpSuggestion
+ * 
+ */
+export type FollowUpSuggestion = Prisma.FollowUpSuggestionModel
+/**
+ * Model CustomerFeedback
+ * 
+ */
+export type CustomerFeedback = Prisma.CustomerFeedbackModel
+/**
+ * Model CustomerIssue
+ * 
+ */
+export type CustomerIssue = Prisma.CustomerIssueModel
+/**
+ * Model TrustLedgerEntry
+ * 
+ */
+export type TrustLedgerEntry = Prisma.TrustLedgerEntryModel
+/**
+ * Model SupportRequest
+ * 
+ */
+export type SupportRequest = Prisma.SupportRequestModel

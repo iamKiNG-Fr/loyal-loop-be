@@ -4,6 +4,7 @@ import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { AppModule } from "./app.module";
+import { isCorsOriginAllowed } from "./common/cors.util";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -30,9 +31,26 @@ async function bootstrap() {
 
   app.use(helmet());
   app.enableCors({
-    origin: corsOrigins,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin(
+      origin: string | undefined,
+      callback: (error: Error | null, allow?: boolean) => void,
+    ) {
+      if (isCorsOriginAllowed(origin, corsOrigins, configService.get("NODE_ENV"))) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error("Origin is not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Idempotency-Key",
+      "X-Business-Id",
+      "X-Request-Id",
+    ],
+    exposedHeaders: ["X-Request-Id"],
+    credentials: true,
   });
   app.useGlobalPipes(
     new ValidationPipe({

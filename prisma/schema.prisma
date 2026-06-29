@@ -7,6 +7,256 @@ datasource db {
   provider = "postgresql"
 }
 
+enum BusinessRole {
+  OWNER
+  MANAGER
+  SALES
+  DELIVERY
+  VIEWER
+}
+
+enum MemberStatus {
+  INVITED
+  ACTIVE
+  SUSPENDED
+}
+
+enum BusinessPlan {
+  PRIVATE_TESTER
+  STARTER
+  GROWTH
+  TEAM
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  INTERNAL_TEST
+}
+
+enum BusinessTheme {
+  LOYAL_PURPLE
+  MIDNIGHT
+  FRESH
+  BLUSH
+}
+
+enum StoreStatus {
+  OPEN
+  PAUSED
+  CLOSED
+}
+
+enum WorkspaceAppearance {
+  LIGHT
+  DARK
+  SYSTEM
+}
+
+enum ContactPlatform {
+  EMAIL
+  FACEBOOK
+  INSTAGRAM
+  PHONE
+  SNAPCHAT
+  TIKTOK
+  WEBSITE
+  WHATSAPP
+  OTHER
+}
+
+enum CustomerChannel {
+  WHATSAPP
+  INSTAGRAM
+  FACEBOOK
+  TIKTOK
+  SNAPCHAT
+  PHONE
+  WALK_IN
+  REFERRAL
+  WEBSITE
+  OTHER
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+enum ProductPlacement {
+  STANDARD
+  TRENDING
+  RECOMMENDED
+  LATEST_ARRIVAL
+}
+
+enum ProductVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum PaymentStatus {
+  UNPAID
+  PARTIAL
+  PAID
+  REFUNDED
+}
+
+enum PaymentEntryType {
+  PAYMENT
+  REFUND
+  ADJUSTMENT
+}
+
+enum SaleStatus {
+  DRAFT
+  COMPLETED
+  CANCELED
+}
+
+enum SalesChannel {
+  WHATSAPP
+  INSTAGRAM
+  FACEBOOK
+  TIKTOK
+  SNAPCHAT
+  WALK_IN
+  REFERRAL
+  WEBSITE
+  OTHER
+}
+
+enum FulfillmentType {
+  DELIVERY
+  PICKUP
+  NOT_REQUIRED
+}
+
+enum ReceiptStatus {
+  CREATED
+  SENT
+  VIEWED
+  VOID
+}
+
+enum ReceiptTheme {
+  CLASSIC_POS
+  LOOP_PURPLE
+  MALL_FRESH
+}
+
+enum DeliveryStatus {
+  PREPARING
+  READY_FOR_PICKUP
+  IN_TRANSIT
+  DELIVERED
+  CONFIRMED
+  ISSUE
+  CANCELED
+}
+
+enum ActivityEventType {
+  BUSINESS_CREATED
+  BUSINESS_UPDATED
+  OWNER_PLEDGED
+  CUSTOMER_ADDED
+  CUSTOMER_NOTE_ADDED
+  PRODUCT_ADDED
+  PRODUCT_UPDATED
+  SALE_LOGGED
+  PAYMENT_UPDATED
+  RECEIPT_CREATED
+  RECEIPT_SENT
+  RECEIPT_VIEWED
+  RECEIPT_ACKNOWLEDGED
+  DELIVERY_STATUS_UPDATED
+  DELIVERY_CONFIRMED
+  FEEDBACK_SUBMITTED
+  ISSUE_OPENED
+  ISSUE_RESOLVED
+  FOLLOW_UP_SENT
+  INVENTORY_CHECKED
+  STREAK_COMPLETED
+}
+
+enum MediaPurpose {
+  BUSINESS_LOGO
+  PRODUCT_IMAGE
+  TRUST_CARD
+  RECEIPT_EXPORT
+}
+
+enum MediaStatus {
+  ACTIVE
+  DELETED
+}
+
+enum OrderRequestStatus {
+  SENT
+  ACCEPTED
+  NEEDS_CHANGES
+  CONVERTED
+  CANCELED
+}
+
+enum ProductInterestType {
+  WISHLIST
+  RESTOCK
+}
+
+enum CommerceEventType {
+  SHOP_VIEWED
+  PRODUCT_VIEWED
+  PRODUCT_SHARED
+  PRODUCT_WISHLISTED
+  RESTOCK_INTERESTED
+  REQUEST_SUBMITTED
+}
+
+enum CustomerIssueStatus {
+  OPEN
+  RESOLVED
+  DISMISSED
+}
+
+enum FollowUpStatus {
+  SUGGESTED
+  APPROVED
+  COMPLETED
+  DISMISSED
+}
+
+enum SupportRequestStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+}
+
+enum ExportAccess {
+  OWNER_ONLY
+  OWNER_AND_MANAGERS
+}
+
+enum RetentionPolicy {
+  MANUAL
+  ONE_YEAR
+  THREE_YEARS
+}
+
+enum NumberFormat {
+  COMMA_DECIMAL
+  DOT_DECIMAL
+}
+
+enum ReceiptDeliveryLine {
+  OPTIONAL
+  ALWAYS_SHOW
+  HIDE_BY_DEFAULT
+}
+
 model WaitlistEntry {
   id           Int      @id @default(autoincrement())
   name         String
@@ -18,4 +268,766 @@ model WaitlistEntry {
   updatedAt    DateTime @updatedAt
 
   @@map("waitlist")
+}
+
+model User {
+  id                  String                  @id @default(cuid())
+  name                String
+  email               String                  @unique
+  passwordHash        String
+  phone               String?
+  workspaceAppearance WorkspaceAppearance     @default(LIGHT)
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @updatedAt
+  memberships         BusinessMember[]
+  ownedBusinesses     Business[]              @relation("BusinessOwner")
+  sessions            OwnerSession[]
+  recoveryTokens      PasswordRecoveryToken[]
+  uploadedAssets      MediaAsset[]            @relation("AssetUploader")
+  authoredNotes       CustomerNote[]          @relation("NoteAuthor")
+  invitationsSent     BusinessInvitation[]    @relation("InvitationSender")
+  paymentsRecorded    PaymentEntry[]          @relation("PaymentRecorder")
+  deliveryEvents      DeliveryEvent[]         @relation("DeliveryEventActor")
+  activityEvents      ActivityEvent[]         @relation("ActivityActor")
+
+  @@map("users")
+}
+
+model OwnerSession {
+  id         String    @id @default(cuid())
+  userId     String
+  tokenHash  String    @unique
+  userAgent  String?
+  ipHash     String?
+  expiresAt  DateTime
+  lastUsedAt DateTime  @default(now())
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+  @@map("owner_sessions")
+}
+
+model PasswordRecoveryToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+  @@map("password_recovery_tokens")
+}
+
+model Business {
+  id                  String               @id @default(cuid())
+  ownerId             String
+  logoAssetId         String?              @unique
+  name                String
+  slug                String               @unique
+  category            String?
+  categoryDetail      String?
+  description         String?
+  location            String?
+  storeStatus         StoreStatus          @default(OPEN)
+  pledgeSignature     String?
+  pledgedAt           DateTime?
+  plan                BusinessPlan         @default(PRIVATE_TESTER)
+  subscriptionStatus  SubscriptionStatus   @default(INTERNAL_TEST)
+  trialStartedAt      DateTime?
+  trialEndsAt         DateTime?
+  customerLimit       Int?
+  receiptLimit        Int?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  owner               User                 @relation("BusinessOwner", fields: [ownerId], references: [id])
+  logoAsset           MediaAsset?          @relation("BusinessLogo", fields: [logoAssetId], references: [id], onDelete: SetNull)
+  preferences         BusinessPreferences?
+  contacts            BusinessContact[]
+  members             BusinessMember[]
+  invitations         BusinessInvitation[]
+  assets              MediaAsset[]         @relation("BusinessAssets")
+  customers           Customer[]
+  customerTags        CustomerTag[]
+  products            Product[]
+  sales               Sale[]
+  receipts            Receipt[]
+  deliveries          Delivery[]
+  activityEvents      ActivityEvent[]
+  followUpTemplates   FollowUpTemplate[]
+  followUpSuggestions FollowUpSuggestion[]
+  orderRequests       OrderRequest[]
+  wishlistItems       WishlistItem[]
+  productInterests    ProductInterest[]
+  commerceEvents      CommerceEvent[]
+  feedback            CustomerFeedback[]
+  issues              CustomerIssue[]
+  trustLedger         TrustLedgerEntry[]
+  supportRequests     SupportRequest[]
+
+  @@index([ownerId])
+  @@map("businesses")
+}
+
+model BusinessPreferences {
+  businessId            String              @id
+  currency              String              @default("NGN")
+  numberFormat          NumberFormat        @default(COMMA_DECIMAL)
+  timezone              String              @default("Africa/Lagos")
+  theme                 BusinessTheme       @default(LOYAL_PURPLE)
+    shelfMode             String              @default("carousel")
+    showRecommended       Boolean             @default(true)
+    showLatest            Boolean             @default(true)
+    tickerItems           String[]            @default(["New drops", "Trusted receipts", "Delivery updates", "Customer favourites"])
+  defaultPaymentStatus  PaymentStatus       @default(UNPAID)
+  receiptDeliveryLine   ReceiptDeliveryLine @default(OPTIONAL)
+  receiptFooter         String?
+  notifyFollowUps       Boolean             @default(true)
+  notifyReceiptViews    Boolean             @default(false)
+  notifyDeliveryUpdates Boolean             @default(true)
+  exportAccess          ExportAccess        @default(OWNER_ONLY)
+  retentionPolicy       RetentionPolicy     @default(MANUAL)
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  business              Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("business_preferences")
+}
+
+model BusinessContact {
+  id         String          @id @default(cuid())
+  businessId String
+  platform   ContactPlatform
+  value      String
+  label      String?
+  isPrimary  Boolean         @default(false)
+  sortOrder  Int             @default(0)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  business   Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@unique([businessId, platform, value])
+  @@index([businessId, sortOrder])
+  @@map("business_contacts")
+}
+
+model BusinessMember {
+  id         String       @id @default(cuid())
+  businessId String
+  userId     String
+  role       BusinessRole @default(VIEWER)
+  status     MemberStatus @default(ACTIVE)
+  invitedAt  DateTime?
+  joinedAt   DateTime?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  business   Business     @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([businessId, userId])
+  @@index([userId])
+  @@map("business_members")
+}
+
+model BusinessInvitation {
+  id          String       @id @default(cuid())
+  businessId  String
+  invitedById String
+  name        String
+  email       String
+  role        BusinessRole
+  tokenHash   String       @unique
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+  revokedAt   DateTime?
+  createdAt   DateTime     @default(now())
+  business    Business     @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  invitedBy   User         @relation("InvitationSender", fields: [invitedById], references: [id])
+
+  @@index([businessId, email])
+  @@map("business_invitations")
+}
+
+model MediaAsset {
+  id               String         @id @default(cuid())
+  businessId       String
+  uploadedById     String
+  provider         String         @default("cloudinary")
+  publicId         String         @unique
+  secureUrl        String
+  resourceType     String         @default("image")
+  format           String
+  width            Int?
+  height           Int?
+  bytes            Int
+  version          String?
+  originalFilename String?
+  purpose          MediaPurpose
+  status           MediaStatus    @default(ACTIVE)
+  createdAt        DateTime       @default(now())
+  deletedAt        DateTime?
+  business         Business       @relation("BusinessAssets", fields: [businessId], references: [id], onDelete: Cascade)
+  uploadedBy       User           @relation("AssetUploader", fields: [uploadedById], references: [id])
+  logoFor          Business?      @relation("BusinessLogo")
+  productImages    ProductImage[]
+
+  @@index([businessId, purpose, status])
+  @@map("media_assets")
+}
+
+model CustomerAccount {
+  id         String                   @id @default(cuid())
+  phone      String                   @unique
+  verifiedAt DateTime
+  createdAt  DateTime                 @default(now())
+  updatedAt  DateTime                 @updatedAt
+  sessions   CustomerAccountSession[]
+  challenges CustomerOtpChallenge[]
+  customers  Customer[]
+  wishlist   WishlistItem[]
+  interests  ProductInterest[]
+  requests   OrderRequest[]
+  events     CommerceEvent[]
+
+  @@map("customer_accounts")
+}
+
+model CustomerAccountSession {
+  id                String          @id @default(cuid())
+  customerAccountId String
+  tokenHash         String          @unique
+  expiresAt         DateTime
+  lastUsedAt        DateTime        @default(now())
+  revokedAt         DateTime?
+  createdAt         DateTime        @default(now())
+  customerAccount   CustomerAccount @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+
+  @@index([customerAccountId, expiresAt])
+  @@map("customer_account_sessions")
+}
+
+model CustomerOtpChallenge {
+  id                String           @id @default(cuid())
+  customerAccountId String?
+  phone             String
+  provider          String
+  providerReference String           @unique
+  expiresAt         DateTime
+  verifiedAt        DateTime?
+  attempts          Int              @default(0)
+  createdAt         DateTime         @default(now())
+  customerAccount   CustomerAccount? @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+
+  @@index([phone, createdAt])
+  @@map("customer_otp_challenges")
+}
+
+model Customer {
+  id              String                  @id @default(cuid())
+  businessId      String
+  accountId       String?
+  name            String
+  phone           String?
+  email           String?
+  channel         CustomerChannel         @default(OTHER)
+  publicTokenHash String                  @unique
+  lastPurchasedAt DateTime?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  business        Business                @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  account         CustomerAccount?        @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  contacts        CustomerContact[]
+  notes           CustomerNote[]
+  tagAssignments  CustomerTagAssignment[]
+  sales           Sale[]
+  receipts        Receipt[]
+  deliveries      Delivery[]
+  activityEvents  ActivityEvent[]
+  requests        OrderRequest[]
+  followUps       FollowUpSuggestion[]
+  feedback        CustomerFeedback[]
+  issues          CustomerIssue[]
+
+  @@unique([businessId, accountId])
+  @@index([businessId])
+  @@index([businessId, phone])
+  @@map("customers")
+}
+
+model CustomerContact {
+  id         String          @id @default(cuid())
+  customerId String
+  platform   ContactPlatform
+  value      String
+  isPrimary  Boolean         @default(false)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  customer   Customer        @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@unique([customerId, platform, value])
+  @@index([customerId])
+  @@map("customer_contacts")
+}
+
+model CustomerNote {
+  id         String   @id @default(cuid())
+  customerId String
+  authorId   String?
+  content    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  author     User?    @relation("NoteAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([customerId, createdAt])
+  @@map("customer_notes")
+}
+
+model CustomerTag {
+  id          String                  @id @default(cuid())
+  businessId  String
+  name        String
+  description String?
+  color       String?
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+  business    Business                @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  assignments CustomerTagAssignment[]
+
+  @@unique([businessId, name])
+  @@index([businessId])
+  @@map("customer_tags")
+}
+
+model CustomerTagAssignment {
+  customerId String
+  tagId      String
+  createdAt  DateTime    @default(now())
+  customer   Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  tag        CustomerTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([customerId, tagId])
+  @@index([tagId])
+  @@map("customer_tag_assignments")
+}
+
+model Product {
+  id             String             @id @default(cuid())
+  businessId     String
+  slug           String
+  name           String
+  description    String?
+  price          Decimal            @db.Decimal(12, 2)
+  currency       String             @default("NGN")
+  category       String?
+  status         ProductStatus      @default(ACTIVE)
+  placement      ProductPlacement   @default(STANDARD)
+  visibility     ProductVisibility  @default(PUBLIC)
+  stockCount     Int?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  business       Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  images         ProductImage[]
+  saleItems      SaleItem[]
+  requestItems   OrderRequestItem[]
+  wishlistItems  WishlistItem[]
+  interests      ProductInterest[]
+  commerceEvents CommerceEvent[]
+
+  @@unique([businessId, slug])
+  @@index([businessId, status, visibility])
+  @@map("products")
+}
+
+model ProductImage {
+  id        String     @id @default(cuid())
+  productId String
+  assetId   String
+  altText   String?
+  sortOrder Int        @default(0)
+  isPrimary Boolean    @default(false)
+  createdAt DateTime   @default(now())
+  product   Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  asset     MediaAsset @relation(fields: [assetId], references: [id], onDelete: Restrict)
+
+  @@unique([productId, assetId])
+  @@index([productId, sortOrder])
+  @@map("product_images")
+}
+
+model WishlistItem {
+  id                String          @id @default(cuid())
+  customerAccountId String
+  businessId        String
+  productId         String
+  createdAt         DateTime        @default(now())
+  customerAccount   CustomerAccount @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+  business          Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  product           Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([customerAccountId, productId])
+  @@index([businessId])
+  @@map("wishlist_items")
+}
+
+model ProductInterest {
+  id                String              @id @default(cuid())
+  customerAccountId String
+  businessId        String
+  productId         String
+  type              ProductInterestType
+  createdAt         DateTime            @default(now())
+  customerAccount   CustomerAccount     @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+  business          Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  product           Product             @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([customerAccountId, productId, type])
+  @@index([businessId, type])
+  @@map("product_interests")
+}
+
+model OrderRequest {
+  id                String             @id @default(cuid())
+  businessId        String
+  customerAccountId String?
+  customerId        String?
+  referenceCode     String             @unique
+  tokenHash         String             @unique
+  customerName      String
+  customerPhone     String
+  channel           SalesChannel
+  note              String?
+  status            OrderRequestStatus @default(SENT)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  business          Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerAccount   CustomerAccount?   @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+  customer          Customer?          @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  items             OrderRequestItem[]
+  convertedSale     Sale?              @relation("RequestConversion")
+  events            CommerceEvent[]
+
+  @@index([businessId, status, createdAt])
+  @@map("order_requests")
+}
+
+model OrderRequestItem {
+  id             String       @id @default(cuid())
+  orderRequestId String
+  productId      String?
+  name           String
+  imageUrl       String?
+  quantity       Int          @default(1)
+  unitPrice      Decimal      @db.Decimal(12, 2)
+  total          Decimal      @db.Decimal(12, 2)
+  orderRequest   OrderRequest @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
+  product        Product?     @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([orderRequestId])
+  @@map("order_request_items")
+}
+
+model CommerceEvent {
+  id                String            @id @default(cuid())
+  businessId        String
+  customerAccountId String?
+  productId         String?
+  orderRequestId    String?
+  type              CommerceEventType
+  visitorHash       String?
+  metadata          Json?
+  createdAt         DateTime          @default(now())
+  business          Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerAccount   CustomerAccount?  @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+  product           Product?          @relation(fields: [productId], references: [id], onDelete: SetNull)
+  orderRequest      OrderRequest?     @relation(fields: [orderRequestId], references: [id], onDelete: SetNull)
+
+  @@index([businessId, type, createdAt])
+  @@index([productId, type])
+  @@map("commerce_events")
+}
+
+model Sale {
+  id              String             @id @default(cuid())
+  businessId      String
+  customerId      String
+  sourceRequestId String?            @unique
+  idempotencyKey  String?
+  referenceCode   String             @unique
+  status          SaleStatus         @default(COMPLETED)
+  paymentStatus   PaymentStatus      @default(UNPAID)
+  channel         SalesChannel       @default(OTHER)
+  fulfillment     FulfillmentType    @default(NOT_REQUIRED)
+  currency        String             @default("NGN")
+  subtotal        Decimal            @default(0) @db.Decimal(12, 2)
+  discount        Decimal            @default(0) @db.Decimal(12, 2)
+  deliveryFee     Decimal            @default(0) @db.Decimal(12, 2)
+  total           Decimal            @default(0) @db.Decimal(12, 2)
+  amountPaid      Decimal            @default(0) @db.Decimal(12, 2)
+  notes           String?
+  soldAt          DateTime           @default(now())
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  business        Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer        Customer           @relation(fields: [customerId], references: [id])
+  sourceRequest   OrderRequest?      @relation("RequestConversion", fields: [sourceRequestId], references: [id], onDelete: SetNull)
+  items           SaleItem[]
+  payments        PaymentEntry[]
+  receipt         Receipt?
+  delivery        Delivery?
+  activityEvents  ActivityEvent[]
+  feedback        CustomerFeedback[]
+  issues          CustomerIssue[]
+
+  @@index([businessId, soldAt])
+  @@index([customerId, soldAt])
+  @@unique([businessId, idempotencyKey])
+  @@map("sales")
+}
+
+model SaleItem {
+    id                    String   @id @default(cuid())
+    saleId                String
+    productId             String?
+    name                  String
+    imageUrl              String?
+    quantity              Int      @default(1)
+    catalogUnitPrice      Decimal? @db.Decimal(12, 2)
+    unitPrice             Decimal  @db.Decimal(12, 2)
+    priceAdjustmentReason String?
+    total                 Decimal  @db.Decimal(12, 2)
+    sale                  Sale     @relation(fields: [saleId], references: [id], onDelete: Cascade)
+    product               Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([saleId])
+  @@index([productId])
+  @@map("sale_items")
+}
+
+model PaymentEntry {
+  id           String           @id @default(cuid())
+  saleId       String
+  recordedById String?
+  type         PaymentEntryType
+  amount       Decimal          @db.Decimal(12, 2)
+  note         String?
+  reference    String?
+  createdAt    DateTime         @default(now())
+  sale         Sale             @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  recordedBy   User?            @relation("PaymentRecorder", fields: [recordedById], references: [id], onDelete: SetNull)
+
+  @@index([saleId, createdAt])
+  @@map("payment_entries")
+}
+
+model Receipt {
+  id             String             @id @default(cuid())
+  businessId     String
+  customerId     String
+  saleId         String             @unique
+  tokenHash      String             @unique
+  receiptCode    String             @unique
+  status         ReceiptStatus      @default(CREATED)
+  theme          ReceiptTheme       @default(CLASSIC_POS)
+  note           String?
+  footer         String?
+  sentAt         DateTime?
+  viewedAt       DateTime?
+  acknowledgedAt DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  business       Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer       Customer           @relation(fields: [customerId], references: [id])
+  sale           Sale               @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  activityEvents ActivityEvent[]
+  feedback       CustomerFeedback[]
+  issues         CustomerIssue[]
+
+  @@index([businessId, createdAt])
+  @@index([customerId, createdAt])
+  @@map("receipts")
+}
+
+model Delivery {
+  id             String             @id @default(cuid())
+  businessId     String
+  customerId     String
+  saleId         String             @unique
+  tokenHash      String             @unique
+    status         DeliveryStatus     @default(PREPARING)
+    address        String?
+    googlePlaceId  String?
+    latitude       Float?
+    longitude      Float?
+  courier        String?
+  trackingCode   String?
+  trackingUrl    String?
+  deliveredAt    DateTime?
+  confirmedAt    DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  business       Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer       Customer           @relation(fields: [customerId], references: [id])
+  sale           Sale               @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  events         DeliveryEvent[]
+  activityEvents ActivityEvent[]
+  feedback       CustomerFeedback[]
+  issues         CustomerIssue[]
+
+  @@index([businessId, status, createdAt])
+  @@index([customerId, createdAt])
+  @@map("deliveries")
+}
+
+model DeliveryEvent {
+  id         String         @id @default(cuid())
+  deliveryId String
+  actorId    String?
+  status     DeliveryStatus
+  note       String?
+  isPublic   Boolean        @default(true)
+  createdAt  DateTime       @default(now())
+  delivery   Delivery       @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  actor      User?          @relation("DeliveryEventActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([deliveryId, createdAt])
+  @@map("delivery_events")
+}
+
+model ActivityEvent {
+  id          String            @id @default(cuid())
+  businessId  String
+  actorId     String?
+  customerId  String?
+  saleId      String?
+  receiptId   String?
+  deliveryId  String?
+  type        ActivityEventType
+  title       String
+  description String?
+  metadata    Json?
+  createdAt   DateTime          @default(now())
+  business    Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  actor       User?             @relation("ActivityActor", fields: [actorId], references: [id], onDelete: SetNull)
+  customer    Customer?         @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  sale        Sale?             @relation(fields: [saleId], references: [id], onDelete: SetNull)
+  receipt     Receipt?          @relation(fields: [receiptId], references: [id], onDelete: SetNull)
+  delivery    Delivery?         @relation(fields: [deliveryId], references: [id], onDelete: SetNull)
+  trustEntry  TrustLedgerEntry?
+
+  @@index([businessId, createdAt])
+  @@index([customerId, createdAt])
+  @@index([saleId])
+  @@map("activity_events")
+}
+
+model FollowUpTemplate {
+  id          String               @id @default(cuid())
+  businessId  String?
+  name        String
+  body        String
+  isDefault   Boolean              @default(false)
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  business    Business?            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  suggestions FollowUpSuggestion[]
+
+  @@index([businessId])
+  @@map("follow_up_templates")
+}
+
+model FollowUpSuggestion {
+  id          String            @id @default(cuid())
+  businessId  String
+  customerId  String
+  templateId  String?
+  reason      String
+  status      FollowUpStatus    @default(SUGGESTED)
+  dueAt       DateTime?
+  approvedAt  DateTime?
+  completedAt DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  business    Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer    Customer          @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  template    FollowUpTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+
+  @@index([businessId, status, dueAt])
+  @@index([customerId])
+  @@map("follow_up_suggestions")
+}
+
+model CustomerFeedback {
+  id         String    @id @default(cuid())
+  businessId String
+  customerId String?
+  saleId     String
+  receiptId  String?
+  deliveryId String?
+  rating     Int
+  comment    String?
+  createdAt  DateTime  @default(now())
+  business   Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer   Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  sale       Sale      @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  receipt    Receipt?  @relation(fields: [receiptId], references: [id], onDelete: SetNull)
+  delivery   Delivery? @relation(fields: [deliveryId], references: [id], onDelete: SetNull)
+
+  @@unique([deliveryId])
+  @@index([businessId, createdAt])
+  @@map("customer_feedback")
+}
+
+model CustomerIssue {
+  id          String              @id @default(cuid())
+  businessId  String
+  customerId  String?
+  saleId      String
+  receiptId   String?
+  deliveryId  String?
+  description String
+  status      CustomerIssueStatus @default(OPEN)
+  openedAt    DateTime            @default(now())
+  resolvedAt  DateTime?
+  updatedAt   DateTime            @updatedAt
+  business    Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer    Customer?           @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  sale        Sale                @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  receipt     Receipt?            @relation(fields: [receiptId], references: [id], onDelete: SetNull)
+  delivery    Delivery?           @relation(fields: [deliveryId], references: [id], onDelete: SetNull)
+
+  @@index([businessId, status, openedAt])
+  @@map("customer_issues")
+}
+
+model TrustLedgerEntry {
+  id              String        @id @default(cuid())
+  businessId      String
+  activityEventId String        @unique
+  ruleKey         String
+  ruleVersion     Int           @default(1)
+  points          Int
+  createdAt       DateTime      @default(now())
+  business        Business      @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  activityEvent   ActivityEvent @relation(fields: [activityEventId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, createdAt])
+  @@map("trust_ledger_entries")
+}
+
+model SupportRequest {
+  id         String               @id @default(cuid())
+  businessId String
+  topic      String
+  message    String
+  status     SupportRequestStatus @default(OPEN)
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+  business   Business             @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, status, createdAt])
+  @@map("support_requests")
 }
