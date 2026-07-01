@@ -1,8 +1,19 @@
 import { createHash, randomBytes } from "node:crypto";
 
+const PUBLIC_CARD_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
 export function createOpaqueToken(bytes = 32) {
   const token = randomBytes(bytes).toString("base64url");
   return { token, tokenHash: hashToken(token) };
+}
+
+export function createPublicCardId(length = 8) {
+  const bytes = randomBytes(length);
+  let value = "";
+  for (const byte of bytes) {
+    value += PUBLIC_CARD_ALPHABET[byte & 31];
+  }
+  return `LL-${value}`;
 }
 
 export function hashToken(token: string) {

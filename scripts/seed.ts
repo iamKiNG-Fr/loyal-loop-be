@@ -10,6 +10,7 @@ import { hashPassword } from "../src/common/password.util";
 const DEMO_EMAIL = "demo@useloyalloop.com";
 const DEMO_PASSWORD = "LoyalLoopDemo123!";
 const DEMO_SLUG = "kings-store-demo";
+const DEMO_CARD_ID = "LL-KINGDEMO";
 
 const prisma = new PrismaClient({
   adapter: new PrismaPg({
@@ -33,6 +34,10 @@ async function main() {
   });
 
   if (existingBusiness) {
+    await prisma.business.update({
+      where: { id: existingBusiness.id },
+      data: { publicCardId: DEMO_CARD_ID },
+    });
     await prisma.businessPreferences.upsert({
       where: { businessId: existingBusiness.id },
       update: {
@@ -86,6 +91,7 @@ async function main() {
       ownerId: user.id,
       name: "King's Store Demo",
       slug: DEMO_SLUG,
+      publicCardId: DEMO_CARD_ID,
       category: "Fashion, fragrance & accessories",
       description:
         "A seeded Loyal Loop workspace for testing customer memory, receipts, and delivery.",

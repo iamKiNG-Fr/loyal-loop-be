@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Patch,
   Post,
   Put,
@@ -24,6 +25,18 @@ import {
   UpdateBusinessDto,
   UpdateBusinessPreferencesDto,
 } from "./dto/update-business.dto";
+
+@Controller("public/trust-cards")
+export class PublicTrustCardsController {
+  constructor(private readonly businesses: BusinessesService) {}
+
+  @Get(":cardId")
+  resolve(@Param("cardId") cardId: string) {
+    return this.businesses
+      .resolvePublicCard(cardId)
+      .then((data) => ok(data));
+  }
+}
 
 @Controller("businesses/current")
 @UseGuards(OwnerAuthGuard, RolesGuard)

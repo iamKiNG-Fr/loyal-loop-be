@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { createOpaqueToken, hashToken, slugify } from "./crypto.util";
+import {
+  createOpaqueToken,
+  createPublicCardId,
+  hashToken,
+  slugify,
+} from "./crypto.util";
 
 describe("crypto utilities", () => {
   it("returns only a hash suitable for persistence", () => {
@@ -11,5 +16,9 @@ describe("crypto utilities", () => {
 
   it("normalizes public slugs", () => {
     expect(slugify("  King's Store & Scents  ")).toBe("kings-store-scents");
+  });
+
+  it("creates a non-sequential public Trust Card id", () => {
+    expect(createPublicCardId()).toMatch(/^LL-[A-HJ-NP-Z2-9]{8}$/);
   });
 });

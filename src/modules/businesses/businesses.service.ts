@@ -46,6 +46,27 @@ export class BusinessesService {
     });
   }
 
+  async resolvePublicCard(cardId: string) {
+    const business = await this.prisma.business.findUnique({
+      where: { publicCardId: cardId.trim().toUpperCase() },
+      select: {
+        publicCardId: true,
+        name: true,
+        slug: true,
+        storeStatus: true,
+      },
+    });
+    if (!business || business.storeStatus !== "OPEN") {
+      throw new NotFoundException("Trust Card is unavailable");
+    }
+    return {
+      active: true,
+      businessName: business.name,
+      cardId: business.publicCardId,
+      shopSlug: business.slug,
+    };
+  }
+
   async update(auth: OwnerAuthContext, dto: UpdateBusinessDto) {
     if (dto.logoAssetId) {
       const asset = await this.prisma.mediaAsset.findFirst({
@@ -158,7 +179,7 @@ export class BusinessesService {
       },
     });
     const appUrl = this.config
-      .get<string>("APP_URL", "https://useloyalloop.com")
+      .get<string>("APP_URL", "https://www.useloyalloop.com")
       .replace(/\/$/, "");
     return {
       invitation,

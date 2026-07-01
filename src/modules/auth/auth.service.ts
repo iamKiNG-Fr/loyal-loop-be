@@ -4,7 +4,11 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { createOpaqueToken, hashToken } from "../../common/crypto.util";
+import {
+  createOpaqueToken,
+  createPublicCardId,
+  hashToken,
+} from "../../common/crypto.util";
 import { hashPassword, verifyPassword } from "../../common/password.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
@@ -42,6 +46,7 @@ export class AuthService {
             ownerId: user.id,
             name: dto.businessName.trim(),
             slug: dto.slug,
+            publicCardId: createPublicCardId(),
             category: dto.category,
             categoryDetail: dto.categoryDetail,
             location: dto.location,

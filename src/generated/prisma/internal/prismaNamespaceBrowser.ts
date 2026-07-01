@@ -169,6 +169,7 @@ export const BusinessScalarFieldEnum = {
   logoAssetId: 'logoAssetId',
   name: 'name',
   slug: 'slug',
+  publicCardId: 'publicCardId',
   category: 'category',
   categoryDetail: 'categoryDetail',
   description: 'description',

@@ -25,7 +25,7 @@ export class MailService {
 
     const appUrl = this.configService.get<string>(
       "APP_URL",
-      "https://useloyalloop.com",
+      "https://www.useloyalloop.com",
     );
     const from = this.configService.get<string>(
       "EMAIL_FROM",
@@ -97,7 +97,7 @@ export class MailService {
     }
 
     const appUrl = this.configService
-      .get<string>("APP_URL", "https://useloyalloop.com")
+      .get<string>("APP_URL", "https://www.useloyalloop.com")
       .replace(/\/$/, "");
     const resetUrl = `${appUrl}/auth/reset-password?token=${encodeURIComponent(params.token)}`;
     const from = this.configService.get<string>(

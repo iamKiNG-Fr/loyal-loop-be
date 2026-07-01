@@ -329,6 +329,7 @@ model Business {
   logoAssetId         String?              @unique
   name                String
   slug                String               @unique
+  publicCardId        String               @unique
   category            String?
   categoryDetail      String?
   description         String?

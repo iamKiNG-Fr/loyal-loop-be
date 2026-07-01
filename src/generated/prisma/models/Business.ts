@@ -42,6 +42,7 @@ export type BusinessMinAggregateOutputType = {
   logoAssetId: string | null
   name: string | null
   slug: string | null
+  publicCardId: string | null
   category: string | null
   categoryDetail: string | null
   description: string | null
@@ -65,6 +66,7 @@ export type BusinessMaxAggregateOutputType = {
   logoAssetId: string | null
   name: string | null
   slug: string | null
+  publicCardId: string | null
   category: string | null
   categoryDetail: string | null
   description: string | null
@@ -88,6 +90,7 @@ export type BusinessCountAggregateOutputType = {
   logoAssetId: number
   name: number
   slug: number
+  publicCardId: number
   category: number
   categoryDetail: number
   description: number
@@ -123,6 +126,7 @@ export type BusinessMinAggregateInputType = {
   logoAssetId?: true
   name?: true
   slug?: true
+  publicCardId?: true
   category?: true
   categoryDetail?: true
   description?: true
@@ -146,6 +150,7 @@ export type BusinessMaxAggregateInputType = {
   logoAssetId?: true
   name?: true
   slug?: true
+  publicCardId?: true
   category?: true
   categoryDetail?: true
   description?: true
@@ -169,6 +174,7 @@ export type BusinessCountAggregateInputType = {
   logoAssetId?: true
   name?: true
   slug?: true
+  publicCardId?: true
   category?: true
   categoryDetail?: true
   description?: true
@@ -279,6 +285,7 @@ export type BusinessGroupByOutputType = {
   logoAssetId: string | null
   name: string
   slug: string
+  publicCardId: string
   category: string | null
   categoryDetail: string | null
   description: string | null
@@ -325,6 +332,7 @@ export type BusinessWhereInput = {
   logoAssetId?: Prisma.StringNullableFilter<"Business"> | string | null
   name?: Prisma.StringFilter<"Business"> | string
   slug?: Prisma.StringFilter<"Business"> | string
+  publicCardId?: Prisma.StringFilter<"Business"> | string
   category?: Prisma.StringNullableFilter<"Business"> | string | null
   categoryDetail?: Prisma.StringNullableFilter<"Business"> | string | null
   description?: Prisma.StringNullableFilter<"Business"> | string | null
@@ -372,6 +380,7 @@ export type BusinessOrderByWithRelationInput = {
   logoAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  publicCardId?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryDetail?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -417,6 +426,7 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   logoAssetId?: string
   slug?: string
+  publicCardId?: string
   AND?: Prisma.BusinessWhereInput | Prisma.BusinessWhereInput[]
   OR?: Prisma.BusinessWhereInput[]
   NOT?: Prisma.BusinessWhereInput | Prisma.BusinessWhereInput[]
@@ -461,7 +471,7 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   issues?: Prisma.CustomerIssueListRelationFilter
   trustLedger?: Prisma.TrustLedgerEntryListRelationFilter
   supportRequests?: Prisma.SupportRequestListRelationFilter
-}, "id" | "logoAssetId" | "slug">
+}, "id" | "logoAssetId" | "slug" | "publicCardId">
 
 export type BusinessOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -469,6 +479,7 @@ export type BusinessOrderByWithAggregationInput = {
   logoAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  publicCardId?: Prisma.SortOrder
   category?: Prisma.SortOrderInput | Prisma.SortOrder
   categoryDetail?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -500,6 +511,7 @@ export type BusinessScalarWhereWithAggregatesInput = {
   logoAssetId?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"Business"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Business"> | string
+  publicCardId?: Prisma.StringWithAggregatesFilter<"Business"> | string
   category?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   categoryDetail?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
@@ -521,6 +533,7 @@ export type BusinessCreateInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -568,6 +581,7 @@ export type BusinessUncheckedCreateInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -611,6 +625,7 @@ export type BusinessUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -658,6 +673,7 @@ export type BusinessUncheckedUpdateInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -703,6 +719,7 @@ export type BusinessCreateManyInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -724,6 +741,7 @@ export type BusinessUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -747,6 +765,7 @@ export type BusinessUncheckedUpdateManyInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -780,6 +799,7 @@ export type BusinessCountOrderByAggregateInput = {
   logoAssetId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  publicCardId?: Prisma.SortOrder
   category?: Prisma.SortOrder
   categoryDetail?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -808,6 +828,7 @@ export type BusinessMaxOrderByAggregateInput = {
   logoAssetId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  publicCardId?: Prisma.SortOrder
   category?: Prisma.SortOrder
   categoryDetail?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -831,6 +852,7 @@ export type BusinessMinOrderByAggregateInput = {
   logoAssetId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
+  publicCardId?: Prisma.SortOrder
   category?: Prisma.SortOrder
   categoryDetail?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -1271,6 +1293,7 @@ export type BusinessCreateWithoutOwnerInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -1316,6 +1339,7 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -1390,6 +1414,7 @@ export type BusinessScalarWhereInput = {
   logoAssetId?: Prisma.StringNullableFilter<"Business"> | string | null
   name?: Prisma.StringFilter<"Business"> | string
   slug?: Prisma.StringFilter<"Business"> | string
+  publicCardId?: Prisma.StringFilter<"Business"> | string
   category?: Prisma.StringNullableFilter<"Business"> | string | null
   categoryDetail?: Prisma.StringNullableFilter<"Business"> | string | null
   description?: Prisma.StringNullableFilter<"Business"> | string | null
@@ -1411,6 +1436,7 @@ export type BusinessCreateWithoutPreferencesInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -1457,6 +1483,7 @@ export type BusinessUncheckedCreateWithoutPreferencesInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -1515,6 +1542,7 @@ export type BusinessUpdateWithoutPreferencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1561,6 +1589,7 @@ export type BusinessUncheckedUpdateWithoutPreferencesInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1603,6 +1632,7 @@ export type BusinessCreateWithoutContactsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -1649,6 +1679,7 @@ export type BusinessUncheckedCreateWithoutContactsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -1707,6 +1738,7 @@ export type BusinessUpdateWithoutContactsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1753,6 +1785,7 @@ export type BusinessUncheckedUpdateWithoutContactsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1795,6 +1828,7 @@ export type BusinessCreateWithoutMembersInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -1841,6 +1875,7 @@ export type BusinessUncheckedCreateWithoutMembersInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -1899,6 +1934,7 @@ export type BusinessUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1945,6 +1981,7 @@ export type BusinessUncheckedUpdateWithoutMembersInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1987,6 +2024,7 @@ export type BusinessCreateWithoutInvitationsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2033,6 +2071,7 @@ export type BusinessUncheckedCreateWithoutInvitationsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2091,6 +2130,7 @@ export type BusinessUpdateWithoutInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2137,6 +2177,7 @@ export type BusinessUncheckedUpdateWithoutInvitationsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2179,6 +2220,7 @@ export type BusinessCreateWithoutAssetsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2225,6 +2267,7 @@ export type BusinessUncheckedCreateWithoutAssetsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2272,6 +2315,7 @@ export type BusinessCreateWithoutLogoAssetInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2317,6 +2361,7 @@ export type BusinessUncheckedCreateWithoutLogoAssetInput = {
   ownerId: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2376,6 +2421,7 @@ export type BusinessUpdateWithoutAssetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2422,6 +2468,7 @@ export type BusinessUncheckedUpdateWithoutAssetsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2475,6 +2522,7 @@ export type BusinessUpdateWithoutLogoAssetInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2520,6 +2568,7 @@ export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2563,6 +2612,7 @@ export type BusinessCreateWithoutCustomersInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2609,6 +2659,7 @@ export type BusinessUncheckedCreateWithoutCustomersInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2667,6 +2718,7 @@ export type BusinessUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2713,6 +2765,7 @@ export type BusinessUncheckedUpdateWithoutCustomersInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2755,6 +2808,7 @@ export type BusinessCreateWithoutCustomerTagsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2801,6 +2855,7 @@ export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2859,6 +2914,7 @@ export type BusinessUpdateWithoutCustomerTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2905,6 +2961,7 @@ export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2947,6 +3004,7 @@ export type BusinessCreateWithoutProductsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -2993,6 +3051,7 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3051,6 +3110,7 @@ export type BusinessUpdateWithoutProductsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3097,6 +3157,7 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3139,6 +3200,7 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3185,6 +3247,7 @@ export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3243,6 +3306,7 @@ export type BusinessUpdateWithoutWishlistItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3289,6 +3353,7 @@ export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3331,6 +3396,7 @@ export type BusinessCreateWithoutProductInterestsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3377,6 +3443,7 @@ export type BusinessUncheckedCreateWithoutProductInterestsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3435,6 +3502,7 @@ export type BusinessUpdateWithoutProductInterestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3481,6 +3549,7 @@ export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3523,6 +3592,7 @@ export type BusinessCreateWithoutOrderRequestsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3569,6 +3639,7 @@ export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3627,6 +3698,7 @@ export type BusinessUpdateWithoutOrderRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3673,6 +3745,7 @@ export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3715,6 +3788,7 @@ export type BusinessCreateWithoutCommerceEventsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3761,6 +3835,7 @@ export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3819,6 +3894,7 @@ export type BusinessUpdateWithoutCommerceEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3865,6 +3941,7 @@ export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3907,6 +3984,7 @@ export type BusinessCreateWithoutSalesInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -3953,6 +4031,7 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4011,6 +4090,7 @@ export type BusinessUpdateWithoutSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4057,6 +4137,7 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4099,6 +4180,7 @@ export type BusinessCreateWithoutReceiptsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4145,6 +4227,7 @@ export type BusinessUncheckedCreateWithoutReceiptsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4203,6 +4286,7 @@ export type BusinessUpdateWithoutReceiptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4249,6 +4333,7 @@ export type BusinessUncheckedUpdateWithoutReceiptsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4291,6 +4376,7 @@ export type BusinessCreateWithoutDeliveriesInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4337,6 +4423,7 @@ export type BusinessUncheckedCreateWithoutDeliveriesInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4395,6 +4482,7 @@ export type BusinessUpdateWithoutDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4441,6 +4529,7 @@ export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4483,6 +4572,7 @@ export type BusinessCreateWithoutActivityEventsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4529,6 +4619,7 @@ export type BusinessUncheckedCreateWithoutActivityEventsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4587,6 +4678,7 @@ export type BusinessUpdateWithoutActivityEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4633,6 +4725,7 @@ export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4675,6 +4768,7 @@ export type BusinessCreateWithoutFollowUpTemplatesInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4721,6 +4815,7 @@ export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4779,6 +4874,7 @@ export type BusinessUpdateWithoutFollowUpTemplatesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4825,6 +4921,7 @@ export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4867,6 +4964,7 @@ export type BusinessCreateWithoutFollowUpSuggestionsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4913,6 +5011,7 @@ export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -4971,6 +5070,7 @@ export type BusinessUpdateWithoutFollowUpSuggestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5017,6 +5117,7 @@ export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5059,6 +5160,7 @@ export type BusinessCreateWithoutFeedbackInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -5105,6 +5207,7 @@ export type BusinessUncheckedCreateWithoutFeedbackInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -5163,6 +5266,7 @@ export type BusinessUpdateWithoutFeedbackInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5209,6 +5313,7 @@ export type BusinessUncheckedUpdateWithoutFeedbackInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5251,6 +5356,7 @@ export type BusinessCreateWithoutIssuesInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -5297,6 +5403,7 @@ export type BusinessUncheckedCreateWithoutIssuesInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -5355,6 +5462,7 @@ export type BusinessUpdateWithoutIssuesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5401,6 +5509,7 @@ export type BusinessUncheckedUpdateWithoutIssuesInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5443,6 +5552,7 @@ export type BusinessCreateWithoutTrustLedgerInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -5489,6 +5599,7 @@ export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -5547,6 +5658,7 @@ export type BusinessUpdateWithoutTrustLedgerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5593,6 +5705,7 @@ export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5635,6 +5748,7 @@ export type BusinessCreateWithoutSupportRequestsInput = {
   id?: string
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -5681,6 +5795,7 @@ export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -5739,6 +5854,7 @@ export type BusinessUpdateWithoutSupportRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5785,6 +5901,7 @@ export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5828,6 +5945,7 @@ export type BusinessCreateManyOwnerInput = {
   logoAssetId?: string | null
   name: string
   slug: string
+  publicCardId: string
   category?: string | null
   categoryDetail?: string | null
   description?: string | null
@@ -5849,6 +5967,7 @@ export type BusinessUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5894,6 +6013,7 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5938,6 +6058,7 @@ export type BusinessUncheckedUpdateManyWithoutOwnerInput = {
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -6172,6 +6293,7 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   logoAssetId?: boolean
   name?: boolean
   slug?: boolean
+  publicCardId?: boolean
   category?: boolean
   categoryDetail?: boolean
   description?: boolean
@@ -6220,6 +6342,7 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   logoAssetId?: boolean
   name?: boolean
   slug?: boolean
+  publicCardId?: boolean
   category?: boolean
   categoryDetail?: boolean
   description?: boolean
@@ -6245,6 +6368,7 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   logoAssetId?: boolean
   name?: boolean
   slug?: boolean
+  publicCardId?: boolean
   category?: boolean
   categoryDetail?: boolean
   description?: boolean
@@ -6270,6 +6394,7 @@ export type BusinessSelectScalar = {
   logoAssetId?: boolean
   name?: boolean
   slug?: boolean
+  publicCardId?: boolean
   category?: boolean
   categoryDetail?: boolean
   description?: boolean
@@ -6287,7 +6412,7 @@ export type BusinessSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "logoAssetId" | "name" | "slug" | "category" | "categoryDetail" | "description" | "location" | "storeStatus" | "pledgeSignature" | "pledgedAt" | "plan" | "subscriptionStatus" | "trialStartedAt" | "trialEndsAt" | "customerLimit" | "receiptLimit" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
+export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "logoAssetId" | "name" | "slug" | "publicCardId" | "category" | "categoryDetail" | "description" | "location" | "storeStatus" | "pledgeSignature" | "pledgedAt" | "plan" | "subscriptionStatus" | "trialStartedAt" | "trialEndsAt" | "customerLimit" | "receiptLimit" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
 export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
@@ -6358,6 +6483,7 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     logoAssetId: string | null
     name: string
     slug: string
+    publicCardId: string
     category: string | null
     categoryDetail: string | null
     description: string | null
@@ -6825,6 +6951,7 @@ export interface BusinessFieldRefs {
   readonly logoAssetId: Prisma.FieldRef<"Business", 'String'>
   readonly name: Prisma.FieldRef<"Business", 'String'>
   readonly slug: Prisma.FieldRef<"Business", 'String'>
+  readonly publicCardId: Prisma.FieldRef<"Business", 'String'>
   readonly category: Prisma.FieldRef<"Business", 'String'>
   readonly categoryDetail: Prisma.FieldRef<"Business", 'String'>
   readonly description: Prisma.FieldRef<"Business", 'String'>
