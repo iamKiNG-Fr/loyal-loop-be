@@ -47,6 +47,9 @@ export type DeliveryMinAggregateOutputType = {
   googlePlaceId: string | null
   latitude: number | null
   longitude: number | null
+  isGift: boolean | null
+  recipientName: string | null
+  recipientPhone: string | null
   courier: string | null
   trackingCode: string | null
   trackingUrl: string | null
@@ -67,6 +70,9 @@ export type DeliveryMaxAggregateOutputType = {
   googlePlaceId: string | null
   latitude: number | null
   longitude: number | null
+  isGift: boolean | null
+  recipientName: string | null
+  recipientPhone: string | null
   courier: string | null
   trackingCode: string | null
   trackingUrl: string | null
@@ -87,6 +93,9 @@ export type DeliveryCountAggregateOutputType = {
   googlePlaceId: number
   latitude: number
   longitude: number
+  isGift: number
+  recipientName: number
+  recipientPhone: number
   courier: number
   trackingCode: number
   trackingUrl: number
@@ -119,6 +128,9 @@ export type DeliveryMinAggregateInputType = {
   googlePlaceId?: true
   latitude?: true
   longitude?: true
+  isGift?: true
+  recipientName?: true
+  recipientPhone?: true
   courier?: true
   trackingCode?: true
   trackingUrl?: true
@@ -139,6 +151,9 @@ export type DeliveryMaxAggregateInputType = {
   googlePlaceId?: true
   latitude?: true
   longitude?: true
+  isGift?: true
+  recipientName?: true
+  recipientPhone?: true
   courier?: true
   trackingCode?: true
   trackingUrl?: true
@@ -159,6 +174,9 @@ export type DeliveryCountAggregateInputType = {
   googlePlaceId?: true
   latitude?: true
   longitude?: true
+  isGift?: true
+  recipientName?: true
+  recipientPhone?: true
   courier?: true
   trackingCode?: true
   trackingUrl?: true
@@ -266,6 +284,9 @@ export type DeliveryGroupByOutputType = {
   googlePlaceId: string | null
   latitude: number | null
   longitude: number | null
+  isGift: boolean
+  recipientName: string | null
+  recipientPhone: string | null
   courier: string | null
   trackingCode: string | null
   trackingUrl: string | null
@@ -309,6 +330,9 @@ export type DeliveryWhereInput = {
   googlePlaceId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
   longitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  isGift?: Prisma.BoolFilter<"Delivery"> | boolean
+  recipientName?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  recipientPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableFilter<"Delivery"> | string | null
@@ -336,6 +360,9 @@ export type DeliveryOrderByWithRelationInput = {
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   courier?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingCode?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingUrl?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -366,6 +393,9 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   googlePlaceId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
   longitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  isGift?: Prisma.BoolFilter<"Delivery"> | boolean
+  recipientName?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  recipientPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableFilter<"Delivery"> | string | null
@@ -393,6 +423,9 @@ export type DeliveryOrderByWithAggregationInput = {
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   courier?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingCode?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingUrl?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -421,6 +454,9 @@ export type DeliveryScalarWhereWithAggregatesInput = {
   googlePlaceId?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   latitude?: Prisma.FloatNullableWithAggregatesFilter<"Delivery"> | number | null
   longitude?: Prisma.FloatNullableWithAggregatesFilter<"Delivery"> | number | null
+  isGift?: Prisma.BoolWithAggregatesFilter<"Delivery"> | boolean
+  recipientName?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  recipientPhone?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
@@ -438,6 +474,9 @@ export type DeliveryCreateInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -465,6 +504,9 @@ export type DeliveryUncheckedCreateInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -486,6 +528,9 @@ export type DeliveryUpdateInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -513,6 +558,9 @@ export type DeliveryUncheckedUpdateInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -537,6 +585,9 @@ export type DeliveryCreateManyInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -554,6 +605,9 @@ export type DeliveryUpdateManyMutationInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -574,6 +628,9 @@ export type DeliveryUncheckedUpdateManyInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -609,6 +666,9 @@ export type DeliveryCountOrderByAggregateInput = {
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrder
   courier?: Prisma.SortOrder
   trackingCode?: Prisma.SortOrder
   trackingUrl?: Prisma.SortOrder
@@ -634,6 +694,9 @@ export type DeliveryMaxOrderByAggregateInput = {
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrder
   courier?: Prisma.SortOrder
   trackingCode?: Prisma.SortOrder
   trackingUrl?: Prisma.SortOrder
@@ -654,6 +717,9 @@ export type DeliveryMinOrderByAggregateInput = {
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrder
   courier?: Prisma.SortOrder
   trackingCode?: Prisma.SortOrder
   trackingUrl?: Prisma.SortOrder
@@ -863,6 +929,9 @@ export type DeliveryCreateWithoutBusinessInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -888,6 +957,9 @@ export type DeliveryUncheckedCreateWithoutBusinessInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -941,6 +1013,9 @@ export type DeliveryScalarWhereInput = {
   googlePlaceId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
   longitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  isGift?: Prisma.BoolFilter<"Delivery"> | boolean
+  recipientName?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  recipientPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableFilter<"Delivery"> | string | null
@@ -958,6 +1033,9 @@ export type DeliveryCreateWithoutCustomerInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -983,6 +1061,9 @@ export type DeliveryUncheckedCreateWithoutCustomerInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1030,6 +1111,9 @@ export type DeliveryCreateWithoutSaleInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1055,6 +1139,9 @@ export type DeliveryUncheckedCreateWithoutSaleInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1092,6 +1179,9 @@ export type DeliveryUpdateWithoutSaleInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1117,6 +1207,9 @@ export type DeliveryUncheckedUpdateWithoutSaleInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1138,6 +1231,9 @@ export type DeliveryCreateWithoutEventsInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1164,6 +1260,9 @@ export type DeliveryUncheckedCreateWithoutEventsInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1200,6 +1299,9 @@ export type DeliveryUpdateWithoutEventsInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1226,6 +1328,9 @@ export type DeliveryUncheckedUpdateWithoutEventsInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1246,6 +1351,9 @@ export type DeliveryCreateWithoutActivityEventsInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1272,6 +1380,9 @@ export type DeliveryUncheckedCreateWithoutActivityEventsInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1308,6 +1419,9 @@ export type DeliveryUpdateWithoutActivityEventsInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1334,6 +1448,9 @@ export type DeliveryUncheckedUpdateWithoutActivityEventsInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1354,6 +1471,9 @@ export type DeliveryCreateWithoutFeedbackInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1380,6 +1500,9 @@ export type DeliveryUncheckedCreateWithoutFeedbackInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1416,6 +1539,9 @@ export type DeliveryUpdateWithoutFeedbackInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1442,6 +1568,9 @@ export type DeliveryUncheckedUpdateWithoutFeedbackInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1462,6 +1591,9 @@ export type DeliveryCreateWithoutIssuesInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1488,6 +1620,9 @@ export type DeliveryUncheckedCreateWithoutIssuesInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1524,6 +1659,9 @@ export type DeliveryUpdateWithoutIssuesInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1550,6 +1688,9 @@ export type DeliveryUncheckedUpdateWithoutIssuesInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1572,6 +1713,9 @@ export type DeliveryCreateManyBusinessInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1589,6 +1733,9 @@ export type DeliveryUpdateWithoutBusinessInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1614,6 +1761,9 @@ export type DeliveryUncheckedUpdateWithoutBusinessInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1637,6 +1787,9 @@ export type DeliveryUncheckedUpdateManyWithoutBusinessInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1656,6 +1809,9 @@ export type DeliveryCreateManyCustomerInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   courier?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
@@ -1673,6 +1829,9 @@ export type DeliveryUpdateWithoutCustomerInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1698,6 +1857,9 @@ export type DeliveryUncheckedUpdateWithoutCustomerInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1721,6 +1883,9 @@ export type DeliveryUncheckedUpdateManyWithoutCustomerInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1799,6 +1964,9 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
   courier?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
@@ -1827,6 +1995,9 @@ export type DeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
   courier?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
@@ -1850,6 +2021,9 @@ export type DeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
   courier?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
@@ -1873,6 +2047,9 @@ export type DeliverySelectScalar = {
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
   courier?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
@@ -1882,7 +2059,7 @@ export type DeliverySelectScalar = {
   updatedAt?: boolean
 }
 
-export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "saleId" | "tokenHash" | "status" | "address" | "googlePlaceId" | "latitude" | "longitude" | "courier" | "trackingCode" | "trackingUrl" | "deliveredAt" | "confirmedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["delivery"]>
+export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "saleId" | "tokenHash" | "status" | "address" | "googlePlaceId" | "latitude" | "longitude" | "isGift" | "recipientName" | "recipientPhone" | "courier" | "trackingCode" | "trackingUrl" | "deliveredAt" | "confirmedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["delivery"]>
 export type DeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -1926,6 +2103,9 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     googlePlaceId: string | null
     latitude: number | null
     longitude: number | null
+    isGift: boolean
+    recipientName: string | null
+    recipientPhone: string | null
     courier: string | null
     trackingCode: string | null
     trackingUrl: string | null
@@ -2373,6 +2553,9 @@ export interface DeliveryFieldRefs {
   readonly googlePlaceId: Prisma.FieldRef<"Delivery", 'String'>
   readonly latitude: Prisma.FieldRef<"Delivery", 'Float'>
   readonly longitude: Prisma.FieldRef<"Delivery", 'Float'>
+  readonly isGift: Prisma.FieldRef<"Delivery", 'Boolean'>
+  readonly recipientName: Prisma.FieldRef<"Delivery", 'String'>
+  readonly recipientPhone: Prisma.FieldRef<"Delivery", 'String'>
   readonly courier: Prisma.FieldRef<"Delivery", 'String'>
   readonly trackingCode: Prisma.FieldRef<"Delivery", 'String'>
   readonly trackingUrl: Prisma.FieldRef<"Delivery", 'String'>

@@ -120,6 +120,11 @@ export class ShopsService {
     const customerAccountId = rawCustomerSession
       ? await this.resolveCustomerAccount(rawCustomerSession)
       : undefined;
+    const customerAccount = customerAccountId
+      ? await this.prisma.customerAccount.findUnique({
+          where: { id: customerAccountId },
+        })
+      : undefined;
     const fulfillment: FulfillmentType = dto.fulfillment ?? "ARRANGE_LATER";
     const savedAddress = dto.customerAddressId
       ? await this.resolveCustomerAddress(customerAccountId, dto.customerAddressId)
@@ -129,6 +134,24 @@ export class ShopsService {
     if (fulfillment === "DELIVERY" && !deliveryAddress) {
       throw new BadRequestException("Delivery address is required for delivery requests");
     }
+    if (
+      dto.isGift &&
+      (fulfillment !== "DELIVERY" ||
+        !dto.recipientName?.trim() ||
+        !dto.recipientPhone?.trim())
+    ) {
+      throw new BadRequestException(
+        "Gift delivery requires the recipient name, phone, and delivery address",
+      );
+    }
+    const customerName = customerAccount?.name?.trim() || dto.customerName.trim();
+    const customerPhone = customerAccount?.phone || dto.customerPhone.trim();
+    if (customerAccount && !customerAccount.name?.trim()) {
+      await this.prisma.customerAccount.update({
+        where: { id: customerAccount.id },
+        data: { name: customerName },
+      });
+    }
     const generated = createOpaqueToken();
     const request = await this.prisma.orderRequest.create({
       data: {
@@ -136,8 +159,8 @@ export class ShopsService {
         customerAccountId,
         referenceCode: createReference("REQ"),
         tokenHash: generated.tokenHash,
-        customerName: dto.customerName.trim(),
-        customerPhone: dto.customerPhone.trim(),
+        customerName,
+        customerPhone,
         channel: dto.channel,
         fulfillment,
         customerAddressId: savedAddress?.id,
@@ -148,6 +171,9 @@ export class ShopsService {
         deliveryLongitude: savedAddress?.longitude ?? dto.deliveryLongitude,
         deliveryNotes:
           savedAddress?.deliveryNotes?.trim() || dto.deliveryNotes?.trim(),
+        isGift: dto.isGift ?? false,
+        recipientName: dto.isGift ? dto.recipientName?.trim() : undefined,
+        recipientPhone: dto.isGift ? dto.recipientPhone?.trim() : undefined,
         note: dto.note?.trim(),
         items: {
           create: dto.items.map((item) => {
@@ -275,6 +301,9 @@ export class ShopsService {
         deliveryLatitude: request.deliveryLatitude ?? undefined,
         deliveryLongitude: request.deliveryLongitude ?? undefined,
         deliveryNotes: request.deliveryNotes ?? undefined,
+        isGift: request.isGift,
+        recipientName: request.recipientName ?? undefined,
+        recipientPhone: request.recipientPhone ?? undefined,
         items: request.items.map((item) => ({
           productId: item.productId ?? undefined,
           name: item.name,

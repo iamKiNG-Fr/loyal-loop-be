@@ -3,6 +3,7 @@ import {
   ArrayMaxSize,
   ArrayMinSize,
   IsArray,
+  IsBoolean,
   IsDateString,
   IsEnum,
   IsInt,
@@ -88,6 +89,10 @@ export class CreateSaleDto {
   amountPaid?: string;
 
   @IsOptional()
+  @IsBoolean()
+  protectedPayment?: boolean;
+
+  @IsOptional()
   @IsString()
   @Length(0, 1000)
   notes?: string;
@@ -129,6 +134,20 @@ export class CreateSaleDto {
   @IsString()
   @Length(0, 500)
   deliveryNotes?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isGift?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  recipientName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(5, 30)
+  recipientPhone?: string;
 }
 
 export class RecordPaymentDto {

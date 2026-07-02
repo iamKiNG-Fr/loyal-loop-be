@@ -375,26 +375,28 @@ model Business {
 }
 
 model BusinessPreferences {
-  businessId            String              @id
-  currency              String              @default("NGN")
-  numberFormat          NumberFormat        @default(COMMA_DECIMAL)
-  timezone              String              @default("Africa/Lagos")
-  theme                 BusinessTheme       @default(LOYAL_PURPLE)
-    shelfMode             String              @default("carousel")
-    showRecommended       Boolean             @default(true)
-    showLatest            Boolean             @default(true)
-    tickerItems           String[]            @default(["New drops", "Trusted receipts", "Delivery updates", "Customer favourites"])
-  defaultPaymentStatus  PaymentStatus       @default(UNPAID)
-  receiptDeliveryLine   ReceiptDeliveryLine @default(OPTIONAL)
-  receiptFooter         String?
-  notifyFollowUps       Boolean             @default(true)
-  notifyReceiptViews    Boolean             @default(false)
-  notifyDeliveryUpdates Boolean             @default(true)
-  exportAccess          ExportAccess        @default(OWNER_ONLY)
-  retentionPolicy       RetentionPolicy     @default(MANUAL)
-  createdAt             DateTime            @default(now())
-  updatedAt             DateTime            @updatedAt
-  business              Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  businessId              String              @id
+  currency                String              @default("NGN")
+  numberFormat            NumberFormat        @default(COMMA_DECIMAL)
+  timezone                String              @default("Africa/Lagos")
+  theme                   BusinessTheme       @default(LOYAL_PURPLE)
+  shelfMode               String              @default("carousel")
+  showRecommended         Boolean             @default(true)
+  showLatest              Boolean             @default(true)
+  tickerItems             String[]            @default(["New drops", "Trusted receipts", "Delivery updates", "Customer favourites"])
+  defaultPaymentStatus    PaymentStatus       @default(UNPAID)
+  protectedPaymentEnabled Boolean             @default(false)
+  receiptDeliveryLine     ReceiptDeliveryLine @default(OPTIONAL)
+  receiptFooter           String?
+  feedbackResponseTime    String              @default("Within one business day")
+  notifyFollowUps         Boolean             @default(true)
+  notifyReceiptViews      Boolean             @default(false)
+  notifyDeliveryUpdates   Boolean             @default(true)
+  exportAccess            ExportAccess        @default(OWNER_ONLY)
+  retentionPolicy         RetentionPolicy     @default(MANUAL)
+  createdAt               DateTime            @default(now())
+  updatedAt               DateTime            @updatedAt
+  business                Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
 
   @@map("business_preferences")
 }
@@ -483,6 +485,7 @@ model MediaAsset {
 model CustomerAccount {
   id         String                   @id @default(cuid())
   phone      String                   @unique
+  name       String?
   verifiedAt DateTime
   createdAt  DateTime                 @default(now())
   updatedAt  DateTime                 @updatedAt
@@ -734,6 +737,9 @@ model OrderRequest {
   deliveryLatitude  Float?
   deliveryLongitude Float?
   deliveryNotes     String?
+  isGift            Boolean            @default(false)
+  recipientName     String?
+  recipientPhone    String?
   note              String?
   status            OrderRequestStatus @default(SENT)
   createdAt         DateTime           @default(now())
@@ -788,56 +794,57 @@ model CommerceEvent {
 }
 
 model Sale {
-  id              String             @id @default(cuid())
-  businessId      String
-  customerId      String
-  sourceRequestId String?            @unique
-  idempotencyKey  String?
-  referenceCode   String             @unique
-  status          SaleStatus         @default(COMPLETED)
-  paymentStatus   PaymentStatus      @default(UNPAID)
-  channel         SalesChannel       @default(OTHER)
-  fulfillment     FulfillmentType    @default(NOT_REQUIRED)
-  currency        String             @default("NGN")
-  subtotal        Decimal            @default(0) @db.Decimal(12, 2)
-  discount        Decimal            @default(0) @db.Decimal(12, 2)
-  deliveryFee     Decimal            @default(0) @db.Decimal(12, 2)
-  total           Decimal            @default(0) @db.Decimal(12, 2)
-  amountPaid      Decimal            @default(0) @db.Decimal(12, 2)
-  notes           String?
-  soldAt          DateTime           @default(now())
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
-  business        Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customer        Customer           @relation(fields: [customerId], references: [id])
-  sourceRequest   OrderRequest?      @relation("RequestConversion", fields: [sourceRequestId], references: [id], onDelete: SetNull)
-  items           SaleItem[]
-  payments        PaymentEntry[]
-  receipt         Receipt?
-  delivery        Delivery?
-  activityEvents  ActivityEvent[]
-  feedback        CustomerFeedback[]
-  issues          CustomerIssue[]
+  id               String             @id @default(cuid())
+  businessId       String
+  customerId       String
+  sourceRequestId  String?            @unique
+  idempotencyKey   String?
+  referenceCode    String             @unique
+  status           SaleStatus         @default(COMPLETED)
+  paymentStatus    PaymentStatus      @default(UNPAID)
+  protectedPayment Boolean            @default(false)
+  channel          SalesChannel       @default(OTHER)
+  fulfillment      FulfillmentType    @default(NOT_REQUIRED)
+  currency         String             @default("NGN")
+  subtotal         Decimal            @default(0) @db.Decimal(12, 2)
+  discount         Decimal            @default(0) @db.Decimal(12, 2)
+  deliveryFee      Decimal            @default(0) @db.Decimal(12, 2)
+  total            Decimal            @default(0) @db.Decimal(12, 2)
+  amountPaid       Decimal            @default(0) @db.Decimal(12, 2)
+  notes            String?
+  soldAt           DateTime           @default(now())
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  business         Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer         Customer           @relation(fields: [customerId], references: [id])
+  sourceRequest    OrderRequest?      @relation("RequestConversion", fields: [sourceRequestId], references: [id], onDelete: SetNull)
+  items            SaleItem[]
+  payments         PaymentEntry[]
+  receipt          Receipt?
+  delivery         Delivery?
+  activityEvents   ActivityEvent[]
+  feedback         CustomerFeedback[]
+  issues           CustomerIssue[]
 
+  @@unique([businessId, idempotencyKey])
   @@index([businessId, soldAt])
   @@index([customerId, soldAt])
-  @@unique([businessId, idempotencyKey])
   @@map("sales")
 }
 
 model SaleItem {
-    id                    String   @id @default(cuid())
-    saleId                String
-    productId             String?
-    name                  String
-    imageUrl              String?
-    quantity              Int      @default(1)
-    catalogUnitPrice      Decimal? @db.Decimal(12, 2)
-    unitPrice             Decimal  @db.Decimal(12, 2)
-    priceAdjustmentReason String?
-    total                 Decimal  @db.Decimal(12, 2)
-    sale                  Sale     @relation(fields: [saleId], references: [id], onDelete: Cascade)
-    product               Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  id                    String   @id @default(cuid())
+  saleId                String
+  productId             String?
+  name                  String
+  imageUrl              String?
+  quantity              Int      @default(1)
+  catalogUnitPrice      Decimal? @db.Decimal(12, 2)
+  unitPrice             Decimal  @db.Decimal(12, 2)
+  priceAdjustmentReason String?
+  total                 Decimal  @db.Decimal(12, 2)
+  sale                  Sale     @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product               Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
 
   @@index([saleId])
   @@index([productId])
@@ -894,11 +901,14 @@ model Delivery {
   customerId     String
   saleId         String             @unique
   tokenHash      String             @unique
-    status         DeliveryStatus     @default(PREPARING)
-    address        String?
-    googlePlaceId  String?
-    latitude       Float?
-    longitude      Float?
+  status         DeliveryStatus     @default(PREPARING)
+  address        String?
+  googlePlaceId  String?
+  latitude       Float?
+  longitude      Float?
+  isGift         Boolean            @default(false)
+  recipientName  String?
+  recipientPhone String?
   courier        String?
   trackingCode   String?
   trackingUrl    String?

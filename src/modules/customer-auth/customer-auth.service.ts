@@ -118,6 +118,18 @@ export class CustomerAuthService {
     });
   }
 
+  getAccount(customerAccountId: string) {
+    return this.prisma.customerAccount.findUniqueOrThrow({
+      where: { id: customerAccountId },
+      select: {
+        id: true,
+        name: true,
+        phone: true,
+        verifiedAt: true,
+      },
+    });
+  }
+
   listAddresses(customerAccountId: string) {
     return this.prisma.customerAddress.findMany({
       where: { customerAccountId },

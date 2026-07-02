@@ -119,6 +119,10 @@ export class UpdateBusinessPreferencesDto {
   defaultPaymentStatus?: PaymentStatus;
 
   @IsOptional()
+  @IsBoolean()
+  protectedPaymentEnabled?: boolean;
+
+  @IsOptional()
   @IsEnum(ReceiptDeliveryLine)
   receiptDeliveryLine?: ReceiptDeliveryLine;
 
@@ -126,6 +130,11 @@ export class UpdateBusinessPreferencesDto {
   @IsString()
   @Length(0, 500)
   receiptFooter?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  feedbackResponseTime?: string;
 
   @IsOptional()
   @IsString()

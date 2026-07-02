@@ -83,6 +83,14 @@ export class CustomerAuthController {
     return ok(null, "Customer signed out");
   }
 
+  @Get("me")
+  @UseGuards(CustomerAuthGuard)
+  me(@CurrentCustomer() customer: CustomerAuthContext) {
+    return this.auth
+      .getAccount(customer.customerAccountId)
+      .then((data) => ok(data));
+  }
+
   @Get("me/addresses")
   @UseGuards(CustomerAuthGuard)
   addresses(@CurrentCustomer() customer: CustomerAuthContext) {

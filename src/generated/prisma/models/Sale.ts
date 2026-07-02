@@ -51,6 +51,7 @@ export type SaleMinAggregateOutputType = {
   referenceCode: string | null
   status: $Enums.SaleStatus | null
   paymentStatus: $Enums.PaymentStatus | null
+  protectedPayment: boolean | null
   channel: $Enums.SalesChannel | null
   fulfillment: $Enums.FulfillmentType | null
   currency: string | null
@@ -74,6 +75,7 @@ export type SaleMaxAggregateOutputType = {
   referenceCode: string | null
   status: $Enums.SaleStatus | null
   paymentStatus: $Enums.PaymentStatus | null
+  protectedPayment: boolean | null
   channel: $Enums.SalesChannel | null
   fulfillment: $Enums.FulfillmentType | null
   currency: string | null
@@ -97,6 +99,7 @@ export type SaleCountAggregateOutputType = {
   referenceCode: number
   status: number
   paymentStatus: number
+  protectedPayment: number
   channel: number
   fulfillment: number
   currency: number
@@ -138,6 +141,7 @@ export type SaleMinAggregateInputType = {
   referenceCode?: true
   status?: true
   paymentStatus?: true
+  protectedPayment?: true
   channel?: true
   fulfillment?: true
   currency?: true
@@ -161,6 +165,7 @@ export type SaleMaxAggregateInputType = {
   referenceCode?: true
   status?: true
   paymentStatus?: true
+  protectedPayment?: true
   channel?: true
   fulfillment?: true
   currency?: true
@@ -184,6 +189,7 @@ export type SaleCountAggregateInputType = {
   referenceCode?: true
   status?: true
   paymentStatus?: true
+  protectedPayment?: true
   channel?: true
   fulfillment?: true
   currency?: true
@@ -294,6 +300,7 @@ export type SaleGroupByOutputType = {
   referenceCode: string
   status: $Enums.SaleStatus
   paymentStatus: $Enums.PaymentStatus
+  protectedPayment: boolean
   channel: $Enums.SalesChannel
   fulfillment: $Enums.FulfillmentType
   currency: string
@@ -340,6 +347,7 @@ export type SaleWhereInput = {
   referenceCode?: Prisma.StringFilter<"Sale"> | string
   status?: Prisma.EnumSaleStatusFilter<"Sale"> | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"Sale"> | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFilter<"Sale"> | boolean
   channel?: Prisma.EnumSalesChannelFilter<"Sale"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"Sale"> | $Enums.FulfillmentType
   currency?: Prisma.StringFilter<"Sale"> | string
@@ -373,6 +381,7 @@ export type SaleOrderByWithRelationInput = {
   referenceCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  protectedPayment?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -410,6 +419,7 @@ export type SaleWhereUniqueInput = Prisma.AtLeast<{
   idempotencyKey?: Prisma.StringNullableFilter<"Sale"> | string | null
   status?: Prisma.EnumSaleStatusFilter<"Sale"> | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"Sale"> | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFilter<"Sale"> | boolean
   channel?: Prisma.EnumSalesChannelFilter<"Sale"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"Sale"> | $Enums.FulfillmentType
   currency?: Prisma.StringFilter<"Sale"> | string
@@ -443,6 +453,7 @@ export type SaleOrderByWithAggregationInput = {
   referenceCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  protectedPayment?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -474,6 +485,7 @@ export type SaleScalarWhereWithAggregatesInput = {
   referenceCode?: Prisma.StringWithAggregatesFilter<"Sale"> | string
   status?: Prisma.EnumSaleStatusWithAggregatesFilter<"Sale"> | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusWithAggregatesFilter<"Sale"> | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolWithAggregatesFilter<"Sale"> | boolean
   channel?: Prisma.EnumSalesChannelWithAggregatesFilter<"Sale"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeWithAggregatesFilter<"Sale"> | $Enums.FulfillmentType
   currency?: Prisma.StringWithAggregatesFilter<"Sale"> | string
@@ -494,6 +506,7 @@ export type SaleCreateInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -527,6 +540,7 @@ export type SaleUncheckedCreateInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -554,6 +568,7 @@ export type SaleUpdateInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -587,6 +602,7 @@ export type SaleUncheckedUpdateInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -617,6 +633,7 @@ export type SaleCreateManyInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -637,6 +654,7 @@ export type SaleUpdateManyMutationInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -660,6 +678,7 @@ export type SaleUncheckedUpdateManyInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -703,6 +722,7 @@ export type SaleCountOrderByAggregateInput = {
   referenceCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  protectedPayment?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -734,6 +754,7 @@ export type SaleMaxOrderByAggregateInput = {
   referenceCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  protectedPayment?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -757,6 +778,7 @@ export type SaleMinOrderByAggregateInput = {
   referenceCode?: Prisma.SortOrder
   status?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
+  protectedPayment?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -1010,6 +1032,7 @@ export type SaleCreateWithoutBusinessInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1041,6 +1064,7 @@ export type SaleUncheckedCreateWithoutBusinessInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1100,6 +1124,7 @@ export type SaleScalarWhereInput = {
   referenceCode?: Prisma.StringFilter<"Sale"> | string
   status?: Prisma.EnumSaleStatusFilter<"Sale"> | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"Sale"> | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFilter<"Sale"> | boolean
   channel?: Prisma.EnumSalesChannelFilter<"Sale"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"Sale"> | $Enums.FulfillmentType
   currency?: Prisma.StringFilter<"Sale"> | string
@@ -1120,6 +1145,7 @@ export type SaleCreateWithoutCustomerInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1151,6 +1177,7 @@ export type SaleUncheckedCreateWithoutCustomerInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1204,6 +1231,7 @@ export type SaleCreateWithoutSourceRequestInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1235,6 +1263,7 @@ export type SaleUncheckedCreateWithoutSourceRequestInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1278,6 +1307,7 @@ export type SaleUpdateWithoutSourceRequestInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1309,6 +1339,7 @@ export type SaleUncheckedUpdateWithoutSourceRequestInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1336,6 +1367,7 @@ export type SaleCreateWithoutItemsInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1368,6 +1400,7 @@ export type SaleUncheckedCreateWithoutItemsInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1410,6 +1443,7 @@ export type SaleUpdateWithoutItemsInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1442,6 +1476,7 @@ export type SaleUncheckedUpdateWithoutItemsInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1468,6 +1503,7 @@ export type SaleCreateWithoutPaymentsInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1500,6 +1536,7 @@ export type SaleUncheckedCreateWithoutPaymentsInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1542,6 +1579,7 @@ export type SaleUpdateWithoutPaymentsInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1574,6 +1612,7 @@ export type SaleUncheckedUpdateWithoutPaymentsInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1600,6 +1639,7 @@ export type SaleCreateWithoutReceiptInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1632,6 +1672,7 @@ export type SaleUncheckedCreateWithoutReceiptInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1674,6 +1715,7 @@ export type SaleUpdateWithoutReceiptInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1706,6 +1748,7 @@ export type SaleUncheckedUpdateWithoutReceiptInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1732,6 +1775,7 @@ export type SaleCreateWithoutDeliveryInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1764,6 +1808,7 @@ export type SaleUncheckedCreateWithoutDeliveryInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1806,6 +1851,7 @@ export type SaleUpdateWithoutDeliveryInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1838,6 +1884,7 @@ export type SaleUncheckedUpdateWithoutDeliveryInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1864,6 +1911,7 @@ export type SaleCreateWithoutActivityEventsInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1896,6 +1944,7 @@ export type SaleUncheckedCreateWithoutActivityEventsInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -1938,6 +1987,7 @@ export type SaleUpdateWithoutActivityEventsInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1970,6 +2020,7 @@ export type SaleUncheckedUpdateWithoutActivityEventsInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1996,6 +2047,7 @@ export type SaleCreateWithoutFeedbackInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -2028,6 +2080,7 @@ export type SaleUncheckedCreateWithoutFeedbackInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -2070,6 +2123,7 @@ export type SaleUpdateWithoutFeedbackInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2102,6 +2156,7 @@ export type SaleUncheckedUpdateWithoutFeedbackInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2128,6 +2183,7 @@ export type SaleCreateWithoutIssuesInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -2160,6 +2216,7 @@ export type SaleUncheckedCreateWithoutIssuesInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -2202,6 +2259,7 @@ export type SaleUpdateWithoutIssuesInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2234,6 +2292,7 @@ export type SaleUncheckedUpdateWithoutIssuesInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2262,6 +2321,7 @@ export type SaleCreateManyBusinessInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -2282,6 +2342,7 @@ export type SaleUpdateWithoutBusinessInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2313,6 +2374,7 @@ export type SaleUncheckedUpdateWithoutBusinessInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2342,6 +2404,7 @@ export type SaleUncheckedUpdateManyWithoutBusinessInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2364,6 +2427,7 @@ export type SaleCreateManyCustomerInput = {
   referenceCode: string
   status?: $Enums.SaleStatus
   paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
   channel?: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   currency?: string
@@ -2384,6 +2448,7 @@ export type SaleUpdateWithoutCustomerInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2415,6 +2480,7 @@ export type SaleUncheckedUpdateWithoutCustomerInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2444,6 +2510,7 @@ export type SaleUncheckedUpdateManyWithoutCustomerInput = {
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2534,6 +2601,7 @@ export type SaleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   referenceCode?: boolean
   status?: boolean
   paymentStatus?: boolean
+  protectedPayment?: boolean
   channel?: boolean
   fulfillment?: boolean
   currency?: boolean
@@ -2568,6 +2636,7 @@ export type SaleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   referenceCode?: boolean
   status?: boolean
   paymentStatus?: boolean
+  protectedPayment?: boolean
   channel?: boolean
   fulfillment?: boolean
   currency?: boolean
@@ -2594,6 +2663,7 @@ export type SaleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   referenceCode?: boolean
   status?: boolean
   paymentStatus?: boolean
+  protectedPayment?: boolean
   channel?: boolean
   fulfillment?: boolean
   currency?: boolean
@@ -2620,6 +2690,7 @@ export type SaleSelectScalar = {
   referenceCode?: boolean
   status?: boolean
   paymentStatus?: boolean
+  protectedPayment?: boolean
   channel?: boolean
   fulfillment?: boolean
   currency?: boolean
@@ -2634,7 +2705,7 @@ export type SaleSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "sourceRequestId" | "idempotencyKey" | "referenceCode" | "status" | "paymentStatus" | "channel" | "fulfillment" | "currency" | "subtotal" | "discount" | "deliveryFee" | "total" | "amountPaid" | "notes" | "soldAt" | "createdAt" | "updatedAt", ExtArgs["result"]["sale"]>
+export type SaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "sourceRequestId" | "idempotencyKey" | "referenceCode" | "status" | "paymentStatus" | "protectedPayment" | "channel" | "fulfillment" | "currency" | "subtotal" | "discount" | "deliveryFee" | "total" | "amountPaid" | "notes" | "soldAt" | "createdAt" | "updatedAt", ExtArgs["result"]["sale"]>
 export type SaleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -2682,6 +2753,7 @@ export type $SalePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     referenceCode: string
     status: $Enums.SaleStatus
     paymentStatus: $Enums.PaymentStatus
+    protectedPayment: boolean
     channel: $Enums.SalesChannel
     fulfillment: $Enums.FulfillmentType
     currency: string
@@ -3135,6 +3207,7 @@ export interface SaleFieldRefs {
   readonly referenceCode: Prisma.FieldRef<"Sale", 'String'>
   readonly status: Prisma.FieldRef<"Sale", 'SaleStatus'>
   readonly paymentStatus: Prisma.FieldRef<"Sale", 'PaymentStatus'>
+  readonly protectedPayment: Prisma.FieldRef<"Sale", 'Boolean'>
   readonly channel: Prisma.FieldRef<"Sale", 'SalesChannel'>
   readonly fulfillment: Prisma.FieldRef<"Sale", 'FulfillmentType'>
   readonly currency: Prisma.FieldRef<"Sale", 'String'>

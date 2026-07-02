@@ -3,6 +3,7 @@ import {
   ArrayMaxSize,
   ArrayMinSize,
   IsArray,
+  IsBoolean,
   IsEnum,
   IsInt,
   IsNumber,
@@ -79,6 +80,20 @@ export class CreateOrderRequestDto {
   @IsString()
   @Length(0, 500)
   deliveryNotes?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isGift?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  recipientName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(5, 30)
+  recipientPhone?: string;
 
   @IsOptional()
   @IsString()

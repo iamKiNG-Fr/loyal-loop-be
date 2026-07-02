@@ -201,6 +201,8 @@ export class SalesService {
           idempotencyKey,
           referenceCode,
           paymentStatus,
+          protectedPayment:
+            dto.protectedPayment ?? preferences?.protectedPaymentEnabled ?? false,
           channel: dto.channel ?? "OTHER",
           fulfillment,
           currency: preferences?.currency ?? "NGN",
@@ -250,6 +252,9 @@ export class SalesService {
             googlePlaceId: dto.deliveryPlaceId?.trim(),
             latitude: dto.deliveryLatitude,
             longitude: dto.deliveryLongitude,
+            isGift: dto.isGift ?? false,
+            recipientName: dto.isGift ? dto.recipientName?.trim() : undefined,
+            recipientPhone: dto.isGift ? dto.recipientPhone?.trim() : undefined,
             events: {
               create: {
                 actorId: auth.userId,

@@ -53,6 +53,9 @@ export type OrderRequestMinAggregateOutputType = {
   deliveryLatitude: number | null
   deliveryLongitude: number | null
   deliveryNotes: string | null
+  isGift: boolean | null
+  recipientName: string | null
+  recipientPhone: string | null
   note: string | null
   status: $Enums.OrderRequestStatus | null
   createdAt: Date | null
@@ -76,6 +79,9 @@ export type OrderRequestMaxAggregateOutputType = {
   deliveryLatitude: number | null
   deliveryLongitude: number | null
   deliveryNotes: string | null
+  isGift: boolean | null
+  recipientName: string | null
+  recipientPhone: string | null
   note: string | null
   status: $Enums.OrderRequestStatus | null
   createdAt: Date | null
@@ -99,6 +105,9 @@ export type OrderRequestCountAggregateOutputType = {
   deliveryLatitude: number
   deliveryLongitude: number
   deliveryNotes: number
+  isGift: number
+  recipientName: number
+  recipientPhone: number
   note: number
   status: number
   createdAt: number
@@ -134,6 +143,9 @@ export type OrderRequestMinAggregateInputType = {
   deliveryLatitude?: true
   deliveryLongitude?: true
   deliveryNotes?: true
+  isGift?: true
+  recipientName?: true
+  recipientPhone?: true
   note?: true
   status?: true
   createdAt?: true
@@ -157,6 +169,9 @@ export type OrderRequestMaxAggregateInputType = {
   deliveryLatitude?: true
   deliveryLongitude?: true
   deliveryNotes?: true
+  isGift?: true
+  recipientName?: true
+  recipientPhone?: true
   note?: true
   status?: true
   createdAt?: true
@@ -180,6 +195,9 @@ export type OrderRequestCountAggregateInputType = {
   deliveryLatitude?: true
   deliveryLongitude?: true
   deliveryNotes?: true
+  isGift?: true
+  recipientName?: true
+  recipientPhone?: true
   note?: true
   status?: true
   createdAt?: true
@@ -290,6 +308,9 @@ export type OrderRequestGroupByOutputType = {
   deliveryLatitude: number | null
   deliveryLongitude: number | null
   deliveryNotes: string | null
+  isGift: boolean
+  recipientName: string | null
+  recipientPhone: string | null
   note: string | null
   status: $Enums.OrderRequestStatus
   createdAt: Date
@@ -336,6 +357,9 @@ export type OrderRequestWhereInput = {
   deliveryLatitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
   deliveryLongitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
   deliveryNotes?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  isGift?: Prisma.BoolFilter<"OrderRequest"> | boolean
+  recipientName?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  recipientPhone?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   note?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   status?: Prisma.EnumOrderRequestStatusFilter<"OrderRequest"> | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFilter<"OrderRequest"> | Date | string
@@ -366,6 +390,9 @@ export type OrderRequestOrderByWithRelationInput = {
   deliveryLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryLongitude?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -399,6 +426,9 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   deliveryLatitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
   deliveryLongitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
   deliveryNotes?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  isGift?: Prisma.BoolFilter<"OrderRequest"> | boolean
+  recipientName?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  recipientPhone?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   note?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   status?: Prisma.EnumOrderRequestStatusFilter<"OrderRequest"> | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFilter<"OrderRequest"> | Date | string
@@ -429,6 +459,9 @@ export type OrderRequestOrderByWithAggregationInput = {
   deliveryLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryLongitude?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -460,6 +493,9 @@ export type OrderRequestScalarWhereWithAggregatesInput = {
   deliveryLatitude?: Prisma.FloatNullableWithAggregatesFilter<"OrderRequest"> | number | null
   deliveryLongitude?: Prisma.FloatNullableWithAggregatesFilter<"OrderRequest"> | number | null
   deliveryNotes?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
+  isGift?: Prisma.BoolWithAggregatesFilter<"OrderRequest"> | boolean
+  recipientName?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
+  recipientPhone?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   note?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   status?: Prisma.EnumOrderRequestStatusWithAggregatesFilter<"OrderRequest"> | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"OrderRequest"> | Date | string
@@ -479,6 +515,9 @@ export type OrderRequestCreateInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -509,6 +548,9 @@ export type OrderRequestUncheckedCreateInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -531,6 +573,9 @@ export type OrderRequestUpdateInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -561,6 +606,9 @@ export type OrderRequestUncheckedUpdateInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -587,6 +635,9 @@ export type OrderRequestCreateManyInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -606,6 +657,9 @@ export type OrderRequestUpdateManyMutationInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -629,6 +683,9 @@ export type OrderRequestUncheckedUpdateManyInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -662,6 +719,9 @@ export type OrderRequestCountOrderByAggregateInput = {
   deliveryLatitude?: Prisma.SortOrder
   deliveryLongitude?: Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrder
   note?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -690,6 +750,9 @@ export type OrderRequestMaxOrderByAggregateInput = {
   deliveryLatitude?: Prisma.SortOrder
   deliveryLongitude?: Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrder
   note?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -713,6 +776,9 @@ export type OrderRequestMinOrderByAggregateInput = {
   deliveryLatitude?: Prisma.SortOrder
   deliveryLongitude?: Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrder
   note?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -973,6 +1039,9 @@ export type OrderRequestCreateWithoutBusinessInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1001,6 +1070,9 @@ export type OrderRequestUncheckedCreateWithoutBusinessInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1056,6 +1128,9 @@ export type OrderRequestScalarWhereInput = {
   deliveryLatitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
   deliveryLongitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
   deliveryNotes?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  isGift?: Prisma.BoolFilter<"OrderRequest"> | boolean
+  recipientName?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  recipientPhone?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   note?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   status?: Prisma.EnumOrderRequestStatusFilter<"OrderRequest"> | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFilter<"OrderRequest"> | Date | string
@@ -1075,6 +1150,9 @@ export type OrderRequestCreateWithoutCustomerAccountInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1103,6 +1181,9 @@ export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1151,6 +1232,9 @@ export type OrderRequestCreateWithoutCustomerInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1179,6 +1263,9 @@ export type OrderRequestUncheckedCreateWithoutCustomerInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1227,6 +1314,9 @@ export type OrderRequestCreateWithoutCustomerAddressInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1255,6 +1345,9 @@ export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1303,6 +1396,9 @@ export type OrderRequestCreateWithoutItemsInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1332,6 +1428,9 @@ export type OrderRequestUncheckedCreateWithoutItemsInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1369,6 +1468,9 @@ export type OrderRequestUpdateWithoutItemsInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1398,6 +1500,9 @@ export type OrderRequestUncheckedUpdateWithoutItemsInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1419,6 +1524,9 @@ export type OrderRequestCreateWithoutEventsInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1448,6 +1556,9 @@ export type OrderRequestUncheckedCreateWithoutEventsInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1485,6 +1596,9 @@ export type OrderRequestUpdateWithoutEventsInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1514,6 +1628,9 @@ export type OrderRequestUncheckedUpdateWithoutEventsInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1535,6 +1652,9 @@ export type OrderRequestCreateWithoutConvertedSaleInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1564,6 +1684,9 @@ export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1601,6 +1724,9 @@ export type OrderRequestUpdateWithoutConvertedSaleInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1630,6 +1756,9 @@ export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1654,6 +1783,9 @@ export type OrderRequestCreateManyBusinessInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1673,6 +1805,9 @@ export type OrderRequestUpdateWithoutBusinessInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1701,6 +1836,9 @@ export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1726,6 +1864,9 @@ export type OrderRequestUncheckedUpdateManyWithoutBusinessInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1748,6 +1889,9 @@ export type OrderRequestCreateManyCustomerAccountInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1767,6 +1911,9 @@ export type OrderRequestUpdateWithoutCustomerAccountInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1795,6 +1942,9 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1820,6 +1970,9 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAccountInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1842,6 +1995,9 @@ export type OrderRequestCreateManyCustomerInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1861,6 +2017,9 @@ export type OrderRequestUpdateWithoutCustomerInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1889,6 +2048,9 @@ export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1914,6 +2076,9 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1936,6 +2101,9 @@ export type OrderRequestCreateManyCustomerAddressInput = {
   deliveryLatitude?: number | null
   deliveryLongitude?: number | null
   deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
   note?: string | null
   status?: $Enums.OrderRequestStatus
   createdAt?: Date | string
@@ -1955,6 +2123,9 @@ export type OrderRequestUpdateWithoutCustomerAddressInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1983,6 +2154,9 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2008,6 +2182,9 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput = {
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2071,6 +2248,9 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   deliveryLatitude?: boolean
   deliveryLongitude?: boolean
   deliveryNotes?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
   note?: boolean
   status?: boolean
   createdAt?: boolean
@@ -2102,6 +2282,9 @@ export type OrderRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   deliveryLatitude?: boolean
   deliveryLongitude?: boolean
   deliveryNotes?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
   note?: boolean
   status?: boolean
   createdAt?: boolean
@@ -2129,6 +2312,9 @@ export type OrderRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   deliveryLatitude?: boolean
   deliveryLongitude?: boolean
   deliveryNotes?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
   note?: boolean
   status?: boolean
   createdAt?: boolean
@@ -2156,13 +2342,16 @@ export type OrderRequestSelectScalar = {
   deliveryLatitude?: boolean
   deliveryLongitude?: boolean
   deliveryNotes?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
   note?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "customerAddressId" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryNotes" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
+export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "customerAddressId" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
 export type OrderRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
@@ -2214,6 +2403,9 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     deliveryLatitude: number | null
     deliveryLongitude: number | null
     deliveryNotes: string | null
+    isGift: boolean
+    recipientName: string | null
+    recipientPhone: string | null
     note: string | null
     status: $Enums.OrderRequestStatus
     createdAt: Date
@@ -2664,6 +2856,9 @@ export interface OrderRequestFieldRefs {
   readonly deliveryLatitude: Prisma.FieldRef<"OrderRequest", 'Float'>
   readonly deliveryLongitude: Prisma.FieldRef<"OrderRequest", 'Float'>
   readonly deliveryNotes: Prisma.FieldRef<"OrderRequest", 'String'>
+  readonly isGift: Prisma.FieldRef<"OrderRequest", 'Boolean'>
+  readonly recipientName: Prisma.FieldRef<"OrderRequest", 'String'>
+  readonly recipientPhone: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly note: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly status: Prisma.FieldRef<"OrderRequest", 'OrderRequestStatus'>
   readonly createdAt: Prisma.FieldRef<"OrderRequest", 'DateTime'>
