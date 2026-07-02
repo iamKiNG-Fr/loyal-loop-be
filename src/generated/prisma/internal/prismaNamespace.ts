@@ -387,6 +387,7 @@ export const ModelName = {
   WaitlistEntry: 'WaitlistEntry',
   User: 'User',
   OwnerSession: 'OwnerSession',
+  OwnerOtpChallenge: 'OwnerOtpChallenge',
   PasswordRecoveryToken: 'PasswordRecoveryToken',
   Business: 'Business',
   BusinessPreferences: 'BusinessPreferences',
@@ -438,7 +439,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "user" | "ownerSession" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "saleItem" | "paymentEntry" | "receipt" | "delivery" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
+    modelProps: "waitlistEntry" | "user" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "saleItem" | "paymentEntry" | "receipt" | "delivery" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -661,6 +662,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.OwnerSessionCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.OwnerSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    OwnerOtpChallenge: {
+      payload: Prisma.$OwnerOtpChallengePayload<ExtArgs>
+      fields: Prisma.OwnerOtpChallengeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OwnerOtpChallengeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OwnerOtpChallengeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload>
+        }
+        findFirst: {
+          args: Prisma.OwnerOtpChallengeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OwnerOtpChallengeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload>
+        }
+        findMany: {
+          args: Prisma.OwnerOtpChallengeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload>[]
+        }
+        create: {
+          args: Prisma.OwnerOtpChallengeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload>
+        }
+        createMany: {
+          args: Prisma.OwnerOtpChallengeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OwnerOtpChallengeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload>[]
+        }
+        delete: {
+          args: Prisma.OwnerOtpChallengeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload>
+        }
+        update: {
+          args: Prisma.OwnerOtpChallengeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload>
+        }
+        deleteMany: {
+          args: Prisma.OwnerOtpChallengeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OwnerOtpChallengeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OwnerOtpChallengeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload>[]
+        }
+        upsert: {
+          args: Prisma.OwnerOtpChallengeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerOtpChallengePayload>
+        }
+        aggregate: {
+          args: Prisma.OwnerOtpChallengeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOwnerOtpChallenge>
+        }
+        groupBy: {
+          args: Prisma.OwnerOtpChallengeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OwnerOtpChallengeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OwnerOtpChallengeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OwnerOtpChallengeCountAggregateOutputType> | number
         }
       }
     }
@@ -3410,6 +3485,21 @@ export const OwnerSessionScalarFieldEnum = {
 export type OwnerSessionScalarFieldEnum = (typeof OwnerSessionScalarFieldEnum)[keyof typeof OwnerSessionScalarFieldEnum]
 
 
+export const OwnerOtpChallengeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  phone: 'phone',
+  provider: 'provider',
+  providerReference: 'providerReference',
+  expiresAt: 'expiresAt',
+  verifiedAt: 'verifiedAt',
+  attempts: 'attempts',
+  createdAt: 'createdAt'
+} as const
+
+export type OwnerOtpChallengeScalarFieldEnum = (typeof OwnerOtpChallengeScalarFieldEnum)[keyof typeof OwnerOtpChallengeScalarFieldEnum]
+
+
 export const PasswordRecoveryTokenScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -4741,6 +4831,7 @@ export type GlobalOmitConfig = {
   waitlistEntry?: Prisma.WaitlistEntryOmit
   user?: Prisma.UserOmit
   ownerSession?: Prisma.OwnerSessionOmit
+  ownerOtpChallenge?: Prisma.OwnerOtpChallengeOmit
   passwordRecoveryToken?: Prisma.PasswordRecoveryTokenOmit
   business?: Prisma.BusinessOmit
   businessPreferences?: Prisma.BusinessPreferencesOmit

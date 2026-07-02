@@ -209,6 +209,7 @@ export type UserWhereInput = {
   memberships?: Prisma.BusinessMemberListRelationFilter
   ownedBusinesses?: Prisma.BusinessListRelationFilter
   sessions?: Prisma.OwnerSessionListRelationFilter
+  otpChallenges?: Prisma.OwnerOtpChallengeListRelationFilter
   recoveryTokens?: Prisma.PasswordRecoveryTokenListRelationFilter
   uploadedAssets?: Prisma.MediaAssetListRelationFilter
   authoredNotes?: Prisma.CustomerNoteListRelationFilter
@@ -230,6 +231,7 @@ export type UserOrderByWithRelationInput = {
   memberships?: Prisma.BusinessMemberOrderByRelationAggregateInput
   ownedBusinesses?: Prisma.BusinessOrderByRelationAggregateInput
   sessions?: Prisma.OwnerSessionOrderByRelationAggregateInput
+  otpChallenges?: Prisma.OwnerOtpChallengeOrderByRelationAggregateInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenOrderByRelationAggregateInput
   uploadedAssets?: Prisma.MediaAssetOrderByRelationAggregateInput
   authoredNotes?: Prisma.CustomerNoteOrderByRelationAggregateInput
@@ -242,18 +244,19 @@ export type UserOrderByWithRelationInput = {
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
+  phone?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
-  phone?: Prisma.StringNullableFilter<"User"> | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFilter<"User"> | $Enums.WorkspaceAppearance
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   memberships?: Prisma.BusinessMemberListRelationFilter
   ownedBusinesses?: Prisma.BusinessListRelationFilter
   sessions?: Prisma.OwnerSessionListRelationFilter
+  otpChallenges?: Prisma.OwnerOtpChallengeListRelationFilter
   recoveryTokens?: Prisma.PasswordRecoveryTokenListRelationFilter
   uploadedAssets?: Prisma.MediaAssetListRelationFilter
   authoredNotes?: Prisma.CustomerNoteListRelationFilter
@@ -261,7 +264,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   paymentsRecorded?: Prisma.PaymentEntryListRelationFilter
   deliveryEvents?: Prisma.DeliveryEventListRelationFilter
   activityEvents?: Prisma.ActivityEventListRelationFilter
-}, "id" | "email">
+}, "id" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -303,6 +306,7 @@ export type UserCreateInput = {
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
@@ -324,6 +328,7 @@ export type UserUncheckedCreateInput = {
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
@@ -345,6 +350,7 @@ export type UserUpdateInput = {
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
@@ -366,6 +372,7 @@ export type UserUncheckedUpdateInput = {
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
@@ -467,6 +474,22 @@ export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutSessionsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSessionsInput, Prisma.UserUpdateWithoutSessionsInput>, Prisma.UserUncheckedUpdateWithoutSessionsInput>
+}
+
+export type UserCreateNestedOneWithoutOtpChallengesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOtpChallengesInput, Prisma.UserUncheckedCreateWithoutOtpChallengesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOtpChallengesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutOtpChallengesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOtpChallengesInput, Prisma.UserUncheckedCreateWithoutOtpChallengesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOtpChallengesInput
+  upsert?: Prisma.UserUpsertWithoutOtpChallengesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOtpChallengesInput, Prisma.UserUpdateWithoutOtpChallengesInput>, Prisma.UserUncheckedUpdateWithoutOtpChallengesInput>
 }
 
 export type UserCreateNestedOneWithoutRecoveryTokensInput = {
@@ -614,6 +637,7 @@ export type UserCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
@@ -634,6 +658,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
@@ -670,6 +695,7 @@ export type UserUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
@@ -690,6 +716,107 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutOtpChallengesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutOtpChallengesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutOtpChallengesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOtpChallengesInput, Prisma.UserUncheckedCreateWithoutOtpChallengesInput>
+}
+
+export type UserUpsertWithoutOtpChallengesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOtpChallengesInput, Prisma.UserUncheckedUpdateWithoutOtpChallengesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOtpChallengesInput, Prisma.UserUncheckedCreateWithoutOtpChallengesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOtpChallengesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOtpChallengesInput, Prisma.UserUncheckedUpdateWithoutOtpChallengesInput>
+}
+
+export type UserUpdateWithoutOtpChallengesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOtpChallengesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
@@ -711,6 +838,7 @@ export type UserCreateWithoutRecoveryTokensInput = {
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
@@ -731,6 +859,7 @@ export type UserUncheckedCreateWithoutRecoveryTokensInput = {
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
@@ -767,6 +896,7 @@ export type UserUpdateWithoutRecoveryTokensInput = {
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
@@ -787,6 +917,7 @@ export type UserUncheckedUpdateWithoutRecoveryTokensInput = {
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
@@ -806,6 +937,7 @@ export type UserCreateWithoutOwnedBusinessesInput = {
   updatedAt?: Date | string
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
@@ -826,6 +958,7 @@ export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
   updatedAt?: Date | string
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
@@ -862,6 +995,7 @@ export type UserUpdateWithoutOwnedBusinessesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
@@ -882,6 +1016,7 @@ export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
@@ -902,6 +1037,7 @@ export type UserCreateWithoutMembershipsInput = {
   updatedAt?: Date | string
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
@@ -922,6 +1058,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   updatedAt?: Date | string
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
@@ -958,6 +1095,7 @@ export type UserUpdateWithoutMembershipsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
@@ -978,6 +1116,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
@@ -999,6 +1138,7 @@ export type UserCreateWithoutInvitationsSentInput = {
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
@@ -1019,6 +1159,7 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
@@ -1055,6 +1196,7 @@ export type UserUpdateWithoutInvitationsSentInput = {
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
@@ -1075,6 +1217,7 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1095,6 +1238,7 @@ export type UserCreateWithoutUploadedAssetsInput = {
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
@@ -1115,6 +1259,7 @@ export type UserUncheckedCreateWithoutUploadedAssetsInput = {
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
@@ -1151,6 +1296,7 @@ export type UserUpdateWithoutUploadedAssetsInput = {
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
@@ -1171,6 +1317,7 @@ export type UserUncheckedUpdateWithoutUploadedAssetsInput = {
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
@@ -1191,6 +1338,7 @@ export type UserCreateWithoutAuthoredNotesInput = {
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
@@ -1211,6 +1359,7 @@ export type UserUncheckedCreateWithoutAuthoredNotesInput = {
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
@@ -1247,6 +1396,7 @@ export type UserUpdateWithoutAuthoredNotesInput = {
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
@@ -1267,6 +1417,7 @@ export type UserUncheckedUpdateWithoutAuthoredNotesInput = {
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
@@ -1287,6 +1438,7 @@ export type UserCreateWithoutPaymentsRecordedInput = {
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
@@ -1307,6 +1459,7 @@ export type UserUncheckedCreateWithoutPaymentsRecordedInput = {
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
@@ -1343,6 +1496,7 @@ export type UserUpdateWithoutPaymentsRecordedInput = {
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
@@ -1363,6 +1517,7 @@ export type UserUncheckedUpdateWithoutPaymentsRecordedInput = {
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1383,6 +1538,7 @@ export type UserCreateWithoutDeliveryEventsInput = {
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
@@ -1403,6 +1559,7 @@ export type UserUncheckedCreateWithoutDeliveryEventsInput = {
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
@@ -1439,6 +1596,7 @@ export type UserUpdateWithoutDeliveryEventsInput = {
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
@@ -1459,6 +1617,7 @@ export type UserUncheckedUpdateWithoutDeliveryEventsInput = {
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1479,6 +1638,7 @@ export type UserCreateWithoutActivityEventsInput = {
   memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
@@ -1499,6 +1659,7 @@ export type UserUncheckedCreateWithoutActivityEventsInput = {
   memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
   ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
   sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
@@ -1535,6 +1696,7 @@ export type UserUpdateWithoutActivityEventsInput = {
   memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
@@ -1555,6 +1717,7 @@ export type UserUncheckedUpdateWithoutActivityEventsInput = {
   memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
   recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
@@ -1572,6 +1735,7 @@ export type UserCountOutputType = {
   memberships: number
   ownedBusinesses: number
   sessions: number
+  otpChallenges: number
   recoveryTokens: number
   uploadedAssets: number
   authoredNotes: number
@@ -1585,6 +1749,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   memberships?: boolean | UserCountOutputTypeCountMembershipsArgs
   ownedBusinesses?: boolean | UserCountOutputTypeCountOwnedBusinessesArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+  otpChallenges?: boolean | UserCountOutputTypeCountOtpChallengesArgs
   recoveryTokens?: boolean | UserCountOutputTypeCountRecoveryTokensArgs
   uploadedAssets?: boolean | UserCountOutputTypeCountUploadedAssetsArgs
   authoredNotes?: boolean | UserCountOutputTypeCountAuthoredNotesArgs
@@ -1623,6 +1788,13 @@ export type UserCountOutputTypeCountOwnedBusinessesArgs<ExtArgs extends runtime.
  */
 export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.OwnerSessionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOtpChallengesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OwnerOtpChallengeWhereInput
 }
 
 /**
@@ -1687,6 +1859,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   ownedBusinesses?: boolean | Prisma.User$ownedBusinessesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  otpChallenges?: boolean | Prisma.User$otpChallengesArgs<ExtArgs>
   recoveryTokens?: boolean | Prisma.User$recoveryTokensArgs<ExtArgs>
   uploadedAssets?: boolean | Prisma.User$uploadedAssetsArgs<ExtArgs>
   authoredNotes?: boolean | Prisma.User$authoredNotesArgs<ExtArgs>
@@ -1735,6 +1908,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   ownedBusinesses?: boolean | Prisma.User$ownedBusinessesArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
+  otpChallenges?: boolean | Prisma.User$otpChallengesArgs<ExtArgs>
   recoveryTokens?: boolean | Prisma.User$recoveryTokensArgs<ExtArgs>
   uploadedAssets?: boolean | Prisma.User$uploadedAssetsArgs<ExtArgs>
   authoredNotes?: boolean | Prisma.User$authoredNotesArgs<ExtArgs>
@@ -1753,6 +1927,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     memberships: Prisma.$BusinessMemberPayload<ExtArgs>[]
     ownedBusinesses: Prisma.$BusinessPayload<ExtArgs>[]
     sessions: Prisma.$OwnerSessionPayload<ExtArgs>[]
+    otpChallenges: Prisma.$OwnerOtpChallengePayload<ExtArgs>[]
     recoveryTokens: Prisma.$PasswordRecoveryTokenPayload<ExtArgs>[]
     uploadedAssets: Prisma.$MediaAssetPayload<ExtArgs>[]
     authoredNotes: Prisma.$CustomerNotePayload<ExtArgs>[]
@@ -2167,6 +2342,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   memberships<T extends Prisma.User$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   ownedBusinesses<T extends Prisma.User$ownedBusinessesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ownedBusinessesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OwnerSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  otpChallenges<T extends Prisma.User$otpChallengesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$otpChallengesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OwnerOtpChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recoveryTokens<T extends Prisma.User$recoveryTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recoveryTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordRecoveryTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   uploadedAssets<T extends Prisma.User$uploadedAssetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$uploadedAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   authoredNotes<T extends Prisma.User$authoredNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$authoredNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2673,6 +2849,30 @@ export type User$sessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.OwnerSessionScalarFieldEnum | Prisma.OwnerSessionScalarFieldEnum[]
+}
+
+/**
+ * User.otpChallenges
+ */
+export type User$otpChallengesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OwnerOtpChallenge
+   */
+  select?: Prisma.OwnerOtpChallengeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OwnerOtpChallenge
+   */
+  omit?: Prisma.OwnerOtpChallengeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OwnerOtpChallengeInclude<ExtArgs> | null
+  where?: Prisma.OwnerOtpChallengeWhereInput
+  orderBy?: Prisma.OwnerOtpChallengeOrderByWithRelationInput | Prisma.OwnerOtpChallengeOrderByWithRelationInput[]
+  cursor?: Prisma.OwnerOtpChallengeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OwnerOtpChallengeScalarFieldEnum | Prisma.OwnerOtpChallengeScalarFieldEnum[]
 }
 
 /**

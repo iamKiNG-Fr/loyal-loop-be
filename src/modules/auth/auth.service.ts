@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from "@nestjs/common";
@@ -13,6 +14,7 @@ import { hashPassword, verifyPassword } from "../../common/password.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { MailService } from "../mail/mail.service";
+import { OTP_PROVIDER, type OtpProvider } from "../customer-auth/otp-provider";
 import { PrismaService } from "../prisma/prisma.service";
 import { ChangePasswordDto, ResetPasswordDto } from "./dto/password.dto";
 import { RegisterOwnerDto } from "./dto/register-owner.dto";
@@ -28,10 +30,12 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
     private readonly mail: MailService,
+    @Inject(OTP_PROVIDER) private readonly otpProvider: OtpProvider,
   ) {}
 
   async register(dto: RegisterOwnerDto, meta: SessionMeta) {
     const passwordHash = await hashPassword(dto.password);
+    const ownerPhone = primaryWhatsappPhone(dto.contacts);
     try {
       const result = await this.prisma.$transaction(async (tx) => {
         const user = await tx.user.create({
@@ -39,6 +43,7 @@ export class AuthService {
             name: dto.ownerName.trim(),
             email: dto.email.trim().toLowerCase(),
             passwordHash,
+            phone: ownerPhone,
           },
         });
         const business = await tx.business.create({
@@ -129,6 +134,96 @@ export class AuthService {
     }
     const membership = user.memberships[0];
     if (!membership) throw new UnauthorizedException("No active business");
+    const session = await this.createSession(user.id, meta);
+    return {
+      ...this.safeIdentity(user, membership.business),
+      session,
+    };
+  }
+
+  async startWhatsapp(phone: string) {
+    const normalizedPhone = normalizePhone(phone);
+    const user = await this.prisma.user.findUnique({
+      where: { phone: normalizedPhone },
+      select: { id: true },
+    });
+    if (!user) {
+      throw new UnauthorizedException(
+        "No business workspace uses this as its primary WhatsApp number",
+      );
+    }
+
+    const started = await this.otpProvider.start(normalizedPhone);
+    const challenge = await this.prisma.ownerOtpChallenge.create({
+      data: {
+        userId: user.id,
+        phone: normalizedPhone,
+        provider: started.provider,
+        providerReference: started.reference,
+        expiresAt: started.expiresAt,
+      },
+    });
+    return {
+      challengeId: challenge.id,
+      expiresAt: challenge.expiresAt,
+      ...(started.provider === "development"
+        ? { developmentCode: started.reference.split(":")[2] }
+        : {}),
+    };
+  }
+
+  async verifyWhatsapp(
+    challengeId: string,
+    code: string,
+    meta: SessionMeta,
+  ) {
+    const challenge = await this.prisma.ownerOtpChallenge.findUnique({
+      where: { id: challengeId },
+    });
+    if (
+      !challenge ||
+      !challenge.userId ||
+      challenge.verifiedAt ||
+      challenge.expiresAt.getTime() <= Date.now()
+    ) {
+      throw new UnauthorizedException("Verification challenge expired");
+    }
+    if (challenge.attempts >= 5) {
+      throw new UnauthorizedException("Too many verification attempts");
+    }
+
+    await this.prisma.ownerOtpChallenge.update({
+      where: { id: challenge.id },
+      data: { attempts: { increment: 1 } },
+    });
+    const approved = await this.otpProvider.verify(
+      challenge.providerReference,
+      challenge.phone,
+      code,
+    );
+    if (!approved) throw new UnauthorizedException("Invalid verification code");
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: challenge.userId },
+      include: {
+        memberships: {
+          where: { status: "ACTIVE" },
+          include: {
+            business: { include: { preferences: true, contacts: true } },
+          },
+          orderBy: { createdAt: "asc" },
+        },
+      },
+    });
+    const membership = user?.memberships[0];
+    if (!user || !membership) {
+      throw new UnauthorizedException("No active business");
+    }
+
+    await this.prisma.ownerOtpChallenge.update({
+      where: { id: challenge.id },
+      data: { verifiedAt: new Date() },
+    });
     const session = await this.createSession(user.id, meta);
     return {
       ...this.safeIdentity(user, membership.business),
@@ -295,4 +390,18 @@ export class AuthService {
       business,
     };
   }
+}
+
+function primaryWhatsappPhone(
+  contacts: RegisterOwnerDto["contacts"] | undefined,
+) {
+  const whatsapp = contacts?.find(
+    (contact) => contact.platform === "WHATSAPP" && contact.isPrimary,
+  );
+  return whatsapp ? normalizePhone(whatsapp.value) : undefined;
+}
+
+function normalizePhone(value: string) {
+  const digits = value.replace(/\D/g, "");
+  return digits ? `+${digits}` : value.trim();
 }

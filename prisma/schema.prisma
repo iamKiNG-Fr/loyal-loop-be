@@ -289,13 +289,14 @@ model User {
   name                String
   email               String                  @unique
   passwordHash        String
-  phone               String?
+  phone               String?                 @unique
   workspaceAppearance WorkspaceAppearance     @default(LIGHT)
   createdAt           DateTime                @default(now())
   updatedAt           DateTime                @updatedAt
   memberships         BusinessMember[]
   ownedBusinesses     Business[]              @relation("BusinessOwner")
   sessions            OwnerSession[]
+  otpChallenges       OwnerOtpChallenge[]
   recoveryTokens      PasswordRecoveryToken[]
   uploadedAssets      MediaAsset[]            @relation("AssetUploader")
   authoredNotes       CustomerNote[]          @relation("NoteAuthor")
@@ -321,6 +322,22 @@ model OwnerSession {
 
   @@index([userId, expiresAt])
   @@map("owner_sessions")
+}
+
+model OwnerOtpChallenge {
+  id                String    @id @default(cuid())
+  userId            String?
+  phone             String
+  provider          String
+  providerReference String    @unique
+  expiresAt         DateTime
+  verifiedAt        DateTime?
+  attempts          Int       @default(0)
+  createdAt         DateTime  @default(now())
+  user              User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([phone, createdAt])
+  @@map("owner_otp_challenges")
 }
 
 model PasswordRecoveryToken {

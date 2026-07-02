@@ -130,6 +130,19 @@ export class CustomerAuthService {
     });
   }
 
+  updateProfile(customerAccountId: string, name: string) {
+    return this.prisma.customerAccount.update({
+      where: { id: customerAccountId },
+      data: { name: name.trim() },
+      select: {
+        id: true,
+        name: true,
+        phone: true,
+        verifiedAt: true,
+      },
+    });
+  }
+
   listAddresses(customerAccountId: string) {
     return this.prisma.customerAddress.findMany({
       where: { customerAccountId },

@@ -8,6 +8,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { minutes, Throttle } from "@nestjs/throttler";
 import type { Request, Response } from "express";
 import { CurrentAuth } from "../../common/auth/current-auth.decorator";
 import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
@@ -22,6 +23,7 @@ import { ok } from "../../common/api-response";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
+import { StartOwnerOtpDto, VerifyOwnerOtpDto } from "./dto/owner-otp.dto";
 import {
   ChangePasswordDto,
   RequestPasswordResetDto,
@@ -72,6 +74,34 @@ export class AuthController {
     );
     const { session: _session, ...identity } = result;
     return ok(identity, "Signed in");
+  }
+
+  @Post("whatsapp/start")
+  @Throttle({ default: { limit: 3, ttl: minutes(10) } })
+  async startWhatsapp(@Body() dto: StartOwnerOtpDto) {
+    return ok(await this.auth.startWhatsapp(dto.phone), "Verification sent");
+  }
+
+  @Post("whatsapp/verify")
+  @Throttle({ default: { limit: 8, ttl: minutes(10) } })
+  async verifyWhatsapp(
+    @Body() dto: VerifyOwnerOtpDto,
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const result = await this.auth.verifyWhatsapp(
+      dto.challengeId,
+      dto.code,
+      this.sessionMeta(request),
+    );
+    setSessionCookie(
+      response,
+      OWNER_SESSION_COOKIE,
+      result.session.token,
+      result.session.expiresAt,
+    );
+    const { session: _session, ...identity } = result;
+    return ok(identity, "Signed in with WhatsApp");
   }
 
   @Post("refresh")

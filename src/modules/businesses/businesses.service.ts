@@ -388,23 +388,52 @@ export class BusinessesService {
     auth: OwnerAuthContext,
     dto: ReplaceBusinessContactsDto,
   ) {
-    await this.prisma.$transaction(async (tx) => {
-      await tx.businessContact.deleteMany({
-        where: { businessId: auth.businessId },
-      });
-      if (dto.contacts.length) {
-        await tx.businessContact.createMany({
-          data: dto.contacts.map((contact, index) => ({
-            businessId: auth.businessId,
-            platform: contact.platform,
-            value: contact.value.trim(),
-            label: contact.label?.trim(),
-            isPrimary: contact.isPrimary ?? index === 0,
-            sortOrder: index,
-          })),
+    const primaryWhatsapp = dto.contacts.find(
+      (contact, index) =>
+        contact.platform === "WHATSAPP" &&
+        (contact.isPrimary ?? index === 0),
+    );
+    try {
+      await this.prisma.$transaction(async (tx) => {
+        const business = await tx.business.findUniqueOrThrow({
+          where: { id: auth.businessId },
+          select: { ownerId: true },
         });
+        await tx.businessContact.deleteMany({
+          where: { businessId: auth.businessId },
+        });
+        if (dto.contacts.length) {
+          await tx.businessContact.createMany({
+            data: dto.contacts.map((contact, index) => ({
+              businessId: auth.businessId,
+              platform: contact.platform,
+              value: contact.value.trim(),
+              label: contact.label?.trim(),
+              isPrimary: contact.isPrimary ?? index === 0,
+              sortOrder: index,
+            })),
+          });
+        }
+        await tx.user.update({
+          where: { id: business.ownerId },
+          data: {
+            phone: primaryWhatsapp
+              ? normalizePhone(primaryWhatsapp.value)
+              : null,
+          },
+        });
+      });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2002"
+      ) {
+        throw new ConflictException(
+          "That WhatsApp number is already connected to another owner account",
+        );
       }
-    });
+      throw error;
+    }
     return this.prisma.businessContact.findMany({
       where: { businessId: auth.businessId },
       orderBy: { sortOrder: "asc" },
@@ -511,4 +540,9 @@ function isValidTimeZone(timezone: string) {
   } catch {
     return false;
   }
+}
+
+function normalizePhone(value: string) {
+  const digits = value.replace(/\D/g, "");
+  return digits ? `+${digits}` : value.trim();
 }

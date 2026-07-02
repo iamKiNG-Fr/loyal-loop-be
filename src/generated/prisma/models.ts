@@ -11,6 +11,7 @@
 export type * from './models/WaitlistEntry'
 export type * from './models/User'
 export type * from './models/OwnerSession'
+export type * from './models/OwnerOtpChallenge'
 export type * from './models/PasswordRecoveryToken'
 export type * from './models/Business'
 export type * from './models/BusinessPreferences'

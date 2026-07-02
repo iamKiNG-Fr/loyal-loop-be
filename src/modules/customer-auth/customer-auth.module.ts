@@ -15,5 +15,6 @@ import { TwilioVerifyProvider } from "./twilio-verify.provider";
       useFactory: (config: ConfigService) => new TwilioVerifyProvider(config),
     },
   ],
+  exports: [OTP_PROVIDER],
 })
 export class CustomerAuthModule {}

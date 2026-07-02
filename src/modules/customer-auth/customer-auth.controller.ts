@@ -26,6 +26,7 @@ import {
   CreateCustomerAddressDto,
   UpdateCustomerAddressDto,
 } from "./dto/customer-address.dto";
+import { UpdateCustomerProfileDto } from "./dto/customer-profile.dto";
 import { CustomerAuthService } from "./customer-auth.service";
 import { StartCustomerOtpDto, VerifyCustomerOtpDto } from "./dto/customer-otp.dto";
 
@@ -89,6 +90,17 @@ export class CustomerAuthController {
     return this.auth
       .getAccount(customer.customerAccountId)
       .then((data) => ok(data));
+  }
+
+  @Patch("me")
+  @UseGuards(CustomerAuthGuard)
+  updateProfile(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Body() dto: UpdateCustomerProfileDto,
+  ) {
+    return this.auth
+      .updateProfile(customer.customerAccountId, dto.name)
+      .then((data) => ok(data, "Customer profile updated"));
   }
 
   @Get("me/addresses")

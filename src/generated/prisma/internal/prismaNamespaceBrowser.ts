@@ -54,6 +54,7 @@ export const ModelName = {
   WaitlistEntry: 'WaitlistEntry',
   User: 'User',
   OwnerSession: 'OwnerSession',
+  OwnerOtpChallenge: 'OwnerOtpChallenge',
   PasswordRecoveryToken: 'PasswordRecoveryToken',
   Business: 'Business',
   BusinessPreferences: 'BusinessPreferences',
@@ -149,6 +150,21 @@ export const OwnerSessionScalarFieldEnum = {
 } as const
 
 export type OwnerSessionScalarFieldEnum = (typeof OwnerSessionScalarFieldEnum)[keyof typeof OwnerSessionScalarFieldEnum]
+
+
+export const OwnerOtpChallengeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  phone: 'phone',
+  provider: 'provider',
+  providerReference: 'providerReference',
+  expiresAt: 'expiresAt',
+  verifiedAt: 'verifiedAt',
+  attempts: 'attempts',
+  createdAt: 'createdAt'
+} as const
+
+export type OwnerOtpChallengeScalarFieldEnum = (typeof OwnerOtpChallengeScalarFieldEnum)[keyof typeof OwnerOtpChallengeScalarFieldEnum]
 
 
 export const PasswordRecoveryTokenScalarFieldEnum = {
