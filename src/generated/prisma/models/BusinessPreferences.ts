@@ -710,10 +710,6 @@ export type EnumBusinessThemeFieldUpdateOperationsInput = {
   set?: $Enums.BusinessTheme
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type BusinessPreferencesUpdatetickerItemsInput = {
   set?: string[]
   push?: string | string[]

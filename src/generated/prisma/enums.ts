@@ -61,12 +61,24 @@ export type BusinessTheme = (typeof BusinessTheme)[keyof typeof BusinessTheme]
 
 
 export const StoreStatus = {
+  SETTING_UP: 'SETTING_UP',
+  SCHEDULED: 'SCHEDULED',
   OPEN: 'OPEN',
   PAUSED: 'PAUSED',
   CLOSED: 'CLOSED'
 } as const
 
 export type StoreStatus = (typeof StoreStatus)[keyof typeof StoreStatus]
+
+
+export const LaunchTemplate = {
+  SHOP_LOADING: 'SHOP_LOADING',
+  COUNTDOWN_DROP: 'COUNTDOWN_DROP',
+  OPENING_TONIGHT: 'OPENING_TONIGHT',
+  FIRST_DROP: 'FIRST_DROP'
+} as const
+
+export type LaunchTemplate = (typeof LaunchTemplate)[keyof typeof LaunchTemplate]
 
 
 export const WorkspaceAppearance = {
@@ -224,6 +236,10 @@ export type DeliveryStatus = (typeof DeliveryStatus)[keyof typeof DeliveryStatus
 export const ActivityEventType = {
   BUSINESS_CREATED: 'BUSINESS_CREATED',
   BUSINESS_UPDATED: 'BUSINESS_UPDATED',
+  SHOP_LAUNCH_SCHEDULED: 'SHOP_LAUNCH_SCHEDULED',
+  SHOP_LAUNCH_UPDATED: 'SHOP_LAUNCH_UPDATED',
+  SHOP_OPENED: 'SHOP_OPENED',
+  SHOP_PAUSED: 'SHOP_PAUSED',
   OWNER_PLEDGED: 'OWNER_PLEDGED',
   CUSTOMER_ADDED: 'CUSTOMER_ADDED',
   CUSTOMER_NOTE_ADDED: 'CUSTOMER_NOTE_ADDED',

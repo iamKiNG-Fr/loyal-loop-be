@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -19,6 +20,10 @@ import {
   AcceptBusinessInvitationDto,
   CreateBusinessInvitationDto,
 } from "./dto/business-invitation.dto";
+import {
+  OpenShopDto,
+  ScheduleShopLaunchDto,
+} from "./dto/shop-launch.dto";
 import {
   OwnerPledgeDto,
   ReplaceBusinessContactsDto,
@@ -77,6 +82,44 @@ export class BusinessesController {
     return this.businesses
       .updatePreferences(auth, dto)
       .then((data) => ok(data, "Preferences updated"));
+  }
+
+  @Put("launch")
+  @Roles("OWNER", "MANAGER")
+  scheduleLaunch(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Body() dto: ScheduleShopLaunchDto,
+  ) {
+    return this.businesses
+      .scheduleLaunch(auth, dto)
+      .then((data) => ok(data, "Shop launch scheduled"));
+  }
+
+  @Delete("launch")
+  @Roles("OWNER", "MANAGER")
+  cancelLaunch(@CurrentAuth() auth: OwnerAuthContext) {
+    return this.businesses
+      .cancelLaunch(auth)
+      .then((data) => ok(data, "Shop launch canceled"));
+  }
+
+  @Post("open")
+  @Roles("OWNER", "MANAGER")
+  openShop(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Body() dto: OpenShopDto,
+  ) {
+    return this.businesses
+      .openShop(auth, dto)
+      .then((data) => ok(data, "Shop opened"));
+  }
+
+  @Post("pause")
+  @Roles("OWNER", "MANAGER")
+  pauseShop(@CurrentAuth() auth: OwnerAuthContext) {
+    return this.businesses
+      .pauseShop(auth)
+      .then((data) => ok(data, "Shop paused"));
   }
 
   @Post("pledge")

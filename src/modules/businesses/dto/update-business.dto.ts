@@ -19,7 +19,6 @@ import {
   PaymentStatus,
   ReceiptDeliveryLine,
   RetentionPolicy,
-  StoreStatus,
 } from "../../../generated/prisma/client";
 
 export class UpdateBusinessDto {
@@ -53,10 +52,6 @@ export class UpdateBusinessDto {
   @IsString()
   @Length(0, 160)
   location?: string;
-
-  @IsOptional()
-  @IsEnum(StoreStatus)
-  storeStatus?: StoreStatus;
 
   @IsOptional()
   @IsString()

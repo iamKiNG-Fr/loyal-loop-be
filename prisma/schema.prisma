@@ -44,9 +44,18 @@ enum BusinessTheme {
 }
 
 enum StoreStatus {
+  SETTING_UP
+  SCHEDULED
   OPEN
   PAUSED
   CLOSED
+}
+
+enum LaunchTemplate {
+  SHOP_LOADING
+  COUNTDOWN_DROP
+  OPENING_TONIGHT
+  FIRST_DROP
 }
 
 enum WorkspaceAppearance {
@@ -162,6 +171,10 @@ enum DeliveryStatus {
 enum ActivityEventType {
   BUSINESS_CREATED
   BUSINESS_UPDATED
+  SHOP_LAUNCH_SCHEDULED
+  SHOP_LAUNCH_UPDATED
+  SHOP_OPENED
+  SHOP_PAUSED
   OWNER_PLEDGED
   CUSTOMER_ADDED
   CUSTOMER_NOTE_ADDED
@@ -334,7 +347,15 @@ model Business {
   categoryDetail      String?
   description         String?
   location            String?
-  storeStatus         StoreStatus          @default(OPEN)
+  storeStatus         StoreStatus          @default(SETTING_UP)
+  launchAt            DateTime?
+  launchTimezone      String?
+  launchTemplate      LaunchTemplate       @default(SHOP_LOADING)
+  launchMessage       String?
+  launchProductId     String?
+  launchAutoOpen      Boolean              @default(false)
+  launchShareVersion  Int                  @default(1)
+  launchedAt          DateTime?
   pledgeSignature     String?
   pledgedAt           DateTime?
   plan                BusinessPlan         @default(PRIVATE_TESTER)
@@ -347,6 +368,7 @@ model Business {
   updatedAt           DateTime             @updatedAt
   owner               User                 @relation("BusinessOwner", fields: [ownerId], references: [id])
   logoAsset           MediaAsset?          @relation("BusinessLogo", fields: [logoAssetId], references: [id], onDelete: SetNull)
+  launchProduct       Product?             @relation("BusinessLaunchProduct", fields: [launchProductId], references: [id], onDelete: SetNull)
   preferences         BusinessPreferences?
   contacts            BusinessContact[]
   members             BusinessMember[]
@@ -371,6 +393,7 @@ model Business {
   supportRequests     SupportRequest[]
 
   @@index([ownerId])
+  @@index([storeStatus, launchAt])
   @@map("businesses")
 }
 
@@ -667,6 +690,7 @@ model Product {
   wishlistItems  WishlistItem[]
   interests      ProductInterest[]
   commerceEvents CommerceEvent[]
+  launchBusinesses Business[]         @relation("BusinessLaunchProduct")
 
   @@unique([businessId, slug])
   @@index([businessId, status, visibility])

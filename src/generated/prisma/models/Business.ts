@@ -27,11 +27,13 @@ export type AggregateBusiness = {
 }
 
 export type BusinessAvgAggregateOutputType = {
+  launchShareVersion: number | null
   customerLimit: number | null
   receiptLimit: number | null
 }
 
 export type BusinessSumAggregateOutputType = {
+  launchShareVersion: number | null
   customerLimit: number | null
   receiptLimit: number | null
 }
@@ -48,6 +50,14 @@ export type BusinessMinAggregateOutputType = {
   description: string | null
   location: string | null
   storeStatus: $Enums.StoreStatus | null
+  launchAt: Date | null
+  launchTimezone: string | null
+  launchTemplate: $Enums.LaunchTemplate | null
+  launchMessage: string | null
+  launchProductId: string | null
+  launchAutoOpen: boolean | null
+  launchShareVersion: number | null
+  launchedAt: Date | null
   pledgeSignature: string | null
   pledgedAt: Date | null
   plan: $Enums.BusinessPlan | null
@@ -72,6 +82,14 @@ export type BusinessMaxAggregateOutputType = {
   description: string | null
   location: string | null
   storeStatus: $Enums.StoreStatus | null
+  launchAt: Date | null
+  launchTimezone: string | null
+  launchTemplate: $Enums.LaunchTemplate | null
+  launchMessage: string | null
+  launchProductId: string | null
+  launchAutoOpen: boolean | null
+  launchShareVersion: number | null
+  launchedAt: Date | null
   pledgeSignature: string | null
   pledgedAt: Date | null
   plan: $Enums.BusinessPlan | null
@@ -96,6 +114,14 @@ export type BusinessCountAggregateOutputType = {
   description: number
   location: number
   storeStatus: number
+  launchAt: number
+  launchTimezone: number
+  launchTemplate: number
+  launchMessage: number
+  launchProductId: number
+  launchAutoOpen: number
+  launchShareVersion: number
+  launchedAt: number
   pledgeSignature: number
   pledgedAt: number
   plan: number
@@ -111,11 +137,13 @@ export type BusinessCountAggregateOutputType = {
 
 
 export type BusinessAvgAggregateInputType = {
+  launchShareVersion?: true
   customerLimit?: true
   receiptLimit?: true
 }
 
 export type BusinessSumAggregateInputType = {
+  launchShareVersion?: true
   customerLimit?: true
   receiptLimit?: true
 }
@@ -132,6 +160,14 @@ export type BusinessMinAggregateInputType = {
   description?: true
   location?: true
   storeStatus?: true
+  launchAt?: true
+  launchTimezone?: true
+  launchTemplate?: true
+  launchMessage?: true
+  launchProductId?: true
+  launchAutoOpen?: true
+  launchShareVersion?: true
+  launchedAt?: true
   pledgeSignature?: true
   pledgedAt?: true
   plan?: true
@@ -156,6 +192,14 @@ export type BusinessMaxAggregateInputType = {
   description?: true
   location?: true
   storeStatus?: true
+  launchAt?: true
+  launchTimezone?: true
+  launchTemplate?: true
+  launchMessage?: true
+  launchProductId?: true
+  launchAutoOpen?: true
+  launchShareVersion?: true
+  launchedAt?: true
   pledgeSignature?: true
   pledgedAt?: true
   plan?: true
@@ -180,6 +224,14 @@ export type BusinessCountAggregateInputType = {
   description?: true
   location?: true
   storeStatus?: true
+  launchAt?: true
+  launchTimezone?: true
+  launchTemplate?: true
+  launchMessage?: true
+  launchProductId?: true
+  launchAutoOpen?: true
+  launchShareVersion?: true
+  launchedAt?: true
   pledgeSignature?: true
   pledgedAt?: true
   plan?: true
@@ -291,6 +343,14 @@ export type BusinessGroupByOutputType = {
   description: string | null
   location: string | null
   storeStatus: $Enums.StoreStatus
+  launchAt: Date | null
+  launchTimezone: string | null
+  launchTemplate: $Enums.LaunchTemplate
+  launchMessage: string | null
+  launchProductId: string | null
+  launchAutoOpen: boolean
+  launchShareVersion: number
+  launchedAt: Date | null
   pledgeSignature: string | null
   pledgedAt: Date | null
   plan: $Enums.BusinessPlan
@@ -338,6 +398,14 @@ export type BusinessWhereInput = {
   description?: Prisma.StringNullableFilter<"Business"> | string | null
   location?: Prisma.StringNullableFilter<"Business"> | string | null
   storeStatus?: Prisma.EnumStoreStatusFilter<"Business"> | $Enums.StoreStatus
+  launchAt?: Prisma.DateTimeNullableFilter<"Business"> | Date | string | null
+  launchTimezone?: Prisma.StringNullableFilter<"Business"> | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFilter<"Business"> | $Enums.LaunchTemplate
+  launchMessage?: Prisma.StringNullableFilter<"Business"> | string | null
+  launchProductId?: Prisma.StringNullableFilter<"Business"> | string | null
+  launchAutoOpen?: Prisma.BoolFilter<"Business"> | boolean
+  launchShareVersion?: Prisma.IntFilter<"Business"> | number
+  launchedAt?: Prisma.DateTimeNullableFilter<"Business"> | Date | string | null
   pledgeSignature?: Prisma.StringNullableFilter<"Business"> | string | null
   pledgedAt?: Prisma.DateTimeNullableFilter<"Business"> | Date | string | null
   plan?: Prisma.EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan
@@ -350,6 +418,7 @@ export type BusinessWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   logoAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
+  launchProduct?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   preferences?: Prisma.XOR<Prisma.BusinessPreferencesNullableScalarRelationFilter, Prisma.BusinessPreferencesWhereInput> | null
   contacts?: Prisma.BusinessContactListRelationFilter
   members?: Prisma.BusinessMemberListRelationFilter
@@ -386,6 +455,14 @@ export type BusinessOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   storeStatus?: Prisma.SortOrder
+  launchAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchTimezone?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchTemplate?: Prisma.SortOrder
+  launchMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchProductId?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchAutoOpen?: Prisma.SortOrder
+  launchShareVersion?: Prisma.SortOrder
+  launchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   pledgeSignature?: Prisma.SortOrderInput | Prisma.SortOrder
   pledgedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   plan?: Prisma.SortOrder
@@ -398,6 +475,7 @@ export type BusinessOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   logoAsset?: Prisma.MediaAssetOrderByWithRelationInput
+  launchProduct?: Prisma.ProductOrderByWithRelationInput
   preferences?: Prisma.BusinessPreferencesOrderByWithRelationInput
   contacts?: Prisma.BusinessContactOrderByRelationAggregateInput
   members?: Prisma.BusinessMemberOrderByRelationAggregateInput
@@ -437,6 +515,14 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Business"> | string | null
   location?: Prisma.StringNullableFilter<"Business"> | string | null
   storeStatus?: Prisma.EnumStoreStatusFilter<"Business"> | $Enums.StoreStatus
+  launchAt?: Prisma.DateTimeNullableFilter<"Business"> | Date | string | null
+  launchTimezone?: Prisma.StringNullableFilter<"Business"> | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFilter<"Business"> | $Enums.LaunchTemplate
+  launchMessage?: Prisma.StringNullableFilter<"Business"> | string | null
+  launchProductId?: Prisma.StringNullableFilter<"Business"> | string | null
+  launchAutoOpen?: Prisma.BoolFilter<"Business"> | boolean
+  launchShareVersion?: Prisma.IntFilter<"Business"> | number
+  launchedAt?: Prisma.DateTimeNullableFilter<"Business"> | Date | string | null
   pledgeSignature?: Prisma.StringNullableFilter<"Business"> | string | null
   pledgedAt?: Prisma.DateTimeNullableFilter<"Business"> | Date | string | null
   plan?: Prisma.EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan
@@ -449,6 +535,7 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   logoAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
+  launchProduct?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   preferences?: Prisma.XOR<Prisma.BusinessPreferencesNullableScalarRelationFilter, Prisma.BusinessPreferencesWhereInput> | null
   contacts?: Prisma.BusinessContactListRelationFilter
   members?: Prisma.BusinessMemberListRelationFilter
@@ -485,6 +572,14 @@ export type BusinessOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   storeStatus?: Prisma.SortOrder
+  launchAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchTimezone?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchTemplate?: Prisma.SortOrder
+  launchMessage?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchProductId?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchAutoOpen?: Prisma.SortOrder
+  launchShareVersion?: Prisma.SortOrder
+  launchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   pledgeSignature?: Prisma.SortOrderInput | Prisma.SortOrder
   pledgedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   plan?: Prisma.SortOrder
@@ -517,6 +612,14 @@ export type BusinessScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   storeStatus?: Prisma.EnumStoreStatusWithAggregatesFilter<"Business"> | $Enums.StoreStatus
+  launchAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Business"> | Date | string | null
+  launchTimezone?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateWithAggregatesFilter<"Business"> | $Enums.LaunchTemplate
+  launchMessage?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  launchProductId?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  launchAutoOpen?: Prisma.BoolWithAggregatesFilter<"Business"> | boolean
+  launchShareVersion?: Prisma.IntWithAggregatesFilter<"Business"> | number
+  launchedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Business"> | Date | string | null
   pledgeSignature?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   pledgedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Business"> | Date | string | null
   plan?: Prisma.EnumBusinessPlanWithAggregatesFilter<"Business"> | $Enums.BusinessPlan
@@ -539,6 +642,13 @@ export type BusinessCreateInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -551,6 +661,7 @@ export type BusinessCreateInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -587,6 +698,14 @@ export type BusinessUncheckedCreateInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -631,6 +750,13 @@ export type BusinessUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -643,6 +769,7 @@ export type BusinessUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -679,6 +806,14 @@ export type BusinessUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -725,6 +860,14 @@ export type BusinessCreateManyInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -747,6 +890,13 @@ export type BusinessUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -771,6 +921,14 @@ export type BusinessUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -805,6 +963,14 @@ export type BusinessCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   storeStatus?: Prisma.SortOrder
+  launchAt?: Prisma.SortOrder
+  launchTimezone?: Prisma.SortOrder
+  launchTemplate?: Prisma.SortOrder
+  launchMessage?: Prisma.SortOrder
+  launchProductId?: Prisma.SortOrder
+  launchAutoOpen?: Prisma.SortOrder
+  launchShareVersion?: Prisma.SortOrder
+  launchedAt?: Prisma.SortOrder
   pledgeSignature?: Prisma.SortOrder
   pledgedAt?: Prisma.SortOrder
   plan?: Prisma.SortOrder
@@ -818,6 +984,7 @@ export type BusinessCountOrderByAggregateInput = {
 }
 
 export type BusinessAvgOrderByAggregateInput = {
+  launchShareVersion?: Prisma.SortOrder
   customerLimit?: Prisma.SortOrder
   receiptLimit?: Prisma.SortOrder
 }
@@ -834,6 +1001,14 @@ export type BusinessMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   storeStatus?: Prisma.SortOrder
+  launchAt?: Prisma.SortOrder
+  launchTimezone?: Prisma.SortOrder
+  launchTemplate?: Prisma.SortOrder
+  launchMessage?: Prisma.SortOrder
+  launchProductId?: Prisma.SortOrder
+  launchAutoOpen?: Prisma.SortOrder
+  launchShareVersion?: Prisma.SortOrder
+  launchedAt?: Prisma.SortOrder
   pledgeSignature?: Prisma.SortOrder
   pledgedAt?: Prisma.SortOrder
   plan?: Prisma.SortOrder
@@ -858,6 +1033,14 @@ export type BusinessMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   location?: Prisma.SortOrder
   storeStatus?: Prisma.SortOrder
+  launchAt?: Prisma.SortOrder
+  launchTimezone?: Prisma.SortOrder
+  launchTemplate?: Prisma.SortOrder
+  launchMessage?: Prisma.SortOrder
+  launchProductId?: Prisma.SortOrder
+  launchAutoOpen?: Prisma.SortOrder
+  launchShareVersion?: Prisma.SortOrder
+  launchedAt?: Prisma.SortOrder
   pledgeSignature?: Prisma.SortOrder
   pledgedAt?: Prisma.SortOrder
   plan?: Prisma.SortOrder
@@ -871,6 +1054,7 @@ export type BusinessMinOrderByAggregateInput = {
 }
 
 export type BusinessSumOrderByAggregateInput = {
+  launchShareVersion?: Prisma.SortOrder
   customerLimit?: Prisma.SortOrder
   receiptLimit?: Prisma.SortOrder
 }
@@ -929,6 +1113,14 @@ export type BusinessUncheckedUpdateManyWithoutOwnerNestedInput = {
 
 export type EnumStoreStatusFieldUpdateOperationsInput = {
   set?: $Enums.StoreStatus
+}
+
+export type EnumLaunchTemplateFieldUpdateOperationsInput = {
+  set?: $Enums.LaunchTemplate
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type EnumBusinessPlanFieldUpdateOperationsInput = {
@@ -1083,12 +1275,54 @@ export type BusinessCreateNestedOneWithoutProductsInput = {
   connect?: Prisma.BusinessWhereUniqueInput
 }
 
+export type BusinessCreateNestedManyWithoutLaunchProductInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutLaunchProductInput, Prisma.BusinessUncheckedCreateWithoutLaunchProductInput> | Prisma.BusinessCreateWithoutLaunchProductInput[] | Prisma.BusinessUncheckedCreateWithoutLaunchProductInput[]
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutLaunchProductInput | Prisma.BusinessCreateOrConnectWithoutLaunchProductInput[]
+  createMany?: Prisma.BusinessCreateManyLaunchProductInputEnvelope
+  connect?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+}
+
+export type BusinessUncheckedCreateNestedManyWithoutLaunchProductInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutLaunchProductInput, Prisma.BusinessUncheckedCreateWithoutLaunchProductInput> | Prisma.BusinessCreateWithoutLaunchProductInput[] | Prisma.BusinessUncheckedCreateWithoutLaunchProductInput[]
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutLaunchProductInput | Prisma.BusinessCreateOrConnectWithoutLaunchProductInput[]
+  createMany?: Prisma.BusinessCreateManyLaunchProductInputEnvelope
+  connect?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+}
+
 export type BusinessUpdateOneRequiredWithoutProductsNestedInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutProductsInput, Prisma.BusinessUncheckedCreateWithoutProductsInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutProductsInput
   upsert?: Prisma.BusinessUpsertWithoutProductsInput
   connect?: Prisma.BusinessWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutProductsInput, Prisma.BusinessUpdateWithoutProductsInput>, Prisma.BusinessUncheckedUpdateWithoutProductsInput>
+}
+
+export type BusinessUpdateManyWithoutLaunchProductNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutLaunchProductInput, Prisma.BusinessUncheckedCreateWithoutLaunchProductInput> | Prisma.BusinessCreateWithoutLaunchProductInput[] | Prisma.BusinessUncheckedCreateWithoutLaunchProductInput[]
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutLaunchProductInput | Prisma.BusinessCreateOrConnectWithoutLaunchProductInput[]
+  upsert?: Prisma.BusinessUpsertWithWhereUniqueWithoutLaunchProductInput | Prisma.BusinessUpsertWithWhereUniqueWithoutLaunchProductInput[]
+  createMany?: Prisma.BusinessCreateManyLaunchProductInputEnvelope
+  set?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+  disconnect?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+  delete?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+  connect?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+  update?: Prisma.BusinessUpdateWithWhereUniqueWithoutLaunchProductInput | Prisma.BusinessUpdateWithWhereUniqueWithoutLaunchProductInput[]
+  updateMany?: Prisma.BusinessUpdateManyWithWhereWithoutLaunchProductInput | Prisma.BusinessUpdateManyWithWhereWithoutLaunchProductInput[]
+  deleteMany?: Prisma.BusinessScalarWhereInput | Prisma.BusinessScalarWhereInput[]
+}
+
+export type BusinessUncheckedUpdateManyWithoutLaunchProductNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutLaunchProductInput, Prisma.BusinessUncheckedCreateWithoutLaunchProductInput> | Prisma.BusinessCreateWithoutLaunchProductInput[] | Prisma.BusinessUncheckedCreateWithoutLaunchProductInput[]
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutLaunchProductInput | Prisma.BusinessCreateOrConnectWithoutLaunchProductInput[]
+  upsert?: Prisma.BusinessUpsertWithWhereUniqueWithoutLaunchProductInput | Prisma.BusinessUpsertWithWhereUniqueWithoutLaunchProductInput[]
+  createMany?: Prisma.BusinessCreateManyLaunchProductInputEnvelope
+  set?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+  disconnect?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+  delete?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+  connect?: Prisma.BusinessWhereUniqueInput | Prisma.BusinessWhereUniqueInput[]
+  update?: Prisma.BusinessUpdateWithWhereUniqueWithoutLaunchProductInput | Prisma.BusinessUpdateWithWhereUniqueWithoutLaunchProductInput[]
+  updateMany?: Prisma.BusinessUpdateManyWithWhereWithoutLaunchProductInput | Prisma.BusinessUpdateManyWithWhereWithoutLaunchProductInput[]
+  deleteMany?: Prisma.BusinessScalarWhereInput | Prisma.BusinessScalarWhereInput[]
 }
 
 export type BusinessCreateNestedOneWithoutWishlistItemsInput = {
@@ -1299,6 +1533,13 @@ export type BusinessCreateWithoutOwnerInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -1310,6 +1551,7 @@ export type BusinessCreateWithoutOwnerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -1345,6 +1587,14 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -1420,6 +1670,14 @@ export type BusinessScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"Business"> | string | null
   location?: Prisma.StringNullableFilter<"Business"> | string | null
   storeStatus?: Prisma.EnumStoreStatusFilter<"Business"> | $Enums.StoreStatus
+  launchAt?: Prisma.DateTimeNullableFilter<"Business"> | Date | string | null
+  launchTimezone?: Prisma.StringNullableFilter<"Business"> | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFilter<"Business"> | $Enums.LaunchTemplate
+  launchMessage?: Prisma.StringNullableFilter<"Business"> | string | null
+  launchProductId?: Prisma.StringNullableFilter<"Business"> | string | null
+  launchAutoOpen?: Prisma.BoolFilter<"Business"> | boolean
+  launchShareVersion?: Prisma.IntFilter<"Business"> | number
+  launchedAt?: Prisma.DateTimeNullableFilter<"Business"> | Date | string | null
   pledgeSignature?: Prisma.StringNullableFilter<"Business"> | string | null
   pledgedAt?: Prisma.DateTimeNullableFilter<"Business"> | Date | string | null
   plan?: Prisma.EnumBusinessPlanFilter<"Business"> | $Enums.BusinessPlan
@@ -1442,6 +1700,13 @@ export type BusinessCreateWithoutPreferencesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -1454,6 +1719,7 @@ export type BusinessCreateWithoutPreferencesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
   invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
@@ -1489,6 +1755,14 @@ export type BusinessUncheckedCreateWithoutPreferencesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -1548,6 +1822,13 @@ export type BusinessUpdateWithoutPreferencesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -1560,6 +1841,7 @@ export type BusinessUpdateWithoutPreferencesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
   invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
@@ -1595,6 +1877,14 @@ export type BusinessUncheckedUpdateWithoutPreferencesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -1638,6 +1928,13 @@ export type BusinessCreateWithoutContactsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -1650,6 +1947,7 @@ export type BusinessCreateWithoutContactsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
   invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
@@ -1685,6 +1983,14 @@ export type BusinessUncheckedCreateWithoutContactsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -1744,6 +2050,13 @@ export type BusinessUpdateWithoutContactsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -1756,6 +2069,7 @@ export type BusinessUpdateWithoutContactsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
   invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
@@ -1791,6 +2105,14 @@ export type BusinessUncheckedUpdateWithoutContactsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -1834,6 +2156,13 @@ export type BusinessCreateWithoutMembersInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -1846,6 +2175,7 @@ export type BusinessCreateWithoutMembersInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
@@ -1881,6 +2211,14 @@ export type BusinessUncheckedCreateWithoutMembersInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -1940,6 +2278,13 @@ export type BusinessUpdateWithoutMembersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -1952,6 +2297,7 @@ export type BusinessUpdateWithoutMembersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
@@ -1987,6 +2333,14 @@ export type BusinessUncheckedUpdateWithoutMembersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2030,6 +2384,13 @@ export type BusinessCreateWithoutInvitationsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2042,6 +2403,7 @@ export type BusinessCreateWithoutInvitationsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -2077,6 +2439,14 @@ export type BusinessUncheckedCreateWithoutInvitationsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2136,6 +2506,13 @@ export type BusinessUpdateWithoutInvitationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2148,6 +2525,7 @@ export type BusinessUpdateWithoutInvitationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -2183,6 +2561,14 @@ export type BusinessUncheckedUpdateWithoutInvitationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2226,6 +2612,13 @@ export type BusinessCreateWithoutAssetsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2238,6 +2631,7 @@ export type BusinessCreateWithoutAssetsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -2273,6 +2667,14 @@ export type BusinessUncheckedCreateWithoutAssetsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2321,6 +2723,13 @@ export type BusinessCreateWithoutLogoAssetInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2332,6 +2741,7 @@ export type BusinessCreateWithoutLogoAssetInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -2367,6 +2777,14 @@ export type BusinessUncheckedCreateWithoutLogoAssetInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2427,6 +2845,13 @@ export type BusinessUpdateWithoutAssetsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2439,6 +2864,7 @@ export type BusinessUpdateWithoutAssetsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -2474,6 +2900,14 @@ export type BusinessUncheckedUpdateWithoutAssetsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2528,6 +2962,13 @@ export type BusinessUpdateWithoutLogoAssetInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2539,6 +2980,7 @@ export type BusinessUpdateWithoutLogoAssetInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -2574,6 +3016,14 @@ export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2618,6 +3068,13 @@ export type BusinessCreateWithoutCustomersInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2630,6 +3087,7 @@ export type BusinessCreateWithoutCustomersInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -2665,6 +3123,14 @@ export type BusinessUncheckedCreateWithoutCustomersInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2724,6 +3190,13 @@ export type BusinessUpdateWithoutCustomersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2736,6 +3209,7 @@ export type BusinessUpdateWithoutCustomersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -2771,6 +3245,14 @@ export type BusinessUncheckedUpdateWithoutCustomersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2814,6 +3296,13 @@ export type BusinessCreateWithoutCustomerTagsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2826,6 +3315,7 @@ export type BusinessCreateWithoutCustomerTagsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -2861,6 +3351,14 @@ export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -2920,6 +3418,13 @@ export type BusinessUpdateWithoutCustomerTagsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -2932,6 +3437,7 @@ export type BusinessUpdateWithoutCustomerTagsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -2967,6 +3473,14 @@ export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3010,6 +3524,13 @@ export type BusinessCreateWithoutProductsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3022,6 +3543,7 @@ export type BusinessCreateWithoutProductsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -3057,6 +3579,14 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3095,6 +3625,122 @@ export type BusinessCreateOrConnectWithoutProductsInput = {
   create: Prisma.XOR<Prisma.BusinessCreateWithoutProductsInput, Prisma.BusinessUncheckedCreateWithoutProductsInput>
 }
 
+export type BusinessCreateWithoutLaunchProductInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutLaunchProductInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutLaunchProductInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutLaunchProductInput, Prisma.BusinessUncheckedCreateWithoutLaunchProductInput>
+}
+
+export type BusinessCreateManyLaunchProductInputEnvelope = {
+  data: Prisma.BusinessCreateManyLaunchProductInput | Prisma.BusinessCreateManyLaunchProductInput[]
+  skipDuplicates?: boolean
+}
+
 export type BusinessUpsertWithoutProductsInput = {
   update: Prisma.XOR<Prisma.BusinessUpdateWithoutProductsInput, Prisma.BusinessUncheckedUpdateWithoutProductsInput>
   create: Prisma.XOR<Prisma.BusinessCreateWithoutProductsInput, Prisma.BusinessUncheckedCreateWithoutProductsInput>
@@ -3116,6 +3762,13 @@ export type BusinessUpdateWithoutProductsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3128,6 +3781,7 @@ export type BusinessUpdateWithoutProductsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -3163,6 +3817,14 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3196,6 +3858,22 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
+export type BusinessUpsertWithWhereUniqueWithoutLaunchProductInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutLaunchProductInput, Prisma.BusinessUncheckedUpdateWithoutLaunchProductInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutLaunchProductInput, Prisma.BusinessUncheckedCreateWithoutLaunchProductInput>
+}
+
+export type BusinessUpdateWithWhereUniqueWithoutLaunchProductInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutLaunchProductInput, Prisma.BusinessUncheckedUpdateWithoutLaunchProductInput>
+}
+
+export type BusinessUpdateManyWithWhereWithoutLaunchProductInput = {
+  where: Prisma.BusinessScalarWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateManyMutationInput, Prisma.BusinessUncheckedUpdateManyWithoutLaunchProductInput>
+}
+
 export type BusinessCreateWithoutWishlistItemsInput = {
   id?: string
   name: string
@@ -3206,6 +3884,13 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3218,6 +3903,7 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -3253,6 +3939,14 @@ export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3312,6 +4006,13 @@ export type BusinessUpdateWithoutWishlistItemsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3324,6 +4025,7 @@ export type BusinessUpdateWithoutWishlistItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -3359,6 +4061,14 @@ export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3402,6 +4112,13 @@ export type BusinessCreateWithoutProductInterestsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3414,6 +4131,7 @@ export type BusinessCreateWithoutProductInterestsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -3449,6 +4167,14 @@ export type BusinessUncheckedCreateWithoutProductInterestsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3508,6 +4234,13 @@ export type BusinessUpdateWithoutProductInterestsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3520,6 +4253,7 @@ export type BusinessUpdateWithoutProductInterestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -3555,6 +4289,14 @@ export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3598,6 +4340,13 @@ export type BusinessCreateWithoutOrderRequestsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3610,6 +4359,7 @@ export type BusinessCreateWithoutOrderRequestsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -3645,6 +4395,14 @@ export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3704,6 +4462,13 @@ export type BusinessUpdateWithoutOrderRequestsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3716,6 +4481,7 @@ export type BusinessUpdateWithoutOrderRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -3751,6 +4517,14 @@ export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3794,6 +4568,13 @@ export type BusinessCreateWithoutCommerceEventsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3806,6 +4587,7 @@ export type BusinessCreateWithoutCommerceEventsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -3841,6 +4623,14 @@ export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -3900,6 +4690,13 @@ export type BusinessUpdateWithoutCommerceEventsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3912,6 +4709,7 @@ export type BusinessUpdateWithoutCommerceEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -3947,6 +4745,14 @@ export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -3990,6 +4796,13 @@ export type BusinessCreateWithoutSalesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4002,6 +4815,7 @@ export type BusinessCreateWithoutSalesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -4037,6 +4851,14 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4096,6 +4918,13 @@ export type BusinessUpdateWithoutSalesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4108,6 +4937,7 @@ export type BusinessUpdateWithoutSalesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -4143,6 +4973,14 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4186,6 +5024,13 @@ export type BusinessCreateWithoutReceiptsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4198,6 +5043,7 @@ export type BusinessCreateWithoutReceiptsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -4233,6 +5079,14 @@ export type BusinessUncheckedCreateWithoutReceiptsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4292,6 +5146,13 @@ export type BusinessUpdateWithoutReceiptsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4304,6 +5165,7 @@ export type BusinessUpdateWithoutReceiptsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -4339,6 +5201,14 @@ export type BusinessUncheckedUpdateWithoutReceiptsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4382,6 +5252,13 @@ export type BusinessCreateWithoutDeliveriesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4394,6 +5271,7 @@ export type BusinessCreateWithoutDeliveriesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -4429,6 +5307,14 @@ export type BusinessUncheckedCreateWithoutDeliveriesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4488,6 +5374,13 @@ export type BusinessUpdateWithoutDeliveriesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4500,6 +5393,7 @@ export type BusinessUpdateWithoutDeliveriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -4535,6 +5429,14 @@ export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4578,6 +5480,13 @@ export type BusinessCreateWithoutActivityEventsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4590,6 +5499,7 @@ export type BusinessCreateWithoutActivityEventsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -4625,6 +5535,14 @@ export type BusinessUncheckedCreateWithoutActivityEventsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4684,6 +5602,13 @@ export type BusinessUpdateWithoutActivityEventsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4696,6 +5621,7 @@ export type BusinessUpdateWithoutActivityEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -4731,6 +5657,14 @@ export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4774,6 +5708,13 @@ export type BusinessCreateWithoutFollowUpTemplatesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4786,6 +5727,7 @@ export type BusinessCreateWithoutFollowUpTemplatesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -4821,6 +5763,14 @@ export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4880,6 +5830,13 @@ export type BusinessUpdateWithoutFollowUpTemplatesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4892,6 +5849,7 @@ export type BusinessUpdateWithoutFollowUpTemplatesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -4927,6 +5885,14 @@ export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -4970,6 +5936,13 @@ export type BusinessCreateWithoutFollowUpSuggestionsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -4982,6 +5955,7 @@ export type BusinessCreateWithoutFollowUpSuggestionsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -5017,6 +5991,14 @@ export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5076,6 +6058,13 @@ export type BusinessUpdateWithoutFollowUpSuggestionsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5088,6 +6077,7 @@ export type BusinessUpdateWithoutFollowUpSuggestionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -5123,6 +6113,14 @@ export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5166,6 +6164,13 @@ export type BusinessCreateWithoutFeedbackInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5178,6 +6183,7 @@ export type BusinessCreateWithoutFeedbackInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -5213,6 +6219,14 @@ export type BusinessUncheckedCreateWithoutFeedbackInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5272,6 +6286,13 @@ export type BusinessUpdateWithoutFeedbackInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5284,6 +6305,7 @@ export type BusinessUpdateWithoutFeedbackInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -5319,6 +6341,14 @@ export type BusinessUncheckedUpdateWithoutFeedbackInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5362,6 +6392,13 @@ export type BusinessCreateWithoutIssuesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5374,6 +6411,7 @@ export type BusinessCreateWithoutIssuesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -5409,6 +6447,14 @@ export type BusinessUncheckedCreateWithoutIssuesInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5468,6 +6514,13 @@ export type BusinessUpdateWithoutIssuesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5480,6 +6533,7 @@ export type BusinessUpdateWithoutIssuesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -5515,6 +6569,14 @@ export type BusinessUncheckedUpdateWithoutIssuesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5558,6 +6620,13 @@ export type BusinessCreateWithoutTrustLedgerInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5570,6 +6639,7 @@ export type BusinessCreateWithoutTrustLedgerInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -5605,6 +6675,14 @@ export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5664,6 +6742,13 @@ export type BusinessUpdateWithoutTrustLedgerInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5676,6 +6761,7 @@ export type BusinessUpdateWithoutTrustLedgerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -5711,6 +6797,14 @@ export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5754,6 +6848,13 @@ export type BusinessCreateWithoutSupportRequestsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5766,6 +6867,7 @@ export type BusinessCreateWithoutSupportRequestsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -5801,6 +6903,14 @@ export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5860,6 +6970,13 @@ export type BusinessUpdateWithoutSupportRequestsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5872,6 +6989,7 @@ export type BusinessUpdateWithoutSupportRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -5907,6 +7025,14 @@ export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5951,6 +7077,14 @@ export type BusinessCreateManyOwnerInput = {
   description?: string | null
   location?: string | null
   storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
   pledgeSignature?: string | null
   pledgedAt?: Date | string | null
   plan?: $Enums.BusinessPlan
@@ -5973,6 +7107,13 @@ export type BusinessUpdateWithoutOwnerInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -5984,6 +7125,7 @@ export type BusinessUpdateWithoutOwnerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -6019,6 +7161,14 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -6064,6 +7214,182 @@ export type BusinessUncheckedUpdateManyWithoutOwnerInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type BusinessCreateManyLaunchProductInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BusinessUpdateWithoutLaunchProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutLaunchProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateManyWithoutLaunchProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
@@ -6299,6 +7625,14 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   description?: boolean
   location?: boolean
   storeStatus?: boolean
+  launchAt?: boolean
+  launchTimezone?: boolean
+  launchTemplate?: boolean
+  launchMessage?: boolean
+  launchProductId?: boolean
+  launchAutoOpen?: boolean
+  launchShareVersion?: boolean
+  launchedAt?: boolean
   pledgeSignature?: boolean
   pledgedAt?: boolean
   plan?: boolean
@@ -6311,6 +7645,7 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
   preferences?: boolean | Prisma.Business$preferencesArgs<ExtArgs>
   contacts?: boolean | Prisma.Business$contactsArgs<ExtArgs>
   members?: boolean | Prisma.Business$membersArgs<ExtArgs>
@@ -6348,6 +7683,14 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   description?: boolean
   location?: boolean
   storeStatus?: boolean
+  launchAt?: boolean
+  launchTimezone?: boolean
+  launchTemplate?: boolean
+  launchMessage?: boolean
+  launchProductId?: boolean
+  launchAutoOpen?: boolean
+  launchShareVersion?: boolean
+  launchedAt?: boolean
   pledgeSignature?: boolean
   pledgedAt?: boolean
   plan?: boolean
@@ -6360,6 +7703,7 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
 }, ExtArgs["result"]["business"]>
 
 export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -6374,6 +7718,14 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   description?: boolean
   location?: boolean
   storeStatus?: boolean
+  launchAt?: boolean
+  launchTimezone?: boolean
+  launchTemplate?: boolean
+  launchMessage?: boolean
+  launchProductId?: boolean
+  launchAutoOpen?: boolean
+  launchShareVersion?: boolean
+  launchedAt?: boolean
   pledgeSignature?: boolean
   pledgedAt?: boolean
   plan?: boolean
@@ -6386,6 +7738,7 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
 }, ExtArgs["result"]["business"]>
 
 export type BusinessSelectScalar = {
@@ -6400,6 +7753,14 @@ export type BusinessSelectScalar = {
   description?: boolean
   location?: boolean
   storeStatus?: boolean
+  launchAt?: boolean
+  launchTimezone?: boolean
+  launchTemplate?: boolean
+  launchMessage?: boolean
+  launchProductId?: boolean
+  launchAutoOpen?: boolean
+  launchShareVersion?: boolean
+  launchedAt?: boolean
   pledgeSignature?: boolean
   pledgedAt?: boolean
   plan?: boolean
@@ -6412,10 +7773,11 @@ export type BusinessSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "logoAssetId" | "name" | "slug" | "publicCardId" | "category" | "categoryDetail" | "description" | "location" | "storeStatus" | "pledgeSignature" | "pledgedAt" | "plan" | "subscriptionStatus" | "trialStartedAt" | "trialEndsAt" | "customerLimit" | "receiptLimit" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
+export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "logoAssetId" | "name" | "slug" | "publicCardId" | "category" | "categoryDetail" | "description" | "location" | "storeStatus" | "launchAt" | "launchTimezone" | "launchTemplate" | "launchMessage" | "launchProductId" | "launchAutoOpen" | "launchShareVersion" | "launchedAt" | "pledgeSignature" | "pledgedAt" | "plan" | "subscriptionStatus" | "trialStartedAt" | "trialEndsAt" | "customerLimit" | "receiptLimit" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
 export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
   preferences?: boolean | Prisma.Business$preferencesArgs<ExtArgs>
   contacts?: boolean | Prisma.Business$contactsArgs<ExtArgs>
   members?: boolean | Prisma.Business$membersArgs<ExtArgs>
@@ -6443,10 +7805,12 @@ export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type BusinessIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
 }
 export type BusinessIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
 }
 
 export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6454,6 +7818,7 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     owner: Prisma.$UserPayload<ExtArgs>
     logoAsset: Prisma.$MediaAssetPayload<ExtArgs> | null
+    launchProduct: Prisma.$ProductPayload<ExtArgs> | null
     preferences: Prisma.$BusinessPreferencesPayload<ExtArgs> | null
     contacts: Prisma.$BusinessContactPayload<ExtArgs>[]
     members: Prisma.$BusinessMemberPayload<ExtArgs>[]
@@ -6489,6 +7854,14 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     description: string | null
     location: string | null
     storeStatus: $Enums.StoreStatus
+    launchAt: Date | null
+    launchTimezone: string | null
+    launchTemplate: $Enums.LaunchTemplate
+    launchMessage: string | null
+    launchProductId: string | null
+    launchAutoOpen: boolean
+    launchShareVersion: number
+    launchedAt: Date | null
     pledgeSignature: string | null
     pledgedAt: Date | null
     plan: $Enums.BusinessPlan
@@ -6895,6 +8268,7 @@ export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   logoAsset<T extends Prisma.Business$logoAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$logoAssetArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  launchProduct<T extends Prisma.Business$launchProductArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$launchProductArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   preferences<T extends Prisma.Business$preferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$preferencesArgs<ExtArgs>>): Prisma.Prisma__BusinessPreferencesClient<runtime.Types.Result.GetResult<Prisma.$BusinessPreferencesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   contacts<T extends Prisma.Business$contactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.Business$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -6957,6 +8331,14 @@ export interface BusinessFieldRefs {
   readonly description: Prisma.FieldRef<"Business", 'String'>
   readonly location: Prisma.FieldRef<"Business", 'String'>
   readonly storeStatus: Prisma.FieldRef<"Business", 'StoreStatus'>
+  readonly launchAt: Prisma.FieldRef<"Business", 'DateTime'>
+  readonly launchTimezone: Prisma.FieldRef<"Business", 'String'>
+  readonly launchTemplate: Prisma.FieldRef<"Business", 'LaunchTemplate'>
+  readonly launchMessage: Prisma.FieldRef<"Business", 'String'>
+  readonly launchProductId: Prisma.FieldRef<"Business", 'String'>
+  readonly launchAutoOpen: Prisma.FieldRef<"Business", 'Boolean'>
+  readonly launchShareVersion: Prisma.FieldRef<"Business", 'Int'>
+  readonly launchedAt: Prisma.FieldRef<"Business", 'DateTime'>
   readonly pledgeSignature: Prisma.FieldRef<"Business", 'String'>
   readonly pledgedAt: Prisma.FieldRef<"Business", 'DateTime'>
   readonly plan: Prisma.FieldRef<"Business", 'BusinessPlan'>
@@ -7384,6 +8766,25 @@ export type Business$logoAssetArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   include?: Prisma.MediaAssetInclude<ExtArgs> | null
   where?: Prisma.MediaAssetWhereInput
+}
+
+/**
+ * Business.launchProduct
+ */
+export type Business$launchProductArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
 }
 
 /**

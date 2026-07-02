@@ -186,6 +186,18 @@ export type EnumStoreStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumStoreStatusFilter<$PrismaModel> | $Enums.StoreStatus
 }
 
+export type EnumLaunchTemplateFilter<$PrismaModel = never> = {
+  equals?: $Enums.LaunchTemplate | Prisma.EnumLaunchTemplateFieldRefInput<$PrismaModel>
+  in?: $Enums.LaunchTemplate[] | Prisma.ListEnumLaunchTemplateFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LaunchTemplate[] | Prisma.ListEnumLaunchTemplateFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel> | $Enums.LaunchTemplate
+}
+
+export type BoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
 export type EnumBusinessPlanFilter<$PrismaModel = never> = {
   equals?: $Enums.BusinessPlan | Prisma.EnumBusinessPlanFieldRefInput<$PrismaModel>
   in?: $Enums.BusinessPlan[] | Prisma.ListEnumBusinessPlanFieldRefInput<$PrismaModel>
@@ -219,6 +231,24 @@ export type EnumStoreStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumStoreStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumStoreStatusFilter<$PrismaModel>
+}
+
+export type EnumLaunchTemplateWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LaunchTemplate | Prisma.EnumLaunchTemplateFieldRefInput<$PrismaModel>
+  in?: $Enums.LaunchTemplate[] | Prisma.ListEnumLaunchTemplateFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LaunchTemplate[] | Prisma.ListEnumLaunchTemplateFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLaunchTemplateWithAggregatesFilter<$PrismaModel> | $Enums.LaunchTemplate
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel>
+}
+
+export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type EnumBusinessPlanWithAggregatesFilter<$PrismaModel = never> = {
@@ -271,11 +301,6 @@ export type EnumBusinessThemeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumBusinessThemeFilter<$PrismaModel> | $Enums.BusinessTheme
 }
 
-export type BoolFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
-}
-
 export type EnumPaymentStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.PaymentStatus | Prisma.EnumPaymentStatusFieldRefInput<$PrismaModel>
   in?: $Enums.PaymentStatus[] | Prisma.ListEnumPaymentStatusFieldRefInput<$PrismaModel>
@@ -322,14 +347,6 @@ export type EnumBusinessThemeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumBusinessThemeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumBusinessThemeFilter<$PrismaModel>
-}
-
-export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedBoolFilter<$PrismaModel>
-  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -1080,6 +1097,18 @@ export type NestedEnumStoreStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumStoreStatusFilter<$PrismaModel> | $Enums.StoreStatus
 }
 
+export type NestedEnumLaunchTemplateFilter<$PrismaModel = never> = {
+  equals?: $Enums.LaunchTemplate | Prisma.EnumLaunchTemplateFieldRefInput<$PrismaModel>
+  in?: $Enums.LaunchTemplate[] | Prisma.ListEnumLaunchTemplateFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LaunchTemplate[] | Prisma.ListEnumLaunchTemplateFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel> | $Enums.LaunchTemplate
+}
+
+export type NestedBoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
 export type NestedEnumBusinessPlanFilter<$PrismaModel = never> = {
   equals?: $Enums.BusinessPlan | Prisma.EnumBusinessPlanFieldRefInput<$PrismaModel>
   in?: $Enums.BusinessPlan[] | Prisma.ListEnumBusinessPlanFieldRefInput<$PrismaModel>
@@ -1102,6 +1131,24 @@ export type NestedEnumStoreStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumStoreStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumStoreStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumLaunchTemplateWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LaunchTemplate | Prisma.EnumLaunchTemplateFieldRefInput<$PrismaModel>
+  in?: $Enums.LaunchTemplate[] | Prisma.ListEnumLaunchTemplateFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LaunchTemplate[] | Prisma.ListEnumLaunchTemplateFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLaunchTemplateWithAggregatesFilter<$PrismaModel> | $Enums.LaunchTemplate
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel>
+}
+
+export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type NestedEnumBusinessPlanWithAggregatesFilter<$PrismaModel = never> = {
@@ -1165,11 +1212,6 @@ export type NestedEnumBusinessThemeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumBusinessThemeFilter<$PrismaModel> | $Enums.BusinessTheme
 }
 
-export type NestedBoolFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
-}
-
 export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.PaymentStatus | Prisma.EnumPaymentStatusFieldRefInput<$PrismaModel>
   in?: $Enums.PaymentStatus[] | Prisma.ListEnumPaymentStatusFieldRefInput<$PrismaModel>
@@ -1216,14 +1258,6 @@ export type NestedEnumBusinessThemeWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumBusinessThemeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumBusinessThemeFilter<$PrismaModel>
-}
-
-export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedBoolFilter<$PrismaModel>
-  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {

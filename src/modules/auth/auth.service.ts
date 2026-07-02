@@ -50,6 +50,7 @@ export class AuthService {
             category: dto.category,
             categoryDetail: dto.categoryDetail,
             location: dto.location,
+            storeStatus: "SETTING_UP",
             pledgeSignature: dto.pledgeSignature,
             pledgedAt: dto.pledgeSignature ? new Date() : undefined,
             preferences: {

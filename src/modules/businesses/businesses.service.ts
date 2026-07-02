@@ -14,6 +14,10 @@ import {
   CreateBusinessInvitationDto,
 } from "./dto/business-invitation.dto";
 import {
+  OpenShopDto,
+  ScheduleShopLaunchDto,
+} from "./dto/shop-launch.dto";
+import {
   OwnerPledgeDto,
   ReplaceBusinessContactsDto,
   UpdateBusinessDto,
@@ -27,11 +31,20 @@ export class BusinessesService {
     private readonly config: ConfigService,
   ) {}
 
-  getCurrent(auth: OwnerAuthContext) {
+  async getCurrent(auth: OwnerAuthContext) {
+    await this.reconcileScheduledLaunch(auth.businessId);
     return this.prisma.business.findUniqueOrThrow({
       where: { id: auth.businessId },
       include: {
         logoAsset: true,
+        launchProduct: {
+          include: {
+            images: {
+              include: { asset: true },
+              orderBy: { sortOrder: "asc" },
+            },
+          },
+        },
         preferences: true,
         contacts: { orderBy: { sortOrder: "asc" } },
         members: {
@@ -47,6 +60,11 @@ export class BusinessesService {
   }
 
   async resolvePublicCard(cardId: string) {
+    const candidate = await this.prisma.business.findUnique({
+      where: { publicCardId: cardId.trim().toUpperCase() },
+      select: { id: true },
+    });
+    if (candidate) await this.reconcileScheduledLaunch(candidate.id);
     const business = await this.prisma.business.findUnique({
       where: { publicCardId: cardId.trim().toUpperCase() },
       select: {
@@ -56,14 +74,15 @@ export class BusinessesService {
         storeStatus: true,
       },
     });
-    if (!business || business.storeStatus !== "OPEN") {
+    if (!business || business.storeStatus === "CLOSED") {
       throw new NotFoundException("Trust Card is unavailable");
     }
     return {
-      active: true,
+      active: business.storeStatus === "OPEN",
       businessName: business.name,
       cardId: business.publicCardId,
       shopSlug: business.slug,
+      status: business.storeStatus,
     };
   }
 
@@ -98,6 +117,254 @@ export class BusinessesService {
       }
       throw error;
     }
+  }
+
+  async scheduleLaunch(
+    auth: OwnerAuthContext,
+    dto: ScheduleShopLaunchDto,
+  ) {
+    const launchAt = new Date(dto.launchAt);
+    if (launchAt.getTime() <= Date.now()) {
+      throw new BadRequestException("Launch time must be in the future");
+    }
+    if (launchAt.getTime() > Date.now() + 366 * 24 * 60 * 60 * 1000) {
+      throw new BadRequestException("Launch time must be within one year");
+    }
+    if (!isValidTimeZone(dto.timezone)) {
+      throw new BadRequestException("Launch timezone is invalid");
+    }
+
+    const current = await this.prisma.business.findUniqueOrThrow({
+      where: { id: auth.businessId },
+      select: { storeStatus: true },
+    });
+    if (!["SETTING_UP", "SCHEDULED"].includes(current.storeStatus)) {
+      throw new BadRequestException(
+        "Only shops that are setting up can schedule a launch",
+      );
+    }
+
+    if (dto.productId) {
+      const product = await this.prisma.product.findFirst({
+        where: {
+          id: dto.productId,
+          businessId: auth.businessId,
+          status: "ACTIVE",
+          visibility: "PUBLIC",
+        },
+        select: { id: true },
+      });
+      if (!product) {
+        throw new BadRequestException("Launch product is invalid");
+      }
+    }
+
+    return this.prisma.$transaction(async (tx) => {
+      const business = await tx.business.update({
+        where: { id: auth.businessId },
+        data: {
+          storeStatus: "SCHEDULED",
+          launchAt,
+          launchTimezone: dto.timezone,
+          launchTemplate: dto.template,
+          launchMessage: dto.message?.trim() || null,
+          launchProductId: dto.productId || null,
+          launchAutoOpen: dto.autoOpen ?? false,
+          launchShareVersion: { increment: 1 },
+        },
+        include: {
+          logoAsset: true,
+          launchProduct: {
+            include: {
+              images: {
+                include: { asset: true },
+                orderBy: { sortOrder: "asc" },
+              },
+            },
+          },
+          preferences: true,
+          contacts: { orderBy: { sortOrder: "asc" } },
+        },
+      });
+      await tx.activityEvent.create({
+        data: {
+          businessId: auth.businessId,
+          actorId: auth.userId,
+          type:
+            current.storeStatus === "SCHEDULED"
+              ? "SHOP_LAUNCH_UPDATED"
+              : "SHOP_LAUNCH_SCHEDULED",
+          title:
+            current.storeStatus === "SCHEDULED"
+              ? "Shop launch updated"
+              : "Shop launch scheduled",
+          metadata: {
+            launchAt: launchAt.toISOString(),
+            timezone: dto.timezone,
+            template: dto.template,
+          },
+        },
+      });
+      return business;
+    });
+  }
+
+  async cancelLaunch(auth: OwnerAuthContext) {
+    const current = await this.prisma.business.findUniqueOrThrow({
+      where: { id: auth.businessId },
+      select: { storeStatus: true },
+    });
+    if (current.storeStatus !== "SCHEDULED") {
+      throw new BadRequestException("This shop has no scheduled launch");
+    }
+    return this.prisma.business.update({
+      where: { id: auth.businessId },
+      data: {
+        storeStatus: "SETTING_UP",
+        launchAt: null,
+        launchTimezone: null,
+        launchMessage: null,
+        launchProductId: null,
+        launchAutoOpen: false,
+        launchShareVersion: { increment: 1 },
+      },
+    });
+  }
+
+  async openShop(auth: OwnerAuthContext, dto: OpenShopDto) {
+    const current = await this.prisma.business.findUniqueOrThrow({
+      where: { id: auth.businessId },
+      select: { storeStatus: true, launchedAt: true },
+    });
+    if (current.storeStatus === "CLOSED") {
+      throw new BadRequestException("A closed shop cannot be opened");
+    }
+    if (current.storeStatus === "OPEN") {
+      return this.getCurrent(auth);
+    }
+    const ready = await this.hasOrderableProduct(auth.businessId);
+    if (!ready && !dto.confirmEmpty) {
+      throw new BadRequestException(
+        "Confirm that you want to open without an available product",
+      );
+    }
+    const now = new Date();
+    await this.prisma.$transaction(async (tx) => {
+      await tx.business.update({
+        where: { id: auth.businessId },
+        data: {
+          storeStatus: "OPEN",
+          launchedAt: current.launchedAt ?? now,
+          launchAutoOpen: false,
+          launchShareVersion: { increment: 1 },
+        },
+      });
+      await tx.activityEvent.create({
+        data: {
+          businessId: auth.businessId,
+          actorId: auth.userId,
+          type: "SHOP_OPENED",
+          title: "Shop opened",
+        },
+      });
+    });
+    return this.getCurrent(auth);
+  }
+
+  async pauseShop(auth: OwnerAuthContext) {
+    const current = await this.prisma.business.findUniqueOrThrow({
+      where: { id: auth.businessId },
+      select: { storeStatus: true },
+    });
+    if (current.storeStatus !== "OPEN") {
+      throw new BadRequestException("Only an open shop can be paused");
+    }
+    await this.prisma.$transaction(async (tx) => {
+      await tx.business.update({
+        where: { id: auth.businessId },
+        data: { storeStatus: "PAUSED", launchShareVersion: { increment: 1 } },
+      });
+      await tx.activityEvent.create({
+        data: {
+          businessId: auth.businessId,
+          actorId: auth.userId,
+          type: "SHOP_PAUSED",
+          title: "Shop paused",
+        },
+      });
+    });
+    return this.getCurrent(auth);
+  }
+
+  async reconcileScheduledLaunchBySlug(slug: string) {
+    const business = await this.prisma.business.findUnique({
+      where: { slug },
+      select: { id: true },
+    });
+    if (business) await this.reconcileScheduledLaunch(business.id);
+  }
+
+  async reconcileScheduledLaunch(businessId: string) {
+    const current = await this.prisma.business.findUnique({
+      where: { id: businessId },
+      select: {
+        id: true,
+        storeStatus: true,
+        launchAt: true,
+        launchAutoOpen: true,
+        launchedAt: true,
+      },
+    });
+    if (
+      !current ||
+      current.storeStatus !== "SCHEDULED" ||
+      !current.launchAutoOpen ||
+      !current.launchAt ||
+      current.launchAt.getTime() > Date.now()
+    ) {
+      return false;
+    }
+    if (!(await this.hasOrderableProduct(businessId))) return false;
+
+    const now = new Date();
+    return this.prisma.$transaction(async (tx) => {
+      const claimed = await tx.business.updateMany({
+        where: {
+          id: businessId,
+          storeStatus: "SCHEDULED",
+          launchAutoOpen: true,
+          launchAt: { lte: now },
+        },
+        data: {
+          storeStatus: "OPEN",
+          launchedAt: current.launchedAt ?? now,
+          launchAutoOpen: false,
+          launchShareVersion: { increment: 1 },
+        },
+      });
+      if (claimed.count !== 1) return false;
+      await tx.activityEvent.create({
+        data: {
+          businessId,
+          type: "SHOP_OPENED",
+          title: "Scheduled shop launch opened",
+        },
+      });
+      return true;
+    });
+  }
+
+  private async hasOrderableProduct(businessId: string) {
+    const product = await this.prisma.product.findFirst({
+      where: {
+        businessId,
+        status: "ACTIVE",
+        visibility: "PUBLIC",
+        OR: [{ stockCount: null }, { stockCount: { gt: 0 } }],
+      },
+      select: { id: true },
+    });
+    return Boolean(product);
   }
 
   updatePreferences(
@@ -234,5 +501,14 @@ export class BusinessesService {
       }),
     ]);
     return invitation.business;
+  }
+}
+
+function isValidTimeZone(timezone: string) {
+  try {
+    new Intl.DateTimeFormat("en", { timeZone: timezone }).format();
+    return true;
+  } catch {
+    return false;
   }
 }

@@ -3434,6 +3434,14 @@ export const BusinessScalarFieldEnum = {
   description: 'description',
   location: 'location',
   storeStatus: 'storeStatus',
+  launchAt: 'launchAt',
+  launchTimezone: 'launchTimezone',
+  launchTemplate: 'launchTemplate',
+  launchMessage: 'launchMessage',
+  launchProductId: 'launchProductId',
+  launchAutoOpen: 'launchAutoOpen',
+  launchShareVersion: 'launchShareVersion',
+  launchedAt: 'launchedAt',
   pledgeSignature: 'pledgeSignature',
   pledgedAt: 'pledgedAt',
   plan: 'plan',
@@ -4121,6 +4129,27 @@ export type EnumStoreStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'StoreStatus[]'
  */
 export type ListEnumStoreStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StoreStatus[]'>
+
+
+
+/**
+ * Reference to a field of type 'LaunchTemplate'
+ */
+export type EnumLaunchTemplateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LaunchTemplate'>
+
+
+
+/**
+ * Reference to a field of type 'LaunchTemplate[]'
+ */
+export type ListEnumLaunchTemplateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LaunchTemplate[]'>
+
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4177,13 +4206,6 @@ export type EnumBusinessThemeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'BusinessTheme[]'
  */
 export type ListEnumBusinessThemeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BusinessTheme[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4817,4 +4839,3 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
-

@@ -16,6 +16,7 @@ import type {
   FulfillmentType,
 } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
+import { BusinessesService } from "../businesses/businesses.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { SalesService } from "../sales/sales.service";
 import { TrustService } from "../trust/trust.service";
@@ -40,13 +41,16 @@ export class ShopsService {
     private readonly activity: ActivityService,
     private readonly trust: TrustService,
     private readonly config: ConfigService,
+    private readonly businesses: BusinessesService,
   ) {}
 
   async getPublicShop(slug: string, visitor?: string) {
+    await this.businesses.reconcileScheduledLaunchBySlug(slug);
     const business = await this.prisma.business.findFirst({
       where: { slug, storeStatus: { not: "CLOSED" } },
       include: {
         logoAsset: true,
+        launchProduct: { include: publicProductInclude },
         contacts: { orderBy: { sortOrder: "asc" } },
         preferences: true,
         products: {
@@ -58,20 +62,23 @@ export class ShopsService {
     });
     if (!business) throw new NotFoundException("Shop not found");
     await this.recordCommerceEvent(business.id, "SHOP_VIEWED", visitor);
+    const open = business.storeStatus === "OPEN";
     return {
       business: sanitizeBusiness(business),
-      products: business.products,
+      canRequest: open,
+      products: open ? business.products : [],
       trust: await this.trust.summary(business.id, false),
     };
   }
 
   async getPublicProduct(slug: string, productSlug: string, visitor?: string) {
+    await this.businesses.reconcileScheduledLaunchBySlug(slug);
     const product = await this.prisma.product.findFirst({
       where: {
         slug: productSlug,
         status: "ACTIVE",
         visibility: "PUBLIC",
-        business: { slug, storeStatus: { not: "CLOSED" } },
+        business: { slug, storeStatus: "OPEN" },
       },
       include: {
         ...publicProductInclude,
@@ -93,6 +100,7 @@ export class ShopsService {
     dto: CreateOrderRequestDto,
     rawCustomerSession?: string,
   ) {
+    await this.businesses.reconcileScheduledLaunchBySlug(slug);
     const business = await this.prisma.business.findFirst({
       where: { slug, storeStatus: "OPEN" },
       select: { id: true },
@@ -410,10 +418,11 @@ export class ShopsService {
   }
 
   private async publicProduct(businessSlug: string, productId: string) {
+    await this.businesses.reconcileScheduledLaunchBySlug(businessSlug);
     const product = await this.prisma.product.findFirst({
       where: {
         id: productId,
-        business: { slug: businessSlug, storeStatus: { not: "CLOSED" } },
+        business: { slug: businessSlug, storeStatus: "OPEN" },
         status: "ACTIVE",
         visibility: "PUBLIC",
       },
@@ -483,14 +492,100 @@ export class ShopsService {
 }
 
 function sanitizeBusiness(business: Record<string, unknown>) {
-  const {
-    ownerId: _ownerId,
-    subscriptionStatus: _subscriptionStatus,
-    customerLimit: _customerLimit,
-    receiptLimit: _receiptLimit,
-    ...safe
-  } = business;
-  return safe;
+  const source = business as {
+    id: string;
+    name: string;
+    slug: string;
+    publicCardId: string;
+    category?: string | null;
+    description?: string | null;
+    location?: string | null;
+    storeStatus: string;
+    launchAt?: Date | null;
+    launchTimezone?: string | null;
+    launchTemplate?: string;
+    launchMessage?: string | null;
+    launchShareVersion?: number;
+    launchedAt?: Date | null;
+    logoAsset?: { secureUrl?: string } | null;
+    contacts?: Array<{
+      platform: string;
+      value: string;
+      label?: string | null;
+      isPrimary: boolean;
+      sortOrder: number;
+    }>;
+    preferences?: {
+      theme?: string;
+      shelfMode?: string;
+      showRecommended?: boolean;
+      showLatest?: boolean;
+      tickerItems?: string[];
+      feedbackResponseTime?: string;
+    } | null;
+    launchProduct?: {
+      id: string;
+      slug: string;
+      name: string;
+      description?: string | null;
+      price: unknown;
+      currency: string;
+      category?: string | null;
+      status: string;
+      visibility: string;
+      stockCount?: number | null;
+      images?: unknown[];
+    } | null;
+  };
+  const teaser =
+    source.launchProduct?.status === "ACTIVE" &&
+    source.launchProduct.visibility === "PUBLIC"
+      ? {
+          id: source.launchProduct.id,
+          slug: source.launchProduct.slug,
+          name: source.launchProduct.name,
+          description: source.launchProduct.description,
+          price: source.launchProduct.price,
+          currency: source.launchProduct.currency,
+          category: source.launchProduct.category,
+          stockCount: source.launchProduct.stockCount,
+          images: source.launchProduct.images,
+        }
+      : null;
+  return {
+    id: source.id,
+    name: source.name,
+    slug: source.slug,
+    publicCardId: source.publicCardId,
+    category: source.category,
+    description: source.description,
+    location: source.location,
+    storeStatus: source.storeStatus,
+    logoAsset: source.logoAsset?.secureUrl
+      ? { secureUrl: source.logoAsset.secureUrl }
+      : null,
+    contacts: source.contacts ?? [],
+    preferences: source.preferences
+      ? {
+          theme: source.preferences.theme,
+          shelfMode: source.preferences.shelfMode,
+          showRecommended: source.preferences.showRecommended,
+          showLatest: source.preferences.showLatest,
+          tickerItems: source.preferences.tickerItems,
+          feedbackResponseTime: source.preferences.feedbackResponseTime,
+        }
+      : null,
+    launchAt: source.launchAt,
+    launchTimezone: source.launchTimezone,
+    launchTemplate: source.launchTemplate,
+    launchMessage: source.launchMessage,
+    launchShareVersion: source.launchShareVersion,
+    launchedAt: source.launchedAt,
+    launchDue:
+      source.storeStatus === "SCHEDULED" &&
+      Boolean(source.launchAt && source.launchAt.getTime() <= Date.now()),
+    launchProduct: teaser,
+  };
 }
 
 function channelToCustomerChannel(channel: string) {
