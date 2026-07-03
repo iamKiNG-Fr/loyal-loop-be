@@ -267,6 +267,7 @@ export type ActivityEventType = (typeof ActivityEventType)[keyof typeof Activity
 export const MediaPurpose = {
   BUSINESS_LOGO: 'BUSINESS_LOGO',
   PRODUCT_IMAGE: 'PRODUCT_IMAGE',
+  USER_AVATAR: 'USER_AVATAR',
   TRUST_CARD: 'TRUST_CARD',
   RECEIPT_EXPORT: 'RECEIPT_EXPORT'
 } as const

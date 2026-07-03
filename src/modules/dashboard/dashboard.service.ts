@@ -17,6 +17,7 @@ export class DashboardService {
       recentActivity,
       recentReceipts,
       pendingRequests,
+      unreadOrderRequests,
     ] = await Promise.all([
       this.prisma.customer.count({ where: { businessId: auth.businessId } }),
       this.prisma.product.count({
@@ -40,13 +41,13 @@ export class DashboardService {
         },
         include: { customer: true, template: true },
         orderBy: [{ dueAt: "asc" }, { createdAt: "desc" }],
-        take: 5,
+        take: 3,
       }),
       this.prisma.sale.findMany({
         where: { businessId: auth.businessId },
         include: { customer: true, items: true, receipt: true, delivery: true },
         orderBy: { soldAt: "desc" },
-        take: 5,
+        take: 3,
       }),
       this.prisma.activityEvent.findMany({
         where: { businessId: auth.businessId },
@@ -65,6 +66,12 @@ export class DashboardService {
           status: { in: ["SENT", "ACCEPTED", "NEEDS_CHANGES"] },
         },
       }),
+      this.prisma.orderRequest.count({
+        where: {
+          businessId: auth.businessId,
+          status: "SENT",
+        },
+      }),
     ]);
 
     return {
@@ -74,6 +81,7 @@ export class DashboardService {
         pendingDeliveries,
         openIssues,
         pendingRequests,
+        unreadOrderRequests,
       },
       followUps,
       recentSales,

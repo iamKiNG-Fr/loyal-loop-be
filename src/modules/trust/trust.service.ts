@@ -132,7 +132,7 @@ export class TrustService {
       this.prisma.customer.count({ where: { businessId } }),
       this.prisma.activityEvent.findMany({
         where: { businessId },
-        select: { createdAt: true },
+        select: { createdAt: true, type: true },
         orderBy: { createdAt: "asc" },
       }),
       this.prisma.customerNote.count({
@@ -146,6 +146,12 @@ export class TrustService {
       timezone,
     );
     const streak = currentStreak(activeDays, businessDay(new Date(), timezone));
+    const today = businessDay(new Date(), timezone);
+    const inventoryCheckedToday = activityDates.some(
+      (entry) =>
+        entry.type === "INVENTORY_CHECKED" &&
+        businessDay(entry.createdAt, timezone) === today,
+    );
     const feedbackCount = feedbackAggregate._count.rating;
     const repeatCustomers = repeatCustomerGroups.length;
     const profileComplete = Boolean(
@@ -183,6 +189,7 @@ export class TrustService {
         "Established loop",
       ][level],
       streakDays: streak,
+      inventoryCheckedToday,
       feedbackAverage: feedbackAggregate._avg.rating,
       feedbackCount,
       loyaltyHealth,

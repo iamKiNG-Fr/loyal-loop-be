@@ -122,9 +122,18 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: { email: email.trim().toLowerCase() },
       include: {
+        avatarAsset: true,
         memberships: {
           where: { status: "ACTIVE" },
-          include: { business: { include: { preferences: true, contacts: true } } },
+          include: {
+            business: {
+              include: {
+                preferences: true,
+                contacts: true,
+                logoAsset: true,
+              },
+            },
+          },
           orderBy: { createdAt: "asc" },
         },
       },
@@ -206,10 +215,17 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({
       where: { id: challenge.userId },
       include: {
+        avatarAsset: true,
         memberships: {
           where: { status: "ACTIVE" },
           include: {
-            business: { include: { preferences: true, contacts: true } },
+            business: {
+              include: {
+                preferences: true,
+                contacts: true,
+                logoAsset: true,
+              },
+            },
           },
           orderBy: { createdAt: "asc" },
         },
@@ -280,8 +296,14 @@ export class AuthService {
         status: "ACTIVE",
       },
       include: {
-        user: true,
-        business: { include: { preferences: true, contacts: true } },
+        user: { include: { avatarAsset: true } },
+        business: {
+          include: {
+            preferences: true,
+            contacts: true,
+            logoAsset: true,
+          },
+        },
       },
     });
     return this.safeIdentity(membership.user, membership.business);
@@ -377,7 +399,13 @@ export class AuthService {
   }
 
   private safeIdentity(
-    user: { id: string; name: string; email: string; phone: string | null },
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      phone: string | null;
+      avatarAsset?: { id: string; secureUrl: string } | null;
+    },
     business: unknown,
   ) {
     return {
@@ -386,6 +414,7 @@ export class AuthService {
         name: user.name,
         email: user.email,
         phone: user.phone,
+        avatarAsset: user.avatarAsset ?? null,
       },
       business,
     };

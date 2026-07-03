@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from "@nestjs/common";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
@@ -9,10 +13,22 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async update(auth: OwnerAuthContext, dto: UpdateUserDto) {
+    if (dto.avatarAssetId) {
+      const asset = await this.prisma.mediaAsset.findFirst({
+        where: {
+          id: dto.avatarAssetId,
+          businessId: auth.businessId,
+          purpose: "USER_AVATAR",
+          status: "ACTIVE",
+        },
+      });
+      if (!asset) throw new BadRequestException("Profile image asset is invalid");
+    }
     try {
       return await this.prisma.user.update({
         where: { id: auth.userId },
         data: {
+          avatarAssetId: dto.avatarAssetId,
           name: dto.name?.trim(),
           email: dto.email?.trim().toLowerCase(),
           phone: dto.phone?.trim(),
@@ -24,6 +40,9 @@ export class UsersService {
           email: true,
           phone: true,
           workspaceAppearance: true,
+          avatarAsset: {
+            select: { id: true, secureUrl: true },
+          },
           updatedAt: true,
         },
       });

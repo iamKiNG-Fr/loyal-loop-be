@@ -10,6 +10,10 @@ import { WorkspaceAppearance } from "../../../generated/prisma/client";
 export class UpdateUserDto {
   @IsOptional()
   @IsString()
+  avatarAssetId?: string;
+
+  @IsOptional()
+  @IsString()
   @Length(2, 100)
   name?: string;
 

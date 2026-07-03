@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { hashToken } from "../../common/crypto.util";
+import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
@@ -73,11 +73,43 @@ export class ReceiptsService {
     });
   }
 
-  async getPublic(token: string) {
-    const receipt = await this.prisma.receipt.findUnique({
-      where: { tokenHash: hashToken(token) },
-      include: receiptInclude,
+  async createShareLink(auth: OwnerAuthContext, id: string) {
+    const receipt = await this.assertOwned(auth.businessId, id);
+    const generated = createOpaqueToken();
+    await this.prisma.$transaction(async (tx) => {
+      await tx.receiptShareToken.create({
+        data: {
+          receiptId: receipt.id,
+          tokenHash: generated.tokenHash,
+        },
+      });
+      await tx.receipt.update({
+        where: { id: receipt.id },
+        data: {
+          status: receipt.status === "CREATED" ? "SENT" : undefined,
+          sentAt: receipt.sentAt ?? new Date(),
+        },
+      });
+      if (!receipt.sentAt) {
+        await this.activity.record(
+          {
+            businessId: auth.businessId,
+            actorId: auth.userId,
+            customerId: receipt.customerId,
+            saleId: receipt.saleId,
+            receiptId: receipt.id,
+            type: "RECEIPT_SENT",
+            title: `Shared receipt ${receipt.receiptCode}`,
+          },
+          tx,
+        );
+      }
     });
+    return { token: generated.token };
+  }
+
+  async getPublic(token: string) {
+    const receipt = await this.findPublicReceipt(token);
     if (!receipt || receipt.status === "VOID") {
       throw new NotFoundException("Receipt not found");
     }
@@ -166,13 +198,28 @@ export class ReceiptsService {
   }
 
   private async findByToken(token: string) {
-    const receipt = await this.prisma.receipt.findUnique({
-      where: { tokenHash: hashToken(token) },
-    });
+    const receipt = await this.findPublicReceipt(token);
     if (!receipt || receipt.status === "VOID") {
       throw new NotFoundException("Receipt not found");
     }
     return receipt;
+  }
+
+  private async findPublicReceipt(token: string) {
+    const tokenHash = hashToken(token);
+    const receipt = await this.prisma.receipt.findUnique({
+      where: { tokenHash },
+      include: receiptInclude,
+    });
+    if (receipt) return receipt;
+    const shared = await this.prisma.receiptShareToken.findUnique({
+      where: { tokenHash },
+      include: {
+        receipt: { include: receiptInclude },
+      },
+    });
+    if (!shared || shared.revokedAt) return null;
+    return shared.receipt;
   }
 }
 

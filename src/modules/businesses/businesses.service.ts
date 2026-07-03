@@ -48,7 +48,18 @@ export class BusinessesService {
         preferences: true,
         contacts: { orderBy: { sortOrder: "asc" } },
         members: {
-          include: { user: { select: { id: true, name: true, email: true } } },
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+                avatarAsset: {
+                  select: { id: true, secureUrl: true },
+                },
+              },
+            },
+          },
           orderBy: { createdAt: "asc" },
         },
         invitations: {

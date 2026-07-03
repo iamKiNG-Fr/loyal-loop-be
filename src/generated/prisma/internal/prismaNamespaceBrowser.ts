@@ -82,6 +82,7 @@ export const ModelName = {
   SaleItem: 'SaleItem',
   PaymentEntry: 'PaymentEntry',
   Receipt: 'Receipt',
+  ReceiptShareToken: 'ReceiptShareToken',
   Delivery: 'Delivery',
   DeliveryEvent: 'DeliveryEvent',
   ActivityEvent: 'ActivityEvent',
@@ -125,6 +126,7 @@ export type WaitlistEntryScalarFieldEnum = (typeof WaitlistEntryScalarFieldEnum)
 
 export const UserScalarFieldEnum = {
   id: 'id',
+  avatarAssetId: 'avatarAssetId',
   name: 'name',
   email: 'email',
   passwordHash: 'passwordHash',
@@ -625,6 +627,17 @@ export const ReceiptScalarFieldEnum = {
 } as const
 
 export type ReceiptScalarFieldEnum = (typeof ReceiptScalarFieldEnum)[keyof typeof ReceiptScalarFieldEnum]
+
+
+export const ReceiptShareTokenScalarFieldEnum = {
+  id: 'id',
+  receiptId: 'receiptId',
+  tokenHash: 'tokenHash',
+  createdAt: 'createdAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type ReceiptShareTokenScalarFieldEnum = (typeof ReceiptShareTokenScalarFieldEnum)[keyof typeof ReceiptShareTokenScalarFieldEnum]
 
 
 export const DeliveryScalarFieldEnum = {

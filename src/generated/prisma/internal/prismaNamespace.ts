@@ -415,6 +415,7 @@ export const ModelName = {
   SaleItem: 'SaleItem',
   PaymentEntry: 'PaymentEntry',
   Receipt: 'Receipt',
+  ReceiptShareToken: 'ReceiptShareToken',
   Delivery: 'Delivery',
   DeliveryEvent: 'DeliveryEvent',
   ActivityEvent: 'ActivityEvent',
@@ -439,7 +440,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "user" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "saleItem" | "paymentEntry" | "receipt" | "delivery" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
+    modelProps: "waitlistEntry" | "user" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "saleItem" | "paymentEntry" | "receipt" | "receiptShareToken" | "delivery" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2737,6 +2738,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ReceiptShareToken: {
+      payload: Prisma.$ReceiptShareTokenPayload<ExtArgs>
+      fields: Prisma.ReceiptShareTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReceiptShareTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReceiptShareTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.ReceiptShareTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReceiptShareTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload>
+        }
+        findMany: {
+          args: Prisma.ReceiptShareTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload>[]
+        }
+        create: {
+          args: Prisma.ReceiptShareTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload>
+        }
+        createMany: {
+          args: Prisma.ReceiptShareTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReceiptShareTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.ReceiptShareTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload>
+        }
+        update: {
+          args: Prisma.ReceiptShareTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReceiptShareTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReceiptShareTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReceiptShareTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReceiptShareTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceiptShareTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.ReceiptShareTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReceiptShareToken>
+        }
+        groupBy: {
+          args: Prisma.ReceiptShareTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceiptShareTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReceiptShareTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceiptShareTokenCountAggregateOutputType> | number
+        }
+      }
+    }
     Delivery: {
       payload: Prisma.$DeliveryPayload<ExtArgs>
       fields: Prisma.DeliveryFieldRefs
@@ -3458,6 +3533,7 @@ export type WaitlistEntryScalarFieldEnum = (typeof WaitlistEntryScalarFieldEnum)
 
 export const UserScalarFieldEnum = {
   id: 'id',
+  avatarAssetId: 'avatarAssetId',
   name: 'name',
   email: 'email',
   passwordHash: 'passwordHash',
@@ -3960,6 +4036,17 @@ export const ReceiptScalarFieldEnum = {
 export type ReceiptScalarFieldEnum = (typeof ReceiptScalarFieldEnum)[keyof typeof ReceiptScalarFieldEnum]
 
 
+export const ReceiptShareTokenScalarFieldEnum = {
+  id: 'id',
+  receiptId: 'receiptId',
+  tokenHash: 'tokenHash',
+  createdAt: 'createdAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type ReceiptShareTokenScalarFieldEnum = (typeof ReceiptShareTokenScalarFieldEnum)[keyof typeof ReceiptShareTokenScalarFieldEnum]
+
+
 export const DeliveryScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
@@ -4219,21 +4306,21 @@ export type EnumStoreStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'StoreStatus[]'
  */
 export type ListEnumStoreStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StoreStatus[]'>
-
+    
 
 
 /**
  * Reference to a field of type 'LaunchTemplate'
  */
 export type EnumLaunchTemplateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LaunchTemplate'>
-
+    
 
 
 /**
  * Reference to a field of type 'LaunchTemplate[]'
  */
 export type ListEnumLaunchTemplateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LaunchTemplate[]'>
-
+    
 
 
 /**
@@ -4859,6 +4946,7 @@ export type GlobalOmitConfig = {
   saleItem?: Prisma.SaleItemOmit
   paymentEntry?: Prisma.PaymentEntryOmit
   receipt?: Prisma.ReceiptOmit
+  receiptShareToken?: Prisma.ReceiptShareTokenOmit
   delivery?: Prisma.DeliveryOmit
   deliveryEvent?: Prisma.DeliveryEventOmit
   activityEvent?: Prisma.ActivityEventOmit
@@ -4930,3 +5018,4 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
+

@@ -46,6 +46,14 @@ export class ReceiptsController {
   sent(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
     return this.receipts.markSent(auth, id).then((data) => ok(data, "Receipt marked sent"));
   }
+
+  @Post(":id/share-link")
+  @Roles("OWNER", "MANAGER", "SALES")
+  shareLink(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
+    return this.receipts
+      .createShareLink(auth, id)
+      .then((data) => ok(data, "Receipt share link created"));
+  }
 }
 
 @Controller("public/receipts")

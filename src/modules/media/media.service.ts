@@ -91,10 +91,10 @@ export class MediaService {
   async remove(auth: OwnerAuthContext, assetId: string) {
     const asset = await this.prisma.mediaAsset.findFirst({
       where: { id: assetId, businessId: auth.businessId, status: "ACTIVE" },
-      include: { productImages: true, logoFor: true },
+      include: { productImages: true, logoFor: true, avatarFor: true },
     });
     if (!asset) throw new NotFoundException("Asset not found");
-    if (asset.productImages.length || asset.logoFor) {
+    if (asset.productImages.length || asset.logoFor || asset.avatarFor) {
       throw new BadRequestException("Asset is still in use");
     }
     await this.destroyAtProvider(asset.publicId);
