@@ -14,6 +14,19 @@ import {
 } from "./dto/media.dto";
 
 const ALLOWED_FORMATS = new Set(["jpg", "jpeg", "png", "webp"]);
+const PAYMENT_PROOF_MAX_BYTES = 5 * 1024 * 1024;
+
+export type RegisteredUpload = {
+  bytes: number;
+  format: string;
+  height?: number;
+  originalFilename?: string;
+  publicId: string;
+  secureUrl: string;
+  signature: string;
+  version: string;
+  width?: number;
+};
 
 @Injectable()
 export class MediaService {
@@ -23,8 +36,17 @@ export class MediaService {
   ) {}
 
   createUploadSignature(auth: OwnerAuthContext, dto: CreateUploadSignatureDto) {
-    const timestamp = Math.floor(Date.now() / 1000);
     const folder = this.folder(auth.businessId, dto.purpose);
+    return this.createSignature(folder, 10 * 1024 * 1024);
+  }
+
+  createPaymentProofUploadSignature(businessId: string, saleId: string) {
+    const folder = this.folder(businessId, "PAYMENT_PROOF", saleId);
+    return this.createSignature(folder, PAYMENT_PROOF_MAX_BYTES);
+  }
+
+  private createSignature(folder: string, maxBytes: number) {
+    const timestamp = Math.floor(Date.now() / 1000);
     const publicId = randomBytes(12).toString("hex");
     const params = {
       allowed_formats: "jpg,jpeg,png,webp",
@@ -39,17 +61,52 @@ export class MediaService {
       folder,
       publicId,
       allowedFormats: [...ALLOWED_FORMATS],
-      maxBytes: 10 * 1024 * 1024,
+      maxBytes,
       signature: this.sign(params),
     };
   }
 
   async register(auth: OwnerAuthContext, dto: RegisterMediaAssetDto) {
+    return this.registerForBusiness(
+      auth.businessId,
+      auth.userId,
+      dto,
+      this.folder(auth.businessId, dto.purpose),
+      dto.purpose,
+      10 * 1024 * 1024,
+    );
+  }
+
+  registerPaymentProofAsset(
+    businessId: string,
+    saleId: string,
+    dto: RegisteredUpload,
+  ) {
+    return this.registerForBusiness(
+      businessId,
+      undefined,
+      dto,
+      this.folder(businessId, "PAYMENT_PROOF", saleId),
+      "PAYMENT_PROOF",
+      PAYMENT_PROOF_MAX_BYTES,
+    );
+  }
+
+  private async registerForBusiness(
+    businessId: string,
+    uploadedById: string | undefined,
+    dto: RegisteredUpload,
+    expectedFolder: string,
+    purpose: "BUSINESS_LOGO" | "PAYMENT_PROOF" | "PRODUCT_IMAGE" | "RECEIPT_EXPORT" | "TRUST_CARD" | "USER_AVATAR",
+    maxBytes: number,
+  ) {
     const format = dto.format.toLowerCase();
     if (!ALLOWED_FORMATS.has(format)) {
       throw new BadRequestException("Unsupported image format");
     }
-    const expectedFolder = this.folder(auth.businessId, dto.purpose);
+    if (dto.bytes > maxBytes) {
+      throw new BadRequestException("Image exceeds the allowed size");
+    }
     if (!dto.publicId.startsWith(`${expectedFolder}/`)) {
       throw new BadRequestException("Upload does not belong to this business");
     }
@@ -66,8 +123,8 @@ export class MediaService {
     }
     return this.prisma.mediaAsset.create({
       data: {
-        businessId: auth.businessId,
-        uploadedById: auth.userId,
+        businessId,
+        uploadedById,
         publicId: dto.publicId,
         secureUrl: dto.secureUrl,
         format,
@@ -76,7 +133,7 @@ export class MediaService {
         height: dto.height,
         version: dto.version,
         originalFilename: dto.originalFilename,
-        purpose: dto.purpose,
+        purpose,
       },
     });
   }
@@ -104,8 +161,9 @@ export class MediaService {
     });
   }
 
-  private folder(businessId: string, purpose: string) {
-    return `loyal-loop/businesses/${businessId}/${purpose.toLowerCase()}`;
+  private folder(businessId: string, purpose: string, suffix?: string) {
+    const base = `loyal-loop/businesses/${businessId}/${purpose.toLowerCase()}`;
+    return suffix ? `${base}/${suffix}` : base;
   }
 
   private sign(params: Record<string, string>) {

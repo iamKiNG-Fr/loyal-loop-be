@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { hashToken } from "../../common/crypto.util";
+import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import type { DeliveryStatus } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
@@ -26,7 +26,24 @@ const transitions: Record<DeliveryStatus, DeliveryStatus[]> = {
 
 const deliveryInclude = {
   customer: true,
-  sale: { include: { receipt: true, items: true } },
+  sale: {
+    include: {
+      receipt: true,
+      items: true,
+      payments: true,
+      paymentInstruction: true,
+      paymentProofs: {
+        select: {
+          amount: true,
+          id: true,
+          reference: true,
+          status: true,
+          submittedAt: true,
+        },
+        orderBy: { submittedAt: "desc" as const },
+      },
+    },
+  },
   events: { orderBy: { createdAt: "asc" as const } },
   feedback: true,
   issues: { orderBy: { openedAt: "desc" as const } },
@@ -52,6 +69,18 @@ export class DeliveryService {
       where: { id, businessId: auth.businessId },
       include: deliveryInclude,
     });
+  }
+
+  async createShareLink(auth: OwnerAuthContext, id: string) {
+    const delivery = await this.assertOwned(auth.businessId, id);
+    const generated = createOpaqueToken();
+    await this.prisma.deliveryShareToken.create({
+      data: {
+        deliveryId: delivery.id,
+        tokenHash: generated.tokenHash,
+      },
+    });
+    return { token: generated.token };
   }
 
   async update(
@@ -274,15 +303,121 @@ export class DeliveryService {
   }
 
   private async findByToken(token: string) {
+    const tokenHash = hashToken(token);
     const delivery = await this.prisma.delivery.findUnique({
-      where: { tokenHash: hashToken(token) },
+      where: { tokenHash },
     });
-    if (!delivery) throw new NotFoundException("Delivery not found");
-    return delivery;
+    if (delivery) return delivery;
+    const shared = await this.prisma.deliveryShareToken.findUnique({
+      where: { tokenHash },
+      include: { delivery: true },
+    });
+    if (!shared || shared.revokedAt) {
+      throw new NotFoundException("Delivery not found");
+    }
+    return shared.delivery;
   }
 }
 
 function sanitizePublicDelivery(delivery: Record<string, unknown>) {
-  const { tokenHash: _tokenHash, ...safe } = delivery;
-  return safe;
+  const value = delivery as {
+    address: string | null;
+    business: {
+      logoAsset: { secureUrl: string } | null;
+      name: string;
+    };
+    confirmedAt: Date | null;
+    events: Array<{
+      createdAt: Date;
+      id: string;
+      isPublic: boolean;
+      note: string | null;
+      status: string;
+    }>;
+    feedback: Array<{ rating: number }>;
+    id: string;
+    sale: {
+      amountPaid: unknown;
+      currency: string;
+      items: Array<{
+        id: string;
+        imageUrl: string | null;
+        name: string;
+        quantity: number;
+        total: unknown;
+      }>;
+      paymentInstruction: {
+        accountName: string | null;
+        accountNumber: string | null;
+        bankName: string | null;
+        instructions: string | null;
+        method: string;
+      } | null;
+      paymentProofs: Array<{
+        amount: unknown;
+        id: string;
+        reference: string | null;
+        status: string;
+        submittedAt: Date;
+      }>;
+      paymentStatus: string;
+      referenceCode: string;
+      total: unknown;
+    };
+    status: string;
+    trackingUrl: string | null;
+  };
+
+  return {
+    address: value.address,
+    business: {
+      name: value.business.name,
+      logoAsset: value.business.logoAsset
+        ? { secureUrl: value.business.logoAsset.secureUrl }
+        : null,
+    },
+    confirmedAt: value.confirmedAt,
+    events: value.events
+      .filter((event) => event.isPublic)
+      .map((event) => ({
+        createdAt: event.createdAt,
+        id: event.id,
+        note: event.note,
+        status: event.status,
+      })),
+    feedback: value.feedback.map((entry) => ({ rating: entry.rating })),
+    id: value.id,
+    sale: {
+      amountPaid: value.sale.amountPaid,
+      currency: value.sale.currency,
+      items: value.sale.items.map((item) => ({
+        id: item.id,
+        imageUrl: item.imageUrl,
+        name: item.name,
+        quantity: item.quantity,
+        total: item.total,
+      })),
+      paymentInstruction: value.sale.paymentInstruction
+        ? {
+            accountName: value.sale.paymentInstruction.accountName,
+            accountNumber: value.sale.paymentInstruction.accountNumber,
+            bankName: value.sale.paymentInstruction.bankName,
+            instructions: value.sale.paymentInstruction.instructions,
+            method: value.sale.paymentInstruction.method,
+          }
+        : null,
+      paymentProofs: value.sale.paymentProofs.map((proof) => ({
+        amount: proof.amount,
+        id: proof.id,
+        reference: proof.reference,
+        status: proof.status,
+        submittedAt: proof.submittedAt,
+      })),
+      paymentStatus: value.sale.paymentStatus,
+      referenceCode: value.sale.referenceCode,
+      total: value.sale.total,
+    },
+    status: value.status,
+    trackingUrl: value.trackingUrl,
+  };
 }

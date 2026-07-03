@@ -22,6 +22,17 @@ const saleInclude = {
   customer: true,
   items: true,
   payments: { orderBy: { createdAt: "asc" as const } },
+  paymentInstruction: true,
+  paymentProofs: {
+    select: {
+      amount: true,
+      id: true,
+      reference: true,
+      status: true,
+      submittedAt: true,
+    },
+    orderBy: { submittedAt: "desc" as const },
+  },
   receipt: true,
   delivery: { include: { events: { orderBy: { createdAt: "asc" as const } } } },
 };
@@ -104,15 +115,17 @@ export class SalesService {
     auth: OwnerAuthContext,
     dto: CreateSaleDto,
     idempotencyKey?: string,
+    transaction?: Prisma.TransactionClient,
   ) {
+    const db = transaction ?? this.prisma;
     if (idempotencyKey) {
-      const existing = await this.prisma.sale.findFirst({
+      const existing = await db.sale.findFirst({
         where: { businessId: auth.businessId, idempotencyKey },
         include: saleInclude,
       });
       if (existing) return { sale: existing };
     }
-    const customer = await this.prisma.customer.findFirst({
+    const customer = await db.customer.findFirst({
       where: { id: dto.customerId, businessId: auth.businessId },
     });
     if (!customer) throw new NotFoundException("Customer not found");
@@ -120,7 +133,7 @@ export class SalesService {
     const productIds = dto.items
       .map((item) => item.productId)
       .filter((id): id is string => Boolean(id));
-    const products = await this.prisma.product.findMany({
+    const products = await db.product.findMany({
       where: { id: { in: productIds }, businessId: auth.businessId },
       include: {
         images: {
@@ -133,8 +146,40 @@ export class SalesService {
     if (products.length !== new Set(productIds).size) {
       throw new BadRequestException("One or more products are invalid");
     }
+    const paymentMethod = dto.paymentMethod ?? "ARRANGE_SEPARATELY";
+    const paymentAccount =
+      paymentMethod === "BANK_TRANSFER"
+        ? await db.businessPaymentAccount.findFirst({
+            where: {
+              businessId: auth.businessId,
+              isActive: true,
+              id: dto.paymentAccountId,
+            },
+          })
+        : null;
+    const directBankDetails =
+      dto.paymentBankName?.trim() &&
+      dto.paymentAccountName?.trim() &&
+      dto.paymentAccountNumber?.trim()
+        ? {
+            accountName: dto.paymentAccountName.trim(),
+            accountNumber: dto.paymentAccountNumber.trim(),
+            bankCode: undefined,
+            bankName: dto.paymentBankName.trim(),
+            instructions: dto.paymentInstructions?.trim(),
+          }
+        : null;
+    if (
+      paymentMethod === "BANK_TRANSFER" &&
+      !paymentAccount &&
+      !directBankDetails
+    ) {
+      throw new BadRequestException(
+        "Add active bank details before choosing bank transfer",
+      );
+    }
     if (dto.sourceRequestId) {
-      const request = await this.prisma.orderRequest.findFirst({
+      const request = await db.orderRequest.findFirst({
         where: {
           id: dto.sourceRequestId,
           businessId: auth.businessId,
@@ -189,7 +234,7 @@ export class SalesService {
 
     let sale;
     try {
-      sale = await this.prisma.$transaction(async (tx) => {
+      const createSale = async (tx: Prisma.TransactionClient) => {
       const preferences = await tx.businessPreferences.findUnique({
         where: { businessId: auth.businessId },
       });
@@ -201,8 +246,7 @@ export class SalesService {
           idempotencyKey,
           referenceCode,
           paymentStatus,
-          protectedPayment:
-            dto.protectedPayment ?? preferences?.protectedPaymentEnabled ?? false,
+          protectedPayment: false,
           channel: dto.channel ?? "OTHER",
           fulfillment,
           currency: preferences?.currency ?? "NGN",
@@ -213,6 +257,20 @@ export class SalesService {
           amountPaid,
           notes: dto.notes?.trim(),
           items: { create: lines },
+        },
+      });
+      await tx.salePaymentInstruction.create({
+        data: {
+          saleId: created.id,
+          method: paymentMethod,
+          bankName: paymentAccount?.bankName ?? directBankDetails?.bankName,
+          bankCode: paymentAccount?.bankCode ?? directBankDetails?.bankCode,
+          accountName:
+            paymentAccount?.accountName ?? directBankDetails?.accountName,
+          accountNumber:
+            paymentAccount?.accountNumber ?? directBankDetails?.accountNumber,
+          instructions:
+            paymentAccount?.instructions ?? directBankDetails?.instructions,
         },
       });
       if (amountPaid.greaterThan(0)) {
@@ -303,13 +361,17 @@ export class SalesService {
         where: { id: created.id },
         include: saleInclude,
       });
-      });
+      };
+      sale = transaction
+        ? await createSale(transaction)
+        : await this.prisma.$transaction(createSale);
     } catch (error) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === "P2002" &&
         (idempotencyKey || dto.sourceRequestId)
       ) {
+        if (transaction) throw error;
         const existing = await this.prisma.sale.findFirst({
           where: {
             businessId: auth.businessId,

@@ -19,6 +19,7 @@ import {
 } from "class-validator";
 import {
   FulfillmentType,
+  PaymentMethod,
   PaymentStatus,
   PaymentEntryType,
   SalesChannel,
@@ -91,6 +92,34 @@ export class CreateSaleDto {
   @IsOptional()
   @IsBoolean()
   protectedPayment?: boolean;
+
+  @IsOptional()
+  @IsEnum(PaymentMethod)
+  paymentMethod?: PaymentMethod;
+
+  @IsOptional()
+  @IsString()
+  paymentAccountId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(2, 100)
+  paymentBankName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(2, 120)
+  paymentAccountName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{6,20}$/)
+  paymentAccountNumber?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 500)
+  paymentInstructions?: string;
 
   @IsOptional()
   @IsString()

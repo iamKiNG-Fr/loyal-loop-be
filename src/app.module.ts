@@ -16,6 +16,7 @@ import { DeliveryModule } from "./modules/delivery/delivery.module";
 import { FollowUpsModule } from "./modules/follow-ups/follow-ups.module";
 import { MailModule } from "./modules/mail/mail.module";
 import { MediaModule } from "./modules/media/media.module";
+import { PaymentsModule } from "./modules/payments/payments.module";
 import { PrismaModule } from "./modules/prisma/prisma.module";
 import { ProductsModule } from "./modules/products/products.module";
 import { ReceiptsModule } from "./modules/receipts/receipts.module";
@@ -48,6 +49,7 @@ import { WaitlistModule } from "./modules/waitlist/waitlist.module";
     BusinessesModule,
     UsersModule,
     MediaModule,
+    PaymentsModule,
     CustomersModule,
     ProductsModule,
     SalesModule,

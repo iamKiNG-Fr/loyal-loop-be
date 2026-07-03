@@ -80,6 +80,11 @@ export type BusinessPreferences = Prisma.BusinessPreferencesModel
  */
 export type BusinessContact = Prisma.BusinessContactModel
 /**
+ * Model BusinessPaymentAccount
+ * 
+ */
+export type BusinessPaymentAccount = Prisma.BusinessPaymentAccountModel
+/**
  * Model BusinessMember
  * 
  */
@@ -180,6 +185,11 @@ export type CommerceEvent = Prisma.CommerceEventModel
  */
 export type Sale = Prisma.SaleModel
 /**
+ * Model SalePaymentInstruction
+ * 
+ */
+export type SalePaymentInstruction = Prisma.SalePaymentInstructionModel
+/**
  * Model SaleItem
  * 
  */
@@ -189,6 +199,11 @@ export type SaleItem = Prisma.SaleItemModel
  * 
  */
 export type PaymentEntry = Prisma.PaymentEntryModel
+/**
+ * Model PaymentProof
+ * 
+ */
+export type PaymentProof = Prisma.PaymentProofModel
 /**
  * Model Receipt
  * 
@@ -204,6 +219,11 @@ export type ReceiptShareToken = Prisma.ReceiptShareTokenModel
  * 
  */
 export type Delivery = Prisma.DeliveryModel
+/**
+ * Model DeliveryShareToken
+ * 
+ */
+export type DeliveryShareToken = Prisma.DeliveryShareTokenModel
 /**
  * Model DeliveryEvent
  * 

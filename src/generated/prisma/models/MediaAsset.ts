@@ -262,7 +262,7 @@ export type MediaAssetGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type MediaAssetGroupByOutputType = {
   id: string
   businessId: string
-  uploadedById: string
+  uploadedById: string | null
   provider: string
   publicId: string
   secureUrl: string
@@ -305,7 +305,7 @@ export type MediaAssetWhereInput = {
   NOT?: Prisma.MediaAssetWhereInput | Prisma.MediaAssetWhereInput[]
   id?: Prisma.StringFilter<"MediaAsset"> | string
   businessId?: Prisma.StringFilter<"MediaAsset"> | string
-  uploadedById?: Prisma.StringFilter<"MediaAsset"> | string
+  uploadedById?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   provider?: Prisma.StringFilter<"MediaAsset"> | string
   publicId?: Prisma.StringFilter<"MediaAsset"> | string
   secureUrl?: Prisma.StringFilter<"MediaAsset"> | string
@@ -321,16 +321,17 @@ export type MediaAssetWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
-  uploadedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   logoFor?: Prisma.XOR<Prisma.BusinessNullableScalarRelationFilter, Prisma.BusinessWhereInput> | null
   avatarFor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   productImages?: Prisma.ProductImageListRelationFilter
+  paymentProof?: Prisma.XOR<Prisma.PaymentProofNullableScalarRelationFilter, Prisma.PaymentProofWhereInput> | null
 }
 
 export type MediaAssetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
-  uploadedById?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   provider?: Prisma.SortOrder
   publicId?: Prisma.SortOrder
   secureUrl?: Prisma.SortOrder
@@ -350,6 +351,7 @@ export type MediaAssetOrderByWithRelationInput = {
   logoFor?: Prisma.BusinessOrderByWithRelationInput
   avatarFor?: Prisma.UserOrderByWithRelationInput
   productImages?: Prisma.ProductImageOrderByRelationAggregateInput
+  paymentProof?: Prisma.PaymentProofOrderByWithRelationInput
 }
 
 export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
@@ -359,7 +361,7 @@ export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.MediaAssetWhereInput[]
   NOT?: Prisma.MediaAssetWhereInput | Prisma.MediaAssetWhereInput[]
   businessId?: Prisma.StringFilter<"MediaAsset"> | string
-  uploadedById?: Prisma.StringFilter<"MediaAsset"> | string
+  uploadedById?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   provider?: Prisma.StringFilter<"MediaAsset"> | string
   secureUrl?: Prisma.StringFilter<"MediaAsset"> | string
   resourceType?: Prisma.StringFilter<"MediaAsset"> | string
@@ -374,16 +376,17 @@ export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
-  uploadedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  uploadedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   logoFor?: Prisma.XOR<Prisma.BusinessNullableScalarRelationFilter, Prisma.BusinessWhereInput> | null
   avatarFor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   productImages?: Prisma.ProductImageListRelationFilter
+  paymentProof?: Prisma.XOR<Prisma.PaymentProofNullableScalarRelationFilter, Prisma.PaymentProofWhereInput> | null
 }, "id" | "publicId">
 
 export type MediaAssetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
-  uploadedById?: Prisma.SortOrder
+  uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   provider?: Prisma.SortOrder
   publicId?: Prisma.SortOrder
   secureUrl?: Prisma.SortOrder
@@ -411,7 +414,7 @@ export type MediaAssetScalarWhereWithAggregatesInput = {
   NOT?: Prisma.MediaAssetScalarWhereWithAggregatesInput | Prisma.MediaAssetScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
   businessId?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
-  uploadedById?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
+  uploadedById?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
   provider?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
   publicId?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
   secureUrl?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
@@ -445,16 +448,17 @@ export type MediaAssetCreateInput = {
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
   logoFor?: Prisma.BusinessCreateNestedOneWithoutLogoAssetInput
   avatarFor?: Prisma.UserCreateNestedOneWithoutAvatarAssetInput
   productImages?: Prisma.ProductImageCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateInput = {
   id?: string
   businessId: string
-  uploadedById: string
+  uploadedById?: string | null
   provider?: string
   publicId: string
   secureUrl: string
@@ -472,6 +476,7 @@ export type MediaAssetUncheckedCreateInput = {
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
   avatarFor?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarAssetInput
   productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetUpdateInput = {
@@ -491,16 +496,17 @@ export type MediaAssetUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedAssetsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedAssetsNestedInput
   logoFor?: Prisma.BusinessUpdateOneWithoutLogoAssetNestedInput
   avatarFor?: Prisma.UserUpdateOneWithoutAvatarAssetNestedInput
   productImages?: Prisma.ProductImageUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -518,12 +524,13 @@ export type MediaAssetUncheckedUpdateInput = {
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
   avatarFor?: Prisma.UserUncheckedUpdateOneWithoutAvatarAssetNestedInput
   productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateManyInput = {
   id?: string
   businessId: string
-  uploadedById: string
+  uploadedById?: string | null
   provider?: string
   publicId: string
   secureUrl: string
@@ -561,7 +568,7 @@ export type MediaAssetUpdateManyMutationInput = {
 export type MediaAssetUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -808,6 +815,20 @@ export type MediaAssetUpdateOneRequiredWithoutProductImagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MediaAssetUpdateToOneWithWhereWithoutProductImagesInput, Prisma.MediaAssetUpdateWithoutProductImagesInput>, Prisma.MediaAssetUncheckedUpdateWithoutProductImagesInput>
 }
 
+export type MediaAssetCreateNestedOneWithoutPaymentProofInput = {
+  create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutPaymentProofInput, Prisma.MediaAssetUncheckedCreateWithoutPaymentProofInput>
+  connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutPaymentProofInput
+  connect?: Prisma.MediaAssetWhereUniqueInput
+}
+
+export type MediaAssetUpdateOneRequiredWithoutPaymentProofNestedInput = {
+  create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutPaymentProofInput, Prisma.MediaAssetUncheckedCreateWithoutPaymentProofInput>
+  connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutPaymentProofInput
+  upsert?: Prisma.MediaAssetUpsertWithoutPaymentProofInput
+  connect?: Prisma.MediaAssetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MediaAssetUpdateToOneWithWhereWithoutPaymentProofInput, Prisma.MediaAssetUpdateWithoutPaymentProofInput>, Prisma.MediaAssetUncheckedUpdateWithoutPaymentProofInput>
+}
+
 export type MediaAssetCreateWithoutUploadedByInput = {
   id?: string
   provider?: string
@@ -828,6 +849,7 @@ export type MediaAssetCreateWithoutUploadedByInput = {
   logoFor?: Prisma.BusinessCreateNestedOneWithoutLogoAssetInput
   avatarFor?: Prisma.UserCreateNestedOneWithoutAvatarAssetInput
   productImages?: Prisma.ProductImageCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutUploadedByInput = {
@@ -850,6 +872,7 @@ export type MediaAssetUncheckedCreateWithoutUploadedByInput = {
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
   avatarFor?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarAssetInput
   productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutUploadedByInput = {
@@ -879,15 +902,16 @@ export type MediaAssetCreateWithoutAvatarForInput = {
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
   logoFor?: Prisma.BusinessCreateNestedOneWithoutLogoAssetInput
   productImages?: Prisma.ProductImageCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutAvatarForInput = {
   id?: string
   businessId: string
-  uploadedById: string
+  uploadedById?: string | null
   provider?: string
   publicId: string
   secureUrl: string
@@ -904,6 +928,7 @@ export type MediaAssetUncheckedCreateWithoutAvatarForInput = {
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
   productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutAvatarForInput = {
@@ -933,7 +958,7 @@ export type MediaAssetScalarWhereInput = {
   NOT?: Prisma.MediaAssetScalarWhereInput | Prisma.MediaAssetScalarWhereInput[]
   id?: Prisma.StringFilter<"MediaAsset"> | string
   businessId?: Prisma.StringFilter<"MediaAsset"> | string
-  uploadedById?: Prisma.StringFilter<"MediaAsset"> | string
+  uploadedById?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   provider?: Prisma.StringFilter<"MediaAsset"> | string
   publicId?: Prisma.StringFilter<"MediaAsset"> | string
   secureUrl?: Prisma.StringFilter<"MediaAsset"> | string
@@ -978,15 +1003,16 @@ export type MediaAssetUpdateWithoutAvatarForInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedAssetsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedAssetsNestedInput
   logoFor?: Prisma.BusinessUpdateOneWithoutLogoAssetNestedInput
   productImages?: Prisma.ProductImageUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutAvatarForInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1003,6 +1029,7 @@ export type MediaAssetUncheckedUpdateWithoutAvatarForInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
   productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateWithoutLogoForInput = {
@@ -1022,15 +1049,16 @@ export type MediaAssetCreateWithoutLogoForInput = {
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
   avatarFor?: Prisma.UserCreateNestedOneWithoutAvatarAssetInput
   productImages?: Prisma.ProductImageCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutLogoForInput = {
   id?: string
   businessId: string
-  uploadedById: string
+  uploadedById?: string | null
   provider?: string
   publicId: string
   secureUrl: string
@@ -1047,6 +1075,7 @@ export type MediaAssetUncheckedCreateWithoutLogoForInput = {
   deletedAt?: Date | string | null
   avatarFor?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarAssetInput
   productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutLogoForInput = {
@@ -1070,15 +1099,16 @@ export type MediaAssetCreateWithoutBusinessInput = {
   status?: $Enums.MediaStatus
   createdAt?: Date | string
   deletedAt?: Date | string | null
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
   logoFor?: Prisma.BusinessCreateNestedOneWithoutLogoAssetInput
   avatarFor?: Prisma.UserCreateNestedOneWithoutAvatarAssetInput
   productImages?: Prisma.ProductImageCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutBusinessInput = {
   id?: string
-  uploadedById: string
+  uploadedById?: string | null
   provider?: string
   publicId: string
   secureUrl: string
@@ -1096,6 +1126,7 @@ export type MediaAssetUncheckedCreateWithoutBusinessInput = {
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
   avatarFor?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarAssetInput
   productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutAssetInput
+  paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutBusinessInput = {
@@ -1136,15 +1167,16 @@ export type MediaAssetUpdateWithoutLogoForInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedAssetsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedAssetsNestedInput
   avatarFor?: Prisma.UserUpdateOneWithoutAvatarAssetNestedInput
   productImages?: Prisma.ProductImageUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutLogoForInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1161,6 +1193,7 @@ export type MediaAssetUncheckedUpdateWithoutLogoForInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   avatarFor?: Prisma.UserUncheckedUpdateOneWithoutAvatarAssetNestedInput
   productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -1196,15 +1229,16 @@ export type MediaAssetCreateWithoutProductImagesInput = {
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
-  uploadedBy: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
   logoFor?: Prisma.BusinessCreateNestedOneWithoutLogoAssetInput
   avatarFor?: Prisma.UserCreateNestedOneWithoutAvatarAssetInput
+  paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutProductImagesInput = {
   id?: string
   businessId: string
-  uploadedById: string
+  uploadedById?: string | null
   provider?: string
   publicId: string
   secureUrl: string
@@ -1221,6 +1255,7 @@ export type MediaAssetUncheckedCreateWithoutProductImagesInput = {
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
   avatarFor?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarAssetInput
+  paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutProductImagesInput = {
@@ -1256,15 +1291,16 @@ export type MediaAssetUpdateWithoutProductImagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedAssetsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedAssetsNestedInput
   logoFor?: Prisma.BusinessUpdateOneWithoutLogoAssetNestedInput
   avatarFor?: Prisma.UserUpdateOneWithoutAvatarAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutProductImagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1281,6 +1317,115 @@ export type MediaAssetUncheckedUpdateWithoutProductImagesInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
   avatarFor?: Prisma.UserUncheckedUpdateOneWithoutAvatarAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+}
+
+export type MediaAssetCreateWithoutPaymentProofInput = {
+  id?: string
+  provider?: string
+  publicId: string
+  secureUrl: string
+  resourceType?: string
+  format: string
+  width?: number | null
+  height?: number | null
+  bytes: number
+  version?: string | null
+  originalFilename?: string | null
+  purpose: $Enums.MediaPurpose
+  status?: $Enums.MediaStatus
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
+  logoFor?: Prisma.BusinessCreateNestedOneWithoutLogoAssetInput
+  avatarFor?: Prisma.UserCreateNestedOneWithoutAvatarAssetInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutAssetInput
+}
+
+export type MediaAssetUncheckedCreateWithoutPaymentProofInput = {
+  id?: string
+  businessId: string
+  uploadedById?: string | null
+  provider?: string
+  publicId: string
+  secureUrl: string
+  resourceType?: string
+  format: string
+  width?: number | null
+  height?: number | null
+  bytes: number
+  version?: string | null
+  originalFilename?: string | null
+  purpose: $Enums.MediaPurpose
+  status?: $Enums.MediaStatus
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
+  avatarFor?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarAssetInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutAssetInput
+}
+
+export type MediaAssetCreateOrConnectWithoutPaymentProofInput = {
+  where: Prisma.MediaAssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.MediaAssetCreateWithoutPaymentProofInput, Prisma.MediaAssetUncheckedCreateWithoutPaymentProofInput>
+}
+
+export type MediaAssetUpsertWithoutPaymentProofInput = {
+  update: Prisma.XOR<Prisma.MediaAssetUpdateWithoutPaymentProofInput, Prisma.MediaAssetUncheckedUpdateWithoutPaymentProofInput>
+  create: Prisma.XOR<Prisma.MediaAssetCreateWithoutPaymentProofInput, Prisma.MediaAssetUncheckedCreateWithoutPaymentProofInput>
+  where?: Prisma.MediaAssetWhereInput
+}
+
+export type MediaAssetUpdateToOneWithWhereWithoutPaymentProofInput = {
+  where?: Prisma.MediaAssetWhereInput
+  data: Prisma.XOR<Prisma.MediaAssetUpdateWithoutPaymentProofInput, Prisma.MediaAssetUncheckedUpdateWithoutPaymentProofInput>
+}
+
+export type MediaAssetUpdateWithoutPaymentProofInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  resourceType?: Prisma.StringFieldUpdateOperationsInput | string
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bytes?: Prisma.IntFieldUpdateOperationsInput | number
+  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
+  status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedAssetsNestedInput
+  logoFor?: Prisma.BusinessUpdateOneWithoutLogoAssetNestedInput
+  avatarFor?: Prisma.UserUpdateOneWithoutAvatarAssetNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutAssetNestedInput
+}
+
+export type MediaAssetUncheckedUpdateWithoutPaymentProofInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  resourceType?: Prisma.StringFieldUpdateOperationsInput | string
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  bytes?: Prisma.IntFieldUpdateOperationsInput | number
+  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
+  status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
+  avatarFor?: Prisma.UserUncheckedUpdateOneWithoutAvatarAssetNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateManyUploadedByInput = {
@@ -1322,6 +1467,7 @@ export type MediaAssetUpdateWithoutUploadedByInput = {
   logoFor?: Prisma.BusinessUpdateOneWithoutLogoAssetNestedInput
   avatarFor?: Prisma.UserUpdateOneWithoutAvatarAssetNestedInput
   productImages?: Prisma.ProductImageUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutUploadedByInput = {
@@ -1344,6 +1490,7 @@ export type MediaAssetUncheckedUpdateWithoutUploadedByInput = {
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
   avatarFor?: Prisma.UserUncheckedUpdateOneWithoutAvatarAssetNestedInput
   productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateManyWithoutUploadedByInput = {
@@ -1367,7 +1514,7 @@ export type MediaAssetUncheckedUpdateManyWithoutUploadedByInput = {
 
 export type MediaAssetCreateManyBusinessInput = {
   id?: string
-  uploadedById: string
+  uploadedById?: string | null
   provider?: string
   publicId: string
   secureUrl: string
@@ -1400,15 +1547,16 @@ export type MediaAssetUpdateWithoutBusinessInput = {
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  uploadedBy?: Prisma.UserUpdateOneRequiredWithoutUploadedAssetsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedAssetsNestedInput
   logoFor?: Prisma.BusinessUpdateOneWithoutLogoAssetNestedInput
   avatarFor?: Prisma.UserUpdateOneWithoutAvatarAssetNestedInput
   productImages?: Prisma.ProductImageUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1426,11 +1574,12 @@ export type MediaAssetUncheckedUpdateWithoutBusinessInput = {
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
   avatarFor?: Prisma.UserUncheckedUpdateOneWithoutAvatarAssetNestedInput
   productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateManyWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  uploadedById?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1497,10 +1646,11 @@ export type MediaAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   createdAt?: boolean
   deletedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.MediaAsset$uploadedByArgs<ExtArgs>
   logoFor?: boolean | Prisma.MediaAsset$logoForArgs<ExtArgs>
   avatarFor?: boolean | Prisma.MediaAsset$avatarForArgs<ExtArgs>
   productImages?: boolean | Prisma.MediaAsset$productImagesArgs<ExtArgs>
+  paymentProof?: boolean | Prisma.MediaAsset$paymentProofArgs<ExtArgs>
   _count?: boolean | Prisma.MediaAssetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mediaAsset"]>
 
@@ -1523,7 +1673,7 @@ export type MediaAssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   createdAt?: boolean
   deletedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.MediaAsset$uploadedByArgs<ExtArgs>
 }, ExtArgs["result"]["mediaAsset"]>
 
 export type MediaAssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1545,7 +1695,7 @@ export type MediaAssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   createdAt?: boolean
   deletedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.MediaAsset$uploadedByArgs<ExtArgs>
 }, ExtArgs["result"]["mediaAsset"]>
 
 export type MediaAssetSelectScalar = {
@@ -1571,34 +1721,36 @@ export type MediaAssetSelectScalar = {
 export type MediaAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "uploadedById" | "provider" | "publicId" | "secureUrl" | "resourceType" | "format" | "width" | "height" | "bytes" | "version" | "originalFilename" | "purpose" | "status" | "createdAt" | "deletedAt", ExtArgs["result"]["mediaAsset"]>
 export type MediaAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.MediaAsset$uploadedByArgs<ExtArgs>
   logoFor?: boolean | Prisma.MediaAsset$logoForArgs<ExtArgs>
   avatarFor?: boolean | Prisma.MediaAsset$avatarForArgs<ExtArgs>
   productImages?: boolean | Prisma.MediaAsset$productImagesArgs<ExtArgs>
+  paymentProof?: boolean | Prisma.MediaAsset$paymentProofArgs<ExtArgs>
   _count?: boolean | Prisma.MediaAssetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MediaAssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.MediaAsset$uploadedByArgs<ExtArgs>
 }
 export type MediaAssetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
-  uploadedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  uploadedBy?: boolean | Prisma.MediaAsset$uploadedByArgs<ExtArgs>
 }
 
 export type $MediaAssetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MediaAsset"
   objects: {
     business: Prisma.$BusinessPayload<ExtArgs>
-    uploadedBy: Prisma.$UserPayload<ExtArgs>
+    uploadedBy: Prisma.$UserPayload<ExtArgs> | null
     logoFor: Prisma.$BusinessPayload<ExtArgs> | null
     avatarFor: Prisma.$UserPayload<ExtArgs> | null
     productImages: Prisma.$ProductImagePayload<ExtArgs>[]
+    paymentProof: Prisma.$PaymentProofPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     businessId: string
-    uploadedById: string
+    uploadedById: string | null
     provider: string
     publicId: string
     secureUrl: string
@@ -2008,10 +2160,11 @@ readonly fields: MediaAssetFieldRefs;
 export interface Prisma__MediaAssetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  uploadedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  uploadedBy<T extends Prisma.MediaAsset$uploadedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$uploadedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   logoFor<T extends Prisma.MediaAsset$logoForArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$logoForArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   avatarFor<T extends Prisma.MediaAsset$avatarForArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$avatarForArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   productImages<T extends Prisma.MediaAsset$productImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$productImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentProof<T extends Prisma.MediaAsset$paymentProofArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$paymentProofArgs<ExtArgs>>): Prisma.Prisma__PaymentProofClient<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2459,6 +2612,25 @@ export type MediaAssetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
+ * MediaAsset.uploadedBy
+ */
+export type MediaAsset$uploadedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
  * MediaAsset.logoFor
  */
 export type MediaAsset$logoForArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2518,6 +2690,25 @@ export type MediaAsset$productImagesArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.ProductImageScalarFieldEnum | Prisma.ProductImageScalarFieldEnum[]
+}
+
+/**
+ * MediaAsset.paymentProof
+ */
+export type MediaAsset$paymentProofArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PaymentProof
+   */
+  select?: Prisma.PaymentProofSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PaymentProof
+   */
+  omit?: Prisma.PaymentProofOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentProofInclude<ExtArgs> | null
+  where?: Prisma.PaymentProofWhereInput
 }
 
 /**

@@ -167,6 +167,25 @@ export const PaymentEntryType = {
 export type PaymentEntryType = (typeof PaymentEntryType)[keyof typeof PaymentEntryType]
 
 
+export const PaymentMethod = {
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  PAY_ON_DELIVERY: 'PAY_ON_DELIVERY',
+  CASH: 'CASH',
+  ARRANGE_SEPARATELY: 'ARRANGE_SEPARATELY'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const PaymentProofStatus = {
+  SUBMITTED: 'SUBMITTED',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type PaymentProofStatus = (typeof PaymentProofStatus)[keyof typeof PaymentProofStatus]
+
+
 export const SaleStatus = {
   DRAFT: 'DRAFT',
   COMPLETED: 'COMPLETED',
@@ -268,6 +287,7 @@ export const MediaPurpose = {
   BUSINESS_LOGO: 'BUSINESS_LOGO',
   PRODUCT_IMAGE: 'PRODUCT_IMAGE',
   USER_AVATAR: 'USER_AVATAR',
+  PAYMENT_PROOF: 'PAYMENT_PROOF',
   TRUST_CARD: 'TRUST_CARD',
   RECEIPT_EXPORT: 'RECEIPT_EXPORT'
 } as const

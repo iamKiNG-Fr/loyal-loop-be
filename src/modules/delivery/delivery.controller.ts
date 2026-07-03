@@ -47,6 +47,17 @@ export class DeliveryController {
       .then((data) => ok(data, "Delivery updated"));
   }
 
+  @Post(":id/share-link")
+  @Roles("OWNER", "MANAGER", "SALES", "DELIVERY")
+  shareLink(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Param("id") id: string,
+  ) {
+    return this.deliveries
+      .createShareLink(auth, id)
+      .then((data) => ok(data, "Delivery share link created"));
+  }
+
   @Post(":id/issues/:issueId/resolve")
   @Roles("OWNER", "MANAGER", "DELIVERY")
   resolve(

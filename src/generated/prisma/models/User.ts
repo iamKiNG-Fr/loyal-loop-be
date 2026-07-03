@@ -224,6 +224,7 @@ export type UserWhereInput = {
   authoredNotes?: Prisma.CustomerNoteListRelationFilter
   invitationsSent?: Prisma.BusinessInvitationListRelationFilter
   paymentsRecorded?: Prisma.PaymentEntryListRelationFilter
+  paymentProofReviews?: Prisma.PaymentProofListRelationFilter
   deliveryEvents?: Prisma.DeliveryEventListRelationFilter
   activityEvents?: Prisma.ActivityEventListRelationFilter
 }
@@ -248,6 +249,7 @@ export type UserOrderByWithRelationInput = {
   authoredNotes?: Prisma.CustomerNoteOrderByRelationAggregateInput
   invitationsSent?: Prisma.BusinessInvitationOrderByRelationAggregateInput
   paymentsRecorded?: Prisma.PaymentEntryOrderByRelationAggregateInput
+  paymentProofReviews?: Prisma.PaymentProofOrderByRelationAggregateInput
   deliveryEvents?: Prisma.DeliveryEventOrderByRelationAggregateInput
   activityEvents?: Prisma.ActivityEventOrderByRelationAggregateInput
 }
@@ -275,6 +277,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   authoredNotes?: Prisma.CustomerNoteListRelationFilter
   invitationsSent?: Prisma.BusinessInvitationListRelationFilter
   paymentsRecorded?: Prisma.PaymentEntryListRelationFilter
+  paymentProofReviews?: Prisma.PaymentProofListRelationFilter
   deliveryEvents?: Prisma.DeliveryEventListRelationFilter
   activityEvents?: Prisma.ActivityEventListRelationFilter
 }, "id" | "avatarAssetId" | "email" | "phone">
@@ -328,6 +331,7 @@ export type UserCreateInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -351,6 +355,7 @@ export type UserUncheckedCreateInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -374,6 +379,7 @@ export type UserUpdateInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -397,6 +403,7 @@ export type UserUncheckedUpdateInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -590,10 +597,12 @@ export type UserUncheckedCreateNestedOneWithoutAvatarAssetInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutUploadedAssetsNestedInput = {
+export type UserUpdateOneWithoutUploadedAssetsNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutUploadedAssetsInput, Prisma.UserUncheckedCreateWithoutUploadedAssetsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutUploadedAssetsInput
   upsert?: Prisma.UserUpsertWithoutUploadedAssetsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUploadedAssetsInput, Prisma.UserUpdateWithoutUploadedAssetsInput>, Prisma.UserUncheckedUpdateWithoutUploadedAssetsInput>
 }
@@ -650,6 +659,22 @@ export type UserUpdateOneWithoutPaymentsRecordedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsRecordedInput, Prisma.UserUpdateWithoutPaymentsRecordedInput>, Prisma.UserUncheckedUpdateWithoutPaymentsRecordedInput>
 }
 
+export type UserCreateNestedOneWithoutPaymentProofReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentProofReviewsInput, Prisma.UserUncheckedCreateWithoutPaymentProofReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentProofReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutPaymentProofReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentProofReviewsInput, Prisma.UserUncheckedCreateWithoutPaymentProofReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentProofReviewsInput
+  upsert?: Prisma.UserUpsertWithoutPaymentProofReviewsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentProofReviewsInput, Prisma.UserUpdateWithoutPaymentProofReviewsInput>, Prisma.UserUncheckedUpdateWithoutPaymentProofReviewsInput>
+}
+
 export type UserCreateNestedOneWithoutDeliveryEventsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutDeliveryEventsInput, Prisma.UserUncheckedCreateWithoutDeliveryEventsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeliveryEventsInput
@@ -700,6 +725,7 @@ export type UserCreateWithoutSessionsInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -722,6 +748,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -760,6 +787,7 @@ export type UserUpdateWithoutSessionsInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -782,6 +810,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -804,6 +833,7 @@ export type UserCreateWithoutOtpChallengesInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -826,6 +856,7 @@ export type UserUncheckedCreateWithoutOtpChallengesInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -864,6 +895,7 @@ export type UserUpdateWithoutOtpChallengesInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -886,6 +918,7 @@ export type UserUncheckedUpdateWithoutOtpChallengesInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -908,6 +941,7 @@ export type UserCreateWithoutRecoveryTokensInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -930,6 +964,7 @@ export type UserUncheckedCreateWithoutRecoveryTokensInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -968,6 +1003,7 @@ export type UserUpdateWithoutRecoveryTokensInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -990,6 +1026,7 @@ export type UserUncheckedUpdateWithoutRecoveryTokensInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1012,6 +1049,7 @@ export type UserCreateWithoutOwnedBusinessesInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -1034,6 +1072,7 @@ export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1072,6 +1111,7 @@ export type UserUpdateWithoutOwnedBusinessesInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -1094,6 +1134,7 @@ export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1116,6 +1157,7 @@ export type UserCreateWithoutMembershipsInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -1138,6 +1180,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1176,6 +1219,7 @@ export type UserUpdateWithoutMembershipsInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -1198,6 +1242,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1220,6 +1265,7 @@ export type UserCreateWithoutInvitationsSentInput = {
   avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -1242,6 +1288,7 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1280,6 +1327,7 @@ export type UserUpdateWithoutInvitationsSentInput = {
   avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -1302,6 +1350,7 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1324,6 +1373,7 @@ export type UserCreateWithoutUploadedAssetsInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -1346,6 +1396,7 @@ export type UserUncheckedCreateWithoutUploadedAssetsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1373,6 +1424,7 @@ export type UserCreateWithoutAvatarAssetInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -1395,6 +1447,7 @@ export type UserUncheckedCreateWithoutAvatarAssetInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1433,6 +1486,7 @@ export type UserUpdateWithoutUploadedAssetsInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -1455,6 +1509,7 @@ export type UserUncheckedUpdateWithoutUploadedAssetsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1488,6 +1543,7 @@ export type UserUpdateWithoutAvatarAssetInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -1510,6 +1566,7 @@ export type UserUncheckedUpdateWithoutAvatarAssetInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1532,6 +1589,7 @@ export type UserCreateWithoutAuthoredNotesInput = {
   avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -1554,6 +1612,7 @@ export type UserUncheckedCreateWithoutAuthoredNotesInput = {
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1592,6 +1651,7 @@ export type UserUpdateWithoutAuthoredNotesInput = {
   avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -1614,6 +1674,7 @@ export type UserUncheckedUpdateWithoutAuthoredNotesInput = {
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1636,6 +1697,7 @@ export type UserCreateWithoutPaymentsRecordedInput = {
   avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
@@ -1658,6 +1720,7 @@ export type UserUncheckedCreateWithoutPaymentsRecordedInput = {
   uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
@@ -1696,6 +1759,7 @@ export type UserUpdateWithoutPaymentsRecordedInput = {
   avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
@@ -1718,6 +1782,115 @@ export type UserUncheckedUpdateWithoutPaymentsRecordedInput = {
   uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutPaymentProofReviewsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
+  authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutPaymentProofReviewsInput = {
+  id?: string
+  avatarAssetId?: string | null
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutPaymentProofReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentProofReviewsInput, Prisma.UserUncheckedCreateWithoutPaymentProofReviewsInput>
+}
+
+export type UserUpsertWithoutPaymentProofReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPaymentProofReviewsInput, Prisma.UserUncheckedUpdateWithoutPaymentProofReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentProofReviewsInput, Prisma.UserUncheckedCreateWithoutPaymentProofReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPaymentProofReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPaymentProofReviewsInput, Prisma.UserUncheckedUpdateWithoutPaymentProofReviewsInput>
+}
+
+export type UserUpdateWithoutPaymentProofReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
+  authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPaymentProofReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
@@ -1741,6 +1914,7 @@ export type UserCreateWithoutDeliveryEventsInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
 }
 
@@ -1763,6 +1937,7 @@ export type UserUncheckedCreateWithoutDeliveryEventsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
 }
 
@@ -1801,6 +1976,7 @@ export type UserUpdateWithoutDeliveryEventsInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
 }
 
@@ -1823,6 +1999,7 @@ export type UserUncheckedUpdateWithoutDeliveryEventsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
@@ -1845,6 +2022,7 @@ export type UserCreateWithoutActivityEventsInput = {
   authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
 }
 
@@ -1867,6 +2045,7 @@ export type UserUncheckedCreateWithoutActivityEventsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
 }
 
@@ -1905,6 +2084,7 @@ export type UserUpdateWithoutActivityEventsInput = {
   authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
 }
 
@@ -1927,6 +2107,7 @@ export type UserUncheckedUpdateWithoutActivityEventsInput = {
   authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
   invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
 }
 
@@ -1945,6 +2126,7 @@ export type UserCountOutputType = {
   authoredNotes: number
   invitationsSent: number
   paymentsRecorded: number
+  paymentProofReviews: number
   deliveryEvents: number
   activityEvents: number
 }
@@ -1959,6 +2141,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   authoredNotes?: boolean | UserCountOutputTypeCountAuthoredNotesArgs
   invitationsSent?: boolean | UserCountOutputTypeCountInvitationsSentArgs
   paymentsRecorded?: boolean | UserCountOutputTypeCountPaymentsRecordedArgs
+  paymentProofReviews?: boolean | UserCountOutputTypeCountPaymentProofReviewsArgs
   deliveryEvents?: boolean | UserCountOutputTypeCountDeliveryEventsArgs
   activityEvents?: boolean | UserCountOutputTypeCountActivityEventsArgs
 }
@@ -2039,6 +2222,13 @@ export type UserCountOutputTypeCountPaymentsRecordedArgs<ExtArgs extends runtime
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountPaymentProofReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentProofWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountDeliveryEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DeliveryEventWhereInput
 }
@@ -2071,6 +2261,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   authoredNotes?: boolean | Prisma.User$authoredNotesArgs<ExtArgs>
   invitationsSent?: boolean | Prisma.User$invitationsSentArgs<ExtArgs>
   paymentsRecorded?: boolean | Prisma.User$paymentsRecordedArgs<ExtArgs>
+  paymentProofReviews?: boolean | Prisma.User$paymentProofReviewsArgs<ExtArgs>
   deliveryEvents?: boolean | Prisma.User$deliveryEventsArgs<ExtArgs>
   activityEvents?: boolean | Prisma.User$activityEventsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2126,6 +2317,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   authoredNotes?: boolean | Prisma.User$authoredNotesArgs<ExtArgs>
   invitationsSent?: boolean | Prisma.User$invitationsSentArgs<ExtArgs>
   paymentsRecorded?: boolean | Prisma.User$paymentsRecordedArgs<ExtArgs>
+  paymentProofReviews?: boolean | Prisma.User$paymentProofReviewsArgs<ExtArgs>
   deliveryEvents?: boolean | Prisma.User$deliveryEventsArgs<ExtArgs>
   activityEvents?: boolean | Prisma.User$activityEventsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2150,6 +2342,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     authoredNotes: Prisma.$CustomerNotePayload<ExtArgs>[]
     invitationsSent: Prisma.$BusinessInvitationPayload<ExtArgs>[]
     paymentsRecorded: Prisma.$PaymentEntryPayload<ExtArgs>[]
+    paymentProofReviews: Prisma.$PaymentProofPayload<ExtArgs>[]
     deliveryEvents: Prisma.$DeliveryEventPayload<ExtArgs>[]
     activityEvents: Prisma.$ActivityEventPayload<ExtArgs>[]
   }
@@ -2567,6 +2760,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   authoredNotes<T extends Prisma.User$authoredNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$authoredNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invitationsSent<T extends Prisma.User$invitationsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$invitationsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentsRecorded<T extends Prisma.User$paymentsRecordedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsRecordedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentProofReviews<T extends Prisma.User$paymentProofReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentProofReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deliveryEvents<T extends Prisma.User$deliveryEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deliveryEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activityEvents<T extends Prisma.User$activityEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -3240,6 +3434,30 @@ export type User$paymentsRecordedArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.PaymentEntryScalarFieldEnum | Prisma.PaymentEntryScalarFieldEnum[]
+}
+
+/**
+ * User.paymentProofReviews
+ */
+export type User$paymentProofReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PaymentProof
+   */
+  select?: Prisma.PaymentProofSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PaymentProof
+   */
+  omit?: Prisma.PaymentProofOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentProofInclude<ExtArgs> | null
+  where?: Prisma.PaymentProofWhereInput
+  orderBy?: Prisma.PaymentProofOrderByWithRelationInput | Prisma.PaymentProofOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentProofWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentProofScalarFieldEnum | Prisma.PaymentProofScalarFieldEnum[]
 }
 
 /**

@@ -59,6 +59,7 @@ export const ModelName = {
   Business: 'Business',
   BusinessPreferences: 'BusinessPreferences',
   BusinessContact: 'BusinessContact',
+  BusinessPaymentAccount: 'BusinessPaymentAccount',
   BusinessMember: 'BusinessMember',
   BusinessInvitation: 'BusinessInvitation',
   MediaAsset: 'MediaAsset',
@@ -79,11 +80,14 @@ export const ModelName = {
   OrderRequestItem: 'OrderRequestItem',
   CommerceEvent: 'CommerceEvent',
   Sale: 'Sale',
+  SalePaymentInstruction: 'SalePaymentInstruction',
   SaleItem: 'SaleItem',
   PaymentEntry: 'PaymentEntry',
+  PaymentProof: 'PaymentProof',
   Receipt: 'Receipt',
   ReceiptShareToken: 'ReceiptShareToken',
   Delivery: 'Delivery',
+  DeliveryShareToken: 'DeliveryShareToken',
   DeliveryEvent: 'DeliveryEvent',
   ActivityEvent: 'ActivityEvent',
   FollowUpTemplate: 'FollowUpTemplate',
@@ -256,6 +260,23 @@ export const BusinessContactScalarFieldEnum = {
 } as const
 
 export type BusinessContactScalarFieldEnum = (typeof BusinessContactScalarFieldEnum)[keyof typeof BusinessContactScalarFieldEnum]
+
+
+export const BusinessPaymentAccountScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  bankName: 'bankName',
+  bankCode: 'bankCode',
+  accountName: 'accountName',
+  accountNumber: 'accountNumber',
+  instructions: 'instructions',
+  currency: 'currency',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BusinessPaymentAccountScalarFieldEnum = (typeof BusinessPaymentAccountScalarFieldEnum)[keyof typeof BusinessPaymentAccountScalarFieldEnum]
 
 
 export const BusinessMemberScalarFieldEnum = {
@@ -578,6 +599,21 @@ export const SaleScalarFieldEnum = {
 export type SaleScalarFieldEnum = (typeof SaleScalarFieldEnum)[keyof typeof SaleScalarFieldEnum]
 
 
+export const SalePaymentInstructionScalarFieldEnum = {
+  id: 'id',
+  saleId: 'saleId',
+  method: 'method',
+  bankName: 'bankName',
+  bankCode: 'bankCode',
+  accountName: 'accountName',
+  accountNumber: 'accountNumber',
+  instructions: 'instructions',
+  createdAt: 'createdAt'
+} as const
+
+export type SalePaymentInstructionScalarFieldEnum = (typeof SalePaymentInstructionScalarFieldEnum)[keyof typeof SalePaymentInstructionScalarFieldEnum]
+
+
 export const SaleItemScalarFieldEnum = {
   id: 'id',
   saleId: 'saleId',
@@ -598,6 +634,7 @@ export const PaymentEntryScalarFieldEnum = {
   id: 'id',
   saleId: 'saleId',
   recordedById: 'recordedById',
+  paymentProofId: 'paymentProofId',
   type: 'type',
   amount: 'amount',
   note: 'note',
@@ -606,6 +643,25 @@ export const PaymentEntryScalarFieldEnum = {
 } as const
 
 export type PaymentEntryScalarFieldEnum = (typeof PaymentEntryScalarFieldEnum)[keyof typeof PaymentEntryScalarFieldEnum]
+
+
+export const PaymentProofScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  saleId: 'saleId',
+  assetId: 'assetId',
+  reviewedById: 'reviewedById',
+  amount: 'amount',
+  reference: 'reference',
+  status: 'status',
+  reviewNote: 'reviewNote',
+  submittedAt: 'submittedAt',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentProofScalarFieldEnum = (typeof PaymentProofScalarFieldEnum)[keyof typeof PaymentProofScalarFieldEnum]
 
 
 export const ReceiptScalarFieldEnum = {
@@ -664,6 +720,17 @@ export const DeliveryScalarFieldEnum = {
 } as const
 
 export type DeliveryScalarFieldEnum = (typeof DeliveryScalarFieldEnum)[keyof typeof DeliveryScalarFieldEnum]
+
+
+export const DeliveryShareTokenScalarFieldEnum = {
+  id: 'id',
+  deliveryId: 'deliveryId',
+  tokenHash: 'tokenHash',
+  createdAt: 'createdAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type DeliveryShareTokenScalarFieldEnum = (typeof DeliveryShareTokenScalarFieldEnum)[keyof typeof DeliveryShareTokenScalarFieldEnum]
 
 
 export const DeliveryEventScalarFieldEnum = {

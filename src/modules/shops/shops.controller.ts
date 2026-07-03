@@ -27,6 +27,7 @@ import type {
 } from "../../common/request-context";
 import {
   CreateOrderRequestDto,
+  ConfirmOrderRequestDto,
   ProductInterestDto,
   UpdateOrderRequestStatusDto,
   WishlistProductDto,
@@ -157,10 +158,11 @@ export class OrderRequestsController {
   convert(
     @CurrentAuth() auth: OwnerAuthContext,
     @Param("id") id: string,
+    @Body() dto: ConfirmOrderRequestDto,
     @Headers("idempotency-key") idempotencyKey?: string,
   ) {
     return this.shops
-      .convertRequest(auth, id, idempotencyKey)
+      .convertRequest(auth, id, dto, idempotencyKey)
       .then((data) => ok(data, "Request converted"));
   }
 }

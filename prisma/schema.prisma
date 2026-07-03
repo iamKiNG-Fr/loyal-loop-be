@@ -120,6 +120,19 @@ enum PaymentEntryType {
   ADJUSTMENT
 }
 
+enum PaymentMethod {
+  BANK_TRANSFER
+  PAY_ON_DELIVERY
+  CASH
+  ARRANGE_SEPARATELY
+}
+
+enum PaymentProofStatus {
+  SUBMITTED
+  VERIFIED
+  REJECTED
+}
+
 enum SaleStatus {
   DRAFT
   COMPLETED
@@ -200,6 +213,7 @@ enum MediaPurpose {
   BUSINESS_LOGO
   PRODUCT_IMAGE
   USER_AVATAR
+  PAYMENT_PROOF
   TRUST_CARD
   RECEIPT_EXPORT
 }
@@ -305,6 +319,7 @@ model User {
   authoredNotes       CustomerNote[]          @relation("NoteAuthor")
   invitationsSent     BusinessInvitation[]    @relation("InvitationSender")
   paymentsRecorded    PaymentEntry[]          @relation("PaymentRecorder")
+  paymentProofReviews PaymentProof[]          @relation("PaymentProofReviewer")
   deliveryEvents      DeliveryEvent[]         @relation("DeliveryEventActor")
   activityEvents      ActivityEvent[]         @relation("ActivityActor")
 
@@ -357,43 +372,43 @@ model PasswordRecoveryToken {
 }
 
 model Business {
-  id                  String               @id @default(cuid())
+  id                  String                   @id @default(cuid())
   ownerId             String
-  logoAssetId         String?              @unique
+  logoAssetId         String?                  @unique
   name                String
-  slug                String               @unique
-  publicCardId        String               @unique
+  slug                String                   @unique
+  publicCardId        String                   @unique
   category            String?
   categoryDetail      String?
   description         String?
   location            String?
-  storeStatus         StoreStatus          @default(SETTING_UP)
+  storeStatus         StoreStatus              @default(SETTING_UP)
   launchAt            DateTime?
   launchTimezone      String?
-  launchTemplate      LaunchTemplate       @default(SHOP_LOADING)
+  launchTemplate      LaunchTemplate           @default(SHOP_LOADING)
   launchMessage       String?
   launchProductId     String?
-  launchAutoOpen      Boolean              @default(false)
-  launchShareVersion  Int                  @default(1)
+  launchAutoOpen      Boolean                  @default(false)
+  launchShareVersion  Int                      @default(1)
   launchedAt          DateTime?
   pledgeSignature     String?
   pledgedAt           DateTime?
-  plan                BusinessPlan         @default(PRIVATE_TESTER)
-  subscriptionStatus  SubscriptionStatus   @default(INTERNAL_TEST)
+  plan                BusinessPlan             @default(PRIVATE_TESTER)
+  subscriptionStatus  SubscriptionStatus       @default(INTERNAL_TEST)
   trialStartedAt      DateTime?
   trialEndsAt         DateTime?
   customerLimit       Int?
   receiptLimit        Int?
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @updatedAt
-  owner               User                 @relation("BusinessOwner", fields: [ownerId], references: [id])
-  logoAsset           MediaAsset?          @relation("BusinessLogo", fields: [logoAssetId], references: [id], onDelete: SetNull)
-  launchProduct       Product?             @relation("BusinessLaunchProduct", fields: [launchProductId], references: [id], onDelete: SetNull)
+  createdAt           DateTime                 @default(now())
+  updatedAt           DateTime                 @updatedAt
+  owner               User                     @relation("BusinessOwner", fields: [ownerId], references: [id])
+  logoAsset           MediaAsset?              @relation("BusinessLogo", fields: [logoAssetId], references: [id], onDelete: SetNull)
+  launchProduct       Product?                 @relation("BusinessLaunchProduct", fields: [launchProductId], references: [id], onDelete: SetNull)
   preferences         BusinessPreferences?
   contacts            BusinessContact[]
   members             BusinessMember[]
   invitations         BusinessInvitation[]
-  assets              MediaAsset[]         @relation("BusinessAssets")
+  assets              MediaAsset[]             @relation("BusinessAssets")
   customers           Customer[]
   customerTags        CustomerTag[]
   products            Product[]
@@ -411,6 +426,8 @@ model Business {
   issues              CustomerIssue[]
   trustLedger         TrustLedgerEntry[]
   supportRequests     SupportRequest[]
+  paymentAccounts     BusinessPaymentAccount[]
+  paymentProofs       PaymentProof[]
 
   @@index([ownerId])
   @@index([storeStatus, launchAt])
@@ -461,6 +478,23 @@ model BusinessContact {
   @@map("business_contacts")
 }
 
+model BusinessPaymentAccount {
+  id            String   @id @default(cuid())
+  businessId    String   @unique
+  bankName      String
+  bankCode      String?
+  accountName   String
+  accountNumber String
+  instructions  String?
+  currency      String   @default("NGN")
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  business      Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@map("business_payment_accounts")
+}
+
 model BusinessMember {
   id         String       @id @default(cuid())
   businessId String
@@ -501,7 +535,7 @@ model BusinessInvitation {
 model MediaAsset {
   id               String         @id @default(cuid())
   businessId       String
-  uploadedById     String
+  uploadedById     String?
   provider         String         @default("cloudinary")
   publicId         String         @unique
   secureUrl        String
@@ -517,10 +551,11 @@ model MediaAsset {
   createdAt        DateTime       @default(now())
   deletedAt        DateTime?
   business         Business       @relation("BusinessAssets", fields: [businessId], references: [id], onDelete: Cascade)
-  uploadedBy       User           @relation("AssetUploader", fields: [uploadedById], references: [id])
+  uploadedBy       User?          @relation("AssetUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
   logoFor          Business?      @relation("BusinessLogo")
   avatarFor        User?          @relation("UserAvatar")
   productImages    ProductImage[]
+  paymentProof     PaymentProof?
 
   @@index([businessId, purpose, status])
   @@map("media_assets")
@@ -839,42 +874,59 @@ model CommerceEvent {
 }
 
 model Sale {
-  id               String             @id @default(cuid())
-  businessId       String
-  customerId       String
-  sourceRequestId  String?            @unique
-  idempotencyKey   String?
-  referenceCode    String             @unique
-  status           SaleStatus         @default(COMPLETED)
-  paymentStatus    PaymentStatus      @default(UNPAID)
-  protectedPayment Boolean            @default(false)
-  channel          SalesChannel       @default(OTHER)
-  fulfillment      FulfillmentType    @default(NOT_REQUIRED)
-  currency         String             @default("NGN")
-  subtotal         Decimal            @default(0) @db.Decimal(12, 2)
-  discount         Decimal            @default(0) @db.Decimal(12, 2)
-  deliveryFee      Decimal            @default(0) @db.Decimal(12, 2)
-  total            Decimal            @default(0) @db.Decimal(12, 2)
-  amountPaid       Decimal            @default(0) @db.Decimal(12, 2)
-  notes            String?
-  soldAt           DateTime           @default(now())
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  business         Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customer         Customer           @relation(fields: [customerId], references: [id])
-  sourceRequest    OrderRequest?      @relation("RequestConversion", fields: [sourceRequestId], references: [id], onDelete: SetNull)
-  items            SaleItem[]
-  payments         PaymentEntry[]
-  receipt          Receipt?
-  delivery         Delivery?
-  activityEvents   ActivityEvent[]
-  feedback         CustomerFeedback[]
-  issues           CustomerIssue[]
+  id                 String                  @id @default(cuid())
+  businessId         String
+  customerId         String
+  sourceRequestId    String?                 @unique
+  idempotencyKey     String?
+  referenceCode      String                  @unique
+  status             SaleStatus              @default(COMPLETED)
+  paymentStatus      PaymentStatus           @default(UNPAID)
+  protectedPayment   Boolean                 @default(false)
+  channel            SalesChannel            @default(OTHER)
+  fulfillment        FulfillmentType         @default(NOT_REQUIRED)
+  currency           String                  @default("NGN")
+  subtotal           Decimal                 @default(0) @db.Decimal(12, 2)
+  discount           Decimal                 @default(0) @db.Decimal(12, 2)
+  deliveryFee        Decimal                 @default(0) @db.Decimal(12, 2)
+  total              Decimal                 @default(0) @db.Decimal(12, 2)
+  amountPaid         Decimal                 @default(0) @db.Decimal(12, 2)
+  notes              String?
+  soldAt             DateTime                @default(now())
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+  business           Business                @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer           Customer                @relation(fields: [customerId], references: [id])
+  sourceRequest      OrderRequest?           @relation("RequestConversion", fields: [sourceRequestId], references: [id], onDelete: SetNull)
+  items              SaleItem[]
+  payments           PaymentEntry[]
+  paymentInstruction SalePaymentInstruction?
+  paymentProofs      PaymentProof[]
+  receipt            Receipt?
+  delivery           Delivery?
+  activityEvents     ActivityEvent[]
+  feedback           CustomerFeedback[]
+  issues             CustomerIssue[]
 
   @@unique([businessId, idempotencyKey])
   @@index([businessId, soldAt])
   @@index([customerId, soldAt])
   @@map("sales")
+}
+
+model SalePaymentInstruction {
+  id            String        @id @default(cuid())
+  saleId        String        @unique
+  method        PaymentMethod
+  bankName      String?
+  bankCode      String?
+  accountName   String?
+  accountNumber String?
+  instructions  String?
+  createdAt     DateTime      @default(now())
+  sale          Sale          @relation(fields: [saleId], references: [id], onDelete: Cascade)
+
+  @@map("sale_payment_instructions")
 }
 
 model SaleItem {
@@ -897,19 +949,46 @@ model SaleItem {
 }
 
 model PaymentEntry {
-  id           String           @id @default(cuid())
-  saleId       String
-  recordedById String?
-  type         PaymentEntryType
-  amount       Decimal          @db.Decimal(12, 2)
-  note         String?
-  reference    String?
-  createdAt    DateTime         @default(now())
-  sale         Sale             @relation(fields: [saleId], references: [id], onDelete: Cascade)
-  recordedBy   User?            @relation("PaymentRecorder", fields: [recordedById], references: [id], onDelete: SetNull)
+  id             String           @id @default(cuid())
+  saleId         String
+  recordedById   String?
+  paymentProofId String?          @unique
+  type           PaymentEntryType
+  amount         Decimal          @db.Decimal(12, 2)
+  note           String?
+  reference      String?
+  createdAt      DateTime         @default(now())
+  sale           Sale             @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  recordedBy     User?            @relation("PaymentRecorder", fields: [recordedById], references: [id], onDelete: SetNull)
+  paymentProof   PaymentProof?    @relation(fields: [paymentProofId], references: [id], onDelete: SetNull)
 
   @@index([saleId, createdAt])
   @@map("payment_entries")
+}
+
+model PaymentProof {
+  id           String             @id @default(cuid())
+  businessId   String
+  saleId       String
+  assetId      String             @unique
+  reviewedById String?
+  amount       Decimal            @db.Decimal(12, 2)
+  reference    String?
+  status       PaymentProofStatus @default(SUBMITTED)
+  reviewNote   String?
+  submittedAt  DateTime           @default(now())
+  reviewedAt   DateTime?
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  business     Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  sale         Sale               @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  asset        MediaAsset         @relation(fields: [assetId], references: [id], onDelete: Restrict)
+  reviewedBy   User?              @relation("PaymentProofReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+  paymentEntry PaymentEntry?
+
+  @@index([businessId, status, submittedAt])
+  @@index([saleId, submittedAt])
+  @@map("payment_proofs")
 }
 
 model Receipt {
@@ -954,17 +1033,17 @@ model ReceiptShareToken {
 }
 
 model Delivery {
-  id             String             @id @default(cuid())
+  id             String               @id @default(cuid())
   businessId     String
   customerId     String
-  saleId         String             @unique
-  tokenHash      String             @unique
-  status         DeliveryStatus     @default(PREPARING)
+  saleId         String               @unique
+  tokenHash      String               @unique
+  status         DeliveryStatus       @default(PREPARING)
   address        String?
   googlePlaceId  String?
   latitude       Float?
   longitude      Float?
-  isGift         Boolean            @default(false)
+  isGift         Boolean              @default(false)
   recipientName  String?
   recipientPhone String?
   courier        String?
@@ -972,19 +1051,32 @@ model Delivery {
   trackingUrl    String?
   deliveredAt    DateTime?
   confirmedAt    DateTime?
-  createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
-  business       Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customer       Customer           @relation(fields: [customerId], references: [id])
-  sale           Sale               @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  business       Business             @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer       Customer             @relation(fields: [customerId], references: [id])
+  sale           Sale                 @relation(fields: [saleId], references: [id], onDelete: Cascade)
   events         DeliveryEvent[]
   activityEvents ActivityEvent[]
   feedback       CustomerFeedback[]
   issues         CustomerIssue[]
+  shareTokens    DeliveryShareToken[]
 
   @@index([businessId, status, createdAt])
   @@index([customerId, createdAt])
   @@map("deliveries")
+}
+
+model DeliveryShareToken {
+  id         String    @id @default(cuid())
+  deliveryId String
+  tokenHash  String    @unique
+  createdAt  DateTime  @default(now())
+  revokedAt  DateTime?
+  delivery   Delivery  @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+
+  @@index([deliveryId, createdAt])
+  @@map("delivery_share_tokens")
 }
 
 model DeliveryEvent {

@@ -365,6 +365,8 @@ export type SaleWhereInput = {
   sourceRequest?: Prisma.XOR<Prisma.OrderRequestNullableScalarRelationFilter, Prisma.OrderRequestWhereInput> | null
   items?: Prisma.SaleItemListRelationFilter
   payments?: Prisma.PaymentEntryListRelationFilter
+  paymentInstruction?: Prisma.XOR<Prisma.SalePaymentInstructionNullableScalarRelationFilter, Prisma.SalePaymentInstructionWhereInput> | null
+  paymentProofs?: Prisma.PaymentProofListRelationFilter
   receipt?: Prisma.XOR<Prisma.ReceiptNullableScalarRelationFilter, Prisma.ReceiptWhereInput> | null
   delivery?: Prisma.XOR<Prisma.DeliveryNullableScalarRelationFilter, Prisma.DeliveryWhereInput> | null
   activityEvents?: Prisma.ActivityEventListRelationFilter
@@ -399,6 +401,8 @@ export type SaleOrderByWithRelationInput = {
   sourceRequest?: Prisma.OrderRequestOrderByWithRelationInput
   items?: Prisma.SaleItemOrderByRelationAggregateInput
   payments?: Prisma.PaymentEntryOrderByRelationAggregateInput
+  paymentInstruction?: Prisma.SalePaymentInstructionOrderByWithRelationInput
+  paymentProofs?: Prisma.PaymentProofOrderByRelationAggregateInput
   receipt?: Prisma.ReceiptOrderByWithRelationInput
   delivery?: Prisma.DeliveryOrderByWithRelationInput
   activityEvents?: Prisma.ActivityEventOrderByRelationAggregateInput
@@ -437,6 +441,8 @@ export type SaleWhereUniqueInput = Prisma.AtLeast<{
   sourceRequest?: Prisma.XOR<Prisma.OrderRequestNullableScalarRelationFilter, Prisma.OrderRequestWhereInput> | null
   items?: Prisma.SaleItemListRelationFilter
   payments?: Prisma.PaymentEntryListRelationFilter
+  paymentInstruction?: Prisma.XOR<Prisma.SalePaymentInstructionNullableScalarRelationFilter, Prisma.SalePaymentInstructionWhereInput> | null
+  paymentProofs?: Prisma.PaymentProofListRelationFilter
   receipt?: Prisma.XOR<Prisma.ReceiptNullableScalarRelationFilter, Prisma.ReceiptWhereInput> | null
   delivery?: Prisma.XOR<Prisma.DeliveryNullableScalarRelationFilter, Prisma.DeliveryWhereInput> | null
   activityEvents?: Prisma.ActivityEventListRelationFilter
@@ -524,6 +530,8 @@ export type SaleCreateInput = {
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
@@ -555,6 +563,8 @@ export type SaleUncheckedCreateInput = {
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
@@ -586,6 +596,8 @@ export type SaleUpdateInput = {
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
@@ -617,6 +629,8 @@ export type SaleUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
@@ -926,6 +940,20 @@ export type EnumSaleStatusFieldUpdateOperationsInput = {
   set?: $Enums.SaleStatus
 }
 
+export type SaleCreateNestedOneWithoutPaymentInstructionInput = {
+  create?: Prisma.XOR<Prisma.SaleCreateWithoutPaymentInstructionInput, Prisma.SaleUncheckedCreateWithoutPaymentInstructionInput>
+  connectOrCreate?: Prisma.SaleCreateOrConnectWithoutPaymentInstructionInput
+  connect?: Prisma.SaleWhereUniqueInput
+}
+
+export type SaleUpdateOneRequiredWithoutPaymentInstructionNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleCreateWithoutPaymentInstructionInput, Prisma.SaleUncheckedCreateWithoutPaymentInstructionInput>
+  connectOrCreate?: Prisma.SaleCreateOrConnectWithoutPaymentInstructionInput
+  upsert?: Prisma.SaleUpsertWithoutPaymentInstructionInput
+  connect?: Prisma.SaleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SaleUpdateToOneWithWhereWithoutPaymentInstructionInput, Prisma.SaleUpdateWithoutPaymentInstructionInput>, Prisma.SaleUncheckedUpdateWithoutPaymentInstructionInput>
+}
+
 export type SaleCreateNestedOneWithoutItemsInput = {
   create?: Prisma.XOR<Prisma.SaleCreateWithoutItemsInput, Prisma.SaleUncheckedCreateWithoutItemsInput>
   connectOrCreate?: Prisma.SaleCreateOrConnectWithoutItemsInput
@@ -952,6 +980,20 @@ export type SaleUpdateOneRequiredWithoutPaymentsNestedInput = {
   upsert?: Prisma.SaleUpsertWithoutPaymentsInput
   connect?: Prisma.SaleWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.SaleUpdateToOneWithWhereWithoutPaymentsInput, Prisma.SaleUpdateWithoutPaymentsInput>, Prisma.SaleUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type SaleCreateNestedOneWithoutPaymentProofsInput = {
+  create?: Prisma.XOR<Prisma.SaleCreateWithoutPaymentProofsInput, Prisma.SaleUncheckedCreateWithoutPaymentProofsInput>
+  connectOrCreate?: Prisma.SaleCreateOrConnectWithoutPaymentProofsInput
+  connect?: Prisma.SaleWhereUniqueInput
+}
+
+export type SaleUpdateOneRequiredWithoutPaymentProofsNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleCreateWithoutPaymentProofsInput, Prisma.SaleUncheckedCreateWithoutPaymentProofsInput>
+  connectOrCreate?: Prisma.SaleCreateOrConnectWithoutPaymentProofsInput
+  upsert?: Prisma.SaleUpsertWithoutPaymentProofsInput
+  connect?: Prisma.SaleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SaleUpdateToOneWithWhereWithoutPaymentProofsInput, Prisma.SaleUpdateWithoutPaymentProofsInput>, Prisma.SaleUncheckedUpdateWithoutPaymentProofsInput>
 }
 
 export type SaleCreateNestedOneWithoutReceiptInput = {
@@ -1049,6 +1091,8 @@ export type SaleCreateWithoutBusinessInput = {
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
@@ -1079,6 +1123,8 @@ export type SaleUncheckedCreateWithoutBusinessInput = {
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
@@ -1162,6 +1208,8 @@ export type SaleCreateWithoutCustomerInput = {
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
@@ -1192,6 +1240,8 @@ export type SaleUncheckedCreateWithoutCustomerInput = {
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
@@ -1248,6 +1298,8 @@ export type SaleCreateWithoutSourceRequestInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutSalesInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
@@ -1278,6 +1330,8 @@ export type SaleUncheckedCreateWithoutSourceRequestInput = {
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
@@ -1324,6 +1378,8 @@ export type SaleUpdateWithoutSourceRequestInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
@@ -1354,6 +1410,152 @@ export type SaleUncheckedUpdateWithoutSourceRequestInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
+  receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
+  delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+}
+
+export type SaleCreateWithoutPaymentInstructionInput = {
+  id?: string
+  idempotencyKey?: string | null
+  referenceCode: string
+  status?: $Enums.SaleStatus
+  paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
+  channel?: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  currency?: string
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  soldAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutSalesInput
+  customer: Prisma.CustomerCreateNestedOneWithoutSalesInput
+  sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
+  items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
+  payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
+  receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
+  delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+}
+
+export type SaleUncheckedCreateWithoutPaymentInstructionInput = {
+  id?: string
+  businessId: string
+  customerId: string
+  sourceRequestId?: string | null
+  idempotencyKey?: string | null
+  referenceCode: string
+  status?: $Enums.SaleStatus
+  paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
+  channel?: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  currency?: string
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  soldAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
+  payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
+  receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
+  delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+}
+
+export type SaleCreateOrConnectWithoutPaymentInstructionInput = {
+  where: Prisma.SaleWhereUniqueInput
+  create: Prisma.XOR<Prisma.SaleCreateWithoutPaymentInstructionInput, Prisma.SaleUncheckedCreateWithoutPaymentInstructionInput>
+}
+
+export type SaleUpsertWithoutPaymentInstructionInput = {
+  update: Prisma.XOR<Prisma.SaleUpdateWithoutPaymentInstructionInput, Prisma.SaleUncheckedUpdateWithoutPaymentInstructionInput>
+  create: Prisma.XOR<Prisma.SaleCreateWithoutPaymentInstructionInput, Prisma.SaleUncheckedCreateWithoutPaymentInstructionInput>
+  where?: Prisma.SaleWhereInput
+}
+
+export type SaleUpdateToOneWithWhereWithoutPaymentInstructionInput = {
+  where?: Prisma.SaleWhereInput
+  data: Prisma.XOR<Prisma.SaleUpdateWithoutPaymentInstructionInput, Prisma.SaleUncheckedUpdateWithoutPaymentInstructionInput>
+}
+
+export type SaleUpdateWithoutPaymentInstructionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutSalesNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesNestedInput
+  sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
+  items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
+  payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
+  receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
+  delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+}
+
+export type SaleUncheckedUpdateWithoutPaymentInstructionInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
+  payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
@@ -1384,6 +1586,8 @@ export type SaleCreateWithoutItemsInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutSalesInput
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
@@ -1414,6 +1618,8 @@ export type SaleUncheckedCreateWithoutItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
@@ -1460,6 +1666,8 @@ export type SaleUpdateWithoutItemsInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesNestedInput
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
@@ -1490,6 +1698,8 @@ export type SaleUncheckedUpdateWithoutItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
@@ -1520,6 +1730,8 @@ export type SaleCreateWithoutPaymentsInput = {
   customer: Prisma.CustomerCreateNestedOneWithoutSalesInput
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
@@ -1550,6 +1762,8 @@ export type SaleUncheckedCreateWithoutPaymentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
@@ -1596,6 +1810,8 @@ export type SaleUpdateWithoutPaymentsInput = {
   customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesNestedInput
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
@@ -1626,6 +1842,152 @@ export type SaleUncheckedUpdateWithoutPaymentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
+  receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
+  delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+}
+
+export type SaleCreateWithoutPaymentProofsInput = {
+  id?: string
+  idempotencyKey?: string | null
+  referenceCode: string
+  status?: $Enums.SaleStatus
+  paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
+  channel?: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  currency?: string
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  soldAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutSalesInput
+  customer: Prisma.CustomerCreateNestedOneWithoutSalesInput
+  sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
+  items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
+  payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
+  delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+}
+
+export type SaleUncheckedCreateWithoutPaymentProofsInput = {
+  id?: string
+  businessId: string
+  customerId: string
+  sourceRequestId?: string | null
+  idempotencyKey?: string | null
+  referenceCode: string
+  status?: $Enums.SaleStatus
+  paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
+  channel?: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  currency?: string
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  soldAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
+  payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
+  delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+}
+
+export type SaleCreateOrConnectWithoutPaymentProofsInput = {
+  where: Prisma.SaleWhereUniqueInput
+  create: Prisma.XOR<Prisma.SaleCreateWithoutPaymentProofsInput, Prisma.SaleUncheckedCreateWithoutPaymentProofsInput>
+}
+
+export type SaleUpsertWithoutPaymentProofsInput = {
+  update: Prisma.XOR<Prisma.SaleUpdateWithoutPaymentProofsInput, Prisma.SaleUncheckedUpdateWithoutPaymentProofsInput>
+  create: Prisma.XOR<Prisma.SaleCreateWithoutPaymentProofsInput, Prisma.SaleUncheckedCreateWithoutPaymentProofsInput>
+  where?: Prisma.SaleWhereInput
+}
+
+export type SaleUpdateToOneWithWhereWithoutPaymentProofsInput = {
+  where?: Prisma.SaleWhereInput
+  data: Prisma.XOR<Prisma.SaleUpdateWithoutPaymentProofsInput, Prisma.SaleUncheckedUpdateWithoutPaymentProofsInput>
+}
+
+export type SaleUpdateWithoutPaymentProofsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutSalesNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesNestedInput
+  sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
+  items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
+  payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
+  delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+}
+
+export type SaleUncheckedUpdateWithoutPaymentProofsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
+  payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
@@ -1657,6 +2019,8 @@ export type SaleCreateWithoutReceiptInput = {
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
@@ -1687,6 +2051,8 @@ export type SaleUncheckedCreateWithoutReceiptInput = {
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
@@ -1733,6 +2099,8 @@ export type SaleUpdateWithoutReceiptInput = {
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
@@ -1763,6 +2131,8 @@ export type SaleUncheckedUpdateWithoutReceiptInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
@@ -1793,6 +2163,8 @@ export type SaleCreateWithoutDeliveryInput = {
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
@@ -1823,6 +2195,8 @@ export type SaleUncheckedCreateWithoutDeliveryInput = {
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
@@ -1869,6 +2243,8 @@ export type SaleUpdateWithoutDeliveryInput = {
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
@@ -1899,6 +2275,8 @@ export type SaleUncheckedUpdateWithoutDeliveryInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
@@ -1929,6 +2307,8 @@ export type SaleCreateWithoutActivityEventsInput = {
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
@@ -1959,6 +2339,8 @@ export type SaleUncheckedCreateWithoutActivityEventsInput = {
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
@@ -2005,6 +2387,8 @@ export type SaleUpdateWithoutActivityEventsInput = {
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
@@ -2035,6 +2419,8 @@ export type SaleUncheckedUpdateWithoutActivityEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
@@ -2065,6 +2451,8 @@ export type SaleCreateWithoutFeedbackInput = {
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
@@ -2095,6 +2483,8 @@ export type SaleUncheckedCreateWithoutFeedbackInput = {
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
@@ -2141,6 +2531,8 @@ export type SaleUpdateWithoutFeedbackInput = {
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
@@ -2171,6 +2563,8 @@ export type SaleUncheckedUpdateWithoutFeedbackInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
@@ -2201,6 +2595,8 @@ export type SaleCreateWithoutIssuesInput = {
   sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
   items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
@@ -2231,6 +2627,8 @@ export type SaleUncheckedCreateWithoutIssuesInput = {
   updatedAt?: Date | string
   items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
   payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
   receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
@@ -2277,6 +2675,8 @@ export type SaleUpdateWithoutIssuesInput = {
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
@@ -2307,6 +2707,8 @@ export type SaleUncheckedUpdateWithoutIssuesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
@@ -2359,6 +2761,8 @@ export type SaleUpdateWithoutBusinessInput = {
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
@@ -2389,6 +2793,8 @@ export type SaleUncheckedUpdateWithoutBusinessInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
@@ -2465,6 +2871,8 @@ export type SaleUpdateWithoutCustomerInput = {
   sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
   items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
@@ -2495,6 +2903,8 @@ export type SaleUncheckedUpdateWithoutCustomerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
   payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
   receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
@@ -2533,6 +2943,7 @@ export type SaleUncheckedUpdateManyWithoutCustomerInput = {
 export type SaleCountOutputType = {
   items: number
   payments: number
+  paymentProofs: number
   activityEvents: number
   feedback: number
   issues: number
@@ -2541,6 +2952,7 @@ export type SaleCountOutputType = {
 export type SaleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | SaleCountOutputTypeCountItemsArgs
   payments?: boolean | SaleCountOutputTypeCountPaymentsArgs
+  paymentProofs?: boolean | SaleCountOutputTypeCountPaymentProofsArgs
   activityEvents?: boolean | SaleCountOutputTypeCountActivityEventsArgs
   feedback?: boolean | SaleCountOutputTypeCountFeedbackArgs
   issues?: boolean | SaleCountOutputTypeCountIssuesArgs
@@ -2568,6 +2980,13 @@ export type SaleCountOutputTypeCountItemsArgs<ExtArgs extends runtime.Types.Exte
  */
 export type SaleCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PaymentEntryWhereInput
+}
+
+/**
+ * SaleCountOutputType without action
+ */
+export type SaleCountOutputTypeCountPaymentProofsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentProofWhereInput
 }
 
 /**
@@ -2619,6 +3038,8 @@ export type SaleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sourceRequest?: boolean | Prisma.Sale$sourceRequestArgs<ExtArgs>
   items?: boolean | Prisma.Sale$itemsArgs<ExtArgs>
   payments?: boolean | Prisma.Sale$paymentsArgs<ExtArgs>
+  paymentInstruction?: boolean | Prisma.Sale$paymentInstructionArgs<ExtArgs>
+  paymentProofs?: boolean | Prisma.Sale$paymentProofsArgs<ExtArgs>
   receipt?: boolean | Prisma.Sale$receiptArgs<ExtArgs>
   delivery?: boolean | Prisma.Sale$deliveryArgs<ExtArgs>
   activityEvents?: boolean | Prisma.Sale$activityEventsArgs<ExtArgs>
@@ -2712,6 +3133,8 @@ export type SaleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   sourceRequest?: boolean | Prisma.Sale$sourceRequestArgs<ExtArgs>
   items?: boolean | Prisma.Sale$itemsArgs<ExtArgs>
   payments?: boolean | Prisma.Sale$paymentsArgs<ExtArgs>
+  paymentInstruction?: boolean | Prisma.Sale$paymentInstructionArgs<ExtArgs>
+  paymentProofs?: boolean | Prisma.Sale$paymentProofsArgs<ExtArgs>
   receipt?: boolean | Prisma.Sale$receiptArgs<ExtArgs>
   delivery?: boolean | Prisma.Sale$deliveryArgs<ExtArgs>
   activityEvents?: boolean | Prisma.Sale$activityEventsArgs<ExtArgs>
@@ -2738,6 +3161,8 @@ export type $SalePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sourceRequest: Prisma.$OrderRequestPayload<ExtArgs> | null
     items: Prisma.$SaleItemPayload<ExtArgs>[]
     payments: Prisma.$PaymentEntryPayload<ExtArgs>[]
+    paymentInstruction: Prisma.$SalePaymentInstructionPayload<ExtArgs> | null
+    paymentProofs: Prisma.$PaymentProofPayload<ExtArgs>[]
     receipt: Prisma.$ReceiptPayload<ExtArgs> | null
     delivery: Prisma.$DeliveryPayload<ExtArgs> | null
     activityEvents: Prisma.$ActivityEventPayload<ExtArgs>[]
@@ -3165,6 +3590,8 @@ export interface Prisma__SaleClient<T, Null = never, ExtArgs extends runtime.Typ
   sourceRequest<T extends Prisma.Sale$sourceRequestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$sourceRequestArgs<ExtArgs>>): Prisma.Prisma__OrderRequestClient<runtime.Types.Result.GetResult<Prisma.$OrderRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.Sale$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.Sale$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentInstruction<T extends Prisma.Sale$paymentInstructionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$paymentInstructionArgs<ExtArgs>>): Prisma.Prisma__SalePaymentInstructionClient<runtime.Types.Result.GetResult<Prisma.$SalePaymentInstructionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  paymentProofs<T extends Prisma.Sale$paymentProofsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$paymentProofsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receipt<T extends Prisma.Sale$receiptArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$receiptArgs<ExtArgs>>): Prisma.Prisma__ReceiptClient<runtime.Types.Result.GetResult<Prisma.$ReceiptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   delivery<T extends Prisma.Sale$deliveryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$deliveryArgs<ExtArgs>>): Prisma.Prisma__DeliveryClient<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   activityEvents<T extends Prisma.Sale$activityEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$activityEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3685,6 +4112,49 @@ export type Sale$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.PaymentEntryScalarFieldEnum | Prisma.PaymentEntryScalarFieldEnum[]
+}
+
+/**
+ * Sale.paymentInstruction
+ */
+export type Sale$paymentInstructionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SalePaymentInstruction
+   */
+  select?: Prisma.SalePaymentInstructionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SalePaymentInstruction
+   */
+  omit?: Prisma.SalePaymentInstructionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SalePaymentInstructionInclude<ExtArgs> | null
+  where?: Prisma.SalePaymentInstructionWhereInput
+}
+
+/**
+ * Sale.paymentProofs
+ */
+export type Sale$paymentProofsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PaymentProof
+   */
+  select?: Prisma.PaymentProofSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PaymentProof
+   */
+  omit?: Prisma.PaymentProofOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentProofInclude<ExtArgs> | null
+  where?: Prisma.PaymentProofWhereInput
+  orderBy?: Prisma.PaymentProofOrderByWithRelationInput | Prisma.PaymentProofOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentProofWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentProofScalarFieldEnum | Prisma.PaymentProofScalarFieldEnum[]
 }
 
 /**

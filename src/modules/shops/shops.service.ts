@@ -11,9 +11,10 @@ import {
   hashToken,
 } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
-import type {
-  CustomerChannel,
-  FulfillmentType,
+import {
+  Prisma,
+  type CustomerChannel,
+  type FulfillmentType,
 } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { BusinessesService } from "../businesses/businesses.service";
@@ -22,6 +23,7 @@ import { SalesService } from "../sales/sales.service";
 import { TrustService } from "../trust/trust.service";
 import {
   CreateOrderRequestDto,
+  ConfirmOrderRequestDto,
   ProductInterestDto,
   UpdateOrderRequestStatusDto,
 } from "./dto/shop.dto";
@@ -248,80 +250,121 @@ export class ShopsService {
   async convertRequest(
     auth: OwnerAuthContext,
     requestId: string,
+    dto: ConfirmOrderRequestDto,
     idempotencyKey?: string,
   ) {
-    const request = await this.prisma.orderRequest.findFirst({
-      where: { id: requestId, businessId: auth.businessId },
-      include: { items: true, convertedSale: { include: { receipt: true, delivery: true } } },
-    });
-    if (!request) throw new NotFoundException("Request not found");
-    if (request.convertedSale) return { sale: request.convertedSale };
-    if (request.status === "CANCELED") {
-      throw new BadRequestException("Canceled requests cannot be converted");
-    }
+    try {
+      return await this.prisma.$transaction(
+        async (tx) => {
+          const request = await tx.orderRequest.findFirst({
+            where: { id: requestId, businessId: auth.businessId },
+            include: {
+              items: true,
+              convertedSale: {
+                include: { receipt: true, delivery: true },
+              },
+            },
+          });
+          if (!request) throw new NotFoundException("Request not found");
+          if (request.convertedSale) return { sale: request.convertedSale };
+          if (request.status === "CANCELED") {
+            throw new BadRequestException("Canceled requests cannot be converted");
+          }
 
-    let customer = await this.prisma.customer.findFirst({
-      where: {
-        businessId: auth.businessId,
-        OR: [
-          { phone: request.customerPhone },
-          ...(request.customerAccountId
-            ? [{ accountId: request.customerAccountId }]
-            : []),
-        ],
-      },
-    });
-    if (!customer) {
-      const publicAccess = createOpaqueToken();
-      customer = await this.prisma.$transaction(async (tx) => {
-        const created = await tx.customer.create({
-          data: {
-            businessId: auth.businessId,
-            accountId: request.customerAccountId,
-            name: request.customerName,
-            phone: request.customerPhone,
-            channel: channelToCustomerChannel(request.channel),
-            publicTokenHash: publicAccess.tokenHash,
+          let customer = await tx.customer.findFirst({
+            where: {
+              businessId: auth.businessId,
+              OR: [
+                { phone: request.customerPhone },
+                ...(request.customerAccountId
+                  ? [{ accountId: request.customerAccountId }]
+                  : []),
+              ],
+            },
+          });
+          if (!customer) {
+            const publicAccess = createOpaqueToken();
+            customer = await tx.customer.create({
+              data: {
+                businessId: auth.businessId,
+                accountId: request.customerAccountId,
+                name: request.customerName,
+                phone: request.customerPhone,
+                channel: channelToCustomerChannel(request.channel),
+                publicTokenHash: publicAccess.tokenHash,
+              },
+            });
+            await this.activity.record(
+              {
+                businessId: auth.businessId,
+                actorId: auth.userId,
+                customerId: customer.id,
+                type: "CUSTOMER_ADDED",
+                title: `Added ${customer.name} from request`,
+              },
+              tx,
+            );
+          }
+
+          return this.sales.create(
+            auth,
+            {
+              customerId: customer.id,
+              sourceRequestId: request.id,
+              amountPaid: dto.amountPaid,
+              channel: "WEBSITE",
+              deliveryFee: dto.deliveryFee,
+              fulfillment: dto.fulfillment ?? request.fulfillment,
+              deliveryAddress: request.deliveryAddress ?? undefined,
+              deliveryPlaceId: request.deliveryPlaceId ?? undefined,
+              deliveryLatitude: request.deliveryLatitude ?? undefined,
+              deliveryLongitude: request.deliveryLongitude ?? undefined,
+              deliveryNotes: request.deliveryNotes ?? undefined,
+              isGift: request.isGift,
+              recipientName: request.recipientName ?? undefined,
+              recipientPhone: request.recipientPhone ?? undefined,
+              notes: dto.notes,
+              paymentAccountId: dto.paymentAccountId,
+              paymentAccountName: dto.paymentAccountName,
+              paymentAccountNumber: dto.paymentAccountNumber,
+              paymentBankName: dto.paymentBankName,
+              paymentInstructions: dto.paymentInstructions,
+              paymentMethod: dto.paymentMethod,
+              items: request.items.map((item) => ({
+                productId: item.productId ?? undefined,
+                name: item.name,
+                imageUrl: item.imageUrl ?? undefined,
+                quantity: item.quantity,
+                unitPrice: item.unitPrice.toString(),
+              })),
+            },
+            idempotencyKey ?? `request:${request.id}`,
+            tx,
+          );
+        },
+        {
+          isolationLevel: Prisma.TransactionIsolationLevel.Serializable,
+          maxWait: 10_000,
+          timeout: 30_000,
+        },
+      );
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        ["P2002", "P2034"].includes(error.code)
+      ) {
+        const request = await this.prisma.orderRequest.findFirst({
+          where: { id: requestId, businessId: auth.businessId },
+          include: {
+            convertedSale: {
+              include: { receipt: true, delivery: true },
+            },
           },
         });
-        await this.activity.record(
-          {
-            businessId: auth.businessId,
-            actorId: auth.userId,
-            customerId: created.id,
-            type: "CUSTOMER_ADDED",
-            title: `Added ${created.name} from request`,
-          },
-          tx,
-        );
-        return created;
-      });
+        if (request?.convertedSale) return { sale: request.convertedSale };
+      }
+      throw error;
     }
-    return this.sales.create(
-      auth,
-      {
-        customerId: customer.id,
-        sourceRequestId: request.id,
-        channel: request.channel,
-        fulfillment: request.fulfillment,
-        deliveryAddress: request.deliveryAddress ?? undefined,
-        deliveryPlaceId: request.deliveryPlaceId ?? undefined,
-        deliveryLatitude: request.deliveryLatitude ?? undefined,
-        deliveryLongitude: request.deliveryLongitude ?? undefined,
-        deliveryNotes: request.deliveryNotes ?? undefined,
-        isGift: request.isGift,
-        recipientName: request.recipientName ?? undefined,
-        recipientPhone: request.recipientPhone ?? undefined,
-        items: request.items.map((item) => ({
-          productId: item.productId ?? undefined,
-          name: item.name,
-          imageUrl: item.imageUrl ?? undefined,
-          quantity: item.quantity,
-          unitPrice: item.unitPrice.toString(),
-        })),
-      },
-      idempotencyKey ?? `request:${request.id}`,
-    );
   }
 
   async wishlist(customerAccountId: string, businessSlug: string) {

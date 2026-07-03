@@ -347,6 +347,7 @@ export type DeliveryWhereInput = {
   activityEvents?: Prisma.ActivityEventListRelationFilter
   feedback?: Prisma.CustomerFeedbackListRelationFilter
   issues?: Prisma.CustomerIssueListRelationFilter
+  shareTokens?: Prisma.DeliveryShareTokenListRelationFilter
 }
 
 export type DeliveryOrderByWithRelationInput = {
@@ -377,6 +378,7 @@ export type DeliveryOrderByWithRelationInput = {
   activityEvents?: Prisma.ActivityEventOrderByRelationAggregateInput
   feedback?: Prisma.CustomerFeedbackOrderByRelationAggregateInput
   issues?: Prisma.CustomerIssueOrderByRelationAggregateInput
+  shareTokens?: Prisma.DeliveryShareTokenOrderByRelationAggregateInput
 }
 
 export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
@@ -410,6 +412,7 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   activityEvents?: Prisma.ActivityEventListRelationFilter
   feedback?: Prisma.CustomerFeedbackListRelationFilter
   issues?: Prisma.CustomerIssueListRelationFilter
+  shareTokens?: Prisma.DeliveryShareTokenListRelationFilter
 }, "id" | "saleId" | "tokenHash">
 
 export type DeliveryOrderByWithAggregationInput = {
@@ -491,6 +494,7 @@ export type DeliveryCreateInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateInput = {
@@ -518,6 +522,7 @@ export type DeliveryUncheckedCreateInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUpdateInput = {
@@ -545,6 +550,7 @@ export type DeliveryUpdateInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateInput = {
@@ -572,6 +578,7 @@ export type DeliveryUncheckedUpdateInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryCreateManyInput = {
@@ -859,6 +866,20 @@ export type EnumDeliveryStatusFieldUpdateOperationsInput = {
   set?: $Enums.DeliveryStatus
 }
 
+export type DeliveryCreateNestedOneWithoutShareTokensInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutShareTokensInput, Prisma.DeliveryUncheckedCreateWithoutShareTokensInput>
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutShareTokensInput
+  connect?: Prisma.DeliveryWhereUniqueInput
+}
+
+export type DeliveryUpdateOneRequiredWithoutShareTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutShareTokensInput, Prisma.DeliveryUncheckedCreateWithoutShareTokensInput>
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutShareTokensInput
+  upsert?: Prisma.DeliveryUpsertWithoutShareTokensInput
+  connect?: Prisma.DeliveryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DeliveryUpdateToOneWithWhereWithoutShareTokensInput, Prisma.DeliveryUpdateWithoutShareTokensInput>, Prisma.DeliveryUncheckedUpdateWithoutShareTokensInput>
+}
+
 export type DeliveryCreateNestedOneWithoutEventsInput = {
   create?: Prisma.XOR<Prisma.DeliveryCreateWithoutEventsInput, Prisma.DeliveryUncheckedCreateWithoutEventsInput>
   connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutEventsInput
@@ -945,6 +966,7 @@ export type DeliveryCreateWithoutBusinessInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateWithoutBusinessInput = {
@@ -971,6 +993,7 @@ export type DeliveryUncheckedCreateWithoutBusinessInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryCreateOrConnectWithoutBusinessInput = {
@@ -1049,6 +1072,7 @@ export type DeliveryCreateWithoutCustomerInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateWithoutCustomerInput = {
@@ -1075,6 +1099,7 @@ export type DeliveryUncheckedCreateWithoutCustomerInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryCreateOrConnectWithoutCustomerInput = {
@@ -1127,6 +1152,7 @@ export type DeliveryCreateWithoutSaleInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateWithoutSaleInput = {
@@ -1153,6 +1179,7 @@ export type DeliveryUncheckedCreateWithoutSaleInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryCreateOrConnectWithoutSaleInput = {
@@ -1195,12 +1222,138 @@ export type DeliveryUpdateWithoutSaleInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateWithoutSaleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.DeliveryEventUncheckedUpdateManyWithoutDeliveryNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutDeliveryNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutDeliveryNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
+}
+
+export type DeliveryCreateWithoutShareTokensInput = {
+  id?: string
+  tokenHash: string
+  status?: $Enums.DeliveryStatus
+  address?: string | null
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  courier?: string | null
+  trackingCode?: string | null
+  trackingUrl?: string | null
+  deliveredAt?: Date | string | null
+  confirmedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
+  customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
+  sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+}
+
+export type DeliveryUncheckedCreateWithoutShareTokensInput = {
+  id?: string
+  businessId: string
+  customerId: string
+  saleId: string
+  tokenHash: string
+  status?: $Enums.DeliveryStatus
+  address?: string | null
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  courier?: string | null
+  trackingCode?: string | null
+  trackingUrl?: string | null
+  deliveredAt?: Date | string | null
+  confirmedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutDeliveryInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+}
+
+export type DeliveryCreateOrConnectWithoutShareTokensInput = {
+  where: Prisma.DeliveryWhereUniqueInput
+  create: Prisma.XOR<Prisma.DeliveryCreateWithoutShareTokensInput, Prisma.DeliveryUncheckedCreateWithoutShareTokensInput>
+}
+
+export type DeliveryUpsertWithoutShareTokensInput = {
+  update: Prisma.XOR<Prisma.DeliveryUpdateWithoutShareTokensInput, Prisma.DeliveryUncheckedUpdateWithoutShareTokensInput>
+  create: Prisma.XOR<Prisma.DeliveryCreateWithoutShareTokensInput, Prisma.DeliveryUncheckedCreateWithoutShareTokensInput>
+  where?: Prisma.DeliveryWhereInput
+}
+
+export type DeliveryUpdateToOneWithWhereWithoutShareTokensInput = {
+  where?: Prisma.DeliveryWhereInput
+  data: Prisma.XOR<Prisma.DeliveryUpdateWithoutShareTokensInput, Prisma.DeliveryUncheckedUpdateWithoutShareTokensInput>
+}
+
+export type DeliveryUpdateWithoutShareTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
+  sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+}
+
+export type DeliveryUncheckedUpdateWithoutShareTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1247,6 +1400,7 @@ export type DeliveryCreateWithoutEventsInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateWithoutEventsInput = {
@@ -1273,6 +1427,7 @@ export type DeliveryUncheckedCreateWithoutEventsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryCreateOrConnectWithoutEventsInput = {
@@ -1315,6 +1470,7 @@ export type DeliveryUpdateWithoutEventsInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateWithoutEventsInput = {
@@ -1341,6 +1497,7 @@ export type DeliveryUncheckedUpdateWithoutEventsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryCreateWithoutActivityEventsInput = {
@@ -1367,6 +1524,7 @@ export type DeliveryCreateWithoutActivityEventsInput = {
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateWithoutActivityEventsInput = {
@@ -1393,6 +1551,7 @@ export type DeliveryUncheckedCreateWithoutActivityEventsInput = {
   events?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryCreateOrConnectWithoutActivityEventsInput = {
@@ -1435,6 +1594,7 @@ export type DeliveryUpdateWithoutActivityEventsInput = {
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateWithoutActivityEventsInput = {
@@ -1461,6 +1621,7 @@ export type DeliveryUncheckedUpdateWithoutActivityEventsInput = {
   events?: Prisma.DeliveryEventUncheckedUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryCreateWithoutFeedbackInput = {
@@ -1487,6 +1648,7 @@ export type DeliveryCreateWithoutFeedbackInput = {
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateWithoutFeedbackInput = {
@@ -1513,6 +1675,7 @@ export type DeliveryUncheckedCreateWithoutFeedbackInput = {
   events?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryCreateOrConnectWithoutFeedbackInput = {
@@ -1555,6 +1718,7 @@ export type DeliveryUpdateWithoutFeedbackInput = {
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateWithoutFeedbackInput = {
@@ -1581,6 +1745,7 @@ export type DeliveryUncheckedUpdateWithoutFeedbackInput = {
   events?: Prisma.DeliveryEventUncheckedUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryCreateWithoutIssuesInput = {
@@ -1607,6 +1772,7 @@ export type DeliveryCreateWithoutIssuesInput = {
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateWithoutIssuesInput = {
@@ -1633,6 +1799,7 @@ export type DeliveryUncheckedCreateWithoutIssuesInput = {
   events?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryCreateOrConnectWithoutIssuesInput = {
@@ -1675,6 +1842,7 @@ export type DeliveryUpdateWithoutIssuesInput = {
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateWithoutIssuesInput = {
@@ -1701,6 +1869,7 @@ export type DeliveryUncheckedUpdateWithoutIssuesInput = {
   events?: Prisma.DeliveryEventUncheckedUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryCreateManyBusinessInput = {
@@ -1749,6 +1918,7 @@ export type DeliveryUpdateWithoutBusinessInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateWithoutBusinessInput = {
@@ -1775,6 +1945,7 @@ export type DeliveryUncheckedUpdateWithoutBusinessInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateManyWithoutBusinessInput = {
@@ -1845,6 +2016,7 @@ export type DeliveryUpdateWithoutCustomerInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateWithoutCustomerInput = {
@@ -1871,6 +2043,7 @@ export type DeliveryUncheckedUpdateWithoutCustomerInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateManyWithoutCustomerInput = {
@@ -1905,6 +2078,7 @@ export type DeliveryCountOutputType = {
   activityEvents: number
   feedback: number
   issues: number
+  shareTokens: number
 }
 
 export type DeliveryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1912,6 +2086,7 @@ export type DeliveryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   activityEvents?: boolean | DeliveryCountOutputTypeCountActivityEventsArgs
   feedback?: boolean | DeliveryCountOutputTypeCountFeedbackArgs
   issues?: boolean | DeliveryCountOutputTypeCountIssuesArgs
+  shareTokens?: boolean | DeliveryCountOutputTypeCountShareTokensArgs
 }
 
 /**
@@ -1952,6 +2127,13 @@ export type DeliveryCountOutputTypeCountIssuesArgs<ExtArgs extends runtime.Types
   where?: Prisma.CustomerIssueWhereInput
 }
 
+/**
+ * DeliveryCountOutputType without action
+ */
+export type DeliveryCountOutputTypeCountShareTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DeliveryShareTokenWhereInput
+}
+
 
 export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1981,6 +2163,7 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   activityEvents?: boolean | Prisma.Delivery$activityEventsArgs<ExtArgs>
   feedback?: boolean | Prisma.Delivery$feedbackArgs<ExtArgs>
   issues?: boolean | Prisma.Delivery$issuesArgs<ExtArgs>
+  shareTokens?: boolean | Prisma.Delivery$shareTokensArgs<ExtArgs>
   _count?: boolean | Prisma.DeliveryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["delivery"]>
 
@@ -2068,6 +2251,7 @@ export type DeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   activityEvents?: boolean | Prisma.Delivery$activityEventsArgs<ExtArgs>
   feedback?: boolean | Prisma.Delivery$feedbackArgs<ExtArgs>
   issues?: boolean | Prisma.Delivery$issuesArgs<ExtArgs>
+  shareTokens?: boolean | Prisma.Delivery$shareTokensArgs<ExtArgs>
   _count?: boolean | Prisma.DeliveryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DeliveryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2091,6 +2275,7 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     activityEvents: Prisma.$ActivityEventPayload<ExtArgs>[]
     feedback: Prisma.$CustomerFeedbackPayload<ExtArgs>[]
     issues: Prisma.$CustomerIssuePayload<ExtArgs>[]
+    shareTokens: Prisma.$DeliveryShareTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2514,6 +2699,7 @@ export interface Prisma__DeliveryClient<T, Null = never, ExtArgs extends runtime
   activityEvents<T extends Prisma.Delivery$activityEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$activityEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   feedback<T extends Prisma.Delivery$feedbackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$feedbackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   issues<T extends Prisma.Delivery$issuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$issuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerIssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shareTokens<T extends Prisma.Delivery$shareTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$shareTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryShareTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3057,6 +3243,30 @@ export type Delivery$issuesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.CustomerIssueScalarFieldEnum | Prisma.CustomerIssueScalarFieldEnum[]
+}
+
+/**
+ * Delivery.shareTokens
+ */
+export type Delivery$shareTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DeliveryShareToken
+   */
+  select?: Prisma.DeliveryShareTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DeliveryShareToken
+   */
+  omit?: Prisma.DeliveryShareTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DeliveryShareTokenInclude<ExtArgs> | null
+  where?: Prisma.DeliveryShareTokenWhereInput
+  orderBy?: Prisma.DeliveryShareTokenOrderByWithRelationInput | Prisma.DeliveryShareTokenOrderByWithRelationInput[]
+  cursor?: Prisma.DeliveryShareTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DeliveryShareTokenScalarFieldEnum | Prisma.DeliveryShareTokenScalarFieldEnum[]
 }
 
 /**

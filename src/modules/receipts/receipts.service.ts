@@ -14,7 +14,24 @@ const receiptInclude = {
     },
   },
   customer: true,
-  sale: { include: { items: true, payments: true, delivery: true } },
+  sale: {
+    include: {
+      items: true,
+      payments: true,
+      delivery: true,
+      paymentInstruction: true,
+      paymentProofs: {
+        select: {
+          amount: true,
+          id: true,
+          reference: true,
+          status: true,
+          submittedAt: true,
+        },
+        orderBy: { submittedAt: "desc" as const },
+      },
+    },
+  },
 };
 
 @Injectable()
@@ -224,18 +241,65 @@ export class ReceiptsService {
 }
 
 function sanitizePublicReceipt(receipt: Awaited<ReturnType<ReceiptsService["get"]>>) {
-  const { tokenHash: _tokenHash, ...safeReceipt } = receipt;
   return {
-    ...safeReceipt,
+    acknowledgedAt: receipt.acknowledgedAt,
+    receiptCode: receipt.receiptCode,
     business: {
-      id: receipt.business.id,
       name: receipt.business.name,
       slug: receipt.business.slug,
-      description: receipt.business.description,
-      location: receipt.business.location,
-      logoAsset: receipt.business.logoAsset,
-      contacts: receipt.business.contacts,
-      theme: receipt.business.preferences?.theme,
+      logoAsset: receipt.business.logoAsset
+        ? { secureUrl: receipt.business.logoAsset.secureUrl }
+        : null,
+    },
+    customer: {
+      name: receipt.customer.name,
+    },
+    sale: {
+      amountPaid: receipt.sale.amountPaid,
+      channel: receipt.sale.channel,
+      currency: receipt.sale.currency,
+      deliveryFee: receipt.sale.deliveryFee,
+      protectedPayment: false,
+      subtotal: receipt.sale.subtotal,
+      total: receipt.sale.total,
+      items: receipt.sale.items.map((item) => ({
+        id: item.id,
+        imageUrl: item.imageUrl,
+        name: item.name,
+        quantity: item.quantity,
+        total: item.total,
+        unitPrice: item.unitPrice,
+      })),
+      payments: receipt.sale.payments.map((payment) => ({
+        amount: payment.amount,
+        createdAt: payment.createdAt,
+        id: payment.id,
+        note: payment.note,
+        reference: payment.reference,
+      })),
+      paymentInstruction: receipt.sale.paymentInstruction
+        ? {
+            accountName: receipt.sale.paymentInstruction.accountName,
+            accountNumber: receipt.sale.paymentInstruction.accountNumber,
+            bankName: receipt.sale.paymentInstruction.bankName,
+            instructions: receipt.sale.paymentInstruction.instructions,
+            method: receipt.sale.paymentInstruction.method,
+          }
+        : null,
+      paymentProofs: receipt.sale.paymentProofs.map((proof) => ({
+        amount: proof.amount,
+        id: proof.id,
+        reference: proof.reference,
+        status: proof.status,
+        submittedAt: proof.submittedAt,
+      })),
+      delivery: receipt.sale.delivery
+        ? {
+            address: receipt.sale.delivery.address,
+            status: receipt.sale.delivery.status,
+            trackingUrl: receipt.sale.delivery.trackingUrl,
+          }
+        : null,
     },
   };
 }

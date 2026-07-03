@@ -10,6 +10,7 @@ import {
   IsOptional,
   IsString,
   Length,
+  Matches,
   Max,
   Min,
   ValidateNested,
@@ -17,6 +18,7 @@ import {
 import {
   FulfillmentType,
   OrderRequestStatus,
+  PaymentMethod,
   ProductInterestType,
   SalesChannel,
 } from "../../../generated/prisma/client";
@@ -111,6 +113,55 @@ export class CreateOrderRequestDto {
 export class UpdateOrderRequestStatusDto {
   @IsEnum(OrderRequestStatus)
   status!: OrderRequestStatus;
+}
+
+export class ConfirmOrderRequestDto {
+  @IsOptional()
+  @IsEnum(FulfillmentType)
+  fulfillment?: FulfillmentType;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{1,10}(?:\.\d{1,2})?$/)
+  deliveryFee?: string;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{1,10}(?:\.\d{1,2})?$/)
+  amountPaid?: string;
+
+  @IsOptional()
+  @IsEnum(PaymentMethod)
+  paymentMethod?: PaymentMethod;
+
+  @IsOptional()
+  @IsString()
+  paymentAccountId?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(2, 100)
+  paymentBankName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(2, 120)
+  paymentAccountName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{6,20}$/)
+  paymentAccountNumber?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 500)
+  paymentInstructions?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 1000)
+  notes?: string;
 }
 
 export class WishlistProductDto {

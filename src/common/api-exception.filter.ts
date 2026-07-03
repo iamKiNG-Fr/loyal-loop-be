@@ -4,6 +4,7 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from "@nestjs/common";
 import type { Response } from "express";
 import type { LoyalLoopRequest } from "./request-context";
@@ -16,6 +17,8 @@ type NestErrorBody = {
 
 @Catch()
 export class ApiExceptionFilter implements ExceptionFilter {
+  private readonly logger = new Logger(ApiExceptionFilter.name);
+
   catch(exception: unknown, host: ArgumentsHost) {
     const context = host.switchToHttp();
     const request = context.getRequest<LoyalLoopRequest>();
@@ -37,6 +40,17 @@ export class ApiExceptionFilter implements ExceptionFilter {
         ?.toUpperCase()
         .replace(/[^A-Z0-9]+/g, "_") ??
       (status === 500 ? "INTERNAL_SERVER_ERROR" : `HTTP_${status}`);
+
+    if (!isHttp) {
+      const details =
+        exception instanceof Error
+          ? exception.stack ?? exception.message
+          : String(exception);
+      this.logger.error(
+        `Unhandled request error (${request.requestId ?? "no request id"})`,
+        details,
+      );
+    }
 
     response.status(status).json({
       success: false,
