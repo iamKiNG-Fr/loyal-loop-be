@@ -418,6 +418,7 @@ export const ModelName = {
   PaymentEntry: 'PaymentEntry',
   PaymentProof: 'PaymentProof',
   Receipt: 'Receipt',
+  ShortLink: 'ShortLink',
   ReceiptShareToken: 'ReceiptShareToken',
   Delivery: 'Delivery',
   DeliveryShareToken: 'DeliveryShareToken',
@@ -444,7 +445,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "user" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
+    modelProps: "waitlistEntry" | "user" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2964,6 +2965,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ShortLink: {
+      payload: Prisma.$ShortLinkPayload<ExtArgs>
+      fields: Prisma.ShortLinkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShortLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShortLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+        }
+        findFirst: {
+          args: Prisma.ShortLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShortLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+        }
+        findMany: {
+          args: Prisma.ShortLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>[]
+        }
+        create: {
+          args: Prisma.ShortLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+        }
+        createMany: {
+          args: Prisma.ShortLinkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShortLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>[]
+        }
+        delete: {
+          args: Prisma.ShortLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+        }
+        update: {
+          args: Prisma.ShortLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShortLinkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShortLinkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShortLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShortLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShortLinkPayload>
+        }
+        aggregate: {
+          args: Prisma.ShortLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShortLink>
+        }
+        groupBy: {
+          args: Prisma.ShortLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShortLinkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShortLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShortLinkCountAggregateOutputType> | number
+        }
+      }
+    }
     ReceiptShareToken: {
       payload: Prisma.$ReceiptShareTokenPayload<ExtArgs>
       fields: Prisma.ReceiptShareTokenFieldRefs
@@ -4388,6 +4463,24 @@ export const ReceiptScalarFieldEnum = {
 export type ReceiptScalarFieldEnum = (typeof ReceiptScalarFieldEnum)[keyof typeof ReceiptScalarFieldEnum]
 
 
+export const ShortLinkScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  fingerprint: 'fingerprint',
+  kind: 'kind',
+  businessId: 'businessId',
+  productId: 'productId',
+  receiptId: 'receiptId',
+  source: 'source',
+  campaign: 'campaign',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type ShortLinkScalarFieldEnum = (typeof ShortLinkScalarFieldEnum)[keyof typeof ShortLinkScalarFieldEnum]
+
+
 export const ReceiptShareTokenScalarFieldEnum = {
   id: 'id',
   receiptId: 'receiptId',
@@ -5128,6 +5221,20 @@ export type ListEnumReceiptThemeFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
+ * Reference to a field of type 'ShortLinkKind'
+ */
+export type EnumShortLinkKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShortLinkKind'>
+    
+
+
+/**
+ * Reference to a field of type 'ShortLinkKind[]'
+ */
+export type ListEnumShortLinkKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShortLinkKind[]'>
+    
+
+
+/**
  * Reference to a field of type 'DeliveryStatus'
  */
 export type EnumDeliveryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryStatus'>
@@ -5340,6 +5447,7 @@ export type GlobalOmitConfig = {
   paymentEntry?: Prisma.PaymentEntryOmit
   paymentProof?: Prisma.PaymentProofOmit
   receipt?: Prisma.ReceiptOmit
+  shortLink?: Prisma.ShortLinkOmit
   receiptShareToken?: Prisma.ReceiptShareTokenOmit
   delivery?: Prisma.DeliveryOmit
   deliveryShareToken?: Prisma.DeliveryShareTokenOmit

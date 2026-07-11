@@ -394,3 +394,13 @@ export const ReceiptDeliveryLine = {
 } as const
 
 export type ReceiptDeliveryLine = (typeof ReceiptDeliveryLine)[keyof typeof ReceiptDeliveryLine]
+
+
+export const ShortLinkKind = {
+  SHOP: 'SHOP',
+  PRODUCT: 'PRODUCT',
+  RECEIPT: 'RECEIPT',
+  TRUST_CARD: 'TRUST_CARD'
+} as const
+
+export type ShortLinkKind = (typeof ShortLinkKind)[keyof typeof ShortLinkKind]

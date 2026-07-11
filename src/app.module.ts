@@ -22,6 +22,7 @@ import { ProductsModule } from "./modules/products/products.module";
 import { ReceiptsModule } from "./modules/receipts/receipts.module";
 import { SalesModule } from "./modules/sales/sales.module";
 import { ShopsModule } from "./modules/shops/shops.module";
+import { ShortLinksModule } from "./modules/short-links/short-links.module";
 import { SupportModule } from "./modules/support/support.module";
 import { TrustModule } from "./modules/trust/trust.module";
 import { UsersModule } from "./modules/users/users.module";
@@ -58,6 +59,7 @@ import { WaitlistModule } from "./modules/waitlist/waitlist.module";
     ActivityModule,
     FollowUpsModule,
     ShopsModule,
+    ShortLinksModule,
     DashboardModule,
     TrustModule,
     SupportModule,

@@ -235,8 +235,21 @@ export class ReceiptsService {
         receipt: { include: receiptInclude },
       },
     });
-    if (!shared || shared.revokedAt) return null;
-    return shared.receipt;
+    if (shared) return shared.revokedAt ? null : shared.receipt;
+    if (/^[A-Za-z2-9]{8}$/.test(token)) {
+      const link = await this.prisma.shortLink.findFirst({
+        where: {
+          code: token,
+          kind: "RECEIPT",
+          receiptId: { not: null },
+          revokedAt: null,
+          OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+        },
+        include: { receipt: { include: receiptInclude } },
+      });
+      return link?.receipt ?? null;
+    }
+    return null;
   }
 }
 

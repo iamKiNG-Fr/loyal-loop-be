@@ -85,6 +85,7 @@ export const ModelName = {
   PaymentEntry: 'PaymentEntry',
   PaymentProof: 'PaymentProof',
   Receipt: 'Receipt',
+  ShortLink: 'ShortLink',
   ReceiptShareToken: 'ReceiptShareToken',
   Delivery: 'Delivery',
   DeliveryShareToken: 'DeliveryShareToken',
@@ -683,6 +684,24 @@ export const ReceiptScalarFieldEnum = {
 } as const
 
 export type ReceiptScalarFieldEnum = (typeof ReceiptScalarFieldEnum)[keyof typeof ReceiptScalarFieldEnum]
+
+
+export const ShortLinkScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  fingerprint: 'fingerprint',
+  kind: 'kind',
+  businessId: 'businessId',
+  productId: 'productId',
+  receiptId: 'receiptId',
+  source: 'source',
+  campaign: 'campaign',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type ShortLinkScalarFieldEnum = (typeof ShortLinkScalarFieldEnum)[keyof typeof ShortLinkScalarFieldEnum]
 
 
 export const ReceiptShareTokenScalarFieldEnum = {

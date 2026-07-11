@@ -861,6 +861,23 @@ export type EnumReceiptThemeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumReceiptThemeFilter<$PrismaModel>
 }
 
+export type EnumShortLinkKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShortLinkKind | Prisma.EnumShortLinkKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ShortLinkKind[] | Prisma.ListEnumShortLinkKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShortLinkKind[] | Prisma.ListEnumShortLinkKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShortLinkKindFilter<$PrismaModel> | $Enums.ShortLinkKind
+}
+
+export type EnumShortLinkKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShortLinkKind | Prisma.EnumShortLinkKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ShortLinkKind[] | Prisma.ListEnumShortLinkKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShortLinkKind[] | Prisma.ListEnumShortLinkKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShortLinkKindWithAggregatesFilter<$PrismaModel> | $Enums.ShortLinkKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShortLinkKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShortLinkKindFilter<$PrismaModel>
+}
+
 export type EnumDeliveryStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.DeliveryStatus | Prisma.EnumDeliveryStatusFieldRefInput<$PrismaModel>
   in?: $Enums.DeliveryStatus[] | Prisma.ListEnumDeliveryStatusFieldRefInput<$PrismaModel>
@@ -1766,6 +1783,23 @@ export type NestedEnumReceiptThemeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumReceiptThemeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumReceiptThemeFilter<$PrismaModel>
+}
+
+export type NestedEnumShortLinkKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShortLinkKind | Prisma.EnumShortLinkKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ShortLinkKind[] | Prisma.ListEnumShortLinkKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShortLinkKind[] | Prisma.ListEnumShortLinkKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShortLinkKindFilter<$PrismaModel> | $Enums.ShortLinkKind
+}
+
+export type NestedEnumShortLinkKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShortLinkKind | Prisma.EnumShortLinkKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ShortLinkKind[] | Prisma.ListEnumShortLinkKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShortLinkKind[] | Prisma.ListEnumShortLinkKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShortLinkKindWithAggregatesFilter<$PrismaModel> | $Enums.ShortLinkKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShortLinkKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShortLinkKindFilter<$PrismaModel>
 }
 
 export type NestedEnumDeliveryStatusFilter<$PrismaModel = never> = {

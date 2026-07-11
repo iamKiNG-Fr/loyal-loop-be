@@ -269,6 +269,7 @@ export type ReceiptWhereInput = {
   feedback?: Prisma.CustomerFeedbackListRelationFilter
   issues?: Prisma.CustomerIssueListRelationFilter
   shareTokens?: Prisma.ReceiptShareTokenListRelationFilter
+  shortLinks?: Prisma.ShortLinkListRelationFilter
 }
 
 export type ReceiptOrderByWithRelationInput = {
@@ -294,6 +295,7 @@ export type ReceiptOrderByWithRelationInput = {
   feedback?: Prisma.CustomerFeedbackOrderByRelationAggregateInput
   issues?: Prisma.CustomerIssueOrderByRelationAggregateInput
   shareTokens?: Prisma.ReceiptShareTokenOrderByRelationAggregateInput
+  shortLinks?: Prisma.ShortLinkOrderByRelationAggregateInput
 }
 
 export type ReceiptWhereUniqueInput = Prisma.AtLeast<{
@@ -322,6 +324,7 @@ export type ReceiptWhereUniqueInput = Prisma.AtLeast<{
   feedback?: Prisma.CustomerFeedbackListRelationFilter
   issues?: Prisma.CustomerIssueListRelationFilter
   shareTokens?: Prisma.ReceiptShareTokenListRelationFilter
+  shortLinks?: Prisma.ShortLinkListRelationFilter
 }, "id" | "saleId" | "tokenHash" | "receiptCode">
 
 export type ReceiptOrderByWithAggregationInput = {
@@ -386,6 +389,7 @@ export type ReceiptCreateInput = {
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptUncheckedCreateInput = {
@@ -408,6 +412,7 @@ export type ReceiptUncheckedCreateInput = {
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptUpdateInput = {
@@ -430,6 +435,7 @@ export type ReceiptUpdateInput = {
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateInput = {
@@ -452,6 +458,7 @@ export type ReceiptUncheckedUpdateInput = {
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptCreateManyInput = {
@@ -703,6 +710,22 @@ export type EnumReceiptThemeFieldUpdateOperationsInput = {
   set?: $Enums.ReceiptTheme
 }
 
+export type ReceiptCreateNestedOneWithoutShortLinksInput = {
+  create?: Prisma.XOR<Prisma.ReceiptCreateWithoutShortLinksInput, Prisma.ReceiptUncheckedCreateWithoutShortLinksInput>
+  connectOrCreate?: Prisma.ReceiptCreateOrConnectWithoutShortLinksInput
+  connect?: Prisma.ReceiptWhereUniqueInput
+}
+
+export type ReceiptUpdateOneWithoutShortLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.ReceiptCreateWithoutShortLinksInput, Prisma.ReceiptUncheckedCreateWithoutShortLinksInput>
+  connectOrCreate?: Prisma.ReceiptCreateOrConnectWithoutShortLinksInput
+  upsert?: Prisma.ReceiptUpsertWithoutShortLinksInput
+  disconnect?: Prisma.ReceiptWhereInput | boolean
+  delete?: Prisma.ReceiptWhereInput | boolean
+  connect?: Prisma.ReceiptWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ReceiptUpdateToOneWithWhereWithoutShortLinksInput, Prisma.ReceiptUpdateWithoutShortLinksInput>, Prisma.ReceiptUncheckedUpdateWithoutShortLinksInput>
+}
+
 export type ReceiptCreateNestedOneWithoutShareTokensInput = {
   create?: Prisma.XOR<Prisma.ReceiptCreateWithoutShareTokensInput, Prisma.ReceiptUncheckedCreateWithoutShareTokensInput>
   connectOrCreate?: Prisma.ReceiptCreateOrConnectWithoutShareTokensInput
@@ -784,6 +807,7 @@ export type ReceiptCreateWithoutBusinessInput = {
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptUncheckedCreateWithoutBusinessInput = {
@@ -805,6 +829,7 @@ export type ReceiptUncheckedCreateWithoutBusinessInput = {
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptCreateOrConnectWithoutBusinessInput = {
@@ -873,6 +898,7 @@ export type ReceiptCreateWithoutCustomerInput = {
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptUncheckedCreateWithoutCustomerInput = {
@@ -894,6 +920,7 @@ export type ReceiptUncheckedCreateWithoutCustomerInput = {
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptCreateOrConnectWithoutCustomerInput = {
@@ -941,6 +968,7 @@ export type ReceiptCreateWithoutSaleInput = {
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptUncheckedCreateWithoutSaleInput = {
@@ -962,6 +990,7 @@ export type ReceiptUncheckedCreateWithoutSaleInput = {
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptCreateOrConnectWithoutSaleInput = {
@@ -999,12 +1028,118 @@ export type ReceiptUpdateWithoutSaleInput = {
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateWithoutSaleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  receiptCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReceiptStatusFieldUpdateOperationsInput | $Enums.ReceiptStatus
+  theme?: Prisma.EnumReceiptThemeFieldUpdateOperationsInput | $Enums.ReceiptTheme
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  footer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutReceiptNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutReceiptNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutReceiptNestedInput
+  shareTokens?: Prisma.ReceiptShareTokenUncheckedUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutReceiptNestedInput
+}
+
+export type ReceiptCreateWithoutShortLinksInput = {
+  id?: string
+  tokenHash: string
+  receiptCode: string
+  status?: $Enums.ReceiptStatus
+  theme?: $Enums.ReceiptTheme
+  note?: string | null
+  footer?: string | null
+  sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  acknowledgedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutReceiptsInput
+  customer: Prisma.CustomerCreateNestedOneWithoutReceiptsInput
+  sale: Prisma.SaleCreateNestedOneWithoutReceiptInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutReceiptInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutReceiptInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutReceiptInput
+  shareTokens?: Prisma.ReceiptShareTokenCreateNestedManyWithoutReceiptInput
+}
+
+export type ReceiptUncheckedCreateWithoutShortLinksInput = {
+  id?: string
+  businessId: string
+  customerId: string
+  saleId: string
+  tokenHash: string
+  receiptCode: string
+  status?: $Enums.ReceiptStatus
+  theme?: $Enums.ReceiptTheme
+  note?: string | null
+  footer?: string | null
+  sentAt?: Date | string | null
+  viewedAt?: Date | string | null
+  acknowledgedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutReceiptInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutReceiptInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutReceiptInput
+  shareTokens?: Prisma.ReceiptShareTokenUncheckedCreateNestedManyWithoutReceiptInput
+}
+
+export type ReceiptCreateOrConnectWithoutShortLinksInput = {
+  where: Prisma.ReceiptWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReceiptCreateWithoutShortLinksInput, Prisma.ReceiptUncheckedCreateWithoutShortLinksInput>
+}
+
+export type ReceiptUpsertWithoutShortLinksInput = {
+  update: Prisma.XOR<Prisma.ReceiptUpdateWithoutShortLinksInput, Prisma.ReceiptUncheckedUpdateWithoutShortLinksInput>
+  create: Prisma.XOR<Prisma.ReceiptCreateWithoutShortLinksInput, Prisma.ReceiptUncheckedCreateWithoutShortLinksInput>
+  where?: Prisma.ReceiptWhereInput
+}
+
+export type ReceiptUpdateToOneWithWhereWithoutShortLinksInput = {
+  where?: Prisma.ReceiptWhereInput
+  data: Prisma.XOR<Prisma.ReceiptUpdateWithoutShortLinksInput, Prisma.ReceiptUncheckedUpdateWithoutShortLinksInput>
+}
+
+export type ReceiptUpdateWithoutShortLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  receiptCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumReceiptStatusFieldUpdateOperationsInput | $Enums.ReceiptStatus
+  theme?: Prisma.EnumReceiptThemeFieldUpdateOperationsInput | $Enums.ReceiptTheme
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  footer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  acknowledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutReceiptsNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutReceiptsNestedInput
+  sale?: Prisma.SaleUpdateOneRequiredWithoutReceiptNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutReceiptNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutReceiptNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutReceiptNestedInput
+  shareTokens?: Prisma.ReceiptShareTokenUpdateManyWithoutReceiptNestedInput
+}
+
+export type ReceiptUncheckedUpdateWithoutShortLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   receiptCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumReceiptStatusFieldUpdateOperationsInput | $Enums.ReceiptStatus
@@ -1041,6 +1176,7 @@ export type ReceiptCreateWithoutShareTokensInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutReceiptInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptUncheckedCreateWithoutShareTokensInput = {
@@ -1062,6 +1198,7 @@ export type ReceiptUncheckedCreateWithoutShareTokensInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutReceiptInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptCreateOrConnectWithoutShareTokensInput = {
@@ -1099,6 +1236,7 @@ export type ReceiptUpdateWithoutShareTokensInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutReceiptNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateWithoutShareTokensInput = {
@@ -1120,6 +1258,7 @@ export type ReceiptUncheckedUpdateWithoutShareTokensInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutReceiptNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptCreateWithoutActivityEventsInput = {
@@ -1141,6 +1280,7 @@ export type ReceiptCreateWithoutActivityEventsInput = {
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptUncheckedCreateWithoutActivityEventsInput = {
@@ -1162,6 +1302,7 @@ export type ReceiptUncheckedCreateWithoutActivityEventsInput = {
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptCreateOrConnectWithoutActivityEventsInput = {
@@ -1199,6 +1340,7 @@ export type ReceiptUpdateWithoutActivityEventsInput = {
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateWithoutActivityEventsInput = {
@@ -1220,6 +1362,7 @@ export type ReceiptUncheckedUpdateWithoutActivityEventsInput = {
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptCreateWithoutFeedbackInput = {
@@ -1241,6 +1384,7 @@ export type ReceiptCreateWithoutFeedbackInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptUncheckedCreateWithoutFeedbackInput = {
@@ -1262,6 +1406,7 @@ export type ReceiptUncheckedCreateWithoutFeedbackInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutReceiptInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptCreateOrConnectWithoutFeedbackInput = {
@@ -1299,6 +1444,7 @@ export type ReceiptUpdateWithoutFeedbackInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateWithoutFeedbackInput = {
@@ -1320,6 +1466,7 @@ export type ReceiptUncheckedUpdateWithoutFeedbackInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptCreateWithoutIssuesInput = {
@@ -1341,6 +1488,7 @@ export type ReceiptCreateWithoutIssuesInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutReceiptInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptUncheckedCreateWithoutIssuesInput = {
@@ -1362,6 +1510,7 @@ export type ReceiptUncheckedCreateWithoutIssuesInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutReceiptInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutReceiptInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedCreateNestedManyWithoutReceiptInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutReceiptInput
 }
 
 export type ReceiptCreateOrConnectWithoutIssuesInput = {
@@ -1399,6 +1548,7 @@ export type ReceiptUpdateWithoutIssuesInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutReceiptNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateWithoutIssuesInput = {
@@ -1420,6 +1570,7 @@ export type ReceiptUncheckedUpdateWithoutIssuesInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutReceiptNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptCreateManyBusinessInput = {
@@ -1458,6 +1609,7 @@ export type ReceiptUpdateWithoutBusinessInput = {
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateWithoutBusinessInput = {
@@ -1479,6 +1631,7 @@ export type ReceiptUncheckedUpdateWithoutBusinessInput = {
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateManyWithoutBusinessInput = {
@@ -1534,6 +1687,7 @@ export type ReceiptUpdateWithoutCustomerInput = {
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateWithoutCustomerInput = {
@@ -1555,6 +1709,7 @@ export type ReceiptUncheckedUpdateWithoutCustomerInput = {
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutReceiptNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutReceiptNestedInput
   shareTokens?: Prisma.ReceiptShareTokenUncheckedUpdateManyWithoutReceiptNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutReceiptNestedInput
 }
 
 export type ReceiptUncheckedUpdateManyWithoutCustomerInput = {
@@ -1584,6 +1739,7 @@ export type ReceiptCountOutputType = {
   feedback: number
   issues: number
   shareTokens: number
+  shortLinks: number
 }
 
 export type ReceiptCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1591,6 +1747,7 @@ export type ReceiptCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   feedback?: boolean | ReceiptCountOutputTypeCountFeedbackArgs
   issues?: boolean | ReceiptCountOutputTypeCountIssuesArgs
   shareTokens?: boolean | ReceiptCountOutputTypeCountShareTokensArgs
+  shortLinks?: boolean | ReceiptCountOutputTypeCountShortLinksArgs
 }
 
 /**
@@ -1631,6 +1788,13 @@ export type ReceiptCountOutputTypeCountShareTokensArgs<ExtArgs extends runtime.T
   where?: Prisma.ReceiptShareTokenWhereInput
 }
 
+/**
+ * ReceiptCountOutputType without action
+ */
+export type ReceiptCountOutputTypeCountShortLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShortLinkWhereInput
+}
+
 
 export type ReceiptSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1655,6 +1819,7 @@ export type ReceiptSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   feedback?: boolean | Prisma.Receipt$feedbackArgs<ExtArgs>
   issues?: boolean | Prisma.Receipt$issuesArgs<ExtArgs>
   shareTokens?: boolean | Prisma.Receipt$shareTokensArgs<ExtArgs>
+  shortLinks?: boolean | Prisma.Receipt$shortLinksArgs<ExtArgs>
   _count?: boolean | Prisma.ReceiptCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["receipt"]>
 
@@ -1727,6 +1892,7 @@ export type ReceiptInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   feedback?: boolean | Prisma.Receipt$feedbackArgs<ExtArgs>
   issues?: boolean | Prisma.Receipt$issuesArgs<ExtArgs>
   shareTokens?: boolean | Prisma.Receipt$shareTokensArgs<ExtArgs>
+  shortLinks?: boolean | Prisma.Receipt$shortLinksArgs<ExtArgs>
   _count?: boolean | Prisma.ReceiptCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ReceiptIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1750,6 +1916,7 @@ export type $ReceiptPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     feedback: Prisma.$CustomerFeedbackPayload<ExtArgs>[]
     issues: Prisma.$CustomerIssuePayload<ExtArgs>[]
     shareTokens: Prisma.$ReceiptShareTokenPayload<ExtArgs>[]
+    shortLinks: Prisma.$ShortLinkPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2168,6 +2335,7 @@ export interface Prisma__ReceiptClient<T, Null = never, ExtArgs extends runtime.
   feedback<T extends Prisma.Receipt$feedbackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Receipt$feedbackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   issues<T extends Prisma.Receipt$issuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Receipt$issuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerIssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shareTokens<T extends Prisma.Receipt$shareTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Receipt$shareTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReceiptShareTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shortLinks<T extends Prisma.Receipt$shortLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Receipt$shortLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShortLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2706,6 +2874,30 @@ export type Receipt$shareTokensArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ReceiptShareTokenScalarFieldEnum | Prisma.ReceiptShareTokenScalarFieldEnum[]
+}
+
+/**
+ * Receipt.shortLinks
+ */
+export type Receipt$shortLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShortLink
+   */
+  select?: Prisma.ShortLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShortLink
+   */
+  omit?: Prisma.ShortLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShortLinkInclude<ExtArgs> | null
+  where?: Prisma.ShortLinkWhereInput
+  orderBy?: Prisma.ShortLinkOrderByWithRelationInput | Prisma.ShortLinkOrderByWithRelationInput[]
+  cursor?: Prisma.ShortLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShortLinkScalarFieldEnum | Prisma.ShortLinkScalarFieldEnum[]
 }
 
 /**

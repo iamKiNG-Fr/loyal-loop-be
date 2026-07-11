@@ -286,6 +286,13 @@ enum ReceiptDeliveryLine {
   HIDE_BY_DEFAULT
 }
 
+enum ShortLinkKind {
+  SHOP
+  PRODUCT
+  RECEIPT
+  TRUST_CARD
+}
+
 model WaitlistEntry {
   id           Int      @id @default(autoincrement())
   name         String
@@ -428,6 +435,7 @@ model Business {
   supportRequests     SupportRequest[]
   paymentAccounts     BusinessPaymentAccount[]
   paymentProofs       PaymentProof[]
+  shortLinks          ShortLink[]
 
   @@index([ownerId])
   @@index([storeStatus, launchAt])
@@ -746,6 +754,7 @@ model Product {
   wishlistItems    WishlistItem[]
   interests        ProductInterest[]
   commerceEvents   CommerceEvent[]
+  shortLinks       ShortLink[]
   launchBusinesses Business[]         @relation("BusinessLaunchProduct")
 
   @@unique([businessId, slug])
@@ -1014,10 +1023,33 @@ model Receipt {
   feedback       CustomerFeedback[]
   issues         CustomerIssue[]
   shareTokens    ReceiptShareToken[]
+  shortLinks     ShortLink[]
 
   @@index([businessId, createdAt])
   @@index([customerId, createdAt])
   @@map("receipts")
+}
+
+model ShortLink {
+  id          String        @id @default(cuid())
+  code        String        @unique @db.VarChar(8)
+  fingerprint String        @unique
+  kind        ShortLinkKind
+  businessId  String
+  productId   String?
+  receiptId   String?
+  source      String
+  campaign    String
+  createdAt   DateTime      @default(now())
+  expiresAt   DateTime?
+  revokedAt   DateTime?
+  business    Business      @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  product     Product?      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  receipt     Receipt?      @relation(fields: [receiptId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, createdAt])
+  @@index([expiresAt])
+  @@map("short_links")
 }
 
 model ReceiptShareToken {

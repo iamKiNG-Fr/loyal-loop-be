@@ -188,6 +188,11 @@ export type PaymentProof = Prisma.PaymentProofModel
  */
 export type Receipt = Prisma.ReceiptModel
 /**
+ * Model ShortLink
+ * 
+ */
+export type ShortLink = Prisma.ShortLinkModel
+/**
  * Model ReceiptShareToken
  * 
  */

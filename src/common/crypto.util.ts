@@ -1,6 +1,7 @@
 import { createHash, randomBytes } from "node:crypto";
 
 const PUBLIC_CARD_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const SHORT_LINK_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
 
 export function createOpaqueToken(bytes = 32) {
   const token = randomBytes(bytes).toString("base64url");
@@ -14,6 +15,13 @@ export function createPublicCardId(length = 8) {
     value += PUBLIC_CARD_ALPHABET[byte & 31];
   }
   return `LL-${value}`;
+}
+
+export function createShortCode(length = 8) {
+  const bytes = randomBytes(length);
+  let value = "";
+  for (const byte of bytes) value += SHORT_LINK_ALPHABET[byte % SHORT_LINK_ALPHABET.length];
+  return value;
 }
 
 export function hashToken(token: string) {

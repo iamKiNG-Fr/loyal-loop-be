@@ -443,6 +443,7 @@ export type BusinessWhereInput = {
   supportRequests?: Prisma.SupportRequestListRelationFilter
   paymentAccounts?: Prisma.BusinessPaymentAccountListRelationFilter
   paymentProofs?: Prisma.PaymentProofListRelationFilter
+  shortLinks?: Prisma.ShortLinkListRelationFilter
 }
 
 export type BusinessOrderByWithRelationInput = {
@@ -502,6 +503,7 @@ export type BusinessOrderByWithRelationInput = {
   supportRequests?: Prisma.SupportRequestOrderByRelationAggregateInput
   paymentAccounts?: Prisma.BusinessPaymentAccountOrderByRelationAggregateInput
   paymentProofs?: Prisma.PaymentProofOrderByRelationAggregateInput
+  shortLinks?: Prisma.ShortLinkOrderByRelationAggregateInput
 }
 
 export type BusinessWhereUniqueInput = Prisma.AtLeast<{
@@ -564,6 +566,7 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   supportRequests?: Prisma.SupportRequestListRelationFilter
   paymentAccounts?: Prisma.BusinessPaymentAccountListRelationFilter
   paymentProofs?: Prisma.PaymentProofListRelationFilter
+  shortLinks?: Prisma.ShortLinkListRelationFilter
 }, "id" | "logoAssetId" | "slug" | "publicCardId">
 
 export type BusinessOrderByWithAggregationInput = {
@@ -692,6 +695,7 @@ export type BusinessCreateInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateInput = {
@@ -748,6 +752,7 @@ export type BusinessUncheckedCreateInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUpdateInput = {
@@ -804,6 +809,7 @@ export type BusinessUpdateInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateInput = {
@@ -860,6 +866,7 @@ export type BusinessUncheckedUpdateInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateManyInput = {
@@ -1451,6 +1458,20 @@ export type BusinessUpdateOneRequiredWithoutReceiptsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutReceiptsInput, Prisma.BusinessUpdateWithoutReceiptsInput>, Prisma.BusinessUncheckedUpdateWithoutReceiptsInput>
 }
 
+export type BusinessCreateNestedOneWithoutShortLinksInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutShortLinksInput, Prisma.BusinessUncheckedCreateWithoutShortLinksInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutShortLinksInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutShortLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutShortLinksInput, Prisma.BusinessUncheckedCreateWithoutShortLinksInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutShortLinksInput
+  upsert?: Prisma.BusinessUpsertWithoutShortLinksInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutShortLinksInput, Prisma.BusinessUpdateWithoutShortLinksInput>, Prisma.BusinessUncheckedUpdateWithoutShortLinksInput>
+}
+
 export type BusinessCreateNestedOneWithoutDeliveriesInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutDeliveriesInput, Prisma.BusinessUncheckedCreateWithoutDeliveriesInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutDeliveriesInput
@@ -1618,6 +1639,7 @@ export type BusinessCreateWithoutOwnerInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutOwnerInput = {
@@ -1673,6 +1695,7 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutOwnerInput = {
@@ -1789,6 +1812,7 @@ export type BusinessCreateWithoutPreferencesInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPreferencesInput = {
@@ -1844,6 +1868,7 @@ export type BusinessUncheckedCreateWithoutPreferencesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPreferencesInput = {
@@ -1915,6 +1940,7 @@ export type BusinessUpdateWithoutPreferencesInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPreferencesInput = {
@@ -1970,6 +1996,7 @@ export type BusinessUncheckedUpdateWithoutPreferencesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutContactsInput = {
@@ -2025,6 +2052,7 @@ export type BusinessCreateWithoutContactsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutContactsInput = {
@@ -2080,6 +2108,7 @@ export type BusinessUncheckedCreateWithoutContactsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutContactsInput = {
@@ -2151,6 +2180,7 @@ export type BusinessUpdateWithoutContactsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutContactsInput = {
@@ -2206,6 +2236,7 @@ export type BusinessUncheckedUpdateWithoutContactsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPaymentAccountsInput = {
@@ -2261,6 +2292,7 @@ export type BusinessCreateWithoutPaymentAccountsInput = {
   trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPaymentAccountsInput = {
@@ -2316,6 +2348,7 @@ export type BusinessUncheckedCreateWithoutPaymentAccountsInput = {
   trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPaymentAccountsInput = {
@@ -2387,6 +2420,7 @@ export type BusinessUpdateWithoutPaymentAccountsInput = {
   trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPaymentAccountsInput = {
@@ -2442,6 +2476,7 @@ export type BusinessUncheckedUpdateWithoutPaymentAccountsInput = {
   trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutMembersInput = {
@@ -2497,6 +2532,7 @@ export type BusinessCreateWithoutMembersInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutMembersInput = {
@@ -2552,6 +2588,7 @@ export type BusinessUncheckedCreateWithoutMembersInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutMembersInput = {
@@ -2623,6 +2660,7 @@ export type BusinessUpdateWithoutMembersInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutMembersInput = {
@@ -2678,6 +2716,7 @@ export type BusinessUncheckedUpdateWithoutMembersInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutInvitationsInput = {
@@ -2733,6 +2772,7 @@ export type BusinessCreateWithoutInvitationsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutInvitationsInput = {
@@ -2788,6 +2828,7 @@ export type BusinessUncheckedCreateWithoutInvitationsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutInvitationsInput = {
@@ -2859,6 +2900,7 @@ export type BusinessUpdateWithoutInvitationsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutInvitationsInput = {
@@ -2914,6 +2956,7 @@ export type BusinessUncheckedUpdateWithoutInvitationsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutAssetsInput = {
@@ -2969,6 +3012,7 @@ export type BusinessCreateWithoutAssetsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutAssetsInput = {
@@ -3024,6 +3068,7 @@ export type BusinessUncheckedCreateWithoutAssetsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutAssetsInput = {
@@ -3084,6 +3129,7 @@ export type BusinessCreateWithoutLogoAssetInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutLogoAssetInput = {
@@ -3139,6 +3185,7 @@ export type BusinessUncheckedCreateWithoutLogoAssetInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutLogoAssetInput = {
@@ -3210,6 +3257,7 @@ export type BusinessUpdateWithoutAssetsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutAssetsInput = {
@@ -3265,6 +3313,7 @@ export type BusinessUncheckedUpdateWithoutAssetsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUpsertWithoutLogoAssetInput = {
@@ -3331,6 +3380,7 @@ export type BusinessUpdateWithoutLogoAssetInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
@@ -3386,6 +3436,7 @@ export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCustomersInput = {
@@ -3441,6 +3492,7 @@ export type BusinessCreateWithoutCustomersInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCustomersInput = {
@@ -3496,6 +3548,7 @@ export type BusinessUncheckedCreateWithoutCustomersInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCustomersInput = {
@@ -3567,6 +3620,7 @@ export type BusinessUpdateWithoutCustomersInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCustomersInput = {
@@ -3622,6 +3676,7 @@ export type BusinessUncheckedUpdateWithoutCustomersInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCustomerTagsInput = {
@@ -3677,6 +3732,7 @@ export type BusinessCreateWithoutCustomerTagsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
@@ -3732,6 +3788,7 @@ export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCustomerTagsInput = {
@@ -3803,6 +3860,7 @@ export type BusinessUpdateWithoutCustomerTagsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
@@ -3858,6 +3916,7 @@ export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutProductsInput = {
@@ -3913,6 +3972,7 @@ export type BusinessCreateWithoutProductsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutProductsInput = {
@@ -3968,6 +4028,7 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutProductsInput = {
@@ -4028,6 +4089,7 @@ export type BusinessCreateWithoutLaunchProductInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutLaunchProductInput = {
@@ -4083,6 +4145,7 @@ export type BusinessUncheckedCreateWithoutLaunchProductInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutLaunchProductInput = {
@@ -4159,6 +4222,7 @@ export type BusinessUpdateWithoutProductsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutProductsInput = {
@@ -4214,6 +4278,7 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUpsertWithWhereUniqueWithoutLaunchProductInput = {
@@ -4285,6 +4350,7 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
@@ -4340,6 +4406,7 @@ export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutWishlistItemsInput = {
@@ -4411,6 +4478,7 @@ export type BusinessUpdateWithoutWishlistItemsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
@@ -4466,6 +4534,7 @@ export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutProductInterestsInput = {
@@ -4521,6 +4590,7 @@ export type BusinessCreateWithoutProductInterestsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutProductInterestsInput = {
@@ -4576,6 +4646,7 @@ export type BusinessUncheckedCreateWithoutProductInterestsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutProductInterestsInput = {
@@ -4647,6 +4718,7 @@ export type BusinessUpdateWithoutProductInterestsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
@@ -4702,6 +4774,7 @@ export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutOrderRequestsInput = {
@@ -4757,6 +4830,7 @@ export type BusinessCreateWithoutOrderRequestsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
@@ -4812,6 +4886,7 @@ export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutOrderRequestsInput = {
@@ -4883,6 +4958,7 @@ export type BusinessUpdateWithoutOrderRequestsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
@@ -4938,6 +5014,7 @@ export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCommerceEventsInput = {
@@ -4993,6 +5070,7 @@ export type BusinessCreateWithoutCommerceEventsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
@@ -5048,6 +5126,7 @@ export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCommerceEventsInput = {
@@ -5119,6 +5198,7 @@ export type BusinessUpdateWithoutCommerceEventsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
@@ -5174,6 +5254,7 @@ export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutSalesInput = {
@@ -5229,6 +5310,7 @@ export type BusinessCreateWithoutSalesInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSalesInput = {
@@ -5284,6 +5366,7 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSalesInput = {
@@ -5355,6 +5438,7 @@ export type BusinessUpdateWithoutSalesInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSalesInput = {
@@ -5410,6 +5494,7 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPaymentProofsInput = {
@@ -5465,6 +5550,7 @@ export type BusinessCreateWithoutPaymentProofsInput = {
   trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPaymentProofsInput = {
@@ -5520,6 +5606,7 @@ export type BusinessUncheckedCreateWithoutPaymentProofsInput = {
   trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPaymentProofsInput = {
@@ -5591,6 +5678,7 @@ export type BusinessUpdateWithoutPaymentProofsInput = {
   trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPaymentProofsInput = {
@@ -5646,6 +5734,7 @@ export type BusinessUncheckedUpdateWithoutPaymentProofsInput = {
   trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutReceiptsInput = {
@@ -5701,6 +5790,7 @@ export type BusinessCreateWithoutReceiptsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutReceiptsInput = {
@@ -5756,6 +5846,7 @@ export type BusinessUncheckedCreateWithoutReceiptsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutReceiptsInput = {
@@ -5827,6 +5918,7 @@ export type BusinessUpdateWithoutReceiptsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutReceiptsInput = {
@@ -5868,6 +5960,247 @@ export type BusinessUncheckedUpdateWithoutReceiptsInput = {
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutShortLinksInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutShortLinksInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutShortLinksInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutShortLinksInput, Prisma.BusinessUncheckedCreateWithoutShortLinksInput>
+}
+
+export type BusinessUpsertWithoutShortLinksInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutShortLinksInput, Prisma.BusinessUncheckedUpdateWithoutShortLinksInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutShortLinksInput, Prisma.BusinessUncheckedCreateWithoutShortLinksInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutShortLinksInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutShortLinksInput, Prisma.BusinessUncheckedUpdateWithoutShortLinksInput>
+}
+
+export type BusinessUpdateWithoutShortLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutShortLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
   followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5937,6 +6270,7 @@ export type BusinessCreateWithoutDeliveriesInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutDeliveriesInput = {
@@ -5992,6 +6326,7 @@ export type BusinessUncheckedCreateWithoutDeliveriesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutDeliveriesInput = {
@@ -6063,6 +6398,7 @@ export type BusinessUpdateWithoutDeliveriesInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
@@ -6118,6 +6454,7 @@ export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutActivityEventsInput = {
@@ -6173,6 +6510,7 @@ export type BusinessCreateWithoutActivityEventsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutActivityEventsInput = {
@@ -6228,6 +6566,7 @@ export type BusinessUncheckedCreateWithoutActivityEventsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutActivityEventsInput = {
@@ -6299,6 +6638,7 @@ export type BusinessUpdateWithoutActivityEventsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
@@ -6354,6 +6694,7 @@ export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFollowUpTemplatesInput = {
@@ -6409,6 +6750,7 @@ export type BusinessCreateWithoutFollowUpTemplatesInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
@@ -6464,6 +6806,7 @@ export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFollowUpTemplatesInput = {
@@ -6535,6 +6878,7 @@ export type BusinessUpdateWithoutFollowUpTemplatesInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
@@ -6590,6 +6934,7 @@ export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFollowUpSuggestionsInput = {
@@ -6645,6 +6990,7 @@ export type BusinessCreateWithoutFollowUpSuggestionsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
@@ -6700,6 +7046,7 @@ export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFollowUpSuggestionsInput = {
@@ -6771,6 +7118,7 @@ export type BusinessUpdateWithoutFollowUpSuggestionsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
@@ -6826,6 +7174,7 @@ export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFeedbackInput = {
@@ -6881,6 +7230,7 @@ export type BusinessCreateWithoutFeedbackInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFeedbackInput = {
@@ -6936,6 +7286,7 @@ export type BusinessUncheckedCreateWithoutFeedbackInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFeedbackInput = {
@@ -7007,6 +7358,7 @@ export type BusinessUpdateWithoutFeedbackInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFeedbackInput = {
@@ -7062,6 +7414,7 @@ export type BusinessUncheckedUpdateWithoutFeedbackInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutIssuesInput = {
@@ -7117,6 +7470,7 @@ export type BusinessCreateWithoutIssuesInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutIssuesInput = {
@@ -7172,6 +7526,7 @@ export type BusinessUncheckedCreateWithoutIssuesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutIssuesInput = {
@@ -7243,6 +7598,7 @@ export type BusinessUpdateWithoutIssuesInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutIssuesInput = {
@@ -7298,6 +7654,7 @@ export type BusinessUncheckedUpdateWithoutIssuesInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutTrustLedgerInput = {
@@ -7353,6 +7710,7 @@ export type BusinessCreateWithoutTrustLedgerInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
@@ -7408,6 +7766,7 @@ export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutTrustLedgerInput = {
@@ -7479,6 +7838,7 @@ export type BusinessUpdateWithoutTrustLedgerInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
@@ -7534,6 +7894,7 @@ export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutSupportRequestsInput = {
@@ -7589,6 +7950,7 @@ export type BusinessCreateWithoutSupportRequestsInput = {
   trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
@@ -7644,6 +8006,7 @@ export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
   trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSupportRequestsInput = {
@@ -7715,6 +8078,7 @@ export type BusinessUpdateWithoutSupportRequestsInput = {
   trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
@@ -7770,6 +8134,7 @@ export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
   trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateManyOwnerInput = {
@@ -7856,6 +8221,7 @@ export type BusinessUpdateWithoutOwnerInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutOwnerInput = {
@@ -7911,6 +8277,7 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateManyWithoutOwnerInput = {
@@ -8028,6 +8395,7 @@ export type BusinessUpdateWithoutLaunchProductInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutLaunchProductInput = {
@@ -8083,6 +8451,7 @@ export type BusinessUncheckedUpdateWithoutLaunchProductInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateManyWithoutLaunchProductInput = {
@@ -8145,6 +8514,7 @@ export type BusinessCountOutputType = {
   supportRequests: number
   paymentAccounts: number
   paymentProofs: number
+  shortLinks: number
 }
 
 export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8171,6 +8541,7 @@ export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   supportRequests?: boolean | BusinessCountOutputTypeCountSupportRequestsArgs
   paymentAccounts?: boolean | BusinessCountOutputTypeCountPaymentAccountsArgs
   paymentProofs?: boolean | BusinessCountOutputTypeCountPaymentProofsArgs
+  shortLinks?: boolean | BusinessCountOutputTypeCountShortLinksArgs
 }
 
 /**
@@ -8344,6 +8715,13 @@ export type BusinessCountOutputTypeCountPaymentProofsArgs<ExtArgs extends runtim
   where?: Prisma.PaymentProofWhereInput
 }
 
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountShortLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShortLinkWhereInput
+}
+
 
 export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -8402,6 +8780,7 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   supportRequests?: boolean | Prisma.Business$supportRequestsArgs<ExtArgs>
   paymentAccounts?: boolean | Prisma.Business$paymentAccountsArgs<ExtArgs>
   paymentProofs?: boolean | Prisma.Business$paymentProofsArgs<ExtArgs>
+  shortLinks?: boolean | Prisma.Business$shortLinksArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["business"]>
 
@@ -8536,6 +8915,7 @@ export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   supportRequests?: boolean | Prisma.Business$supportRequestsArgs<ExtArgs>
   paymentAccounts?: boolean | Prisma.Business$paymentAccountsArgs<ExtArgs>
   paymentProofs?: boolean | Prisma.Business$paymentProofsArgs<ExtArgs>
+  shortLinks?: boolean | Prisma.Business$shortLinksArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BusinessIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8579,6 +8959,7 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     supportRequests: Prisma.$SupportRequestPayload<ExtArgs>[]
     paymentAccounts: Prisma.$BusinessPaymentAccountPayload<ExtArgs>[]
     paymentProofs: Prisma.$PaymentProofPayload<ExtArgs>[]
+    shortLinks: Prisma.$ShortLinkPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -9031,6 +9412,7 @@ export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends runtime
   supportRequests<T extends Prisma.Business$supportRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$supportRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentAccounts<T extends Prisma.Business$paymentAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$paymentAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessPaymentAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentProofs<T extends Prisma.Business$paymentProofsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$paymentProofsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shortLinks<T extends Prisma.Business$shortLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$shortLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShortLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10096,6 +10478,30 @@ export type Business$paymentProofsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.PaymentProofScalarFieldEnum | Prisma.PaymentProofScalarFieldEnum[]
+}
+
+/**
+ * Business.shortLinks
+ */
+export type Business$shortLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShortLink
+   */
+  select?: Prisma.ShortLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShortLink
+   */
+  omit?: Prisma.ShortLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShortLinkInclude<ExtArgs> | null
+  where?: Prisma.ShortLinkWhereInput
+  orderBy?: Prisma.ShortLinkOrderByWithRelationInput | Prisma.ShortLinkOrderByWithRelationInput[]
+  cursor?: Prisma.ShortLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShortLinkScalarFieldEnum | Prisma.ShortLinkScalarFieldEnum[]
 }
 
 /**
