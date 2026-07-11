@@ -3,6 +3,7 @@ export const DISCOVERY_SOURCES = [
   "facebook",
   "instagram",
   "native",
+  "pinterest",
   "snapchat",
   "tiktok",
   "whatsapp",
