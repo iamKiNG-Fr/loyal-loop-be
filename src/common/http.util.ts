@@ -2,6 +2,7 @@ import type { Response } from "express";
 
 export const OWNER_SESSION_COOKIE = "ll_owner_session";
 export const CUSTOMER_SESSION_COOKIE = "ll_customer_session";
+const SESSION_COOKIE_PATH = "/";
 
 export function readCookie(header: string | undefined, name: string) {
   if (!header) return undefined;
@@ -23,7 +24,7 @@ export function setSessionCookie(
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     expires: expiresAt,
-    path: "/api/v1",
+    path: SESSION_COOKIE_PATH,
   });
 }
 
@@ -32,6 +33,6 @@ export function clearSessionCookie(response: Response, name: string) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    path: "/api/v1",
+    path: SESSION_COOKIE_PATH,
   });
 }

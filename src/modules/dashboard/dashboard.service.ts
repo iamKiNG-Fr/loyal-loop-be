@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { PrismaService } from "../prisma/prisma.service";
+import { discoverySource } from "../shops/discovery-attribution";
 
 @Injectable()
 export class DashboardService {
@@ -18,6 +19,7 @@ export class DashboardService {
       recentReceipts,
       pendingRequests,
       unreadOrderRequests,
+      discoveryEvents,
     ] = await Promise.all([
       this.prisma.customer.count({ where: { businessId: auth.businessId } }),
       this.prisma.product.count({
@@ -72,7 +74,25 @@ export class DashboardService {
           status: "SENT",
         },
       }),
+      this.prisma.commerceEvent.findMany({
+        where: {
+          businessId: auth.businessId,
+          type: { in: ["SHOP_VIEWED", "PRODUCT_VIEWED"] },
+          createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
+        },
+        select: { metadata: true },
+        orderBy: { createdAt: "desc" },
+        take: 2000,
+      }),
     ]);
+
+    const sourceCounts = new Map<string, number>();
+    for (const event of discoveryEvents) {
+      const source = discoverySource(event.metadata);
+      if (source) sourceCounts.set(source, (sourceCounts.get(source) ?? 0) + 1);
+    }
+    const attributedViews = [...sourceCounts.values()].reduce((sum, value) => sum + value, 0);
+    const reportingReady = attributedViews >= 5;
 
     return {
       counts: {
@@ -87,6 +107,18 @@ export class DashboardService {
       recentSales,
       recentActivity,
       recentReceipts,
+      discovery: {
+        attributedViews,
+        reportingReady,
+        topSources: reportingReady
+          ? [...sourceCounts.entries()]
+              .map(([source, views]) => ({ source, views }))
+              .sort((a, b) => b.views - a.views)
+              .slice(0, 4)
+          : [],
+        totalViews: discoveryEvents.length,
+        windowDays: 30,
+      },
     };
   }
 }

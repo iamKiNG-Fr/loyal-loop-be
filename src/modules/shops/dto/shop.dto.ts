@@ -6,6 +6,7 @@ import {
   IsBoolean,
   IsEnum,
   IsInt,
+  IsIn,
   IsNumber,
   IsOptional,
   IsString,
@@ -15,6 +16,7 @@ import {
   Min,
   ValidateNested,
 } from "class-validator";
+import { DISCOVERY_CAMPAIGNS, DISCOVERY_SOURCES } from "../discovery-attribution";
 import {
   FulfillmentType,
   OrderRequestStatus,
@@ -22,6 +24,20 @@ import {
   ProductInterestType,
   SalesChannel,
 } from "../../../generated/prisma/client";
+
+export class DiscoveryAttributionDto {
+  @IsOptional()
+  @IsIn(DISCOVERY_SOURCES)
+  utm_source?: string;
+
+  @IsOptional()
+  @IsIn(["social"])
+  utm_medium?: string;
+
+  @IsOptional()
+  @IsIn(DISCOVERY_CAMPAIGNS)
+  utm_campaign?: string;
+}
 
 export class PublicRequestItemDto {
   @IsString()

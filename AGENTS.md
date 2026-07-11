@@ -56,3 +56,58 @@ Keep these out of MVP unless the user explicitly requests them:
 - Do not imply business verification unless the backend actually supports a real
   verification state.
 - Keep API responses consistent and useful for the frontend.
+
+## Batch Execution Protocol
+
+This protocol applies to every future batch and individual MB issue unless the
+user explicitly changes the scope or rules. The workspace-level
+`MASTER_BACKLOG.md` is the source of truth for execution state and issue status.
+
+### Before starting a batch
+
+- Read `MASTER_BACKLOG.md`.
+- Check its **Current Execution State**.
+- Confirm the target batch and affected MB issue IDs before changing app files.
+- Work only on the confirmed batch or issue IDs; do not include unrelated
+  batches.
+- If implementation unexpectedly requires backend, database, schema, or
+  provider changes, pause and ask the user for approval before making them.
+
+### During implementation
+
+- Keep changes focused on the active batch and confirmed MB issue IDs.
+- Maintain code quality and reuse existing components, services, conventions,
+  and patterns.
+- Avoid broad rewrites unless necessary; explain the need and scope when they
+  cannot be avoided.
+- Do not touch `package-lock.json` unless the active issue explicitly allows it.
+- Do not seed, reset, wipe, or destructively migrate any database.
+- Do not expose, print, commit, or reproduce environment secrets.
+
+### After finishing a batch
+
+- Run the available relevant build and tests. For documentation-only work,
+  validate the changed documentation without running unrelated application
+  commands.
+- Update `MASTER_BACKLOG.md` status fields for every affected issue.
+- Add concrete verification notes and any relevant commit or PR reference.
+- Mark each affected issue **Done**, **Blocked**, **Deferred**, or **In progress**;
+  do not mark work Done from implementation presence alone.
+- Update **Current Execution State**.
+- Recommend the next safest batch based on dependencies, risk, and remaining
+  MVP blockers.
+- Summarize changed files, risks, verification performed, and remaining issues.
+
+### Linear and Notion
+
+- Do not update Linear or Notion automatically.
+- Prepare proposed update notes only when the user asks for them.
+- Wait for explicit user approval before writing to Linear, Notion, or another
+  external tracking tool.
+
+### Command format
+
+- **“Start Batch 2”** means implement only Batch 2 using this protocol.
+- **“Start MB-703”** means implement only MB-703 using this protocol.
+- **“Continue next recommended batch”** means use `MASTER_BACKLOG.md` to choose
+  and execute the next safe batch using this protocol.

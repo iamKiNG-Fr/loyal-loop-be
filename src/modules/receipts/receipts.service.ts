@@ -250,6 +250,9 @@ function sanitizePublicReceipt(receipt: Awaited<ReturnType<ReceiptsService["get"
       logoAsset: receipt.business.logoAsset
         ? { secureUrl: receipt.business.logoAsset.secureUrl }
         : null,
+      preferences: receipt.business.preferences
+        ? { theme: receipt.business.preferences.theme }
+        : null,
     },
     customer: {
       name: receipt.customer.name,

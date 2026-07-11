@@ -27,6 +27,8 @@ import {
   ProductInterestDto,
   UpdateOrderRequestStatusDto,
 } from "./dto/shop.dto";
+import type { DiscoveryQuery } from "./discovery-attribution";
+import { discoverySource, toDiscoveryAttribution } from "./discovery-attribution";
 
 const publicProductInclude = {
   images: {
@@ -46,7 +48,7 @@ export class ShopsService {
     private readonly businesses: BusinessesService,
   ) {}
 
-  async getPublicShop(slug: string, visitor?: string) {
+  async getPublicShop(slug: string, visitor?: string, query?: DiscoveryQuery) {
     await this.businesses.reconcileScheduledLaunchBySlug(slug);
     const business = await this.prisma.business.findFirst({
       where: { slug, storeStatus: { not: "CLOSED" } },
@@ -63,7 +65,7 @@ export class ShopsService {
       },
     });
     if (!business) throw new NotFoundException("Shop not found");
-    await this.recordCommerceEvent(business.id, "SHOP_VIEWED", visitor);
+    await this.recordCommerceEvent(business.id, "SHOP_VIEWED", visitor, undefined, query);
     const open = business.storeStatus === "OPEN";
     return {
       business: sanitizeBusiness(business),
@@ -73,7 +75,7 @@ export class ShopsService {
     };
   }
 
-  async getPublicProduct(slug: string, productSlug: string, visitor?: string) {
+  async getPublicProduct(slug: string, productSlug: string, visitor?: string, query?: DiscoveryQuery) {
     await this.businesses.reconcileScheduledLaunchBySlug(slug);
     const product = await this.prisma.product.findFirst({
       where: {
@@ -93,6 +95,7 @@ export class ShopsService {
       "PRODUCT_VIEWED",
       visitor,
       product.id,
+      query,
     );
     return product;
   }
@@ -515,7 +518,9 @@ export class ShopsService {
     type: "SHOP_VIEWED" | "PRODUCT_VIEWED",
     visitor?: string,
     productId?: string,
+    query?: DiscoveryQuery,
   ) {
+    const attribution = toDiscoveryAttribution(query);
     if (visitor) {
       const recent = await this.prisma.commerceEvent.findFirst({
         where: {
@@ -526,10 +531,24 @@ export class ShopsService {
           createdAt: { gte: new Date(Date.now() - 30 * 60 * 1000) },
         },
       });
-      if (recent) return;
+      if (recent) {
+        if (attribution && !discoverySource(recent.metadata)) {
+          await this.prisma.commerceEvent.update({
+            where: { id: recent.id },
+            data: { metadata: { attribution } },
+          });
+        }
+        return;
+      }
     }
     await this.prisma.commerceEvent.create({
-      data: { businessId, type, visitorHash: visitor, productId },
+      data: {
+        businessId,
+        type,
+        visitorHash: visitor,
+        productId,
+        metadata: attribution ? { attribution } : undefined,
+      },
     });
   }
 }

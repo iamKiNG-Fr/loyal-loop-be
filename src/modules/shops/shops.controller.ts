@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   UseGuards,
 } from "@nestjs/common";
@@ -28,6 +29,7 @@ import type {
 import {
   CreateOrderRequestDto,
   ConfirmOrderRequestDto,
+  DiscoveryAttributionDto,
   ProductInterestDto,
   UpdateOrderRequestStatusDto,
   WishlistProductDto,
@@ -39,9 +41,9 @@ export class PublicShopsController {
   constructor(private readonly shops: ShopsService) {}
 
   @Get(":slug")
-  getShop(@Param("slug") slug: string, @Req() request: Request) {
+  getShop(@Param("slug") slug: string, @Query() attribution: DiscoveryAttributionDto, @Req() request: Request) {
     return this.shops
-      .getPublicShop(slug, this.visitor(request))
+      .getPublicShop(slug, this.visitor(request), attribution)
       .then((data) => ok(data));
   }
 
@@ -49,10 +51,11 @@ export class PublicShopsController {
   getProduct(
     @Param("slug") slug: string,
     @Param("productSlug") productSlug: string,
+    @Query() attribution: DiscoveryAttributionDto,
     @Req() request: Request,
   ) {
     return this.shops
-      .getPublicProduct(slug, productSlug, this.visitor(request))
+      .getPublicProduct(slug, productSlug, this.visitor(request), attribution)
       .then((data) => ok(data));
   }
 

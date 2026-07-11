@@ -13,24 +13,14 @@ export class TwilioVerifyProvider implements OtpProvider {
 
   async start(phone: string): Promise<OtpStartResult> {
     if (this.useDevelopmentOtp()) {
-      const code = String(randomInt(100000, 1000000));
-      return {
-        provider: "development",
-        reference: `dev:${randomUUID()}:${code}`,
-        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
-      };
+      return this.startDevelopmentChallenge();
     }
 
     if (!this.isConfigured()) {
       if (this.config.get("NODE_ENV") === "production") {
         throw new ServiceUnavailableException("WhatsApp verification is not configured");
       }
-      const code = String(randomInt(100000, 1000000));
-      return {
-        provider: "development",
-        reference: `dev:${randomUUID()}:${code}`,
-        expiresAt: new Date(Date.now() + 10 * 60 * 1000),
-      };
+      return this.startDevelopmentChallenge();
     }
 
     const result = await this.request<TwilioVerification>("Verifications", {
@@ -46,6 +36,7 @@ export class TwilioVerifyProvider implements OtpProvider {
 
   async verify(reference: string, phone: string, code: string) {
     if (reference.startsWith("dev:")) {
+      this.assertDevelopmentOtpIsSafe();
       return reference.split(":")[2] === code;
     }
     const result = await this.request<TwilioVerification>(
@@ -65,6 +56,32 @@ export class TwilioVerifyProvider implements OtpProvider {
 
   private useDevelopmentOtp() {
     return this.config.get("CUSTOMER_OTP_PROVIDER") === "development";
+  }
+
+  private startDevelopmentChallenge(): OtpStartResult {
+    this.assertDevelopmentOtpIsSafe();
+    const code = String(randomInt(100000, 1000000));
+    return {
+      provider: "development",
+      reference: `dev:${randomUUID()}:${code}`,
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000),
+    };
+  }
+
+  private assertDevelopmentOtpIsSafe() {
+    const databaseSafetyMode = this.config.get<string>("DATABASE_SAFETY_MODE");
+    const databaseUrl = this.config.get<string>("DATABASE_URL", "");
+    const localDatabase = isLocalDatabaseUrl(databaseUrl);
+    const explicitlyIsolated = databaseSafetyMode === "isolated";
+
+    if (
+      this.config.get("NODE_ENV") === "production" ||
+      (!localDatabase && !explicitlyIsolated)
+    ) {
+      throw new ServiceUnavailableException(
+        "Development OTP requires a local or explicitly isolated database",
+      );
+    }
   }
 
   private async request<T>(
@@ -91,5 +108,14 @@ export class TwilioVerifyProvider implements OtpProvider {
       throw new ServiceUnavailableException("WhatsApp verification failed");
     }
     return (await response.json()) as T;
+  }
+}
+
+function isLocalDatabaseUrl(value: string) {
+  try {
+    const hostname = new URL(value).hostname.toLowerCase();
+    return ["localhost", "127.0.0.1", "::1"].includes(hostname);
+  } catch {
+    return false;
   }
 }

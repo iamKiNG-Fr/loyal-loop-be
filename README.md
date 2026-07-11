@@ -37,6 +37,34 @@ schema engine can fail before executing SQL against some Neon connection strings
 Cloudinary and Twilio credentials are optional in local development but required
 for their production flows.
 
+Set `DATABASE_SAFETY_MODE` to `local`, `isolated`, `shared`, or `production`.
+Development OTP is allowed only with local data or an explicitly isolated remote
+database and is always blocked in production. Never label shared data as isolated.
+
+### Isolated database QA
+
+Keep the restored shared profile in `.env`. Put the provider-verified test branch
+in `.env.isolated.local`; both files are ignored. The isolated file must set
+`DATABASE_SAFETY_MODE=isolated`, record its Neon project, branch, and endpoint
+IDs, and disable Resend, Cloudinary, and Twilio credentials before automated QA.
+
+```bash
+npm run check:isolated
+npm run build
+npm run verify:isolated-core
+npm run start:dev:isolated
+```
+
+`check:isolated` validates the recorded endpoint, confirms that it differs from
+the shared URL, and performs read-only provider/schema checks without printing
+credentials. `verify:isolated-core` starts the built API with only the isolated
+profile and creates uniquely named QA records through the public API; it never
+seeds, resets, wipes, or migrates a database.
+
+Do not reuse isolated QA records as product/demo data. Keep the branch while it
+is the active local test target, then delete it through Neon when it is replaced.
+Create a fresh schema-only branch rather than resetting or wiping an old branch.
+
 The repeatable demo seed creates:
 
 - owner: `demo@useloyalloop.com`
