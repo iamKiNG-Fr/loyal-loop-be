@@ -226,6 +226,46 @@ export class ShopsService {
     return safe;
   }
 
+  async cancelRequestByToken(token: string) {
+    const request = await this.prisma.orderRequest.findUnique({
+      where: { tokenHash: hashToken(token) },
+      include: {
+        business: { select: { name: true, slug: true } },
+        items: true,
+        convertedSale: { include: { receipt: true, delivery: true } },
+      },
+    });
+    if (!request) throw new NotFoundException("Request not found");
+    if (request.status === "CONVERTED" || request.convertedSale) {
+      throw new BadRequestException("Confirmed orders cannot be canceled from the request link");
+    }
+    if (request.status === "CANCELED") {
+      const { tokenHash: _tokenHash, ...safe } = request;
+      return safe;
+    }
+    const canceled = await this.prisma.orderRequest.updateMany({
+      where: {
+        id: request.id,
+        status: { in: ["SENT", "ACCEPTED", "NEEDS_CHANGES"] },
+      },
+      data: { status: "CANCELED" },
+    });
+    if (canceled.count !== 1) {
+      throw new BadRequestException("This request can no longer be canceled from the request link");
+    }
+    const updated = await this.prisma.orderRequest.findUnique({
+      where: { id: request.id },
+      include: {
+        business: { select: { name: true, slug: true } },
+        items: true,
+        convertedSale: { include: { receipt: true, delivery: true } },
+      },
+    });
+    if (!updated) throw new NotFoundException("Request not found");
+    const { tokenHash: _tokenHash, ...safe } = updated;
+    return safe;
+  }
+
   listRequests(auth: OwnerAuthContext) {
     return this.prisma.orderRequest.findMany({
       where: { businessId: auth.businessId },

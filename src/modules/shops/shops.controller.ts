@@ -79,6 +79,13 @@ export class PublicShopsController {
     return this.shops.getRequestByToken(token).then((data) => ok(data));
   }
 
+  @Patch("requests/:token/cancel")
+  cancelRequest(@Param("token") token: string) {
+    return this.shops
+      .cancelRequestByToken(token)
+      .then((data) => ok(data, "Request canceled"));
+  }
+
   private visitor(request: Request) {
     return this.shops.visitorHash(
       `${request.ip}:${request.header("user-agent") ?? ""}`,
