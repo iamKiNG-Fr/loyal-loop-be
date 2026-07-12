@@ -69,6 +69,18 @@ export class DeliveryController {
       .resolveIssue(auth, id, issueId)
       .then((data) => ok(data, "Issue resolved"));
   }
+
+  @Post(":id/issues/:issueId/escalate")
+  @Roles("OWNER", "MANAGER", "DELIVERY")
+  escalate(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Param("id") id: string,
+    @Param("issueId") issueId: string,
+  ) {
+    return this.deliveries
+      .escalateIssue(auth, id, issueId)
+      .then((data) => ok(data, "Issue escalated to Loyal Loop support"));
+  }
 }
 
 @Controller("public/deliveries")

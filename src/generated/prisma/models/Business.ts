@@ -42,6 +42,7 @@ export type BusinessMinAggregateOutputType = {
   id: string | null
   ownerId: string | null
   logoAssetId: string | null
+  coverAssetId: string | null
   name: string | null
   slug: string | null
   publicCardId: string | null
@@ -74,6 +75,7 @@ export type BusinessMaxAggregateOutputType = {
   id: string | null
   ownerId: string | null
   logoAssetId: string | null
+  coverAssetId: string | null
   name: string | null
   slug: string | null
   publicCardId: string | null
@@ -106,6 +108,7 @@ export type BusinessCountAggregateOutputType = {
   id: number
   ownerId: number
   logoAssetId: number
+  coverAssetId: number
   name: number
   slug: number
   publicCardId: number
@@ -152,6 +155,7 @@ export type BusinessMinAggregateInputType = {
   id?: true
   ownerId?: true
   logoAssetId?: true
+  coverAssetId?: true
   name?: true
   slug?: true
   publicCardId?: true
@@ -184,6 +188,7 @@ export type BusinessMaxAggregateInputType = {
   id?: true
   ownerId?: true
   logoAssetId?: true
+  coverAssetId?: true
   name?: true
   slug?: true
   publicCardId?: true
@@ -216,6 +221,7 @@ export type BusinessCountAggregateInputType = {
   id?: true
   ownerId?: true
   logoAssetId?: true
+  coverAssetId?: true
   name?: true
   slug?: true
   publicCardId?: true
@@ -335,6 +341,7 @@ export type BusinessGroupByOutputType = {
   id: string
   ownerId: string
   logoAssetId: string | null
+  coverAssetId: string | null
   name: string
   slug: string
   publicCardId: string
@@ -390,6 +397,7 @@ export type BusinessWhereInput = {
   id?: Prisma.StringFilter<"Business"> | string
   ownerId?: Prisma.StringFilter<"Business"> | string
   logoAssetId?: Prisma.StringNullableFilter<"Business"> | string | null
+  coverAssetId?: Prisma.StringNullableFilter<"Business"> | string | null
   name?: Prisma.StringFilter<"Business"> | string
   slug?: Prisma.StringFilter<"Business"> | string
   publicCardId?: Prisma.StringFilter<"Business"> | string
@@ -418,6 +426,7 @@ export type BusinessWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   logoAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
+  coverAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   launchProduct?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   preferences?: Prisma.XOR<Prisma.BusinessPreferencesNullableScalarRelationFilter, Prisma.BusinessPreferencesWhereInput> | null
   contacts?: Prisma.BusinessContactListRelationFilter
@@ -427,6 +436,9 @@ export type BusinessWhereInput = {
   customers?: Prisma.CustomerListRelationFilter
   customerTags?: Prisma.CustomerTagListRelationFilter
   products?: Prisma.ProductListRelationFilter
+  showcases?: Prisma.ShowcaseListRelationFilter
+  shopFollowers?: Prisma.ShopFollowListRelationFilter
+  savedShowcases?: Prisma.SavedShowcaseListRelationFilter
   sales?: Prisma.SaleListRelationFilter
   receipts?: Prisma.ReceiptListRelationFilter
   deliveries?: Prisma.DeliveryListRelationFilter
@@ -450,6 +462,7 @@ export type BusinessOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   logoAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   publicCardId?: Prisma.SortOrder
@@ -478,6 +491,7 @@ export type BusinessOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   logoAsset?: Prisma.MediaAssetOrderByWithRelationInput
+  coverAsset?: Prisma.MediaAssetOrderByWithRelationInput
   launchProduct?: Prisma.ProductOrderByWithRelationInput
   preferences?: Prisma.BusinessPreferencesOrderByWithRelationInput
   contacts?: Prisma.BusinessContactOrderByRelationAggregateInput
@@ -487,6 +501,9 @@ export type BusinessOrderByWithRelationInput = {
   customers?: Prisma.CustomerOrderByRelationAggregateInput
   customerTags?: Prisma.CustomerTagOrderByRelationAggregateInput
   products?: Prisma.ProductOrderByRelationAggregateInput
+  showcases?: Prisma.ShowcaseOrderByRelationAggregateInput
+  shopFollowers?: Prisma.ShopFollowOrderByRelationAggregateInput
+  savedShowcases?: Prisma.SavedShowcaseOrderByRelationAggregateInput
   sales?: Prisma.SaleOrderByRelationAggregateInput
   receipts?: Prisma.ReceiptOrderByRelationAggregateInput
   deliveries?: Prisma.DeliveryOrderByRelationAggregateInput
@@ -509,6 +526,7 @@ export type BusinessOrderByWithRelationInput = {
 export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   logoAssetId?: string
+  coverAssetId?: string
   slug?: string
   publicCardId?: string
   AND?: Prisma.BusinessWhereInput | Prisma.BusinessWhereInput[]
@@ -541,6 +559,7 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   logoAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
+  coverAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   launchProduct?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   preferences?: Prisma.XOR<Prisma.BusinessPreferencesNullableScalarRelationFilter, Prisma.BusinessPreferencesWhereInput> | null
   contacts?: Prisma.BusinessContactListRelationFilter
@@ -550,6 +569,9 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   customers?: Prisma.CustomerListRelationFilter
   customerTags?: Prisma.CustomerTagListRelationFilter
   products?: Prisma.ProductListRelationFilter
+  showcases?: Prisma.ShowcaseListRelationFilter
+  shopFollowers?: Prisma.ShopFollowListRelationFilter
+  savedShowcases?: Prisma.SavedShowcaseListRelationFilter
   sales?: Prisma.SaleListRelationFilter
   receipts?: Prisma.ReceiptListRelationFilter
   deliveries?: Prisma.DeliveryListRelationFilter
@@ -567,12 +589,13 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   paymentAccounts?: Prisma.BusinessPaymentAccountListRelationFilter
   paymentProofs?: Prisma.PaymentProofListRelationFilter
   shortLinks?: Prisma.ShortLinkListRelationFilter
-}, "id" | "logoAssetId" | "slug" | "publicCardId">
+}, "id" | "logoAssetId" | "coverAssetId" | "slug" | "publicCardId">
 
 export type BusinessOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   logoAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   publicCardId?: Prisma.SortOrder
@@ -613,6 +636,7 @@ export type BusinessScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Business"> | string
   ownerId?: Prisma.StringWithAggregatesFilter<"Business"> | string
   logoAssetId?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  coverAssetId?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"Business"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Business"> | string
   publicCardId?: Prisma.StringWithAggregatesFilter<"Business"> | string
@@ -670,6 +694,7 @@ export type BusinessCreateInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -679,6 +704,9 @@ export type BusinessCreateInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -702,6 +730,7 @@ export type BusinessUncheckedCreateInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -736,6 +765,9 @@ export type BusinessUncheckedCreateInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -784,6 +816,7 @@ export type BusinessUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -793,6 +826,9 @@ export type BusinessUpdateInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -816,6 +852,7 @@ export type BusinessUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -850,6 +887,9 @@ export type BusinessUncheckedUpdateInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -873,6 +913,7 @@ export type BusinessCreateManyInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -934,6 +975,7 @@ export type BusinessUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -976,6 +1018,7 @@ export type BusinessCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   logoAssetId?: Prisma.SortOrder
+  coverAssetId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   publicCardId?: Prisma.SortOrder
@@ -1014,6 +1057,7 @@ export type BusinessMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   logoAssetId?: Prisma.SortOrder
+  coverAssetId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   publicCardId?: Prisma.SortOrder
@@ -1046,6 +1090,7 @@ export type BusinessMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   logoAssetId?: Prisma.SortOrder
+  coverAssetId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   publicCardId?: Prisma.SortOrder
@@ -1242,9 +1287,21 @@ export type BusinessCreateNestedOneWithoutLogoAssetInput = {
   connect?: Prisma.BusinessWhereUniqueInput
 }
 
+export type BusinessCreateNestedOneWithoutCoverAssetInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCoverAssetInput, Prisma.BusinessUncheckedCreateWithoutCoverAssetInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCoverAssetInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
 export type BusinessUncheckedCreateNestedOneWithoutLogoAssetInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutLogoAssetInput, Prisma.BusinessUncheckedCreateWithoutLogoAssetInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutLogoAssetInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUncheckedCreateNestedOneWithoutCoverAssetInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCoverAssetInput, Prisma.BusinessUncheckedCreateWithoutCoverAssetInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCoverAssetInput
   connect?: Prisma.BusinessWhereUniqueInput
 }
 
@@ -1266,6 +1323,16 @@ export type BusinessUpdateOneWithoutLogoAssetNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutLogoAssetInput, Prisma.BusinessUpdateWithoutLogoAssetInput>, Prisma.BusinessUncheckedUpdateWithoutLogoAssetInput>
 }
 
+export type BusinessUpdateOneWithoutCoverAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCoverAssetInput, Prisma.BusinessUncheckedCreateWithoutCoverAssetInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCoverAssetInput
+  upsert?: Prisma.BusinessUpsertWithoutCoverAssetInput
+  disconnect?: Prisma.BusinessWhereInput | boolean
+  delete?: Prisma.BusinessWhereInput | boolean
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutCoverAssetInput, Prisma.BusinessUpdateWithoutCoverAssetInput>, Prisma.BusinessUncheckedUpdateWithoutCoverAssetInput>
+}
+
 export type BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutLogoAssetInput, Prisma.BusinessUncheckedCreateWithoutLogoAssetInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutLogoAssetInput
@@ -1274,6 +1341,16 @@ export type BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput = {
   delete?: Prisma.BusinessWhereInput | boolean
   connect?: Prisma.BusinessWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutLogoAssetInput, Prisma.BusinessUpdateWithoutLogoAssetInput>, Prisma.BusinessUncheckedUpdateWithoutLogoAssetInput>
+}
+
+export type BusinessUncheckedUpdateOneWithoutCoverAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCoverAssetInput, Prisma.BusinessUncheckedCreateWithoutCoverAssetInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCoverAssetInput
+  upsert?: Prisma.BusinessUpsertWithoutCoverAssetInput
+  disconnect?: Prisma.BusinessWhereInput | boolean
+  delete?: Prisma.BusinessWhereInput | boolean
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutCoverAssetInput, Prisma.BusinessUpdateWithoutCoverAssetInput>, Prisma.BusinessUncheckedUpdateWithoutCoverAssetInput>
 }
 
 export type BusinessCreateNestedOneWithoutCustomersInput = {
@@ -1358,6 +1435,48 @@ export type BusinessUncheckedUpdateManyWithoutLaunchProductNestedInput = {
   update?: Prisma.BusinessUpdateWithWhereUniqueWithoutLaunchProductInput | Prisma.BusinessUpdateWithWhereUniqueWithoutLaunchProductInput[]
   updateMany?: Prisma.BusinessUpdateManyWithWhereWithoutLaunchProductInput | Prisma.BusinessUpdateManyWithWhereWithoutLaunchProductInput[]
   deleteMany?: Prisma.BusinessScalarWhereInput | Prisma.BusinessScalarWhereInput[]
+}
+
+export type BusinessCreateNestedOneWithoutShowcasesInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutShowcasesInput, Prisma.BusinessUncheckedCreateWithoutShowcasesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutShowcasesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutShowcasesNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutShowcasesInput, Prisma.BusinessUncheckedCreateWithoutShowcasesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutShowcasesInput
+  upsert?: Prisma.BusinessUpsertWithoutShowcasesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutShowcasesInput, Prisma.BusinessUpdateWithoutShowcasesInput>, Prisma.BusinessUncheckedUpdateWithoutShowcasesInput>
+}
+
+export type BusinessCreateNestedOneWithoutSavedShowcasesInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutSavedShowcasesInput, Prisma.BusinessUncheckedCreateWithoutSavedShowcasesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutSavedShowcasesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutSavedShowcasesNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutSavedShowcasesInput, Prisma.BusinessUncheckedCreateWithoutSavedShowcasesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutSavedShowcasesInput
+  upsert?: Prisma.BusinessUpsertWithoutSavedShowcasesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutSavedShowcasesInput, Prisma.BusinessUpdateWithoutSavedShowcasesInput>, Prisma.BusinessUncheckedUpdateWithoutSavedShowcasesInput>
+}
+
+export type BusinessCreateNestedOneWithoutShopFollowersInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutShopFollowersInput, Prisma.BusinessUncheckedCreateWithoutShopFollowersInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutShopFollowersInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutShopFollowersNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutShopFollowersInput, Prisma.BusinessUncheckedCreateWithoutShopFollowersInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutShopFollowersInput
+  upsert?: Prisma.BusinessUpsertWithoutShopFollowersInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutShopFollowersInput, Prisma.BusinessUpdateWithoutShopFollowersInput>, Prisma.BusinessUncheckedUpdateWithoutShopFollowersInput>
 }
 
 export type BusinessCreateNestedOneWithoutWishlistItemsInput = {
@@ -1614,6 +1733,7 @@ export type BusinessCreateWithoutOwnerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -1623,6 +1743,9 @@ export type BusinessCreateWithoutOwnerInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -1645,6 +1768,7 @@ export type BusinessCreateWithoutOwnerInput = {
 export type BusinessUncheckedCreateWithoutOwnerInput = {
   id?: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -1679,6 +1803,9 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -1731,6 +1858,7 @@ export type BusinessScalarWhereInput = {
   id?: Prisma.StringFilter<"Business"> | string
   ownerId?: Prisma.StringFilter<"Business"> | string
   logoAssetId?: Prisma.StringNullableFilter<"Business"> | string | null
+  coverAssetId?: Prisma.StringNullableFilter<"Business"> | string | null
   name?: Prisma.StringFilter<"Business"> | string
   slug?: Prisma.StringFilter<"Business"> | string
   publicCardId?: Prisma.StringFilter<"Business"> | string
@@ -1788,6 +1916,7 @@ export type BusinessCreateWithoutPreferencesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -1796,6 +1925,9 @@ export type BusinessCreateWithoutPreferencesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -1819,6 +1951,7 @@ export type BusinessUncheckedCreateWithoutPreferencesInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -1852,6 +1985,9 @@ export type BusinessUncheckedCreateWithoutPreferencesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -1916,6 +2052,7 @@ export type BusinessUpdateWithoutPreferencesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -1924,6 +2061,9 @@ export type BusinessUpdateWithoutPreferencesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -1947,6 +2087,7 @@ export type BusinessUncheckedUpdateWithoutPreferencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1980,6 +2121,9 @@ export type BusinessUncheckedUpdateWithoutPreferencesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2028,6 +2172,7 @@ export type BusinessCreateWithoutContactsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -2036,6 +2181,9 @@ export type BusinessCreateWithoutContactsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -2059,6 +2207,7 @@ export type BusinessUncheckedCreateWithoutContactsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -2092,6 +2241,9 @@ export type BusinessUncheckedCreateWithoutContactsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -2156,6 +2308,7 @@ export type BusinessUpdateWithoutContactsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -2164,6 +2317,9 @@ export type BusinessUpdateWithoutContactsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -2187,6 +2343,7 @@ export type BusinessUncheckedUpdateWithoutContactsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2220,6 +2377,9 @@ export type BusinessUncheckedUpdateWithoutContactsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2268,6 +2428,7 @@ export type BusinessCreateWithoutPaymentAccountsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -2277,6 +2438,9 @@ export type BusinessCreateWithoutPaymentAccountsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -2299,6 +2463,7 @@ export type BusinessUncheckedCreateWithoutPaymentAccountsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -2333,6 +2498,9 @@ export type BusinessUncheckedCreateWithoutPaymentAccountsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -2396,6 +2564,7 @@ export type BusinessUpdateWithoutPaymentAccountsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -2405,6 +2574,9 @@ export type BusinessUpdateWithoutPaymentAccountsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -2427,6 +2599,7 @@ export type BusinessUncheckedUpdateWithoutPaymentAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2461,6 +2634,9 @@ export type BusinessUncheckedUpdateWithoutPaymentAccountsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2508,6 +2684,7 @@ export type BusinessCreateWithoutMembersInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -2516,6 +2693,9 @@ export type BusinessCreateWithoutMembersInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -2539,6 +2719,7 @@ export type BusinessUncheckedCreateWithoutMembersInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -2572,6 +2753,9 @@ export type BusinessUncheckedCreateWithoutMembersInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -2636,6 +2820,7 @@ export type BusinessUpdateWithoutMembersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -2644,6 +2829,9 @@ export type BusinessUpdateWithoutMembersInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -2667,6 +2855,7 @@ export type BusinessUncheckedUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2700,6 +2889,9 @@ export type BusinessUncheckedUpdateWithoutMembersInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2748,6 +2940,7 @@ export type BusinessCreateWithoutInvitationsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -2756,6 +2949,9 @@ export type BusinessCreateWithoutInvitationsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -2779,6 +2975,7 @@ export type BusinessUncheckedCreateWithoutInvitationsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -2812,6 +3009,9 @@ export type BusinessUncheckedCreateWithoutInvitationsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -2876,6 +3076,7 @@ export type BusinessUpdateWithoutInvitationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -2884,6 +3085,9 @@ export type BusinessUpdateWithoutInvitationsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -2907,6 +3111,7 @@ export type BusinessUncheckedUpdateWithoutInvitationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2940,6 +3145,9 @@ export type BusinessUncheckedUpdateWithoutInvitationsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2988,6 +3196,7 @@ export type BusinessCreateWithoutAssetsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -2996,6 +3205,9 @@ export type BusinessCreateWithoutAssetsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -3019,6 +3231,7 @@ export type BusinessUncheckedCreateWithoutAssetsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -3052,6 +3265,9 @@ export type BusinessUncheckedCreateWithoutAssetsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -3104,6 +3320,7 @@ export type BusinessCreateWithoutLogoAssetInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -3113,6 +3330,9 @@ export type BusinessCreateWithoutLogoAssetInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -3135,6 +3355,7 @@ export type BusinessCreateWithoutLogoAssetInput = {
 export type BusinessUncheckedCreateWithoutLogoAssetInput = {
   id?: string
   ownerId: string
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -3169,6 +3390,9 @@ export type BusinessUncheckedCreateWithoutLogoAssetInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -3191,6 +3415,131 @@ export type BusinessUncheckedCreateWithoutLogoAssetInput = {
 export type BusinessCreateOrConnectWithoutLogoAssetInput = {
   where: Prisma.BusinessWhereUniqueInput
   create: Prisma.XOR<Prisma.BusinessCreateWithoutLogoAssetInput, Prisma.BusinessUncheckedCreateWithoutLogoAssetInput>
+}
+
+export type BusinessCreateWithoutCoverAssetInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutCoverAssetInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutCoverAssetInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCoverAssetInput, Prisma.BusinessUncheckedCreateWithoutCoverAssetInput>
 }
 
 export type BusinessUpsertWithoutAssetsInput = {
@@ -3233,6 +3582,7 @@ export type BusinessUpdateWithoutAssetsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -3241,6 +3591,9 @@ export type BusinessUpdateWithoutAssetsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -3264,6 +3617,7 @@ export type BusinessUncheckedUpdateWithoutAssetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3297,6 +3651,9 @@ export type BusinessUncheckedUpdateWithoutAssetsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3355,6 +3712,7 @@ export type BusinessUpdateWithoutLogoAssetInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -3364,6 +3722,9 @@ export type BusinessUpdateWithoutLogoAssetInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -3386,6 +3747,7 @@ export type BusinessUpdateWithoutLogoAssetInput = {
 export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3420,6 +3782,140 @@ export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUpsertWithoutCoverAssetInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutCoverAssetInput, Prisma.BusinessUncheckedUpdateWithoutCoverAssetInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCoverAssetInput, Prisma.BusinessUncheckedCreateWithoutCoverAssetInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutCoverAssetInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutCoverAssetInput, Prisma.BusinessUncheckedUpdateWithoutCoverAssetInput>
+}
+
+export type BusinessUpdateWithoutCoverAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutCoverAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3468,6 +3964,7 @@ export type BusinessCreateWithoutCustomersInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -3476,6 +3973,9 @@ export type BusinessCreateWithoutCustomersInput = {
   assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -3499,6 +3999,7 @@ export type BusinessUncheckedCreateWithoutCustomersInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -3532,6 +4033,9 @@ export type BusinessUncheckedCreateWithoutCustomersInput = {
   assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -3596,6 +4100,7 @@ export type BusinessUpdateWithoutCustomersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -3604,6 +4109,9 @@ export type BusinessUpdateWithoutCustomersInput = {
   assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -3627,6 +4135,7 @@ export type BusinessUncheckedUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3660,6 +4169,9 @@ export type BusinessUncheckedUpdateWithoutCustomersInput = {
   assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3708,6 +4220,7 @@ export type BusinessCreateWithoutCustomerTagsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -3716,6 +4229,9 @@ export type BusinessCreateWithoutCustomerTagsInput = {
   assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -3739,6 +4255,7 @@ export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -3772,6 +4289,9 @@ export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
   assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -3836,6 +4356,7 @@ export type BusinessUpdateWithoutCustomerTagsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -3844,6 +4365,9 @@ export type BusinessUpdateWithoutCustomerTagsInput = {
   assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -3867,6 +4391,7 @@ export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3900,6 +4425,9 @@ export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
   assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -3948,6 +4476,7 @@ export type BusinessCreateWithoutProductsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -3956,6 +4485,9 @@ export type BusinessCreateWithoutProductsInput = {
   assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -3979,6 +4511,7 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -4012,6 +4545,9 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -4065,6 +4601,7 @@ export type BusinessCreateWithoutLaunchProductInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
   members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
@@ -4073,6 +4610,9 @@ export type BusinessCreateWithoutLaunchProductInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -4096,6 +4636,7 @@ export type BusinessUncheckedCreateWithoutLaunchProductInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -4129,6 +4670,9 @@ export type BusinessUncheckedCreateWithoutLaunchProductInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -4198,6 +4742,7 @@ export type BusinessUpdateWithoutProductsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -4206,6 +4751,9 @@ export type BusinessUpdateWithoutProductsInput = {
   assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -4229,6 +4777,7 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4262,6 +4811,9 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4297,7 +4849,7 @@ export type BusinessUpdateManyWithWhereWithoutLaunchProductInput = {
   data: Prisma.XOR<Prisma.BusinessUpdateManyMutationInput, Prisma.BusinessUncheckedUpdateManyWithoutLaunchProductInput>
 }
 
-export type BusinessCreateWithoutWishlistItemsInput = {
+export type BusinessCreateWithoutShowcasesInput = {
   id?: string
   name: string
   slug: string
@@ -4326,6 +4878,7 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -4335,6 +4888,8 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -4342,6 +4897,7 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
   followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
   orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
   productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
@@ -4353,10 +4909,11 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
 }
 
-export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
+export type BusinessUncheckedCreateWithoutShowcasesInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -4391,6 +4948,777 @@ export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutShowcasesInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutShowcasesInput, Prisma.BusinessUncheckedCreateWithoutShowcasesInput>
+}
+
+export type BusinessUpsertWithoutShowcasesInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutShowcasesInput, Prisma.BusinessUncheckedUpdateWithoutShowcasesInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutShowcasesInput, Prisma.BusinessUncheckedCreateWithoutShowcasesInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutShowcasesInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutShowcasesInput, Prisma.BusinessUncheckedUpdateWithoutShowcasesInput>
+}
+
+export type BusinessUpdateWithoutShowcasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutShowcasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutSavedShowcasesInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutSavedShowcasesInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutSavedShowcasesInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutSavedShowcasesInput, Prisma.BusinessUncheckedCreateWithoutSavedShowcasesInput>
+}
+
+export type BusinessUpsertWithoutSavedShowcasesInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutSavedShowcasesInput, Prisma.BusinessUncheckedUpdateWithoutSavedShowcasesInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutSavedShowcasesInput, Prisma.BusinessUncheckedCreateWithoutSavedShowcasesInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutSavedShowcasesInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutSavedShowcasesInput, Prisma.BusinessUncheckedUpdateWithoutSavedShowcasesInput>
+}
+
+export type BusinessUpdateWithoutSavedShowcasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutSavedShowcasesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutShopFollowersInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutShopFollowersInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutShopFollowersInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutShopFollowersInput, Prisma.BusinessUncheckedCreateWithoutShopFollowersInput>
+}
+
+export type BusinessUpsertWithoutShopFollowersInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutShopFollowersInput, Prisma.BusinessUncheckedUpdateWithoutShopFollowersInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutShopFollowersInput, Prisma.BusinessUncheckedCreateWithoutShopFollowersInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutShopFollowersInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutShopFollowersInput, Prisma.BusinessUncheckedUpdateWithoutShopFollowersInput>
+}
+
+export type BusinessUpdateWithoutShopFollowersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutShopFollowersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutWishlistItemsInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -4454,6 +5782,7 @@ export type BusinessUpdateWithoutWishlistItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -4463,6 +5792,9 @@ export type BusinessUpdateWithoutWishlistItemsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -4485,6 +5817,7 @@ export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4519,6 +5852,9 @@ export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4566,6 +5902,7 @@ export type BusinessCreateWithoutProductInterestsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -4575,6 +5912,9 @@ export type BusinessCreateWithoutProductInterestsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -4597,6 +5937,7 @@ export type BusinessUncheckedCreateWithoutProductInterestsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -4631,6 +5972,9 @@ export type BusinessUncheckedCreateWithoutProductInterestsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -4694,6 +6038,7 @@ export type BusinessUpdateWithoutProductInterestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -4703,6 +6048,9 @@ export type BusinessUpdateWithoutProductInterestsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -4725,6 +6073,7 @@ export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4759,6 +6108,9 @@ export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -4806,6 +6158,7 @@ export type BusinessCreateWithoutOrderRequestsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -4815,6 +6168,9 @@ export type BusinessCreateWithoutOrderRequestsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -4837,6 +6193,7 @@ export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -4871,6 +6228,9 @@ export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -4934,6 +6294,7 @@ export type BusinessUpdateWithoutOrderRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -4943,6 +6304,9 @@ export type BusinessUpdateWithoutOrderRequestsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -4965,6 +6329,7 @@ export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4999,6 +6364,9 @@ export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5046,6 +6414,7 @@ export type BusinessCreateWithoutCommerceEventsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -5055,6 +6424,9 @@ export type BusinessCreateWithoutCommerceEventsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -5077,6 +6449,7 @@ export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -5111,6 +6484,9 @@ export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -5174,6 +6550,7 @@ export type BusinessUpdateWithoutCommerceEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -5183,6 +6560,9 @@ export type BusinessUpdateWithoutCommerceEventsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -5205,6 +6585,7 @@ export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5239,6 +6620,9 @@ export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5286,6 +6670,7 @@ export type BusinessCreateWithoutSalesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -5295,6 +6680,9 @@ export type BusinessCreateWithoutSalesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
@@ -5317,6 +6705,7 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -5351,6 +6740,9 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
@@ -5414,6 +6806,7 @@ export type BusinessUpdateWithoutSalesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -5423,6 +6816,9 @@ export type BusinessUpdateWithoutSalesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
@@ -5445,6 +6841,7 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5479,6 +6876,9 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5526,6 +6926,7 @@ export type BusinessCreateWithoutPaymentProofsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -5535,6 +6936,9 @@ export type BusinessCreateWithoutPaymentProofsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -5557,6 +6961,7 @@ export type BusinessUncheckedCreateWithoutPaymentProofsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -5591,6 +6996,9 @@ export type BusinessUncheckedCreateWithoutPaymentProofsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -5654,6 +7062,7 @@ export type BusinessUpdateWithoutPaymentProofsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -5663,6 +7072,9 @@ export type BusinessUpdateWithoutPaymentProofsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -5685,6 +7097,7 @@ export type BusinessUncheckedUpdateWithoutPaymentProofsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5719,6 +7132,9 @@ export type BusinessUncheckedUpdateWithoutPaymentProofsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -5766,6 +7182,7 @@ export type BusinessCreateWithoutReceiptsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -5775,6 +7192,9 @@ export type BusinessCreateWithoutReceiptsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
@@ -5797,6 +7217,7 @@ export type BusinessUncheckedCreateWithoutReceiptsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -5831,6 +7252,9 @@ export type BusinessUncheckedCreateWithoutReceiptsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
@@ -5894,6 +7318,7 @@ export type BusinessUpdateWithoutReceiptsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -5903,6 +7328,9 @@ export type BusinessUpdateWithoutReceiptsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
@@ -5925,6 +7353,7 @@ export type BusinessUncheckedUpdateWithoutReceiptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -5959,6 +7388,9 @@ export type BusinessUncheckedUpdateWithoutReceiptsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
@@ -6006,6 +7438,7 @@ export type BusinessCreateWithoutShortLinksInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -6015,6 +7448,9 @@ export type BusinessCreateWithoutShortLinksInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -6037,6 +7473,7 @@ export type BusinessUncheckedCreateWithoutShortLinksInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -6071,6 +7508,9 @@ export type BusinessUncheckedCreateWithoutShortLinksInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -6134,6 +7574,7 @@ export type BusinessUpdateWithoutShortLinksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -6143,6 +7584,9 @@ export type BusinessUpdateWithoutShortLinksInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -6165,6 +7609,7 @@ export type BusinessUncheckedUpdateWithoutShortLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6199,6 +7644,9 @@ export type BusinessUncheckedUpdateWithoutShortLinksInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -6246,6 +7694,7 @@ export type BusinessCreateWithoutDeliveriesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -6255,6 +7704,9 @@ export type BusinessCreateWithoutDeliveriesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
@@ -6277,6 +7729,7 @@ export type BusinessUncheckedCreateWithoutDeliveriesInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -6311,6 +7764,9 @@ export type BusinessUncheckedCreateWithoutDeliveriesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
@@ -6374,6 +7830,7 @@ export type BusinessUpdateWithoutDeliveriesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -6383,6 +7840,9 @@ export type BusinessUpdateWithoutDeliveriesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
@@ -6405,6 +7865,7 @@ export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6439,6 +7900,9 @@ export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
@@ -6486,6 +7950,7 @@ export type BusinessCreateWithoutActivityEventsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -6495,6 +7960,9 @@ export type BusinessCreateWithoutActivityEventsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -6517,6 +7985,7 @@ export type BusinessUncheckedCreateWithoutActivityEventsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -6551,6 +8020,9 @@ export type BusinessUncheckedCreateWithoutActivityEventsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -6614,6 +8086,7 @@ export type BusinessUpdateWithoutActivityEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -6623,6 +8096,9 @@ export type BusinessUpdateWithoutActivityEventsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -6645,6 +8121,7 @@ export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6679,6 +8156,9 @@ export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -6726,6 +8206,7 @@ export type BusinessCreateWithoutFollowUpTemplatesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -6735,6 +8216,9 @@ export type BusinessCreateWithoutFollowUpTemplatesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -6757,6 +8241,7 @@ export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -6791,6 +8276,9 @@ export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -6854,6 +8342,7 @@ export type BusinessUpdateWithoutFollowUpTemplatesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -6863,6 +8352,9 @@ export type BusinessUpdateWithoutFollowUpTemplatesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -6885,6 +8377,7 @@ export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -6919,6 +8412,9 @@ export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -6966,6 +8462,7 @@ export type BusinessCreateWithoutFollowUpSuggestionsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -6975,6 +8472,9 @@ export type BusinessCreateWithoutFollowUpSuggestionsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -6997,6 +8497,7 @@ export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -7031,6 +8532,9 @@ export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -7094,6 +8598,7 @@ export type BusinessUpdateWithoutFollowUpSuggestionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -7103,6 +8608,9 @@ export type BusinessUpdateWithoutFollowUpSuggestionsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -7125,6 +8633,7 @@ export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7159,6 +8668,9 @@ export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -7206,6 +8718,7 @@ export type BusinessCreateWithoutFeedbackInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -7215,6 +8728,9 @@ export type BusinessCreateWithoutFeedbackInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -7237,6 +8753,7 @@ export type BusinessUncheckedCreateWithoutFeedbackInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -7271,6 +8788,9 @@ export type BusinessUncheckedCreateWithoutFeedbackInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -7334,6 +8854,7 @@ export type BusinessUpdateWithoutFeedbackInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -7343,6 +8864,9 @@ export type BusinessUpdateWithoutFeedbackInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -7365,6 +8889,7 @@ export type BusinessUncheckedUpdateWithoutFeedbackInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7399,6 +8924,9 @@ export type BusinessUncheckedUpdateWithoutFeedbackInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -7446,6 +8974,7 @@ export type BusinessCreateWithoutIssuesInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -7455,6 +8984,9 @@ export type BusinessCreateWithoutIssuesInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -7477,6 +9009,7 @@ export type BusinessUncheckedCreateWithoutIssuesInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -7511,6 +9044,9 @@ export type BusinessUncheckedCreateWithoutIssuesInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -7574,6 +9110,7 @@ export type BusinessUpdateWithoutIssuesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -7583,6 +9120,9 @@ export type BusinessUpdateWithoutIssuesInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -7605,6 +9145,7 @@ export type BusinessUncheckedUpdateWithoutIssuesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7639,6 +9180,9 @@ export type BusinessUncheckedUpdateWithoutIssuesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -7686,6 +9230,7 @@ export type BusinessCreateWithoutTrustLedgerInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -7695,6 +9240,9 @@ export type BusinessCreateWithoutTrustLedgerInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -7717,6 +9265,7 @@ export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -7751,6 +9300,9 @@ export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -7814,6 +9366,7 @@ export type BusinessUpdateWithoutTrustLedgerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -7823,6 +9376,9 @@ export type BusinessUpdateWithoutTrustLedgerInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -7845,6 +9401,7 @@ export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -7879,6 +9436,9 @@ export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -7926,6 +9486,7 @@ export type BusinessCreateWithoutSupportRequestsInput = {
   updatedAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
   logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
   launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
   preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
   contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
@@ -7935,6 +9496,9 @@ export type BusinessCreateWithoutSupportRequestsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
@@ -7957,6 +9521,7 @@ export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -7991,6 +9556,9 @@ export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
   customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
   deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
@@ -8054,6 +9622,7 @@ export type BusinessUpdateWithoutSupportRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -8063,6 +9632,9 @@ export type BusinessUpdateWithoutSupportRequestsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -8085,6 +9657,7 @@ export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8119,6 +9692,9 @@ export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -8140,6 +9716,7 @@ export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
 export type BusinessCreateManyOwnerInput = {
   id?: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -8196,6 +9773,7 @@ export type BusinessUpdateWithoutOwnerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
@@ -8205,6 +9783,9 @@ export type BusinessUpdateWithoutOwnerInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -8227,6 +9808,7 @@ export type BusinessUpdateWithoutOwnerInput = {
 export type BusinessUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8261,6 +9843,9 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -8283,6 +9868,7 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
 export type BusinessUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8315,6 +9901,7 @@ export type BusinessCreateManyLaunchProductInput = {
   id?: string
   ownerId: string
   logoAssetId?: string | null
+  coverAssetId?: string | null
   name: string
   slug: string
   publicCardId: string
@@ -8371,6 +9958,7 @@ export type BusinessUpdateWithoutLaunchProductInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
   logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
   preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
   contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
   members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
@@ -8379,6 +9967,9 @@ export type BusinessUpdateWithoutLaunchProductInput = {
   customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
@@ -8402,6 +9993,7 @@ export type BusinessUncheckedUpdateWithoutLaunchProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8435,6 +10027,9 @@ export type BusinessUncheckedUpdateWithoutLaunchProductInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
   deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
@@ -8458,6 +10053,7 @@ export type BusinessUncheckedUpdateManyWithoutLaunchProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -8498,6 +10094,9 @@ export type BusinessCountOutputType = {
   customers: number
   customerTags: number
   products: number
+  showcases: number
+  shopFollowers: number
+  savedShowcases: number
   sales: number
   receipts: number
   deliveries: number
@@ -8525,6 +10124,9 @@ export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   customers?: boolean | BusinessCountOutputTypeCountCustomersArgs
   customerTags?: boolean | BusinessCountOutputTypeCountCustomerTagsArgs
   products?: boolean | BusinessCountOutputTypeCountProductsArgs
+  showcases?: boolean | BusinessCountOutputTypeCountShowcasesArgs
+  shopFollowers?: boolean | BusinessCountOutputTypeCountShopFollowersArgs
+  savedShowcases?: boolean | BusinessCountOutputTypeCountSavedShowcasesArgs
   sales?: boolean | BusinessCountOutputTypeCountSalesArgs
   receipts?: boolean | BusinessCountOutputTypeCountReceiptsArgs
   deliveries?: boolean | BusinessCountOutputTypeCountDeliveriesArgs
@@ -8601,6 +10203,27 @@ export type BusinessCountOutputTypeCountCustomerTagsArgs<ExtArgs extends runtime
  */
 export type BusinessCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ProductWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountShowcasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShowcaseWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountShopFollowersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShopFollowWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountSavedShowcasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SavedShowcaseWhereInput
 }
 
 /**
@@ -8727,6 +10350,7 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   ownerId?: boolean
   logoAssetId?: boolean
+  coverAssetId?: boolean
   name?: boolean
   slug?: boolean
   publicCardId?: boolean
@@ -8755,6 +10379,7 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  coverAsset?: boolean | Prisma.Business$coverAssetArgs<ExtArgs>
   launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
   preferences?: boolean | Prisma.Business$preferencesArgs<ExtArgs>
   contacts?: boolean | Prisma.Business$contactsArgs<ExtArgs>
@@ -8764,6 +10389,9 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   customers?: boolean | Prisma.Business$customersArgs<ExtArgs>
   customerTags?: boolean | Prisma.Business$customerTagsArgs<ExtArgs>
   products?: boolean | Prisma.Business$productsArgs<ExtArgs>
+  showcases?: boolean | Prisma.Business$showcasesArgs<ExtArgs>
+  shopFollowers?: boolean | Prisma.Business$shopFollowersArgs<ExtArgs>
+  savedShowcases?: boolean | Prisma.Business$savedShowcasesArgs<ExtArgs>
   sales?: boolean | Prisma.Business$salesArgs<ExtArgs>
   receipts?: boolean | Prisma.Business$receiptsArgs<ExtArgs>
   deliveries?: boolean | Prisma.Business$deliveriesArgs<ExtArgs>
@@ -8788,6 +10416,7 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   ownerId?: boolean
   logoAssetId?: boolean
+  coverAssetId?: boolean
   name?: boolean
   slug?: boolean
   publicCardId?: boolean
@@ -8816,6 +10445,7 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  coverAsset?: boolean | Prisma.Business$coverAssetArgs<ExtArgs>
   launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
 }, ExtArgs["result"]["business"]>
 
@@ -8823,6 +10453,7 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   ownerId?: boolean
   logoAssetId?: boolean
+  coverAssetId?: boolean
   name?: boolean
   slug?: boolean
   publicCardId?: boolean
@@ -8851,6 +10482,7 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   updatedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  coverAsset?: boolean | Prisma.Business$coverAssetArgs<ExtArgs>
   launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
 }, ExtArgs["result"]["business"]>
 
@@ -8858,6 +10490,7 @@ export type BusinessSelectScalar = {
   id?: boolean
   ownerId?: boolean
   logoAssetId?: boolean
+  coverAssetId?: boolean
   name?: boolean
   slug?: boolean
   publicCardId?: boolean
@@ -8886,10 +10519,11 @@ export type BusinessSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "logoAssetId" | "name" | "slug" | "publicCardId" | "category" | "categoryDetail" | "description" | "location" | "storeStatus" | "launchAt" | "launchTimezone" | "launchTemplate" | "launchMessage" | "launchProductId" | "launchAutoOpen" | "launchShareVersion" | "launchedAt" | "pledgeSignature" | "pledgedAt" | "plan" | "subscriptionStatus" | "trialStartedAt" | "trialEndsAt" | "customerLimit" | "receiptLimit" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
+export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerId" | "logoAssetId" | "coverAssetId" | "name" | "slug" | "publicCardId" | "category" | "categoryDetail" | "description" | "location" | "storeStatus" | "launchAt" | "launchTimezone" | "launchTemplate" | "launchMessage" | "launchProductId" | "launchAutoOpen" | "launchShareVersion" | "launchedAt" | "pledgeSignature" | "pledgedAt" | "plan" | "subscriptionStatus" | "trialStartedAt" | "trialEndsAt" | "customerLimit" | "receiptLimit" | "createdAt" | "updatedAt", ExtArgs["result"]["business"]>
 export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  coverAsset?: boolean | Prisma.Business$coverAssetArgs<ExtArgs>
   launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
   preferences?: boolean | Prisma.Business$preferencesArgs<ExtArgs>
   contacts?: boolean | Prisma.Business$contactsArgs<ExtArgs>
@@ -8899,6 +10533,9 @@ export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   customers?: boolean | Prisma.Business$customersArgs<ExtArgs>
   customerTags?: boolean | Prisma.Business$customerTagsArgs<ExtArgs>
   products?: boolean | Prisma.Business$productsArgs<ExtArgs>
+  showcases?: boolean | Prisma.Business$showcasesArgs<ExtArgs>
+  shopFollowers?: boolean | Prisma.Business$shopFollowersArgs<ExtArgs>
+  savedShowcases?: boolean | Prisma.Business$savedShowcasesArgs<ExtArgs>
   sales?: boolean | Prisma.Business$salesArgs<ExtArgs>
   receipts?: boolean | Prisma.Business$receiptsArgs<ExtArgs>
   deliveries?: boolean | Prisma.Business$deliveriesArgs<ExtArgs>
@@ -8921,11 +10558,13 @@ export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type BusinessIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  coverAsset?: boolean | Prisma.Business$coverAssetArgs<ExtArgs>
   launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
 }
 export type BusinessIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   logoAsset?: boolean | Prisma.Business$logoAssetArgs<ExtArgs>
+  coverAsset?: boolean | Prisma.Business$coverAssetArgs<ExtArgs>
   launchProduct?: boolean | Prisma.Business$launchProductArgs<ExtArgs>
 }
 
@@ -8934,6 +10573,7 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     owner: Prisma.$UserPayload<ExtArgs>
     logoAsset: Prisma.$MediaAssetPayload<ExtArgs> | null
+    coverAsset: Prisma.$MediaAssetPayload<ExtArgs> | null
     launchProduct: Prisma.$ProductPayload<ExtArgs> | null
     preferences: Prisma.$BusinessPreferencesPayload<ExtArgs> | null
     contacts: Prisma.$BusinessContactPayload<ExtArgs>[]
@@ -8943,6 +10583,9 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     customers: Prisma.$CustomerPayload<ExtArgs>[]
     customerTags: Prisma.$CustomerTagPayload<ExtArgs>[]
     products: Prisma.$ProductPayload<ExtArgs>[]
+    showcases: Prisma.$ShowcasePayload<ExtArgs>[]
+    shopFollowers: Prisma.$ShopFollowPayload<ExtArgs>[]
+    savedShowcases: Prisma.$SavedShowcasePayload<ExtArgs>[]
     sales: Prisma.$SalePayload<ExtArgs>[]
     receipts: Prisma.$ReceiptPayload<ExtArgs>[]
     deliveries: Prisma.$DeliveryPayload<ExtArgs>[]
@@ -8965,6 +10608,7 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     ownerId: string
     logoAssetId: string | null
+    coverAssetId: string | null
     name: string
     slug: string
     publicCardId: string
@@ -9387,6 +11031,7 @@ export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   logoAsset<T extends Prisma.Business$logoAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$logoAssetArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  coverAsset<T extends Prisma.Business$coverAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$coverAssetArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   launchProduct<T extends Prisma.Business$launchProductArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$launchProductArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   preferences<T extends Prisma.Business$preferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$preferencesArgs<ExtArgs>>): Prisma.Prisma__BusinessPreferencesClient<runtime.Types.Result.GetResult<Prisma.$BusinessPreferencesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   contacts<T extends Prisma.Business$contactsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9396,6 +11041,9 @@ export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends runtime
   customers<T extends Prisma.Business$customersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$customersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customerTags<T extends Prisma.Business$customerTagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$customerTagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   products<T extends Prisma.Business$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  showcases<T extends Prisma.Business$showcasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$showcasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShowcasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shopFollowers<T extends Prisma.Business$shopFollowersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$shopFollowersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShopFollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  savedShowcases<T extends Prisma.Business$savedShowcasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$savedShowcasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedShowcasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sales<T extends Prisma.Business$salesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$salesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receipts<T extends Prisma.Business$receiptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$receiptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deliveries<T extends Prisma.Business$deliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$deliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9445,6 +11093,7 @@ export interface BusinessFieldRefs {
   readonly id: Prisma.FieldRef<"Business", 'String'>
   readonly ownerId: Prisma.FieldRef<"Business", 'String'>
   readonly logoAssetId: Prisma.FieldRef<"Business", 'String'>
+  readonly coverAssetId: Prisma.FieldRef<"Business", 'String'>
   readonly name: Prisma.FieldRef<"Business", 'String'>
   readonly slug: Prisma.FieldRef<"Business", 'String'>
   readonly publicCardId: Prisma.FieldRef<"Business", 'String'>
@@ -9891,6 +11540,25 @@ export type Business$logoAssetArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Business.coverAsset
+ */
+export type Business$coverAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MediaAsset
+   */
+  select?: Prisma.MediaAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MediaAsset
+   */
+  omit?: Prisma.MediaAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MediaAssetInclude<ExtArgs> | null
+  where?: Prisma.MediaAssetWhereInput
+}
+
+/**
  * Business.launchProduct
  */
 export type Business$launchProductArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -10094,6 +11762,78 @@ export type Business$productsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
+}
+
+/**
+ * Business.showcases
+ */
+export type Business$showcasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Showcase
+   */
+  select?: Prisma.ShowcaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Showcase
+   */
+  omit?: Prisma.ShowcaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShowcaseInclude<ExtArgs> | null
+  where?: Prisma.ShowcaseWhereInput
+  orderBy?: Prisma.ShowcaseOrderByWithRelationInput | Prisma.ShowcaseOrderByWithRelationInput[]
+  cursor?: Prisma.ShowcaseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShowcaseScalarFieldEnum | Prisma.ShowcaseScalarFieldEnum[]
+}
+
+/**
+ * Business.shopFollowers
+ */
+export type Business$shopFollowersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShopFollow
+   */
+  select?: Prisma.ShopFollowSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShopFollow
+   */
+  omit?: Prisma.ShopFollowOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShopFollowInclude<ExtArgs> | null
+  where?: Prisma.ShopFollowWhereInput
+  orderBy?: Prisma.ShopFollowOrderByWithRelationInput | Prisma.ShopFollowOrderByWithRelationInput[]
+  cursor?: Prisma.ShopFollowWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShopFollowScalarFieldEnum | Prisma.ShopFollowScalarFieldEnum[]
+}
+
+/**
+ * Business.savedShowcases
+ */
+export type Business$savedShowcasesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SavedShowcase
+   */
+  select?: Prisma.SavedShowcaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SavedShowcase
+   */
+  omit?: Prisma.SavedShowcaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SavedShowcaseInclude<ExtArgs> | null
+  where?: Prisma.SavedShowcaseWhereInput
+  orderBy?: Prisma.SavedShowcaseOrderByWithRelationInput | Prisma.SavedShowcaseOrderByWithRelationInput[]
+  cursor?: Prisma.SavedShowcaseWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SavedShowcaseScalarFieldEnum | Prisma.SavedShowcaseScalarFieldEnum[]
 }
 
 /**

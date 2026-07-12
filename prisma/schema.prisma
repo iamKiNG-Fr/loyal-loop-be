@@ -107,6 +107,12 @@ enum ProductVisibility {
   PRIVATE
 }
 
+enum ShowcaseStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
 enum PaymentStatus {
   UNPAID
   PARTIAL
@@ -172,6 +178,7 @@ enum ReceiptTheme {
 }
 
 enum DeliveryStatus {
+  AWAITING_PAYMENT
   PREPARING
   READY_FOR_PICKUP
   IN_TRANSIT
@@ -211,7 +218,9 @@ enum ActivityEventType {
 
 enum MediaPurpose {
   BUSINESS_LOGO
+  SHOP_COVER
   PRODUCT_IMAGE
+  SHOWCASE_IMAGE
   USER_AVATAR
   PAYMENT_PROOF
   TRUST_CARD
@@ -382,6 +391,7 @@ model Business {
   id                  String                   @id @default(cuid())
   ownerId             String
   logoAssetId         String?                  @unique
+  coverAssetId        String?                  @unique
   name                String
   slug                String                   @unique
   publicCardId        String                   @unique
@@ -410,6 +420,7 @@ model Business {
   updatedAt           DateTime                 @updatedAt
   owner               User                     @relation("BusinessOwner", fields: [ownerId], references: [id])
   logoAsset           MediaAsset?              @relation("BusinessLogo", fields: [logoAssetId], references: [id], onDelete: SetNull)
+  coverAsset          MediaAsset?              @relation("BusinessCover", fields: [coverAssetId], references: [id], onDelete: SetNull)
   launchProduct       Product?                 @relation("BusinessLaunchProduct", fields: [launchProductId], references: [id], onDelete: SetNull)
   preferences         BusinessPreferences?
   contacts            BusinessContact[]
@@ -419,6 +430,9 @@ model Business {
   customers           Customer[]
   customerTags        CustomerTag[]
   products            Product[]
+  showcases           Showcase[]
+  shopFollowers       ShopFollow[]
+  savedShowcases      SavedShowcase[]
   sales               Sale[]
   receipts            Receipt[]
   deliveries          Delivery[]
@@ -561,8 +575,10 @@ model MediaAsset {
   business         Business       @relation("BusinessAssets", fields: [businessId], references: [id], onDelete: Cascade)
   uploadedBy       User?          @relation("AssetUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
   logoFor          Business?      @relation("BusinessLogo")
+  coverFor         Business?      @relation("BusinessCover")
   avatarFor        User?          @relation("UserAvatar")
   productImages    ProductImage[]
+  showcaseImages   Showcase[]     @relation("ShowcaseImage")
   paymentProof     PaymentProof?
 
   @@index([businessId, purpose, status])
@@ -570,20 +586,22 @@ model MediaAsset {
 }
 
 model CustomerAccount {
-  id         String                   @id @default(cuid())
-  phone      String                   @unique
-  name       String?
-  verifiedAt DateTime
-  createdAt  DateTime                 @default(now())
-  updatedAt  DateTime                 @updatedAt
-  sessions   CustomerAccountSession[]
-  challenges CustomerOtpChallenge[]
-  customers  Customer[]
-  addresses  CustomerAddress[]
-  wishlist   WishlistItem[]
-  interests  ProductInterest[]
-  requests   OrderRequest[]
-  events     CommerceEvent[]
+  id             String                   @id @default(cuid())
+  phone          String                   @unique
+  name           String?
+  verifiedAt     DateTime
+  createdAt      DateTime                 @default(now())
+  updatedAt      DateTime                 @updatedAt
+  sessions       CustomerAccountSession[]
+  challenges     CustomerOtpChallenge[]
+  customers      Customer[]
+  addresses      CustomerAddress[]
+  wishlist       WishlistItem[]
+  savedShowcases SavedShowcase[]
+  followedShops  ShopFollow[]
+  interests      ProductInterest[]
+  requests       OrderRequest[]
+  events         CommerceEvent[]
 
   @@map("customer_accounts")
 }
@@ -749,6 +767,7 @@ model Product {
   updatedAt        DateTime           @updatedAt
   business         Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
   images           ProductImage[]
+  showcaseHotspots ShowcaseHotspot[]
   saleItems        SaleItem[]
   requestItems     OrderRequestItem[]
   wishlistItems    WishlistItem[]
@@ -776,6 +795,71 @@ model ProductImage {
   @@unique([productId, assetId])
   @@index([productId, sortOrder])
   @@map("product_images")
+}
+
+model Showcase {
+  id          String            @id @default(cuid())
+  businessId  String
+  assetId     String
+  title       String
+  caption     String?
+  status      ShowcaseStatus    @default(PUBLISHED)
+  featured    Boolean           @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  business    Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  asset       MediaAsset        @relation("ShowcaseImage", fields: [assetId], references: [id], onDelete: Restrict)
+  hotspots    ShowcaseHotspot[]
+  savedBy     SavedShowcase[]
+  requests    OrderRequest[]
+
+  @@index([businessId, status, featured, publishedAt])
+  @@map("showcases")
+}
+
+model ShowcaseHotspot {
+  id         String   @id @default(cuid())
+  showcaseId String
+  productId  String
+  x          Float
+  y          Float
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  showcase   Showcase @relation(fields: [showcaseId], references: [id], onDelete: Cascade)
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([showcaseId, productId])
+  @@index([productId])
+  @@map("showcase_hotspots")
+}
+
+model SavedShowcase {
+  id                String          @id @default(cuid())
+  customerAccountId String
+  businessId        String
+  showcaseId        String
+  createdAt         DateTime        @default(now())
+  customerAccount   CustomerAccount @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+  business          Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  showcase          Showcase        @relation(fields: [showcaseId], references: [id], onDelete: Cascade)
+
+  @@unique([customerAccountId, showcaseId])
+  @@index([businessId])
+  @@map("saved_showcases")
+}
+
+model ShopFollow {
+  id                String          @id @default(cuid())
+  customerAccountId String
+  businessId        String
+  createdAt         DateTime        @default(now())
+  customerAccount   CustomerAccount @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+  business          Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@unique([customerAccountId, businessId])
+  @@index([businessId])
+  @@map("shop_follows")
 }
 
 model WishlistItem {
@@ -821,6 +905,7 @@ model OrderRequest {
   channel           SalesChannel
   fulfillment       FulfillmentType    @default(ARRANGE_LATER)
   customerAddressId String?
+  sourceShowcaseId  String?
   deliveryAddress   String?
   deliveryPlaceId   String?
   deliveryLatitude  Float?
@@ -837,12 +922,14 @@ model OrderRequest {
   customerAccount   CustomerAccount?   @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
   customer          Customer?          @relation(fields: [customerId], references: [id], onDelete: SetNull)
   customerAddress   CustomerAddress?   @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
+  sourceShowcase    Showcase?          @relation(fields: [sourceShowcaseId], references: [id], onDelete: SetNull)
   items             OrderRequestItem[]
   convertedSale     Sale?              @relation("RequestConversion")
   events            CommerceEvent[]
 
   @@index([businessId, status, createdAt])
   @@index([customerAddressId])
+  @@index([sourceShowcaseId])
   @@map("order_requests")
 }
 
@@ -1079,6 +1166,9 @@ model Delivery {
   recipientName  String?
   recipientPhone String?
   courier        String?
+  courierService String?
+  courierName    String?
+  courierPhone   String?
   trackingCode   String?
   trackingUrl    String?
   deliveredAt    DateTime?
@@ -1211,22 +1301,23 @@ model CustomerFeedback {
 }
 
 model CustomerIssue {
-  id          String              @id @default(cuid())
-  businessId  String
-  customerId  String?
-  saleId      String
-  receiptId   String?
-  deliveryId  String?
-  description String
-  status      CustomerIssueStatus @default(OPEN)
-  openedAt    DateTime            @default(now())
-  resolvedAt  DateTime?
-  updatedAt   DateTime            @updatedAt
-  business    Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customer    Customer?           @relation(fields: [customerId], references: [id], onDelete: SetNull)
-  sale        Sale                @relation(fields: [saleId], references: [id], onDelete: Cascade)
-  receipt     Receipt?            @relation(fields: [receiptId], references: [id], onDelete: SetNull)
-  delivery    Delivery?           @relation(fields: [deliveryId], references: [id], onDelete: SetNull)
+  id             String              @id @default(cuid())
+  businessId     String
+  customerId     String?
+  saleId         String
+  receiptId      String?
+  deliveryId     String?
+  description    String
+  status         CustomerIssueStatus @default(OPEN)
+  openedAt       DateTime            @default(now())
+  resolvedAt     DateTime?
+  updatedAt      DateTime            @updatedAt
+  business       Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer       Customer?           @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  sale           Sale                @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  receipt        Receipt?            @relation(fields: [receiptId], references: [id], onDelete: SetNull)
+  delivery       Delivery?           @relation(fields: [deliveryId], references: [id], onDelete: SetNull)
+  supportRequest SupportRequest?
 
   @@index([businessId, status, openedAt])
   @@map("customer_issues")
@@ -1248,14 +1339,16 @@ model TrustLedgerEntry {
 }
 
 model SupportRequest {
-  id         String               @id @default(cuid())
-  businessId String
-  topic      String
-  message    String
-  status     SupportRequestStatus @default(OPEN)
-  createdAt  DateTime             @default(now())
-  updatedAt  DateTime             @updatedAt
-  business   Business             @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  id              String               @id @default(cuid())
+  businessId      String
+  customerIssueId String?              @unique
+  topic           String
+  message         String
+  status          SupportRequestStatus @default(OPEN)
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  business        Business             @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerIssue   CustomerIssue?       @relation(fields: [customerIssueId], references: [id], onDelete: SetNull)
 
   @@index([businessId, status, createdAt])
   @@map("support_requests")

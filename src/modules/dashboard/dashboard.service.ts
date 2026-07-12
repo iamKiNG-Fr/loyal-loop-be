@@ -11,8 +11,10 @@ export class DashboardService {
     const [
       customers,
       products,
+      lowStockProducts,
       pendingDeliveries,
       openIssues,
+      pendingPaymentProofs,
       followUps,
       recentSales,
       recentActivity,
@@ -25,6 +27,16 @@ export class DashboardService {
       this.prisma.product.count({
         where: { businessId: auth.businessId, status: "ACTIVE" },
       }),
+      this.prisma.product.findMany({
+        where: {
+          businessId: auth.businessId,
+          status: "ACTIVE",
+          stockCount: { lte: 5, not: null },
+        },
+        select: { id: true, name: true, stockCount: true, updatedAt: true },
+        orderBy: [{ stockCount: "asc" }, { updatedAt: "desc" }],
+        take: 5,
+      }),
       this.prisma.delivery.count({
         where: {
           businessId: auth.businessId,
@@ -35,6 +47,9 @@ export class DashboardService {
       }),
       this.prisma.customerIssue.count({
         where: { businessId: auth.businessId, status: "OPEN" },
+      }),
+      this.prisma.paymentProof.count({
+        where: { businessId: auth.businessId, status: "SUBMITTED" },
       }),
       this.prisma.followUpSuggestion.findMany({
         where: {
@@ -98,12 +113,15 @@ export class DashboardService {
       counts: {
         customers,
         products,
+        lowStockProducts: lowStockProducts.length,
         pendingDeliveries,
         openIssues,
+        pendingPaymentProofs,
         pendingRequests,
         unreadOrderRequests,
       },
       followUps,
+      lowStockProducts,
       recentSales,
       recentActivity,
       recentReceipts,

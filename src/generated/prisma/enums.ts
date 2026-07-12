@@ -148,6 +148,15 @@ export const ProductVisibility = {
 export type ProductVisibility = (typeof ProductVisibility)[keyof typeof ProductVisibility]
 
 
+export const ShowcaseStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ShowcaseStatus = (typeof ShowcaseStatus)[keyof typeof ShowcaseStatus]
+
+
 export const PaymentStatus = {
   UNPAID: 'UNPAID',
   PARTIAL: 'PARTIAL',
@@ -240,6 +249,7 @@ export type ReceiptTheme = (typeof ReceiptTheme)[keyof typeof ReceiptTheme]
 
 
 export const DeliveryStatus = {
+  AWAITING_PAYMENT: 'AWAITING_PAYMENT',
   PREPARING: 'PREPARING',
   READY_FOR_PICKUP: 'READY_FOR_PICKUP',
   IN_TRANSIT: 'IN_TRANSIT',
@@ -285,7 +295,9 @@ export type ActivityEventType = (typeof ActivityEventType)[keyof typeof Activity
 
 export const MediaPurpose = {
   BUSINESS_LOGO: 'BUSINESS_LOGO',
+  SHOP_COVER: 'SHOP_COVER',
   PRODUCT_IMAGE: 'PRODUCT_IMAGE',
+  SHOWCASE_IMAGE: 'SHOWCASE_IMAGE',
   USER_AVATAR: 'USER_AVATAR',
   PAYMENT_PROOF: 'PAYMENT_PROOF',
   TRUST_CARD: 'TRUST_CARD',

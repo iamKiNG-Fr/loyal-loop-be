@@ -35,6 +35,32 @@ describe("deterministic trust rules", () => {
     ).toBe(2);
   });
 
+  it("does not let receipt activity alone raise the public trust level", () => {
+    const foundation = {
+      profileComplete: true,
+      sentReceipts: 100,
+      feedbackCount: 0,
+      staleIssues: 0,
+      repeatCustomers: 0,
+      followUps: 0,
+      activeDays: 1,
+    };
+
+    expect(
+      calculateTrustLevel({
+        ...foundation,
+        confirmedDeliveries: 0,
+      }),
+    ).toBe(1);
+
+    expect(
+      calculateTrustLevel({
+        ...foundation,
+        confirmedDeliveries: 1,
+      }),
+    ).toBe(2);
+  });
+
   it("uses the business timezone when collapsing activity days", () => {
     const days = uniqueBusinessDays(
       [

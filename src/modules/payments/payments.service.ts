@@ -191,6 +191,24 @@ export class PaymentsService {
           paymentStatus: paymentStatus(nextPaid, proof.sale.total),
         },
       });
+      const unlocked = await tx.delivery.updateMany({
+        where: { saleId: proof.saleId, status: "AWAITING_PAYMENT" },
+        data: { status: "PREPARING" },
+      });
+      if (unlocked.count) {
+        const unlockedDelivery = await tx.delivery.findUniqueOrThrow({
+          where: { saleId: proof.saleId },
+          select: { id: true },
+        });
+        await tx.deliveryEvent.create({
+          data: {
+            actorId: auth.userId,
+            deliveryId: unlockedDelivery.id,
+            note: "Payment proof verified; fulfilment can begin",
+            status: "PREPARING",
+          },
+        });
+      }
       const updated = await tx.paymentProof.update({
         where: { id: proof.id },
         data: {
@@ -261,6 +279,29 @@ export class PaymentsService {
       if (shared && !shared.revokedAt && shared.receipt.status !== "VOID") {
         return shared.receipt.sale;
       }
+      if (/^[A-Za-z2-9]{8}$/.test(token)) {
+        const shortLink = await this.prisma.shortLink.findFirst({
+          where: {
+            code: token,
+            kind: "RECEIPT",
+            receiptId: { not: null },
+            revokedAt: null,
+            OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+          },
+          include: {
+            receipt: {
+              include: {
+                sale: {
+                  include: { paymentInstruction: true, paymentProofs: true },
+                },
+              },
+            },
+          },
+        });
+        if (shortLink?.receipt && shortLink.receipt.status !== "VOID") {
+          return shortLink.receipt.sale;
+        }
+      }
     } else {
       const direct = await this.prisma.delivery.findUnique({
         where: { tokenHash },
@@ -284,6 +325,15 @@ export class PaymentsService {
         },
       });
       if (shared && !shared.revokedAt) return shared.delivery.sale;
+      const convertedRequest = await this.prisma.orderRequest.findUnique({
+        where: { tokenHash },
+        include: {
+          convertedSale: {
+            include: { paymentInstruction: true, paymentProofs: true },
+          },
+        },
+      });
+      if (convertedRequest?.convertedSale) return convertedRequest.convertedSale;
     }
     throw new NotFoundException("Payment link not found");
   }

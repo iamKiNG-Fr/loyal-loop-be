@@ -27,6 +27,7 @@ export type AggregateSupportRequest = {
 export type SupportRequestMinAggregateOutputType = {
   id: string | null
   businessId: string | null
+  customerIssueId: string | null
   topic: string | null
   message: string | null
   status: $Enums.SupportRequestStatus | null
@@ -37,6 +38,7 @@ export type SupportRequestMinAggregateOutputType = {
 export type SupportRequestMaxAggregateOutputType = {
   id: string | null
   businessId: string | null
+  customerIssueId: string | null
   topic: string | null
   message: string | null
   status: $Enums.SupportRequestStatus | null
@@ -47,6 +49,7 @@ export type SupportRequestMaxAggregateOutputType = {
 export type SupportRequestCountAggregateOutputType = {
   id: number
   businessId: number
+  customerIssueId: number
   topic: number
   message: number
   status: number
@@ -59,6 +62,7 @@ export type SupportRequestCountAggregateOutputType = {
 export type SupportRequestMinAggregateInputType = {
   id?: true
   businessId?: true
+  customerIssueId?: true
   topic?: true
   message?: true
   status?: true
@@ -69,6 +73,7 @@ export type SupportRequestMinAggregateInputType = {
 export type SupportRequestMaxAggregateInputType = {
   id?: true
   businessId?: true
+  customerIssueId?: true
   topic?: true
   message?: true
   status?: true
@@ -79,6 +84,7 @@ export type SupportRequestMaxAggregateInputType = {
 export type SupportRequestCountAggregateInputType = {
   id?: true
   businessId?: true
+  customerIssueId?: true
   topic?: true
   message?: true
   status?: true
@@ -162,6 +168,7 @@ export type SupportRequestGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
 export type SupportRequestGroupByOutputType = {
   id: string
   businessId: string
+  customerIssueId: string | null
   topic: string
   message: string
   status: $Enums.SupportRequestStatus
@@ -193,27 +200,32 @@ export type SupportRequestWhereInput = {
   NOT?: Prisma.SupportRequestWhereInput | Prisma.SupportRequestWhereInput[]
   id?: Prisma.StringFilter<"SupportRequest"> | string
   businessId?: Prisma.StringFilter<"SupportRequest"> | string
+  customerIssueId?: Prisma.StringNullableFilter<"SupportRequest"> | string | null
   topic?: Prisma.StringFilter<"SupportRequest"> | string
   message?: Prisma.StringFilter<"SupportRequest"> | string
   status?: Prisma.EnumSupportRequestStatusFilter<"SupportRequest"> | $Enums.SupportRequestStatus
   createdAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
+  customerIssue?: Prisma.XOR<Prisma.CustomerIssueNullableScalarRelationFilter, Prisma.CustomerIssueWhereInput> | null
 }
 
 export type SupportRequestOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
+  customerIssueId?: Prisma.SortOrderInput | Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
+  customerIssue?: Prisma.CustomerIssueOrderByWithRelationInput
 }
 
 export type SupportRequestWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  customerIssueId?: string
   AND?: Prisma.SupportRequestWhereInput | Prisma.SupportRequestWhereInput[]
   OR?: Prisma.SupportRequestWhereInput[]
   NOT?: Prisma.SupportRequestWhereInput | Prisma.SupportRequestWhereInput[]
@@ -224,11 +236,13 @@ export type SupportRequestWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
-}, "id">
+  customerIssue?: Prisma.XOR<Prisma.CustomerIssueNullableScalarRelationFilter, Prisma.CustomerIssueWhereInput> | null
+}, "id" | "customerIssueId">
 
 export type SupportRequestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
+  customerIssueId?: Prisma.SortOrderInput | Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -245,6 +259,7 @@ export type SupportRequestScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SupportRequestScalarWhereWithAggregatesInput | Prisma.SupportRequestScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"SupportRequest"> | string
   businessId?: Prisma.StringWithAggregatesFilter<"SupportRequest"> | string
+  customerIssueId?: Prisma.StringNullableWithAggregatesFilter<"SupportRequest"> | string | null
   topic?: Prisma.StringWithAggregatesFilter<"SupportRequest"> | string
   message?: Prisma.StringWithAggregatesFilter<"SupportRequest"> | string
   status?: Prisma.EnumSupportRequestStatusWithAggregatesFilter<"SupportRequest"> | $Enums.SupportRequestStatus
@@ -260,11 +275,13 @@ export type SupportRequestCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutSupportRequestsInput
+  customerIssue?: Prisma.CustomerIssueCreateNestedOneWithoutSupportRequestInput
 }
 
 export type SupportRequestUncheckedCreateInput = {
   id?: string
   businessId: string
+  customerIssueId?: string | null
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
@@ -280,11 +297,13 @@ export type SupportRequestUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutSupportRequestsNestedInput
+  customerIssue?: Prisma.CustomerIssueUpdateOneWithoutSupportRequestNestedInput
 }
 
 export type SupportRequestUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerIssueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
@@ -295,6 +314,7 @@ export type SupportRequestUncheckedUpdateInput = {
 export type SupportRequestCreateManyInput = {
   id?: string
   businessId: string
+  customerIssueId?: string | null
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
@@ -314,6 +334,7 @@ export type SupportRequestUpdateManyMutationInput = {
 export type SupportRequestUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerIssueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
@@ -331,9 +352,15 @@ export type SupportRequestOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type SupportRequestNullableScalarRelationFilter = {
+  is?: Prisma.SupportRequestWhereInput | null
+  isNot?: Prisma.SupportRequestWhereInput | null
+}
+
 export type SupportRequestCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
+  customerIssueId?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -344,6 +371,7 @@ export type SupportRequestCountOrderByAggregateInput = {
 export type SupportRequestMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
+  customerIssueId?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -354,6 +382,7 @@ export type SupportRequestMaxOrderByAggregateInput = {
 export type SupportRequestMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
+  customerIssueId?: Prisma.SortOrder
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -403,6 +432,38 @@ export type SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput = {
   deleteMany?: Prisma.SupportRequestScalarWhereInput | Prisma.SupportRequestScalarWhereInput[]
 }
 
+export type SupportRequestCreateNestedOneWithoutCustomerIssueInput = {
+  create?: Prisma.XOR<Prisma.SupportRequestCreateWithoutCustomerIssueInput, Prisma.SupportRequestUncheckedCreateWithoutCustomerIssueInput>
+  connectOrCreate?: Prisma.SupportRequestCreateOrConnectWithoutCustomerIssueInput
+  connect?: Prisma.SupportRequestWhereUniqueInput
+}
+
+export type SupportRequestUncheckedCreateNestedOneWithoutCustomerIssueInput = {
+  create?: Prisma.XOR<Prisma.SupportRequestCreateWithoutCustomerIssueInput, Prisma.SupportRequestUncheckedCreateWithoutCustomerIssueInput>
+  connectOrCreate?: Prisma.SupportRequestCreateOrConnectWithoutCustomerIssueInput
+  connect?: Prisma.SupportRequestWhereUniqueInput
+}
+
+export type SupportRequestUpdateOneWithoutCustomerIssueNestedInput = {
+  create?: Prisma.XOR<Prisma.SupportRequestCreateWithoutCustomerIssueInput, Prisma.SupportRequestUncheckedCreateWithoutCustomerIssueInput>
+  connectOrCreate?: Prisma.SupportRequestCreateOrConnectWithoutCustomerIssueInput
+  upsert?: Prisma.SupportRequestUpsertWithoutCustomerIssueInput
+  disconnect?: Prisma.SupportRequestWhereInput | boolean
+  delete?: Prisma.SupportRequestWhereInput | boolean
+  connect?: Prisma.SupportRequestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SupportRequestUpdateToOneWithWhereWithoutCustomerIssueInput, Prisma.SupportRequestUpdateWithoutCustomerIssueInput>, Prisma.SupportRequestUncheckedUpdateWithoutCustomerIssueInput>
+}
+
+export type SupportRequestUncheckedUpdateOneWithoutCustomerIssueNestedInput = {
+  create?: Prisma.XOR<Prisma.SupportRequestCreateWithoutCustomerIssueInput, Prisma.SupportRequestUncheckedCreateWithoutCustomerIssueInput>
+  connectOrCreate?: Prisma.SupportRequestCreateOrConnectWithoutCustomerIssueInput
+  upsert?: Prisma.SupportRequestUpsertWithoutCustomerIssueInput
+  disconnect?: Prisma.SupportRequestWhereInput | boolean
+  delete?: Prisma.SupportRequestWhereInput | boolean
+  connect?: Prisma.SupportRequestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SupportRequestUpdateToOneWithWhereWithoutCustomerIssueInput, Prisma.SupportRequestUpdateWithoutCustomerIssueInput>, Prisma.SupportRequestUncheckedUpdateWithoutCustomerIssueInput>
+}
+
 export type EnumSupportRequestStatusFieldUpdateOperationsInput = {
   set?: $Enums.SupportRequestStatus
 }
@@ -414,10 +475,12 @@ export type SupportRequestCreateWithoutBusinessInput = {
   status?: $Enums.SupportRequestStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  customerIssue?: Prisma.CustomerIssueCreateNestedOneWithoutSupportRequestInput
 }
 
 export type SupportRequestUncheckedCreateWithoutBusinessInput = {
   id?: string
+  customerIssueId?: string | null
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
@@ -457,6 +520,7 @@ export type SupportRequestScalarWhereInput = {
   NOT?: Prisma.SupportRequestScalarWhereInput | Prisma.SupportRequestScalarWhereInput[]
   id?: Prisma.StringFilter<"SupportRequest"> | string
   businessId?: Prisma.StringFilter<"SupportRequest"> | string
+  customerIssueId?: Prisma.StringNullableFilter<"SupportRequest"> | string | null
   topic?: Prisma.StringFilter<"SupportRequest"> | string
   message?: Prisma.StringFilter<"SupportRequest"> | string
   status?: Prisma.EnumSupportRequestStatusFilter<"SupportRequest"> | $Enums.SupportRequestStatus
@@ -464,8 +528,65 @@ export type SupportRequestScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
 }
 
+export type SupportRequestCreateWithoutCustomerIssueInput = {
+  id?: string
+  topic: string
+  message: string
+  status?: $Enums.SupportRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutSupportRequestsInput
+}
+
+export type SupportRequestUncheckedCreateWithoutCustomerIssueInput = {
+  id?: string
+  businessId: string
+  topic: string
+  message: string
+  status?: $Enums.SupportRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type SupportRequestCreateOrConnectWithoutCustomerIssueInput = {
+  where: Prisma.SupportRequestWhereUniqueInput
+  create: Prisma.XOR<Prisma.SupportRequestCreateWithoutCustomerIssueInput, Prisma.SupportRequestUncheckedCreateWithoutCustomerIssueInput>
+}
+
+export type SupportRequestUpsertWithoutCustomerIssueInput = {
+  update: Prisma.XOR<Prisma.SupportRequestUpdateWithoutCustomerIssueInput, Prisma.SupportRequestUncheckedUpdateWithoutCustomerIssueInput>
+  create: Prisma.XOR<Prisma.SupportRequestCreateWithoutCustomerIssueInput, Prisma.SupportRequestUncheckedCreateWithoutCustomerIssueInput>
+  where?: Prisma.SupportRequestWhereInput
+}
+
+export type SupportRequestUpdateToOneWithWhereWithoutCustomerIssueInput = {
+  where?: Prisma.SupportRequestWhereInput
+  data: Prisma.XOR<Prisma.SupportRequestUpdateWithoutCustomerIssueInput, Prisma.SupportRequestUncheckedUpdateWithoutCustomerIssueInput>
+}
+
+export type SupportRequestUpdateWithoutCustomerIssueInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutSupportRequestsNestedInput
+}
+
+export type SupportRequestUncheckedUpdateWithoutCustomerIssueInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  topic?: Prisma.StringFieldUpdateOperationsInput | string
+  message?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type SupportRequestCreateManyBusinessInput = {
   id?: string
+  customerIssueId?: string | null
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
@@ -480,10 +601,12 @@ export type SupportRequestUpdateWithoutBusinessInput = {
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customerIssue?: Prisma.CustomerIssueUpdateOneWithoutSupportRequestNestedInput
 }
 
 export type SupportRequestUncheckedUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerIssueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
@@ -493,6 +616,7 @@ export type SupportRequestUncheckedUpdateWithoutBusinessInput = {
 
 export type SupportRequestUncheckedUpdateManyWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerIssueId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
@@ -505,39 +629,46 @@ export type SupportRequestUncheckedUpdateManyWithoutBusinessInput = {
 export type SupportRequestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   businessId?: boolean
+  customerIssueId?: boolean
   topic?: boolean
   message?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  customerIssue?: boolean | Prisma.SupportRequest$customerIssueArgs<ExtArgs>
 }, ExtArgs["result"]["supportRequest"]>
 
 export type SupportRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   businessId?: boolean
+  customerIssueId?: boolean
   topic?: boolean
   message?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  customerIssue?: boolean | Prisma.SupportRequest$customerIssueArgs<ExtArgs>
 }, ExtArgs["result"]["supportRequest"]>
 
 export type SupportRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   businessId?: boolean
+  customerIssueId?: boolean
   topic?: boolean
   message?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  customerIssue?: boolean | Prisma.SupportRequest$customerIssueArgs<ExtArgs>
 }, ExtArgs["result"]["supportRequest"]>
 
 export type SupportRequestSelectScalar = {
   id?: boolean
   businessId?: boolean
+  customerIssueId?: boolean
   topic?: boolean
   message?: boolean
   status?: boolean
@@ -545,25 +676,30 @@ export type SupportRequestSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SupportRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "topic" | "message" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["supportRequest"]>
+export type SupportRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerIssueId" | "topic" | "message" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["supportRequest"]>
 export type SupportRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  customerIssue?: boolean | Prisma.SupportRequest$customerIssueArgs<ExtArgs>
 }
 export type SupportRequestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  customerIssue?: boolean | Prisma.SupportRequest$customerIssueArgs<ExtArgs>
 }
 export type SupportRequestIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
+  customerIssue?: boolean | Prisma.SupportRequest$customerIssueArgs<ExtArgs>
 }
 
 export type $SupportRequestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SupportRequest"
   objects: {
     business: Prisma.$BusinessPayload<ExtArgs>
+    customerIssue: Prisma.$CustomerIssuePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     businessId: string
+    customerIssueId: string | null
     topic: string
     message: string
     status: $Enums.SupportRequestStatus
@@ -964,6 +1100,7 @@ readonly fields: SupportRequestFieldRefs;
 export interface Prisma__SupportRequestClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  customerIssue<T extends Prisma.SupportRequest$customerIssueArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SupportRequest$customerIssueArgs<ExtArgs>>): Prisma.Prisma__CustomerIssueClient<runtime.Types.Result.GetResult<Prisma.$CustomerIssuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -995,6 +1132,7 @@ export interface Prisma__SupportRequestClient<T, Null = never, ExtArgs extends r
 export interface SupportRequestFieldRefs {
   readonly id: Prisma.FieldRef<"SupportRequest", 'String'>
   readonly businessId: Prisma.FieldRef<"SupportRequest", 'String'>
+  readonly customerIssueId: Prisma.FieldRef<"SupportRequest", 'String'>
   readonly topic: Prisma.FieldRef<"SupportRequest", 'String'>
   readonly message: Prisma.FieldRef<"SupportRequest", 'String'>
   readonly status: Prisma.FieldRef<"SupportRequest", 'SupportRequestStatus'>
@@ -1398,6 +1536,25 @@ export type SupportRequestDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many SupportRequests to delete.
    */
   limit?: number
+}
+
+/**
+ * SupportRequest.customerIssue
+ */
+export type SupportRequest$customerIssueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerIssue
+   */
+  select?: Prisma.CustomerIssueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerIssue
+   */
+  omit?: Prisma.CustomerIssueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerIssueInclude<ExtArgs> | null
+  where?: Prisma.CustomerIssueWhereInput
 }
 
 /**

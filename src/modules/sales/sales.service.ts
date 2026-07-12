@@ -231,6 +231,11 @@ export class SalesService {
     const referenceCode = createReference("LL");
     const receiptCode = createReference("RCP");
     const fulfillment = dto.fulfillment ?? "NOT_REQUIRED";
+    const createsDeliveryJourney = fulfillment === "DELIVERY" || fulfillment === "PICKUP";
+    const openingDeliveryStatus =
+      paymentMethod === "BANK_TRANSFER" && amountPaid.equals(0)
+        ? "AWAITING_PAYMENT"
+        : "PREPARING";
 
     let sale;
     try {
@@ -298,14 +303,14 @@ export class SalesService {
       let delivery:
         | { id: string; status: string }
         | undefined;
-      if (fulfillment === "DELIVERY") {
+      if (createsDeliveryJourney) {
         delivery = await tx.delivery.create({
           data: {
             businessId: auth.businessId,
             customerId: customer.id,
             saleId: created.id,
             tokenHash: deliveryToken.tokenHash,
-            status: "PREPARING",
+            status: openingDeliveryStatus,
             address: dto.deliveryAddress?.trim(),
             googlePlaceId: dto.deliveryPlaceId?.trim(),
             latitude: dto.deliveryLatitude,
@@ -316,8 +321,12 @@ export class SalesService {
             events: {
               create: {
                 actorId: auth.userId,
-                status: "PREPARING",
-                note: dto.deliveryNotes?.trim() || "Delivery created with sale",
+                status: openingDeliveryStatus,
+                note:
+                  dto.deliveryNotes?.trim() ||
+                  (openingDeliveryStatus === "AWAITING_PAYMENT"
+                    ? "Waiting for the seller to record or verify payment"
+                    : "Delivery created with sale"),
               },
             },
           },
@@ -391,7 +400,7 @@ export class SalesService {
     return {
       sale,
       receiptToken: receiptToken.token,
-      ...(fulfillment === "DELIVERY"
+      ...(createsDeliveryJourney
         ? { deliveryToken: deliveryToken.token }
         : {}),
     };
@@ -433,6 +442,26 @@ export class SalesService {
         },
         include: saleInclude,
       });
+      if (dto.type === "PAYMENT" && nextPaid.greaterThan(0)) {
+        const unlocked = await tx.delivery.updateMany({
+          where: { saleId, status: "AWAITING_PAYMENT" },
+          data: { status: "PREPARING" },
+        });
+        if (unlocked.count) {
+          const unlockedDelivery = await tx.delivery.findUniqueOrThrow({
+            where: { saleId },
+            select: { id: true },
+          });
+          await tx.deliveryEvent.create({
+            data: {
+            actorId: auth.userId,
+            deliveryId: unlockedDelivery.id,
+            note: "Payment recorded; fulfilment can begin",
+            status: "PREPARING",
+            },
+          });
+        }
+      }
       await this.activity.record(
         {
           businessId: auth.businessId,

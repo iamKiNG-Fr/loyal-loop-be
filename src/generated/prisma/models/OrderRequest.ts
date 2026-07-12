@@ -48,6 +48,7 @@ export type OrderRequestMinAggregateOutputType = {
   channel: $Enums.SalesChannel | null
   fulfillment: $Enums.FulfillmentType | null
   customerAddressId: string | null
+  sourceShowcaseId: string | null
   deliveryAddress: string | null
   deliveryPlaceId: string | null
   deliveryLatitude: number | null
@@ -74,6 +75,7 @@ export type OrderRequestMaxAggregateOutputType = {
   channel: $Enums.SalesChannel | null
   fulfillment: $Enums.FulfillmentType | null
   customerAddressId: string | null
+  sourceShowcaseId: string | null
   deliveryAddress: string | null
   deliveryPlaceId: string | null
   deliveryLatitude: number | null
@@ -100,6 +102,7 @@ export type OrderRequestCountAggregateOutputType = {
   channel: number
   fulfillment: number
   customerAddressId: number
+  sourceShowcaseId: number
   deliveryAddress: number
   deliveryPlaceId: number
   deliveryLatitude: number
@@ -138,6 +141,7 @@ export type OrderRequestMinAggregateInputType = {
   channel?: true
   fulfillment?: true
   customerAddressId?: true
+  sourceShowcaseId?: true
   deliveryAddress?: true
   deliveryPlaceId?: true
   deliveryLatitude?: true
@@ -164,6 +168,7 @@ export type OrderRequestMaxAggregateInputType = {
   channel?: true
   fulfillment?: true
   customerAddressId?: true
+  sourceShowcaseId?: true
   deliveryAddress?: true
   deliveryPlaceId?: true
   deliveryLatitude?: true
@@ -190,6 +195,7 @@ export type OrderRequestCountAggregateInputType = {
   channel?: true
   fulfillment?: true
   customerAddressId?: true
+  sourceShowcaseId?: true
   deliveryAddress?: true
   deliveryPlaceId?: true
   deliveryLatitude?: true
@@ -303,6 +309,7 @@ export type OrderRequestGroupByOutputType = {
   channel: $Enums.SalesChannel
   fulfillment: $Enums.FulfillmentType
   customerAddressId: string | null
+  sourceShowcaseId: string | null
   deliveryAddress: string | null
   deliveryPlaceId: string | null
   deliveryLatitude: number | null
@@ -352,6 +359,7 @@ export type OrderRequestWhereInput = {
   channel?: Prisma.EnumSalesChannelFilter<"OrderRequest"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"OrderRequest"> | $Enums.FulfillmentType
   customerAddressId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  sourceShowcaseId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryAddress?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryPlaceId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryLatitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
@@ -368,6 +376,7 @@ export type OrderRequestWhereInput = {
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountNullableScalarRelationFilter, Prisma.CustomerAccountWhereInput> | null
   customer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
   customerAddress?: Prisma.XOR<Prisma.CustomerAddressNullableScalarRelationFilter, Prisma.CustomerAddressWhereInput> | null
+  sourceShowcase?: Prisma.XOR<Prisma.ShowcaseNullableScalarRelationFilter, Prisma.ShowcaseWhereInput> | null
   items?: Prisma.OrderRequestItemListRelationFilter
   convertedSale?: Prisma.XOR<Prisma.SaleNullableScalarRelationFilter, Prisma.SaleWhereInput> | null
   events?: Prisma.CommerceEventListRelationFilter
@@ -385,6 +394,7 @@ export type OrderRequestOrderByWithRelationInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrderInput | Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -401,6 +411,7 @@ export type OrderRequestOrderByWithRelationInput = {
   customerAccount?: Prisma.CustomerAccountOrderByWithRelationInput
   customer?: Prisma.CustomerOrderByWithRelationInput
   customerAddress?: Prisma.CustomerAddressOrderByWithRelationInput
+  sourceShowcase?: Prisma.ShowcaseOrderByWithRelationInput
   items?: Prisma.OrderRequestItemOrderByRelationAggregateInput
   convertedSale?: Prisma.SaleOrderByWithRelationInput
   events?: Prisma.CommerceEventOrderByRelationAggregateInput
@@ -421,6 +432,7 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   channel?: Prisma.EnumSalesChannelFilter<"OrderRequest"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"OrderRequest"> | $Enums.FulfillmentType
   customerAddressId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  sourceShowcaseId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryAddress?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryPlaceId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryLatitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
@@ -437,6 +449,7 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountNullableScalarRelationFilter, Prisma.CustomerAccountWhereInput> | null
   customer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
   customerAddress?: Prisma.XOR<Prisma.CustomerAddressNullableScalarRelationFilter, Prisma.CustomerAddressWhereInput> | null
+  sourceShowcase?: Prisma.XOR<Prisma.ShowcaseNullableScalarRelationFilter, Prisma.ShowcaseWhereInput> | null
   items?: Prisma.OrderRequestItemListRelationFilter
   convertedSale?: Prisma.XOR<Prisma.SaleNullableScalarRelationFilter, Prisma.SaleWhereInput> | null
   events?: Prisma.CommerceEventListRelationFilter
@@ -454,6 +467,7 @@ export type OrderRequestOrderByWithAggregationInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrderInput | Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -488,6 +502,7 @@ export type OrderRequestScalarWhereWithAggregatesInput = {
   channel?: Prisma.EnumSalesChannelWithAggregatesFilter<"OrderRequest"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeWithAggregatesFilter<"OrderRequest"> | $Enums.FulfillmentType
   customerAddressId?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
+  sourceShowcaseId?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   deliveryAddress?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   deliveryPlaceId?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   deliveryLatitude?: Prisma.FloatNullableWithAggregatesFilter<"OrderRequest"> | number | null
@@ -526,6 +541,7 @@ export type OrderRequestCreateInput = {
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
@@ -543,6 +559,7 @@ export type OrderRequestUncheckedCreateInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -584,6 +601,7 @@ export type OrderRequestUpdateInput = {
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
@@ -601,6 +619,7 @@ export type OrderRequestUncheckedUpdateInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -630,6 +649,7 @@ export type OrderRequestCreateManyInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -678,6 +698,7 @@ export type OrderRequestUncheckedUpdateManyInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -714,6 +735,7 @@ export type OrderRequestCountOrderByAggregateInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrder
@@ -745,6 +767,7 @@ export type OrderRequestMaxOrderByAggregateInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrder
@@ -771,6 +794,7 @@ export type OrderRequestMinOrderByAggregateInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrder
@@ -968,6 +992,48 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressNestedInput = {
   deleteMany?: Prisma.OrderRequestScalarWhereInput | Prisma.OrderRequestScalarWhereInput[]
 }
 
+export type OrderRequestCreateNestedManyWithoutSourceShowcaseInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutSourceShowcaseInput, Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput> | Prisma.OrderRequestCreateWithoutSourceShowcaseInput[] | Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput[]
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutSourceShowcaseInput | Prisma.OrderRequestCreateOrConnectWithoutSourceShowcaseInput[]
+  createMany?: Prisma.OrderRequestCreateManySourceShowcaseInputEnvelope
+  connect?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+}
+
+export type OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutSourceShowcaseInput, Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput> | Prisma.OrderRequestCreateWithoutSourceShowcaseInput[] | Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput[]
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutSourceShowcaseInput | Prisma.OrderRequestCreateOrConnectWithoutSourceShowcaseInput[]
+  createMany?: Prisma.OrderRequestCreateManySourceShowcaseInputEnvelope
+  connect?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+}
+
+export type OrderRequestUpdateManyWithoutSourceShowcaseNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutSourceShowcaseInput, Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput> | Prisma.OrderRequestCreateWithoutSourceShowcaseInput[] | Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput[]
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutSourceShowcaseInput | Prisma.OrderRequestCreateOrConnectWithoutSourceShowcaseInput[]
+  upsert?: Prisma.OrderRequestUpsertWithWhereUniqueWithoutSourceShowcaseInput | Prisma.OrderRequestUpsertWithWhereUniqueWithoutSourceShowcaseInput[]
+  createMany?: Prisma.OrderRequestCreateManySourceShowcaseInputEnvelope
+  set?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+  disconnect?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+  delete?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+  connect?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+  update?: Prisma.OrderRequestUpdateWithWhereUniqueWithoutSourceShowcaseInput | Prisma.OrderRequestUpdateWithWhereUniqueWithoutSourceShowcaseInput[]
+  updateMany?: Prisma.OrderRequestUpdateManyWithWhereWithoutSourceShowcaseInput | Prisma.OrderRequestUpdateManyWithWhereWithoutSourceShowcaseInput[]
+  deleteMany?: Prisma.OrderRequestScalarWhereInput | Prisma.OrderRequestScalarWhereInput[]
+}
+
+export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutSourceShowcaseInput, Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput> | Prisma.OrderRequestCreateWithoutSourceShowcaseInput[] | Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput[]
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutSourceShowcaseInput | Prisma.OrderRequestCreateOrConnectWithoutSourceShowcaseInput[]
+  upsert?: Prisma.OrderRequestUpsertWithWhereUniqueWithoutSourceShowcaseInput | Prisma.OrderRequestUpsertWithWhereUniqueWithoutSourceShowcaseInput[]
+  createMany?: Prisma.OrderRequestCreateManySourceShowcaseInputEnvelope
+  set?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+  disconnect?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+  delete?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+  connect?: Prisma.OrderRequestWhereUniqueInput | Prisma.OrderRequestWhereUniqueInput[]
+  update?: Prisma.OrderRequestUpdateWithWhereUniqueWithoutSourceShowcaseInput | Prisma.OrderRequestUpdateWithWhereUniqueWithoutSourceShowcaseInput[]
+  updateMany?: Prisma.OrderRequestUpdateManyWithWhereWithoutSourceShowcaseInput | Prisma.OrderRequestUpdateManyWithWhereWithoutSourceShowcaseInput[]
+  deleteMany?: Prisma.OrderRequestScalarWhereInput | Prisma.OrderRequestScalarWhereInput[]
+}
+
 export type EnumSalesChannelFieldUpdateOperationsInput = {
   set?: $Enums.SalesChannel
 }
@@ -1049,6 +1115,7 @@ export type OrderRequestCreateWithoutBusinessInput = {
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
@@ -1065,6 +1132,7 @@ export type OrderRequestUncheckedCreateWithoutBusinessInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1123,6 +1191,7 @@ export type OrderRequestScalarWhereInput = {
   channel?: Prisma.EnumSalesChannelFilter<"OrderRequest"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"OrderRequest"> | $Enums.FulfillmentType
   customerAddressId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  sourceShowcaseId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryAddress?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryPlaceId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryLatitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
@@ -1160,6 +1229,7 @@ export type OrderRequestCreateWithoutCustomerAccountInput = {
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
@@ -1176,6 +1246,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1242,6 +1313,7 @@ export type OrderRequestCreateWithoutCustomerInput = {
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
@@ -1258,6 +1330,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1324,6 +1397,7 @@ export type OrderRequestCreateWithoutCustomerAddressInput = {
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
@@ -1340,6 +1414,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1383,6 +1458,90 @@ export type OrderRequestUpdateManyWithWhereWithoutCustomerAddressInput = {
   data: Prisma.XOR<Prisma.OrderRequestUpdateManyMutationInput, Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput>
 }
 
+export type OrderRequestCreateWithoutSourceShowcaseInput = {
+  id?: string
+  referenceCode: string
+  tokenHash: string
+  customerName: string
+  customerPhone: string
+  channel: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  deliveryAddress?: string | null
+  deliveryPlaceId?: string | null
+  deliveryLatitude?: number | null
+  deliveryLongitude?: number | null
+  deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  note?: string | null
+  status?: $Enums.OrderRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
+  customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
+  customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
+  convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+}
+
+export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
+  id?: string
+  businessId: string
+  customerAccountId?: string | null
+  customerId?: string | null
+  referenceCode: string
+  tokenHash: string
+  customerName: string
+  customerPhone: string
+  channel: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  customerAddressId?: string | null
+  deliveryAddress?: string | null
+  deliveryPlaceId?: string | null
+  deliveryLatitude?: number | null
+  deliveryLongitude?: number | null
+  deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  note?: string | null
+  status?: $Enums.OrderRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
+  convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+}
+
+export type OrderRequestCreateOrConnectWithoutSourceShowcaseInput = {
+  where: Prisma.OrderRequestWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderRequestCreateWithoutSourceShowcaseInput, Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput>
+}
+
+export type OrderRequestCreateManySourceShowcaseInputEnvelope = {
+  data: Prisma.OrderRequestCreateManySourceShowcaseInput | Prisma.OrderRequestCreateManySourceShowcaseInput[]
+  skipDuplicates?: boolean
+}
+
+export type OrderRequestUpsertWithWhereUniqueWithoutSourceShowcaseInput = {
+  where: Prisma.OrderRequestWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderRequestUpdateWithoutSourceShowcaseInput, Prisma.OrderRequestUncheckedUpdateWithoutSourceShowcaseInput>
+  create: Prisma.XOR<Prisma.OrderRequestCreateWithoutSourceShowcaseInput, Prisma.OrderRequestUncheckedCreateWithoutSourceShowcaseInput>
+}
+
+export type OrderRequestUpdateWithWhereUniqueWithoutSourceShowcaseInput = {
+  where: Prisma.OrderRequestWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderRequestUpdateWithoutSourceShowcaseInput, Prisma.OrderRequestUncheckedUpdateWithoutSourceShowcaseInput>
+}
+
+export type OrderRequestUpdateManyWithWhereWithoutSourceShowcaseInput = {
+  where: Prisma.OrderRequestScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderRequestUpdateManyMutationInput, Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput>
+}
+
 export type OrderRequestCreateWithoutItemsInput = {
   id?: string
   referenceCode: string
@@ -1407,6 +1566,7 @@ export type OrderRequestCreateWithoutItemsInput = {
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
 }
@@ -1423,6 +1583,7 @@ export type OrderRequestUncheckedCreateWithoutItemsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1479,6 +1640,7 @@ export type OrderRequestUpdateWithoutItemsInput = {
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
 }
@@ -1495,6 +1657,7 @@ export type OrderRequestUncheckedUpdateWithoutItemsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1535,6 +1698,7 @@ export type OrderRequestCreateWithoutEventsInput = {
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
 }
@@ -1551,6 +1715,7 @@ export type OrderRequestUncheckedCreateWithoutEventsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1607,6 +1772,7 @@ export type OrderRequestUpdateWithoutEventsInput = {
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
 }
@@ -1623,6 +1789,7 @@ export type OrderRequestUncheckedUpdateWithoutEventsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1663,6 +1830,7 @@ export type OrderRequestCreateWithoutConvertedSaleInput = {
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
   customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
 }
@@ -1679,6 +1847,7 @@ export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1735,6 +1904,7 @@ export type OrderRequestUpdateWithoutConvertedSaleInput = {
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
 }
@@ -1751,6 +1921,7 @@ export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1778,6 +1949,7 @@ export type OrderRequestCreateManyBusinessInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1815,6 +1987,7 @@ export type OrderRequestUpdateWithoutBusinessInput = {
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
@@ -1831,6 +2004,7 @@ export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1859,6 +2033,7 @@ export type OrderRequestUncheckedUpdateManyWithoutBusinessInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1884,6 +2059,7 @@ export type OrderRequestCreateManyCustomerAccountInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1921,6 +2097,7 @@ export type OrderRequestUpdateWithoutCustomerAccountInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
@@ -1937,6 +2114,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1965,6 +2143,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAccountInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1990,6 +2169,7 @@ export type OrderRequestCreateManyCustomerInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -2027,6 +2207,7 @@ export type OrderRequestUpdateWithoutCustomerInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
@@ -2043,6 +2224,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2071,6 +2253,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2096,6 +2279,7 @@ export type OrderRequestCreateManyCustomerAddressInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  sourceShowcaseId?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -2133,6 +2317,7 @@ export type OrderRequestUpdateWithoutCustomerAddressInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
@@ -2149,6 +2334,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2177,6 +2363,117 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderRequestCreateManySourceShowcaseInput = {
+  id?: string
+  businessId: string
+  customerAccountId?: string | null
+  customerId?: string | null
+  referenceCode: string
+  tokenHash: string
+  customerName: string
+  customerPhone: string
+  channel: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  customerAddressId?: string | null
+  deliveryAddress?: string | null
+  deliveryPlaceId?: string | null
+  deliveryLatitude?: number | null
+  deliveryLongitude?: number | null
+  deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  note?: string | null
+  status?: $Enums.OrderRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderRequestUpdateWithoutSourceShowcaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
+  customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
+  customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
+  convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+}
+
+export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
+  convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+}
+
+export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2243,6 +2540,7 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   channel?: boolean
   fulfillment?: boolean
   customerAddressId?: boolean
+  sourceShowcaseId?: boolean
   deliveryAddress?: boolean
   deliveryPlaceId?: boolean
   deliveryLatitude?: boolean
@@ -2259,6 +2557,7 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
   customer?: boolean | Prisma.OrderRequest$customerArgs<ExtArgs>
   customerAddress?: boolean | Prisma.OrderRequest$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.OrderRequest$sourceShowcaseArgs<ExtArgs>
   items?: boolean | Prisma.OrderRequest$itemsArgs<ExtArgs>
   convertedSale?: boolean | Prisma.OrderRequest$convertedSaleArgs<ExtArgs>
   events?: boolean | Prisma.OrderRequest$eventsArgs<ExtArgs>
@@ -2277,6 +2576,7 @@ export type OrderRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   channel?: boolean
   fulfillment?: boolean
   customerAddressId?: boolean
+  sourceShowcaseId?: boolean
   deliveryAddress?: boolean
   deliveryPlaceId?: boolean
   deliveryLatitude?: boolean
@@ -2293,6 +2593,7 @@ export type OrderRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
   customer?: boolean | Prisma.OrderRequest$customerArgs<ExtArgs>
   customerAddress?: boolean | Prisma.OrderRequest$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.OrderRequest$sourceShowcaseArgs<ExtArgs>
 }, ExtArgs["result"]["orderRequest"]>
 
 export type OrderRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2307,6 +2608,7 @@ export type OrderRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   channel?: boolean
   fulfillment?: boolean
   customerAddressId?: boolean
+  sourceShowcaseId?: boolean
   deliveryAddress?: boolean
   deliveryPlaceId?: boolean
   deliveryLatitude?: boolean
@@ -2323,6 +2625,7 @@ export type OrderRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
   customer?: boolean | Prisma.OrderRequest$customerArgs<ExtArgs>
   customerAddress?: boolean | Prisma.OrderRequest$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.OrderRequest$sourceShowcaseArgs<ExtArgs>
 }, ExtArgs["result"]["orderRequest"]>
 
 export type OrderRequestSelectScalar = {
@@ -2337,6 +2640,7 @@ export type OrderRequestSelectScalar = {
   channel?: boolean
   fulfillment?: boolean
   customerAddressId?: boolean
+  sourceShowcaseId?: boolean
   deliveryAddress?: boolean
   deliveryPlaceId?: boolean
   deliveryLatitude?: boolean
@@ -2351,12 +2655,13 @@ export type OrderRequestSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "customerAddressId" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
+export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "customerAddressId" | "sourceShowcaseId" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
 export type OrderRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
   customer?: boolean | Prisma.OrderRequest$customerArgs<ExtArgs>
   customerAddress?: boolean | Prisma.OrderRequest$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.OrderRequest$sourceShowcaseArgs<ExtArgs>
   items?: boolean | Prisma.OrderRequest$itemsArgs<ExtArgs>
   convertedSale?: boolean | Prisma.OrderRequest$convertedSaleArgs<ExtArgs>
   events?: boolean | Prisma.OrderRequest$eventsArgs<ExtArgs>
@@ -2367,12 +2672,14 @@ export type OrderRequestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
   customer?: boolean | Prisma.OrderRequest$customerArgs<ExtArgs>
   customerAddress?: boolean | Prisma.OrderRequest$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.OrderRequest$sourceShowcaseArgs<ExtArgs>
 }
 export type OrderRequestIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
   customer?: boolean | Prisma.OrderRequest$customerArgs<ExtArgs>
   customerAddress?: boolean | Prisma.OrderRequest$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.OrderRequest$sourceShowcaseArgs<ExtArgs>
 }
 
 export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2382,6 +2689,7 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     customerAccount: Prisma.$CustomerAccountPayload<ExtArgs> | null
     customer: Prisma.$CustomerPayload<ExtArgs> | null
     customerAddress: Prisma.$CustomerAddressPayload<ExtArgs> | null
+    sourceShowcase: Prisma.$ShowcasePayload<ExtArgs> | null
     items: Prisma.$OrderRequestItemPayload<ExtArgs>[]
     convertedSale: Prisma.$SalePayload<ExtArgs> | null
     events: Prisma.$CommerceEventPayload<ExtArgs>[]
@@ -2398,6 +2706,7 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     channel: $Enums.SalesChannel
     fulfillment: $Enums.FulfillmentType
     customerAddressId: string | null
+    sourceShowcaseId: string | null
     deliveryAddress: string | null
     deliveryPlaceId: string | null
     deliveryLatitude: number | null
@@ -2808,6 +3117,7 @@ export interface Prisma__OrderRequestClient<T, Null = never, ExtArgs extends run
   customerAccount<T extends Prisma.OrderRequest$customerAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$customerAccountArgs<ExtArgs>>): Prisma.Prisma__CustomerAccountClient<runtime.Types.Result.GetResult<Prisma.$CustomerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   customer<T extends Prisma.OrderRequest$customerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$customerArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   customerAddress<T extends Prisma.OrderRequest$customerAddressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$customerAddressArgs<ExtArgs>>): Prisma.Prisma__CustomerAddressClient<runtime.Types.Result.GetResult<Prisma.$CustomerAddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  sourceShowcase<T extends Prisma.OrderRequest$sourceShowcaseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$sourceShowcaseArgs<ExtArgs>>): Prisma.Prisma__ShowcaseClient<runtime.Types.Result.GetResult<Prisma.$ShowcasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.OrderRequest$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   convertedSale<T extends Prisma.OrderRequest$convertedSaleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$convertedSaleArgs<ExtArgs>>): Prisma.Prisma__SaleClient<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   events<T extends Prisma.OrderRequest$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommerceEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2851,6 +3161,7 @@ export interface OrderRequestFieldRefs {
   readonly channel: Prisma.FieldRef<"OrderRequest", 'SalesChannel'>
   readonly fulfillment: Prisma.FieldRef<"OrderRequest", 'FulfillmentType'>
   readonly customerAddressId: Prisma.FieldRef<"OrderRequest", 'String'>
+  readonly sourceShowcaseId: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly deliveryAddress: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly deliveryPlaceId: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly deliveryLatitude: Prisma.FieldRef<"OrderRequest", 'Float'>
@@ -3318,6 +3629,25 @@ export type OrderRequest$customerAddressArgs<ExtArgs extends runtime.Types.Exten
    */
   include?: Prisma.CustomerAddressInclude<ExtArgs> | null
   where?: Prisma.CustomerAddressWhereInput
+}
+
+/**
+ * OrderRequest.sourceShowcase
+ */
+export type OrderRequest$sourceShowcaseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Showcase
+   */
+  select?: Prisma.ShowcaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Showcase
+   */
+  omit?: Prisma.ShowcaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShowcaseInclude<ExtArgs> | null
+  where?: Prisma.ShowcaseWhereInput
 }
 
 /**

@@ -74,6 +74,10 @@ export const ModelName = {
   CustomerTagAssignment: 'CustomerTagAssignment',
   Product: 'Product',
   ProductImage: 'ProductImage',
+  Showcase: 'Showcase',
+  ShowcaseHotspot: 'ShowcaseHotspot',
+  SavedShowcase: 'SavedShowcase',
+  ShopFollow: 'ShopFollow',
   WishlistItem: 'WishlistItem',
   ProductInterest: 'ProductInterest',
   OrderRequest: 'OrderRequest',
@@ -190,6 +194,7 @@ export const BusinessScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
   logoAssetId: 'logoAssetId',
+  coverAssetId: 'coverAssetId',
   name: 'name',
   slug: 'slug',
   publicCardId: 'publicCardId',
@@ -492,6 +497,56 @@ export const ProductImageScalarFieldEnum = {
 export type ProductImageScalarFieldEnum = (typeof ProductImageScalarFieldEnum)[keyof typeof ProductImageScalarFieldEnum]
 
 
+export const ShowcaseScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  assetId: 'assetId',
+  title: 'title',
+  caption: 'caption',
+  status: 'status',
+  featured: 'featured',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShowcaseScalarFieldEnum = (typeof ShowcaseScalarFieldEnum)[keyof typeof ShowcaseScalarFieldEnum]
+
+
+export const ShowcaseHotspotScalarFieldEnum = {
+  id: 'id',
+  showcaseId: 'showcaseId',
+  productId: 'productId',
+  x: 'x',
+  y: 'y',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt'
+} as const
+
+export type ShowcaseHotspotScalarFieldEnum = (typeof ShowcaseHotspotScalarFieldEnum)[keyof typeof ShowcaseHotspotScalarFieldEnum]
+
+
+export const SavedShowcaseScalarFieldEnum = {
+  id: 'id',
+  customerAccountId: 'customerAccountId',
+  businessId: 'businessId',
+  showcaseId: 'showcaseId',
+  createdAt: 'createdAt'
+} as const
+
+export type SavedShowcaseScalarFieldEnum = (typeof SavedShowcaseScalarFieldEnum)[keyof typeof SavedShowcaseScalarFieldEnum]
+
+
+export const ShopFollowScalarFieldEnum = {
+  id: 'id',
+  customerAccountId: 'customerAccountId',
+  businessId: 'businessId',
+  createdAt: 'createdAt'
+} as const
+
+export type ShopFollowScalarFieldEnum = (typeof ShopFollowScalarFieldEnum)[keyof typeof ShopFollowScalarFieldEnum]
+
+
 export const WishlistItemScalarFieldEnum = {
   id: 'id',
   customerAccountId: 'customerAccountId',
@@ -527,6 +582,7 @@ export const OrderRequestScalarFieldEnum = {
   channel: 'channel',
   fulfillment: 'fulfillment',
   customerAddressId: 'customerAddressId',
+  sourceShowcaseId: 'sourceShowcaseId',
   deliveryAddress: 'deliveryAddress',
   deliveryPlaceId: 'deliveryPlaceId',
   deliveryLatitude: 'deliveryLatitude',
@@ -730,6 +786,9 @@ export const DeliveryScalarFieldEnum = {
   recipientName: 'recipientName',
   recipientPhone: 'recipientPhone',
   courier: 'courier',
+  courierService: 'courierService',
+  courierName: 'courierName',
+  courierPhone: 'courierPhone',
   trackingCode: 'trackingCode',
   trackingUrl: 'trackingUrl',
   deliveredAt: 'deliveredAt',
@@ -861,6 +920,7 @@ export type TrustLedgerEntryScalarFieldEnum = (typeof TrustLedgerEntryScalarFiel
 export const SupportRequestScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
+  customerIssueId: 'customerIssueId',
   topic: 'topic',
   message: 'message',
   status: 'status',

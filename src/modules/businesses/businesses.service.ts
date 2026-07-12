@@ -36,6 +36,7 @@ export class BusinessesService {
     return this.prisma.business.findUniqueOrThrow({
       where: { id: auth.businessId },
       include: {
+        coverAsset: true,
         logoAsset: true,
         launchProduct: {
           include: {
@@ -108,6 +109,17 @@ export class BusinessesService {
         },
       });
       if (!asset) throw new BadRequestException("Business logo asset is invalid");
+    }
+    if (dto.coverAssetId) {
+      const asset = await this.prisma.mediaAsset.findFirst({
+        where: {
+          id: dto.coverAssetId,
+          businessId: auth.businessId,
+          purpose: "SHOP_COVER",
+          status: "ACTIVE",
+        },
+      });
+      if (!asset) throw new BadRequestException("Shop cover asset is invalid");
     }
     try {
       return await this.prisma.business.update({

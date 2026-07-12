@@ -56,6 +56,10 @@ export class UpdateBusinessDto {
   @IsOptional()
   @IsString()
   logoAssetId?: string;
+
+  @IsOptional()
+  @IsString()
+  coverAssetId?: string;
 }
 
 export class BusinessContactDto {

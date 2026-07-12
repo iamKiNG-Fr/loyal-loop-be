@@ -143,7 +143,7 @@ export class ReceiptsService {
             saleId: receipt.saleId,
             receiptId: receipt.id,
             type: "RECEIPT_VIEWED",
-            title: `Receipt ${receipt.receiptCode} viewed`,
+            title: `Receipt ${receipt.receiptCode} opened`,
             awardTrust: false,
           },
           tx,

@@ -111,6 +111,25 @@ export class CustomerAuthController {
       .then((data) => ok(data));
   }
 
+  @Get("me/orders")
+  @UseGuards(CustomerAuthGuard)
+  orders(@CurrentCustomer() customer: CustomerAuthContext) {
+    return this.auth
+      .listOrders(customer.customerAccountId)
+      .then((data) => ok(data));
+  }
+
+  @Post("me/orders/:id/link")
+  @UseGuards(CustomerAuthGuard)
+  orderLink(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Param("id") id: string,
+  ) {
+    return this.auth
+      .createOrderLink(customer.customerAccountId, id)
+      .then((data) => ok(data, "Order journey ready"));
+  }
+
   @Post("me/addresses")
   @UseGuards(CustomerAuthGuard)
   createAddress(

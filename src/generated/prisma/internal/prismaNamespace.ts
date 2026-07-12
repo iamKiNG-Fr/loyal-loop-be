@@ -407,6 +407,10 @@ export const ModelName = {
   CustomerTagAssignment: 'CustomerTagAssignment',
   Product: 'Product',
   ProductImage: 'ProductImage',
+  Showcase: 'Showcase',
+  ShowcaseHotspot: 'ShowcaseHotspot',
+  SavedShowcase: 'SavedShowcase',
+  ShopFollow: 'ShopFollow',
   WishlistItem: 'WishlistItem',
   ProductInterest: 'ProductInterest',
   OrderRequest: 'OrderRequest',
@@ -445,7 +449,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "user" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
+    modelProps: "waitlistEntry" | "user" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerTag" | "customerTagAssignment" | "product" | "productImage" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "orderRequest" | "orderRequestItem" | "commerceEvent" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2148,6 +2152,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ProductImageCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ProductImageCountAggregateOutputType> | number
+        }
+      }
+    }
+    Showcase: {
+      payload: Prisma.$ShowcasePayload<ExtArgs>
+      fields: Prisma.ShowcaseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShowcaseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShowcaseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload>
+        }
+        findFirst: {
+          args: Prisma.ShowcaseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShowcaseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload>
+        }
+        findMany: {
+          args: Prisma.ShowcaseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload>[]
+        }
+        create: {
+          args: Prisma.ShowcaseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload>
+        }
+        createMany: {
+          args: Prisma.ShowcaseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShowcaseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload>[]
+        }
+        delete: {
+          args: Prisma.ShowcaseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload>
+        }
+        update: {
+          args: Prisma.ShowcaseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload>
+        }
+        deleteMany: {
+          args: Prisma.ShowcaseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShowcaseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShowcaseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload>[]
+        }
+        upsert: {
+          args: Prisma.ShowcaseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcasePayload>
+        }
+        aggregate: {
+          args: Prisma.ShowcaseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShowcase>
+        }
+        groupBy: {
+          args: Prisma.ShowcaseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShowcaseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShowcaseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShowcaseCountAggregateOutputType> | number
+        }
+      }
+    }
+    ShowcaseHotspot: {
+      payload: Prisma.$ShowcaseHotspotPayload<ExtArgs>
+      fields: Prisma.ShowcaseHotspotFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShowcaseHotspotFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShowcaseHotspotFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload>
+        }
+        findFirst: {
+          args: Prisma.ShowcaseHotspotFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShowcaseHotspotFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload>
+        }
+        findMany: {
+          args: Prisma.ShowcaseHotspotFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload>[]
+        }
+        create: {
+          args: Prisma.ShowcaseHotspotCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload>
+        }
+        createMany: {
+          args: Prisma.ShowcaseHotspotCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShowcaseHotspotCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload>[]
+        }
+        delete: {
+          args: Prisma.ShowcaseHotspotDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload>
+        }
+        update: {
+          args: Prisma.ShowcaseHotspotUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShowcaseHotspotDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShowcaseHotspotUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShowcaseHotspotUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShowcaseHotspotUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShowcaseHotspotPayload>
+        }
+        aggregate: {
+          args: Prisma.ShowcaseHotspotAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShowcaseHotspot>
+        }
+        groupBy: {
+          args: Prisma.ShowcaseHotspotGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShowcaseHotspotGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShowcaseHotspotCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShowcaseHotspotCountAggregateOutputType> | number
+        }
+      }
+    }
+    SavedShowcase: {
+      payload: Prisma.$SavedShowcasePayload<ExtArgs>
+      fields: Prisma.SavedShowcaseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SavedShowcaseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SavedShowcaseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload>
+        }
+        findFirst: {
+          args: Prisma.SavedShowcaseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SavedShowcaseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload>
+        }
+        findMany: {
+          args: Prisma.SavedShowcaseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload>[]
+        }
+        create: {
+          args: Prisma.SavedShowcaseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload>
+        }
+        createMany: {
+          args: Prisma.SavedShowcaseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SavedShowcaseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload>[]
+        }
+        delete: {
+          args: Prisma.SavedShowcaseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload>
+        }
+        update: {
+          args: Prisma.SavedShowcaseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload>
+        }
+        deleteMany: {
+          args: Prisma.SavedShowcaseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SavedShowcaseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SavedShowcaseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload>[]
+        }
+        upsert: {
+          args: Prisma.SavedShowcaseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SavedShowcasePayload>
+        }
+        aggregate: {
+          args: Prisma.SavedShowcaseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSavedShowcase>
+        }
+        groupBy: {
+          args: Prisma.SavedShowcaseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavedShowcaseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SavedShowcaseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SavedShowcaseCountAggregateOutputType> | number
+        }
+      }
+    }
+    ShopFollow: {
+      payload: Prisma.$ShopFollowPayload<ExtArgs>
+      fields: Prisma.ShopFollowFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShopFollowFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShopFollowFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload>
+        }
+        findFirst: {
+          args: Prisma.ShopFollowFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShopFollowFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload>
+        }
+        findMany: {
+          args: Prisma.ShopFollowFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload>[]
+        }
+        create: {
+          args: Prisma.ShopFollowCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload>
+        }
+        createMany: {
+          args: Prisma.ShopFollowCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShopFollowCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload>[]
+        }
+        delete: {
+          args: Prisma.ShopFollowDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload>
+        }
+        update: {
+          args: Prisma.ShopFollowUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShopFollowDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShopFollowUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShopFollowUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShopFollowUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopFollowPayload>
+        }
+        aggregate: {
+          args: Prisma.ShopFollowAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShopFollow>
+        }
+        groupBy: {
+          args: Prisma.ShopFollowGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShopFollowGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShopFollowCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShopFollowCountAggregateOutputType> | number
         }
       }
     }
@@ -3967,6 +4267,7 @@ export const BusinessScalarFieldEnum = {
   id: 'id',
   ownerId: 'ownerId',
   logoAssetId: 'logoAssetId',
+  coverAssetId: 'coverAssetId',
   name: 'name',
   slug: 'slug',
   publicCardId: 'publicCardId',
@@ -4269,6 +4570,56 @@ export const ProductImageScalarFieldEnum = {
 export type ProductImageScalarFieldEnum = (typeof ProductImageScalarFieldEnum)[keyof typeof ProductImageScalarFieldEnum]
 
 
+export const ShowcaseScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  assetId: 'assetId',
+  title: 'title',
+  caption: 'caption',
+  status: 'status',
+  featured: 'featured',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShowcaseScalarFieldEnum = (typeof ShowcaseScalarFieldEnum)[keyof typeof ShowcaseScalarFieldEnum]
+
+
+export const ShowcaseHotspotScalarFieldEnum = {
+  id: 'id',
+  showcaseId: 'showcaseId',
+  productId: 'productId',
+  x: 'x',
+  y: 'y',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt'
+} as const
+
+export type ShowcaseHotspotScalarFieldEnum = (typeof ShowcaseHotspotScalarFieldEnum)[keyof typeof ShowcaseHotspotScalarFieldEnum]
+
+
+export const SavedShowcaseScalarFieldEnum = {
+  id: 'id',
+  customerAccountId: 'customerAccountId',
+  businessId: 'businessId',
+  showcaseId: 'showcaseId',
+  createdAt: 'createdAt'
+} as const
+
+export type SavedShowcaseScalarFieldEnum = (typeof SavedShowcaseScalarFieldEnum)[keyof typeof SavedShowcaseScalarFieldEnum]
+
+
+export const ShopFollowScalarFieldEnum = {
+  id: 'id',
+  customerAccountId: 'customerAccountId',
+  businessId: 'businessId',
+  createdAt: 'createdAt'
+} as const
+
+export type ShopFollowScalarFieldEnum = (typeof ShopFollowScalarFieldEnum)[keyof typeof ShopFollowScalarFieldEnum]
+
+
 export const WishlistItemScalarFieldEnum = {
   id: 'id',
   customerAccountId: 'customerAccountId',
@@ -4304,6 +4655,7 @@ export const OrderRequestScalarFieldEnum = {
   channel: 'channel',
   fulfillment: 'fulfillment',
   customerAddressId: 'customerAddressId',
+  sourceShowcaseId: 'sourceShowcaseId',
   deliveryAddress: 'deliveryAddress',
   deliveryPlaceId: 'deliveryPlaceId',
   deliveryLatitude: 'deliveryLatitude',
@@ -4507,6 +4859,9 @@ export const DeliveryScalarFieldEnum = {
   recipientName: 'recipientName',
   recipientPhone: 'recipientPhone',
   courier: 'courier',
+  courierService: 'courierService',
+  courierName: 'courierName',
+  courierPhone: 'courierPhone',
   trackingCode: 'trackingCode',
   trackingUrl: 'trackingUrl',
   deliveredAt: 'deliveredAt',
@@ -4638,6 +4993,7 @@ export type TrustLedgerEntryScalarFieldEnum = (typeof TrustLedgerEntryScalarFiel
 export const SupportRequestScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
+  customerIssueId: 'customerIssueId',
   topic: 'topic',
   message: 'message',
   status: 'status',
@@ -5053,6 +5409,20 @@ export type ListEnumProductVisibilityFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
+ * Reference to a field of type 'ShowcaseStatus'
+ */
+export type EnumShowcaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShowcaseStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ShowcaseStatus[]'
+ */
+export type ListEnumShowcaseStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShowcaseStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'ProductInterestType'
  */
 export type EnumProductInterestTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductInterestType'>
@@ -5436,6 +5806,10 @@ export type GlobalOmitConfig = {
   customerTagAssignment?: Prisma.CustomerTagAssignmentOmit
   product?: Prisma.ProductOmit
   productImage?: Prisma.ProductImageOmit
+  showcase?: Prisma.ShowcaseOmit
+  showcaseHotspot?: Prisma.ShowcaseHotspotOmit
+  savedShowcase?: Prisma.SavedShowcaseOmit
+  shopFollow?: Prisma.ShopFollowOmit
   wishlistItem?: Prisma.WishlistItemOmit
   productInterest?: Prisma.ProductInterestOmit
   orderRequest?: Prisma.OrderRequestOmit

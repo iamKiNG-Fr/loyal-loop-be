@@ -51,6 +51,9 @@ export type DeliveryMinAggregateOutputType = {
   recipientName: string | null
   recipientPhone: string | null
   courier: string | null
+  courierService: string | null
+  courierName: string | null
+  courierPhone: string | null
   trackingCode: string | null
   trackingUrl: string | null
   deliveredAt: Date | null
@@ -74,6 +77,9 @@ export type DeliveryMaxAggregateOutputType = {
   recipientName: string | null
   recipientPhone: string | null
   courier: string | null
+  courierService: string | null
+  courierName: string | null
+  courierPhone: string | null
   trackingCode: string | null
   trackingUrl: string | null
   deliveredAt: Date | null
@@ -97,6 +103,9 @@ export type DeliveryCountAggregateOutputType = {
   recipientName: number
   recipientPhone: number
   courier: number
+  courierService: number
+  courierName: number
+  courierPhone: number
   trackingCode: number
   trackingUrl: number
   deliveredAt: number
@@ -132,6 +141,9 @@ export type DeliveryMinAggregateInputType = {
   recipientName?: true
   recipientPhone?: true
   courier?: true
+  courierService?: true
+  courierName?: true
+  courierPhone?: true
   trackingCode?: true
   trackingUrl?: true
   deliveredAt?: true
@@ -155,6 +167,9 @@ export type DeliveryMaxAggregateInputType = {
   recipientName?: true
   recipientPhone?: true
   courier?: true
+  courierService?: true
+  courierName?: true
+  courierPhone?: true
   trackingCode?: true
   trackingUrl?: true
   deliveredAt?: true
@@ -178,6 +193,9 @@ export type DeliveryCountAggregateInputType = {
   recipientName?: true
   recipientPhone?: true
   courier?: true
+  courierService?: true
+  courierName?: true
+  courierPhone?: true
   trackingCode?: true
   trackingUrl?: true
   deliveredAt?: true
@@ -288,6 +306,9 @@ export type DeliveryGroupByOutputType = {
   recipientName: string | null
   recipientPhone: string | null
   courier: string | null
+  courierService: string | null
+  courierName: string | null
+  courierPhone: string | null
   trackingCode: string | null
   trackingUrl: string | null
   deliveredAt: Date | null
@@ -334,6 +355,9 @@ export type DeliveryWhereInput = {
   recipientName?: Prisma.StringNullableFilter<"Delivery"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  courierService?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  courierName?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  courierPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableFilter<"Delivery"> | string | null
   deliveredAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
@@ -365,6 +389,9 @@ export type DeliveryOrderByWithRelationInput = {
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   courier?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierService?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierName?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingCode?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveredAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -399,6 +426,9 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   recipientName?: Prisma.StringNullableFilter<"Delivery"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  courierService?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  courierName?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  courierPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableFilter<"Delivery"> | string | null
   deliveredAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
@@ -430,6 +460,9 @@ export type DeliveryOrderByWithAggregationInput = {
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   courier?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierService?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierName?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingCode?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveredAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -461,6 +494,9 @@ export type DeliveryScalarWhereWithAggregatesInput = {
   recipientName?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   recipientPhone?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  courierService?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  courierName?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  courierPhone?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   deliveredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Delivery"> | Date | string | null
@@ -481,6 +517,9 @@ export type DeliveryCreateInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -512,6 +551,9 @@ export type DeliveryUncheckedCreateInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -537,6 +579,9 @@ export type DeliveryUpdateInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -568,6 +613,9 @@ export type DeliveryUncheckedUpdateInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -596,6 +644,9 @@ export type DeliveryCreateManyInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -616,6 +667,9 @@ export type DeliveryUpdateManyMutationInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -639,6 +693,9 @@ export type DeliveryUncheckedUpdateManyInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -677,6 +734,9 @@ export type DeliveryCountOrderByAggregateInput = {
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
   courier?: Prisma.SortOrder
+  courierService?: Prisma.SortOrder
+  courierName?: Prisma.SortOrder
+  courierPhone?: Prisma.SortOrder
   trackingCode?: Prisma.SortOrder
   trackingUrl?: Prisma.SortOrder
   deliveredAt?: Prisma.SortOrder
@@ -705,6 +765,9 @@ export type DeliveryMaxOrderByAggregateInput = {
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
   courier?: Prisma.SortOrder
+  courierService?: Prisma.SortOrder
+  courierName?: Prisma.SortOrder
+  courierPhone?: Prisma.SortOrder
   trackingCode?: Prisma.SortOrder
   trackingUrl?: Prisma.SortOrder
   deliveredAt?: Prisma.SortOrder
@@ -728,6 +791,9 @@ export type DeliveryMinOrderByAggregateInput = {
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
   courier?: Prisma.SortOrder
+  courierService?: Prisma.SortOrder
+  courierName?: Prisma.SortOrder
+  courierPhone?: Prisma.SortOrder
   trackingCode?: Prisma.SortOrder
   trackingUrl?: Prisma.SortOrder
   deliveredAt?: Prisma.SortOrder
@@ -954,6 +1020,9 @@ export type DeliveryCreateWithoutBusinessInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -983,6 +1052,9 @@ export type DeliveryUncheckedCreateWithoutBusinessInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1040,6 +1112,9 @@ export type DeliveryScalarWhereInput = {
   recipientName?: Prisma.StringNullableFilter<"Delivery"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  courierService?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  courierName?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  courierPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableFilter<"Delivery"> | string | null
   deliveredAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
@@ -1060,6 +1135,9 @@ export type DeliveryCreateWithoutCustomerInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1089,6 +1167,9 @@ export type DeliveryUncheckedCreateWithoutCustomerInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1140,6 +1221,9 @@ export type DeliveryCreateWithoutSaleInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1169,6 +1253,9 @@ export type DeliveryUncheckedCreateWithoutSaleInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1210,6 +1297,9 @@ export type DeliveryUpdateWithoutSaleInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1239,6 +1329,9 @@ export type DeliveryUncheckedUpdateWithoutSaleInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1264,6 +1357,9 @@ export type DeliveryCreateWithoutShareTokensInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1294,6 +1390,9 @@ export type DeliveryUncheckedCreateWithoutShareTokensInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1334,6 +1433,9 @@ export type DeliveryUpdateWithoutShareTokensInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1364,6 +1466,9 @@ export type DeliveryUncheckedUpdateWithoutShareTokensInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1388,6 +1493,9 @@ export type DeliveryCreateWithoutEventsInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1418,6 +1526,9 @@ export type DeliveryUncheckedCreateWithoutEventsInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1458,6 +1569,9 @@ export type DeliveryUpdateWithoutEventsInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1488,6 +1602,9 @@ export type DeliveryUncheckedUpdateWithoutEventsInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1512,6 +1629,9 @@ export type DeliveryCreateWithoutActivityEventsInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1542,6 +1662,9 @@ export type DeliveryUncheckedCreateWithoutActivityEventsInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1582,6 +1705,9 @@ export type DeliveryUpdateWithoutActivityEventsInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1612,6 +1738,9 @@ export type DeliveryUncheckedUpdateWithoutActivityEventsInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1636,6 +1765,9 @@ export type DeliveryCreateWithoutFeedbackInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1666,6 +1798,9 @@ export type DeliveryUncheckedCreateWithoutFeedbackInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1706,6 +1841,9 @@ export type DeliveryUpdateWithoutFeedbackInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1736,6 +1874,9 @@ export type DeliveryUncheckedUpdateWithoutFeedbackInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1760,6 +1901,9 @@ export type DeliveryCreateWithoutIssuesInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1790,6 +1934,9 @@ export type DeliveryUncheckedCreateWithoutIssuesInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1830,6 +1977,9 @@ export type DeliveryUpdateWithoutIssuesInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1860,6 +2010,9 @@ export type DeliveryUncheckedUpdateWithoutIssuesInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1886,6 +2039,9 @@ export type DeliveryCreateManyBusinessInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -1906,6 +2062,9 @@ export type DeliveryUpdateWithoutBusinessInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1935,6 +2094,9 @@ export type DeliveryUncheckedUpdateWithoutBusinessInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1962,6 +2124,9 @@ export type DeliveryUncheckedUpdateManyWithoutBusinessInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1984,6 +2149,9 @@ export type DeliveryCreateManyCustomerInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
   deliveredAt?: Date | string | null
@@ -2004,6 +2172,9 @@ export type DeliveryUpdateWithoutCustomerInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2033,6 +2204,9 @@ export type DeliveryUncheckedUpdateWithoutCustomerInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2060,6 +2234,9 @@ export type DeliveryUncheckedUpdateManyWithoutCustomerInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2150,6 +2327,9 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   recipientName?: boolean
   recipientPhone?: boolean
   courier?: boolean
+  courierService?: boolean
+  courierName?: boolean
+  courierPhone?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
   deliveredAt?: boolean
@@ -2182,6 +2362,9 @@ export type DeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   recipientName?: boolean
   recipientPhone?: boolean
   courier?: boolean
+  courierService?: boolean
+  courierName?: boolean
+  courierPhone?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
   deliveredAt?: boolean
@@ -2208,6 +2391,9 @@ export type DeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   recipientName?: boolean
   recipientPhone?: boolean
   courier?: boolean
+  courierService?: boolean
+  courierName?: boolean
+  courierPhone?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
   deliveredAt?: boolean
@@ -2234,6 +2420,9 @@ export type DeliverySelectScalar = {
   recipientName?: boolean
   recipientPhone?: boolean
   courier?: boolean
+  courierService?: boolean
+  courierName?: boolean
+  courierPhone?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
   deliveredAt?: boolean
@@ -2242,7 +2431,7 @@ export type DeliverySelectScalar = {
   updatedAt?: boolean
 }
 
-export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "saleId" | "tokenHash" | "status" | "address" | "googlePlaceId" | "latitude" | "longitude" | "isGift" | "recipientName" | "recipientPhone" | "courier" | "trackingCode" | "trackingUrl" | "deliveredAt" | "confirmedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["delivery"]>
+export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "saleId" | "tokenHash" | "status" | "address" | "googlePlaceId" | "latitude" | "longitude" | "isGift" | "recipientName" | "recipientPhone" | "courier" | "courierService" | "courierName" | "courierPhone" | "trackingCode" | "trackingUrl" | "deliveredAt" | "confirmedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["delivery"]>
 export type DeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -2292,6 +2481,9 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     recipientName: string | null
     recipientPhone: string | null
     courier: string | null
+    courierService: string | null
+    courierName: string | null
+    courierPhone: string | null
     trackingCode: string | null
     trackingUrl: string | null
     deliveredAt: Date | null
@@ -2743,6 +2935,9 @@ export interface DeliveryFieldRefs {
   readonly recipientName: Prisma.FieldRef<"Delivery", 'String'>
   readonly recipientPhone: Prisma.FieldRef<"Delivery", 'String'>
   readonly courier: Prisma.FieldRef<"Delivery", 'String'>
+  readonly courierService: Prisma.FieldRef<"Delivery", 'String'>
+  readonly courierName: Prisma.FieldRef<"Delivery", 'String'>
+  readonly courierPhone: Prisma.FieldRef<"Delivery", 'String'>
   readonly trackingCode: Prisma.FieldRef<"Delivery", 'String'>
   readonly trackingUrl: Prisma.FieldRef<"Delivery", 'String'>
   readonly deliveredAt: Prisma.FieldRef<"Delivery", 'DateTime'>

@@ -37,6 +37,14 @@ const publicProductInclude = {
   },
 };
 
+const publicShowcaseInclude = {
+  asset: true,
+  hotspots: {
+    include: { product: { include: publicProductInclude } },
+    orderBy: { sortOrder: "asc" as const },
+  },
+};
+
 @Injectable()
 export class ShopsService {
   constructor(
@@ -53,6 +61,7 @@ export class ShopsService {
     const business = await this.prisma.business.findFirst({
       where: { slug, storeStatus: { not: "CLOSED" } },
       include: {
+        coverAsset: true,
         logoAsset: true,
         launchProduct: { include: publicProductInclude },
         contacts: { orderBy: { sortOrder: "asc" } },
@@ -61,6 +70,11 @@ export class ShopsService {
           where: { status: "ACTIVE", visibility: "PUBLIC" },
           include: publicProductInclude,
           orderBy: [{ placement: "asc" }, { createdAt: "desc" }],
+        },
+        showcases: {
+          where: { status: "PUBLISHED" },
+          include: publicShowcaseInclude,
+          orderBy: [{ featured: "desc" }, { publishedAt: "desc" }],
         },
       },
     });
@@ -71,6 +85,7 @@ export class ShopsService {
       business: sanitizeBusiness(business),
       canRequest: open,
       products: open ? business.products : [],
+      showcases: open ? business.showcases : [],
       trust: await this.trust.summary(business.id, false),
     };
   }
@@ -130,6 +145,18 @@ export class ShopsService {
     if (products.length !== productIds.length) {
       throw new BadRequestException("One or more requested products are unavailable");
     }
+    if (dto.sourceShowcaseId) {
+      const source = await this.prisma.showcase.findFirst({
+        where: {
+          id: dto.sourceShowcaseId,
+          businessId: business.id,
+          status: "PUBLISHED",
+          hotspots: { some: { productId: { in: productIds } } },
+        },
+        select: { id: true },
+      });
+      if (!source) throw new BadRequestException("Showcase source is invalid");
+    }
     const customerAccountId = rawCustomerSession
       ? await this.resolveCustomerAccount(rawCustomerSession)
       : undefined;
@@ -177,6 +204,7 @@ export class ShopsService {
         channel: dto.channel,
         fulfillment,
         customerAddressId: savedAddress?.id,
+        sourceShowcaseId: dto.sourceShowcaseId,
         deliveryAddress,
         deliveryPlaceId:
           savedAddress?.googlePlaceId?.trim() || dto.deliveryPlaceId?.trim(),
@@ -610,6 +638,7 @@ function sanitizeBusiness(business: Record<string, unknown>) {
     launchShareVersion?: number;
     launchedAt?: Date | null;
     logoAsset?: { secureUrl?: string } | null;
+    coverAsset?: { secureUrl?: string } | null;
     contacts?: Array<{
       platform: string;
       value: string;
@@ -665,6 +694,9 @@ function sanitizeBusiness(business: Record<string, unknown>) {
     storeStatus: source.storeStatus,
     logoAsset: source.logoAsset?.secureUrl
       ? { secureUrl: source.logoAsset.secureUrl }
+      : null,
+    coverAsset: source.coverAsset?.secureUrl
+      ? { secureUrl: source.coverAsset.secureUrl }
       : null,
     contacts: source.contacts ?? [],
     preferences: source.preferences

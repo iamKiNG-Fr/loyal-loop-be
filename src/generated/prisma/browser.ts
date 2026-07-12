@@ -133,6 +133,26 @@ export type Product = Prisma.ProductModel
  */
 export type ProductImage = Prisma.ProductImageModel
 /**
+ * Model Showcase
+ * 
+ */
+export type Showcase = Prisma.ShowcaseModel
+/**
+ * Model ShowcaseHotspot
+ * 
+ */
+export type ShowcaseHotspot = Prisma.ShowcaseHotspotModel
+/**
+ * Model SavedShowcase
+ * 
+ */
+export type SavedShowcase = Prisma.SavedShowcaseModel
+/**
+ * Model ShopFollow
+ * 
+ */
+export type ShopFollow = Prisma.ShopFollowModel
+/**
  * Model WishlistItem
  * 
  */

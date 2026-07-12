@@ -32,6 +32,21 @@ export class UpdateDeliveryDto {
 
   @IsOptional()
   @IsString()
+  @Length(0, 120)
+  courierService?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  courierName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 40)
+  courierPhone?: string;
+
+  @IsOptional()
+  @IsString()
   @Length(0, 500)
   note?: string;
 

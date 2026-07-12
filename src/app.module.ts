@@ -13,6 +13,7 @@ import { CustomerAuthModule } from "./modules/customer-auth/customer-auth.module
 import { CustomersModule } from "./modules/customers/customers.module";
 import { DashboardModule } from "./modules/dashboard/dashboard.module";
 import { DeliveryModule } from "./modules/delivery/delivery.module";
+import { DiscoveryModule } from "./modules/discovery/discovery.module";
 import { FollowUpsModule } from "./modules/follow-ups/follow-ups.module";
 import { MailModule } from "./modules/mail/mail.module";
 import { MediaModule } from "./modules/media/media.module";
@@ -56,6 +57,7 @@ import { WaitlistModule } from "./modules/waitlist/waitlist.module";
     SalesModule,
     ReceiptsModule,
     DeliveryModule,
+    DiscoveryModule,
     ActivityModule,
     FollowUpsModule,
     ShopsModule,

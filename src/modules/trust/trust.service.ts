@@ -100,7 +100,9 @@ export class TrustService {
         _sum: { points: true },
       }),
       this.prisma.receipt.count({
-        where: { businessId, status: { in: ["SENT", "VIEWED"] } },
+        // Viewing changes a receipt's lifecycle status. Trust counts the
+        // owner's actual share action, never the customer's open event.
+        where: { businessId, sentAt: { not: null } },
       }),
       this.prisma.delivery.count({
         where: { businessId, status: "CONFIRMED" },
@@ -258,7 +260,13 @@ export function calculateTrustLevel(input: {
   activeDays: number;
 }) {
   let level = input.profileComplete ? 1 : 0;
-  if (level >= 1 && input.sentReceipts >= 5) level = 2;
+  if (
+    level >= 1 &&
+    input.sentReceipts >= 5 &&
+    (input.confirmedDeliveries >= 1 || input.feedbackCount >= 1)
+  ) {
+    level = 2;
+  }
   if (
     level >= 2 &&
     input.confirmedDeliveries >= 10 &&

@@ -51,6 +51,10 @@ export class PublicRequestItemDto {
 }
 
 export class CreateOrderRequestDto {
+  @IsOptional()
+  @IsString()
+  sourceShowcaseId?: string;
+
   @IsString()
   @Length(1, 120)
   customerName!: string;

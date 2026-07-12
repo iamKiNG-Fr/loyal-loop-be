@@ -235,6 +235,7 @@ export type CustomerIssueWhereInput = {
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
   receipt?: Prisma.XOR<Prisma.ReceiptNullableScalarRelationFilter, Prisma.ReceiptWhereInput> | null
   delivery?: Prisma.XOR<Prisma.DeliveryNullableScalarRelationFilter, Prisma.DeliveryWhereInput> | null
+  supportRequest?: Prisma.XOR<Prisma.SupportRequestNullableScalarRelationFilter, Prisma.SupportRequestWhereInput> | null
 }
 
 export type CustomerIssueOrderByWithRelationInput = {
@@ -254,6 +255,7 @@ export type CustomerIssueOrderByWithRelationInput = {
   sale?: Prisma.SaleOrderByWithRelationInput
   receipt?: Prisma.ReceiptOrderByWithRelationInput
   delivery?: Prisma.DeliveryOrderByWithRelationInput
+  supportRequest?: Prisma.SupportRequestOrderByWithRelationInput
 }
 
 export type CustomerIssueWhereUniqueInput = Prisma.AtLeast<{
@@ -276,6 +278,7 @@ export type CustomerIssueWhereUniqueInput = Prisma.AtLeast<{
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
   receipt?: Prisma.XOR<Prisma.ReceiptNullableScalarRelationFilter, Prisma.ReceiptWhereInput> | null
   delivery?: Prisma.XOR<Prisma.DeliveryNullableScalarRelationFilter, Prisma.DeliveryWhereInput> | null
+  supportRequest?: Prisma.XOR<Prisma.SupportRequestNullableScalarRelationFilter, Prisma.SupportRequestWhereInput> | null
 }, "id">
 
 export type CustomerIssueOrderByWithAggregationInput = {
@@ -324,6 +327,7 @@ export type CustomerIssueCreateInput = {
   sale: Prisma.SaleCreateNestedOneWithoutIssuesInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutIssuesInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutIssuesInput
+  supportRequest?: Prisma.SupportRequestCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueUncheckedCreateInput = {
@@ -338,6 +342,7 @@ export type CustomerIssueUncheckedCreateInput = {
   openedAt?: Date | string
   resolvedAt?: Date | string | null
   updatedAt?: Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueUpdateInput = {
@@ -352,6 +357,7 @@ export type CustomerIssueUpdateInput = {
   sale?: Prisma.SaleUpdateOneRequiredWithoutIssuesNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutIssuesNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutIssuesNestedInput
+  supportRequest?: Prisma.SupportRequestUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateInput = {
@@ -366,6 +372,7 @@ export type CustomerIssueUncheckedUpdateInput = {
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueCreateManyInput = {
@@ -455,6 +462,11 @@ export type CustomerIssueMinOrderByAggregateInput = {
   openedAt?: Prisma.SortOrder
   resolvedAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type CustomerIssueNullableScalarRelationFilter = {
+  is?: Prisma.CustomerIssueWhereInput | null
+  isNot?: Prisma.CustomerIssueWhereInput | null
 }
 
 export type CustomerIssueCreateNestedManyWithoutBusinessInput = {
@@ -671,6 +683,22 @@ export type EnumCustomerIssueStatusFieldUpdateOperationsInput = {
   set?: $Enums.CustomerIssueStatus
 }
 
+export type CustomerIssueCreateNestedOneWithoutSupportRequestInput = {
+  create?: Prisma.XOR<Prisma.CustomerIssueCreateWithoutSupportRequestInput, Prisma.CustomerIssueUncheckedCreateWithoutSupportRequestInput>
+  connectOrCreate?: Prisma.CustomerIssueCreateOrConnectWithoutSupportRequestInput
+  connect?: Prisma.CustomerIssueWhereUniqueInput
+}
+
+export type CustomerIssueUpdateOneWithoutSupportRequestNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerIssueCreateWithoutSupportRequestInput, Prisma.CustomerIssueUncheckedCreateWithoutSupportRequestInput>
+  connectOrCreate?: Prisma.CustomerIssueCreateOrConnectWithoutSupportRequestInput
+  upsert?: Prisma.CustomerIssueUpsertWithoutSupportRequestInput
+  disconnect?: Prisma.CustomerIssueWhereInput | boolean
+  delete?: Prisma.CustomerIssueWhereInput | boolean
+  connect?: Prisma.CustomerIssueWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerIssueUpdateToOneWithWhereWithoutSupportRequestInput, Prisma.CustomerIssueUpdateWithoutSupportRequestInput>, Prisma.CustomerIssueUncheckedUpdateWithoutSupportRequestInput>
+}
+
 export type CustomerIssueCreateWithoutBusinessInput = {
   id?: string
   description: string
@@ -682,6 +710,7 @@ export type CustomerIssueCreateWithoutBusinessInput = {
   sale: Prisma.SaleCreateNestedOneWithoutIssuesInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutIssuesInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutIssuesInput
+  supportRequest?: Prisma.SupportRequestCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueUncheckedCreateWithoutBusinessInput = {
@@ -695,6 +724,7 @@ export type CustomerIssueUncheckedCreateWithoutBusinessInput = {
   openedAt?: Date | string
   resolvedAt?: Date | string | null
   updatedAt?: Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueCreateOrConnectWithoutBusinessInput = {
@@ -751,6 +781,7 @@ export type CustomerIssueCreateWithoutCustomerInput = {
   sale: Prisma.SaleCreateNestedOneWithoutIssuesInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutIssuesInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutIssuesInput
+  supportRequest?: Prisma.SupportRequestCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueUncheckedCreateWithoutCustomerInput = {
@@ -764,6 +795,7 @@ export type CustomerIssueUncheckedCreateWithoutCustomerInput = {
   openedAt?: Date | string
   resolvedAt?: Date | string | null
   updatedAt?: Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueCreateOrConnectWithoutCustomerInput = {
@@ -803,6 +835,7 @@ export type CustomerIssueCreateWithoutSaleInput = {
   customer?: Prisma.CustomerCreateNestedOneWithoutIssuesInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutIssuesInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutIssuesInput
+  supportRequest?: Prisma.SupportRequestCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueUncheckedCreateWithoutSaleInput = {
@@ -816,6 +849,7 @@ export type CustomerIssueUncheckedCreateWithoutSaleInput = {
   openedAt?: Date | string
   resolvedAt?: Date | string | null
   updatedAt?: Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueCreateOrConnectWithoutSaleInput = {
@@ -855,6 +889,7 @@ export type CustomerIssueCreateWithoutReceiptInput = {
   customer?: Prisma.CustomerCreateNestedOneWithoutIssuesInput
   sale: Prisma.SaleCreateNestedOneWithoutIssuesInput
   delivery?: Prisma.DeliveryCreateNestedOneWithoutIssuesInput
+  supportRequest?: Prisma.SupportRequestCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueUncheckedCreateWithoutReceiptInput = {
@@ -868,6 +903,7 @@ export type CustomerIssueUncheckedCreateWithoutReceiptInput = {
   openedAt?: Date | string
   resolvedAt?: Date | string | null
   updatedAt?: Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueCreateOrConnectWithoutReceiptInput = {
@@ -907,6 +943,7 @@ export type CustomerIssueCreateWithoutDeliveryInput = {
   customer?: Prisma.CustomerCreateNestedOneWithoutIssuesInput
   sale: Prisma.SaleCreateNestedOneWithoutIssuesInput
   receipt?: Prisma.ReceiptCreateNestedOneWithoutIssuesInput
+  supportRequest?: Prisma.SupportRequestCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueUncheckedCreateWithoutDeliveryInput = {
@@ -920,6 +957,7 @@ export type CustomerIssueUncheckedCreateWithoutDeliveryInput = {
   openedAt?: Date | string
   resolvedAt?: Date | string | null
   updatedAt?: Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedCreateNestedOneWithoutCustomerIssueInput
 }
 
 export type CustomerIssueCreateOrConnectWithoutDeliveryInput = {
@@ -948,6 +986,78 @@ export type CustomerIssueUpdateManyWithWhereWithoutDeliveryInput = {
   data: Prisma.XOR<Prisma.CustomerIssueUpdateManyMutationInput, Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryInput>
 }
 
+export type CustomerIssueCreateWithoutSupportRequestInput = {
+  id?: string
+  description: string
+  status?: $Enums.CustomerIssueStatus
+  openedAt?: Date | string
+  resolvedAt?: Date | string | null
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutIssuesInput
+  customer?: Prisma.CustomerCreateNestedOneWithoutIssuesInput
+  sale: Prisma.SaleCreateNestedOneWithoutIssuesInput
+  receipt?: Prisma.ReceiptCreateNestedOneWithoutIssuesInput
+  delivery?: Prisma.DeliveryCreateNestedOneWithoutIssuesInput
+}
+
+export type CustomerIssueUncheckedCreateWithoutSupportRequestInput = {
+  id?: string
+  businessId: string
+  customerId?: string | null
+  saleId: string
+  receiptId?: string | null
+  deliveryId?: string | null
+  description: string
+  status?: $Enums.CustomerIssueStatus
+  openedAt?: Date | string
+  resolvedAt?: Date | string | null
+  updatedAt?: Date | string
+}
+
+export type CustomerIssueCreateOrConnectWithoutSupportRequestInput = {
+  where: Prisma.CustomerIssueWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerIssueCreateWithoutSupportRequestInput, Prisma.CustomerIssueUncheckedCreateWithoutSupportRequestInput>
+}
+
+export type CustomerIssueUpsertWithoutSupportRequestInput = {
+  update: Prisma.XOR<Prisma.CustomerIssueUpdateWithoutSupportRequestInput, Prisma.CustomerIssueUncheckedUpdateWithoutSupportRequestInput>
+  create: Prisma.XOR<Prisma.CustomerIssueCreateWithoutSupportRequestInput, Prisma.CustomerIssueUncheckedCreateWithoutSupportRequestInput>
+  where?: Prisma.CustomerIssueWhereInput
+}
+
+export type CustomerIssueUpdateToOneWithWhereWithoutSupportRequestInput = {
+  where?: Prisma.CustomerIssueWhereInput
+  data: Prisma.XOR<Prisma.CustomerIssueUpdateWithoutSupportRequestInput, Prisma.CustomerIssueUncheckedUpdateWithoutSupportRequestInput>
+}
+
+export type CustomerIssueUpdateWithoutSupportRequestInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomerIssueStatusFieldUpdateOperationsInput | $Enums.CustomerIssueStatus
+  openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutIssuesNestedInput
+  customer?: Prisma.CustomerUpdateOneWithoutIssuesNestedInput
+  sale?: Prisma.SaleUpdateOneRequiredWithoutIssuesNestedInput
+  receipt?: Prisma.ReceiptUpdateOneWithoutIssuesNestedInput
+  delivery?: Prisma.DeliveryUpdateOneWithoutIssuesNestedInput
+}
+
+export type CustomerIssueUncheckedUpdateWithoutSupportRequestInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
+  receiptId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumCustomerIssueStatusFieldUpdateOperationsInput | $Enums.CustomerIssueStatus
+  openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type CustomerIssueCreateManyBusinessInput = {
   id?: string
   customerId?: string | null
@@ -972,6 +1082,7 @@ export type CustomerIssueUpdateWithoutBusinessInput = {
   sale?: Prisma.SaleUpdateOneRequiredWithoutIssuesNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutIssuesNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutIssuesNestedInput
+  supportRequest?: Prisma.SupportRequestUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateWithoutBusinessInput = {
@@ -985,6 +1096,7 @@ export type CustomerIssueUncheckedUpdateWithoutBusinessInput = {
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateManyWithoutBusinessInput = {
@@ -1024,6 +1136,7 @@ export type CustomerIssueUpdateWithoutCustomerInput = {
   sale?: Prisma.SaleUpdateOneRequiredWithoutIssuesNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutIssuesNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutIssuesNestedInput
+  supportRequest?: Prisma.SupportRequestUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateWithoutCustomerInput = {
@@ -1037,6 +1150,7 @@ export type CustomerIssueUncheckedUpdateWithoutCustomerInput = {
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateManyWithoutCustomerInput = {
@@ -1076,6 +1190,7 @@ export type CustomerIssueUpdateWithoutSaleInput = {
   customer?: Prisma.CustomerUpdateOneWithoutIssuesNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutIssuesNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutIssuesNestedInput
+  supportRequest?: Prisma.SupportRequestUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateWithoutSaleInput = {
@@ -1089,6 +1204,7 @@ export type CustomerIssueUncheckedUpdateWithoutSaleInput = {
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateManyWithoutSaleInput = {
@@ -1128,6 +1244,7 @@ export type CustomerIssueUpdateWithoutReceiptInput = {
   customer?: Prisma.CustomerUpdateOneWithoutIssuesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutIssuesNestedInput
   delivery?: Prisma.DeliveryUpdateOneWithoutIssuesNestedInput
+  supportRequest?: Prisma.SupportRequestUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateWithoutReceiptInput = {
@@ -1141,6 +1258,7 @@ export type CustomerIssueUncheckedUpdateWithoutReceiptInput = {
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateManyWithoutReceiptInput = {
@@ -1180,6 +1298,7 @@ export type CustomerIssueUpdateWithoutDeliveryInput = {
   customer?: Prisma.CustomerUpdateOneWithoutIssuesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutIssuesNestedInput
   receipt?: Prisma.ReceiptUpdateOneWithoutIssuesNestedInput
+  supportRequest?: Prisma.SupportRequestUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateWithoutDeliveryInput = {
@@ -1193,6 +1312,7 @@ export type CustomerIssueUncheckedUpdateWithoutDeliveryInput = {
   openedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  supportRequest?: Prisma.SupportRequestUncheckedUpdateOneWithoutCustomerIssueNestedInput
 }
 
 export type CustomerIssueUncheckedUpdateManyWithoutDeliveryInput = {
@@ -1227,6 +1347,7 @@ export type CustomerIssueSelect<ExtArgs extends runtime.Types.Extensions.Interna
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   receipt?: boolean | Prisma.CustomerIssue$receiptArgs<ExtArgs>
   delivery?: boolean | Prisma.CustomerIssue$deliveryArgs<ExtArgs>
+  supportRequest?: boolean | Prisma.CustomerIssue$supportRequestArgs<ExtArgs>
 }, ExtArgs["result"]["customerIssue"]>
 
 export type CustomerIssueSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1288,6 +1409,7 @@ export type CustomerIssueInclude<ExtArgs extends runtime.Types.Extensions.Intern
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   receipt?: boolean | Prisma.CustomerIssue$receiptArgs<ExtArgs>
   delivery?: boolean | Prisma.CustomerIssue$deliveryArgs<ExtArgs>
+  supportRequest?: boolean | Prisma.CustomerIssue$supportRequestArgs<ExtArgs>
 }
 export type CustomerIssueIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -1312,6 +1434,7 @@ export type $CustomerIssuePayload<ExtArgs extends runtime.Types.Extensions.Inter
     sale: Prisma.$SalePayload<ExtArgs>
     receipt: Prisma.$ReceiptPayload<ExtArgs> | null
     delivery: Prisma.$DeliveryPayload<ExtArgs> | null
+    supportRequest: Prisma.$SupportRequestPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1724,6 +1847,7 @@ export interface Prisma__CustomerIssueClient<T, Null = never, ExtArgs extends ru
   sale<T extends Prisma.SaleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleDefaultArgs<ExtArgs>>): Prisma.Prisma__SaleClient<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   receipt<T extends Prisma.CustomerIssue$receiptArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerIssue$receiptArgs<ExtArgs>>): Prisma.Prisma__ReceiptClient<runtime.Types.Result.GetResult<Prisma.$ReceiptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   delivery<T extends Prisma.CustomerIssue$deliveryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerIssue$deliveryArgs<ExtArgs>>): Prisma.Prisma__DeliveryClient<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  supportRequest<T extends Prisma.CustomerIssue$supportRequestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerIssue$supportRequestArgs<ExtArgs>>): Prisma.Prisma__SupportRequestClient<runtime.Types.Result.GetResult<Prisma.$SupportRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2219,6 +2343,25 @@ export type CustomerIssue$deliveryArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.DeliveryInclude<ExtArgs> | null
   where?: Prisma.DeliveryWhereInput
+}
+
+/**
+ * CustomerIssue.supportRequest
+ */
+export type CustomerIssue$supportRequestArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportRequest
+   */
+  select?: Prisma.SupportRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportRequest
+   */
+  omit?: Prisma.SupportRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportRequestInclude<ExtArgs> | null
+  where?: Prisma.SupportRequestWhereInput
 }
 
 /**

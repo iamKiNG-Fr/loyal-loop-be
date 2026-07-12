@@ -97,7 +97,7 @@ export class MediaService {
     uploadedById: string | undefined,
     dto: RegisteredUpload,
     expectedFolder: string,
-    purpose: "BUSINESS_LOGO" | "PAYMENT_PROOF" | "PRODUCT_IMAGE" | "RECEIPT_EXPORT" | "TRUST_CARD" | "USER_AVATAR",
+    purpose: "BUSINESS_LOGO" | "PAYMENT_PROOF" | "PRODUCT_IMAGE" | "RECEIPT_EXPORT" | "SHOP_COVER" | "SHOWCASE_IMAGE" | "TRUST_CARD" | "USER_AVATAR",
     maxBytes: number,
   ) {
     const format = dto.format.toLowerCase();
@@ -148,10 +148,10 @@ export class MediaService {
   async remove(auth: OwnerAuthContext, assetId: string) {
     const asset = await this.prisma.mediaAsset.findFirst({
       where: { id: assetId, businessId: auth.businessId, status: "ACTIVE" },
-      include: { productImages: true, logoFor: true, avatarFor: true },
+      include: { productImages: true, showcaseImages: true, logoFor: true, coverFor: true, avatarFor: true },
     });
     if (!asset) throw new NotFoundException("Asset not found");
-    if (asset.productImages.length || asset.logoFor || asset.avatarFor) {
+    if (asset.productImages.length || asset.showcaseImages.length || asset.logoFor || asset.coverFor || asset.avatarFor) {
       throw new BadRequestException("Asset is still in use");
     }
     await this.destroyAtProvider(asset.publicId);

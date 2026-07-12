@@ -15,6 +15,7 @@ import {
 } from "./dto/delivery.dto";
 
 const transitions: Record<DeliveryStatus, DeliveryStatus[]> = {
+  AWAITING_PAYMENT: ["CANCELED"],
   PREPARING: ["READY_FOR_PICKUP", "IN_TRANSIT", "ISSUE", "CANCELED"],
   READY_FOR_PICKUP: ["IN_TRANSIT", "DELIVERED", "ISSUE", "CANCELED"],
   IN_TRANSIT: ["DELIVERED", "ISSUE", "CANCELED"],
@@ -25,7 +26,7 @@ const transitions: Record<DeliveryStatus, DeliveryStatus[]> = {
 };
 
 const deliveryInclude = {
-  customer: true,
+  customer: { include: { contacts: true } },
   sale: {
     include: {
       receipt: true,
@@ -46,7 +47,10 @@ const deliveryInclude = {
   },
   events: { orderBy: { createdAt: "asc" as const } },
   feedback: true,
-  issues: { orderBy: { openedAt: "desc" as const } },
+  issues: {
+    include: { supportRequest: true },
+    orderBy: { openedAt: "desc" as const },
+  },
 };
 
 @Injectable()
@@ -89,6 +93,15 @@ export class DeliveryService {
     dto: UpdateDeliveryDto,
   ) {
     const delivery = await this.assertOwned(auth.businessId, deliveryId);
+    if (
+      delivery.status === "AWAITING_PAYMENT" &&
+      dto.status !== "AWAITING_PAYMENT" &&
+      dto.status !== "CANCELED"
+    ) {
+      throw new BadRequestException(
+        "Record or verify a bank-transfer payment before starting delivery",
+      );
+    }
     if (dto.status !== delivery.status && !transitions[delivery.status].includes(dto.status)) {
       throw new BadRequestException(
         `Delivery cannot move from ${delivery.status} to ${dto.status}`,
@@ -102,6 +115,9 @@ export class DeliveryService {
           trackingUrl: dto.trackingUrl,
           trackingCode: dto.trackingCode?.trim(),
           courier: dto.courier?.trim(),
+          courierService: dto.courierService?.trim(),
+          courierName: dto.courierName?.trim(),
+          courierPhone: dto.courierPhone?.trim(),
           address: dto.address?.trim(),
           googlePlaceId: dto.googlePlaceId?.trim(),
           latitude: dto.latitude,
@@ -294,9 +310,33 @@ export class DeliveryService {
     });
   }
 
+  async escalateIssue(
+    auth: OwnerAuthContext,
+    deliveryId: string,
+    issueId: string,
+  ) {
+    const delivery = await this.assertOwned(auth.businessId, deliveryId);
+    const issue = await this.prisma.customerIssue.findFirst({
+      where: { id: issueId, deliveryId, businessId: auth.businessId },
+      include: { supportRequest: true },
+    });
+    if (!issue) throw new NotFoundException("Issue not found");
+    if (issue.supportRequest) return issue.supportRequest;
+
+    return this.prisma.supportRequest.create({
+      data: {
+        businessId: auth.businessId,
+        customerIssueId: issue.id,
+        topic: `Order issue · ${delivery.sale.referenceCode}`,
+        message: issue.description,
+      },
+    });
+  }
+
   private async assertOwned(businessId: string, id: string) {
     const delivery = await this.prisma.delivery.findFirst({
       where: { id, businessId },
+      include: { sale: true },
     });
     if (!delivery) throw new NotFoundException("Delivery not found");
     return delivery;
@@ -312,10 +352,16 @@ export class DeliveryService {
       where: { tokenHash },
       include: { delivery: true },
     });
-    if (!shared || shared.revokedAt) {
-      throw new NotFoundException("Delivery not found");
+    if (shared && !shared.revokedAt) return shared.delivery;
+
+    const convertedRequest = await this.prisma.orderRequest.findUnique({
+      where: { tokenHash },
+      include: { convertedSale: { include: { delivery: true } } },
+    });
+    if (convertedRequest?.convertedSale?.delivery) {
+      return convertedRequest.convertedSale.delivery;
     }
-    return shared.delivery;
+    throw new NotFoundException("Delivery not found");
   }
 }
 
@@ -323,6 +369,12 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
   const value = delivery as {
     address: string | null;
     business: {
+      contacts: Array<{
+        isPrimary: boolean;
+        label: string | null;
+        platform: string;
+        value: string;
+      }>;
       logoAsset: { secureUrl: string } | null;
       name: string;
     };
@@ -335,6 +387,18 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
       status: string;
     }>;
     feedback: Array<{ rating: number }>;
+    issues: Array<{
+      description: string;
+      id: string;
+      openedAt: Date;
+      resolvedAt: Date | null;
+      status: string;
+      supportRequest: {
+        createdAt: Date;
+        id: string;
+        status: string;
+      } | null;
+    }>;
     id: string;
     sale: {
       amountPaid: unknown;
@@ -365,6 +429,11 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
       total: unknown;
     };
     status: string;
+    courier: string | null;
+    courierName: string | null;
+    courierPhone: string | null;
+    courierService: string | null;
+    trackingCode: string | null;
     trackingUrl: string | null;
   };
 
@@ -372,6 +441,12 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
     address: value.address,
     business: {
       name: value.business.name,
+      contacts: value.business.contacts.map((contact) => ({
+        isPrimary: contact.isPrimary,
+        label: contact.label,
+        platform: contact.platform,
+        value: contact.value,
+      })),
       logoAsset: value.business.logoAsset
         ? { secureUrl: value.business.logoAsset.secureUrl }
         : null,
@@ -386,6 +461,20 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
         status: event.status,
       })),
     feedback: value.feedback.map((entry) => ({ rating: entry.rating })),
+    issues: value.issues.map((issue) => ({
+      description: issue.description,
+      id: issue.id,
+      openedAt: issue.openedAt,
+      resolvedAt: issue.resolvedAt,
+      status: issue.status,
+      supportRequest: issue.supportRequest
+        ? {
+            createdAt: issue.supportRequest.createdAt,
+            id: issue.supportRequest.id,
+            status: issue.supportRequest.status,
+          }
+        : null,
+    })),
     id: value.id,
     sale: {
       amountPaid: value.sale.amountPaid,
@@ -418,6 +507,11 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
       total: value.sale.total,
     },
     status: value.status,
+    courier: value.courier,
+    courierName: value.courierName,
+    courierPhone: value.courierPhone,
+    courierService: value.courierService,
+    trackingCode: value.trackingCode,
     trackingUrl: value.trackingUrl,
   };
 }

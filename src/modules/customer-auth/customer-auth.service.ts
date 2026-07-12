@@ -150,6 +150,45 @@ export class CustomerAuthService {
     });
   }
 
+  listOrders(customerAccountId: string) {
+    return this.prisma.orderRequest.findMany({
+      where: { customerAccountId },
+      include: {
+        business: { select: { name: true, slug: true } },
+        items: true,
+        sourceShowcase: {
+          select: {
+            id: true,
+            title: true,
+            asset: { select: { secureUrl: true } },
+          },
+        },
+        convertedSale: {
+          select: {
+            delivery: { select: { id: true, status: true } },
+            paymentStatus: true,
+            referenceCode: true,
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+  }
+
+  async createOrderLink(customerAccountId: string, requestId: string) {
+    const request = await this.prisma.orderRequest.findFirst({
+      where: { id: requestId, customerAccountId },
+      include: { convertedSale: { include: { delivery: true } } },
+    });
+    const delivery = request?.convertedSale?.delivery;
+    if (!delivery) throw new NotFoundException("Order journey is not available yet");
+    const generated = createOpaqueToken();
+    await this.prisma.deliveryShareToken.create({
+      data: { deliveryId: delivery.id, tokenHash: generated.tokenHash },
+    });
+    return { token: generated.token };
+  }
+
   async createAddress(customerAccountId: string, dto: CreateCustomerAddressDto) {
     const shouldDefault =
       dto.isDefault ||
