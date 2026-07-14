@@ -15,6 +15,27 @@ enum BusinessRole {
   VIEWER
 }
 
+enum BusinessCapability {
+  CUSTOMER_READ
+  CUSTOMER_WRITE
+  CATALOG_READ
+  CATALOG_WRITE
+  SALE_READ
+  SALE_WRITE
+  PAYMENT_REVIEW
+  ORDER_READ
+  ORDER_WRITE
+  DELIVERY_READ
+  DELIVERY_WRITE
+  ISSUE_READ
+  ISSUE_WRITE
+  INSIGHT_READ
+  PROFILE_WRITE
+  SETTINGS_WRITE
+  EXPORT_DATA
+  PERMISSION_ADMIN
+}
+
 enum MemberStatus {
   INVITED
   ACTIVE
@@ -214,17 +235,61 @@ enum ActivityEventType {
   FOLLOW_UP_SENT
   INVENTORY_CHECKED
   STREAK_COMPLETED
+  MEMBER_PERMISSIONS_UPDATED
+  REQUEST_PAYMENT_UPDATED
+  MESSAGE_ENQUEUED
 }
 
 enum MediaPurpose {
   BUSINESS_LOGO
   SHOP_COVER
   PRODUCT_IMAGE
+  PRODUCT_VIDEO
+  PRODUCT_POSTER
   SHOWCASE_IMAGE
+  SHOWCASE_VIDEO
+  SHOWCASE_POSTER
   USER_AVATAR
   PAYMENT_PROOF
   TRUST_CARD
   RECEIPT_EXPORT
+}
+
+enum ProductMediaKind {
+  IMAGE
+  VIDEO
+}
+
+enum CartStatus {
+  ACTIVE
+  SUBMITTED
+  ABANDONED
+}
+
+enum InsightSummaryStatus {
+  READY
+  STALE
+  FAILED
+}
+
+enum MessageChannel {
+  WHATSAPP
+}
+
+enum MessagePurpose {
+  OTP
+  RECEIPT
+  DELIVERY
+}
+
+enum MessageStatus {
+  PENDING
+  PROCESSING
+  SENT
+  DELIVERED
+  FAILED
+  SUPPRESSED
+  DEAD_LETTER
 }
 
 enum MediaStatus {
@@ -247,11 +312,18 @@ enum ProductInterestType {
 
 enum CommerceEventType {
   SHOP_VIEWED
+  SHOP_FOLLOWED
   PRODUCT_VIEWED
   PRODUCT_SHARED
   PRODUCT_WISHLISTED
+  PRODUCT_SAVED
+  SHOWCASE_VIEWED
+  SHOWCASE_SHARED
+  SHOWCASE_SAVED
   RESTOCK_INTERESTED
   REQUEST_SUBMITTED
+  PURCHASE_COMPLETED
+  PREFERENCE_UPDATED
 }
 
 enum CustomerIssueStatus {
@@ -316,28 +388,29 @@ model WaitlistEntry {
 }
 
 model User {
-  id                  String                  @id @default(cuid())
-  avatarAssetId       String?                 @unique
+  id                  String                     @id @default(cuid())
+  avatarAssetId       String?                    @unique
   name                String
-  email               String                  @unique
+  email               String                     @unique
   passwordHash        String
-  phone               String?                 @unique
-  workspaceAppearance WorkspaceAppearance     @default(LIGHT)
-  createdAt           DateTime                @default(now())
-  updatedAt           DateTime                @updatedAt
+  phone               String?                    @unique
+  workspaceAppearance WorkspaceAppearance        @default(LIGHT)
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
   memberships         BusinessMember[]
-  ownedBusinesses     Business[]              @relation("BusinessOwner")
+  ownedBusinesses     Business[]                 @relation("BusinessOwner")
   sessions            OwnerSession[]
   otpChallenges       OwnerOtpChallenge[]
   recoveryTokens      PasswordRecoveryToken[]
-  uploadedAssets      MediaAsset[]            @relation("AssetUploader")
-  avatarAsset         MediaAsset?             @relation("UserAvatar", fields: [avatarAssetId], references: [id], onDelete: SetNull)
-  authoredNotes       CustomerNote[]          @relation("NoteAuthor")
-  invitationsSent     BusinessInvitation[]    @relation("InvitationSender")
-  paymentsRecorded    PaymentEntry[]          @relation("PaymentRecorder")
-  paymentProofReviews PaymentProof[]          @relation("PaymentProofReviewer")
-  deliveryEvents      DeliveryEvent[]         @relation("DeliveryEventActor")
-  activityEvents      ActivityEvent[]         @relation("ActivityActor")
+  uploadedAssets      MediaAsset[]               @relation("AssetUploader")
+  avatarAsset         MediaAsset?                @relation("UserAvatar", fields: [avatarAssetId], references: [id], onDelete: SetNull)
+  authoredNotes       CustomerNote[]             @relation("NoteAuthor")
+  invitationsSent     BusinessInvitation[]       @relation("InvitationSender")
+  paymentsRecorded    PaymentEntry[]             @relation("PaymentRecorder")
+  paymentProofReviews PaymentProof[]             @relation("PaymentProofReviewer")
+  deliveryEvents      DeliveryEvent[]            @relation("DeliveryEventActor")
+  activityEvents      ActivityEvent[]            @relation("ActivityActor")
+  permissionOverrides MemberPermissionOverride[] @relation("PermissionOverrideActor")
 
   @@map("users")
 }
@@ -388,68 +461,74 @@ model PasswordRecoveryToken {
 }
 
 model Business {
-  id                  String                   @id @default(cuid())
-  ownerId             String
-  logoAssetId         String?                  @unique
-  coverAssetId        String?                  @unique
-  name                String
-  slug                String                   @unique
-  publicCardId        String                   @unique
-  category            String?
-  categoryDetail      String?
-  description         String?
-  location            String?
-  storeStatus         StoreStatus              @default(SETTING_UP)
-  launchAt            DateTime?
-  launchTimezone      String?
-  launchTemplate      LaunchTemplate           @default(SHOP_LOADING)
-  launchMessage       String?
-  launchProductId     String?
-  launchAutoOpen      Boolean                  @default(false)
-  launchShareVersion  Int                      @default(1)
-  launchedAt          DateTime?
-  pledgeSignature     String?
-  pledgedAt           DateTime?
-  plan                BusinessPlan             @default(PRIVATE_TESTER)
-  subscriptionStatus  SubscriptionStatus       @default(INTERNAL_TEST)
-  trialStartedAt      DateTime?
-  trialEndsAt         DateTime?
-  customerLimit       Int?
-  receiptLimit        Int?
-  createdAt           DateTime                 @default(now())
-  updatedAt           DateTime                 @updatedAt
-  owner               User                     @relation("BusinessOwner", fields: [ownerId], references: [id])
-  logoAsset           MediaAsset?              @relation("BusinessLogo", fields: [logoAssetId], references: [id], onDelete: SetNull)
-  coverAsset          MediaAsset?              @relation("BusinessCover", fields: [coverAssetId], references: [id], onDelete: SetNull)
-  launchProduct       Product?                 @relation("BusinessLaunchProduct", fields: [launchProductId], references: [id], onDelete: SetNull)
-  preferences         BusinessPreferences?
-  contacts            BusinessContact[]
-  members             BusinessMember[]
-  invitations         BusinessInvitation[]
-  assets              MediaAsset[]             @relation("BusinessAssets")
-  customers           Customer[]
-  customerTags        CustomerTag[]
-  products            Product[]
-  showcases           Showcase[]
-  shopFollowers       ShopFollow[]
-  savedShowcases      SavedShowcase[]
-  sales               Sale[]
-  receipts            Receipt[]
-  deliveries          Delivery[]
-  activityEvents      ActivityEvent[]
-  followUpTemplates   FollowUpTemplate[]
-  followUpSuggestions FollowUpSuggestion[]
-  orderRequests       OrderRequest[]
-  wishlistItems       WishlistItem[]
-  productInterests    ProductInterest[]
-  commerceEvents      CommerceEvent[]
-  feedback            CustomerFeedback[]
-  issues              CustomerIssue[]
-  trustLedger         TrustLedgerEntry[]
-  supportRequests     SupportRequest[]
-  paymentAccounts     BusinessPaymentAccount[]
-  paymentProofs       PaymentProof[]
-  shortLinks          ShortLink[]
+  id                   String                   @id @default(cuid())
+  ownerId              String
+  logoAssetId          String?                  @unique
+  coverAssetId         String?                  @unique
+  name                 String
+  slug                 String                   @unique
+  publicCardId         String                   @unique
+  category             String?
+  categoryDetail       String?
+  description          String?
+  location             String?
+  storeStatus          StoreStatus              @default(SETTING_UP)
+  launchAt             DateTime?
+  launchTimezone       String?
+  launchTemplate       LaunchTemplate           @default(SHOP_LOADING)
+  launchMessage        String?
+  launchProductId      String?
+  launchAutoOpen       Boolean                  @default(false)
+  launchShareVersion   Int                      @default(1)
+  launchedAt           DateTime?
+  pledgeSignature      String?
+  pledgedAt            DateTime?
+  plan                 BusinessPlan             @default(PRIVATE_TESTER)
+  subscriptionStatus   SubscriptionStatus       @default(INTERNAL_TEST)
+  trialStartedAt       DateTime?
+  trialEndsAt          DateTime?
+  customerLimit        Int?
+  receiptLimit         Int?
+  createdAt            DateTime                 @default(now())
+  updatedAt            DateTime                 @updatedAt
+  owner                User                     @relation("BusinessOwner", fields: [ownerId], references: [id])
+  logoAsset            MediaAsset?              @relation("BusinessLogo", fields: [logoAssetId], references: [id], onDelete: SetNull)
+  coverAsset           MediaAsset?              @relation("BusinessCover", fields: [coverAssetId], references: [id], onDelete: SetNull)
+  launchProduct        Product?                 @relation("BusinessLaunchProduct", fields: [launchProductId], references: [id], onDelete: SetNull)
+  preferences          BusinessPreferences?
+  contacts             BusinessContact[]
+  members              BusinessMember[]
+  invitations          BusinessInvitation[]
+  assets               MediaAsset[]             @relation("BusinessAssets")
+  customers            Customer[]
+  customerTags         CustomerTag[]
+  products             Product[]
+  showcases            Showcase[]
+  shopFollowers        ShopFollow[]
+  savedShowcases       SavedShowcase[]
+  sales                Sale[]
+  receipts             Receipt[]
+  deliveries           Delivery[]
+  activityEvents       ActivityEvent[]
+  followUpTemplates    FollowUpTemplate[]
+  followUpSuggestions  FollowUpSuggestion[]
+  orderRequests        OrderRequest[]
+  wishlistItems        WishlistItem[]
+  productInterests     ProductInterest[]
+  commerceEvents       CommerceEvent[]
+  feedback             CustomerFeedback[]
+  issues               CustomerIssue[]
+  trustLedger          TrustLedgerEntry[]
+  supportRequests      SupportRequest[]
+  paymentAccounts      BusinessPaymentAccount[]
+  paymentProofs        PaymentProof[]
+  shortLinks           ShortLink[]
+  categories           BusinessCategory[]
+  customerInsights     CustomerInsightSummary[]
+  cartItems            CustomerCartItem[]
+  cartGroups           CustomerCartGroup[]
+  discoveryPreferences DiscoveryPreference[]
+  messageOutbox        MessageOutbox[]
 
   @@index([ownerId])
   @@index([storeStatus, launchAt])
@@ -467,6 +546,8 @@ model BusinessPreferences {
   showLatest              Boolean             @default(true)
   tickerItems             String[]            @default(["New drops", "Trusted receipts", "Delivery updates", "Customer favourites"])
   defaultPaymentStatus    PaymentStatus       @default(UNPAID)
+  allowedPaymentMethods   PaymentMethod[]     @default([BANK_TRANSFER, PAY_ON_DELIVERY, CASH, ARRANGE_SEPARATELY])
+  defaultPaymentMethod    PaymentMethod?
   protectedPaymentEnabled Boolean             @default(false)
   receiptDeliveryLine     ReceiptDeliveryLine @default(OPTIONAL)
   receiptFooter           String?
@@ -518,21 +599,38 @@ model BusinessPaymentAccount {
 }
 
 model BusinessMember {
-  id         String       @id @default(cuid())
-  businessId String
-  userId     String
-  role       BusinessRole @default(VIEWER)
-  status     MemberStatus @default(ACTIVE)
-  invitedAt  DateTime?
-  joinedAt   DateTime?
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  business   Business     @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                  String                     @id @default(cuid())
+  businessId          String
+  userId              String
+  role                BusinessRole               @default(VIEWER)
+  status              MemberStatus               @default(ACTIVE)
+  invitedAt           DateTime?
+  joinedAt            DateTime?
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+  business            Business                   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  user                User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  permissionOverrides MemberPermissionOverride[]
 
   @@unique([businessId, userId])
   @@index([userId])
   @@map("business_members")
+}
+
+model MemberPermissionOverride {
+  id         String             @id @default(cuid())
+  memberId   String
+  capability BusinessCapability
+  allowed    Boolean
+  actorId    String?
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+  member     BusinessMember     @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  actor      User?              @relation("PermissionOverrideActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@unique([memberId, capability])
+  @@index([capability])
+  @@map("member_permission_overrides")
 }
 
 model BusinessInvitation {
@@ -562,9 +660,11 @@ model MediaAsset {
   publicId         String         @unique
   secureUrl        String
   resourceType     String         @default("image")
+  mimeType         String?
   format           String
   width            Int?
   height           Int?
+  durationSeconds  Float?
   bytes            Int
   version          String?
   originalFilename String?
@@ -578,7 +678,10 @@ model MediaAsset {
   coverFor         Business?      @relation("BusinessCover")
   avatarFor        User?          @relation("UserAvatar")
   productImages    ProductImage[]
+  productMedia     ProductMedia[] @relation("ProductMediaAsset")
+  productPosters   ProductMedia[] @relation("ProductMediaPoster")
   showcaseImages   Showcase[]     @relation("ShowcaseImage")
+  showcasePosters  Showcase[]     @relation("ShowcasePoster")
   paymentProof     PaymentProof?
 
   @@index([businessId, purpose, status])
@@ -586,22 +689,27 @@ model MediaAsset {
 }
 
 model CustomerAccount {
-  id             String                   @id @default(cuid())
-  phone          String                   @unique
-  name           String?
-  verifiedAt     DateTime
-  createdAt      DateTime                 @default(now())
-  updatedAt      DateTime                 @updatedAt
-  sessions       CustomerAccountSession[]
-  challenges     CustomerOtpChallenge[]
-  customers      Customer[]
-  addresses      CustomerAddress[]
-  wishlist       WishlistItem[]
-  savedShowcases SavedShowcase[]
-  followedShops  ShopFollow[]
-  interests      ProductInterest[]
-  requests       OrderRequest[]
-  events         CommerceEvent[]
+  id                   String                   @id @default(cuid())
+  phone                String                   @unique
+  name                 String?
+  verifiedAt           DateTime
+  createdAt            DateTime                 @default(now())
+  updatedAt            DateTime                 @updatedAt
+  sessions             CustomerAccountSession[]
+  challenges           CustomerOtpChallenge[]
+  customers            Customer[]
+  addresses            CustomerAddress[]
+  wishlist             WishlistItem[]
+  savedShowcases       SavedShowcase[]
+  followedShops        ShopFollow[]
+  interests            ProductInterest[]
+  requests             OrderRequest[]
+  events               CommerceEvent[]
+  carts                CustomerCart[]
+  discoveryPreferences DiscoveryPreference[]
+  discoveryTelemetry   DiscoveryTelemetry[]
+  messagingConsents    MessagingConsent[]
+  messageOutbox        MessageOutbox[]
 
   @@map("customer_accounts")
 }
@@ -662,6 +770,7 @@ model Customer {
   followUps       FollowUpSuggestion[]
   feedback        CustomerFeedback[]
   issues          CustomerIssue[]
+  insightSummary  CustomerInsightSummary?
 
   @@unique([businessId, accountId])
   @@index([businessId])
@@ -685,7 +794,7 @@ model CustomerContact {
 }
 
 model CustomerAddress {
-  id                String          @id @default(cuid())
+  id                String              @id @default(cuid())
   customerAccountId String
   customerId        String?
   label             String?
@@ -696,12 +805,13 @@ model CustomerAddress {
   latitude          Float?
   longitude         Float?
   deliveryNotes     String?
-  isDefault         Boolean         @default(false)
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  customerAccount   CustomerAccount @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
-  customer          Customer?       @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  isDefault         Boolean             @default(false)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  customerAccount   CustomerAccount     @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+  customer          Customer?           @relation(fields: [customerId], references: [id], onDelete: SetNull)
   orderRequests     OrderRequest[]
+  cartGroups        CustomerCartGroup[]
 
   @@index([customerAccountId, isDefault])
   @@index([customerId])
@@ -720,6 +830,26 @@ model CustomerNote {
 
   @@index([customerId, createdAt])
   @@map("customer_notes")
+}
+
+model CustomerInsightSummary {
+  id              String               @id @default(cuid())
+  businessId      String
+  customerId      String               @unique
+  status          InsightSummaryStatus @default(READY)
+  summary         Json
+  evidenceVersion String
+  model           String?
+  generatedAt     DateTime             @default(now())
+  staleAt         DateTime?
+  lastError       String?
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  business        Business             @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer        Customer             @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, status, updatedAt])
+  @@map("customer_insight_summaries")
 }
 
 model CustomerTag {
@@ -750,6 +880,24 @@ model CustomerTagAssignment {
   @@map("customer_tag_assignments")
 }
 
+model BusinessCategory {
+  id          String    @id @default(cuid())
+  businessId  String
+  name        String
+  slug        String
+  templateKey String?
+  attributes  Json?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  business    Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  products    Product[]
+
+  @@unique([businessId, slug])
+  @@unique([businessId, name])
+  @@index([businessId, createdAt])
+  @@map("business_categories")
+}
+
 model Product {
   id               String             @id @default(cuid())
   businessId       String
@@ -759,6 +907,8 @@ model Product {
   price            Decimal            @db.Decimal(12, 2)
   currency         String             @default("NGN")
   category         String?
+  categoryId       String?
+  attributes       Json?
   status           ProductStatus      @default(ACTIVE)
   placement        ProductPlacement   @default(STANDARD)
   visibility       ProductVisibility  @default(PUBLIC)
@@ -766,18 +916,23 @@ model Product {
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   business         Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  businessCategory BusinessCategory?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   images           ProductImage[]
+  media            ProductMedia[]
+  variants         ProductVariant[]
   showcaseHotspots ShowcaseHotspot[]
   saleItems        SaleItem[]
   requestItems     OrderRequestItem[]
   wishlistItems    WishlistItem[]
   interests        ProductInterest[]
   commerceEvents   CommerceEvent[]
+  cartItems        CustomerCartItem[]
   shortLinks       ShortLink[]
   launchBusinesses Business[]         @relation("BusinessLaunchProduct")
 
   @@unique([businessId, slug])
   @@index([businessId, status, visibility])
+  @@index([categoryId])
   @@map("products")
 }
 
@@ -797,22 +952,70 @@ model ProductImage {
   @@map("product_images")
 }
 
+model ProductVariant {
+  id            String             @id @default(cuid())
+  productId     String
+  name          String
+  optionValues  Json
+  priceOverride Decimal?           @db.Decimal(12, 2)
+  sku           String?
+  active        Boolean            @default(true)
+  stockCount    Int?
+  sortOrder     Int                @default(0)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  product       Product            @relation(fields: [productId], references: [id], onDelete: Cascade)
+  requestItems  OrderRequestItem[]
+  cartItems     CustomerCartItem[]
+
+  @@unique([productId, sku])
+  @@index([productId, active, sortOrder])
+  @@map("product_variants")
+}
+
+model ProductMedia {
+  id              String           @id @default(cuid())
+  productId       String
+  assetId         String
+  posterAssetId   String?
+  kind            ProductMediaKind @default(IMAGE)
+  altText         String?
+  sortOrder       Int              @default(0)
+  isPrimary       Boolean          @default(false)
+  durationSeconds Float?
+  quality         Json?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  product         Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  asset           MediaAsset       @relation("ProductMediaAsset", fields: [assetId], references: [id], onDelete: Restrict)
+  posterAsset     MediaAsset?      @relation("ProductMediaPoster", fields: [posterAssetId], references: [id], onDelete: SetNull)
+
+  @@unique([productId, assetId])
+  @@index([productId, sortOrder])
+  @@map("product_media")
+}
+
 model Showcase {
-  id          String            @id @default(cuid())
-  businessId  String
-  assetId     String
-  title       String
-  caption     String?
-  status      ShowcaseStatus    @default(PUBLISHED)
-  featured    Boolean           @default(false)
-  publishedAt DateTime?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  business    Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  asset       MediaAsset        @relation("ShowcaseImage", fields: [assetId], references: [id], onDelete: Restrict)
-  hotspots    ShowcaseHotspot[]
-  savedBy     SavedShowcase[]
-  requests    OrderRequest[]
+  id              String            @id @default(cuid())
+  businessId      String
+  assetId         String
+  posterAssetId   String?
+  mediaKind       ProductMediaKind  @default(IMAGE)
+  durationSeconds Float?
+  title           String
+  caption         String?
+  status          ShowcaseStatus    @default(PUBLISHED)
+  featured        Boolean           @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  business        Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  asset           MediaAsset        @relation("ShowcaseImage", fields: [assetId], references: [id], onDelete: Restrict)
+  posterAsset     MediaAsset?       @relation("ShowcasePoster", fields: [posterAssetId], references: [id], onDelete: SetNull)
+  hotspots        ShowcaseHotspot[]
+  savedBy         SavedShowcase[]
+  requests        OrderRequest[]
+  commerceEvents  CommerceEvent[]
 
   @@index([businessId, status, featured, publishedAt])
   @@map("showcases")
@@ -893,40 +1096,103 @@ model ProductInterest {
   @@map("product_interests")
 }
 
-model OrderRequest {
-  id                String             @id @default(cuid())
-  businessId        String
+model CustomerCart {
+  id                String              @id @default(cuid())
   customerAccountId String?
-  customerId        String?
-  referenceCode     String             @unique
-  tokenHash         String             @unique
-  customerName      String
-  customerPhone     String
-  channel           SalesChannel
-  fulfillment       FulfillmentType    @default(ARRANGE_LATER)
-  customerAddressId String?
-  sourceShowcaseId  String?
-  deliveryAddress   String?
-  deliveryPlaceId   String?
-  deliveryLatitude  Float?
-  deliveryLongitude Float?
-  deliveryNotes     String?
-  isGift            Boolean            @default(false)
-  recipientName     String?
-  recipientPhone    String?
-  note              String?
-  status            OrderRequestStatus @default(SENT)
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @updatedAt
-  business          Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customerAccount   CustomerAccount?   @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
-  customer          Customer?          @relation(fields: [customerId], references: [id], onDelete: SetNull)
-  customerAddress   CustomerAddress?   @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
-  sourceShowcase    Showcase?          @relation(fields: [sourceShowcaseId], references: [id], onDelete: SetNull)
-  items             OrderRequestItem[]
-  convertedSale     Sale?              @relation("RequestConversion")
-  events            CommerceEvent[]
+  deviceKey         String?
+  status            CartStatus          @default(ACTIVE)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  customerAccount   CustomerAccount?    @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+  items             CustomerCartItem[]
+  groups            CustomerCartGroup[]
 
+  @@unique([customerAccountId, status])
+  @@unique([deviceKey, status])
+  @@index([updatedAt])
+  @@map("customer_carts")
+}
+
+model CustomerCartItem {
+  id                  String          @id @default(cuid())
+  cartId              String
+  businessId          String
+  productId           String
+  variantId           String?
+  variantKey          String          @default("default")
+  quantity            Int             @default(1)
+  priceSnapshot       Decimal         @db.Decimal(12, 2)
+  stockSnapshot       Int?
+  availabilityChanged Boolean         @default(false)
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  cart                CustomerCart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  business            Business        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  product             Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant             ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+
+  @@unique([cartId, productId, variantKey])
+  @@index([cartId, businessId])
+  @@map("customer_cart_items")
+}
+
+model CustomerCartGroup {
+  id                String           @id @default(cuid())
+  cartId            String
+  businessId        String
+  customerAddressId String?
+  fulfillment       FulfillmentType  @default(ARRANGE_LATER)
+  note              String?
+  paymentPreference PaymentMethod?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  cart              CustomerCart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  business          Business         @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerAddress   CustomerAddress? @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
+
+  @@unique([cartId, businessId])
+  @@index([businessId])
+  @@map("customer_cart_groups")
+}
+
+model OrderRequest {
+  id                     String                      @id @default(cuid())
+  businessId             String
+  customerAccountId      String?
+  customerId             String?
+  referenceCode          String                      @unique
+  tokenHash              String                      @unique
+  customerName           String
+  customerPhone          String
+  channel                SalesChannel
+  fulfillment            FulfillmentType             @default(ARRANGE_LATER)
+  customerAddressId      String?
+  sourceShowcaseId       String?
+  requestedPaymentMethod PaymentMethod?
+  clientIdempotencyKey   String?
+  deliveryAddress        String?
+  deliveryPlaceId        String?
+  deliveryLatitude       Float?
+  deliveryLongitude      Float?
+  deliveryNotes          String?
+  isGift                 Boolean                     @default(false)
+  recipientName          String?
+  recipientPhone         String?
+  note                   String?
+  status                 OrderRequestStatus          @default(SENT)
+  createdAt              DateTime                    @default(now())
+  updatedAt              DateTime                    @updatedAt
+  business               Business                    @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerAccount        CustomerAccount?            @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+  customer               Customer?                   @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerAddress        CustomerAddress?            @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
+  sourceShowcase         Showcase?                   @relation(fields: [sourceShowcaseId], references: [id], onDelete: SetNull)
+  items                  OrderRequestItem[]
+  convertedSale          Sale?                       @relation("RequestConversion")
+  events                 CommerceEvent[]
+  paymentChanges         OrderRequestPaymentChange[]
+
+  @@unique([customerAccountId, clientIdempotencyKey])
   @@index([businessId, status, createdAt])
   @@index([customerAddressId])
   @@index([sourceShowcaseId])
@@ -934,19 +1200,37 @@ model OrderRequest {
 }
 
 model OrderRequestItem {
-  id             String       @id @default(cuid())
-  orderRequestId String
-  productId      String?
-  name           String
-  imageUrl       String?
-  quantity       Int          @default(1)
-  unitPrice      Decimal      @db.Decimal(12, 2)
-  total          Decimal      @db.Decimal(12, 2)
-  orderRequest   OrderRequest @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
-  product        Product?     @relation(fields: [productId], references: [id], onDelete: SetNull)
+  id              String          @id @default(cuid())
+  orderRequestId  String
+  productId       String?
+  variantId       String?
+  variantName     String?
+  variantSnapshot Json?
+  name            String
+  imageUrl        String?
+  quantity        Int             @default(1)
+  unitPrice       Decimal         @db.Decimal(12, 2)
+  total           Decimal         @db.Decimal(12, 2)
+  orderRequest    OrderRequest    @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
+  product         Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variant         ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
 
   @@index([orderRequestId])
+  @@index([variantId])
   @@map("order_request_items")
+}
+
+model OrderRequestPaymentChange {
+  id                String         @id @default(cuid())
+  orderRequestId    String
+  customerAccountId String?
+  previousMethod    PaymentMethod?
+  nextMethod        PaymentMethod
+  createdAt         DateTime       @default(now())
+  orderRequest      OrderRequest   @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
+
+  @@index([orderRequestId, createdAt])
+  @@map("order_request_payment_changes")
 }
 
 model CommerceEvent {
@@ -954,19 +1238,58 @@ model CommerceEvent {
   businessId        String
   customerAccountId String?
   productId         String?
+  showcaseId        String?
   orderRequestId    String?
   type              CommerceEventType
   visitorHash       String?
+  sessionKey        String?
+  dedupeKey         String?           @unique
   metadata          Json?
   createdAt         DateTime          @default(now())
   business          Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
   customerAccount   CustomerAccount?  @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
   product           Product?          @relation(fields: [productId], references: [id], onDelete: SetNull)
+  showcase          Showcase?         @relation(fields: [showcaseId], references: [id], onDelete: SetNull)
   orderRequest      OrderRequest?     @relation(fields: [orderRequestId], references: [id], onDelete: SetNull)
 
   @@index([businessId, type, createdAt])
   @@index([productId, type])
+  @@index([showcaseId, type])
+  @@index([customerAccountId, type, createdAt])
   @@map("commerce_events")
+}
+
+model DiscoveryPreference {
+  id                String           @id @default(cuid())
+  businessId        String?
+  customerAccountId String?
+  visitorHash       String?
+  preferences       Json
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  business          Business?        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerAccount   CustomerAccount? @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+
+  @@unique([customerAccountId, businessId])
+  @@unique([visitorHash, businessId])
+  @@index([updatedAt])
+  @@map("discovery_preferences")
+}
+
+model DiscoveryTelemetry {
+  id                String           @id @default(cuid())
+  customerAccountId String?
+  visitorHash       String?
+  type              String           @db.VarChar(60)
+  value             Float?
+  metadata          Json?
+  createdAt         DateTime         @default(now())
+  customerAccount   CustomerAccount? @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+
+  @@index([type, createdAt])
+  @@index([customerAccountId, createdAt])
+  @@index([visitorHash, createdAt])
+  @@map("discovery_telemetry")
 }
 
 model Sale {
@@ -1352,4 +1675,87 @@ model SupportRequest {
 
   @@index([businessId, status, createdAt])
   @@map("support_requests")
+}
+
+model MessagingConsent {
+  id                String           @id @default(cuid())
+  customerAccountId String?
+  phoneHash         String
+  purpose           MessagePurpose
+  source            String
+  grantedAt         DateTime         @default(now())
+  revokedAt         DateTime?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  customerAccount   CustomerAccount? @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+
+  @@unique([phoneHash, purpose])
+  @@index([customerAccountId, purpose])
+  @@map("messaging_consents")
+}
+
+model MessagingSuppression {
+  id        String         @id @default(cuid())
+  phoneHash String         @unique
+  channel   MessageChannel @default(WHATSAPP)
+  reason    String
+  source    String
+  createdAt DateTime       @default(now())
+
+  @@map("messaging_suppressions")
+}
+
+model MessageOutbox {
+  id                String           @id @default(cuid())
+  businessId        String?
+  customerAccountId String?
+  channel           MessageChannel   @default(WHATSAPP)
+  purpose           MessagePurpose
+  toAddress         String
+  templateKey       String
+  payload           Json
+  idempotencyKey    String           @unique
+  status            MessageStatus    @default(PENDING)
+  attemptCount      Int              @default(0)
+  nextAttemptAt     DateTime         @default(now())
+  providerReference String?          @unique
+  lastError         String?
+  sentAt            DateTime?
+  deliveredAt       DateTime?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  business          Business?        @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerAccount   CustomerAccount? @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+  attempts          MessageAttempt[]
+
+  @@index([status, nextAttemptAt])
+  @@index([businessId, createdAt])
+  @@map("message_outbox")
+}
+
+model MessageAttempt {
+  id                String        @id @default(cuid())
+  outboxId          String
+  provider          String
+  providerReference String?
+  status            MessageStatus
+  error             String?
+  metadata          Json?
+  createdAt         DateTime      @default(now())
+  outbox            MessageOutbox @relation(fields: [outboxId], references: [id], onDelete: Cascade)
+
+  @@index([outboxId, createdAt])
+  @@map("message_attempts")
+}
+
+model MessagingWebhookEvent {
+  id              String    @id @default(cuid())
+  providerEventId String    @unique
+  eventType       String
+  payload         Json
+  processedAt     DateTime?
+  createdAt       DateTime  @default(now())
+
+  @@index([processedAt, createdAt])
+  @@map("messaging_webhook_events")
 }

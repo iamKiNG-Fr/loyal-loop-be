@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
@@ -8,19 +9,36 @@ import { slugify } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
+import { Prisma } from "../../generated/prisma/client";
+import { CreateBusinessCategoryDto } from "./dto/category.dto";
 import {
   CreateProductDto,
   ProductListDto,
   ReplaceProductImagesDto,
+  ReplaceProductMediaDto,
   UpdateProductDto,
 } from "./dto/product.dto";
 
 const productInclude = {
+  businessCategory: true,
   images: {
     include: { asset: true },
     orderBy: { sortOrder: "asc" as const },
   },
+  media: {
+    include: { asset: true, posterAsset: true },
+    orderBy: { sortOrder: "asc" as const },
+  },
+  variants: { orderBy: { sortOrder: "asc" as const } },
 };
+
+const categoryTemplates = [
+  { key: "fashion", label: "Fashion", attributes: ["size", "color", "material", "measurements"] },
+  { key: "beauty", label: "Beauty & fragrance", attributes: ["shade", "size", "ingredients"] },
+  { key: "electronics", label: "Electronics", attributes: ["model", "capacity", "color"] },
+  { key: "home", label: "Home", attributes: ["material", "dimensions", "color"] },
+  { key: "generic", label: "General", attributes: [] },
+];
 
 @Injectable()
 export class ProductsService {
@@ -28,6 +46,45 @@ export class ProductsService {
     private readonly prisma: PrismaService,
     private readonly activity: ActivityService,
   ) {}
+
+  async categories(auth: OwnerAuthContext) {
+    const items = await this.prisma.businessCategory.findMany({
+      where: { businessId: auth.businessId },
+      orderBy: [{ name: "asc" }],
+      include: { _count: { select: { products: true } } },
+    });
+    return { items, templates: categoryTemplates };
+  }
+
+  async createCategory(
+    auth: OwnerAuthContext,
+    dto: CreateBusinessCategoryDto,
+  ) {
+    const name = dto.name.trim();
+    if (!name || name.toLowerCase() === "__new") {
+      throw new BadRequestException("Enter a real category name");
+    }
+    const existing = await this.prisma.businessCategory.findFirst({
+      where: { businessId: auth.businessId, name: { equals: name, mode: "insensitive" } },
+    });
+    if (existing) return existing;
+    try {
+      return await this.prisma.businessCategory.create({
+        data: {
+          businessId: auth.businessId,
+          name,
+          slug: await this.uniqueCategorySlug(auth.businessId, name),
+          templateKey: dto.templateKey ?? "generic",
+          attributes: dto.attributes as Prisma.InputJsonValue | undefined,
+        },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+        throw new ConflictException("That category already exists");
+      }
+      throw error;
+    }
+  }
 
   async list(auth: OwnerAuthContext, query: ProductListDto) {
     const where = {
@@ -72,6 +129,20 @@ export class ProductsService {
       auth.businessId,
       dto.imageAssetIds ?? [],
     );
+    const category = await this.resolveCategory(auth, dto.categoryId, dto.category);
+    const media = dto.media?.length
+      ? await this.validateMedia(auth.businessId, dto.media)
+      : assets.map((asset, index) => ({
+          asset,
+          posterAsset: null,
+          kind: "IMAGE" as const,
+          altText: undefined,
+          sortOrder: index,
+          isPrimary: index === 0,
+        }));
+    const variants = dto.variants?.length
+      ? dto.variants
+      : [{ name: "Default", optionValues: {}, stockCount: dto.stockCount }];
     return this.prisma.$transaction(async (tx) => {
       const product = await tx.product.create({
         data: {
@@ -81,7 +152,9 @@ export class ProductsService {
           description: dto.description?.trim(),
           price: dto.price,
           currency: dto.currency?.toUpperCase() ?? "NGN",
-          category: dto.category?.trim(),
+          category: category?.name ?? dto.category?.trim(),
+          categoryId: category?.id,
+          attributes: dto.attributes as Prisma.InputJsonValue | undefined,
           status: dto.status,
           placement: dto.placement,
           visibility: dto.visibility,
@@ -95,6 +168,30 @@ export class ProductsService {
                 })),
               }
             : undefined,
+          media: media.length
+            ? {
+                create: media.map((item) => ({
+                  assetId: item.asset.id,
+                  posterAssetId: item.posterAsset?.id,
+                  kind: item.kind,
+                  altText: item.altText,
+                  sortOrder: item.sortOrder,
+                  isPrimary: item.isPrimary,
+                  durationSeconds: item.asset.durationSeconds,
+                })),
+              }
+            : undefined,
+          variants: {
+            create: variants.map((variant, index) => ({
+              name: variant.name?.trim() || this.variantName(variant.optionValues),
+              optionValues: variant.optionValues as Prisma.InputJsonValue,
+              priceOverride: variant.priceOverride,
+              sku: variant.sku?.trim(),
+              active: variant.active ?? true,
+              stockCount: variant.stockCount,
+              sortOrder: index,
+            })),
+          },
         },
         include: productInclude,
       });
@@ -118,6 +215,10 @@ export class ProductsService {
     dto: UpdateProductDto,
   ) {
     const product = await this.assertOwned(auth.businessId, productId);
+    const hasCategoryUpdate = dto.categoryId !== undefined || dto.category !== undefined;
+    const category = hasCategoryUpdate
+      ? await this.resolveCategory(auth, dto.categoryId, dto.category)
+      : undefined;
     return this.prisma.$transaction(async (tx) => {
       const updated = await tx.product.update({
         where: { id: product.id },
@@ -128,11 +229,27 @@ export class ProductsService {
             : undefined,
           description: dto.description?.trim(),
           price: dto.price,
-          category: dto.category?.trim(),
+          category: hasCategoryUpdate ? category?.name ?? null : undefined,
+          categoryId: hasCategoryUpdate ? category?.id ?? null : undefined,
+          attributes: dto.attributes as Prisma.InputJsonValue | undefined,
           status: dto.status,
           placement: dto.placement,
           visibility: dto.visibility,
           stockCount: dto.stockCount,
+          variants: dto.variants
+            ? {
+                deleteMany: {},
+                create: dto.variants.map((variant, index) => ({
+                  name: variant.name?.trim() || this.variantName(variant.optionValues),
+                  optionValues: variant.optionValues as Prisma.InputJsonValue,
+                  priceOverride: variant.priceOverride,
+                  sku: variant.sku?.trim(),
+                  active: variant.active ?? true,
+                  stockCount: variant.stockCount,
+                  sortOrder: index,
+                })),
+              }
+            : undefined,
         },
         include: productInclude,
       });
@@ -160,6 +277,7 @@ export class ProductsService {
     const assets = await this.validateAssets(auth.businessId, dto.assetIds);
     await this.prisma.$transaction(async (tx) => {
       await tx.productImage.deleteMany({ where: { productId } });
+      await tx.productMedia.deleteMany({ where: { productId, kind: "IMAGE" } });
       if (assets.length) {
         await tx.productImage.createMany({
           data: assets.map((asset, index) => ({
@@ -169,6 +287,55 @@ export class ProductsService {
             isPrimary: index === 0,
           })),
         });
+        await tx.productMedia.createMany({
+          data: assets.map((asset, index) => ({
+            productId,
+            assetId: asset.id,
+            kind: "IMAGE",
+            sortOrder: index,
+            isPrimary: index === 0,
+          })),
+        });
+      }
+    });
+    return this.get(auth, productId);
+  }
+
+  async replaceMedia(
+    auth: OwnerAuthContext,
+    productId: string,
+    dto: ReplaceProductMediaDto,
+  ) {
+    await this.assertOwned(auth.businessId, productId);
+    const media = await this.validateMedia(auth.businessId, dto.media);
+    await this.prisma.$transaction(async (tx) => {
+      await tx.productMedia.deleteMany({ where: { productId } });
+      await tx.productImage.deleteMany({ where: { productId } });
+      if (media.length) {
+        await tx.productMedia.createMany({
+          data: media.map((item) => ({
+            productId,
+            assetId: item.asset.id,
+            posterAssetId: item.posterAsset?.id,
+            kind: item.kind,
+            altText: item.altText,
+            sortOrder: item.sortOrder,
+            isPrimary: item.isPrimary,
+            durationSeconds: item.asset.durationSeconds,
+          })),
+        });
+        const images = media.filter((item) => item.kind === "IMAGE");
+        if (images.length) {
+          await tx.productImage.createMany({
+            data: images.map((item, index) => ({
+              productId,
+              assetId: item.asset.id,
+              altText: item.altText,
+              sortOrder: item.sortOrder,
+              isPrimary: index === 0,
+            })),
+          });
+        }
       }
     });
     return this.get(auth, productId);
@@ -204,6 +371,83 @@ export class ProductsService {
       throw new BadRequestException("One or more product images are invalid");
     }
     return uniqueIds.map((id) => assets.find((asset) => asset.id === id)!);
+  }
+
+  private async resolveCategory(
+    auth: OwnerAuthContext,
+    categoryId?: string,
+    legacyName?: string,
+  ) {
+    if (categoryId) {
+      const category = await this.prisma.businessCategory.findFirst({
+        where: { id: categoryId, businessId: auth.businessId },
+      });
+      if (!category) throw new BadRequestException("Category is not available for this business");
+      return category;
+    }
+    const name = legacyName?.trim();
+    if (!name) return null;
+    return this.createCategory(auth, { name, templateKey: "generic" });
+  }
+
+  private async validateMedia(
+    businessId: string,
+    input: ReplaceProductMediaDto["media"],
+  ) {
+    const ids = [
+      ...new Set(input.flatMap((item) => [item.assetId, item.posterAssetId].filter(Boolean) as string[])),
+    ];
+    const assets = await this.prisma.mediaAsset.findMany({
+      where: { id: { in: ids }, businessId, status: "ACTIVE" },
+    });
+    if (assets.length !== ids.length) {
+      throw new BadRequestException("One or more product media assets are invalid");
+    }
+    return input.map((item, index) => {
+      const asset = assets.find((entry) => entry.id === item.assetId)!;
+      const posterAsset = item.posterAssetId
+        ? assets.find((entry) => entry.id === item.posterAssetId) ?? null
+        : null;
+      if (item.kind === "VIDEO") {
+        if (asset.purpose !== "PRODUCT_VIDEO" || asset.resourceType !== "video") {
+          throw new BadRequestException("Video media must use a verified product-video asset");
+        }
+        if ((asset.durationSeconds ?? 0) > 30 || asset.bytes > 50 * 1024 * 1024) {
+          throw new BadRequestException("Product videos must be 30 seconds or less and no larger than 50 MB");
+        }
+        if (!posterAsset || posterAsset.purpose !== "PRODUCT_POSTER" || posterAsset.resourceType !== "image") {
+          throw new BadRequestException("Product videos require a verified poster image");
+        }
+      } else if (asset.purpose !== "PRODUCT_IMAGE" || asset.resourceType !== "image") {
+        throw new BadRequestException("Image media must use a verified product-image asset");
+      }
+      return {
+        asset,
+        posterAsset,
+        kind: item.kind,
+        altText: item.altText?.trim(),
+        sortOrder: index,
+        isPrimary: index === 0,
+      };
+    });
+  }
+
+  private variantName(optionValues: Record<string, string>) {
+    const value = Object.values(optionValues).map((item) => item.trim()).filter(Boolean).join(" / ");
+    return value || "Default";
+  }
+
+  private async uniqueCategorySlug(businessId: string, name: string) {
+    const base = slugify(name) || "category";
+    let candidate = base;
+    let suffix = 2;
+    while (await this.prisma.businessCategory.findFirst({
+      where: { businessId, slug: candidate },
+      select: { id: true },
+    })) {
+      candidate = `${base}-${suffix++}`;
+    }
+    return candidate;
   }
 
   private async uniqueSlug(

@@ -11,12 +11,15 @@ import { BillingModule } from "./modules/billing/billing.module";
 import { BusinessesModule } from "./modules/businesses/businesses.module";
 import { CustomerAuthModule } from "./modules/customer-auth/customer-auth.module";
 import { CustomersModule } from "./modules/customers/customers.module";
+import { CartsModule } from "./modules/carts/carts.module";
 import { DashboardModule } from "./modules/dashboard/dashboard.module";
 import { DeliveryModule } from "./modules/delivery/delivery.module";
 import { DiscoveryModule } from "./modules/discovery/discovery.module";
 import { FollowUpsModule } from "./modules/follow-ups/follow-ups.module";
 import { MailModule } from "./modules/mail/mail.module";
+import { MessagingModule } from "./modules/messaging/messaging.module";
 import { MediaModule } from "./modules/media/media.module";
+import { IntelligenceModule } from "./modules/intelligence/intelligence.module";
 import { PaymentsModule } from "./modules/payments/payments.module";
 import { PrismaModule } from "./modules/prisma/prisma.module";
 import { ProductsModule } from "./modules/products/products.module";
@@ -43,8 +46,10 @@ import { WaitlistModule } from "./modules/waitlist/waitlist.module";
       ],
     }),
     PrismaModule,
+    IntelligenceModule,
     SecurityModule,
     MailModule,
+    MessagingModule,
     WaitlistModule,
     AuthModule,
     CustomerAuthModule,
@@ -53,6 +58,7 @@ import { WaitlistModule } from "./modules/waitlist/waitlist.module";
     MediaModule,
     PaymentsModule,
     CustomersModule,
+    CartsModule,
     ProductsModule,
     SalesModule,
     ReceiptsModule,

@@ -8,6 +8,7 @@ import { hashToken } from "../crypto.util";
 import { OWNER_SESSION_COOKIE, readCookie } from "../http.util";
 import type { LoyalLoopRequest } from "../request-context";
 import { PrismaService } from "../../modules/prisma/prisma.service";
+import { resolveCapabilities } from "./capabilities";
 
 @Injectable()
 export class OwnerAuthGuard implements CanActivate {
@@ -26,6 +27,7 @@ export class OwnerAuthGuard implements CanActivate {
             memberships: {
               where: { status: "ACTIVE" },
               orderBy: { createdAt: "asc" },
+              include: { permissionOverrides: true },
             },
           },
         },
@@ -54,7 +56,12 @@ export class OwnerAuthGuard implements CanActivate {
       userId: session.userId,
       sessionId: session.id,
       businessId: membership.businessId,
+      memberId: membership.id,
       role: membership.role,
+      capabilities: resolveCapabilities(
+        membership.role,
+        membership.permissionOverrides,
+      ),
     };
 
     if (Date.now() - session.lastUsedAt.getTime() > 15 * 60 * 1000) {

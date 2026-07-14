@@ -456,6 +456,12 @@ export type BusinessWhereInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountListRelationFilter
   paymentProofs?: Prisma.PaymentProofListRelationFilter
   shortLinks?: Prisma.ShortLinkListRelationFilter
+  categories?: Prisma.BusinessCategoryListRelationFilter
+  customerInsights?: Prisma.CustomerInsightSummaryListRelationFilter
+  cartItems?: Prisma.CustomerCartItemListRelationFilter
+  cartGroups?: Prisma.CustomerCartGroupListRelationFilter
+  discoveryPreferences?: Prisma.DiscoveryPreferenceListRelationFilter
+  messageOutbox?: Prisma.MessageOutboxListRelationFilter
 }
 
 export type BusinessOrderByWithRelationInput = {
@@ -521,6 +527,12 @@ export type BusinessOrderByWithRelationInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountOrderByRelationAggregateInput
   paymentProofs?: Prisma.PaymentProofOrderByRelationAggregateInput
   shortLinks?: Prisma.ShortLinkOrderByRelationAggregateInput
+  categories?: Prisma.BusinessCategoryOrderByRelationAggregateInput
+  customerInsights?: Prisma.CustomerInsightSummaryOrderByRelationAggregateInput
+  cartItems?: Prisma.CustomerCartItemOrderByRelationAggregateInput
+  cartGroups?: Prisma.CustomerCartGroupOrderByRelationAggregateInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceOrderByRelationAggregateInput
+  messageOutbox?: Prisma.MessageOutboxOrderByRelationAggregateInput
 }
 
 export type BusinessWhereUniqueInput = Prisma.AtLeast<{
@@ -589,6 +601,12 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   paymentAccounts?: Prisma.BusinessPaymentAccountListRelationFilter
   paymentProofs?: Prisma.PaymentProofListRelationFilter
   shortLinks?: Prisma.ShortLinkListRelationFilter
+  categories?: Prisma.BusinessCategoryListRelationFilter
+  customerInsights?: Prisma.CustomerInsightSummaryListRelationFilter
+  cartItems?: Prisma.CustomerCartItemListRelationFilter
+  cartGroups?: Prisma.CustomerCartGroupListRelationFilter
+  discoveryPreferences?: Prisma.DiscoveryPreferenceListRelationFilter
+  messageOutbox?: Prisma.MessageOutboxListRelationFilter
 }, "id" | "logoAssetId" | "coverAssetId" | "slug" | "publicCardId">
 
 export type BusinessOrderByWithAggregationInput = {
@@ -724,6 +742,12 @@ export type BusinessCreateInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateInput = {
@@ -785,6 +809,12 @@ export type BusinessUncheckedCreateInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUpdateInput = {
@@ -846,6 +876,12 @@ export type BusinessUpdateInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateInput = {
@@ -907,6 +943,12 @@ export type BusinessUncheckedUpdateInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateManyInput = {
@@ -1367,6 +1409,20 @@ export type BusinessUpdateOneRequiredWithoutCustomersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutCustomersInput, Prisma.BusinessUpdateWithoutCustomersInput>, Prisma.BusinessUncheckedUpdateWithoutCustomersInput>
 }
 
+export type BusinessCreateNestedOneWithoutCustomerInsightsInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCustomerInsightsInput, Prisma.BusinessUncheckedCreateWithoutCustomerInsightsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCustomerInsightsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutCustomerInsightsNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCustomerInsightsInput, Prisma.BusinessUncheckedCreateWithoutCustomerInsightsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCustomerInsightsInput
+  upsert?: Prisma.BusinessUpsertWithoutCustomerInsightsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutCustomerInsightsInput, Prisma.BusinessUpdateWithoutCustomerInsightsInput>, Prisma.BusinessUncheckedUpdateWithoutCustomerInsightsInput>
+}
+
 export type BusinessCreateNestedOneWithoutCustomerTagsInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutCustomerTagsInput, Prisma.BusinessUncheckedCreateWithoutCustomerTagsInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCustomerTagsInput
@@ -1379,6 +1435,20 @@ export type BusinessUpdateOneRequiredWithoutCustomerTagsNestedInput = {
   upsert?: Prisma.BusinessUpsertWithoutCustomerTagsInput
   connect?: Prisma.BusinessWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutCustomerTagsInput, Prisma.BusinessUpdateWithoutCustomerTagsInput>, Prisma.BusinessUncheckedUpdateWithoutCustomerTagsInput>
+}
+
+export type BusinessCreateNestedOneWithoutCategoriesInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCategoriesInput, Prisma.BusinessUncheckedCreateWithoutCategoriesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCategoriesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutCategoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCategoriesInput, Prisma.BusinessUncheckedCreateWithoutCategoriesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCategoriesInput
+  upsert?: Prisma.BusinessUpsertWithoutCategoriesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutCategoriesInput, Prisma.BusinessUpdateWithoutCategoriesInput>, Prisma.BusinessUncheckedUpdateWithoutCategoriesInput>
 }
 
 export type BusinessCreateNestedOneWithoutProductsInput = {
@@ -1507,6 +1577,34 @@ export type BusinessUpdateOneRequiredWithoutProductInterestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutProductInterestsInput, Prisma.BusinessUpdateWithoutProductInterestsInput>, Prisma.BusinessUncheckedUpdateWithoutProductInterestsInput>
 }
 
+export type BusinessCreateNestedOneWithoutCartItemsInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCartItemsInput, Prisma.BusinessUncheckedCreateWithoutCartItemsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCartItemsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutCartItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCartItemsInput, Prisma.BusinessUncheckedCreateWithoutCartItemsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCartItemsInput
+  upsert?: Prisma.BusinessUpsertWithoutCartItemsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutCartItemsInput, Prisma.BusinessUpdateWithoutCartItemsInput>, Prisma.BusinessUncheckedUpdateWithoutCartItemsInput>
+}
+
+export type BusinessCreateNestedOneWithoutCartGroupsInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCartGroupsInput, Prisma.BusinessUncheckedCreateWithoutCartGroupsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCartGroupsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutCartGroupsNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutCartGroupsInput, Prisma.BusinessUncheckedCreateWithoutCartGroupsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutCartGroupsInput
+  upsert?: Prisma.BusinessUpsertWithoutCartGroupsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutCartGroupsInput, Prisma.BusinessUpdateWithoutCartGroupsInput>, Prisma.BusinessUncheckedUpdateWithoutCartGroupsInput>
+}
+
 export type BusinessCreateNestedOneWithoutOrderRequestsInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutOrderRequestsInput, Prisma.BusinessUncheckedCreateWithoutOrderRequestsInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutOrderRequestsInput
@@ -1533,6 +1631,22 @@ export type BusinessUpdateOneRequiredWithoutCommerceEventsNestedInput = {
   upsert?: Prisma.BusinessUpsertWithoutCommerceEventsInput
   connect?: Prisma.BusinessWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutCommerceEventsInput, Prisma.BusinessUpdateWithoutCommerceEventsInput>, Prisma.BusinessUncheckedUpdateWithoutCommerceEventsInput>
+}
+
+export type BusinessCreateNestedOneWithoutDiscoveryPreferencesInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutDiscoveryPreferencesInput, Prisma.BusinessUncheckedCreateWithoutDiscoveryPreferencesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutDiscoveryPreferencesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneWithoutDiscoveryPreferencesNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutDiscoveryPreferencesInput, Prisma.BusinessUncheckedCreateWithoutDiscoveryPreferencesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutDiscoveryPreferencesInput
+  upsert?: Prisma.BusinessUpsertWithoutDiscoveryPreferencesInput
+  disconnect?: Prisma.BusinessWhereInput | boolean
+  delete?: Prisma.BusinessWhereInput | boolean
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutDiscoveryPreferencesInput, Prisma.BusinessUpdateWithoutDiscoveryPreferencesInput>, Prisma.BusinessUncheckedUpdateWithoutDiscoveryPreferencesInput>
 }
 
 export type BusinessCreateNestedOneWithoutSalesInput = {
@@ -1705,6 +1819,22 @@ export type BusinessUpdateOneRequiredWithoutSupportRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutSupportRequestsInput, Prisma.BusinessUpdateWithoutSupportRequestsInput>, Prisma.BusinessUncheckedUpdateWithoutSupportRequestsInput>
 }
 
+export type BusinessCreateNestedOneWithoutMessageOutboxInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutMessageOutboxInput, Prisma.BusinessUncheckedCreateWithoutMessageOutboxInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutMessageOutboxInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneWithoutMessageOutboxNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutMessageOutboxInput, Prisma.BusinessUncheckedCreateWithoutMessageOutboxInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutMessageOutboxInput
+  upsert?: Prisma.BusinessUpsertWithoutMessageOutboxInput
+  disconnect?: Prisma.BusinessWhereInput | boolean
+  delete?: Prisma.BusinessWhereInput | boolean
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutMessageOutboxInput, Prisma.BusinessUpdateWithoutMessageOutboxInput>, Prisma.BusinessUncheckedUpdateWithoutMessageOutboxInput>
+}
+
 export type BusinessCreateWithoutOwnerInput = {
   id?: string
   name: string
@@ -1763,6 +1893,12 @@ export type BusinessCreateWithoutOwnerInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutOwnerInput = {
@@ -1823,6 +1959,12 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutOwnerInput = {
@@ -1945,6 +2087,12 @@ export type BusinessCreateWithoutPreferencesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPreferencesInput = {
@@ -2005,6 +2153,12 @@ export type BusinessUncheckedCreateWithoutPreferencesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPreferencesInput = {
@@ -2081,6 +2235,12 @@ export type BusinessUpdateWithoutPreferencesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPreferencesInput = {
@@ -2141,6 +2301,12 @@ export type BusinessUncheckedUpdateWithoutPreferencesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutContactsInput = {
@@ -2201,6 +2367,12 @@ export type BusinessCreateWithoutContactsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutContactsInput = {
@@ -2261,6 +2433,12 @@ export type BusinessUncheckedCreateWithoutContactsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutContactsInput = {
@@ -2337,6 +2515,12 @@ export type BusinessUpdateWithoutContactsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutContactsInput = {
@@ -2397,6 +2581,12 @@ export type BusinessUncheckedUpdateWithoutContactsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPaymentAccountsInput = {
@@ -2457,6 +2647,12 @@ export type BusinessCreateWithoutPaymentAccountsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPaymentAccountsInput = {
@@ -2517,6 +2713,12 @@ export type BusinessUncheckedCreateWithoutPaymentAccountsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPaymentAccountsInput = {
@@ -2593,6 +2795,12 @@ export type BusinessUpdateWithoutPaymentAccountsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPaymentAccountsInput = {
@@ -2653,6 +2861,12 @@ export type BusinessUncheckedUpdateWithoutPaymentAccountsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutMembersInput = {
@@ -2713,6 +2927,12 @@ export type BusinessCreateWithoutMembersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutMembersInput = {
@@ -2773,6 +2993,12 @@ export type BusinessUncheckedCreateWithoutMembersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutMembersInput = {
@@ -2849,6 +3075,12 @@ export type BusinessUpdateWithoutMembersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutMembersInput = {
@@ -2909,6 +3141,12 @@ export type BusinessUncheckedUpdateWithoutMembersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutInvitationsInput = {
@@ -2969,6 +3207,12 @@ export type BusinessCreateWithoutInvitationsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutInvitationsInput = {
@@ -3029,6 +3273,12 @@ export type BusinessUncheckedCreateWithoutInvitationsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutInvitationsInput = {
@@ -3105,6 +3355,12 @@ export type BusinessUpdateWithoutInvitationsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutInvitationsInput = {
@@ -3165,6 +3421,12 @@ export type BusinessUncheckedUpdateWithoutInvitationsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutAssetsInput = {
@@ -3225,6 +3487,12 @@ export type BusinessCreateWithoutAssetsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutAssetsInput = {
@@ -3285,6 +3553,12 @@ export type BusinessUncheckedCreateWithoutAssetsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutAssetsInput = {
@@ -3350,6 +3624,12 @@ export type BusinessCreateWithoutLogoAssetInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutLogoAssetInput = {
@@ -3410,6 +3690,12 @@ export type BusinessUncheckedCreateWithoutLogoAssetInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutLogoAssetInput = {
@@ -3475,6 +3761,12 @@ export type BusinessCreateWithoutCoverAssetInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCoverAssetInput = {
@@ -3535,6 +3827,12 @@ export type BusinessUncheckedCreateWithoutCoverAssetInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCoverAssetInput = {
@@ -3611,6 +3909,12 @@ export type BusinessUpdateWithoutAssetsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutAssetsInput = {
@@ -3671,6 +3975,12 @@ export type BusinessUncheckedUpdateWithoutAssetsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUpsertWithoutLogoAssetInput = {
@@ -3742,6 +4052,12 @@ export type BusinessUpdateWithoutLogoAssetInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
@@ -3802,6 +4118,12 @@ export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUpsertWithoutCoverAssetInput = {
@@ -3873,6 +4195,12 @@ export type BusinessUpdateWithoutCoverAssetInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCoverAssetInput = {
@@ -3933,6 +4261,12 @@ export type BusinessUncheckedUpdateWithoutCoverAssetInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCustomersInput = {
@@ -3993,6 +4327,12 @@ export type BusinessCreateWithoutCustomersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCustomersInput = {
@@ -4053,6 +4393,12 @@ export type BusinessUncheckedCreateWithoutCustomersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCustomersInput = {
@@ -4129,6 +4475,12 @@ export type BusinessUpdateWithoutCustomersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCustomersInput = {
@@ -4189,6 +4541,292 @@ export type BusinessUncheckedUpdateWithoutCustomersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutCustomerInsightsInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutCustomerInsightsInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutCustomerInsightsInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCustomerInsightsInput, Prisma.BusinessUncheckedCreateWithoutCustomerInsightsInput>
+}
+
+export type BusinessUpsertWithoutCustomerInsightsInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutCustomerInsightsInput, Prisma.BusinessUncheckedUpdateWithoutCustomerInsightsInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCustomerInsightsInput, Prisma.BusinessUncheckedCreateWithoutCustomerInsightsInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutCustomerInsightsInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutCustomerInsightsInput, Prisma.BusinessUncheckedUpdateWithoutCustomerInsightsInput>
+}
+
+export type BusinessUpdateWithoutCustomerInsightsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutCustomerInsightsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCustomerTagsInput = {
@@ -4249,6 +4887,12 @@ export type BusinessCreateWithoutCustomerTagsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
@@ -4309,6 +4953,12 @@ export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCustomerTagsInput = {
@@ -4385,6 +5035,12 @@ export type BusinessUpdateWithoutCustomerTagsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
@@ -4445,6 +5101,292 @@ export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutCategoriesInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutCategoriesInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutCategoriesInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCategoriesInput, Prisma.BusinessUncheckedCreateWithoutCategoriesInput>
+}
+
+export type BusinessUpsertWithoutCategoriesInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutCategoriesInput, Prisma.BusinessUncheckedUpdateWithoutCategoriesInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCategoriesInput, Prisma.BusinessUncheckedCreateWithoutCategoriesInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutCategoriesInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutCategoriesInput, Prisma.BusinessUncheckedUpdateWithoutCategoriesInput>
+}
+
+export type BusinessUpdateWithoutCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutProductsInput = {
@@ -4505,6 +5447,12 @@ export type BusinessCreateWithoutProductsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutProductsInput = {
@@ -4565,6 +5513,12 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutProductsInput = {
@@ -4630,6 +5584,12 @@ export type BusinessCreateWithoutLaunchProductInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutLaunchProductInput = {
@@ -4690,6 +5650,12 @@ export type BusinessUncheckedCreateWithoutLaunchProductInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutLaunchProductInput = {
@@ -4771,6 +5737,12 @@ export type BusinessUpdateWithoutProductsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutProductsInput = {
@@ -4831,6 +5803,12 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUpsertWithWhereUniqueWithoutLaunchProductInput = {
@@ -4907,6 +5885,12 @@ export type BusinessCreateWithoutShowcasesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutShowcasesInput = {
@@ -4967,6 +5951,12 @@ export type BusinessUncheckedCreateWithoutShowcasesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutShowcasesInput = {
@@ -5043,6 +6033,12 @@ export type BusinessUpdateWithoutShowcasesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutShowcasesInput = {
@@ -5103,6 +6099,12 @@ export type BusinessUncheckedUpdateWithoutShowcasesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutSavedShowcasesInput = {
@@ -5163,6 +6165,12 @@ export type BusinessCreateWithoutSavedShowcasesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSavedShowcasesInput = {
@@ -5223,6 +6231,12 @@ export type BusinessUncheckedCreateWithoutSavedShowcasesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSavedShowcasesInput = {
@@ -5299,6 +6313,12 @@ export type BusinessUpdateWithoutSavedShowcasesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSavedShowcasesInput = {
@@ -5359,6 +6379,12 @@ export type BusinessUncheckedUpdateWithoutSavedShowcasesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutShopFollowersInput = {
@@ -5419,6 +6445,12 @@ export type BusinessCreateWithoutShopFollowersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutShopFollowersInput = {
@@ -5479,6 +6511,12 @@ export type BusinessUncheckedCreateWithoutShopFollowersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutShopFollowersInput = {
@@ -5555,6 +6593,12 @@ export type BusinessUpdateWithoutShopFollowersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutShopFollowersInput = {
@@ -5615,6 +6659,12 @@ export type BusinessUncheckedUpdateWithoutShopFollowersInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutWishlistItemsInput = {
@@ -5675,6 +6725,12 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
@@ -5735,6 +6791,12 @@ export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutWishlistItemsInput = {
@@ -5811,6 +6873,12 @@ export type BusinessUpdateWithoutWishlistItemsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
@@ -5871,6 +6939,12 @@ export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutProductInterestsInput = {
@@ -5931,6 +7005,12 @@ export type BusinessCreateWithoutProductInterestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutProductInterestsInput = {
@@ -5991,6 +7071,12 @@ export type BusinessUncheckedCreateWithoutProductInterestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutProductInterestsInput = {
@@ -6067,6 +7153,12 @@ export type BusinessUpdateWithoutProductInterestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
@@ -6127,6 +7219,572 @@ export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutCartItemsInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutCartItemsInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutCartItemsInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCartItemsInput, Prisma.BusinessUncheckedCreateWithoutCartItemsInput>
+}
+
+export type BusinessUpsertWithoutCartItemsInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutCartItemsInput, Prisma.BusinessUncheckedUpdateWithoutCartItemsInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCartItemsInput, Prisma.BusinessUncheckedCreateWithoutCartItemsInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutCartItemsInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutCartItemsInput, Prisma.BusinessUncheckedUpdateWithoutCartItemsInput>
+}
+
+export type BusinessUpdateWithoutCartItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutCartItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutCartGroupsInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutCartGroupsInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutCartGroupsInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCartGroupsInput, Prisma.BusinessUncheckedCreateWithoutCartGroupsInput>
+}
+
+export type BusinessUpsertWithoutCartGroupsInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutCartGroupsInput, Prisma.BusinessUncheckedUpdateWithoutCartGroupsInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutCartGroupsInput, Prisma.BusinessUncheckedCreateWithoutCartGroupsInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutCartGroupsInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutCartGroupsInput, Prisma.BusinessUncheckedUpdateWithoutCartGroupsInput>
+}
+
+export type BusinessUpdateWithoutCartGroupsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutCartGroupsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutOrderRequestsInput = {
@@ -6187,6 +7845,12 @@ export type BusinessCreateWithoutOrderRequestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
@@ -6247,6 +7911,12 @@ export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutOrderRequestsInput = {
@@ -6323,6 +7993,12 @@ export type BusinessUpdateWithoutOrderRequestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
@@ -6383,6 +8059,12 @@ export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCommerceEventsInput = {
@@ -6443,6 +8125,12 @@ export type BusinessCreateWithoutCommerceEventsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
@@ -6503,6 +8191,12 @@ export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCommerceEventsInput = {
@@ -6579,6 +8273,12 @@ export type BusinessUpdateWithoutCommerceEventsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
@@ -6639,6 +8339,292 @@ export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutDiscoveryPreferencesInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutDiscoveryPreferencesInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutDiscoveryPreferencesInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutDiscoveryPreferencesInput, Prisma.BusinessUncheckedCreateWithoutDiscoveryPreferencesInput>
+}
+
+export type BusinessUpsertWithoutDiscoveryPreferencesInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutDiscoveryPreferencesInput, Prisma.BusinessUncheckedUpdateWithoutDiscoveryPreferencesInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutDiscoveryPreferencesInput, Prisma.BusinessUncheckedCreateWithoutDiscoveryPreferencesInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutDiscoveryPreferencesInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutDiscoveryPreferencesInput, Prisma.BusinessUncheckedUpdateWithoutDiscoveryPreferencesInput>
+}
+
+export type BusinessUpdateWithoutDiscoveryPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutDiscoveryPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutSalesInput = {
@@ -6699,6 +8685,12 @@ export type BusinessCreateWithoutSalesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSalesInput = {
@@ -6759,6 +8751,12 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSalesInput = {
@@ -6835,6 +8833,12 @@ export type BusinessUpdateWithoutSalesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSalesInput = {
@@ -6895,6 +8899,12 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPaymentProofsInput = {
@@ -6955,6 +8965,12 @@ export type BusinessCreateWithoutPaymentProofsInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPaymentProofsInput = {
@@ -7015,6 +9031,12 @@ export type BusinessUncheckedCreateWithoutPaymentProofsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPaymentProofsInput = {
@@ -7091,6 +9113,12 @@ export type BusinessUpdateWithoutPaymentProofsInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPaymentProofsInput = {
@@ -7151,6 +9179,12 @@ export type BusinessUncheckedUpdateWithoutPaymentProofsInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutReceiptsInput = {
@@ -7211,6 +9245,12 @@ export type BusinessCreateWithoutReceiptsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutReceiptsInput = {
@@ -7271,6 +9311,12 @@ export type BusinessUncheckedCreateWithoutReceiptsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutReceiptsInput = {
@@ -7347,6 +9393,12 @@ export type BusinessUpdateWithoutReceiptsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutReceiptsInput = {
@@ -7407,6 +9459,12 @@ export type BusinessUncheckedUpdateWithoutReceiptsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutShortLinksInput = {
@@ -7467,6 +9525,12 @@ export type BusinessCreateWithoutShortLinksInput = {
   supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutShortLinksInput = {
@@ -7527,6 +9591,12 @@ export type BusinessUncheckedCreateWithoutShortLinksInput = {
   supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutShortLinksInput = {
@@ -7603,6 +9673,12 @@ export type BusinessUpdateWithoutShortLinksInput = {
   supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutShortLinksInput = {
@@ -7663,6 +9739,12 @@ export type BusinessUncheckedUpdateWithoutShortLinksInput = {
   supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutDeliveriesInput = {
@@ -7723,6 +9805,12 @@ export type BusinessCreateWithoutDeliveriesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutDeliveriesInput = {
@@ -7783,6 +9871,12 @@ export type BusinessUncheckedCreateWithoutDeliveriesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutDeliveriesInput = {
@@ -7859,6 +9953,12 @@ export type BusinessUpdateWithoutDeliveriesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
@@ -7919,6 +10019,12 @@ export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutActivityEventsInput = {
@@ -7979,6 +10085,12 @@ export type BusinessCreateWithoutActivityEventsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutActivityEventsInput = {
@@ -8039,6 +10151,12 @@ export type BusinessUncheckedCreateWithoutActivityEventsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutActivityEventsInput = {
@@ -8115,6 +10233,12 @@ export type BusinessUpdateWithoutActivityEventsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
@@ -8175,6 +10299,12 @@ export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFollowUpTemplatesInput = {
@@ -8235,6 +10365,12 @@ export type BusinessCreateWithoutFollowUpTemplatesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
@@ -8295,6 +10431,12 @@ export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFollowUpTemplatesInput = {
@@ -8371,6 +10513,12 @@ export type BusinessUpdateWithoutFollowUpTemplatesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
@@ -8431,6 +10579,12 @@ export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFollowUpSuggestionsInput = {
@@ -8491,6 +10645,12 @@ export type BusinessCreateWithoutFollowUpSuggestionsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
@@ -8551,6 +10711,12 @@ export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFollowUpSuggestionsInput = {
@@ -8627,6 +10793,12 @@ export type BusinessUpdateWithoutFollowUpSuggestionsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
@@ -8687,6 +10859,12 @@ export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFeedbackInput = {
@@ -8747,6 +10925,12 @@ export type BusinessCreateWithoutFeedbackInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFeedbackInput = {
@@ -8807,6 +10991,12 @@ export type BusinessUncheckedCreateWithoutFeedbackInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFeedbackInput = {
@@ -8883,6 +11073,12 @@ export type BusinessUpdateWithoutFeedbackInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFeedbackInput = {
@@ -8943,6 +11139,12 @@ export type BusinessUncheckedUpdateWithoutFeedbackInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutIssuesInput = {
@@ -9003,6 +11205,12 @@ export type BusinessCreateWithoutIssuesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutIssuesInput = {
@@ -9063,6 +11271,12 @@ export type BusinessUncheckedCreateWithoutIssuesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutIssuesInput = {
@@ -9139,6 +11353,12 @@ export type BusinessUpdateWithoutIssuesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutIssuesInput = {
@@ -9199,6 +11419,12 @@ export type BusinessUncheckedUpdateWithoutIssuesInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutTrustLedgerInput = {
@@ -9259,6 +11485,12 @@ export type BusinessCreateWithoutTrustLedgerInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
@@ -9319,6 +11551,12 @@ export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutTrustLedgerInput = {
@@ -9395,6 +11633,12 @@ export type BusinessUpdateWithoutTrustLedgerInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
@@ -9455,6 +11699,12 @@ export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutSupportRequestsInput = {
@@ -9515,6 +11765,12 @@ export type BusinessCreateWithoutSupportRequestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
@@ -9575,6 +11831,12 @@ export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
   paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
   shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSupportRequestsInput = {
@@ -9651,6 +11913,12 @@ export type BusinessUpdateWithoutSupportRequestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
@@ -9711,6 +11979,292 @@ export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutMessageOutboxInput = {
+  id?: string
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutMessageOutboxInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutMessageOutboxInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutMessageOutboxInput, Prisma.BusinessUncheckedCreateWithoutMessageOutboxInput>
+}
+
+export type BusinessUpsertWithoutMessageOutboxInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutMessageOutboxInput, Prisma.BusinessUncheckedUpdateWithoutMessageOutboxInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutMessageOutboxInput, Prisma.BusinessUncheckedCreateWithoutMessageOutboxInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutMessageOutboxInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutMessageOutboxInput, Prisma.BusinessUncheckedUpdateWithoutMessageOutboxInput>
+}
+
+export type BusinessUpdateWithoutMessageOutboxInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutMessageOutboxInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateManyOwnerInput = {
@@ -9803,6 +12357,12 @@ export type BusinessUpdateWithoutOwnerInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutOwnerInput = {
@@ -9863,6 +12423,12 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateManyWithoutOwnerInput = {
@@ -9987,6 +12553,12 @@ export type BusinessUpdateWithoutLaunchProductInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutLaunchProductInput = {
@@ -10047,6 +12619,12 @@ export type BusinessUncheckedUpdateWithoutLaunchProductInput = {
   paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
   paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
   shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateManyWithoutLaunchProductInput = {
@@ -10114,6 +12692,12 @@ export type BusinessCountOutputType = {
   paymentAccounts: number
   paymentProofs: number
   shortLinks: number
+  categories: number
+  customerInsights: number
+  cartItems: number
+  cartGroups: number
+  discoveryPreferences: number
+  messageOutbox: number
 }
 
 export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -10144,6 +12728,12 @@ export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   paymentAccounts?: boolean | BusinessCountOutputTypeCountPaymentAccountsArgs
   paymentProofs?: boolean | BusinessCountOutputTypeCountPaymentProofsArgs
   shortLinks?: boolean | BusinessCountOutputTypeCountShortLinksArgs
+  categories?: boolean | BusinessCountOutputTypeCountCategoriesArgs
+  customerInsights?: boolean | BusinessCountOutputTypeCountCustomerInsightsArgs
+  cartItems?: boolean | BusinessCountOutputTypeCountCartItemsArgs
+  cartGroups?: boolean | BusinessCountOutputTypeCountCartGroupsArgs
+  discoveryPreferences?: boolean | BusinessCountOutputTypeCountDiscoveryPreferencesArgs
+  messageOutbox?: boolean | BusinessCountOutputTypeCountMessageOutboxArgs
 }
 
 /**
@@ -10345,6 +12935,48 @@ export type BusinessCountOutputTypeCountShortLinksArgs<ExtArgs extends runtime.T
   where?: Prisma.ShortLinkWhereInput
 }
 
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BusinessCategoryWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountCustomerInsightsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerInsightSummaryWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountCartItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerCartItemWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountCartGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerCartGroupWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountDiscoveryPreferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DiscoveryPreferenceWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountMessageOutboxArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageOutboxWhereInput
+}
+
 
 export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -10409,6 +13041,12 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   paymentAccounts?: boolean | Prisma.Business$paymentAccountsArgs<ExtArgs>
   paymentProofs?: boolean | Prisma.Business$paymentProofsArgs<ExtArgs>
   shortLinks?: boolean | Prisma.Business$shortLinksArgs<ExtArgs>
+  categories?: boolean | Prisma.Business$categoriesArgs<ExtArgs>
+  customerInsights?: boolean | Prisma.Business$customerInsightsArgs<ExtArgs>
+  cartItems?: boolean | Prisma.Business$cartItemsArgs<ExtArgs>
+  cartGroups?: boolean | Prisma.Business$cartGroupsArgs<ExtArgs>
+  discoveryPreferences?: boolean | Prisma.Business$discoveryPreferencesArgs<ExtArgs>
+  messageOutbox?: boolean | Prisma.Business$messageOutboxArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["business"]>
 
@@ -10553,6 +13191,12 @@ export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   paymentAccounts?: boolean | Prisma.Business$paymentAccountsArgs<ExtArgs>
   paymentProofs?: boolean | Prisma.Business$paymentProofsArgs<ExtArgs>
   shortLinks?: boolean | Prisma.Business$shortLinksArgs<ExtArgs>
+  categories?: boolean | Prisma.Business$categoriesArgs<ExtArgs>
+  customerInsights?: boolean | Prisma.Business$customerInsightsArgs<ExtArgs>
+  cartItems?: boolean | Prisma.Business$cartItemsArgs<ExtArgs>
+  cartGroups?: boolean | Prisma.Business$cartGroupsArgs<ExtArgs>
+  discoveryPreferences?: boolean | Prisma.Business$discoveryPreferencesArgs<ExtArgs>
+  messageOutbox?: boolean | Prisma.Business$messageOutboxArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BusinessIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -10603,6 +13247,12 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     paymentAccounts: Prisma.$BusinessPaymentAccountPayload<ExtArgs>[]
     paymentProofs: Prisma.$PaymentProofPayload<ExtArgs>[]
     shortLinks: Prisma.$ShortLinkPayload<ExtArgs>[]
+    categories: Prisma.$BusinessCategoryPayload<ExtArgs>[]
+    customerInsights: Prisma.$CustomerInsightSummaryPayload<ExtArgs>[]
+    cartItems: Prisma.$CustomerCartItemPayload<ExtArgs>[]
+    cartGroups: Prisma.$CustomerCartGroupPayload<ExtArgs>[]
+    discoveryPreferences: Prisma.$DiscoveryPreferencePayload<ExtArgs>[]
+    messageOutbox: Prisma.$MessageOutboxPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -11061,6 +13711,12 @@ export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends runtime
   paymentAccounts<T extends Prisma.Business$paymentAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$paymentAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessPaymentAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentProofs<T extends Prisma.Business$paymentProofsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$paymentProofsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shortLinks<T extends Prisma.Business$shortLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$shortLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShortLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  categories<T extends Prisma.Business$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  customerInsights<T extends Prisma.Business$customerInsightsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$customerInsightsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerInsightSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cartItems<T extends Prisma.Business$cartItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$cartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerCartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cartGroups<T extends Prisma.Business$cartGroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$cartGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerCartGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  discoveryPreferences<T extends Prisma.Business$discoveryPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$discoveryPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DiscoveryPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messageOutbox<T extends Prisma.Business$messageOutboxArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$messageOutboxArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageOutboxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12242,6 +14898,150 @@ export type Business$shortLinksArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ShortLinkScalarFieldEnum | Prisma.ShortLinkScalarFieldEnum[]
+}
+
+/**
+ * Business.categories
+ */
+export type Business$categoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BusinessCategory
+   */
+  select?: Prisma.BusinessCategorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BusinessCategory
+   */
+  omit?: Prisma.BusinessCategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BusinessCategoryInclude<ExtArgs> | null
+  where?: Prisma.BusinessCategoryWhereInput
+  orderBy?: Prisma.BusinessCategoryOrderByWithRelationInput | Prisma.BusinessCategoryOrderByWithRelationInput[]
+  cursor?: Prisma.BusinessCategoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BusinessCategoryScalarFieldEnum | Prisma.BusinessCategoryScalarFieldEnum[]
+}
+
+/**
+ * Business.customerInsights
+ */
+export type Business$customerInsightsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerInsightSummary
+   */
+  select?: Prisma.CustomerInsightSummarySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerInsightSummary
+   */
+  omit?: Prisma.CustomerInsightSummaryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerInsightSummaryInclude<ExtArgs> | null
+  where?: Prisma.CustomerInsightSummaryWhereInput
+  orderBy?: Prisma.CustomerInsightSummaryOrderByWithRelationInput | Prisma.CustomerInsightSummaryOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerInsightSummaryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerInsightSummaryScalarFieldEnum | Prisma.CustomerInsightSummaryScalarFieldEnum[]
+}
+
+/**
+ * Business.cartItems
+ */
+export type Business$cartItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerCartItem
+   */
+  select?: Prisma.CustomerCartItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerCartItem
+   */
+  omit?: Prisma.CustomerCartItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerCartItemInclude<ExtArgs> | null
+  where?: Prisma.CustomerCartItemWhereInput
+  orderBy?: Prisma.CustomerCartItemOrderByWithRelationInput | Prisma.CustomerCartItemOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerCartItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerCartItemScalarFieldEnum | Prisma.CustomerCartItemScalarFieldEnum[]
+}
+
+/**
+ * Business.cartGroups
+ */
+export type Business$cartGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerCartGroup
+   */
+  select?: Prisma.CustomerCartGroupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerCartGroup
+   */
+  omit?: Prisma.CustomerCartGroupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerCartGroupInclude<ExtArgs> | null
+  where?: Prisma.CustomerCartGroupWhereInput
+  orderBy?: Prisma.CustomerCartGroupOrderByWithRelationInput | Prisma.CustomerCartGroupOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerCartGroupWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerCartGroupScalarFieldEnum | Prisma.CustomerCartGroupScalarFieldEnum[]
+}
+
+/**
+ * Business.discoveryPreferences
+ */
+export type Business$discoveryPreferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DiscoveryPreference
+   */
+  select?: Prisma.DiscoveryPreferenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DiscoveryPreference
+   */
+  omit?: Prisma.DiscoveryPreferenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DiscoveryPreferenceInclude<ExtArgs> | null
+  where?: Prisma.DiscoveryPreferenceWhereInput
+  orderBy?: Prisma.DiscoveryPreferenceOrderByWithRelationInput | Prisma.DiscoveryPreferenceOrderByWithRelationInput[]
+  cursor?: Prisma.DiscoveryPreferenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DiscoveryPreferenceScalarFieldEnum | Prisma.DiscoveryPreferenceScalarFieldEnum[]
+}
+
+/**
+ * Business.messageOutbox
+ */
+export type Business$messageOutboxArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessageOutbox
+   */
+  select?: Prisma.MessageOutboxSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessageOutbox
+   */
+  omit?: Prisma.MessageOutboxOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageOutboxInclude<ExtArgs> | null
+  where?: Prisma.MessageOutboxWhereInput
+  orderBy?: Prisma.MessageOutboxOrderByWithRelationInput | Prisma.MessageOutboxOrderByWithRelationInput[]
+  cursor?: Prisma.MessageOutboxWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageOutboxScalarFieldEnum | Prisma.MessageOutboxScalarFieldEnum[]
 }
 
 /**

@@ -1,17 +1,22 @@
 import { Type } from "class-transformer";
 import {
   ArrayMaxSize,
+  ArrayMinSize,
   IsArray,
   IsEnum,
   IsInt,
   IsOptional,
   IsString,
+  IsObject,
+  IsBoolean,
+  ValidateNested,
   Length,
   Matches,
   Max,
   Min,
 } from "class-validator";
 import {
+  ProductMediaKind,
   ProductPlacement,
   ProductStatus,
   ProductVisibility,
@@ -36,6 +41,14 @@ export class CreateProductDto {
   @IsString()
   @Length(0, 100)
   category?: string;
+
+  @IsOptional()
+  @IsString()
+  categoryId?: string;
+
+  @IsOptional()
+  @IsObject()
+  attributes?: Record<string, string | number | boolean>;
 
   @IsOptional()
   @IsString()
@@ -66,6 +79,21 @@ export class CreateProductDto {
   @ArrayMaxSize(6)
   @IsString({ each: true })
   imageAssetIds?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(20)
+  @ValidateNested({ each: true })
+  @Type(() => ProductVariantInputDto)
+  variants?: ProductVariantInputDto[];
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(12)
+  @ValidateNested({ each: true })
+  @Type(() => ProductMediaInputDto)
+  media?: ProductMediaInputDto[];
 }
 
 export class UpdateProductDto {
@@ -88,6 +116,22 @@ export class UpdateProductDto {
   @IsString()
   @Length(0, 100)
   category?: string;
+
+  @IsOptional()
+  @IsString()
+  categoryId?: string;
+
+  @IsOptional()
+  @IsObject()
+  attributes?: Record<string, string | number | boolean>;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(20)
+  @ValidateNested({ each: true })
+  @Type(() => ProductVariantInputDto)
+  variants?: ProductVariantInputDto[];
 
   @IsOptional()
   @IsEnum(ProductStatus)
@@ -114,6 +158,62 @@ export class ReplaceProductImagesDto {
   @ArrayMaxSize(6)
   @IsString({ each: true })
   assetIds!: string[];
+}
+
+export class ProductVariantInputDto {
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  name?: string;
+
+  @IsObject()
+  optionValues!: Record<string, string>;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{1,10}(?:\.\d{1,2})?$/)
+  priceOverride?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 100)
+  sku?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  active?: boolean;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  @Max(1_000_000)
+  stockCount?: number;
+}
+
+export class ProductMediaInputDto {
+  @IsString()
+  assetId!: string;
+
+  @IsOptional()
+  @IsString()
+  posterAssetId?: string;
+
+  @IsEnum(ProductMediaKind)
+  kind!: ProductMediaKind;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 240)
+  altText?: string;
+}
+
+export class ReplaceProductMediaDto {
+  @IsArray()
+  @ArrayMaxSize(12)
+  @ValidateNested({ each: true })
+  @Type(() => ProductMediaInputDto)
+  media!: ProductMediaInputDto[];
 }
 
 export class ProductListDto extends PaginationDto {

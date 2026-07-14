@@ -11,10 +11,13 @@ import {
 } from "@nestjs/common";
 import { CurrentAuth } from "../../common/auth/current-auth.decorator";
 import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
+import { Capabilities } from "../../common/auth/capabilities.decorator";
+import { CapabilitiesGuard } from "../../common/auth/capabilities.guard";
 import { Roles } from "../../common/auth/roles.decorator";
 import { RolesGuard } from "../../common/auth/roles.guard";
 import { ok } from "../../common/api-response";
 import type { OwnerAuthContext } from "../../common/request-context";
+import { BusinessCapability } from "../../generated/prisma/client";
 import { BusinessesService } from "./businesses.service";
 import {
   AcceptBusinessInvitationDto,
@@ -30,6 +33,7 @@ import {
   UpdateBusinessDto,
   UpdateBusinessPreferencesDto,
 } from "./dto/update-business.dto";
+import { UpdateMemberPermissionsDto } from "./dto/member-permission.dto";
 
 @Controller("public/trust-cards")
 export class PublicTrustCardsController {
@@ -44,7 +48,7 @@ export class PublicTrustCardsController {
 }
 
 @Controller("businesses/current")
-@UseGuards(OwnerAuthGuard, RolesGuard)
+@UseGuards(OwnerAuthGuard, RolesGuard, CapabilitiesGuard)
 export class BusinessesController {
   constructor(private readonly businesses: BusinessesService) {}
 
@@ -54,6 +58,7 @@ export class BusinessesController {
   }
 
   @Patch()
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
   @Roles("OWNER", "MANAGER")
   update(
     @CurrentAuth() auth: OwnerAuthContext,
@@ -63,6 +68,7 @@ export class BusinessesController {
   }
 
   @Put("contacts")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
   @Roles("OWNER", "MANAGER")
   replaceContacts(
     @CurrentAuth() auth: OwnerAuthContext,
@@ -74,6 +80,7 @@ export class BusinessesController {
   }
 
   @Patch("preferences")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
   @Roles("OWNER", "MANAGER")
   updatePreferences(
     @CurrentAuth() auth: OwnerAuthContext,
@@ -138,6 +145,19 @@ export class BusinessesController {
     @Body() dto: CreateBusinessInvitationDto,
   ) {
     return this.businesses.invite(auth, dto).then((data) => ok(data, "Invitation created"));
+  }
+
+  @Patch("members/:id/permissions")
+  @Capabilities(BusinessCapability.PERMISSION_ADMIN)
+  @Roles("OWNER")
+  updateMemberPermissions(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Param("id") id: string,
+    @Body() dto: UpdateMemberPermissionsDto,
+  ) {
+    return this.businesses
+      .updateMemberPermissions(auth, id, dto)
+      .then((data) => ok(data, "Member permissions updated"));
   }
 
   @Post("invitations/accept")

@@ -7,19 +7,25 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import type { OwnerAuthContext } from "../../common/request-context";
+import type { MediaPurpose } from "../../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   CreateUploadSignatureDto,
+  MediaFailureTelemetryDto,
   RegisterMediaAssetDto,
 } from "./dto/media.dto";
 
-const ALLOWED_FORMATS = new Set(["jpg", "jpeg", "png", "webp"]);
+const IMAGE_FORMATS = ["jpg", "jpeg", "png", "webp"];
+const VIDEO_FORMATS = ["mp4", "mov", "webm"];
 const PAYMENT_PROOF_MAX_BYTES = 5 * 1024 * 1024;
 
 export type RegisteredUpload = {
   bytes: number;
   format: string;
   height?: number;
+  durationSeconds?: number;
+  mimeType?: string;
+  resourceType?: string;
   originalFilename?: string;
   publicId: string;
   secureUrl: string;
@@ -35,21 +41,36 @@ export class MediaService {
     private readonly config: ConfigService,
   ) {}
 
+  recordFailure(auth: OwnerAuthContext, dto: MediaFailureTelemetryDto) {
+    return this.prisma.discoveryTelemetry.create({
+      data: {
+        type: "MEDIA_FAILURE",
+        metadata: {
+          businessId: auth.businessId,
+          message: dto.message.trim().slice(0, 300),
+          phase: dto.phase,
+          purpose: dto.purpose,
+        },
+      },
+    }).catch(() => null);
+  }
+
   createUploadSignature(auth: OwnerAuthContext, dto: CreateUploadSignatureDto) {
     const folder = this.folder(auth.businessId, dto.purpose);
-    return this.createSignature(folder, 10 * 1024 * 1024);
+    const constraints = mediaConstraints(dto.purpose);
+    return this.createSignature(folder, constraints.maxBytes, constraints.formats, constraints.resourceType);
   }
 
   createPaymentProofUploadSignature(businessId: string, saleId: string) {
     const folder = this.folder(businessId, "PAYMENT_PROOF", saleId);
-    return this.createSignature(folder, PAYMENT_PROOF_MAX_BYTES);
+    return this.createSignature(folder, PAYMENT_PROOF_MAX_BYTES, IMAGE_FORMATS, "image");
   }
 
-  private createSignature(folder: string, maxBytes: number) {
+  private createSignature(folder: string, maxBytes: number, formats: string[], resourceType: "image" | "video") {
     const timestamp = Math.floor(Date.now() / 1000);
     const publicId = randomBytes(12).toString("hex");
     const params = {
-      allowed_formats: "jpg,jpeg,png,webp",
+      allowed_formats: formats.join(","),
       folder,
       public_id: publicId,
       timestamp: String(timestamp),
@@ -60,20 +81,22 @@ export class MediaService {
       timestamp,
       folder,
       publicId,
-      allowedFormats: [...ALLOWED_FORMATS],
+      allowedFormats: formats,
       maxBytes,
+      resourceType,
       signature: this.sign(params),
     };
   }
 
   async register(auth: OwnerAuthContext, dto: RegisterMediaAssetDto) {
+    const constraints = mediaConstraints(dto.purpose);
     return this.registerForBusiness(
       auth.businessId,
       auth.userId,
       dto,
       this.folder(auth.businessId, dto.purpose),
       dto.purpose,
-      10 * 1024 * 1024,
+      constraints.maxBytes,
     );
   }
 
@@ -97,15 +120,16 @@ export class MediaService {
     uploadedById: string | undefined,
     dto: RegisteredUpload,
     expectedFolder: string,
-    purpose: "BUSINESS_LOGO" | "PAYMENT_PROOF" | "PRODUCT_IMAGE" | "RECEIPT_EXPORT" | "SHOP_COVER" | "SHOWCASE_IMAGE" | "TRUST_CARD" | "USER_AVATAR",
+    purpose: MediaPurpose,
     maxBytes: number,
   ) {
+    const constraints = mediaConstraints(purpose);
     const format = dto.format.toLowerCase();
-    if (!ALLOWED_FORMATS.has(format)) {
-      throw new BadRequestException("Unsupported image format");
+    if (!constraints.formats.includes(format)) {
+      throw new BadRequestException(`Unsupported ${constraints.resourceType} format`);
     }
     if (dto.bytes > maxBytes) {
-      throw new BadRequestException("Image exceeds the allowed size");
+      throw new BadRequestException(`${constraints.resourceType === "video" ? "Video" : "Image"} exceeds the allowed size`);
     }
     if (!dto.publicId.startsWith(`${expectedFolder}/`)) {
       throw new BadRequestException("Upload does not belong to this business");
@@ -121,6 +145,13 @@ export class MediaService {
     if (!safeEqual(expected, dto.signature)) {
       throw new BadRequestException("Cloudinary response signature is invalid");
     }
+    const resourceType = dto.resourceType ?? constraints.resourceType;
+    if (resourceType !== constraints.resourceType) {
+      throw new BadRequestException("Cloudinary resource type does not match the upload purpose");
+    }
+    if (resourceType === "video" && (dto.durationSeconds ?? 0) > 30) {
+      throw new BadRequestException("Video duration exceeds 30 seconds");
+    }
     return this.prisma.mediaAsset.create({
       data: {
         businessId,
@@ -128,9 +159,12 @@ export class MediaService {
         publicId: dto.publicId,
         secureUrl: dto.secureUrl,
         format,
+        resourceType,
+        mimeType: dto.mimeType,
         bytes: dto.bytes,
         width: dto.width,
         height: dto.height,
+        durationSeconds: dto.durationSeconds,
         version: dto.version,
         originalFilename: dto.originalFilename,
         purpose,
@@ -148,13 +182,13 @@ export class MediaService {
   async remove(auth: OwnerAuthContext, assetId: string) {
     const asset = await this.prisma.mediaAsset.findFirst({
       where: { id: assetId, businessId: auth.businessId, status: "ACTIVE" },
-      include: { productImages: true, showcaseImages: true, logoFor: true, coverFor: true, avatarFor: true },
+      include: { productImages: true, productMedia: true, productPosters: true, showcaseImages: true, showcasePosters: true, logoFor: true, coverFor: true, avatarFor: true },
     });
     if (!asset) throw new NotFoundException("Asset not found");
-    if (asset.productImages.length || asset.showcaseImages.length || asset.logoFor || asset.coverFor || asset.avatarFor) {
+    if (asset.productImages.length || asset.productMedia.length || asset.productPosters.length || asset.showcaseImages.length || asset.showcasePosters.length || asset.logoFor || asset.coverFor || asset.avatarFor) {
       throw new BadRequestException("Asset is still in use");
     }
-    await this.destroyAtProvider(asset.publicId);
+    await this.destroyAtProvider(asset.publicId, asset.resourceType);
     return this.prisma.mediaAsset.update({
       where: { id: asset.id },
       data: { status: "DELETED", deletedAt: new Date() },
@@ -176,7 +210,7 @@ export class MediaService {
     return createHash("sha1").update(`${payload}${secret}`).digest("hex");
   }
 
-  private async destroyAtProvider(publicId: string) {
+  private async destroyAtProvider(publicId: string, resourceType: string) {
     const cloudName = this.config.get<string>("CLOUDINARY_CLOUD_NAME");
     const apiKey = this.config.get<string>("CLOUDINARY_API_KEY");
     const apiSecret = this.config.get<string>("CLOUDINARY_API_SECRET");
@@ -189,7 +223,7 @@ export class MediaService {
     const timestamp = String(Math.floor(Date.now() / 1000));
     const signature = this.sign({ public_id: publicId, timestamp });
     const response = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/image/destroy`,
+      `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType === "video" ? "video" : "image"}/destroy`,
       {
         method: "POST",
         headers: { "content-type": "application/x-www-form-urlencoded" },
@@ -205,6 +239,16 @@ export class MediaService {
       throw new ServiceUnavailableException("Cloudinary asset deletion failed");
     }
   }
+}
+
+function mediaConstraints(purpose: MediaPurpose) {
+  if (purpose === "PRODUCT_VIDEO" || purpose === "SHOWCASE_VIDEO") {
+    return { formats: VIDEO_FORMATS, maxBytes: 50 * 1024 * 1024, resourceType: "video" as const };
+  }
+  if (purpose === "PAYMENT_PROOF") {
+    return { formats: IMAGE_FORMATS, maxBytes: PAYMENT_PROOF_MAX_BYTES, resourceType: "image" as const };
+  }
+  return { formats: IMAGE_FORMATS, maxBytes: 10 * 1024 * 1024, resourceType: "image" as const };
 }
 
 function safeEqual(left: string, right: string) {

@@ -49,6 +49,8 @@ export type OrderRequestMinAggregateOutputType = {
   fulfillment: $Enums.FulfillmentType | null
   customerAddressId: string | null
   sourceShowcaseId: string | null
+  requestedPaymentMethod: $Enums.PaymentMethod | null
+  clientIdempotencyKey: string | null
   deliveryAddress: string | null
   deliveryPlaceId: string | null
   deliveryLatitude: number | null
@@ -76,6 +78,8 @@ export type OrderRequestMaxAggregateOutputType = {
   fulfillment: $Enums.FulfillmentType | null
   customerAddressId: string | null
   sourceShowcaseId: string | null
+  requestedPaymentMethod: $Enums.PaymentMethod | null
+  clientIdempotencyKey: string | null
   deliveryAddress: string | null
   deliveryPlaceId: string | null
   deliveryLatitude: number | null
@@ -103,6 +107,8 @@ export type OrderRequestCountAggregateOutputType = {
   fulfillment: number
   customerAddressId: number
   sourceShowcaseId: number
+  requestedPaymentMethod: number
+  clientIdempotencyKey: number
   deliveryAddress: number
   deliveryPlaceId: number
   deliveryLatitude: number
@@ -142,6 +148,8 @@ export type OrderRequestMinAggregateInputType = {
   fulfillment?: true
   customerAddressId?: true
   sourceShowcaseId?: true
+  requestedPaymentMethod?: true
+  clientIdempotencyKey?: true
   deliveryAddress?: true
   deliveryPlaceId?: true
   deliveryLatitude?: true
@@ -169,6 +177,8 @@ export type OrderRequestMaxAggregateInputType = {
   fulfillment?: true
   customerAddressId?: true
   sourceShowcaseId?: true
+  requestedPaymentMethod?: true
+  clientIdempotencyKey?: true
   deliveryAddress?: true
   deliveryPlaceId?: true
   deliveryLatitude?: true
@@ -196,6 +206,8 @@ export type OrderRequestCountAggregateInputType = {
   fulfillment?: true
   customerAddressId?: true
   sourceShowcaseId?: true
+  requestedPaymentMethod?: true
+  clientIdempotencyKey?: true
   deliveryAddress?: true
   deliveryPlaceId?: true
   deliveryLatitude?: true
@@ -310,6 +322,8 @@ export type OrderRequestGroupByOutputType = {
   fulfillment: $Enums.FulfillmentType
   customerAddressId: string | null
   sourceShowcaseId: string | null
+  requestedPaymentMethod: $Enums.PaymentMethod | null
+  clientIdempotencyKey: string | null
   deliveryAddress: string | null
   deliveryPlaceId: string | null
   deliveryLatitude: number | null
@@ -360,6 +374,8 @@ export type OrderRequestWhereInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"OrderRequest"> | $Enums.FulfillmentType
   customerAddressId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   sourceShowcaseId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  requestedPaymentMethod?: Prisma.EnumPaymentMethodNullableFilter<"OrderRequest"> | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryAddress?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryPlaceId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryLatitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
@@ -380,6 +396,7 @@ export type OrderRequestWhereInput = {
   items?: Prisma.OrderRequestItemListRelationFilter
   convertedSale?: Prisma.XOR<Prisma.SaleNullableScalarRelationFilter, Prisma.SaleWhereInput> | null
   events?: Prisma.CommerceEventListRelationFilter
+  paymentChanges?: Prisma.OrderRequestPaymentChangeListRelationFilter
 }
 
 export type OrderRequestOrderByWithRelationInput = {
@@ -395,6 +412,8 @@ export type OrderRequestOrderByWithRelationInput = {
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
+  requestedPaymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientIdempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -415,12 +434,14 @@ export type OrderRequestOrderByWithRelationInput = {
   items?: Prisma.OrderRequestItemOrderByRelationAggregateInput
   convertedSale?: Prisma.SaleOrderByWithRelationInput
   events?: Prisma.CommerceEventOrderByRelationAggregateInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeOrderByRelationAggregateInput
 }
 
 export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   referenceCode?: string
   tokenHash?: string
+  customerAccountId_clientIdempotencyKey?: Prisma.OrderRequestCustomerAccountIdClientIdempotencyKeyCompoundUniqueInput
   AND?: Prisma.OrderRequestWhereInput | Prisma.OrderRequestWhereInput[]
   OR?: Prisma.OrderRequestWhereInput[]
   NOT?: Prisma.OrderRequestWhereInput | Prisma.OrderRequestWhereInput[]
@@ -433,6 +454,8 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"OrderRequest"> | $Enums.FulfillmentType
   customerAddressId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   sourceShowcaseId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  requestedPaymentMethod?: Prisma.EnumPaymentMethodNullableFilter<"OrderRequest"> | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryAddress?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryPlaceId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryLatitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
@@ -453,7 +476,8 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   items?: Prisma.OrderRequestItemListRelationFilter
   convertedSale?: Prisma.XOR<Prisma.SaleNullableScalarRelationFilter, Prisma.SaleWhereInput> | null
   events?: Prisma.CommerceEventListRelationFilter
-}, "id" | "referenceCode" | "tokenHash">
+  paymentChanges?: Prisma.OrderRequestPaymentChangeListRelationFilter
+}, "id" | "referenceCode" | "tokenHash" | "customerAccountId_clientIdempotencyKey">
 
 export type OrderRequestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -468,6 +492,8 @@ export type OrderRequestOrderByWithAggregationInput = {
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
+  requestedPaymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientIdempotencyKey?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -503,6 +529,8 @@ export type OrderRequestScalarWhereWithAggregatesInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeWithAggregatesFilter<"OrderRequest"> | $Enums.FulfillmentType
   customerAddressId?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   sourceShowcaseId?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
+  requestedPaymentMethod?: Prisma.EnumPaymentMethodNullableWithAggregatesFilter<"OrderRequest"> | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   deliveryAddress?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   deliveryPlaceId?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   deliveryLatitude?: Prisma.FloatNullableWithAggregatesFilter<"OrderRequest"> | number | null
@@ -525,6 +553,8 @@ export type OrderRequestCreateInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -545,6 +575,7 @@ export type OrderRequestCreateInput = {
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateInput = {
@@ -560,6 +591,8 @@ export type OrderRequestUncheckedCreateInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -575,6 +608,7 @@ export type OrderRequestUncheckedCreateInput = {
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUpdateInput = {
@@ -585,6 +619,8 @@ export type OrderRequestUpdateInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -605,6 +641,7 @@ export type OrderRequestUpdateInput = {
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateInput = {
@@ -620,6 +657,8 @@ export type OrderRequestUncheckedUpdateInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -635,6 +674,7 @@ export type OrderRequestUncheckedUpdateInput = {
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateManyInput = {
@@ -650,6 +690,8 @@ export type OrderRequestCreateManyInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -672,6 +714,8 @@ export type OrderRequestUpdateManyMutationInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -699,6 +743,8 @@ export type OrderRequestUncheckedUpdateManyInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -723,6 +769,11 @@ export type OrderRequestOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type OrderRequestCustomerAccountIdClientIdempotencyKeyCompoundUniqueInput = {
+  customerAccountId: string
+  clientIdempotencyKey: string
+}
+
 export type OrderRequestCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
@@ -736,6 +787,8 @@ export type OrderRequestCountOrderByAggregateInput = {
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrder
+  requestedPaymentMethod?: Prisma.SortOrder
+  clientIdempotencyKey?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrder
@@ -768,6 +821,8 @@ export type OrderRequestMaxOrderByAggregateInput = {
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrder
+  requestedPaymentMethod?: Prisma.SortOrder
+  clientIdempotencyKey?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrder
@@ -795,6 +850,8 @@ export type OrderRequestMinOrderByAggregateInput = {
   fulfillment?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrder
+  requestedPaymentMethod?: Prisma.SortOrder
+  clientIdempotencyKey?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
   deliveryPlaceId?: Prisma.SortOrder
   deliveryLatitude?: Prisma.SortOrder
@@ -1038,10 +1095,6 @@ export type EnumSalesChannelFieldUpdateOperationsInput = {
   set?: $Enums.SalesChannel
 }
 
-export type EnumFulfillmentTypeFieldUpdateOperationsInput = {
-  set?: $Enums.FulfillmentType
-}
-
 export type EnumOrderRequestStatusFieldUpdateOperationsInput = {
   set?: $Enums.OrderRequestStatus
 }
@@ -1058,6 +1111,20 @@ export type OrderRequestUpdateOneRequiredWithoutItemsNestedInput = {
   upsert?: Prisma.OrderRequestUpsertWithoutItemsInput
   connect?: Prisma.OrderRequestWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrderRequestUpdateToOneWithWhereWithoutItemsInput, Prisma.OrderRequestUpdateWithoutItemsInput>, Prisma.OrderRequestUncheckedUpdateWithoutItemsInput>
+}
+
+export type OrderRequestCreateNestedOneWithoutPaymentChangesInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutPaymentChangesInput, Prisma.OrderRequestUncheckedCreateWithoutPaymentChangesInput>
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutPaymentChangesInput
+  connect?: Prisma.OrderRequestWhereUniqueInput
+}
+
+export type OrderRequestUpdateOneRequiredWithoutPaymentChangesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutPaymentChangesInput, Prisma.OrderRequestUncheckedCreateWithoutPaymentChangesInput>
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutPaymentChangesInput
+  upsert?: Prisma.OrderRequestUpsertWithoutPaymentChangesInput
+  connect?: Prisma.OrderRequestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderRequestUpdateToOneWithWhereWithoutPaymentChangesInput, Prisma.OrderRequestUpdateWithoutPaymentChangesInput>, Prisma.OrderRequestUncheckedUpdateWithoutPaymentChangesInput>
 }
 
 export type OrderRequestCreateNestedOneWithoutEventsInput = {
@@ -1100,6 +1167,8 @@ export type OrderRequestCreateWithoutBusinessInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1119,6 +1188,7 @@ export type OrderRequestCreateWithoutBusinessInput = {
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutBusinessInput = {
@@ -1133,6 +1203,8 @@ export type OrderRequestUncheckedCreateWithoutBusinessInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1148,6 +1220,7 @@ export type OrderRequestUncheckedCreateWithoutBusinessInput = {
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutBusinessInput = {
@@ -1192,6 +1265,8 @@ export type OrderRequestScalarWhereInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"OrderRequest"> | $Enums.FulfillmentType
   customerAddressId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   sourceShowcaseId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  requestedPaymentMethod?: Prisma.EnumPaymentMethodNullableFilter<"OrderRequest"> | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryAddress?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryPlaceId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   deliveryLatitude?: Prisma.FloatNullableFilter<"OrderRequest"> | number | null
@@ -1214,6 +1289,8 @@ export type OrderRequestCreateWithoutCustomerAccountInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1233,6 +1310,7 @@ export type OrderRequestCreateWithoutCustomerAccountInput = {
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
@@ -1247,6 +1325,8 @@ export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1262,6 +1342,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutCustomerAccountInput = {
@@ -1298,6 +1379,8 @@ export type OrderRequestCreateWithoutCustomerInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1317,6 +1400,7 @@ export type OrderRequestCreateWithoutCustomerInput = {
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutCustomerInput = {
@@ -1331,6 +1415,8 @@ export type OrderRequestUncheckedCreateWithoutCustomerInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1346,6 +1432,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerInput = {
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutCustomerInput = {
@@ -1382,6 +1469,8 @@ export type OrderRequestCreateWithoutCustomerAddressInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1401,6 +1490,7 @@ export type OrderRequestCreateWithoutCustomerAddressInput = {
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
@@ -1415,6 +1505,8 @@ export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1430,6 +1522,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutCustomerAddressInput = {
@@ -1466,6 +1559,8 @@ export type OrderRequestCreateWithoutSourceShowcaseInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1485,6 +1580,7 @@ export type OrderRequestCreateWithoutSourceShowcaseInput = {
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
@@ -1499,6 +1595,8 @@ export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1514,6 +1612,7 @@ export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutSourceShowcaseInput = {
@@ -1550,6 +1649,8 @@ export type OrderRequestCreateWithoutItemsInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1569,6 +1670,7 @@ export type OrderRequestCreateWithoutItemsInput = {
   sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutItemsInput = {
@@ -1584,6 +1686,8 @@ export type OrderRequestUncheckedCreateWithoutItemsInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1598,6 +1702,7 @@ export type OrderRequestUncheckedCreateWithoutItemsInput = {
   updatedAt?: Date | string
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutItemsInput = {
@@ -1624,6 +1729,8 @@ export type OrderRequestUpdateWithoutItemsInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1643,6 +1750,7 @@ export type OrderRequestUpdateWithoutItemsInput = {
   sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutItemsInput = {
@@ -1658,6 +1766,8 @@ export type OrderRequestUncheckedUpdateWithoutItemsInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1672,9 +1782,10 @@ export type OrderRequestUncheckedUpdateWithoutItemsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
-export type OrderRequestCreateWithoutEventsInput = {
+export type OrderRequestCreateWithoutPaymentChangesInput = {
   id?: string
   referenceCode: string
   tokenHash: string
@@ -1682,6 +1793,8 @@ export type OrderRequestCreateWithoutEventsInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1701,6 +1814,151 @@ export type OrderRequestCreateWithoutEventsInput = {
   sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+}
+
+export type OrderRequestUncheckedCreateWithoutPaymentChangesInput = {
+  id?: string
+  businessId: string
+  customerAccountId?: string | null
+  customerId?: string | null
+  referenceCode: string
+  tokenHash: string
+  customerName: string
+  customerPhone: string
+  channel: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  customerAddressId?: string | null
+  sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
+  deliveryAddress?: string | null
+  deliveryPlaceId?: string | null
+  deliveryLatitude?: number | null
+  deliveryLongitude?: number | null
+  deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  note?: string | null
+  status?: $Enums.OrderRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
+  convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+}
+
+export type OrderRequestCreateOrConnectWithoutPaymentChangesInput = {
+  where: Prisma.OrderRequestWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderRequestCreateWithoutPaymentChangesInput, Prisma.OrderRequestUncheckedCreateWithoutPaymentChangesInput>
+}
+
+export type OrderRequestUpsertWithoutPaymentChangesInput = {
+  update: Prisma.XOR<Prisma.OrderRequestUpdateWithoutPaymentChangesInput, Prisma.OrderRequestUncheckedUpdateWithoutPaymentChangesInput>
+  create: Prisma.XOR<Prisma.OrderRequestCreateWithoutPaymentChangesInput, Prisma.OrderRequestUncheckedCreateWithoutPaymentChangesInput>
+  where?: Prisma.OrderRequestWhereInput
+}
+
+export type OrderRequestUpdateToOneWithWhereWithoutPaymentChangesInput = {
+  where?: Prisma.OrderRequestWhereInput
+  data: Prisma.XOR<Prisma.OrderRequestUpdateWithoutPaymentChangesInput, Prisma.OrderRequestUncheckedUpdateWithoutPaymentChangesInput>
+}
+
+export type OrderRequestUpdateWithoutPaymentChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
+  customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
+  customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
+  items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
+  convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+}
+
+export type OrderRequestUncheckedUpdateWithoutPaymentChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
+  convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+}
+
+export type OrderRequestCreateWithoutEventsInput = {
+  id?: string
+  referenceCode: string
+  tokenHash: string
+  customerName: string
+  customerPhone: string
+  channel: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
+  deliveryAddress?: string | null
+  deliveryPlaceId?: string | null
+  deliveryLatitude?: number | null
+  deliveryLongitude?: number | null
+  deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  note?: string | null
+  status?: $Enums.OrderRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
+  customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
+  customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
+  items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
+  convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutEventsInput = {
@@ -1716,6 +1974,8 @@ export type OrderRequestUncheckedCreateWithoutEventsInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1730,6 +1990,7 @@ export type OrderRequestUncheckedCreateWithoutEventsInput = {
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutEventsInput = {
@@ -1756,6 +2017,8 @@ export type OrderRequestUpdateWithoutEventsInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1775,6 +2038,7 @@ export type OrderRequestUpdateWithoutEventsInput = {
   sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutEventsInput = {
@@ -1790,6 +2054,8 @@ export type OrderRequestUncheckedUpdateWithoutEventsInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1804,6 +2070,7 @@ export type OrderRequestUncheckedUpdateWithoutEventsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateWithoutConvertedSaleInput = {
@@ -1814,6 +2081,8 @@ export type OrderRequestCreateWithoutConvertedSaleInput = {
   customerPhone: string
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1833,6 +2102,7 @@ export type OrderRequestCreateWithoutConvertedSaleInput = {
   sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
@@ -1848,6 +2118,8 @@ export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1862,6 +2134,7 @@ export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutConvertedSaleInput = {
@@ -1888,6 +2161,8 @@ export type OrderRequestUpdateWithoutConvertedSaleInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1907,6 +2182,7 @@ export type OrderRequestUpdateWithoutConvertedSaleInput = {
   sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
@@ -1922,6 +2198,8 @@ export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1936,6 +2214,7 @@ export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateManyBusinessInput = {
@@ -1950,6 +2229,8 @@ export type OrderRequestCreateManyBusinessInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -1972,6 +2253,8 @@ export type OrderRequestUpdateWithoutBusinessInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1991,6 +2274,7 @@ export type OrderRequestUpdateWithoutBusinessInput = {
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
@@ -2005,6 +2289,8 @@ export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2020,6 +2306,7 @@ export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutBusinessInput = {
@@ -2034,6 +2321,8 @@ export type OrderRequestUncheckedUpdateManyWithoutBusinessInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2060,6 +2349,8 @@ export type OrderRequestCreateManyCustomerAccountInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -2082,6 +2373,8 @@ export type OrderRequestUpdateWithoutCustomerAccountInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2101,6 +2394,7 @@ export type OrderRequestUpdateWithoutCustomerAccountInput = {
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
@@ -2115,6 +2409,8 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2130,6 +2426,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutCustomerAccountInput = {
@@ -2144,6 +2441,8 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAccountInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2170,6 +2469,8 @@ export type OrderRequestCreateManyCustomerInput = {
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -2192,6 +2493,8 @@ export type OrderRequestUpdateWithoutCustomerInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2211,6 +2514,7 @@ export type OrderRequestUpdateWithoutCustomerInput = {
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
@@ -2225,6 +2529,8 @@ export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2240,6 +2546,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutCustomerInput = {
@@ -2254,6 +2561,8 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2280,6 +2589,8 @@ export type OrderRequestCreateManyCustomerAddressInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -2302,6 +2613,8 @@ export type OrderRequestUpdateWithoutCustomerAddressInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2321,6 +2634,7 @@ export type OrderRequestUpdateWithoutCustomerAddressInput = {
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
@@ -2335,6 +2649,8 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2350,6 +2666,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput = {
@@ -2364,6 +2681,8 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2390,6 +2709,8 @@ export type OrderRequestCreateManySourceShowcaseInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   customerAddressId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
   deliveryAddress?: string | null
   deliveryPlaceId?: string | null
   deliveryLatitude?: number | null
@@ -2412,6 +2733,8 @@ export type OrderRequestUpdateWithoutSourceShowcaseInput = {
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2431,6 +2754,7 @@ export type OrderRequestUpdateWithoutSourceShowcaseInput = {
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
@@ -2445,6 +2769,8 @@ export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2460,6 +2786,7 @@ export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput = {
@@ -2474,6 +2801,8 @@ export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2496,11 +2825,13 @@ export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput = {
 export type OrderRequestCountOutputType = {
   items: number
   events: number
+  paymentChanges: number
 }
 
 export type OrderRequestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | OrderRequestCountOutputTypeCountItemsArgs
   events?: boolean | OrderRequestCountOutputTypeCountEventsArgs
+  paymentChanges?: boolean | OrderRequestCountOutputTypeCountPaymentChangesArgs
 }
 
 /**
@@ -2527,6 +2858,13 @@ export type OrderRequestCountOutputTypeCountEventsArgs<ExtArgs extends runtime.T
   where?: Prisma.CommerceEventWhereInput
 }
 
+/**
+ * OrderRequestCountOutputType without action
+ */
+export type OrderRequestCountOutputTypeCountPaymentChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderRequestPaymentChangeWhereInput
+}
+
 
 export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2541,6 +2879,8 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   fulfillment?: boolean
   customerAddressId?: boolean
   sourceShowcaseId?: boolean
+  requestedPaymentMethod?: boolean
+  clientIdempotencyKey?: boolean
   deliveryAddress?: boolean
   deliveryPlaceId?: boolean
   deliveryLatitude?: boolean
@@ -2561,6 +2901,7 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   items?: boolean | Prisma.OrderRequest$itemsArgs<ExtArgs>
   convertedSale?: boolean | Prisma.OrderRequest$convertedSaleArgs<ExtArgs>
   events?: boolean | Prisma.OrderRequest$eventsArgs<ExtArgs>
+  paymentChanges?: boolean | Prisma.OrderRequest$paymentChangesArgs<ExtArgs>
   _count?: boolean | Prisma.OrderRequestCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderRequest"]>
 
@@ -2577,6 +2918,8 @@ export type OrderRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   fulfillment?: boolean
   customerAddressId?: boolean
   sourceShowcaseId?: boolean
+  requestedPaymentMethod?: boolean
+  clientIdempotencyKey?: boolean
   deliveryAddress?: boolean
   deliveryPlaceId?: boolean
   deliveryLatitude?: boolean
@@ -2609,6 +2952,8 @@ export type OrderRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   fulfillment?: boolean
   customerAddressId?: boolean
   sourceShowcaseId?: boolean
+  requestedPaymentMethod?: boolean
+  clientIdempotencyKey?: boolean
   deliveryAddress?: boolean
   deliveryPlaceId?: boolean
   deliveryLatitude?: boolean
@@ -2641,6 +2986,8 @@ export type OrderRequestSelectScalar = {
   fulfillment?: boolean
   customerAddressId?: boolean
   sourceShowcaseId?: boolean
+  requestedPaymentMethod?: boolean
+  clientIdempotencyKey?: boolean
   deliveryAddress?: boolean
   deliveryPlaceId?: boolean
   deliveryLatitude?: boolean
@@ -2655,7 +3002,7 @@ export type OrderRequestSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "customerAddressId" | "sourceShowcaseId" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
+export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "customerAddressId" | "sourceShowcaseId" | "requestedPaymentMethod" | "clientIdempotencyKey" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
 export type OrderRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
@@ -2665,6 +3012,7 @@ export type OrderRequestInclude<ExtArgs extends runtime.Types.Extensions.Interna
   items?: boolean | Prisma.OrderRequest$itemsArgs<ExtArgs>
   convertedSale?: boolean | Prisma.OrderRequest$convertedSaleArgs<ExtArgs>
   events?: boolean | Prisma.OrderRequest$eventsArgs<ExtArgs>
+  paymentChanges?: boolean | Prisma.OrderRequest$paymentChangesArgs<ExtArgs>
   _count?: boolean | Prisma.OrderRequestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrderRequestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2693,6 +3041,7 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     items: Prisma.$OrderRequestItemPayload<ExtArgs>[]
     convertedSale: Prisma.$SalePayload<ExtArgs> | null
     events: Prisma.$CommerceEventPayload<ExtArgs>[]
+    paymentChanges: Prisma.$OrderRequestPaymentChangePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2707,6 +3056,8 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     fulfillment: $Enums.FulfillmentType
     customerAddressId: string | null
     sourceShowcaseId: string | null
+    requestedPaymentMethod: $Enums.PaymentMethod | null
+    clientIdempotencyKey: string | null
     deliveryAddress: string | null
     deliveryPlaceId: string | null
     deliveryLatitude: number | null
@@ -3121,6 +3472,7 @@ export interface Prisma__OrderRequestClient<T, Null = never, ExtArgs extends run
   items<T extends Prisma.OrderRequest$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   convertedSale<T extends Prisma.OrderRequest$convertedSaleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$convertedSaleArgs<ExtArgs>>): Prisma.Prisma__SaleClient<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   events<T extends Prisma.OrderRequest$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommerceEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentChanges<T extends Prisma.OrderRequest$paymentChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$paymentChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestPaymentChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3162,6 +3514,8 @@ export interface OrderRequestFieldRefs {
   readonly fulfillment: Prisma.FieldRef<"OrderRequest", 'FulfillmentType'>
   readonly customerAddressId: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly sourceShowcaseId: Prisma.FieldRef<"OrderRequest", 'String'>
+  readonly requestedPaymentMethod: Prisma.FieldRef<"OrderRequest", 'PaymentMethod'>
+  readonly clientIdempotencyKey: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly deliveryAddress: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly deliveryPlaceId: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly deliveryLatitude: Prisma.FieldRef<"OrderRequest", 'Float'>
@@ -3715,6 +4069,30 @@ export type OrderRequest$eventsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.CommerceEventScalarFieldEnum | Prisma.CommerceEventScalarFieldEnum[]
+}
+
+/**
+ * OrderRequest.paymentChanges
+ */
+export type OrderRequest$paymentChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrderRequestPaymentChange
+   */
+  select?: Prisma.OrderRequestPaymentChangeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrderRequestPaymentChange
+   */
+  omit?: Prisma.OrderRequestPaymentChangeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderRequestPaymentChangeInclude<ExtArgs> | null
+  where?: Prisma.OrderRequestPaymentChangeWhereInput
+  orderBy?: Prisma.OrderRequestPaymentChangeOrderByWithRelationInput | Prisma.OrderRequestPaymentChangeOrderByWithRelationInput[]
+  cursor?: Prisma.OrderRequestPaymentChangeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderRequestPaymentChangeScalarFieldEnum | Prisma.OrderRequestPaymentChangeScalarFieldEnum[]
 }
 
 /**

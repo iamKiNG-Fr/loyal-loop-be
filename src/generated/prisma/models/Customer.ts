@@ -244,6 +244,7 @@ export type CustomerWhereInput = {
   followUps?: Prisma.FollowUpSuggestionListRelationFilter
   feedback?: Prisma.CustomerFeedbackListRelationFilter
   issues?: Prisma.CustomerIssueListRelationFilter
+  insightSummary?: Prisma.XOR<Prisma.CustomerInsightSummaryNullableScalarRelationFilter, Prisma.CustomerInsightSummaryWhereInput> | null
 }
 
 export type CustomerOrderByWithRelationInput = {
@@ -272,6 +273,7 @@ export type CustomerOrderByWithRelationInput = {
   followUps?: Prisma.FollowUpSuggestionOrderByRelationAggregateInput
   feedback?: Prisma.CustomerFeedbackOrderByRelationAggregateInput
   issues?: Prisma.CustomerIssueOrderByRelationAggregateInput
+  insightSummary?: Prisma.CustomerInsightSummaryOrderByWithRelationInput
 }
 
 export type CustomerWhereUniqueInput = Prisma.AtLeast<{
@@ -304,6 +306,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   followUps?: Prisma.FollowUpSuggestionListRelationFilter
   feedback?: Prisma.CustomerFeedbackListRelationFilter
   issues?: Prisma.CustomerIssueListRelationFilter
+  insightSummary?: Prisma.XOR<Prisma.CustomerInsightSummaryNullableScalarRelationFilter, Prisma.CustomerInsightSummaryWhereInput> | null
 }, "id" | "publicTokenHash" | "businessId_accountId">
 
 export type CustomerOrderByWithAggregationInput = {
@@ -364,6 +367,7 @@ export type CustomerCreateInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateInput = {
@@ -390,6 +394,7 @@ export type CustomerUncheckedCreateInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUpdateInput = {
@@ -416,6 +421,7 @@ export type CustomerUpdateInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateInput = {
@@ -442,6 +448,7 @@ export type CustomerUncheckedUpdateInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateManyInput = {
@@ -683,6 +690,20 @@ export type CustomerUpdateOneRequiredWithoutNotesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutNotesInput, Prisma.CustomerUpdateWithoutNotesInput>, Prisma.CustomerUncheckedUpdateWithoutNotesInput>
 }
 
+export type CustomerCreateNestedOneWithoutInsightSummaryInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutInsightSummaryInput, Prisma.CustomerUncheckedCreateWithoutInsightSummaryInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutInsightSummaryInput
+  connect?: Prisma.CustomerWhereUniqueInput
+}
+
+export type CustomerUpdateOneRequiredWithoutInsightSummaryNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCreateWithoutInsightSummaryInput, Prisma.CustomerUncheckedCreateWithoutInsightSummaryInput>
+  connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutInsightSummaryInput
+  upsert?: Prisma.CustomerUpsertWithoutInsightSummaryInput
+  connect?: Prisma.CustomerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerUpdateToOneWithWhereWithoutInsightSummaryInput, Prisma.CustomerUpdateWithoutInsightSummaryInput>, Prisma.CustomerUncheckedUpdateWithoutInsightSummaryInput>
+}
+
 export type CustomerCreateNestedOneWithoutTagAssignmentsInput = {
   create?: Prisma.XOR<Prisma.CustomerCreateWithoutTagAssignmentsInput, Prisma.CustomerUncheckedCreateWithoutTagAssignmentsInput>
   connectOrCreate?: Prisma.CustomerCreateOrConnectWithoutTagAssignmentsInput
@@ -840,6 +861,7 @@ export type CustomerCreateWithoutBusinessInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutBusinessInput = {
@@ -865,6 +887,7 @@ export type CustomerUncheckedCreateWithoutBusinessInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutBusinessInput = {
@@ -933,6 +956,7 @@ export type CustomerCreateWithoutAccountInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutAccountInput = {
@@ -958,6 +982,7 @@ export type CustomerUncheckedCreateWithoutAccountInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutAccountInput = {
@@ -1009,6 +1034,7 @@ export type CustomerCreateWithoutContactsInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutContactsInput = {
@@ -1034,6 +1060,7 @@ export type CustomerUncheckedCreateWithoutContactsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutContactsInput = {
@@ -1075,6 +1102,7 @@ export type CustomerUpdateWithoutContactsInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutContactsInput = {
@@ -1100,6 +1128,7 @@ export type CustomerUncheckedUpdateWithoutContactsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutAddressesInput = {
@@ -1125,6 +1154,7 @@ export type CustomerCreateWithoutAddressesInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutAddressesInput = {
@@ -1150,6 +1180,7 @@ export type CustomerUncheckedCreateWithoutAddressesInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutAddressesInput = {
@@ -1191,6 +1222,7 @@ export type CustomerUpdateWithoutAddressesInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutAddressesInput = {
@@ -1216,6 +1248,7 @@ export type CustomerUncheckedUpdateWithoutAddressesInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutNotesInput = {
@@ -1241,6 +1274,7 @@ export type CustomerCreateWithoutNotesInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutNotesInput = {
@@ -1266,6 +1300,7 @@ export type CustomerUncheckedCreateWithoutNotesInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutNotesInput = {
@@ -1307,6 +1342,7 @@ export type CustomerUpdateWithoutNotesInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutNotesInput = {
@@ -1323,6 +1359,127 @@ export type CustomerUncheckedUpdateWithoutNotesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contacts?: Prisma.CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
   addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput
+  tagAssignments?: Prisma.CustomerTagAssignmentUncheckedUpdateManyWithoutCustomerNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutCustomerNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutCustomerNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutCustomerNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerNestedInput
+  followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
+}
+
+export type CustomerCreateWithoutInsightSummaryInput = {
+  id?: string
+  name: string
+  phone?: string | null
+  email?: string | null
+  channel?: $Enums.CustomerChannel
+  publicTokenHash: string
+  lastPurchasedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutCustomersInput
+  account?: Prisma.CustomerAccountCreateNestedOneWithoutCustomersInput
+  contacts?: Prisma.CustomerContactCreateNestedManyWithoutCustomerInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerInput
+  notes?: Prisma.CustomerNoteCreateNestedManyWithoutCustomerInput
+  tagAssignments?: Prisma.CustomerTagAssignmentCreateNestedManyWithoutCustomerInput
+  sales?: Prisma.SaleCreateNestedManyWithoutCustomerInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutCustomerInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutCustomerInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutCustomerInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerInput
+  followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerUncheckedCreateWithoutInsightSummaryInput = {
+  id?: string
+  businessId: string
+  accountId?: string | null
+  name: string
+  phone?: string | null
+  email?: string | null
+  channel?: $Enums.CustomerChannel
+  publicTokenHash: string
+  lastPurchasedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  contacts?: Prisma.CustomerContactUncheckedCreateNestedManyWithoutCustomerInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerInput
+  notes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutCustomerInput
+  tagAssignments?: Prisma.CustomerTagAssignmentUncheckedCreateNestedManyWithoutCustomerInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutCustomerInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutCustomerInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutCustomerInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutCustomerInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerInput
+  followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+}
+
+export type CustomerCreateOrConnectWithoutInsightSummaryInput = {
+  where: Prisma.CustomerWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutInsightSummaryInput, Prisma.CustomerUncheckedCreateWithoutInsightSummaryInput>
+}
+
+export type CustomerUpsertWithoutInsightSummaryInput = {
+  update: Prisma.XOR<Prisma.CustomerUpdateWithoutInsightSummaryInput, Prisma.CustomerUncheckedUpdateWithoutInsightSummaryInput>
+  create: Prisma.XOR<Prisma.CustomerCreateWithoutInsightSummaryInput, Prisma.CustomerUncheckedCreateWithoutInsightSummaryInput>
+  where?: Prisma.CustomerWhereInput
+}
+
+export type CustomerUpdateToOneWithWhereWithoutInsightSummaryInput = {
+  where?: Prisma.CustomerWhereInput
+  data: Prisma.XOR<Prisma.CustomerUpdateWithoutInsightSummaryInput, Prisma.CustomerUncheckedUpdateWithoutInsightSummaryInput>
+}
+
+export type CustomerUpdateWithoutInsightSummaryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.EnumCustomerChannelFieldUpdateOperationsInput | $Enums.CustomerChannel
+  publicTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastPurchasedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutCustomersNestedInput
+  account?: Prisma.CustomerAccountUpdateOneWithoutCustomersNestedInput
+  contacts?: Prisma.CustomerContactUpdateManyWithoutCustomerNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerNestedInput
+  notes?: Prisma.CustomerNoteUpdateManyWithoutCustomerNestedInput
+  tagAssignments?: Prisma.CustomerTagAssignmentUpdateManyWithoutCustomerNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutCustomerNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutCustomerNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutCustomerNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutCustomerNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutCustomerNestedInput
+  followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+}
+
+export type CustomerUncheckedUpdateWithoutInsightSummaryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  accountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.EnumCustomerChannelFieldUpdateOperationsInput | $Enums.CustomerChannel
+  publicTokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  lastPurchasedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  contacts?: Prisma.CustomerContactUncheckedUpdateManyWithoutCustomerNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput
+  notes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutCustomerNestedInput
   tagAssignments?: Prisma.CustomerTagAssignmentUncheckedUpdateManyWithoutCustomerNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutCustomerNestedInput
   receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutCustomerNestedInput
@@ -1357,6 +1514,7 @@ export type CustomerCreateWithoutTagAssignmentsInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutTagAssignmentsInput = {
@@ -1382,6 +1540,7 @@ export type CustomerUncheckedCreateWithoutTagAssignmentsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutTagAssignmentsInput = {
@@ -1423,6 +1582,7 @@ export type CustomerUpdateWithoutTagAssignmentsInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutTagAssignmentsInput = {
@@ -1448,6 +1608,7 @@ export type CustomerUncheckedUpdateWithoutTagAssignmentsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutRequestsInput = {
@@ -1473,6 +1634,7 @@ export type CustomerCreateWithoutRequestsInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutRequestsInput = {
@@ -1498,6 +1660,7 @@ export type CustomerUncheckedCreateWithoutRequestsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutRequestsInput = {
@@ -1539,6 +1702,7 @@ export type CustomerUpdateWithoutRequestsInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutRequestsInput = {
@@ -1564,6 +1728,7 @@ export type CustomerUncheckedUpdateWithoutRequestsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutSalesInput = {
@@ -1589,6 +1754,7 @@ export type CustomerCreateWithoutSalesInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutSalesInput = {
@@ -1614,6 +1780,7 @@ export type CustomerUncheckedCreateWithoutSalesInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutSalesInput = {
@@ -1655,6 +1822,7 @@ export type CustomerUpdateWithoutSalesInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutSalesInput = {
@@ -1680,6 +1848,7 @@ export type CustomerUncheckedUpdateWithoutSalesInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutReceiptsInput = {
@@ -1705,6 +1874,7 @@ export type CustomerCreateWithoutReceiptsInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutReceiptsInput = {
@@ -1730,6 +1900,7 @@ export type CustomerUncheckedCreateWithoutReceiptsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutReceiptsInput = {
@@ -1771,6 +1942,7 @@ export type CustomerUpdateWithoutReceiptsInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutReceiptsInput = {
@@ -1796,6 +1968,7 @@ export type CustomerUncheckedUpdateWithoutReceiptsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutDeliveriesInput = {
@@ -1821,6 +1994,7 @@ export type CustomerCreateWithoutDeliveriesInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutDeliveriesInput = {
@@ -1846,6 +2020,7 @@ export type CustomerUncheckedCreateWithoutDeliveriesInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutDeliveriesInput = {
@@ -1887,6 +2062,7 @@ export type CustomerUpdateWithoutDeliveriesInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutDeliveriesInput = {
@@ -1912,6 +2088,7 @@ export type CustomerUncheckedUpdateWithoutDeliveriesInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutActivityEventsInput = {
@@ -1937,6 +2114,7 @@ export type CustomerCreateWithoutActivityEventsInput = {
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutActivityEventsInput = {
@@ -1962,6 +2140,7 @@ export type CustomerUncheckedCreateWithoutActivityEventsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutActivityEventsInput = {
@@ -2003,6 +2182,7 @@ export type CustomerUpdateWithoutActivityEventsInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutActivityEventsInput = {
@@ -2028,6 +2208,7 @@ export type CustomerUncheckedUpdateWithoutActivityEventsInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutFollowUpsInput = {
@@ -2053,6 +2234,7 @@ export type CustomerCreateWithoutFollowUpsInput = {
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutFollowUpsInput = {
@@ -2078,6 +2260,7 @@ export type CustomerUncheckedCreateWithoutFollowUpsInput = {
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutFollowUpsInput = {
@@ -2119,6 +2302,7 @@ export type CustomerUpdateWithoutFollowUpsInput = {
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutFollowUpsInput = {
@@ -2144,6 +2328,7 @@ export type CustomerUncheckedUpdateWithoutFollowUpsInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutFeedbackInput = {
@@ -2169,6 +2354,7 @@ export type CustomerCreateWithoutFeedbackInput = {
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerInput
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutFeedbackInput = {
@@ -2194,6 +2380,7 @@ export type CustomerUncheckedCreateWithoutFeedbackInput = {
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerInput
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutFeedbackInput = {
@@ -2235,6 +2422,7 @@ export type CustomerUpdateWithoutFeedbackInput = {
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerNestedInput
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutFeedbackInput = {
@@ -2260,6 +2448,7 @@ export type CustomerUncheckedUpdateWithoutFeedbackInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerNestedInput
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateWithoutIssuesInput = {
@@ -2285,6 +2474,7 @@ export type CustomerCreateWithoutIssuesInput = {
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerInput
   followUps?: Prisma.FollowUpSuggestionCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerUncheckedCreateWithoutIssuesInput = {
@@ -2310,6 +2500,7 @@ export type CustomerUncheckedCreateWithoutIssuesInput = {
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerInput
   followUps?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutCustomerInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutCustomerInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedCreateNestedOneWithoutCustomerInput
 }
 
 export type CustomerCreateOrConnectWithoutIssuesInput = {
@@ -2351,6 +2542,7 @@ export type CustomerUpdateWithoutIssuesInput = {
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerNestedInput
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutIssuesInput = {
@@ -2376,6 +2568,7 @@ export type CustomerUncheckedUpdateWithoutIssuesInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerNestedInput
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerCreateManyBusinessInput = {
@@ -2414,6 +2607,7 @@ export type CustomerUpdateWithoutBusinessInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutBusinessInput = {
@@ -2439,6 +2633,7 @@ export type CustomerUncheckedUpdateWithoutBusinessInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateManyWithoutBusinessInput = {
@@ -2490,6 +2685,7 @@ export type CustomerUpdateWithoutAccountInput = {
   followUps?: Prisma.FollowUpSuggestionUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateWithoutAccountInput = {
@@ -2515,6 +2711,7 @@ export type CustomerUncheckedUpdateWithoutAccountInput = {
   followUps?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutCustomerNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutCustomerNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutCustomerNestedInput
+  insightSummary?: Prisma.CustomerInsightSummaryUncheckedUpdateOneWithoutCustomerNestedInput
 }
 
 export type CustomerUncheckedUpdateManyWithoutAccountInput = {
@@ -2686,6 +2883,7 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   followUps?: boolean | Prisma.Customer$followUpsArgs<ExtArgs>
   feedback?: boolean | Prisma.Customer$feedbackArgs<ExtArgs>
   issues?: boolean | Prisma.Customer$issuesArgs<ExtArgs>
+  insightSummary?: boolean | Prisma.Customer$insightSummaryArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customer"]>
 
@@ -2751,6 +2949,7 @@ export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   followUps?: boolean | Prisma.Customer$followUpsArgs<ExtArgs>
   feedback?: boolean | Prisma.Customer$feedbackArgs<ExtArgs>
   issues?: boolean | Prisma.Customer$issuesArgs<ExtArgs>
+  insightSummary?: boolean | Prisma.Customer$insightSummaryArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2779,6 +2978,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     followUps: Prisma.$FollowUpSuggestionPayload<ExtArgs>[]
     feedback: Prisma.$CustomerFeedbackPayload<ExtArgs>[]
     issues: Prisma.$CustomerIssuePayload<ExtArgs>[]
+    insightSummary: Prisma.$CustomerInsightSummaryPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3200,6 +3400,7 @@ export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends runtime
   followUps<T extends Prisma.Customer$followUpsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$followUpsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowUpSuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   feedback<T extends Prisma.Customer$feedbackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$feedbackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   issues<T extends Prisma.Customer$issuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$issuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerIssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  insightSummary<T extends Prisma.Customer$insightSummaryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Customer$insightSummaryArgs<ExtArgs>>): Prisma.Prisma__CustomerInsightSummaryClient<runtime.Types.Result.GetResult<Prisma.$CustomerInsightSummaryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3945,6 +4146,25 @@ export type Customer$issuesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.CustomerIssueScalarFieldEnum | Prisma.CustomerIssueScalarFieldEnum[]
+}
+
+/**
+ * Customer.insightSummary
+ */
+export type Customer$insightSummaryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerInsightSummary
+   */
+  select?: Prisma.CustomerInsightSummarySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerInsightSummary
+   */
+  omit?: Prisma.CustomerInsightSummaryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerInsightSummaryInclude<ExtArgs> | null
+  where?: Prisma.CustomerInsightSummaryWhereInput
 }
 
 /**

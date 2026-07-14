@@ -432,10 +432,6 @@ export type SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SalePaymentInstructionUpdateToOneWithWhereWithoutSaleInput, Prisma.SalePaymentInstructionUpdateWithoutSaleInput>, Prisma.SalePaymentInstructionUncheckedUpdateWithoutSaleInput>
 }
 
-export type EnumPaymentMethodFieldUpdateOperationsInput = {
-  set?: $Enums.PaymentMethod
-}
-
 export type SalePaymentInstructionCreateWithoutSaleInput = {
   id?: string
   method: $Enums.PaymentMethod

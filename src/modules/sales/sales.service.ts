@@ -342,6 +342,19 @@ export class SalesService {
           data: { status: "CONVERTED", customerId: customer.id },
         });
       }
+      if (customer.accountId) {
+        const purchasedProducts = [...new Set(lines.flatMap((line) => line.productId ? [line.productId] : []))];
+        if (purchasedProducts.length) {
+          await tx.commerceEvent.createMany({
+            data: purchasedProducts.map((productId) => ({
+              businessId: auth.businessId,
+              customerAccountId: customer.accountId,
+              productId,
+              type: "PURCHASE_COMPLETED" as const,
+            })),
+          });
+        }
+      }
       await this.activity.record(
         {
           businessId: auth.businessId,

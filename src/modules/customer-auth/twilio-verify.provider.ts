@@ -23,6 +23,8 @@ export class TwilioVerifyProvider implements OtpProvider {
       return this.startDevelopmentChallenge();
     }
 
+    this.assertPilotAllowed(phone);
+
     const result = await this.request<TwilioVerification>("Verifications", {
       To: phone,
       Channel: "whatsapp",
@@ -52,6 +54,34 @@ export class TwilioVerifyProvider implements OtpProvider {
         this.config.get("TWILIO_AUTH_TOKEN") &&
         this.config.get("TWILIO_VERIFY_SERVICE_SID"),
     );
+  }
+
+  private assertPilotAllowed(phone: string) {
+    if (this.config.get("TWILIO_WHATSAPP_VERIFY_ENABLED") !== "true") {
+      throw new ServiceUnavailableException("WhatsApp verification pilot is disabled");
+    }
+    if (this.config.get("TWILIO_WHATSAPP_KILL_SWITCH") !== "false") {
+      throw new ServiceUnavailableException("WhatsApp kill switch is active");
+    }
+    if (
+      this.config.get("NODE_ENV") === "production" &&
+      this.config.get("TWILIO_WHATSAPP_PRODUCTION_READY") !== "true"
+    ) {
+      throw new ServiceUnavailableException(
+        "WhatsApp production readiness has not been approved",
+      );
+    }
+    const allowed = this.config
+      .get<string>("TWILIO_WHATSAPP_PILOT_ALLOWLIST", "")
+      .split(",")
+      .map((value) => value.trim().replace(/[\s()-]/g, ""))
+      .filter(Boolean);
+    const normalized = phone.trim().replace(/[\s()-]/g, "");
+    if (!allowed.includes(normalized)) {
+      throw new ServiceUnavailableException(
+        "This phone number is not in the WhatsApp private pilot",
+      );
+    }
   }
 
   private useDevelopmentOtp() {

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Inject,
   Injectable,
@@ -13,6 +14,11 @@ import {
 import { hashPassword, verifyPassword } from "../../common/password.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
+import type {
+  BusinessCapability,
+  BusinessRole,
+} from "../../generated/prisma/client";
+import { resolveCapabilities } from "../../common/auth/capabilities";
 import { MailService } from "../mail/mail.service";
 import { OTP_PROVIDER, type OtpProvider } from "../customer-auth/otp-provider";
 import { PrismaService } from "../prisma/prisma.service";
@@ -34,6 +40,12 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterOwnerDto, meta: SessionMeta) {
+    if (dto.allowedPaymentMethods?.length === 0) {
+      throw new BadRequestException("Choose at least one accepted payment method");
+    }
+    if (dto.defaultPaymentMethod && dto.allowedPaymentMethods && !dto.allowedPaymentMethods.includes(dto.defaultPaymentMethod)) {
+      throw new BadRequestException("Default payment method must be accepted by the business");
+    }
     const passwordHash = await hashPassword(dto.password);
     const ownerPhone = primaryWhatsappPhone(dto.contacts);
     try {
@@ -59,7 +71,11 @@ export class AuthService {
             pledgeSignature: dto.pledgeSignature,
             pledgedAt: dto.pledgeSignature ? new Date() : undefined,
             preferences: {
-              create: { theme: dto.theme ?? "LOYAL_PURPLE" },
+              create: {
+                theme: dto.theme ?? "LOYAL_PURPLE",
+                allowedPaymentMethods: dto.allowedPaymentMethods,
+                defaultPaymentMethod: dto.defaultPaymentMethod,
+              },
             },
             contacts: dto.contacts?.length
               ? {
@@ -104,7 +120,7 @@ export class AuthService {
       });
       const session = await this.createSession(result.user.id, meta);
       return {
-        ...this.safeIdentity(result.user, result.business),
+        ...this.safeIdentity(result.user, result.business, { role: "OWNER" }),
         session,
       };
     } catch (error) {
@@ -126,6 +142,7 @@ export class AuthService {
         memberships: {
           where: { status: "ACTIVE" },
           include: {
+            permissionOverrides: true,
             business: {
               include: {
                 preferences: true,
@@ -146,7 +163,7 @@ export class AuthService {
     if (!membership) throw new UnauthorizedException("No active business");
     const session = await this.createSession(user.id, meta);
     return {
-      ...this.safeIdentity(user, membership.business),
+      ...this.safeIdentity(user, membership.business, membership),
       session,
     };
   }
@@ -220,6 +237,7 @@ export class AuthService {
         memberships: {
           where: { status: "ACTIVE" },
           include: {
+            permissionOverrides: true,
             business: {
               include: {
                 preferences: true,
@@ -244,7 +262,7 @@ export class AuthService {
     });
     const session = await this.createSession(user.id, meta);
     return {
-      ...this.safeIdentity(user, membership.business),
+      ...this.safeIdentity(user, membership.business, membership),
       session,
     };
   }
@@ -298,6 +316,7 @@ export class AuthService {
         status: "ACTIVE",
       },
       include: {
+        permissionOverrides: true,
         user: { include: { avatarAsset: true } },
         business: {
           include: {
@@ -309,7 +328,7 @@ export class AuthService {
         },
       },
     });
-    return this.safeIdentity(membership.user, membership.business);
+    return this.safeIdentity(membership.user, membership.business, membership);
   }
 
   async changePassword(auth: OwnerAuthContext, dto: ChangePasswordDto) {
@@ -410,7 +429,19 @@ export class AuthService {
       avatarAsset?: { id: string; secureUrl: string } | null;
     },
     business: unknown,
+    membership: {
+      id?: string;
+      role: BusinessRole;
+      permissionOverrides?: Array<{
+        capability: BusinessCapability;
+        allowed: boolean;
+      }>;
+    },
   ) {
+    const capabilities = resolveCapabilities(
+      membership.role,
+      membership.permissionOverrides,
+    );
     return {
       user: {
         id: user.id,
@@ -420,6 +451,11 @@ export class AuthService {
         avatarAsset: user.avatarAsset ?? null,
       },
       business,
+      workspace: {
+        memberId: membership.id ?? null,
+        role: membership.role,
+        capabilities,
+      },
     };
   }
 }

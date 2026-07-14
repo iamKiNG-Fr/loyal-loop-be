@@ -36,7 +36,7 @@ type ActivityInput = {
 
 type ActivityClient = Pick<
   PrismaService,
-  "activityEvent" | "trustLedgerEntry"
+  "activityEvent" | "customerInsightSummary" | "trustLedgerEntry"
 >;
 
 @Injectable()
@@ -69,14 +69,58 @@ export class ActivityService {
         },
       });
     }
+    if (input.customerId) {
+      await client.customerInsightSummary.updateMany({
+        where: {
+          businessId: input.businessId,
+          customerId: input.customerId,
+          status: "READY",
+        },
+        data: { status: "STALE", staleAt: new Date() },
+      });
+    }
     return event;
   }
 
-  list(businessId: string, customerId?: string) {
-    return this.prisma.activityEvent.findMany({
-      where: { businessId, customerId },
-      orderBy: { createdAt: "desc" },
-      take: 100,
+  async list(
+    businessId: string,
+    currentUserId: string,
+    options: { cursor?: string; customerId?: string; limit?: number } = {},
+  ) {
+    const take = Math.min(Math.max(options.limit ?? 20, 1), 50);
+    const entries = await this.prisma.activityEvent.findMany({
+      where: { businessId, customerId: options.customerId },
+      include: { actor: { select: { id: true, name: true } } },
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+      ...(options.cursor ? { cursor: { id: options.cursor }, skip: 1 } : {}),
+      take: take + 1,
     });
+    const hasMore = entries.length > take;
+    const items = entries.slice(0, take).map((entry) => ({
+      ...entry,
+      actorLabel: entry.actorId === currentUserId
+        ? "You"
+        : entry.actor?.name
+          ? `@${entry.actor.name}`
+          : "Loyal Loop",
+      targetUrl: activityTarget(entry),
+    }));
+    return {
+      items,
+      nextCursor: hasMore ? items.at(-1)?.id ?? null : null,
+    };
   }
+}
+
+function activityTarget(entry: {
+  customerId: string | null;
+  saleId: string | null;
+  receiptId: string | null;
+  deliveryId: string | null;
+}) {
+  if (entry.deliveryId) return `/dashboard/delivery/${entry.deliveryId}`;
+  if (entry.receiptId) return `/dashboard/receipts/${entry.receiptId}`;
+  if (entry.saleId) return `/dashboard/sales/${entry.saleId}`;
+  if (entry.customerId) return `/dashboard/customers?customer=${entry.customerId}`;
+  return "/dashboard/activity";
 }

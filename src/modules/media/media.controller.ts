@@ -15,6 +15,7 @@ import { ok } from "../../common/api-response";
 import type { OwnerAuthContext } from "../../common/request-context";
 import {
   CreateUploadSignatureDto,
+  MediaFailureTelemetryDto,
   RegisterMediaAssetDto,
 } from "./dto/media.dto";
 import { MediaService } from "./media.service";
@@ -40,6 +41,15 @@ export class MediaController {
     @Body() dto: RegisterMediaAssetDto,
   ) {
     return this.media.register(auth, dto).then((data) => ok(data, "Asset registered"));
+  }
+
+  @Post("telemetry/failure")
+  @Roles("OWNER", "MANAGER", "SALES")
+  failure(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Body() dto: MediaFailureTelemetryDto,
+  ) {
+    return this.media.recordFailure(auth, dto).then(() => ok(null, "Media failure recorded"));
   }
 
   @Get("assets")

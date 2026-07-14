@@ -6,9 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Query,
+  Req,
   UseGuards,
 } from "@nestjs/common";
+import type { Request } from "express";
 import {
   CurrentAuth,
   CurrentCustomer,
@@ -25,7 +28,10 @@ import type {
 import { DiscoveryService } from "./discovery.service";
 import {
   CreateShowcaseDto,
+  DiscoveryEventDto,
+  DiscoveryPreferenceDto,
   ExploreDto,
+  ParseDiscoveryQueryDto,
   UpdateShowcaseDto,
 } from "./dto/discovery.dto";
 
@@ -34,8 +40,34 @@ export class PublicDiscoveryController {
   constructor(private readonly discovery: DiscoveryService) {}
 
   @Get()
-  explore(@Query() query: ExploreDto) {
-    return this.discovery.explore(query).then((data) => ok(data));
+  explore(@Query() query: ExploreDto, @Req() request: Request) {
+    return this.discovery.explore(query, undefined, this.discovery.visitorHash(request)).then((data) => ok(data));
+  }
+
+  @Post("parse-query")
+  parseQuery(@Body() dto: ParseDiscoveryQueryDto) {
+    return this.discovery.parseQuery(dto.query).then((data) => ok(data));
+  }
+
+  @Post("events")
+  event(@Body() dto: DiscoveryEventDto, @Req() request: Request) {
+    return this.discovery
+      .recordEvent(dto, undefined, this.discovery.visitorHash(request))
+      .then((data) => ok(data));
+  }
+
+  @Put("preferences")
+  preference(@Body() dto: DiscoveryPreferenceDto, @Req() request: Request) {
+    return this.discovery
+      .savePreference(dto.preferences, undefined, this.discovery.visitorHash(request))
+      .then((data) => ok(data, "Preferences saved"));
+  }
+
+  @Delete("privacy")
+  clearPrivacy(@Req() request: Request) {
+    return this.discovery
+      .clearRecommendationData(undefined, this.discovery.visitorHash(request))
+      .then((data) => ok(data, "Anonymous recommendation data cleared"));
   }
 
   @Get("showcases/:id")
@@ -54,6 +86,38 @@ export class CustomerDiscoveryController {
     return this.discovery
       .myShops(customer.customerAccountId)
       .then((data) => ok(data));
+  }
+
+  @Get("feed")
+  feed(@CurrentCustomer() customer: CustomerAuthContext, @Query() query: ExploreDto) {
+    return this.discovery.explore(query, customer.customerAccountId).then((data) => ok(data));
+  }
+
+  @Put("preferences")
+  preference(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Body() dto: DiscoveryPreferenceDto,
+  ) {
+    return this.discovery
+      .savePreference(dto.preferences, customer.customerAccountId)
+      .then((data) => ok(data, "Preferences saved"));
+  }
+
+  @Post("events")
+  event(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Body() dto: DiscoveryEventDto,
+  ) {
+    return this.discovery
+      .recordEvent(dto, customer.customerAccountId)
+      .then((data) => ok(data));
+  }
+
+  @Delete("privacy")
+  clearPrivacy(@CurrentCustomer() customer: CustomerAuthContext) {
+    return this.discovery
+      .clearRecommendationData(customer.customerAccountId)
+      .then((data) => ok(data, "Recommendation data disconnected from your account"));
   }
 
   @Get("saved")

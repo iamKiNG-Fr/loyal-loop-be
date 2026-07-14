@@ -227,6 +227,7 @@ export type UserWhereInput = {
   paymentProofReviews?: Prisma.PaymentProofListRelationFilter
   deliveryEvents?: Prisma.DeliveryEventListRelationFilter
   activityEvents?: Prisma.ActivityEventListRelationFilter
+  permissionOverrides?: Prisma.MemberPermissionOverrideListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -252,6 +253,7 @@ export type UserOrderByWithRelationInput = {
   paymentProofReviews?: Prisma.PaymentProofOrderByRelationAggregateInput
   deliveryEvents?: Prisma.DeliveryEventOrderByRelationAggregateInput
   activityEvents?: Prisma.ActivityEventOrderByRelationAggregateInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -280,6 +282,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   paymentProofReviews?: Prisma.PaymentProofListRelationFilter
   deliveryEvents?: Prisma.DeliveryEventListRelationFilter
   activityEvents?: Prisma.ActivityEventListRelationFilter
+  permissionOverrides?: Prisma.MemberPermissionOverrideListRelationFilter
 }, "id" | "avatarAssetId" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -334,6 +337,7 @@ export type UserCreateInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -358,6 +362,7 @@ export type UserUncheckedCreateInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserUpdateInput = {
@@ -382,6 +387,7 @@ export type UserUpdateInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -406,6 +412,7 @@ export type UserUncheckedUpdateInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -563,6 +570,22 @@ export type UserUpdateOneRequiredWithoutMembershipsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutMembershipsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMembershipsInput, Prisma.UserUpdateWithoutMembershipsInput>, Prisma.UserUncheckedUpdateWithoutMembershipsInput>
+}
+
+export type UserCreateNestedOneWithoutPermissionOverridesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPermissionOverridesInput, Prisma.UserUncheckedCreateWithoutPermissionOverridesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPermissionOverridesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutPermissionOverridesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPermissionOverridesInput, Prisma.UserUncheckedCreateWithoutPermissionOverridesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPermissionOverridesInput
+  upsert?: Prisma.UserUpsertWithoutPermissionOverridesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPermissionOverridesInput, Prisma.UserUpdateWithoutPermissionOverridesInput>, Prisma.UserUncheckedUpdateWithoutPermissionOverridesInput>
 }
 
 export type UserCreateNestedOneWithoutInvitationsSentInput = {
@@ -728,6 +751,7 @@ export type UserCreateWithoutSessionsInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -751,6 +775,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -790,6 +815,7 @@ export type UserUpdateWithoutSessionsInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -813,6 +839,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutOtpChallengesInput = {
@@ -836,6 +863,7 @@ export type UserCreateWithoutOtpChallengesInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutOtpChallengesInput = {
@@ -859,6 +887,7 @@ export type UserUncheckedCreateWithoutOtpChallengesInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutOtpChallengesInput = {
@@ -898,6 +927,7 @@ export type UserUpdateWithoutOtpChallengesInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOtpChallengesInput = {
@@ -921,6 +951,7 @@ export type UserUncheckedUpdateWithoutOtpChallengesInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutRecoveryTokensInput = {
@@ -944,6 +975,7 @@ export type UserCreateWithoutRecoveryTokensInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRecoveryTokensInput = {
@@ -967,6 +999,7 @@ export type UserUncheckedCreateWithoutRecoveryTokensInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRecoveryTokensInput = {
@@ -1006,6 +1039,7 @@ export type UserUpdateWithoutRecoveryTokensInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecoveryTokensInput = {
@@ -1029,6 +1063,7 @@ export type UserUncheckedUpdateWithoutRecoveryTokensInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutOwnedBusinessesInput = {
@@ -1052,6 +1087,7 @@ export type UserCreateWithoutOwnedBusinessesInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
@@ -1075,6 +1111,7 @@ export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutOwnedBusinessesInput = {
@@ -1114,6 +1151,7 @@ export type UserUpdateWithoutOwnedBusinessesInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
@@ -1137,6 +1175,7 @@ export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutMembershipsInput = {
@@ -1160,6 +1199,7 @@ export type UserCreateWithoutMembershipsInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -1183,6 +1223,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1222,6 +1263,7 @@ export type UserUpdateWithoutMembershipsInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1234,6 +1276,119 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutPermissionOverridesInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
+  authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutPermissionOverridesInput = {
+  id?: string
+  avatarAssetId?: string | null
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutPermissionOverridesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPermissionOverridesInput, Prisma.UserUncheckedCreateWithoutPermissionOverridesInput>
+}
+
+export type UserUpsertWithoutPermissionOverridesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPermissionOverridesInput, Prisma.UserUncheckedUpdateWithoutPermissionOverridesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPermissionOverridesInput, Prisma.UserUncheckedCreateWithoutPermissionOverridesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPermissionOverridesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPermissionOverridesInput, Prisma.UserUncheckedUpdateWithoutPermissionOverridesInput>
+}
+
+export type UserUpdateWithoutPermissionOverridesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
+  authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPermissionOverridesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
   ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
   sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
   otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
@@ -1268,6 +1423,7 @@ export type UserCreateWithoutInvitationsSentInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutInvitationsSentInput = {
@@ -1291,6 +1447,7 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutInvitationsSentInput = {
@@ -1330,6 +1487,7 @@ export type UserUpdateWithoutInvitationsSentInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitationsSentInput = {
@@ -1353,6 +1511,7 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutUploadedAssetsInput = {
@@ -1376,6 +1535,7 @@ export type UserCreateWithoutUploadedAssetsInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutUploadedAssetsInput = {
@@ -1399,6 +1559,7 @@ export type UserUncheckedCreateWithoutUploadedAssetsInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutUploadedAssetsInput = {
@@ -1427,6 +1588,7 @@ export type UserCreateWithoutAvatarAssetInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAvatarAssetInput = {
@@ -1450,6 +1612,7 @@ export type UserUncheckedCreateWithoutAvatarAssetInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAvatarAssetInput = {
@@ -1489,6 +1652,7 @@ export type UserUpdateWithoutUploadedAssetsInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedAssetsInput = {
@@ -1512,6 +1676,7 @@ export type UserUncheckedUpdateWithoutUploadedAssetsInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutAvatarAssetInput = {
@@ -1546,6 +1711,7 @@ export type UserUpdateWithoutAvatarAssetInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAvatarAssetInput = {
@@ -1569,6 +1735,7 @@ export type UserUncheckedUpdateWithoutAvatarAssetInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutAuthoredNotesInput = {
@@ -1592,6 +1759,7 @@ export type UserCreateWithoutAuthoredNotesInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutAuthoredNotesInput = {
@@ -1615,6 +1783,7 @@ export type UserUncheckedCreateWithoutAuthoredNotesInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutAuthoredNotesInput = {
@@ -1654,6 +1823,7 @@ export type UserUpdateWithoutAuthoredNotesInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuthoredNotesInput = {
@@ -1677,6 +1847,7 @@ export type UserUncheckedUpdateWithoutAuthoredNotesInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPaymentsRecordedInput = {
@@ -1700,6 +1871,7 @@ export type UserCreateWithoutPaymentsRecordedInput = {
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsRecordedInput = {
@@ -1723,6 +1895,7 @@ export type UserUncheckedCreateWithoutPaymentsRecordedInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsRecordedInput = {
@@ -1762,6 +1935,7 @@ export type UserUpdateWithoutPaymentsRecordedInput = {
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsRecordedInput = {
@@ -1785,6 +1959,7 @@ export type UserUncheckedUpdateWithoutPaymentsRecordedInput = {
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPaymentProofReviewsInput = {
@@ -1808,6 +1983,7 @@ export type UserCreateWithoutPaymentProofReviewsInput = {
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPaymentProofReviewsInput = {
@@ -1831,6 +2007,7 @@ export type UserUncheckedCreateWithoutPaymentProofReviewsInput = {
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPaymentProofReviewsInput = {
@@ -1870,6 +2047,7 @@ export type UserUpdateWithoutPaymentProofReviewsInput = {
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentProofReviewsInput = {
@@ -1893,6 +2071,7 @@ export type UserUncheckedUpdateWithoutPaymentProofReviewsInput = {
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutDeliveryEventsInput = {
@@ -1916,6 +2095,7 @@ export type UserCreateWithoutDeliveryEventsInput = {
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutDeliveryEventsInput = {
@@ -1939,6 +2119,7 @@ export type UserUncheckedCreateWithoutDeliveryEventsInput = {
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutDeliveryEventsInput = {
@@ -1978,6 +2159,7 @@ export type UserUpdateWithoutDeliveryEventsInput = {
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeliveryEventsInput = {
@@ -2001,6 +2183,7 @@ export type UserUncheckedUpdateWithoutDeliveryEventsInput = {
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutActivityEventsInput = {
@@ -2024,6 +2207,7 @@ export type UserCreateWithoutActivityEventsInput = {
   paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
   paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutActivityEventsInput = {
@@ -2047,6 +2231,7 @@ export type UserUncheckedCreateWithoutActivityEventsInput = {
   paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
   paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutActivityEventsInput = {
@@ -2086,6 +2271,7 @@ export type UserUpdateWithoutActivityEventsInput = {
   paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
   paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityEventsInput = {
@@ -2109,6 +2295,7 @@ export type UserUncheckedUpdateWithoutActivityEventsInput = {
   paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
   deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
 }
 
 
@@ -2129,6 +2316,7 @@ export type UserCountOutputType = {
   paymentProofReviews: number
   deliveryEvents: number
   activityEvents: number
+  permissionOverrides: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2144,6 +2332,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   paymentProofReviews?: boolean | UserCountOutputTypeCountPaymentProofReviewsArgs
   deliveryEvents?: boolean | UserCountOutputTypeCountDeliveryEventsArgs
   activityEvents?: boolean | UserCountOutputTypeCountActivityEventsArgs
+  permissionOverrides?: boolean | UserCountOutputTypeCountPermissionOverridesArgs
 }
 
 /**
@@ -2240,6 +2429,13 @@ export type UserCountOutputTypeCountActivityEventsArgs<ExtArgs extends runtime.T
   where?: Prisma.ActivityEventWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPermissionOverridesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MemberPermissionOverrideWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2264,6 +2460,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   paymentProofReviews?: boolean | Prisma.User$paymentProofReviewsArgs<ExtArgs>
   deliveryEvents?: boolean | Prisma.User$deliveryEventsArgs<ExtArgs>
   activityEvents?: boolean | Prisma.User$activityEventsArgs<ExtArgs>
+  permissionOverrides?: boolean | Prisma.User$permissionOverridesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2320,6 +2517,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   paymentProofReviews?: boolean | Prisma.User$paymentProofReviewsArgs<ExtArgs>
   deliveryEvents?: boolean | Prisma.User$deliveryEventsArgs<ExtArgs>
   activityEvents?: boolean | Prisma.User$activityEventsArgs<ExtArgs>
+  permissionOverrides?: boolean | Prisma.User$permissionOverridesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2345,6 +2543,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     paymentProofReviews: Prisma.$PaymentProofPayload<ExtArgs>[]
     deliveryEvents: Prisma.$DeliveryEventPayload<ExtArgs>[]
     activityEvents: Prisma.$ActivityEventPayload<ExtArgs>[]
+    permissionOverrides: Prisma.$MemberPermissionOverridePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2763,6 +2962,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   paymentProofReviews<T extends Prisma.User$paymentProofReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentProofReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deliveryEvents<T extends Prisma.User$deliveryEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deliveryEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activityEvents<T extends Prisma.User$activityEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$activityEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  permissionOverrides<T extends Prisma.User$permissionOverridesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$permissionOverridesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MemberPermissionOverridePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3506,6 +3706,30 @@ export type User$activityEventsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ActivityEventScalarFieldEnum | Prisma.ActivityEventScalarFieldEnum[]
+}
+
+/**
+ * User.permissionOverrides
+ */
+export type User$permissionOverridesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MemberPermissionOverride
+   */
+  select?: Prisma.MemberPermissionOverrideSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MemberPermissionOverride
+   */
+  omit?: Prisma.MemberPermissionOverrideOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MemberPermissionOverrideInclude<ExtArgs> | null
+  where?: Prisma.MemberPermissionOverrideWhereInput
+  orderBy?: Prisma.MemberPermissionOverrideOrderByWithRelationInput | Prisma.MemberPermissionOverrideOrderByWithRelationInput[]
+  cursor?: Prisma.MemberPermissionOverrideWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MemberPermissionOverrideScalarFieldEnum | Prisma.MemberPermissionOverrideScalarFieldEnum[]
 }
 
 /**

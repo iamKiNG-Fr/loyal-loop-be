@@ -123,9 +123,15 @@ export class ShopsService {
     await this.businesses.reconcileScheduledLaunchBySlug(slug);
     const business = await this.prisma.business.findFirst({
       where: { slug, storeStatus: "OPEN" },
-      select: { id: true },
+      select: { id: true, preferences: true },
     });
     if (!business) throw new NotFoundException("Shop is not accepting requests");
+    if (
+      dto.requestedPaymentMethod &&
+      !business.preferences?.allowedPaymentMethods.includes(dto.requestedPaymentMethod)
+    ) {
+      throw new BadRequestException("That payment method is not accepted by this shop");
+    }
     const productIds = [...new Set(dto.items.map((item) => item.productId))];
     const products = await this.prisma.product.findMany({
       where: {
@@ -202,6 +208,7 @@ export class ShopsService {
         customerName,
         customerPhone,
         channel: dto.channel,
+        requestedPaymentMethod: dto.requestedPaymentMethod,
         fulfillment,
         customerAddressId: savedAddress?.id,
         sourceShowcaseId: dto.sourceShowcaseId,
@@ -315,6 +322,48 @@ export class ShopsService {
       where: { id: requestId },
       data: { status: dto.status },
       include: { items: true },
+    });
+  }
+
+  async changeRequestedPaymentMethod(
+    customerAccountId: string,
+    requestId: string,
+    paymentMethod: import("../../generated/prisma/client").PaymentMethod,
+  ) {
+    const request = await this.prisma.orderRequest.findFirst({
+      where: { id: requestId, customerAccountId },
+      include: { business: { include: { preferences: true } } },
+    });
+    if (!request) throw new NotFoundException("Request not found");
+    if (request.status !== "NEEDS_CHANGES") {
+      throw new BadRequestException("Payment preference is locked after submission");
+    }
+    if (!request.business.preferences?.allowedPaymentMethods.includes(paymentMethod)) {
+      throw new BadRequestException("That payment method is not accepted by this shop");
+    }
+    return this.prisma.$transaction(async (tx) => {
+      await tx.orderRequestPaymentChange.create({
+        data: {
+          orderRequestId: request.id,
+          customerAccountId,
+          previousMethod: request.requestedPaymentMethod,
+          nextMethod: paymentMethod,
+        },
+      });
+      const updated = await tx.orderRequest.update({
+        where: { id: request.id },
+        data: { requestedPaymentMethod: paymentMethod, status: "SENT" },
+        include: { items: true, paymentChanges: true },
+      });
+      await tx.activityEvent.create({
+        data: {
+          businessId: request.businessId,
+          type: "REQUEST_PAYMENT_UPDATED",
+          title: `Payment preference updated for ${request.referenceCode}`,
+          metadata: { orderRequestId: request.id, paymentMethod },
+        },
+      });
+      return updated;
     });
   }
 
@@ -653,6 +702,8 @@ function sanitizeBusiness(business: Record<string, unknown>) {
       showLatest?: boolean;
       tickerItems?: string[];
       feedbackResponseTime?: string;
+      allowedPaymentMethods?: string[];
+      defaultPaymentMethod?: string | null;
     } | null;
     launchProduct?: {
       id: string;
@@ -707,6 +758,8 @@ function sanitizeBusiness(business: Record<string, unknown>) {
           showLatest: source.preferences.showLatest,
           tickerItems: source.preferences.tickerItems,
           feedbackResponseTime: source.preferences.feedbackResponseTime,
+          allowedPaymentMethods: source.preferences.allowedPaymentMethods,
+          defaultPaymentMethod: source.preferences.defaultPaymentMethod,
         }
       : null,
     launchAt: source.launchAt,

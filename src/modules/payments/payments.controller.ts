@@ -12,10 +12,13 @@ import {
 } from "@nestjs/common";
 import { CurrentAuth } from "../../common/auth/current-auth.decorator";
 import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
+import { Capabilities } from "../../common/auth/capabilities.decorator";
+import { CapabilitiesGuard } from "../../common/auth/capabilities.guard";
 import { Roles } from "../../common/auth/roles.decorator";
 import { RolesGuard } from "../../common/auth/roles.guard";
 import { ok } from "../../common/api-response";
 import type { OwnerAuthContext } from "../../common/request-context";
+import { BusinessCapability } from "../../generated/prisma/client";
 import {
   ReviewPaymentProofDto,
   SubmitPaymentProofDto,
@@ -24,7 +27,8 @@ import {
 import { PaymentsService } from "./payments.service";
 
 @Controller()
-@UseGuards(OwnerAuthGuard, RolesGuard)
+@UseGuards(OwnerAuthGuard, RolesGuard, CapabilitiesGuard)
+@Capabilities(BusinessCapability.PAYMENT_REVIEW)
 export class PaymentsController {
   constructor(private readonly payments: PaymentsService) {}
 
@@ -34,6 +38,7 @@ export class PaymentsController {
   }
 
   @Put("payment-account")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
   @Roles("OWNER", "MANAGER")
   upsertAccount(
     @CurrentAuth() auth: OwnerAuthContext,
@@ -45,6 +50,7 @@ export class PaymentsController {
   }
 
   @Delete("payment-account")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
   @Roles("OWNER", "MANAGER")
   removeAccount(@CurrentAuth() auth: OwnerAuthContext) {
     return this.payments
@@ -61,6 +67,7 @@ export class PaymentsController {
   }
 
   @Patch("payment-proofs/:id")
+  @Capabilities(BusinessCapability.PAYMENT_REVIEW)
   @Roles("OWNER", "MANAGER", "SALES")
   review(
     @CurrentAuth() auth: OwnerAuthContext,

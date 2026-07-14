@@ -68,8 +68,9 @@ export class DashboardService {
       }),
       this.prisma.activityEvent.findMany({
         where: { businessId: auth.businessId },
+        include: { actor: { select: { id: true, name: true } } },
         orderBy: { createdAt: "desc" },
-        take: 10,
+        take: 5,
       }),
       this.prisma.receipt.findMany({
         where: { businessId: auth.businessId },
@@ -123,7 +124,15 @@ export class DashboardService {
       followUps,
       lowStockProducts,
       recentSales,
-      recentActivity,
+      recentActivity: recentActivity.map((entry) => ({
+        ...entry,
+        actorLabel:
+          entry.actorId === auth.userId
+            ? "You"
+            : entry.actor?.name
+              ? `@${entry.actor.name}`
+              : "Loyal Loop",
+      })),
       recentReceipts,
       discovery: {
         attributedViews,

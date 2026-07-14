@@ -55,6 +55,10 @@ export class CreateOrderRequestDto {
   @IsString()
   sourceShowcaseId?: string;
 
+  @IsOptional()
+  @IsEnum(PaymentMethod)
+  requestedPaymentMethod?: PaymentMethod;
+
   @IsString()
   @Length(1, 120)
   customerName!: string;
@@ -128,6 +132,11 @@ export class CreateOrderRequestDto {
   @ValidateNested({ each: true })
   @Type(() => PublicRequestItemDto)
   items!: PublicRequestItemDto[];
+}
+
+export class ChangeRequestedPaymentMethodDto {
+  @IsEnum(PaymentMethod)
+  paymentMethod!: PaymentMethod;
 }
 
 export class UpdateOrderRequestStatusDto {

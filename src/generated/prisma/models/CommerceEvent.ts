@@ -29,9 +29,12 @@ export type CommerceEventMinAggregateOutputType = {
   businessId: string | null
   customerAccountId: string | null
   productId: string | null
+  showcaseId: string | null
   orderRequestId: string | null
   type: $Enums.CommerceEventType | null
   visitorHash: string | null
+  sessionKey: string | null
+  dedupeKey: string | null
   createdAt: Date | null
 }
 
@@ -40,9 +43,12 @@ export type CommerceEventMaxAggregateOutputType = {
   businessId: string | null
   customerAccountId: string | null
   productId: string | null
+  showcaseId: string | null
   orderRequestId: string | null
   type: $Enums.CommerceEventType | null
   visitorHash: string | null
+  sessionKey: string | null
+  dedupeKey: string | null
   createdAt: Date | null
 }
 
@@ -51,9 +57,12 @@ export type CommerceEventCountAggregateOutputType = {
   businessId: number
   customerAccountId: number
   productId: number
+  showcaseId: number
   orderRequestId: number
   type: number
   visitorHash: number
+  sessionKey: number
+  dedupeKey: number
   metadata: number
   createdAt: number
   _all: number
@@ -65,9 +74,12 @@ export type CommerceEventMinAggregateInputType = {
   businessId?: true
   customerAccountId?: true
   productId?: true
+  showcaseId?: true
   orderRequestId?: true
   type?: true
   visitorHash?: true
+  sessionKey?: true
+  dedupeKey?: true
   createdAt?: true
 }
 
@@ -76,9 +88,12 @@ export type CommerceEventMaxAggregateInputType = {
   businessId?: true
   customerAccountId?: true
   productId?: true
+  showcaseId?: true
   orderRequestId?: true
   type?: true
   visitorHash?: true
+  sessionKey?: true
+  dedupeKey?: true
   createdAt?: true
 }
 
@@ -87,9 +102,12 @@ export type CommerceEventCountAggregateInputType = {
   businessId?: true
   customerAccountId?: true
   productId?: true
+  showcaseId?: true
   orderRequestId?: true
   type?: true
   visitorHash?: true
+  sessionKey?: true
+  dedupeKey?: true
   metadata?: true
   createdAt?: true
   _all?: true
@@ -172,9 +190,12 @@ export type CommerceEventGroupByOutputType = {
   businessId: string
   customerAccountId: string | null
   productId: string | null
+  showcaseId: string | null
   orderRequestId: string | null
   type: $Enums.CommerceEventType
   visitorHash: string | null
+  sessionKey: string | null
+  dedupeKey: string | null
   metadata: runtime.JsonValue | null
   createdAt: Date
   _count: CommerceEventCountAggregateOutputType | null
@@ -205,14 +226,18 @@ export type CommerceEventWhereInput = {
   businessId?: Prisma.StringFilter<"CommerceEvent"> | string
   customerAccountId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   productId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
+  showcaseId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   orderRequestId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   type?: Prisma.EnumCommerceEventTypeFilter<"CommerceEvent"> | $Enums.CommerceEventType
   visitorHash?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
+  sessionKey?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
+  dedupeKey?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   metadata?: Prisma.JsonNullableFilter<"CommerceEvent">
   createdAt?: Prisma.DateTimeFilter<"CommerceEvent"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountNullableScalarRelationFilter, Prisma.CustomerAccountWhereInput> | null
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
+  showcase?: Prisma.XOR<Prisma.ShowcaseNullableScalarRelationFilter, Prisma.ShowcaseWhereInput> | null
   orderRequest?: Prisma.XOR<Prisma.OrderRequestNullableScalarRelationFilter, Prisma.OrderRequestWhereInput> | null
 }
 
@@ -221,44 +246,55 @@ export type CommerceEventOrderByWithRelationInput = {
   businessId?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   productId?: Prisma.SortOrderInput | Prisma.SortOrder
+  showcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderRequestId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   visitorHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  sessionKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   customerAccount?: Prisma.CustomerAccountOrderByWithRelationInput
   product?: Prisma.ProductOrderByWithRelationInput
+  showcase?: Prisma.ShowcaseOrderByWithRelationInput
   orderRequest?: Prisma.OrderRequestOrderByWithRelationInput
 }
 
 export type CommerceEventWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  dedupeKey?: string
   AND?: Prisma.CommerceEventWhereInput | Prisma.CommerceEventWhereInput[]
   OR?: Prisma.CommerceEventWhereInput[]
   NOT?: Prisma.CommerceEventWhereInput | Prisma.CommerceEventWhereInput[]
   businessId?: Prisma.StringFilter<"CommerceEvent"> | string
   customerAccountId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   productId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
+  showcaseId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   orderRequestId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   type?: Prisma.EnumCommerceEventTypeFilter<"CommerceEvent"> | $Enums.CommerceEventType
   visitorHash?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
+  sessionKey?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   metadata?: Prisma.JsonNullableFilter<"CommerceEvent">
   createdAt?: Prisma.DateTimeFilter<"CommerceEvent"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountNullableScalarRelationFilter, Prisma.CustomerAccountWhereInput> | null
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
+  showcase?: Prisma.XOR<Prisma.ShowcaseNullableScalarRelationFilter, Prisma.ShowcaseWhereInput> | null
   orderRequest?: Prisma.XOR<Prisma.OrderRequestNullableScalarRelationFilter, Prisma.OrderRequestWhereInput> | null
-}, "id">
+}, "id" | "dedupeKey">
 
 export type CommerceEventOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   productId?: Prisma.SortOrderInput | Prisma.SortOrder
+  showcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   orderRequestId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   visitorHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  sessionKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrderInput | Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.CommerceEventCountOrderByAggregateInput
@@ -274,9 +310,12 @@ export type CommerceEventScalarWhereWithAggregatesInput = {
   businessId?: Prisma.StringWithAggregatesFilter<"CommerceEvent"> | string
   customerAccountId?: Prisma.StringNullableWithAggregatesFilter<"CommerceEvent"> | string | null
   productId?: Prisma.StringNullableWithAggregatesFilter<"CommerceEvent"> | string | null
+  showcaseId?: Prisma.StringNullableWithAggregatesFilter<"CommerceEvent"> | string | null
   orderRequestId?: Prisma.StringNullableWithAggregatesFilter<"CommerceEvent"> | string | null
   type?: Prisma.EnumCommerceEventTypeWithAggregatesFilter<"CommerceEvent"> | $Enums.CommerceEventType
   visitorHash?: Prisma.StringNullableWithAggregatesFilter<"CommerceEvent"> | string | null
+  sessionKey?: Prisma.StringNullableWithAggregatesFilter<"CommerceEvent"> | string | null
+  dedupeKey?: Prisma.StringNullableWithAggregatesFilter<"CommerceEvent"> | string | null
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"CommerceEvent">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CommerceEvent"> | Date | string
 }
@@ -285,11 +324,14 @@ export type CommerceEventCreateInput = {
   id?: string
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutCommerceEventsInput
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutEventsInput
   product?: Prisma.ProductCreateNestedOneWithoutCommerceEventsInput
+  showcase?: Prisma.ShowcaseCreateNestedOneWithoutCommerceEventsInput
   orderRequest?: Prisma.OrderRequestCreateNestedOneWithoutEventsInput
 }
 
@@ -298,9 +340,12 @@ export type CommerceEventUncheckedCreateInput = {
   businessId: string
   customerAccountId?: string | null
   productId?: string | null
+  showcaseId?: string | null
   orderRequestId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -309,11 +354,14 @@ export type CommerceEventUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutCommerceEventsNestedInput
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutEventsNestedInput
   product?: Prisma.ProductUpdateOneWithoutCommerceEventsNestedInput
+  showcase?: Prisma.ShowcaseUpdateOneWithoutCommerceEventsNestedInput
   orderRequest?: Prisma.OrderRequestUpdateOneWithoutEventsNestedInput
 }
 
@@ -322,9 +370,12 @@ export type CommerceEventUncheckedUpdateInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -334,9 +385,12 @@ export type CommerceEventCreateManyInput = {
   businessId: string
   customerAccountId?: string | null
   productId?: string | null
+  showcaseId?: string | null
   orderRequestId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -345,6 +399,8 @@ export type CommerceEventUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -354,9 +410,12 @@ export type CommerceEventUncheckedUpdateManyInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -376,9 +435,12 @@ export type CommerceEventCountOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrder
   productId?: Prisma.SortOrder
+  showcaseId?: Prisma.SortOrder
   orderRequestId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   visitorHash?: Prisma.SortOrder
+  sessionKey?: Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -388,9 +450,12 @@ export type CommerceEventMaxOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrder
   productId?: Prisma.SortOrder
+  showcaseId?: Prisma.SortOrder
   orderRequestId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   visitorHash?: Prisma.SortOrder
+  sessionKey?: Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -399,9 +464,12 @@ export type CommerceEventMinOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrder
   productId?: Prisma.SortOrder
+  showcaseId?: Prisma.SortOrder
   orderRequestId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   visitorHash?: Prisma.SortOrder
+  sessionKey?: Prisma.SortOrder
+  dedupeKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -531,6 +599,48 @@ export type CommerceEventUncheckedUpdateManyWithoutProductNestedInput = {
   deleteMany?: Prisma.CommerceEventScalarWhereInput | Prisma.CommerceEventScalarWhereInput[]
 }
 
+export type CommerceEventCreateNestedManyWithoutShowcaseInput = {
+  create?: Prisma.XOR<Prisma.CommerceEventCreateWithoutShowcaseInput, Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput> | Prisma.CommerceEventCreateWithoutShowcaseInput[] | Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput[]
+  connectOrCreate?: Prisma.CommerceEventCreateOrConnectWithoutShowcaseInput | Prisma.CommerceEventCreateOrConnectWithoutShowcaseInput[]
+  createMany?: Prisma.CommerceEventCreateManyShowcaseInputEnvelope
+  connect?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+}
+
+export type CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput = {
+  create?: Prisma.XOR<Prisma.CommerceEventCreateWithoutShowcaseInput, Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput> | Prisma.CommerceEventCreateWithoutShowcaseInput[] | Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput[]
+  connectOrCreate?: Prisma.CommerceEventCreateOrConnectWithoutShowcaseInput | Prisma.CommerceEventCreateOrConnectWithoutShowcaseInput[]
+  createMany?: Prisma.CommerceEventCreateManyShowcaseInputEnvelope
+  connect?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+}
+
+export type CommerceEventUpdateManyWithoutShowcaseNestedInput = {
+  create?: Prisma.XOR<Prisma.CommerceEventCreateWithoutShowcaseInput, Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput> | Prisma.CommerceEventCreateWithoutShowcaseInput[] | Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput[]
+  connectOrCreate?: Prisma.CommerceEventCreateOrConnectWithoutShowcaseInput | Prisma.CommerceEventCreateOrConnectWithoutShowcaseInput[]
+  upsert?: Prisma.CommerceEventUpsertWithWhereUniqueWithoutShowcaseInput | Prisma.CommerceEventUpsertWithWhereUniqueWithoutShowcaseInput[]
+  createMany?: Prisma.CommerceEventCreateManyShowcaseInputEnvelope
+  set?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+  disconnect?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+  delete?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+  connect?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+  update?: Prisma.CommerceEventUpdateWithWhereUniqueWithoutShowcaseInput | Prisma.CommerceEventUpdateWithWhereUniqueWithoutShowcaseInput[]
+  updateMany?: Prisma.CommerceEventUpdateManyWithWhereWithoutShowcaseInput | Prisma.CommerceEventUpdateManyWithWhereWithoutShowcaseInput[]
+  deleteMany?: Prisma.CommerceEventScalarWhereInput | Prisma.CommerceEventScalarWhereInput[]
+}
+
+export type CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput = {
+  create?: Prisma.XOR<Prisma.CommerceEventCreateWithoutShowcaseInput, Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput> | Prisma.CommerceEventCreateWithoutShowcaseInput[] | Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput[]
+  connectOrCreate?: Prisma.CommerceEventCreateOrConnectWithoutShowcaseInput | Prisma.CommerceEventCreateOrConnectWithoutShowcaseInput[]
+  upsert?: Prisma.CommerceEventUpsertWithWhereUniqueWithoutShowcaseInput | Prisma.CommerceEventUpsertWithWhereUniqueWithoutShowcaseInput[]
+  createMany?: Prisma.CommerceEventCreateManyShowcaseInputEnvelope
+  set?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+  disconnect?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+  delete?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+  connect?: Prisma.CommerceEventWhereUniqueInput | Prisma.CommerceEventWhereUniqueInput[]
+  update?: Prisma.CommerceEventUpdateWithWhereUniqueWithoutShowcaseInput | Prisma.CommerceEventUpdateWithWhereUniqueWithoutShowcaseInput[]
+  updateMany?: Prisma.CommerceEventUpdateManyWithWhereWithoutShowcaseInput | Prisma.CommerceEventUpdateManyWithWhereWithoutShowcaseInput[]
+  deleteMany?: Prisma.CommerceEventScalarWhereInput | Prisma.CommerceEventScalarWhereInput[]
+}
+
 export type CommerceEventCreateNestedManyWithoutOrderRequestInput = {
   create?: Prisma.XOR<Prisma.CommerceEventCreateWithoutOrderRequestInput, Prisma.CommerceEventUncheckedCreateWithoutOrderRequestInput> | Prisma.CommerceEventCreateWithoutOrderRequestInput[] | Prisma.CommerceEventUncheckedCreateWithoutOrderRequestInput[]
   connectOrCreate?: Prisma.CommerceEventCreateOrConnectWithoutOrderRequestInput | Prisma.CommerceEventCreateOrConnectWithoutOrderRequestInput[]
@@ -581,10 +691,13 @@ export type CommerceEventCreateWithoutBusinessInput = {
   id?: string
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutEventsInput
   product?: Prisma.ProductCreateNestedOneWithoutCommerceEventsInput
+  showcase?: Prisma.ShowcaseCreateNestedOneWithoutCommerceEventsInput
   orderRequest?: Prisma.OrderRequestCreateNestedOneWithoutEventsInput
 }
 
@@ -592,9 +705,12 @@ export type CommerceEventUncheckedCreateWithoutBusinessInput = {
   id?: string
   customerAccountId?: string | null
   productId?: string | null
+  showcaseId?: string | null
   orderRequestId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -633,9 +749,12 @@ export type CommerceEventScalarWhereInput = {
   businessId?: Prisma.StringFilter<"CommerceEvent"> | string
   customerAccountId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   productId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
+  showcaseId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   orderRequestId?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   type?: Prisma.EnumCommerceEventTypeFilter<"CommerceEvent"> | $Enums.CommerceEventType
   visitorHash?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
+  sessionKey?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
+  dedupeKey?: Prisma.StringNullableFilter<"CommerceEvent"> | string | null
   metadata?: Prisma.JsonNullableFilter<"CommerceEvent">
   createdAt?: Prisma.DateTimeFilter<"CommerceEvent"> | Date | string
 }
@@ -644,10 +763,13 @@ export type CommerceEventCreateWithoutCustomerAccountInput = {
   id?: string
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutCommerceEventsInput
   product?: Prisma.ProductCreateNestedOneWithoutCommerceEventsInput
+  showcase?: Prisma.ShowcaseCreateNestedOneWithoutCommerceEventsInput
   orderRequest?: Prisma.OrderRequestCreateNestedOneWithoutEventsInput
 }
 
@@ -655,9 +777,12 @@ export type CommerceEventUncheckedCreateWithoutCustomerAccountInput = {
   id?: string
   businessId: string
   productId?: string | null
+  showcaseId?: string | null
   orderRequestId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -692,10 +817,13 @@ export type CommerceEventCreateWithoutProductInput = {
   id?: string
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutCommerceEventsInput
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutEventsInput
+  showcase?: Prisma.ShowcaseCreateNestedOneWithoutCommerceEventsInput
   orderRequest?: Prisma.OrderRequestCreateNestedOneWithoutEventsInput
 }
 
@@ -703,9 +831,12 @@ export type CommerceEventUncheckedCreateWithoutProductInput = {
   id?: string
   businessId: string
   customerAccountId?: string | null
+  showcaseId?: string | null
   orderRequestId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -736,15 +867,72 @@ export type CommerceEventUpdateManyWithWhereWithoutProductInput = {
   data: Prisma.XOR<Prisma.CommerceEventUpdateManyMutationInput, Prisma.CommerceEventUncheckedUpdateManyWithoutProductInput>
 }
 
-export type CommerceEventCreateWithoutOrderRequestInput = {
+export type CommerceEventCreateWithoutShowcaseInput = {
   id?: string
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutCommerceEventsInput
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutEventsInput
   product?: Prisma.ProductCreateNestedOneWithoutCommerceEventsInput
+  orderRequest?: Prisma.OrderRequestCreateNestedOneWithoutEventsInput
+}
+
+export type CommerceEventUncheckedCreateWithoutShowcaseInput = {
+  id?: string
+  businessId: string
+  customerAccountId?: string | null
+  productId?: string | null
+  orderRequestId?: string | null
+  type: $Enums.CommerceEventType
+  visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type CommerceEventCreateOrConnectWithoutShowcaseInput = {
+  where: Prisma.CommerceEventWhereUniqueInput
+  create: Prisma.XOR<Prisma.CommerceEventCreateWithoutShowcaseInput, Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput>
+}
+
+export type CommerceEventCreateManyShowcaseInputEnvelope = {
+  data: Prisma.CommerceEventCreateManyShowcaseInput | Prisma.CommerceEventCreateManyShowcaseInput[]
+  skipDuplicates?: boolean
+}
+
+export type CommerceEventUpsertWithWhereUniqueWithoutShowcaseInput = {
+  where: Prisma.CommerceEventWhereUniqueInput
+  update: Prisma.XOR<Prisma.CommerceEventUpdateWithoutShowcaseInput, Prisma.CommerceEventUncheckedUpdateWithoutShowcaseInput>
+  create: Prisma.XOR<Prisma.CommerceEventCreateWithoutShowcaseInput, Prisma.CommerceEventUncheckedCreateWithoutShowcaseInput>
+}
+
+export type CommerceEventUpdateWithWhereUniqueWithoutShowcaseInput = {
+  where: Prisma.CommerceEventWhereUniqueInput
+  data: Prisma.XOR<Prisma.CommerceEventUpdateWithoutShowcaseInput, Prisma.CommerceEventUncheckedUpdateWithoutShowcaseInput>
+}
+
+export type CommerceEventUpdateManyWithWhereWithoutShowcaseInput = {
+  where: Prisma.CommerceEventScalarWhereInput
+  data: Prisma.XOR<Prisma.CommerceEventUpdateManyMutationInput, Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseInput>
+}
+
+export type CommerceEventCreateWithoutOrderRequestInput = {
+  id?: string
+  type: $Enums.CommerceEventType
+  visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutCommerceEventsInput
+  customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutEventsInput
+  product?: Prisma.ProductCreateNestedOneWithoutCommerceEventsInput
+  showcase?: Prisma.ShowcaseCreateNestedOneWithoutCommerceEventsInput
 }
 
 export type CommerceEventUncheckedCreateWithoutOrderRequestInput = {
@@ -752,8 +940,11 @@ export type CommerceEventUncheckedCreateWithoutOrderRequestInput = {
   businessId: string
   customerAccountId?: string | null
   productId?: string | null
+  showcaseId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -788,9 +979,12 @@ export type CommerceEventCreateManyBusinessInput = {
   id?: string
   customerAccountId?: string | null
   productId?: string | null
+  showcaseId?: string | null
   orderRequestId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -799,10 +993,13 @@ export type CommerceEventUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutEventsNestedInput
   product?: Prisma.ProductUpdateOneWithoutCommerceEventsNestedInput
+  showcase?: Prisma.ShowcaseUpdateOneWithoutCommerceEventsNestedInput
   orderRequest?: Prisma.OrderRequestUpdateOneWithoutEventsNestedInput
 }
 
@@ -810,9 +1007,12 @@ export type CommerceEventUncheckedUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -821,9 +1021,12 @@ export type CommerceEventUncheckedUpdateManyWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -832,9 +1035,12 @@ export type CommerceEventCreateManyCustomerAccountInput = {
   id?: string
   businessId: string
   productId?: string | null
+  showcaseId?: string | null
   orderRequestId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -843,10 +1049,13 @@ export type CommerceEventUpdateWithoutCustomerAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutCommerceEventsNestedInput
   product?: Prisma.ProductUpdateOneWithoutCommerceEventsNestedInput
+  showcase?: Prisma.ShowcaseUpdateOneWithoutCommerceEventsNestedInput
   orderRequest?: Prisma.OrderRequestUpdateOneWithoutEventsNestedInput
 }
 
@@ -854,9 +1063,12 @@ export type CommerceEventUncheckedUpdateWithoutCustomerAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -865,9 +1077,12 @@ export type CommerceEventUncheckedUpdateManyWithoutCustomerAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -876,9 +1091,12 @@ export type CommerceEventCreateManyProductInput = {
   id?: string
   businessId: string
   customerAccountId?: string | null
+  showcaseId?: string | null
   orderRequestId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -887,10 +1105,13 @@ export type CommerceEventUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutCommerceEventsNestedInput
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutEventsNestedInput
+  showcase?: Prisma.ShowcaseUpdateOneWithoutCommerceEventsNestedInput
   orderRequest?: Prisma.OrderRequestUpdateOneWithoutEventsNestedInput
 }
 
@@ -898,9 +1119,12 @@ export type CommerceEventUncheckedUpdateWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -909,9 +1133,68 @@ export type CommerceEventUncheckedUpdateManyWithoutProductInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CommerceEventCreateManyShowcaseInput = {
+  id?: string
+  businessId: string
+  customerAccountId?: string | null
+  productId?: string | null
+  orderRequestId?: string | null
+  type: $Enums.CommerceEventType
+  visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+}
+
+export type CommerceEventUpdateWithoutShowcaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
+  visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutCommerceEventsNestedInput
+  customerAccount?: Prisma.CustomerAccountUpdateOneWithoutEventsNestedInput
+  product?: Prisma.ProductUpdateOneWithoutCommerceEventsNestedInput
+  orderRequest?: Prisma.OrderRequestUpdateOneWithoutEventsNestedInput
+}
+
+export type CommerceEventUncheckedUpdateWithoutShowcaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
+  visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CommerceEventUncheckedUpdateManyWithoutShowcaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  orderRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
+  visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -921,8 +1204,11 @@ export type CommerceEventCreateManyOrderRequestInput = {
   businessId: string
   customerAccountId?: string | null
   productId?: string | null
+  showcaseId?: string | null
   type: $Enums.CommerceEventType
   visitorHash?: string | null
+  sessionKey?: string | null
+  dedupeKey?: string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -931,11 +1217,14 @@ export type CommerceEventUpdateWithoutOrderRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutCommerceEventsNestedInput
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutEventsNestedInput
   product?: Prisma.ProductUpdateOneWithoutCommerceEventsNestedInput
+  showcase?: Prisma.ShowcaseUpdateOneWithoutCommerceEventsNestedInput
 }
 
 export type CommerceEventUncheckedUpdateWithoutOrderRequestInput = {
@@ -943,8 +1232,11 @@ export type CommerceEventUncheckedUpdateWithoutOrderRequestInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -954,8 +1246,11 @@ export type CommerceEventUncheckedUpdateManyWithoutOrderRequestInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  showcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumCommerceEventTypeFieldUpdateOperationsInput | $Enums.CommerceEventType
   visitorHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sessionKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dedupeKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -967,14 +1262,18 @@ export type CommerceEventSelect<ExtArgs extends runtime.Types.Extensions.Interna
   businessId?: boolean
   customerAccountId?: boolean
   productId?: boolean
+  showcaseId?: boolean
   orderRequestId?: boolean
   type?: boolean
   visitorHash?: boolean
+  sessionKey?: boolean
+  dedupeKey?: boolean
   metadata?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.CommerceEvent$customerAccountArgs<ExtArgs>
   product?: boolean | Prisma.CommerceEvent$productArgs<ExtArgs>
+  showcase?: boolean | Prisma.CommerceEvent$showcaseArgs<ExtArgs>
   orderRequest?: boolean | Prisma.CommerceEvent$orderRequestArgs<ExtArgs>
 }, ExtArgs["result"]["commerceEvent"]>
 
@@ -983,14 +1282,18 @@ export type CommerceEventSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   businessId?: boolean
   customerAccountId?: boolean
   productId?: boolean
+  showcaseId?: boolean
   orderRequestId?: boolean
   type?: boolean
   visitorHash?: boolean
+  sessionKey?: boolean
+  dedupeKey?: boolean
   metadata?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.CommerceEvent$customerAccountArgs<ExtArgs>
   product?: boolean | Prisma.CommerceEvent$productArgs<ExtArgs>
+  showcase?: boolean | Prisma.CommerceEvent$showcaseArgs<ExtArgs>
   orderRequest?: boolean | Prisma.CommerceEvent$orderRequestArgs<ExtArgs>
 }, ExtArgs["result"]["commerceEvent"]>
 
@@ -999,14 +1302,18 @@ export type CommerceEventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   businessId?: boolean
   customerAccountId?: boolean
   productId?: boolean
+  showcaseId?: boolean
   orderRequestId?: boolean
   type?: boolean
   visitorHash?: boolean
+  sessionKey?: boolean
+  dedupeKey?: boolean
   metadata?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.CommerceEvent$customerAccountArgs<ExtArgs>
   product?: boolean | Prisma.CommerceEvent$productArgs<ExtArgs>
+  showcase?: boolean | Prisma.CommerceEvent$showcaseArgs<ExtArgs>
   orderRequest?: boolean | Prisma.CommerceEvent$orderRequestArgs<ExtArgs>
 }, ExtArgs["result"]["commerceEvent"]>
 
@@ -1015,30 +1322,36 @@ export type CommerceEventSelectScalar = {
   businessId?: boolean
   customerAccountId?: boolean
   productId?: boolean
+  showcaseId?: boolean
   orderRequestId?: boolean
   type?: boolean
   visitorHash?: boolean
+  sessionKey?: boolean
+  dedupeKey?: boolean
   metadata?: boolean
   createdAt?: boolean
 }
 
-export type CommerceEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "productId" | "orderRequestId" | "type" | "visitorHash" | "metadata" | "createdAt", ExtArgs["result"]["commerceEvent"]>
+export type CommerceEventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "productId" | "showcaseId" | "orderRequestId" | "type" | "visitorHash" | "sessionKey" | "dedupeKey" | "metadata" | "createdAt", ExtArgs["result"]["commerceEvent"]>
 export type CommerceEventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.CommerceEvent$customerAccountArgs<ExtArgs>
   product?: boolean | Prisma.CommerceEvent$productArgs<ExtArgs>
+  showcase?: boolean | Prisma.CommerceEvent$showcaseArgs<ExtArgs>
   orderRequest?: boolean | Prisma.CommerceEvent$orderRequestArgs<ExtArgs>
 }
 export type CommerceEventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.CommerceEvent$customerAccountArgs<ExtArgs>
   product?: boolean | Prisma.CommerceEvent$productArgs<ExtArgs>
+  showcase?: boolean | Prisma.CommerceEvent$showcaseArgs<ExtArgs>
   orderRequest?: boolean | Prisma.CommerceEvent$orderRequestArgs<ExtArgs>
 }
 export type CommerceEventIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.CommerceEvent$customerAccountArgs<ExtArgs>
   product?: boolean | Prisma.CommerceEvent$productArgs<ExtArgs>
+  showcase?: boolean | Prisma.CommerceEvent$showcaseArgs<ExtArgs>
   orderRequest?: boolean | Prisma.CommerceEvent$orderRequestArgs<ExtArgs>
 }
 
@@ -1048,6 +1361,7 @@ export type $CommerceEventPayload<ExtArgs extends runtime.Types.Extensions.Inter
     business: Prisma.$BusinessPayload<ExtArgs>
     customerAccount: Prisma.$CustomerAccountPayload<ExtArgs> | null
     product: Prisma.$ProductPayload<ExtArgs> | null
+    showcase: Prisma.$ShowcasePayload<ExtArgs> | null
     orderRequest: Prisma.$OrderRequestPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1055,9 +1369,12 @@ export type $CommerceEventPayload<ExtArgs extends runtime.Types.Extensions.Inter
     businessId: string
     customerAccountId: string | null
     productId: string | null
+    showcaseId: string | null
     orderRequestId: string | null
     type: $Enums.CommerceEventType
     visitorHash: string | null
+    sessionKey: string | null
+    dedupeKey: string | null
     metadata: runtime.JsonValue | null
     createdAt: Date
   }, ExtArgs["result"]["commerceEvent"]>
@@ -1457,6 +1774,7 @@ export interface Prisma__CommerceEventClient<T, Null = never, ExtArgs extends ru
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customerAccount<T extends Prisma.CommerceEvent$customerAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CommerceEvent$customerAccountArgs<ExtArgs>>): Prisma.Prisma__CustomerAccountClient<runtime.Types.Result.GetResult<Prisma.$CustomerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   product<T extends Prisma.CommerceEvent$productArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CommerceEvent$productArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  showcase<T extends Prisma.CommerceEvent$showcaseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CommerceEvent$showcaseArgs<ExtArgs>>): Prisma.Prisma__ShowcaseClient<runtime.Types.Result.GetResult<Prisma.$ShowcasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   orderRequest<T extends Prisma.CommerceEvent$orderRequestArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CommerceEvent$orderRequestArgs<ExtArgs>>): Prisma.Prisma__OrderRequestClient<runtime.Types.Result.GetResult<Prisma.$OrderRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1491,9 +1809,12 @@ export interface CommerceEventFieldRefs {
   readonly businessId: Prisma.FieldRef<"CommerceEvent", 'String'>
   readonly customerAccountId: Prisma.FieldRef<"CommerceEvent", 'String'>
   readonly productId: Prisma.FieldRef<"CommerceEvent", 'String'>
+  readonly showcaseId: Prisma.FieldRef<"CommerceEvent", 'String'>
   readonly orderRequestId: Prisma.FieldRef<"CommerceEvent", 'String'>
   readonly type: Prisma.FieldRef<"CommerceEvent", 'CommerceEventType'>
   readonly visitorHash: Prisma.FieldRef<"CommerceEvent", 'String'>
+  readonly sessionKey: Prisma.FieldRef<"CommerceEvent", 'String'>
+  readonly dedupeKey: Prisma.FieldRef<"CommerceEvent", 'String'>
   readonly metadata: Prisma.FieldRef<"CommerceEvent", 'Json'>
   readonly createdAt: Prisma.FieldRef<"CommerceEvent", 'DateTime'>
 }
@@ -1932,6 +2253,25 @@ export type CommerceEvent$productArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   include?: Prisma.ProductInclude<ExtArgs> | null
   where?: Prisma.ProductWhereInput
+}
+
+/**
+ * CommerceEvent.showcase
+ */
+export type CommerceEvent$showcaseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Showcase
+   */
+  select?: Prisma.ShowcaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Showcase
+   */
+  omit?: Prisma.ShowcaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShowcaseInclude<ExtArgs> | null
+  where?: Prisma.ShowcaseWhereInput
 }
 
 /**

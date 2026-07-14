@@ -6,6 +6,7 @@ import {
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { createOpaqueToken, hashToken } from "../../common/crypto.util";
+import { resolveCapabilities } from "../../common/auth/capabilities";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
@@ -23,6 +24,7 @@ import {
   UpdateBusinessDto,
   UpdateBusinessPreferencesDto,
 } from "./dto/update-business.dto";
+import { UpdateMemberPermissionsDto } from "./dto/member-permission.dto";
 
 @Injectable()
 export class BusinessesService {
@@ -33,7 +35,7 @@ export class BusinessesService {
 
   async getCurrent(auth: OwnerAuthContext) {
     await this.reconcileScheduledLaunch(auth.businessId);
-    return this.prisma.business.findUniqueOrThrow({
+    const business = await this.prisma.business.findUniqueOrThrow({
       where: { id: auth.businessId },
       include: {
         coverAsset: true,
@@ -50,6 +52,7 @@ export class BusinessesService {
         contacts: { orderBy: { sortOrder: "asc" } },
         members: {
           include: {
+            permissionOverrides: true,
             user: {
               select: {
                 id: true,
@@ -69,6 +72,13 @@ export class BusinessesService {
         },
       },
     });
+    return {
+      ...business,
+      members: business.members.map((member) => ({
+        ...member,
+        capabilities: resolveCapabilities(member.role, member.permissionOverrides),
+      })),
+    };
   }
 
   async resolvePublicCard(cardId: string) {
@@ -394,8 +404,20 @@ export class BusinessesService {
     auth: OwnerAuthContext,
     dto: UpdateBusinessPreferencesDto,
   ) {
+    if (
+      dto.defaultPaymentMethod &&
+      dto.allowedPaymentMethods &&
+      !dto.allowedPaymentMethods.includes(dto.defaultPaymentMethod)
+    ) {
+      throw new BadRequestException(
+        "The default payment method must be one of the allowed methods",
+      );
+    }
     const data = {
       ...dto,
+      allowedPaymentMethods: dto.allowedPaymentMethods
+        ? [...new Set(dto.allowedPaymentMethods)]
+        : undefined,
       tickerItems: dto.tickerItems
         ? [...new Set(dto.tickerItems.map((item) => item.trim()).filter(Boolean))]
         : undefined,
@@ -405,6 +427,58 @@ export class BusinessesService {
       create: { businessId: auth.businessId, ...data },
       update: data,
     });
+  }
+
+  async updateMemberPermissions(
+    auth: OwnerAuthContext,
+    memberId: string,
+    dto: UpdateMemberPermissionsDto,
+  ) {
+    const member = await this.prisma.businessMember.findFirst({
+      where: { id: memberId, businessId: auth.businessId, status: "ACTIVE" },
+      include: { permissionOverrides: true, user: { select: { id: true, name: true } } },
+    });
+    if (!member) throw new NotFoundException("Team member not found");
+    if (member.role === "OWNER") {
+      throw new BadRequestException("Owner permissions cannot be restricted");
+    }
+    const overrides = [...new Map(
+      dto.overrides.map((entry) => [entry.capability, entry]),
+    ).values()];
+    await this.prisma.$transaction(async (tx) => {
+      await tx.memberPermissionOverride.deleteMany({ where: { memberId } });
+      if (overrides.length) {
+        await tx.memberPermissionOverride.createMany({
+          data: overrides.map((entry) => ({
+            memberId,
+            capability: entry.capability,
+            allowed: entry.allowed,
+            actorId: auth.userId,
+          })),
+        });
+      }
+      await tx.activityEvent.create({
+        data: {
+          businessId: auth.businessId,
+          actorId: auth.userId,
+          type: "MEMBER_PERMISSIONS_UPDATED",
+          title: `Updated permissions for ${member.user.name}`,
+          metadata: {
+            memberId,
+            overrides: overrides.map((entry) => ({
+              capability: entry.capability,
+              allowed: entry.allowed,
+            })),
+          },
+        },
+      });
+    });
+    return {
+      memberId,
+      role: member.role,
+      overrides,
+      capabilities: resolveCapabilities(member.role, overrides),
+    };
   }
 
   async replaceContacts(

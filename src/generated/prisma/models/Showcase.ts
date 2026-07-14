@@ -20,14 +20,27 @@ export type ShowcaseModel = runtime.Types.Result.DefaultSelection<Prisma.$Showca
 
 export type AggregateShowcase = {
   _count: ShowcaseCountAggregateOutputType | null
+  _avg: ShowcaseAvgAggregateOutputType | null
+  _sum: ShowcaseSumAggregateOutputType | null
   _min: ShowcaseMinAggregateOutputType | null
   _max: ShowcaseMaxAggregateOutputType | null
+}
+
+export type ShowcaseAvgAggregateOutputType = {
+  durationSeconds: number | null
+}
+
+export type ShowcaseSumAggregateOutputType = {
+  durationSeconds: number | null
 }
 
 export type ShowcaseMinAggregateOutputType = {
   id: string | null
   businessId: string | null
   assetId: string | null
+  posterAssetId: string | null
+  mediaKind: $Enums.ProductMediaKind | null
+  durationSeconds: number | null
   title: string | null
   caption: string | null
   status: $Enums.ShowcaseStatus | null
@@ -41,6 +54,9 @@ export type ShowcaseMaxAggregateOutputType = {
   id: string | null
   businessId: string | null
   assetId: string | null
+  posterAssetId: string | null
+  mediaKind: $Enums.ProductMediaKind | null
+  durationSeconds: number | null
   title: string | null
   caption: string | null
   status: $Enums.ShowcaseStatus | null
@@ -54,6 +70,9 @@ export type ShowcaseCountAggregateOutputType = {
   id: number
   businessId: number
   assetId: number
+  posterAssetId: number
+  mediaKind: number
+  durationSeconds: number
   title: number
   caption: number
   status: number
@@ -65,10 +84,21 @@ export type ShowcaseCountAggregateOutputType = {
 }
 
 
+export type ShowcaseAvgAggregateInputType = {
+  durationSeconds?: true
+}
+
+export type ShowcaseSumAggregateInputType = {
+  durationSeconds?: true
+}
+
 export type ShowcaseMinAggregateInputType = {
   id?: true
   businessId?: true
   assetId?: true
+  posterAssetId?: true
+  mediaKind?: true
+  durationSeconds?: true
   title?: true
   caption?: true
   status?: true
@@ -82,6 +112,9 @@ export type ShowcaseMaxAggregateInputType = {
   id?: true
   businessId?: true
   assetId?: true
+  posterAssetId?: true
+  mediaKind?: true
+  durationSeconds?: true
   title?: true
   caption?: true
   status?: true
@@ -95,6 +128,9 @@ export type ShowcaseCountAggregateInputType = {
   id?: true
   businessId?: true
   assetId?: true
+  posterAssetId?: true
+  mediaKind?: true
+  durationSeconds?: true
   title?: true
   caption?: true
   status?: true
@@ -143,6 +179,18 @@ export type ShowcaseAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inter
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ShowcaseAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ShowcaseSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ShowcaseMinAggregateInputType
@@ -173,6 +221,8 @@ export type ShowcaseGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   _count?: ShowcaseCountAggregateInputType | true
+  _avg?: ShowcaseAvgAggregateInputType
+  _sum?: ShowcaseSumAggregateInputType
   _min?: ShowcaseMinAggregateInputType
   _max?: ShowcaseMaxAggregateInputType
 }
@@ -181,6 +231,9 @@ export type ShowcaseGroupByOutputType = {
   id: string
   businessId: string
   assetId: string
+  posterAssetId: string | null
+  mediaKind: $Enums.ProductMediaKind
+  durationSeconds: number | null
   title: string
   caption: string | null
   status: $Enums.ShowcaseStatus
@@ -189,6 +242,8 @@ export type ShowcaseGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   _count: ShowcaseCountAggregateOutputType | null
+  _avg: ShowcaseAvgAggregateOutputType | null
+  _sum: ShowcaseSumAggregateOutputType | null
   _min: ShowcaseMinAggregateOutputType | null
   _max: ShowcaseMaxAggregateOutputType | null
 }
@@ -215,6 +270,9 @@ export type ShowcaseWhereInput = {
   id?: Prisma.StringFilter<"Showcase"> | string
   businessId?: Prisma.StringFilter<"Showcase"> | string
   assetId?: Prisma.StringFilter<"Showcase"> | string
+  posterAssetId?: Prisma.StringNullableFilter<"Showcase"> | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFilter<"Showcase"> | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.FloatNullableFilter<"Showcase"> | number | null
   title?: Prisma.StringFilter<"Showcase"> | string
   caption?: Prisma.StringNullableFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusFilter<"Showcase"> | $Enums.ShowcaseStatus
@@ -224,15 +282,20 @@ export type ShowcaseWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   asset?: Prisma.XOR<Prisma.MediaAssetScalarRelationFilter, Prisma.MediaAssetWhereInput>
+  posterAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   hotspots?: Prisma.ShowcaseHotspotListRelationFilter
   savedBy?: Prisma.SavedShowcaseListRelationFilter
   requests?: Prisma.OrderRequestListRelationFilter
+  commerceEvents?: Prisma.CommerceEventListRelationFilter
 }
 
 export type ShowcaseOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   assetId?: Prisma.SortOrder
+  posterAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaKind?: Prisma.SortOrder
+  durationSeconds?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   caption?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -242,9 +305,11 @@ export type ShowcaseOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   asset?: Prisma.MediaAssetOrderByWithRelationInput
+  posterAsset?: Prisma.MediaAssetOrderByWithRelationInput
   hotspots?: Prisma.ShowcaseHotspotOrderByRelationAggregateInput
   savedBy?: Prisma.SavedShowcaseOrderByRelationAggregateInput
   requests?: Prisma.OrderRequestOrderByRelationAggregateInput
+  commerceEvents?: Prisma.CommerceEventOrderByRelationAggregateInput
 }
 
 export type ShowcaseWhereUniqueInput = Prisma.AtLeast<{
@@ -254,6 +319,9 @@ export type ShowcaseWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ShowcaseWhereInput | Prisma.ShowcaseWhereInput[]
   businessId?: Prisma.StringFilter<"Showcase"> | string
   assetId?: Prisma.StringFilter<"Showcase"> | string
+  posterAssetId?: Prisma.StringNullableFilter<"Showcase"> | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFilter<"Showcase"> | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.FloatNullableFilter<"Showcase"> | number | null
   title?: Prisma.StringFilter<"Showcase"> | string
   caption?: Prisma.StringNullableFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusFilter<"Showcase"> | $Enums.ShowcaseStatus
@@ -263,15 +331,20 @@ export type ShowcaseWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   asset?: Prisma.XOR<Prisma.MediaAssetScalarRelationFilter, Prisma.MediaAssetWhereInput>
+  posterAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   hotspots?: Prisma.ShowcaseHotspotListRelationFilter
   savedBy?: Prisma.SavedShowcaseListRelationFilter
   requests?: Prisma.OrderRequestListRelationFilter
+  commerceEvents?: Prisma.CommerceEventListRelationFilter
 }, "id">
 
 export type ShowcaseOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   assetId?: Prisma.SortOrder
+  posterAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaKind?: Prisma.SortOrder
+  durationSeconds?: Prisma.SortOrderInput | Prisma.SortOrder
   title?: Prisma.SortOrder
   caption?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -280,8 +353,10 @@ export type ShowcaseOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ShowcaseCountOrderByAggregateInput
+  _avg?: Prisma.ShowcaseAvgOrderByAggregateInput
   _max?: Prisma.ShowcaseMaxOrderByAggregateInput
   _min?: Prisma.ShowcaseMinOrderByAggregateInput
+  _sum?: Prisma.ShowcaseSumOrderByAggregateInput
 }
 
 export type ShowcaseScalarWhereWithAggregatesInput = {
@@ -291,6 +366,9 @@ export type ShowcaseScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Showcase"> | string
   businessId?: Prisma.StringWithAggregatesFilter<"Showcase"> | string
   assetId?: Prisma.StringWithAggregatesFilter<"Showcase"> | string
+  posterAssetId?: Prisma.StringNullableWithAggregatesFilter<"Showcase"> | string | null
+  mediaKind?: Prisma.EnumProductMediaKindWithAggregatesFilter<"Showcase"> | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.FloatNullableWithAggregatesFilter<"Showcase"> | number | null
   title?: Prisma.StringWithAggregatesFilter<"Showcase"> | string
   caption?: Prisma.StringNullableWithAggregatesFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusWithAggregatesFilter<"Showcase"> | $Enums.ShowcaseStatus
@@ -302,6 +380,8 @@ export type ShowcaseScalarWhereWithAggregatesInput = {
 
 export type ShowcaseCreateInput = {
   id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -311,15 +391,20 @@ export type ShowcaseCreateInput = {
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
   asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
   hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateInput = {
   id?: string
   businessId: string
   assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -330,10 +415,13 @@ export type ShowcaseUncheckedCreateInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -343,15 +431,20 @@ export type ShowcaseUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
   asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
   hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -362,12 +455,16 @@ export type ShowcaseUncheckedUpdateInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseCreateManyInput = {
   id?: string
   businessId: string
   assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -379,6 +476,8 @@ export type ShowcaseCreateManyInput = {
 
 export type ShowcaseUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -392,6 +491,9 @@ export type ShowcaseUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -415,6 +517,9 @@ export type ShowcaseCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   assetId?: Prisma.SortOrder
+  posterAssetId?: Prisma.SortOrder
+  mediaKind?: Prisma.SortOrder
+  durationSeconds?: Prisma.SortOrder
   title?: Prisma.SortOrder
   caption?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -424,10 +529,17 @@ export type ShowcaseCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type ShowcaseAvgOrderByAggregateInput = {
+  durationSeconds?: Prisma.SortOrder
+}
+
 export type ShowcaseMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   assetId?: Prisma.SortOrder
+  posterAssetId?: Prisma.SortOrder
+  mediaKind?: Prisma.SortOrder
+  durationSeconds?: Prisma.SortOrder
   title?: Prisma.SortOrder
   caption?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -441,6 +553,9 @@ export type ShowcaseMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   assetId?: Prisma.SortOrder
+  posterAssetId?: Prisma.SortOrder
+  mediaKind?: Prisma.SortOrder
+  durationSeconds?: Prisma.SortOrder
   title?: Prisma.SortOrder
   caption?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -448,6 +563,10 @@ export type ShowcaseMinOrderByAggregateInput = {
   publishedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type ShowcaseSumOrderByAggregateInput = {
+  durationSeconds?: Prisma.SortOrder
 }
 
 export type ShowcaseScalarRelationFilter = {
@@ -509,10 +628,24 @@ export type ShowcaseCreateNestedManyWithoutAssetInput = {
   connect?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
 }
 
+export type ShowcaseCreateNestedManyWithoutPosterAssetInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutPosterAssetInput, Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput> | Prisma.ShowcaseCreateWithoutPosterAssetInput[] | Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput[]
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutPosterAssetInput | Prisma.ShowcaseCreateOrConnectWithoutPosterAssetInput[]
+  createMany?: Prisma.ShowcaseCreateManyPosterAssetInputEnvelope
+  connect?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+}
+
 export type ShowcaseUncheckedCreateNestedManyWithoutAssetInput = {
   create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutAssetInput, Prisma.ShowcaseUncheckedCreateWithoutAssetInput> | Prisma.ShowcaseCreateWithoutAssetInput[] | Prisma.ShowcaseUncheckedCreateWithoutAssetInput[]
   connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutAssetInput | Prisma.ShowcaseCreateOrConnectWithoutAssetInput[]
   createMany?: Prisma.ShowcaseCreateManyAssetInputEnvelope
+  connect?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+}
+
+export type ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutPosterAssetInput, Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput> | Prisma.ShowcaseCreateWithoutPosterAssetInput[] | Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput[]
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutPosterAssetInput | Prisma.ShowcaseCreateOrConnectWithoutPosterAssetInput[]
+  createMany?: Prisma.ShowcaseCreateManyPosterAssetInputEnvelope
   connect?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
 }
 
@@ -530,6 +663,20 @@ export type ShowcaseUpdateManyWithoutAssetNestedInput = {
   deleteMany?: Prisma.ShowcaseScalarWhereInput | Prisma.ShowcaseScalarWhereInput[]
 }
 
+export type ShowcaseUpdateManyWithoutPosterAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutPosterAssetInput, Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput> | Prisma.ShowcaseCreateWithoutPosterAssetInput[] | Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput[]
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutPosterAssetInput | Prisma.ShowcaseCreateOrConnectWithoutPosterAssetInput[]
+  upsert?: Prisma.ShowcaseUpsertWithWhereUniqueWithoutPosterAssetInput | Prisma.ShowcaseUpsertWithWhereUniqueWithoutPosterAssetInput[]
+  createMany?: Prisma.ShowcaseCreateManyPosterAssetInputEnvelope
+  set?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+  disconnect?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+  delete?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+  connect?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+  update?: Prisma.ShowcaseUpdateWithWhereUniqueWithoutPosterAssetInput | Prisma.ShowcaseUpdateWithWhereUniqueWithoutPosterAssetInput[]
+  updateMany?: Prisma.ShowcaseUpdateManyWithWhereWithoutPosterAssetInput | Prisma.ShowcaseUpdateManyWithWhereWithoutPosterAssetInput[]
+  deleteMany?: Prisma.ShowcaseScalarWhereInput | Prisma.ShowcaseScalarWhereInput[]
+}
+
 export type ShowcaseUncheckedUpdateManyWithoutAssetNestedInput = {
   create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutAssetInput, Prisma.ShowcaseUncheckedCreateWithoutAssetInput> | Prisma.ShowcaseCreateWithoutAssetInput[] | Prisma.ShowcaseUncheckedCreateWithoutAssetInput[]
   connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutAssetInput | Prisma.ShowcaseCreateOrConnectWithoutAssetInput[]
@@ -541,6 +688,20 @@ export type ShowcaseUncheckedUpdateManyWithoutAssetNestedInput = {
   connect?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
   update?: Prisma.ShowcaseUpdateWithWhereUniqueWithoutAssetInput | Prisma.ShowcaseUpdateWithWhereUniqueWithoutAssetInput[]
   updateMany?: Prisma.ShowcaseUpdateManyWithWhereWithoutAssetInput | Prisma.ShowcaseUpdateManyWithWhereWithoutAssetInput[]
+  deleteMany?: Prisma.ShowcaseScalarWhereInput | Prisma.ShowcaseScalarWhereInput[]
+}
+
+export type ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutPosterAssetInput, Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput> | Prisma.ShowcaseCreateWithoutPosterAssetInput[] | Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput[]
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutPosterAssetInput | Prisma.ShowcaseCreateOrConnectWithoutPosterAssetInput[]
+  upsert?: Prisma.ShowcaseUpsertWithWhereUniqueWithoutPosterAssetInput | Prisma.ShowcaseUpsertWithWhereUniqueWithoutPosterAssetInput[]
+  createMany?: Prisma.ShowcaseCreateManyPosterAssetInputEnvelope
+  set?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+  disconnect?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+  delete?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+  connect?: Prisma.ShowcaseWhereUniqueInput | Prisma.ShowcaseWhereUniqueInput[]
+  update?: Prisma.ShowcaseUpdateWithWhereUniqueWithoutPosterAssetInput | Prisma.ShowcaseUpdateWithWhereUniqueWithoutPosterAssetInput[]
+  updateMany?: Prisma.ShowcaseUpdateManyWithWhereWithoutPosterAssetInput | Prisma.ShowcaseUpdateManyWithWhereWithoutPosterAssetInput[]
   deleteMany?: Prisma.ShowcaseScalarWhereInput | Prisma.ShowcaseScalarWhereInput[]
 }
 
@@ -592,8 +753,26 @@ export type ShowcaseUpdateOneWithoutRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShowcaseUpdateToOneWithWhereWithoutRequestsInput, Prisma.ShowcaseUpdateWithoutRequestsInput>, Prisma.ShowcaseUncheckedUpdateWithoutRequestsInput>
 }
 
+export type ShowcaseCreateNestedOneWithoutCommerceEventsInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutCommerceEventsInput, Prisma.ShowcaseUncheckedCreateWithoutCommerceEventsInput>
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutCommerceEventsInput
+  connect?: Prisma.ShowcaseWhereUniqueInput
+}
+
+export type ShowcaseUpdateOneWithoutCommerceEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutCommerceEventsInput, Prisma.ShowcaseUncheckedCreateWithoutCommerceEventsInput>
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutCommerceEventsInput
+  upsert?: Prisma.ShowcaseUpsertWithoutCommerceEventsInput
+  disconnect?: Prisma.ShowcaseWhereInput | boolean
+  delete?: Prisma.ShowcaseWhereInput | boolean
+  connect?: Prisma.ShowcaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShowcaseUpdateToOneWithWhereWithoutCommerceEventsInput, Prisma.ShowcaseUpdateWithoutCommerceEventsInput>, Prisma.ShowcaseUncheckedUpdateWithoutCommerceEventsInput>
+}
+
 export type ShowcaseCreateWithoutBusinessInput = {
   id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -602,14 +781,19 @@ export type ShowcaseCreateWithoutBusinessInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
   hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutBusinessInput = {
   id?: string
   assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -620,6 +804,7 @@ export type ShowcaseUncheckedCreateWithoutBusinessInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutBusinessInput = {
@@ -655,6 +840,9 @@ export type ShowcaseScalarWhereInput = {
   id?: Prisma.StringFilter<"Showcase"> | string
   businessId?: Prisma.StringFilter<"Showcase"> | string
   assetId?: Prisma.StringFilter<"Showcase"> | string
+  posterAssetId?: Prisma.StringNullableFilter<"Showcase"> | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFilter<"Showcase"> | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.FloatNullableFilter<"Showcase"> | number | null
   title?: Prisma.StringFilter<"Showcase"> | string
   caption?: Prisma.StringNullableFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusFilter<"Showcase"> | $Enums.ShowcaseStatus
@@ -666,6 +854,8 @@ export type ShowcaseScalarWhereInput = {
 
 export type ShowcaseCreateWithoutAssetInput = {
   id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -674,14 +864,19 @@ export type ShowcaseCreateWithoutAssetInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
   hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutAssetInput = {
   id?: string
   businessId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -692,6 +887,7 @@ export type ShowcaseUncheckedCreateWithoutAssetInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutAssetInput = {
@@ -701,6 +897,54 @@ export type ShowcaseCreateOrConnectWithoutAssetInput = {
 
 export type ShowcaseCreateManyAssetInputEnvelope = {
   data: Prisma.ShowcaseCreateManyAssetInput | Prisma.ShowcaseCreateManyAssetInput[]
+  skipDuplicates?: boolean
+}
+
+export type ShowcaseCreateWithoutPosterAssetInput = {
+  id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
+  asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+}
+
+export type ShowcaseUncheckedCreateWithoutPosterAssetInput = {
+  id?: string
+  businessId: string
+  assetId: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+}
+
+export type ShowcaseCreateOrConnectWithoutPosterAssetInput = {
+  where: Prisma.ShowcaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutPosterAssetInput, Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput>
+}
+
+export type ShowcaseCreateManyPosterAssetInputEnvelope = {
+  data: Prisma.ShowcaseCreateManyPosterAssetInput | Prisma.ShowcaseCreateManyPosterAssetInput[]
   skipDuplicates?: boolean
 }
 
@@ -720,8 +964,26 @@ export type ShowcaseUpdateManyWithWhereWithoutAssetInput = {
   data: Prisma.XOR<Prisma.ShowcaseUpdateManyMutationInput, Prisma.ShowcaseUncheckedUpdateManyWithoutAssetInput>
 }
 
+export type ShowcaseUpsertWithWhereUniqueWithoutPosterAssetInput = {
+  where: Prisma.ShowcaseWhereUniqueInput
+  update: Prisma.XOR<Prisma.ShowcaseUpdateWithoutPosterAssetInput, Prisma.ShowcaseUncheckedUpdateWithoutPosterAssetInput>
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutPosterAssetInput, Prisma.ShowcaseUncheckedCreateWithoutPosterAssetInput>
+}
+
+export type ShowcaseUpdateWithWhereUniqueWithoutPosterAssetInput = {
+  where: Prisma.ShowcaseWhereUniqueInput
+  data: Prisma.XOR<Prisma.ShowcaseUpdateWithoutPosterAssetInput, Prisma.ShowcaseUncheckedUpdateWithoutPosterAssetInput>
+}
+
+export type ShowcaseUpdateManyWithWhereWithoutPosterAssetInput = {
+  where: Prisma.ShowcaseScalarWhereInput
+  data: Prisma.XOR<Prisma.ShowcaseUpdateManyMutationInput, Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetInput>
+}
+
 export type ShowcaseCreateWithoutHotspotsInput = {
   id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -731,14 +993,19 @@ export type ShowcaseCreateWithoutHotspotsInput = {
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
   asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutHotspotsInput = {
   id?: string
   businessId: string
   assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -748,6 +1015,7 @@ export type ShowcaseUncheckedCreateWithoutHotspotsInput = {
   updatedAt?: Date | string
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutHotspotsInput = {
@@ -768,6 +1036,8 @@ export type ShowcaseUpdateToOneWithWhereWithoutHotspotsInput = {
 
 export type ShowcaseUpdateWithoutHotspotsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -777,14 +1047,19 @@ export type ShowcaseUpdateWithoutHotspotsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
   asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutHotspotsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -794,10 +1069,13 @@ export type ShowcaseUncheckedUpdateWithoutHotspotsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseCreateWithoutSavedByInput = {
   id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -807,14 +1085,19 @@ export type ShowcaseCreateWithoutSavedByInput = {
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
   asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
   hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutSavedByInput = {
   id?: string
   businessId: string
   assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -824,6 +1107,7 @@ export type ShowcaseUncheckedCreateWithoutSavedByInput = {
   updatedAt?: Date | string
   hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutSavedByInput = {
@@ -844,6 +1128,8 @@ export type ShowcaseUpdateToOneWithWhereWithoutSavedByInput = {
 
 export type ShowcaseUpdateWithoutSavedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -853,14 +1139,19 @@ export type ShowcaseUpdateWithoutSavedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
   asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
   hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutSavedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -870,10 +1161,13 @@ export type ShowcaseUncheckedUpdateWithoutSavedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseCreateWithoutRequestsInput = {
   id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -883,14 +1177,19 @@ export type ShowcaseCreateWithoutRequestsInput = {
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
   asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
   hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutRequestsInput = {
   id?: string
   businessId: string
   assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -900,6 +1199,7 @@ export type ShowcaseUncheckedCreateWithoutRequestsInput = {
   updatedAt?: Date | string
   hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutRequestsInput = {
@@ -920,6 +1220,8 @@ export type ShowcaseUpdateToOneWithWhereWithoutRequestsInput = {
 
 export type ShowcaseUpdateWithoutRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -929,14 +1231,19 @@ export type ShowcaseUpdateWithoutRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
   asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
   hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -946,11 +1253,13 @@ export type ShowcaseUncheckedUpdateWithoutRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
-export type ShowcaseCreateManyBusinessInput = {
+export type ShowcaseCreateWithoutCommerceEventsInput = {
   id?: string
-  assetId: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -958,10 +1267,53 @@ export type ShowcaseCreateManyBusinessInput = {
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
+  asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
+  hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
 }
 
-export type ShowcaseUpdateWithoutBusinessInput = {
+export type ShowcaseUncheckedCreateWithoutCommerceEventsInput = {
+  id?: string
+  businessId: string
+  assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+}
+
+export type ShowcaseCreateOrConnectWithoutCommerceEventsInput = {
+  where: Prisma.ShowcaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutCommerceEventsInput, Prisma.ShowcaseUncheckedCreateWithoutCommerceEventsInput>
+}
+
+export type ShowcaseUpsertWithoutCommerceEventsInput = {
+  update: Prisma.XOR<Prisma.ShowcaseUpdateWithoutCommerceEventsInput, Prisma.ShowcaseUncheckedUpdateWithoutCommerceEventsInput>
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutCommerceEventsInput, Prisma.ShowcaseUncheckedCreateWithoutCommerceEventsInput>
+  where?: Prisma.ShowcaseWhereInput
+}
+
+export type ShowcaseUpdateToOneWithWhereWithoutCommerceEventsInput = {
+  where?: Prisma.ShowcaseWhereInput
+  data: Prisma.XOR<Prisma.ShowcaseUpdateWithoutCommerceEventsInput, Prisma.ShowcaseUncheckedUpdateWithoutCommerceEventsInput>
+}
+
+export type ShowcaseUpdateWithoutCommerceEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -969,15 +1321,21 @@ export type ShowcaseUpdateWithoutBusinessInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
   asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
   hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
 }
 
-export type ShowcaseUncheckedUpdateWithoutBusinessInput = {
+export type ShowcaseUncheckedUpdateWithoutCommerceEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
   assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -990,9 +1348,65 @@ export type ShowcaseUncheckedUpdateWithoutBusinessInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
 }
 
+export type ShowcaseCreateManyBusinessInput = {
+  id?: string
+  assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShowcaseUpdateWithoutBusinessInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
+  hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+}
+
+export type ShowcaseUncheckedUpdateWithoutBusinessInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+}
+
 export type ShowcaseUncheckedUpdateManyWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -1005,6 +1419,24 @@ export type ShowcaseUncheckedUpdateManyWithoutBusinessInput = {
 export type ShowcaseCreateManyAssetInput = {
   id?: string
   businessId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShowcaseCreateManyPosterAssetInput = {
+  id?: string
+  businessId: string
+  assetId: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
   title: string
   caption?: string | null
   status?: $Enums.ShowcaseStatus
@@ -1016,6 +1448,8 @@ export type ShowcaseCreateManyAssetInput = {
 
 export type ShowcaseUpdateWithoutAssetInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -1024,14 +1458,19 @@ export type ShowcaseUpdateWithoutAssetInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
   hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutAssetInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -1042,11 +1481,68 @@ export type ShowcaseUncheckedUpdateWithoutAssetInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateManyWithoutAssetInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ShowcaseUpdateWithoutPosterAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
+  asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+}
+
+export type ShowcaseUncheckedUpdateWithoutPosterAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+}
+
+export type ShowcaseUncheckedUpdateManyWithoutPosterAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   title?: Prisma.StringFieldUpdateOperationsInput | string
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
@@ -1065,12 +1561,14 @@ export type ShowcaseCountOutputType = {
   hotspots: number
   savedBy: number
   requests: number
+  commerceEvents: number
 }
 
 export type ShowcaseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   hotspots?: boolean | ShowcaseCountOutputTypeCountHotspotsArgs
   savedBy?: boolean | ShowcaseCountOutputTypeCountSavedByArgs
   requests?: boolean | ShowcaseCountOutputTypeCountRequestsArgs
+  commerceEvents?: boolean | ShowcaseCountOutputTypeCountCommerceEventsArgs
 }
 
 /**
@@ -1104,11 +1602,21 @@ export type ShowcaseCountOutputTypeCountRequestsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.OrderRequestWhereInput
 }
 
+/**
+ * ShowcaseCountOutputType without action
+ */
+export type ShowcaseCountOutputTypeCountCommerceEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommerceEventWhereInput
+}
+
 
 export type ShowcaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   businessId?: boolean
   assetId?: boolean
+  posterAssetId?: boolean
+  mediaKind?: boolean
+  durationSeconds?: boolean
   title?: boolean
   caption?: boolean
   status?: boolean
@@ -1118,9 +1626,11 @@ export type ShowcaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.MediaAssetDefaultArgs<ExtArgs>
+  posterAsset?: boolean | Prisma.Showcase$posterAssetArgs<ExtArgs>
   hotspots?: boolean | Prisma.Showcase$hotspotsArgs<ExtArgs>
   savedBy?: boolean | Prisma.Showcase$savedByArgs<ExtArgs>
   requests?: boolean | Prisma.Showcase$requestsArgs<ExtArgs>
+  commerceEvents?: boolean | Prisma.Showcase$commerceEventsArgs<ExtArgs>
   _count?: boolean | Prisma.ShowcaseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["showcase"]>
 
@@ -1128,6 +1638,9 @@ export type ShowcaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   businessId?: boolean
   assetId?: boolean
+  posterAssetId?: boolean
+  mediaKind?: boolean
+  durationSeconds?: boolean
   title?: boolean
   caption?: boolean
   status?: boolean
@@ -1137,12 +1650,16 @@ export type ShowcaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.MediaAssetDefaultArgs<ExtArgs>
+  posterAsset?: boolean | Prisma.Showcase$posterAssetArgs<ExtArgs>
 }, ExtArgs["result"]["showcase"]>
 
 export type ShowcaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   businessId?: boolean
   assetId?: boolean
+  posterAssetId?: boolean
+  mediaKind?: boolean
+  durationSeconds?: boolean
   title?: boolean
   caption?: boolean
   status?: boolean
@@ -1152,12 +1669,16 @@ export type ShowcaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.MediaAssetDefaultArgs<ExtArgs>
+  posterAsset?: boolean | Prisma.Showcase$posterAssetArgs<ExtArgs>
 }, ExtArgs["result"]["showcase"]>
 
 export type ShowcaseSelectScalar = {
   id?: boolean
   businessId?: boolean
   assetId?: boolean
+  posterAssetId?: boolean
+  mediaKind?: boolean
+  durationSeconds?: boolean
   title?: boolean
   caption?: boolean
   status?: boolean
@@ -1167,22 +1688,26 @@ export type ShowcaseSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ShowcaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "assetId" | "title" | "caption" | "status" | "featured" | "publishedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["showcase"]>
+export type ShowcaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "assetId" | "posterAssetId" | "mediaKind" | "durationSeconds" | "title" | "caption" | "status" | "featured" | "publishedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["showcase"]>
 export type ShowcaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.MediaAssetDefaultArgs<ExtArgs>
+  posterAsset?: boolean | Prisma.Showcase$posterAssetArgs<ExtArgs>
   hotspots?: boolean | Prisma.Showcase$hotspotsArgs<ExtArgs>
   savedBy?: boolean | Prisma.Showcase$savedByArgs<ExtArgs>
   requests?: boolean | Prisma.Showcase$requestsArgs<ExtArgs>
+  commerceEvents?: boolean | Prisma.Showcase$commerceEventsArgs<ExtArgs>
   _count?: boolean | Prisma.ShowcaseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShowcaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.MediaAssetDefaultArgs<ExtArgs>
+  posterAsset?: boolean | Prisma.Showcase$posterAssetArgs<ExtArgs>
 }
 export type ShowcaseIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.MediaAssetDefaultArgs<ExtArgs>
+  posterAsset?: boolean | Prisma.Showcase$posterAssetArgs<ExtArgs>
 }
 
 export type $ShowcasePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1190,14 +1715,19 @@ export type $ShowcasePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     business: Prisma.$BusinessPayload<ExtArgs>
     asset: Prisma.$MediaAssetPayload<ExtArgs>
+    posterAsset: Prisma.$MediaAssetPayload<ExtArgs> | null
     hotspots: Prisma.$ShowcaseHotspotPayload<ExtArgs>[]
     savedBy: Prisma.$SavedShowcasePayload<ExtArgs>[]
     requests: Prisma.$OrderRequestPayload<ExtArgs>[]
+    commerceEvents: Prisma.$CommerceEventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     businessId: string
     assetId: string
+    posterAssetId: string | null
+    mediaKind: $Enums.ProductMediaKind
+    durationSeconds: number | null
     title: string
     caption: string | null
     status: $Enums.ShowcaseStatus
@@ -1601,9 +2131,11 @@ export interface Prisma__ShowcaseClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   asset<T extends Prisma.MediaAssetDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAssetDefaultArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  posterAsset<T extends Prisma.Showcase$posterAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$posterAssetArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   hotspots<T extends Prisma.Showcase$hotspotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$hotspotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShowcaseHotspotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   savedBy<T extends Prisma.Showcase$savedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$savedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedShowcasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   requests<T extends Prisma.Showcase$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  commerceEvents<T extends Prisma.Showcase$commerceEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$commerceEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommerceEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1636,6 +2168,9 @@ export interface ShowcaseFieldRefs {
   readonly id: Prisma.FieldRef<"Showcase", 'String'>
   readonly businessId: Prisma.FieldRef<"Showcase", 'String'>
   readonly assetId: Prisma.FieldRef<"Showcase", 'String'>
+  readonly posterAssetId: Prisma.FieldRef<"Showcase", 'String'>
+  readonly mediaKind: Prisma.FieldRef<"Showcase", 'ProductMediaKind'>
+  readonly durationSeconds: Prisma.FieldRef<"Showcase", 'Float'>
   readonly title: Prisma.FieldRef<"Showcase", 'String'>
   readonly caption: Prisma.FieldRef<"Showcase", 'String'>
   readonly status: Prisma.FieldRef<"Showcase", 'ShowcaseStatus'>
@@ -2044,6 +2579,25 @@ export type ShowcaseDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Showcase.posterAsset
+ */
+export type Showcase$posterAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MediaAsset
+   */
+  select?: Prisma.MediaAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MediaAsset
+   */
+  omit?: Prisma.MediaAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MediaAssetInclude<ExtArgs> | null
+  where?: Prisma.MediaAssetWhereInput
+}
+
+/**
  * Showcase.hotspots
  */
 export type Showcase$hotspotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2113,6 +2667,30 @@ export type Showcase$requestsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.OrderRequestScalarFieldEnum | Prisma.OrderRequestScalarFieldEnum[]
+}
+
+/**
+ * Showcase.commerceEvents
+ */
+export type Showcase$commerceEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CommerceEvent
+   */
+  select?: Prisma.CommerceEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CommerceEvent
+   */
+  omit?: Prisma.CommerceEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommerceEventInclude<ExtArgs> | null
+  where?: Prisma.CommerceEventWhereInput
+  orderBy?: Prisma.CommerceEventOrderByWithRelationInput | Prisma.CommerceEventOrderByWithRelationInput[]
+  cursor?: Prisma.CommerceEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommerceEventScalarFieldEnum | Prisma.CommerceEventScalarFieldEnum[]
 }
 
 /**

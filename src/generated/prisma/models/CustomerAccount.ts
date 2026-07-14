@@ -200,6 +200,11 @@ export type CustomerAccountWhereInput = {
   interests?: Prisma.ProductInterestListRelationFilter
   requests?: Prisma.OrderRequestListRelationFilter
   events?: Prisma.CommerceEventListRelationFilter
+  carts?: Prisma.CustomerCartListRelationFilter
+  discoveryPreferences?: Prisma.DiscoveryPreferenceListRelationFilter
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryListRelationFilter
+  messagingConsents?: Prisma.MessagingConsentListRelationFilter
+  messageOutbox?: Prisma.MessageOutboxListRelationFilter
 }
 
 export type CustomerAccountOrderByWithRelationInput = {
@@ -219,6 +224,11 @@ export type CustomerAccountOrderByWithRelationInput = {
   interests?: Prisma.ProductInterestOrderByRelationAggregateInput
   requests?: Prisma.OrderRequestOrderByRelationAggregateInput
   events?: Prisma.CommerceEventOrderByRelationAggregateInput
+  carts?: Prisma.CustomerCartOrderByRelationAggregateInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceOrderByRelationAggregateInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryOrderByRelationAggregateInput
+  messagingConsents?: Prisma.MessagingConsentOrderByRelationAggregateInput
+  messageOutbox?: Prisma.MessageOutboxOrderByRelationAggregateInput
 }
 
 export type CustomerAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -241,6 +251,11 @@ export type CustomerAccountWhereUniqueInput = Prisma.AtLeast<{
   interests?: Prisma.ProductInterestListRelationFilter
   requests?: Prisma.OrderRequestListRelationFilter
   events?: Prisma.CommerceEventListRelationFilter
+  carts?: Prisma.CustomerCartListRelationFilter
+  discoveryPreferences?: Prisma.DiscoveryPreferenceListRelationFilter
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryListRelationFilter
+  messagingConsents?: Prisma.MessagingConsentListRelationFilter
+  messageOutbox?: Prisma.MessageOutboxListRelationFilter
 }, "id" | "phone">
 
 export type CustomerAccountOrderByWithAggregationInput = {
@@ -284,6 +299,11 @@ export type CustomerAccountCreateInput = {
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateInput = {
@@ -303,6 +323,11 @@ export type CustomerAccountUncheckedCreateInput = {
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUpdateInput = {
@@ -322,6 +347,11 @@ export type CustomerAccountUpdateInput = {
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateInput = {
@@ -341,6 +371,11 @@ export type CustomerAccountUncheckedUpdateInput = {
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateManyInput = {
@@ -523,6 +558,22 @@ export type CustomerAccountUpdateOneRequiredWithoutInterestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutInterestsInput, Prisma.CustomerAccountUpdateWithoutInterestsInput>, Prisma.CustomerAccountUncheckedUpdateWithoutInterestsInput>
 }
 
+export type CustomerAccountCreateNestedOneWithoutCartsInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutCartsInput, Prisma.CustomerAccountUncheckedCreateWithoutCartsInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutCartsInput
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+}
+
+export type CustomerAccountUpdateOneWithoutCartsNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutCartsInput, Prisma.CustomerAccountUncheckedCreateWithoutCartsInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutCartsInput
+  upsert?: Prisma.CustomerAccountUpsertWithoutCartsInput
+  disconnect?: Prisma.CustomerAccountWhereInput | boolean
+  delete?: Prisma.CustomerAccountWhereInput | boolean
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutCartsInput, Prisma.CustomerAccountUpdateWithoutCartsInput>, Prisma.CustomerAccountUncheckedUpdateWithoutCartsInput>
+}
+
 export type CustomerAccountCreateNestedOneWithoutRequestsInput = {
   create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutRequestsInput, Prisma.CustomerAccountUncheckedCreateWithoutRequestsInput>
   connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutRequestsInput
@@ -555,6 +606,70 @@ export type CustomerAccountUpdateOneWithoutEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutEventsInput, Prisma.CustomerAccountUpdateWithoutEventsInput>, Prisma.CustomerAccountUncheckedUpdateWithoutEventsInput>
 }
 
+export type CustomerAccountCreateNestedOneWithoutDiscoveryPreferencesInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutDiscoveryPreferencesInput, Prisma.CustomerAccountUncheckedCreateWithoutDiscoveryPreferencesInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutDiscoveryPreferencesInput
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+}
+
+export type CustomerAccountUpdateOneWithoutDiscoveryPreferencesNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutDiscoveryPreferencesInput, Prisma.CustomerAccountUncheckedCreateWithoutDiscoveryPreferencesInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutDiscoveryPreferencesInput
+  upsert?: Prisma.CustomerAccountUpsertWithoutDiscoveryPreferencesInput
+  disconnect?: Prisma.CustomerAccountWhereInput | boolean
+  delete?: Prisma.CustomerAccountWhereInput | boolean
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutDiscoveryPreferencesInput, Prisma.CustomerAccountUpdateWithoutDiscoveryPreferencesInput>, Prisma.CustomerAccountUncheckedUpdateWithoutDiscoveryPreferencesInput>
+}
+
+export type CustomerAccountCreateNestedOneWithoutDiscoveryTelemetryInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutDiscoveryTelemetryInput, Prisma.CustomerAccountUncheckedCreateWithoutDiscoveryTelemetryInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutDiscoveryTelemetryInput
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+}
+
+export type CustomerAccountUpdateOneWithoutDiscoveryTelemetryNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutDiscoveryTelemetryInput, Prisma.CustomerAccountUncheckedCreateWithoutDiscoveryTelemetryInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutDiscoveryTelemetryInput
+  upsert?: Prisma.CustomerAccountUpsertWithoutDiscoveryTelemetryInput
+  disconnect?: Prisma.CustomerAccountWhereInput | boolean
+  delete?: Prisma.CustomerAccountWhereInput | boolean
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutDiscoveryTelemetryInput, Prisma.CustomerAccountUpdateWithoutDiscoveryTelemetryInput>, Prisma.CustomerAccountUncheckedUpdateWithoutDiscoveryTelemetryInput>
+}
+
+export type CustomerAccountCreateNestedOneWithoutMessagingConsentsInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutMessagingConsentsInput, Prisma.CustomerAccountUncheckedCreateWithoutMessagingConsentsInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutMessagingConsentsInput
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+}
+
+export type CustomerAccountUpdateOneWithoutMessagingConsentsNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutMessagingConsentsInput, Prisma.CustomerAccountUncheckedCreateWithoutMessagingConsentsInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutMessagingConsentsInput
+  upsert?: Prisma.CustomerAccountUpsertWithoutMessagingConsentsInput
+  disconnect?: Prisma.CustomerAccountWhereInput | boolean
+  delete?: Prisma.CustomerAccountWhereInput | boolean
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutMessagingConsentsInput, Prisma.CustomerAccountUpdateWithoutMessagingConsentsInput>, Prisma.CustomerAccountUncheckedUpdateWithoutMessagingConsentsInput>
+}
+
+export type CustomerAccountCreateNestedOneWithoutMessageOutboxInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutMessageOutboxInput, Prisma.CustomerAccountUncheckedCreateWithoutMessageOutboxInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutMessageOutboxInput
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+}
+
+export type CustomerAccountUpdateOneWithoutMessageOutboxNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutMessageOutboxInput, Prisma.CustomerAccountUncheckedCreateWithoutMessageOutboxInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutMessageOutboxInput
+  upsert?: Prisma.CustomerAccountUpsertWithoutMessageOutboxInput
+  disconnect?: Prisma.CustomerAccountWhereInput | boolean
+  delete?: Prisma.CustomerAccountWhereInput | boolean
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutMessageOutboxInput, Prisma.CustomerAccountUpdateWithoutMessageOutboxInput>, Prisma.CustomerAccountUncheckedUpdateWithoutMessageOutboxInput>
+}
+
 export type CustomerAccountCreateWithoutSessionsInput = {
   id?: string
   phone: string
@@ -571,6 +686,11 @@ export type CustomerAccountCreateWithoutSessionsInput = {
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutSessionsInput = {
@@ -589,6 +709,11 @@ export type CustomerAccountUncheckedCreateWithoutSessionsInput = {
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutSessionsInput = {
@@ -623,6 +748,11 @@ export type CustomerAccountUpdateWithoutSessionsInput = {
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutSessionsInput = {
@@ -641,6 +771,11 @@ export type CustomerAccountUncheckedUpdateWithoutSessionsInput = {
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutChallengesInput = {
@@ -659,6 +794,11 @@ export type CustomerAccountCreateWithoutChallengesInput = {
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutChallengesInput = {
@@ -677,6 +817,11 @@ export type CustomerAccountUncheckedCreateWithoutChallengesInput = {
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutChallengesInput = {
@@ -711,6 +856,11 @@ export type CustomerAccountUpdateWithoutChallengesInput = {
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutChallengesInput = {
@@ -729,6 +879,11 @@ export type CustomerAccountUncheckedUpdateWithoutChallengesInput = {
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutCustomersInput = {
@@ -747,6 +902,11 @@ export type CustomerAccountCreateWithoutCustomersInput = {
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutCustomersInput = {
@@ -765,6 +925,11 @@ export type CustomerAccountUncheckedCreateWithoutCustomersInput = {
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutCustomersInput = {
@@ -799,6 +964,11 @@ export type CustomerAccountUpdateWithoutCustomersInput = {
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutCustomersInput = {
@@ -817,6 +987,11 @@ export type CustomerAccountUncheckedUpdateWithoutCustomersInput = {
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutAddressesInput = {
@@ -835,6 +1010,11 @@ export type CustomerAccountCreateWithoutAddressesInput = {
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutAddressesInput = {
@@ -853,6 +1033,11 @@ export type CustomerAccountUncheckedCreateWithoutAddressesInput = {
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutAddressesInput = {
@@ -887,6 +1072,11 @@ export type CustomerAccountUpdateWithoutAddressesInput = {
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutAddressesInput = {
@@ -905,6 +1095,11 @@ export type CustomerAccountUncheckedUpdateWithoutAddressesInput = {
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutSavedShowcasesInput = {
@@ -923,6 +1118,11 @@ export type CustomerAccountCreateWithoutSavedShowcasesInput = {
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutSavedShowcasesInput = {
@@ -941,6 +1141,11 @@ export type CustomerAccountUncheckedCreateWithoutSavedShowcasesInput = {
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutSavedShowcasesInput = {
@@ -975,6 +1180,11 @@ export type CustomerAccountUpdateWithoutSavedShowcasesInput = {
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutSavedShowcasesInput = {
@@ -993,6 +1203,11 @@ export type CustomerAccountUncheckedUpdateWithoutSavedShowcasesInput = {
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutFollowedShopsInput = {
@@ -1011,6 +1226,11 @@ export type CustomerAccountCreateWithoutFollowedShopsInput = {
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutFollowedShopsInput = {
@@ -1029,6 +1249,11 @@ export type CustomerAccountUncheckedCreateWithoutFollowedShopsInput = {
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutFollowedShopsInput = {
@@ -1063,6 +1288,11 @@ export type CustomerAccountUpdateWithoutFollowedShopsInput = {
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutFollowedShopsInput = {
@@ -1081,6 +1311,11 @@ export type CustomerAccountUncheckedUpdateWithoutFollowedShopsInput = {
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutWishlistInput = {
@@ -1099,6 +1334,11 @@ export type CustomerAccountCreateWithoutWishlistInput = {
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutWishlistInput = {
@@ -1117,6 +1357,11 @@ export type CustomerAccountUncheckedCreateWithoutWishlistInput = {
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutWishlistInput = {
@@ -1151,6 +1396,11 @@ export type CustomerAccountUpdateWithoutWishlistInput = {
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutWishlistInput = {
@@ -1169,6 +1419,11 @@ export type CustomerAccountUncheckedUpdateWithoutWishlistInput = {
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutInterestsInput = {
@@ -1187,6 +1442,11 @@ export type CustomerAccountCreateWithoutInterestsInput = {
   followedShops?: Prisma.ShopFollowCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutInterestsInput = {
@@ -1205,6 +1465,11 @@ export type CustomerAccountUncheckedCreateWithoutInterestsInput = {
   followedShops?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutInterestsInput = {
@@ -1239,6 +1504,11 @@ export type CustomerAccountUpdateWithoutInterestsInput = {
   followedShops?: Prisma.ShopFollowUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutInterestsInput = {
@@ -1257,6 +1527,119 @@ export type CustomerAccountUncheckedUpdateWithoutInterestsInput = {
   followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountCreateWithoutCartsInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountUncheckedCreateWithoutCartsInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountCreateOrConnectWithoutCartsInput = {
+  where: Prisma.CustomerAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutCartsInput, Prisma.CustomerAccountUncheckedCreateWithoutCartsInput>
+}
+
+export type CustomerAccountUpsertWithoutCartsInput = {
+  update: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutCartsInput, Prisma.CustomerAccountUncheckedUpdateWithoutCartsInput>
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutCartsInput, Prisma.CustomerAccountUncheckedCreateWithoutCartsInput>
+  where?: Prisma.CustomerAccountWhereInput
+}
+
+export type CustomerAccountUpdateToOneWithWhereWithoutCartsInput = {
+  where?: Prisma.CustomerAccountWhereInput
+  data: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutCartsInput, Prisma.CustomerAccountUncheckedUpdateWithoutCartsInput>
+}
+
+export type CustomerAccountUpdateWithoutCartsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountUncheckedUpdateWithoutCartsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutRequestsInput = {
@@ -1275,6 +1658,11 @@ export type CustomerAccountCreateWithoutRequestsInput = {
   followedShops?: Prisma.ShopFollowCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutRequestsInput = {
@@ -1293,6 +1681,11 @@ export type CustomerAccountUncheckedCreateWithoutRequestsInput = {
   followedShops?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutRequestsInput = {
@@ -1327,6 +1720,11 @@ export type CustomerAccountUpdateWithoutRequestsInput = {
   followedShops?: Prisma.ShopFollowUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutRequestsInput = {
@@ -1345,6 +1743,11 @@ export type CustomerAccountUncheckedUpdateWithoutRequestsInput = {
   followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutEventsInput = {
@@ -1363,6 +1766,11 @@ export type CustomerAccountCreateWithoutEventsInput = {
   followedShops?: Prisma.ShopFollowCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutEventsInput = {
@@ -1381,6 +1789,11 @@ export type CustomerAccountUncheckedCreateWithoutEventsInput = {
   followedShops?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutCustomerAccountInput
   interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutEventsInput = {
@@ -1415,6 +1828,11 @@ export type CustomerAccountUpdateWithoutEventsInput = {
   followedShops?: Prisma.ShopFollowUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutEventsInput = {
@@ -1433,6 +1851,443 @@ export type CustomerAccountUncheckedUpdateWithoutEventsInput = {
   followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountCreateWithoutDiscoveryPreferencesInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountUncheckedCreateWithoutDiscoveryPreferencesInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountCreateOrConnectWithoutDiscoveryPreferencesInput = {
+  where: Prisma.CustomerAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutDiscoveryPreferencesInput, Prisma.CustomerAccountUncheckedCreateWithoutDiscoveryPreferencesInput>
+}
+
+export type CustomerAccountUpsertWithoutDiscoveryPreferencesInput = {
+  update: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutDiscoveryPreferencesInput, Prisma.CustomerAccountUncheckedUpdateWithoutDiscoveryPreferencesInput>
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutDiscoveryPreferencesInput, Prisma.CustomerAccountUncheckedCreateWithoutDiscoveryPreferencesInput>
+  where?: Prisma.CustomerAccountWhereInput
+}
+
+export type CustomerAccountUpdateToOneWithWhereWithoutDiscoveryPreferencesInput = {
+  where?: Prisma.CustomerAccountWhereInput
+  data: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutDiscoveryPreferencesInput, Prisma.CustomerAccountUncheckedUpdateWithoutDiscoveryPreferencesInput>
+}
+
+export type CustomerAccountUpdateWithoutDiscoveryPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountUncheckedUpdateWithoutDiscoveryPreferencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountCreateWithoutDiscoveryTelemetryInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountUncheckedCreateWithoutDiscoveryTelemetryInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountCreateOrConnectWithoutDiscoveryTelemetryInput = {
+  where: Prisma.CustomerAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutDiscoveryTelemetryInput, Prisma.CustomerAccountUncheckedCreateWithoutDiscoveryTelemetryInput>
+}
+
+export type CustomerAccountUpsertWithoutDiscoveryTelemetryInput = {
+  update: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutDiscoveryTelemetryInput, Prisma.CustomerAccountUncheckedUpdateWithoutDiscoveryTelemetryInput>
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutDiscoveryTelemetryInput, Prisma.CustomerAccountUncheckedCreateWithoutDiscoveryTelemetryInput>
+  where?: Prisma.CustomerAccountWhereInput
+}
+
+export type CustomerAccountUpdateToOneWithWhereWithoutDiscoveryTelemetryInput = {
+  where?: Prisma.CustomerAccountWhereInput
+  data: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutDiscoveryTelemetryInput, Prisma.CustomerAccountUncheckedUpdateWithoutDiscoveryTelemetryInput>
+}
+
+export type CustomerAccountUpdateWithoutDiscoveryTelemetryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountUncheckedUpdateWithoutDiscoveryTelemetryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountCreateWithoutMessagingConsentsInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountUncheckedCreateWithoutMessagingConsentsInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountCreateOrConnectWithoutMessagingConsentsInput = {
+  where: Prisma.CustomerAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutMessagingConsentsInput, Prisma.CustomerAccountUncheckedCreateWithoutMessagingConsentsInput>
+}
+
+export type CustomerAccountUpsertWithoutMessagingConsentsInput = {
+  update: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutMessagingConsentsInput, Prisma.CustomerAccountUncheckedUpdateWithoutMessagingConsentsInput>
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutMessagingConsentsInput, Prisma.CustomerAccountUncheckedCreateWithoutMessagingConsentsInput>
+  where?: Prisma.CustomerAccountWhereInput
+}
+
+export type CustomerAccountUpdateToOneWithWhereWithoutMessagingConsentsInput = {
+  where?: Prisma.CustomerAccountWhereInput
+  data: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutMessagingConsentsInput, Prisma.CustomerAccountUncheckedUpdateWithoutMessagingConsentsInput>
+}
+
+export type CustomerAccountUpdateWithoutMessagingConsentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountUncheckedUpdateWithoutMessagingConsentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountCreateWithoutMessageOutboxInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountUncheckedCreateWithoutMessageOutboxInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountCreateOrConnectWithoutMessageOutboxInput = {
+  where: Prisma.CustomerAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutMessageOutboxInput, Prisma.CustomerAccountUncheckedCreateWithoutMessageOutboxInput>
+}
+
+export type CustomerAccountUpsertWithoutMessageOutboxInput = {
+  update: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutMessageOutboxInput, Prisma.CustomerAccountUncheckedUpdateWithoutMessageOutboxInput>
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutMessageOutboxInput, Prisma.CustomerAccountUncheckedCreateWithoutMessageOutboxInput>
+  where?: Prisma.CustomerAccountWhereInput
+}
+
+export type CustomerAccountUpdateToOneWithWhereWithoutMessageOutboxInput = {
+  where?: Prisma.CustomerAccountWhereInput
+  data: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutMessageOutboxInput, Prisma.CustomerAccountUncheckedUpdateWithoutMessageOutboxInput>
+}
+
+export type CustomerAccountUpdateWithoutMessageOutboxInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountUncheckedUpdateWithoutMessageOutboxInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 
@@ -1451,6 +2306,11 @@ export type CustomerAccountCountOutputType = {
   interests: number
   requests: number
   events: number
+  carts: number
+  discoveryPreferences: number
+  discoveryTelemetry: number
+  messagingConsents: number
+  messageOutbox: number
 }
 
 export type CustomerAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1464,6 +2324,11 @@ export type CustomerAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.E
   interests?: boolean | CustomerAccountCountOutputTypeCountInterestsArgs
   requests?: boolean | CustomerAccountCountOutputTypeCountRequestsArgs
   events?: boolean | CustomerAccountCountOutputTypeCountEventsArgs
+  carts?: boolean | CustomerAccountCountOutputTypeCountCartsArgs
+  discoveryPreferences?: boolean | CustomerAccountCountOutputTypeCountDiscoveryPreferencesArgs
+  discoveryTelemetry?: boolean | CustomerAccountCountOutputTypeCountDiscoveryTelemetryArgs
+  messagingConsents?: boolean | CustomerAccountCountOutputTypeCountMessagingConsentsArgs
+  messageOutbox?: boolean | CustomerAccountCountOutputTypeCountMessageOutboxArgs
 }
 
 /**
@@ -1546,6 +2411,41 @@ export type CustomerAccountCountOutputTypeCountEventsArgs<ExtArgs extends runtim
   where?: Prisma.CommerceEventWhereInput
 }
 
+/**
+ * CustomerAccountCountOutputType without action
+ */
+export type CustomerAccountCountOutputTypeCountCartsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerCartWhereInput
+}
+
+/**
+ * CustomerAccountCountOutputType without action
+ */
+export type CustomerAccountCountOutputTypeCountDiscoveryPreferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DiscoveryPreferenceWhereInput
+}
+
+/**
+ * CustomerAccountCountOutputType without action
+ */
+export type CustomerAccountCountOutputTypeCountDiscoveryTelemetryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DiscoveryTelemetryWhereInput
+}
+
+/**
+ * CustomerAccountCountOutputType without action
+ */
+export type CustomerAccountCountOutputTypeCountMessagingConsentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessagingConsentWhereInput
+}
+
+/**
+ * CustomerAccountCountOutputType without action
+ */
+export type CustomerAccountCountOutputTypeCountMessageOutboxArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageOutboxWhereInput
+}
+
 
 export type CustomerAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1564,6 +2464,11 @@ export type CustomerAccountSelect<ExtArgs extends runtime.Types.Extensions.Inter
   interests?: boolean | Prisma.CustomerAccount$interestsArgs<ExtArgs>
   requests?: boolean | Prisma.CustomerAccount$requestsArgs<ExtArgs>
   events?: boolean | Prisma.CustomerAccount$eventsArgs<ExtArgs>
+  carts?: boolean | Prisma.CustomerAccount$cartsArgs<ExtArgs>
+  discoveryPreferences?: boolean | Prisma.CustomerAccount$discoveryPreferencesArgs<ExtArgs>
+  discoveryTelemetry?: boolean | Prisma.CustomerAccount$discoveryTelemetryArgs<ExtArgs>
+  messagingConsents?: boolean | Prisma.CustomerAccount$messagingConsentsArgs<ExtArgs>
+  messageOutbox?: boolean | Prisma.CustomerAccount$messageOutboxArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerAccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customerAccount"]>
 
@@ -1606,6 +2511,11 @@ export type CustomerAccountInclude<ExtArgs extends runtime.Types.Extensions.Inte
   interests?: boolean | Prisma.CustomerAccount$interestsArgs<ExtArgs>
   requests?: boolean | Prisma.CustomerAccount$requestsArgs<ExtArgs>
   events?: boolean | Prisma.CustomerAccount$eventsArgs<ExtArgs>
+  carts?: boolean | Prisma.CustomerAccount$cartsArgs<ExtArgs>
+  discoveryPreferences?: boolean | Prisma.CustomerAccount$discoveryPreferencesArgs<ExtArgs>
+  discoveryTelemetry?: boolean | Prisma.CustomerAccount$discoveryTelemetryArgs<ExtArgs>
+  messagingConsents?: boolean | Prisma.CustomerAccount$messagingConsentsArgs<ExtArgs>
+  messageOutbox?: boolean | Prisma.CustomerAccount$messageOutboxArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerAccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomerAccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1624,6 +2534,11 @@ export type $CustomerAccountPayload<ExtArgs extends runtime.Types.Extensions.Int
     interests: Prisma.$ProductInterestPayload<ExtArgs>[]
     requests: Prisma.$OrderRequestPayload<ExtArgs>[]
     events: Prisma.$CommerceEventPayload<ExtArgs>[]
+    carts: Prisma.$CustomerCartPayload<ExtArgs>[]
+    discoveryPreferences: Prisma.$DiscoveryPreferencePayload<ExtArgs>[]
+    discoveryTelemetry: Prisma.$DiscoveryTelemetryPayload<ExtArgs>[]
+    messagingConsents: Prisma.$MessagingConsentPayload<ExtArgs>[]
+    messageOutbox: Prisma.$MessageOutboxPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2036,6 +2951,11 @@ export interface Prisma__CustomerAccountClient<T, Null = never, ExtArgs extends 
   interests<T extends Prisma.CustomerAccount$interestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$interestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductInterestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   requests<T extends Prisma.CustomerAccount$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.CustomerAccount$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommerceEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  carts<T extends Prisma.CustomerAccount$cartsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$cartsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerCartPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  discoveryPreferences<T extends Prisma.CustomerAccount$discoveryPreferencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$discoveryPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DiscoveryPreferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  discoveryTelemetry<T extends Prisma.CustomerAccount$discoveryTelemetryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$discoveryTelemetryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DiscoveryTelemetryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagingConsents<T extends Prisma.CustomerAccount$messagingConsentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$messagingConsentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagingConsentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messageOutbox<T extends Prisma.CustomerAccount$messageOutboxArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$messageOutboxArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageOutboxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2701,6 +3621,126 @@ export type CustomerAccount$eventsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.CommerceEventScalarFieldEnum | Prisma.CommerceEventScalarFieldEnum[]
+}
+
+/**
+ * CustomerAccount.carts
+ */
+export type CustomerAccount$cartsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerCart
+   */
+  select?: Prisma.CustomerCartSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerCart
+   */
+  omit?: Prisma.CustomerCartOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerCartInclude<ExtArgs> | null
+  where?: Prisma.CustomerCartWhereInput
+  orderBy?: Prisma.CustomerCartOrderByWithRelationInput | Prisma.CustomerCartOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerCartWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerCartScalarFieldEnum | Prisma.CustomerCartScalarFieldEnum[]
+}
+
+/**
+ * CustomerAccount.discoveryPreferences
+ */
+export type CustomerAccount$discoveryPreferencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DiscoveryPreference
+   */
+  select?: Prisma.DiscoveryPreferenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DiscoveryPreference
+   */
+  omit?: Prisma.DiscoveryPreferenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DiscoveryPreferenceInclude<ExtArgs> | null
+  where?: Prisma.DiscoveryPreferenceWhereInput
+  orderBy?: Prisma.DiscoveryPreferenceOrderByWithRelationInput | Prisma.DiscoveryPreferenceOrderByWithRelationInput[]
+  cursor?: Prisma.DiscoveryPreferenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DiscoveryPreferenceScalarFieldEnum | Prisma.DiscoveryPreferenceScalarFieldEnum[]
+}
+
+/**
+ * CustomerAccount.discoveryTelemetry
+ */
+export type CustomerAccount$discoveryTelemetryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DiscoveryTelemetry
+   */
+  select?: Prisma.DiscoveryTelemetrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DiscoveryTelemetry
+   */
+  omit?: Prisma.DiscoveryTelemetryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DiscoveryTelemetryInclude<ExtArgs> | null
+  where?: Prisma.DiscoveryTelemetryWhereInput
+  orderBy?: Prisma.DiscoveryTelemetryOrderByWithRelationInput | Prisma.DiscoveryTelemetryOrderByWithRelationInput[]
+  cursor?: Prisma.DiscoveryTelemetryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DiscoveryTelemetryScalarFieldEnum | Prisma.DiscoveryTelemetryScalarFieldEnum[]
+}
+
+/**
+ * CustomerAccount.messagingConsents
+ */
+export type CustomerAccount$messagingConsentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessagingConsent
+   */
+  select?: Prisma.MessagingConsentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessagingConsent
+   */
+  omit?: Prisma.MessagingConsentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessagingConsentInclude<ExtArgs> | null
+  where?: Prisma.MessagingConsentWhereInput
+  orderBy?: Prisma.MessagingConsentOrderByWithRelationInput | Prisma.MessagingConsentOrderByWithRelationInput[]
+  cursor?: Prisma.MessagingConsentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessagingConsentScalarFieldEnum | Prisma.MessagingConsentScalarFieldEnum[]
+}
+
+/**
+ * CustomerAccount.messageOutbox
+ */
+export type CustomerAccount$messageOutboxArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessageOutbox
+   */
+  select?: Prisma.MessageOutboxSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessageOutbox
+   */
+  omit?: Prisma.MessageOutboxOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageOutboxInclude<ExtArgs> | null
+  where?: Prisma.MessageOutboxWhereInput
+  orderBy?: Prisma.MessageOutboxOrderByWithRelationInput | Prisma.MessageOutboxOrderByWithRelationInput[]
+  cursor?: Prisma.MessageOutboxWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageOutboxScalarFieldEnum | Prisma.MessageOutboxScalarFieldEnum[]
 }
 
 /**

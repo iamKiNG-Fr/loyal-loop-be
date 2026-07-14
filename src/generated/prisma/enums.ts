@@ -20,6 +20,30 @@ export const BusinessRole = {
 export type BusinessRole = (typeof BusinessRole)[keyof typeof BusinessRole]
 
 
+export const BusinessCapability = {
+  CUSTOMER_READ: 'CUSTOMER_READ',
+  CUSTOMER_WRITE: 'CUSTOMER_WRITE',
+  CATALOG_READ: 'CATALOG_READ',
+  CATALOG_WRITE: 'CATALOG_WRITE',
+  SALE_READ: 'SALE_READ',
+  SALE_WRITE: 'SALE_WRITE',
+  PAYMENT_REVIEW: 'PAYMENT_REVIEW',
+  ORDER_READ: 'ORDER_READ',
+  ORDER_WRITE: 'ORDER_WRITE',
+  DELIVERY_READ: 'DELIVERY_READ',
+  DELIVERY_WRITE: 'DELIVERY_WRITE',
+  ISSUE_READ: 'ISSUE_READ',
+  ISSUE_WRITE: 'ISSUE_WRITE',
+  INSIGHT_READ: 'INSIGHT_READ',
+  PROFILE_WRITE: 'PROFILE_WRITE',
+  SETTINGS_WRITE: 'SETTINGS_WRITE',
+  EXPORT_DATA: 'EXPORT_DATA',
+  PERMISSION_ADMIN: 'PERMISSION_ADMIN'
+} as const
+
+export type BusinessCapability = (typeof BusinessCapability)[keyof typeof BusinessCapability]
+
+
 export const MemberStatus = {
   INVITED: 'INVITED',
   ACTIVE: 'ACTIVE',
@@ -287,7 +311,10 @@ export const ActivityEventType = {
   ISSUE_RESOLVED: 'ISSUE_RESOLVED',
   FOLLOW_UP_SENT: 'FOLLOW_UP_SENT',
   INVENTORY_CHECKED: 'INVENTORY_CHECKED',
-  STREAK_COMPLETED: 'STREAK_COMPLETED'
+  STREAK_COMPLETED: 'STREAK_COMPLETED',
+  MEMBER_PERMISSIONS_UPDATED: 'MEMBER_PERMISSIONS_UPDATED',
+  REQUEST_PAYMENT_UPDATED: 'REQUEST_PAYMENT_UPDATED',
+  MESSAGE_ENQUEUED: 'MESSAGE_ENQUEUED'
 } as const
 
 export type ActivityEventType = (typeof ActivityEventType)[keyof typeof ActivityEventType]
@@ -297,7 +324,11 @@ export const MediaPurpose = {
   BUSINESS_LOGO: 'BUSINESS_LOGO',
   SHOP_COVER: 'SHOP_COVER',
   PRODUCT_IMAGE: 'PRODUCT_IMAGE',
+  PRODUCT_VIDEO: 'PRODUCT_VIDEO',
+  PRODUCT_POSTER: 'PRODUCT_POSTER',
   SHOWCASE_IMAGE: 'SHOWCASE_IMAGE',
+  SHOWCASE_VIDEO: 'SHOWCASE_VIDEO',
+  SHOWCASE_POSTER: 'SHOWCASE_POSTER',
   USER_AVATAR: 'USER_AVATAR',
   PAYMENT_PROOF: 'PAYMENT_PROOF',
   TRUST_CARD: 'TRUST_CARD',
@@ -305,6 +336,61 @@ export const MediaPurpose = {
 } as const
 
 export type MediaPurpose = (typeof MediaPurpose)[keyof typeof MediaPurpose]
+
+
+export const ProductMediaKind = {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO'
+} as const
+
+export type ProductMediaKind = (typeof ProductMediaKind)[keyof typeof ProductMediaKind]
+
+
+export const CartStatus = {
+  ACTIVE: 'ACTIVE',
+  SUBMITTED: 'SUBMITTED',
+  ABANDONED: 'ABANDONED'
+} as const
+
+export type CartStatus = (typeof CartStatus)[keyof typeof CartStatus]
+
+
+export const InsightSummaryStatus = {
+  READY: 'READY',
+  STALE: 'STALE',
+  FAILED: 'FAILED'
+} as const
+
+export type InsightSummaryStatus = (typeof InsightSummaryStatus)[keyof typeof InsightSummaryStatus]
+
+
+export const MessageChannel = {
+  WHATSAPP: 'WHATSAPP'
+} as const
+
+export type MessageChannel = (typeof MessageChannel)[keyof typeof MessageChannel]
+
+
+export const MessagePurpose = {
+  OTP: 'OTP',
+  RECEIPT: 'RECEIPT',
+  DELIVERY: 'DELIVERY'
+} as const
+
+export type MessagePurpose = (typeof MessagePurpose)[keyof typeof MessagePurpose]
+
+
+export const MessageStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED',
+  SUPPRESSED: 'SUPPRESSED',
+  DEAD_LETTER: 'DEAD_LETTER'
+} as const
+
+export type MessageStatus = (typeof MessageStatus)[keyof typeof MessageStatus]
 
 
 export const MediaStatus = {
@@ -336,11 +422,18 @@ export type ProductInterestType = (typeof ProductInterestType)[keyof typeof Prod
 
 export const CommerceEventType = {
   SHOP_VIEWED: 'SHOP_VIEWED',
+  SHOP_FOLLOWED: 'SHOP_FOLLOWED',
   PRODUCT_VIEWED: 'PRODUCT_VIEWED',
   PRODUCT_SHARED: 'PRODUCT_SHARED',
   PRODUCT_WISHLISTED: 'PRODUCT_WISHLISTED',
+  PRODUCT_SAVED: 'PRODUCT_SAVED',
+  SHOWCASE_VIEWED: 'SHOWCASE_VIEWED',
+  SHOWCASE_SHARED: 'SHOWCASE_SHARED',
+  SHOWCASE_SAVED: 'SHOWCASE_SAVED',
   RESTOCK_INTERESTED: 'RESTOCK_INTERESTED',
-  REQUEST_SUBMITTED: 'REQUEST_SUBMITTED'
+  REQUEST_SUBMITTED: 'REQUEST_SUBMITTED',
+  PURCHASE_COMPLETED: 'PURCHASE_COMPLETED',
+  PREFERENCE_UPDATED: 'PREFERENCE_UPDATED'
 } as const
 
 export type CommerceEventType = (typeof CommerceEventType)[keyof typeof CommerceEventType]

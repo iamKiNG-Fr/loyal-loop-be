@@ -4,6 +4,7 @@ import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
 import { ok } from "../../common/api-response";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { ActivityService } from "./activity.service";
+import { ActivityListDto } from "./dto/activity-list.dto";
 
 @Controller("activity")
 @UseGuards(OwnerAuthGuard)
@@ -13,10 +14,10 @@ export class ActivityController {
   @Get()
   list(
     @CurrentAuth() auth: OwnerAuthContext,
-    @Query("customerId") customerId?: string,
+    @Query() query: ActivityListDto,
   ) {
     return this.activity
-      .list(auth.businessId, customerId)
+      .list(auth.businessId, auth.userId, query)
       .then((data) => ok(data));
   }
 }

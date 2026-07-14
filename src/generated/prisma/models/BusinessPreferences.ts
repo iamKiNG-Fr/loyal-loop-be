@@ -34,6 +34,7 @@ export type BusinessPreferencesMinAggregateOutputType = {
   showRecommended: boolean | null
   showLatest: boolean | null
   defaultPaymentStatus: $Enums.PaymentStatus | null
+  defaultPaymentMethod: $Enums.PaymentMethod | null
   protectedPaymentEnabled: boolean | null
   receiptDeliveryLine: $Enums.ReceiptDeliveryLine | null
   receiptFooter: string | null
@@ -57,6 +58,7 @@ export type BusinessPreferencesMaxAggregateOutputType = {
   showRecommended: boolean | null
   showLatest: boolean | null
   defaultPaymentStatus: $Enums.PaymentStatus | null
+  defaultPaymentMethod: $Enums.PaymentMethod | null
   protectedPaymentEnabled: boolean | null
   receiptDeliveryLine: $Enums.ReceiptDeliveryLine | null
   receiptFooter: string | null
@@ -81,6 +83,8 @@ export type BusinessPreferencesCountAggregateOutputType = {
   showLatest: number
   tickerItems: number
   defaultPaymentStatus: number
+  allowedPaymentMethods: number
+  defaultPaymentMethod: number
   protectedPaymentEnabled: number
   receiptDeliveryLine: number
   receiptFooter: number
@@ -106,6 +110,7 @@ export type BusinessPreferencesMinAggregateInputType = {
   showRecommended?: true
   showLatest?: true
   defaultPaymentStatus?: true
+  defaultPaymentMethod?: true
   protectedPaymentEnabled?: true
   receiptDeliveryLine?: true
   receiptFooter?: true
@@ -129,6 +134,7 @@ export type BusinessPreferencesMaxAggregateInputType = {
   showRecommended?: true
   showLatest?: true
   defaultPaymentStatus?: true
+  defaultPaymentMethod?: true
   protectedPaymentEnabled?: true
   receiptDeliveryLine?: true
   receiptFooter?: true
@@ -153,6 +159,8 @@ export type BusinessPreferencesCountAggregateInputType = {
   showLatest?: true
   tickerItems?: true
   defaultPaymentStatus?: true
+  allowedPaymentMethods?: true
+  defaultPaymentMethod?: true
   protectedPaymentEnabled?: true
   receiptDeliveryLine?: true
   receiptFooter?: true
@@ -250,6 +258,8 @@ export type BusinessPreferencesGroupByOutputType = {
   showLatest: boolean
   tickerItems: string[]
   defaultPaymentStatus: $Enums.PaymentStatus
+  allowedPaymentMethods: $Enums.PaymentMethod[]
+  defaultPaymentMethod: $Enums.PaymentMethod | null
   protectedPaymentEnabled: boolean
   receiptDeliveryLine: $Enums.ReceiptDeliveryLine
   receiptFooter: string | null
@@ -295,6 +305,8 @@ export type BusinessPreferencesWhereInput = {
   showLatest?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   tickerItems?: Prisma.StringNullableListFilter<"BusinessPreferences">
   defaultPaymentStatus?: Prisma.EnumPaymentStatusFilter<"BusinessPreferences"> | $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.EnumPaymentMethodNullableListFilter<"BusinessPreferences">
+  defaultPaymentMethod?: Prisma.EnumPaymentMethodNullableFilter<"BusinessPreferences"> | $Enums.PaymentMethod | null
   protectedPaymentEnabled?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFilter<"BusinessPreferences"> | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
@@ -320,6 +332,8 @@ export type BusinessPreferencesOrderByWithRelationInput = {
   showLatest?: Prisma.SortOrder
   tickerItems?: Prisma.SortOrder
   defaultPaymentStatus?: Prisma.SortOrder
+  allowedPaymentMethods?: Prisma.SortOrder
+  defaultPaymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
   protectedPaymentEnabled?: Prisma.SortOrder
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -348,6 +362,8 @@ export type BusinessPreferencesWhereUniqueInput = Prisma.AtLeast<{
   showLatest?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   tickerItems?: Prisma.StringNullableListFilter<"BusinessPreferences">
   defaultPaymentStatus?: Prisma.EnumPaymentStatusFilter<"BusinessPreferences"> | $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.EnumPaymentMethodNullableListFilter<"BusinessPreferences">
+  defaultPaymentMethod?: Prisma.EnumPaymentMethodNullableFilter<"BusinessPreferences"> | $Enums.PaymentMethod | null
   protectedPaymentEnabled?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFilter<"BusinessPreferences"> | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
@@ -373,6 +389,8 @@ export type BusinessPreferencesOrderByWithAggregationInput = {
   showLatest?: Prisma.SortOrder
   tickerItems?: Prisma.SortOrder
   defaultPaymentStatus?: Prisma.SortOrder
+  allowedPaymentMethods?: Prisma.SortOrder
+  defaultPaymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
   protectedPaymentEnabled?: Prisma.SortOrder
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -403,6 +421,8 @@ export type BusinessPreferencesScalarWhereWithAggregatesInput = {
   showLatest?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
   tickerItems?: Prisma.StringNullableListFilter<"BusinessPreferences">
   defaultPaymentStatus?: Prisma.EnumPaymentStatusWithAggregatesFilter<"BusinessPreferences"> | $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.EnumPaymentMethodNullableListFilter<"BusinessPreferences">
+  defaultPaymentMethod?: Prisma.EnumPaymentMethodNullableWithAggregatesFilter<"BusinessPreferences"> | $Enums.PaymentMethod | null
   protectedPaymentEnabled?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineWithAggregatesFilter<"BusinessPreferences"> | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.StringNullableWithAggregatesFilter<"BusinessPreferences"> | string | null
@@ -426,6 +446,8 @@ export type BusinessPreferencesCreateInput = {
   showLatest?: boolean
   tickerItems?: Prisma.BusinessPreferencesCreatetickerItemsInput | string[]
   defaultPaymentStatus?: $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesCreateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: $Enums.PaymentMethod | null
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -451,6 +473,8 @@ export type BusinessPreferencesUncheckedCreateInput = {
   showLatest?: boolean
   tickerItems?: Prisma.BusinessPreferencesCreatetickerItemsInput | string[]
   defaultPaymentStatus?: $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesCreateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: $Enums.PaymentMethod | null
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -474,6 +498,8 @@ export type BusinessPreferencesUpdateInput = {
   showLatest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tickerItems?: Prisma.BusinessPreferencesUpdatetickerItemsInput | string[]
   defaultPaymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesUpdateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -499,6 +525,8 @@ export type BusinessPreferencesUncheckedUpdateInput = {
   showLatest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tickerItems?: Prisma.BusinessPreferencesUpdatetickerItemsInput | string[]
   defaultPaymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesUpdateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -523,6 +551,8 @@ export type BusinessPreferencesCreateManyInput = {
   showLatest?: boolean
   tickerItems?: Prisma.BusinessPreferencesCreatetickerItemsInput | string[]
   defaultPaymentStatus?: $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesCreateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: $Enums.PaymentMethod | null
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -546,6 +576,8 @@ export type BusinessPreferencesUpdateManyMutationInput = {
   showLatest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tickerItems?: Prisma.BusinessPreferencesUpdatetickerItemsInput | string[]
   defaultPaymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesUpdateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -570,6 +602,8 @@ export type BusinessPreferencesUncheckedUpdateManyInput = {
   showLatest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tickerItems?: Prisma.BusinessPreferencesUpdatetickerItemsInput | string[]
   defaultPaymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesUpdateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -596,6 +630,14 @@ export type StringNullableListFilter<$PrismaModel = never> = {
   isEmpty?: boolean
 }
 
+export type EnumPaymentMethodNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.PaymentMethod[] | Prisma.ListEnumPaymentMethodFieldRefInput<$PrismaModel> | null
+  has?: $Enums.PaymentMethod | Prisma.EnumPaymentMethodFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.PaymentMethod[] | Prisma.ListEnumPaymentMethodFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.PaymentMethod[] | Prisma.ListEnumPaymentMethodFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type BusinessPreferencesCountOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -607,6 +649,8 @@ export type BusinessPreferencesCountOrderByAggregateInput = {
   showLatest?: Prisma.SortOrder
   tickerItems?: Prisma.SortOrder
   defaultPaymentStatus?: Prisma.SortOrder
+  allowedPaymentMethods?: Prisma.SortOrder
+  defaultPaymentMethod?: Prisma.SortOrder
   protectedPaymentEnabled?: Prisma.SortOrder
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrder
@@ -630,6 +674,7 @@ export type BusinessPreferencesMaxOrderByAggregateInput = {
   showRecommended?: Prisma.SortOrder
   showLatest?: Prisma.SortOrder
   defaultPaymentStatus?: Prisma.SortOrder
+  defaultPaymentMethod?: Prisma.SortOrder
   protectedPaymentEnabled?: Prisma.SortOrder
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrder
@@ -653,6 +698,7 @@ export type BusinessPreferencesMinOrderByAggregateInput = {
   showRecommended?: Prisma.SortOrder
   showLatest?: Prisma.SortOrder
   defaultPaymentStatus?: Prisma.SortOrder
+  defaultPaymentMethod?: Prisma.SortOrder
   protectedPaymentEnabled?: Prisma.SortOrder
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrder
@@ -702,6 +748,10 @@ export type BusinessPreferencesCreatetickerItemsInput = {
   set: string[]
 }
 
+export type BusinessPreferencesCreateallowedPaymentMethodsInput = {
+  set: $Enums.PaymentMethod[]
+}
+
 export type EnumNumberFormatFieldUpdateOperationsInput = {
   set?: $Enums.NumberFormat
 }
@@ -717,6 +767,15 @@ export type BusinessPreferencesUpdatetickerItemsInput = {
 
 export type EnumPaymentStatusFieldUpdateOperationsInput = {
   set?: $Enums.PaymentStatus
+}
+
+export type BusinessPreferencesUpdateallowedPaymentMethodsInput = {
+  set?: $Enums.PaymentMethod[]
+  push?: $Enums.PaymentMethod | $Enums.PaymentMethod[]
+}
+
+export type NullableEnumPaymentMethodFieldUpdateOperationsInput = {
+  set?: $Enums.PaymentMethod | null
 }
 
 export type EnumReceiptDeliveryLineFieldUpdateOperationsInput = {
@@ -741,6 +800,8 @@ export type BusinessPreferencesCreateWithoutBusinessInput = {
   showLatest?: boolean
   tickerItems?: Prisma.BusinessPreferencesCreatetickerItemsInput | string[]
   defaultPaymentStatus?: $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesCreateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: $Enums.PaymentMethod | null
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -764,6 +825,8 @@ export type BusinessPreferencesUncheckedCreateWithoutBusinessInput = {
   showLatest?: boolean
   tickerItems?: Prisma.BusinessPreferencesCreatetickerItemsInput | string[]
   defaultPaymentStatus?: $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesCreateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: $Enums.PaymentMethod | null
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -803,6 +866,8 @@ export type BusinessPreferencesUpdateWithoutBusinessInput = {
   showLatest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tickerItems?: Prisma.BusinessPreferencesUpdatetickerItemsInput | string[]
   defaultPaymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesUpdateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -826,6 +891,8 @@ export type BusinessPreferencesUncheckedUpdateWithoutBusinessInput = {
   showLatest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   tickerItems?: Prisma.BusinessPreferencesUpdatetickerItemsInput | string[]
   defaultPaymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  allowedPaymentMethods?: Prisma.BusinessPreferencesUpdateallowedPaymentMethodsInput | $Enums.PaymentMethod[]
+  defaultPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -852,6 +919,8 @@ export type BusinessPreferencesSelect<ExtArgs extends runtime.Types.Extensions.I
   showLatest?: boolean
   tickerItems?: boolean
   defaultPaymentStatus?: boolean
+  allowedPaymentMethods?: boolean
+  defaultPaymentMethod?: boolean
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
@@ -877,6 +946,8 @@ export type BusinessPreferencesSelectCreateManyAndReturn<ExtArgs extends runtime
   showLatest?: boolean
   tickerItems?: boolean
   defaultPaymentStatus?: boolean
+  allowedPaymentMethods?: boolean
+  defaultPaymentMethod?: boolean
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
@@ -902,6 +973,8 @@ export type BusinessPreferencesSelectUpdateManyAndReturn<ExtArgs extends runtime
   showLatest?: boolean
   tickerItems?: boolean
   defaultPaymentStatus?: boolean
+  allowedPaymentMethods?: boolean
+  defaultPaymentMethod?: boolean
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
@@ -927,6 +1000,8 @@ export type BusinessPreferencesSelectScalar = {
   showLatest?: boolean
   tickerItems?: boolean
   defaultPaymentStatus?: boolean
+  allowedPaymentMethods?: boolean
+  defaultPaymentMethod?: boolean
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
@@ -940,7 +1015,7 @@ export type BusinessPreferencesSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "tickerItems" | "defaultPaymentStatus" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
+export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "tickerItems" | "defaultPaymentStatus" | "allowedPaymentMethods" | "defaultPaymentMethod" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
 export type BusinessPreferencesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
 }
@@ -967,6 +1042,8 @@ export type $BusinessPreferencesPayload<ExtArgs extends runtime.Types.Extensions
     showLatest: boolean
     tickerItems: string[]
     defaultPaymentStatus: $Enums.PaymentStatus
+    allowedPaymentMethods: $Enums.PaymentMethod[]
+    defaultPaymentMethod: $Enums.PaymentMethod | null
     protectedPaymentEnabled: boolean
     receiptDeliveryLine: $Enums.ReceiptDeliveryLine
     receiptFooter: string | null
@@ -1412,6 +1489,8 @@ export interface BusinessPreferencesFieldRefs {
   readonly showLatest: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
   readonly tickerItems: Prisma.FieldRef<"BusinessPreferences", 'String[]'>
   readonly defaultPaymentStatus: Prisma.FieldRef<"BusinessPreferences", 'PaymentStatus'>
+  readonly allowedPaymentMethods: Prisma.FieldRef<"BusinessPreferences", 'PaymentMethod[]'>
+  readonly defaultPaymentMethod: Prisma.FieldRef<"BusinessPreferences", 'PaymentMethod'>
   readonly protectedPaymentEnabled: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
   readonly receiptDeliveryLine: Prisma.FieldRef<"BusinessPreferences", 'ReceiptDeliveryLine'>
   readonly receiptFooter: Prisma.FieldRef<"BusinessPreferences", 'String'>

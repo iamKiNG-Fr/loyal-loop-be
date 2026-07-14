@@ -29,6 +29,7 @@ import type {
 import {
   CreateOrderRequestDto,
   ConfirmOrderRequestDto,
+  ChangeRequestedPaymentMethodDto,
   DiscoveryAttributionDto,
   ProductInterestDto,
   UpdateOrderRequestStatusDto,
@@ -138,6 +139,23 @@ export class CustomerShopController {
     return this.shops
       .interest(customer.customerAccountId, slug, dto)
       .then((data) => ok(data, "Interest recorded"));
+  }
+}
+
+@Controller("customer-requests")
+@UseGuards(CustomerAuthGuard)
+export class CustomerOrderRequestsController {
+  constructor(private readonly shops: ShopsService) {}
+
+  @Patch(":id/payment-method")
+  changePaymentMethod(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Param("id") id: string,
+    @Body() dto: ChangeRequestedPaymentMethodDto,
+  ) {
+    return this.shops
+      .changeRequestedPaymentMethod(customer.customerAccountId, id, dto.paymentMethod)
+      .then((data) => ok(data, "Payment preference updated"));
   }
 }
 

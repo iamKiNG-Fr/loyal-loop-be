@@ -12,7 +12,7 @@ import {
   MinLength,
   ValidateNested,
 } from "class-validator";
-import { BusinessTheme, ContactPlatform } from "../../../generated/prisma/client";
+import { BusinessTheme, ContactPlatform, PaymentMethod } from "../../../generated/prisma/client";
 
 export class RegisterBusinessContactDto {
   @IsEnum(ContactPlatform)
@@ -78,4 +78,14 @@ export class RegisterOwnerDto {
   @ValidateNested({ each: true })
   @Type(() => RegisterBusinessContactDto)
   contacts?: RegisterBusinessContactDto[];
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(4)
+  @IsEnum(PaymentMethod, { each: true })
+  allowedPaymentMethods?: PaymentMethod[];
+
+  @IsOptional()
+  @IsEnum(PaymentMethod)
+  defaultPaymentMethod?: PaymentMethod;
 }

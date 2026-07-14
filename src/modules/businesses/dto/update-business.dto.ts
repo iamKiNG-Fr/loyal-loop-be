@@ -16,6 +16,7 @@ import {
   ContactPlatform,
   ExportAccess,
   NumberFormat,
+  PaymentMethod,
   PaymentStatus,
   ReceiptDeliveryLine,
   RetentionPolicy,
@@ -116,6 +117,17 @@ export class UpdateBusinessPreferencesDto {
   @IsOptional()
   @IsEnum(PaymentStatus)
   defaultPaymentStatus?: PaymentStatus;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(4)
+  @IsEnum(PaymentMethod, { each: true })
+  allowedPaymentMethods?: PaymentMethod[];
+
+  @IsOptional()
+  @IsEnum(PaymentMethod)
+  defaultPaymentMethod?: PaymentMethod;
 
   @IsOptional()
   @IsBoolean()

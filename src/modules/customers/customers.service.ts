@@ -3,10 +3,13 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
+import { createHash } from "node:crypto";
 import { createOpaqueToken } from "../../common/crypto.util";
 import { paginated } from "../../common/api-response";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { ActivityService } from "../activity/activity.service";
+import { IntelligenceService } from "../intelligence/intelligence.service";
+import type { CustomerEvidenceItem } from "../intelligence/intelligence.types";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   AddCustomerNoteDto,
@@ -19,7 +22,12 @@ import {
 
 const customerInclude = {
   contacts: true,
-  notes: { orderBy: { createdAt: "desc" as const }, take: 20 },
+  addresses: { orderBy: [{ isDefault: "desc" as const }, { updatedAt: "desc" as const }] },
+  notes: {
+    include: { author: { select: { id: true, name: true } } },
+    orderBy: { createdAt: "desc" as const },
+    take: 20,
+  },
   tagAssignments: { include: { tag: true } },
   _count: { select: { sales: true, receipts: true, deliveries: true } },
 };
@@ -29,6 +37,7 @@ export class CustomersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly activity: ActivityService,
+    private readonly intelligence: IntelligenceService,
   ) {}
 
   async list(auth: OwnerAuthContext, query: CustomerListDto) {
@@ -245,6 +254,62 @@ export class CustomersService {
     );
   }
 
+  async insight(auth: OwnerAuthContext, customerId: string) {
+    await this.assertOwned(auth.businessId, customerId);
+    const [cached, evidence] = await Promise.all([
+      this.prisma.customerInsightSummary.findUnique({ where: { customerId } }),
+      this.insightEvidence(auth.businessId, customerId),
+    ]);
+    return {
+      cached,
+      evidence,
+      generated: Boolean(cached),
+    };
+  }
+
+  async refreshInsight(auth: OwnerAuthContext, customerId: string) {
+    const customer = await this.assertOwned(auth.businessId, customerId);
+    const evidence = await this.insightEvidence(auth.businessId, customerId);
+    const evidenceVersion = createHash("sha256")
+      .update(JSON.stringify(evidence.map(({ id, occurredAt, title }) => ({ id, occurredAt, title }))))
+      .digest("hex");
+
+    try {
+      const summary = await this.intelligence.summarizeCustomer({
+        customerName: customer.name,
+        evidence,
+      });
+      const cached = await this.prisma.customerInsightSummary.upsert({
+        where: { customerId },
+        create: {
+          businessId: auth.businessId,
+          customerId,
+          status: "READY",
+          summary,
+          evidenceVersion,
+          model: this.intelligence.model,
+        },
+        update: {
+          status: "READY",
+          summary,
+          evidenceVersion,
+          model: this.intelligence.model,
+          generatedAt: new Date(),
+          staleAt: null,
+          lastError: null,
+        },
+      });
+      return { cached, evidence, generated: true };
+    } catch (error) {
+      const message = error instanceof Error ? error.message.slice(0, 240) : "Summary generation failed";
+      await this.prisma.customerInsightSummary.updateMany({
+        where: { businessId: auth.businessId, customerId },
+        data: { status: "FAILED", lastError: message },
+      });
+      throw error;
+    }
+  }
+
   async remove(auth: OwnerAuthContext, customerId: string) {
     await this.assertOwned(auth.businessId, customerId);
     return this.prisma.customer.delete({ where: { id: customerId } });
@@ -256,5 +321,74 @@ export class CustomersService {
     });
     if (!customer) throw new NotFoundException("Customer not found");
     return customer;
+  }
+
+  private async insightEvidence(
+    businessId: string,
+    customerId: string,
+  ): Promise<CustomerEvidenceItem[]> {
+    const [activities, sales, deliveries, notes] = await this.prisma.$transaction([
+      this.prisma.activityEvent.findMany({
+        where: { businessId, customerId },
+        select: { id: true, title: true, createdAt: true },
+        orderBy: { createdAt: "desc" },
+        take: 30,
+      }),
+      this.prisma.sale.findMany({
+        where: { businessId, customerId },
+        select: {
+          id: true,
+          referenceCode: true,
+          status: true,
+          paymentStatus: true,
+          total: true,
+          currency: true,
+          soldAt: true,
+        },
+        orderBy: { soldAt: "desc" },
+        take: 20,
+      }),
+      this.prisma.delivery.findMany({
+        where: { businessId, customerId },
+        select: { id: true, status: true, createdAt: true },
+        orderBy: { createdAt: "desc" },
+        take: 20,
+      }),
+      this.prisma.customerNote.findMany({
+        where: { customerId, customer: { businessId } },
+        select: { id: true, content: true, createdAt: true },
+        orderBy: { createdAt: "desc" },
+        take: 10,
+      }),
+    ]);
+
+    return [
+      ...activities.map((entry) => ({
+        id: `activity:${entry.id}`,
+        kind: "activity" as const,
+        occurredAt: entry.createdAt.toISOString(),
+        title: entry.title.slice(0, 180),
+      })),
+      ...sales.map((sale) => ({
+        id: `sale:${sale.id}`,
+        kind: "sale" as const,
+        occurredAt: sale.soldAt.toISOString(),
+        title: `${sale.referenceCode}: ${sale.status.toLowerCase()}, ${sale.paymentStatus.toLowerCase()}, ${sale.currency} ${sale.total.toString()}`,
+      })),
+      ...deliveries.map((delivery) => ({
+        id: `delivery:${delivery.id}`,
+        kind: "delivery" as const,
+        occurredAt: delivery.createdAt.toISOString(),
+        title: `Delivery status: ${delivery.status.toLowerCase().replace(/_/g, " ")}`,
+      })),
+      ...notes.map((note) => ({
+        id: `note:${note.id}`,
+        kind: "note" as const,
+        occurredAt: note.createdAt.toISOString(),
+        title: `Team note: ${note.content.slice(0, 180)}`,
+      })),
+    ]
+      .sort((left, right) => right.occurredAt.localeCompare(left.occurredAt))
+      .slice(0, 80);
   }
 }

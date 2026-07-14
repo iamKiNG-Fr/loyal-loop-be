@@ -68,6 +68,11 @@ export type BusinessPaymentAccount = Prisma.BusinessPaymentAccountModel
  */
 export type BusinessMember = Prisma.BusinessMemberModel
 /**
+ * Model MemberPermissionOverride
+ * 
+ */
+export type MemberPermissionOverride = Prisma.MemberPermissionOverrideModel
+/**
  * Model BusinessInvitation
  * 
  */
@@ -113,6 +118,11 @@ export type CustomerAddress = Prisma.CustomerAddressModel
  */
 export type CustomerNote = Prisma.CustomerNoteModel
 /**
+ * Model CustomerInsightSummary
+ * 
+ */
+export type CustomerInsightSummary = Prisma.CustomerInsightSummaryModel
+/**
  * Model CustomerTag
  * 
  */
@@ -123,6 +133,11 @@ export type CustomerTag = Prisma.CustomerTagModel
  */
 export type CustomerTagAssignment = Prisma.CustomerTagAssignmentModel
 /**
+ * Model BusinessCategory
+ * 
+ */
+export type BusinessCategory = Prisma.BusinessCategoryModel
+/**
  * Model Product
  * 
  */
@@ -132,6 +147,16 @@ export type Product = Prisma.ProductModel
  * 
  */
 export type ProductImage = Prisma.ProductImageModel
+/**
+ * Model ProductVariant
+ * 
+ */
+export type ProductVariant = Prisma.ProductVariantModel
+/**
+ * Model ProductMedia
+ * 
+ */
+export type ProductMedia = Prisma.ProductMediaModel
 /**
  * Model Showcase
  * 
@@ -163,6 +188,21 @@ export type WishlistItem = Prisma.WishlistItemModel
  */
 export type ProductInterest = Prisma.ProductInterestModel
 /**
+ * Model CustomerCart
+ * 
+ */
+export type CustomerCart = Prisma.CustomerCartModel
+/**
+ * Model CustomerCartItem
+ * 
+ */
+export type CustomerCartItem = Prisma.CustomerCartItemModel
+/**
+ * Model CustomerCartGroup
+ * 
+ */
+export type CustomerCartGroup = Prisma.CustomerCartGroupModel
+/**
  * Model OrderRequest
  * 
  */
@@ -173,10 +213,25 @@ export type OrderRequest = Prisma.OrderRequestModel
  */
 export type OrderRequestItem = Prisma.OrderRequestItemModel
 /**
+ * Model OrderRequestPaymentChange
+ * 
+ */
+export type OrderRequestPaymentChange = Prisma.OrderRequestPaymentChangeModel
+/**
  * Model CommerceEvent
  * 
  */
 export type CommerceEvent = Prisma.CommerceEventModel
+/**
+ * Model DiscoveryPreference
+ * 
+ */
+export type DiscoveryPreference = Prisma.DiscoveryPreferenceModel
+/**
+ * Model DiscoveryTelemetry
+ * 
+ */
+export type DiscoveryTelemetry = Prisma.DiscoveryTelemetryModel
 /**
  * Model Sale
  * 
@@ -267,3 +322,28 @@ export type TrustLedgerEntry = Prisma.TrustLedgerEntryModel
  * 
  */
 export type SupportRequest = Prisma.SupportRequestModel
+/**
+ * Model MessagingConsent
+ * 
+ */
+export type MessagingConsent = Prisma.MessagingConsentModel
+/**
+ * Model MessagingSuppression
+ * 
+ */
+export type MessagingSuppression = Prisma.MessagingSuppressionModel
+/**
+ * Model MessageOutbox
+ * 
+ */
+export type MessageOutbox = Prisma.MessageOutboxModel
+/**
+ * Model MessageAttempt
+ * 
+ */
+export type MessageAttempt = Prisma.MessageAttemptModel
+/**
+ * Model MessagingWebhookEvent
+ * 
+ */
+export type MessagingWebhookEvent = Prisma.MessagingWebhookEventModel

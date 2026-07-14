@@ -216,6 +216,7 @@ export type BusinessMemberWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"BusinessMember"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  permissionOverrides?: Prisma.MemberPermissionOverrideListRelationFilter
 }
 
 export type BusinessMemberOrderByWithRelationInput = {
@@ -230,6 +231,7 @@ export type BusinessMemberOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideOrderByRelationAggregateInput
 }
 
 export type BusinessMemberWhereUniqueInput = Prisma.AtLeast<{
@@ -248,6 +250,7 @@ export type BusinessMemberWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"BusinessMember"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  permissionOverrides?: Prisma.MemberPermissionOverrideListRelationFilter
 }, "id" | "businessId_userId">
 
 export type BusinessMemberOrderByWithAggregationInput = {
@@ -290,6 +293,7 @@ export type BusinessMemberCreateInput = {
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutMembersInput
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutMemberInput
 }
 
 export type BusinessMemberUncheckedCreateInput = {
@@ -302,6 +306,7 @@ export type BusinessMemberUncheckedCreateInput = {
   joinedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type BusinessMemberUpdateInput = {
@@ -314,6 +319,7 @@ export type BusinessMemberUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutMembersNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutMemberNestedInput
 }
 
 export type BusinessMemberUncheckedUpdateInput = {
@@ -326,6 +332,7 @@ export type BusinessMemberUncheckedUpdateInput = {
   joinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type BusinessMemberCreateManyInput = {
@@ -411,6 +418,11 @@ export type BusinessMemberMinOrderByAggregateInput = {
   joinedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type BusinessMemberScalarRelationFilter = {
+  is?: Prisma.BusinessMemberWhereInput
+  isNot?: Prisma.BusinessMemberWhereInput
 }
 
 export type BusinessMemberCreateNestedManyWithoutUserInput = {
@@ -505,6 +517,20 @@ export type EnumMemberStatusFieldUpdateOperationsInput = {
   set?: $Enums.MemberStatus
 }
 
+export type BusinessMemberCreateNestedOneWithoutPermissionOverridesInput = {
+  create?: Prisma.XOR<Prisma.BusinessMemberCreateWithoutPermissionOverridesInput, Prisma.BusinessMemberUncheckedCreateWithoutPermissionOverridesInput>
+  connectOrCreate?: Prisma.BusinessMemberCreateOrConnectWithoutPermissionOverridesInput
+  connect?: Prisma.BusinessMemberWhereUniqueInput
+}
+
+export type BusinessMemberUpdateOneRequiredWithoutPermissionOverridesNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessMemberCreateWithoutPermissionOverridesInput, Prisma.BusinessMemberUncheckedCreateWithoutPermissionOverridesInput>
+  connectOrCreate?: Prisma.BusinessMemberCreateOrConnectWithoutPermissionOverridesInput
+  upsert?: Prisma.BusinessMemberUpsertWithoutPermissionOverridesInput
+  connect?: Prisma.BusinessMemberWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessMemberUpdateToOneWithWhereWithoutPermissionOverridesInput, Prisma.BusinessMemberUpdateWithoutPermissionOverridesInput>, Prisma.BusinessMemberUncheckedUpdateWithoutPermissionOverridesInput>
+}
+
 export type BusinessMemberCreateWithoutUserInput = {
   id?: string
   role?: $Enums.BusinessRole
@@ -514,6 +540,7 @@ export type BusinessMemberCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutMembersInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutMemberInput
 }
 
 export type BusinessMemberUncheckedCreateWithoutUserInput = {
@@ -525,6 +552,7 @@ export type BusinessMemberUncheckedCreateWithoutUserInput = {
   joinedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type BusinessMemberCreateOrConnectWithoutUserInput = {
@@ -577,6 +605,7 @@ export type BusinessMemberCreateWithoutBusinessInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutMemberInput
 }
 
 export type BusinessMemberUncheckedCreateWithoutBusinessInput = {
@@ -588,6 +617,7 @@ export type BusinessMemberUncheckedCreateWithoutBusinessInput = {
   joinedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type BusinessMemberCreateOrConnectWithoutBusinessInput = {
@@ -616,6 +646,70 @@ export type BusinessMemberUpdateManyWithWhereWithoutBusinessInput = {
   data: Prisma.XOR<Prisma.BusinessMemberUpdateManyMutationInput, Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessInput>
 }
 
+export type BusinessMemberCreateWithoutPermissionOverridesInput = {
+  id?: string
+  role?: $Enums.BusinessRole
+  status?: $Enums.MemberStatus
+  invitedAt?: Date | string | null
+  joinedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutMembersInput
+  user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+}
+
+export type BusinessMemberUncheckedCreateWithoutPermissionOverridesInput = {
+  id?: string
+  businessId: string
+  userId: string
+  role?: $Enums.BusinessRole
+  status?: $Enums.MemberStatus
+  invitedAt?: Date | string | null
+  joinedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type BusinessMemberCreateOrConnectWithoutPermissionOverridesInput = {
+  where: Prisma.BusinessMemberWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessMemberCreateWithoutPermissionOverridesInput, Prisma.BusinessMemberUncheckedCreateWithoutPermissionOverridesInput>
+}
+
+export type BusinessMemberUpsertWithoutPermissionOverridesInput = {
+  update: Prisma.XOR<Prisma.BusinessMemberUpdateWithoutPermissionOverridesInput, Prisma.BusinessMemberUncheckedUpdateWithoutPermissionOverridesInput>
+  create: Prisma.XOR<Prisma.BusinessMemberCreateWithoutPermissionOverridesInput, Prisma.BusinessMemberUncheckedCreateWithoutPermissionOverridesInput>
+  where?: Prisma.BusinessMemberWhereInput
+}
+
+export type BusinessMemberUpdateToOneWithWhereWithoutPermissionOverridesInput = {
+  where?: Prisma.BusinessMemberWhereInput
+  data: Prisma.XOR<Prisma.BusinessMemberUpdateWithoutPermissionOverridesInput, Prisma.BusinessMemberUncheckedUpdateWithoutPermissionOverridesInput>
+}
+
+export type BusinessMemberUpdateWithoutPermissionOverridesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
+  invitedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  joinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutMembersNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+}
+
+export type BusinessMemberUncheckedUpdateWithoutPermissionOverridesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumBusinessRoleFieldUpdateOperationsInput | $Enums.BusinessRole
+  status?: Prisma.EnumMemberStatusFieldUpdateOperationsInput | $Enums.MemberStatus
+  invitedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  joinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type BusinessMemberCreateManyUserInput = {
   id?: string
   businessId: string
@@ -636,6 +730,7 @@ export type BusinessMemberUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutMembersNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutMemberNestedInput
 }
 
 export type BusinessMemberUncheckedUpdateWithoutUserInput = {
@@ -647,6 +742,7 @@ export type BusinessMemberUncheckedUpdateWithoutUserInput = {
   joinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type BusinessMemberUncheckedUpdateManyWithoutUserInput = {
@@ -680,6 +776,7 @@ export type BusinessMemberUpdateWithoutBusinessInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutMemberNestedInput
 }
 
 export type BusinessMemberUncheckedUpdateWithoutBusinessInput = {
@@ -691,6 +788,7 @@ export type BusinessMemberUncheckedUpdateWithoutBusinessInput = {
   joinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type BusinessMemberUncheckedUpdateManyWithoutBusinessInput = {
@@ -705,6 +803,35 @@ export type BusinessMemberUncheckedUpdateManyWithoutBusinessInput = {
 }
 
 
+/**
+ * Count Type BusinessMemberCountOutputType
+ */
+
+export type BusinessMemberCountOutputType = {
+  permissionOverrides: number
+}
+
+export type BusinessMemberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  permissionOverrides?: boolean | BusinessMemberCountOutputTypeCountPermissionOverridesArgs
+}
+
+/**
+ * BusinessMemberCountOutputType without action
+ */
+export type BusinessMemberCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BusinessMemberCountOutputType
+   */
+  select?: Prisma.BusinessMemberCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * BusinessMemberCountOutputType without action
+ */
+export type BusinessMemberCountOutputTypeCountPermissionOverridesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MemberPermissionOverrideWhereInput
+}
+
 
 export type BusinessMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -718,6 +845,8 @@ export type BusinessMemberSelect<ExtArgs extends runtime.Types.Extensions.Intern
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  permissionOverrides?: boolean | Prisma.BusinessMember$permissionOverridesArgs<ExtArgs>
+  _count?: boolean | Prisma.BusinessMemberCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["businessMember"]>
 
 export type BusinessMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -764,6 +893,8 @@ export type BusinessMemberOmit<ExtArgs extends runtime.Types.Extensions.Internal
 export type BusinessMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  permissionOverrides?: boolean | Prisma.BusinessMember$permissionOverridesArgs<ExtArgs>
+  _count?: boolean | Prisma.BusinessMemberCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BusinessMemberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -779,6 +910,7 @@ export type $BusinessMemberPayload<ExtArgs extends runtime.Types.Extensions.Inte
   objects: {
     business: Prisma.$BusinessPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs>
+    permissionOverrides: Prisma.$MemberPermissionOverridePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1186,6 +1318,7 @@ export interface Prisma__BusinessMemberClient<T, Null = never, ExtArgs extends r
   readonly [Symbol.toStringTag]: "PrismaPromise"
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  permissionOverrides<T extends Prisma.BusinessMember$permissionOverridesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessMember$permissionOverridesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MemberPermissionOverridePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1622,6 +1755,30 @@ export type BusinessMemberDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many BusinessMembers to delete.
    */
   limit?: number
+}
+
+/**
+ * BusinessMember.permissionOverrides
+ */
+export type BusinessMember$permissionOverridesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MemberPermissionOverride
+   */
+  select?: Prisma.MemberPermissionOverrideSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MemberPermissionOverride
+   */
+  omit?: Prisma.MemberPermissionOverrideOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MemberPermissionOverrideInclude<ExtArgs> | null
+  where?: Prisma.MemberPermissionOverrideWhereInput
+  orderBy?: Prisma.MemberPermissionOverrideOrderByWithRelationInput | Prisma.MemberPermissionOverrideOrderByWithRelationInput[]
+  cursor?: Prisma.MemberPermissionOverrideWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MemberPermissionOverrideScalarFieldEnum | Prisma.MemberPermissionOverrideScalarFieldEnum[]
 }
 
 /**

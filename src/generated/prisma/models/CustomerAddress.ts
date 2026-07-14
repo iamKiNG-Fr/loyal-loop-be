@@ -295,6 +295,7 @@ export type CustomerAddressWhereInput = {
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountScalarRelationFilter, Prisma.CustomerAccountWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
   orderRequests?: Prisma.OrderRequestListRelationFilter
+  cartGroups?: Prisma.CustomerCartGroupListRelationFilter
 }
 
 export type CustomerAddressOrderByWithRelationInput = {
@@ -315,6 +316,7 @@ export type CustomerAddressOrderByWithRelationInput = {
   customerAccount?: Prisma.CustomerAccountOrderByWithRelationInput
   customer?: Prisma.CustomerOrderByWithRelationInput
   orderRequests?: Prisma.OrderRequestOrderByRelationAggregateInput
+  cartGroups?: Prisma.CustomerCartGroupOrderByRelationAggregateInput
 }
 
 export type CustomerAddressWhereUniqueInput = Prisma.AtLeast<{
@@ -338,6 +340,7 @@ export type CustomerAddressWhereUniqueInput = Prisma.AtLeast<{
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountScalarRelationFilter, Prisma.CustomerAccountWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerNullableScalarRelationFilter, Prisma.CustomerWhereInput> | null
   orderRequests?: Prisma.OrderRequestListRelationFilter
+  cartGroups?: Prisma.CustomerCartGroupListRelationFilter
 }, "id">
 
 export type CustomerAddressOrderByWithAggregationInput = {
@@ -398,6 +401,7 @@ export type CustomerAddressCreateInput = {
   customerAccount: Prisma.CustomerAccountCreateNestedOneWithoutAddressesInput
   customer?: Prisma.CustomerCreateNestedOneWithoutAddressesInput
   orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAddressInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutCustomerAddressInput
 }
 
 export type CustomerAddressUncheckedCreateInput = {
@@ -416,6 +420,7 @@ export type CustomerAddressUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAddressInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutCustomerAddressInput
 }
 
 export type CustomerAddressUpdateInput = {
@@ -434,6 +439,7 @@ export type CustomerAddressUpdateInput = {
   customerAccount?: Prisma.CustomerAccountUpdateOneRequiredWithoutAddressesNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutAddressesNestedInput
   orderRequests?: Prisma.OrderRequestUpdateManyWithoutCustomerAddressNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutCustomerAddressNestedInput
 }
 
 export type CustomerAddressUncheckedUpdateInput = {
@@ -452,6 +458,7 @@ export type CustomerAddressUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAddressNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressNestedInput
 }
 
 export type CustomerAddressCreateManyInput = {
@@ -663,12 +670,20 @@ export type CustomerAddressUncheckedUpdateManyWithoutCustomerNestedInput = {
   deleteMany?: Prisma.CustomerAddressScalarWhereInput | Prisma.CustomerAddressScalarWhereInput[]
 }
 
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type CustomerAddressCreateNestedOneWithoutCartGroupsInput = {
+  create?: Prisma.XOR<Prisma.CustomerAddressCreateWithoutCartGroupsInput, Prisma.CustomerAddressUncheckedCreateWithoutCartGroupsInput>
+  connectOrCreate?: Prisma.CustomerAddressCreateOrConnectWithoutCartGroupsInput
+  connect?: Prisma.CustomerAddressWhereUniqueInput
+}
+
+export type CustomerAddressUpdateOneWithoutCartGroupsNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerAddressCreateWithoutCartGroupsInput, Prisma.CustomerAddressUncheckedCreateWithoutCartGroupsInput>
+  connectOrCreate?: Prisma.CustomerAddressCreateOrConnectWithoutCartGroupsInput
+  upsert?: Prisma.CustomerAddressUpsertWithoutCartGroupsInput
+  disconnect?: Prisma.CustomerAddressWhereInput | boolean
+  delete?: Prisma.CustomerAddressWhereInput | boolean
+  connect?: Prisma.CustomerAddressWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAddressUpdateToOneWithWhereWithoutCartGroupsInput, Prisma.CustomerAddressUpdateWithoutCartGroupsInput>, Prisma.CustomerAddressUncheckedUpdateWithoutCartGroupsInput>
 }
 
 export type CustomerAddressCreateNestedOneWithoutOrderRequestsInput = {
@@ -702,6 +717,7 @@ export type CustomerAddressCreateWithoutCustomerAccountInput = {
   updatedAt?: Date | string
   customer?: Prisma.CustomerCreateNestedOneWithoutAddressesInput
   orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAddressInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutCustomerAddressInput
 }
 
 export type CustomerAddressUncheckedCreateWithoutCustomerAccountInput = {
@@ -719,6 +735,7 @@ export type CustomerAddressUncheckedCreateWithoutCustomerAccountInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAddressInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutCustomerAddressInput
 }
 
 export type CustomerAddressCreateOrConnectWithoutCustomerAccountInput = {
@@ -782,6 +799,7 @@ export type CustomerAddressCreateWithoutCustomerInput = {
   updatedAt?: Date | string
   customerAccount: Prisma.CustomerAccountCreateNestedOneWithoutAddressesInput
   orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAddressInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutCustomerAddressInput
 }
 
 export type CustomerAddressUncheckedCreateWithoutCustomerInput = {
@@ -799,6 +817,7 @@ export type CustomerAddressUncheckedCreateWithoutCustomerInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAddressInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutCustomerAddressInput
 }
 
 export type CustomerAddressCreateOrConnectWithoutCustomerInput = {
@@ -827,6 +846,94 @@ export type CustomerAddressUpdateManyWithWhereWithoutCustomerInput = {
   data: Prisma.XOR<Prisma.CustomerAddressUpdateManyMutationInput, Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerInput>
 }
 
+export type CustomerAddressCreateWithoutCartGroupsInput = {
+  id?: string
+  label?: string | null
+  recipientName?: string | null
+  phone?: string | null
+  address: string
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  deliveryNotes?: string | null
+  isDefault?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customerAccount: Prisma.CustomerAccountCreateNestedOneWithoutAddressesInput
+  customer?: Prisma.CustomerCreateNestedOneWithoutAddressesInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAddressInput
+}
+
+export type CustomerAddressUncheckedCreateWithoutCartGroupsInput = {
+  id?: string
+  customerAccountId: string
+  customerId?: string | null
+  label?: string | null
+  recipientName?: string | null
+  phone?: string | null
+  address: string
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  deliveryNotes?: string | null
+  isDefault?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAddressInput
+}
+
+export type CustomerAddressCreateOrConnectWithoutCartGroupsInput = {
+  where: Prisma.CustomerAddressWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerAddressCreateWithoutCartGroupsInput, Prisma.CustomerAddressUncheckedCreateWithoutCartGroupsInput>
+}
+
+export type CustomerAddressUpsertWithoutCartGroupsInput = {
+  update: Prisma.XOR<Prisma.CustomerAddressUpdateWithoutCartGroupsInput, Prisma.CustomerAddressUncheckedUpdateWithoutCartGroupsInput>
+  create: Prisma.XOR<Prisma.CustomerAddressCreateWithoutCartGroupsInput, Prisma.CustomerAddressUncheckedCreateWithoutCartGroupsInput>
+  where?: Prisma.CustomerAddressWhereInput
+}
+
+export type CustomerAddressUpdateToOneWithWhereWithoutCartGroupsInput = {
+  where?: Prisma.CustomerAddressWhereInput
+  data: Prisma.XOR<Prisma.CustomerAddressUpdateWithoutCartGroupsInput, Prisma.CustomerAddressUncheckedUpdateWithoutCartGroupsInput>
+}
+
+export type CustomerAddressUpdateWithoutCartGroupsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customerAccount?: Prisma.CustomerAccountUpdateOneRequiredWithoutAddressesNestedInput
+  customer?: Prisma.CustomerUpdateOneWithoutAddressesNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutCustomerAddressNestedInput
+}
+
+export type CustomerAddressUncheckedUpdateWithoutCartGroupsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAddressNestedInput
+}
+
 export type CustomerAddressCreateWithoutOrderRequestsInput = {
   id?: string
   label?: string | null
@@ -842,6 +949,7 @@ export type CustomerAddressCreateWithoutOrderRequestsInput = {
   updatedAt?: Date | string
   customerAccount: Prisma.CustomerAccountCreateNestedOneWithoutAddressesInput
   customer?: Prisma.CustomerCreateNestedOneWithoutAddressesInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutCustomerAddressInput
 }
 
 export type CustomerAddressUncheckedCreateWithoutOrderRequestsInput = {
@@ -859,6 +967,7 @@ export type CustomerAddressUncheckedCreateWithoutOrderRequestsInput = {
   isDefault?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutCustomerAddressInput
 }
 
 export type CustomerAddressCreateOrConnectWithoutOrderRequestsInput = {
@@ -892,6 +1001,7 @@ export type CustomerAddressUpdateWithoutOrderRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customerAccount?: Prisma.CustomerAccountUpdateOneRequiredWithoutAddressesNestedInput
   customer?: Prisma.CustomerUpdateOneWithoutAddressesNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutCustomerAddressNestedInput
 }
 
 export type CustomerAddressUncheckedUpdateWithoutOrderRequestsInput = {
@@ -909,6 +1019,7 @@ export type CustomerAddressUncheckedUpdateWithoutOrderRequestsInput = {
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressNestedInput
 }
 
 export type CustomerAddressCreateManyCustomerAccountInput = {
@@ -942,6 +1053,7 @@ export type CustomerAddressUpdateWithoutCustomerAccountInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneWithoutAddressesNestedInput
   orderRequests?: Prisma.OrderRequestUpdateManyWithoutCustomerAddressNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutCustomerAddressNestedInput
 }
 
 export type CustomerAddressUncheckedUpdateWithoutCustomerAccountInput = {
@@ -959,6 +1071,7 @@ export type CustomerAddressUncheckedUpdateWithoutCustomerAccountInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAddressNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressNestedInput
 }
 
 export type CustomerAddressUncheckedUpdateManyWithoutCustomerAccountInput = {
@@ -1008,6 +1121,7 @@ export type CustomerAddressUpdateWithoutCustomerInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customerAccount?: Prisma.CustomerAccountUpdateOneRequiredWithoutAddressesNestedInput
   orderRequests?: Prisma.OrderRequestUpdateManyWithoutCustomerAddressNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutCustomerAddressNestedInput
 }
 
 export type CustomerAddressUncheckedUpdateWithoutCustomerInput = {
@@ -1025,6 +1139,7 @@ export type CustomerAddressUncheckedUpdateWithoutCustomerInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAddressNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressNestedInput
 }
 
 export type CustomerAddressUncheckedUpdateManyWithoutCustomerInput = {
@@ -1050,10 +1165,12 @@ export type CustomerAddressUncheckedUpdateManyWithoutCustomerInput = {
 
 export type CustomerAddressCountOutputType = {
   orderRequests: number
+  cartGroups: number
 }
 
 export type CustomerAddressCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orderRequests?: boolean | CustomerAddressCountOutputTypeCountOrderRequestsArgs
+  cartGroups?: boolean | CustomerAddressCountOutputTypeCountCartGroupsArgs
 }
 
 /**
@@ -1071,6 +1188,13 @@ export type CustomerAddressCountOutputTypeDefaultArgs<ExtArgs extends runtime.Ty
  */
 export type CustomerAddressCountOutputTypeCountOrderRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.OrderRequestWhereInput
+}
+
+/**
+ * CustomerAddressCountOutputType without action
+ */
+export type CustomerAddressCountOutputTypeCountCartGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerCartGroupWhereInput
 }
 
 
@@ -1092,6 +1216,7 @@ export type CustomerAddressSelect<ExtArgs extends runtime.Types.Extensions.Inter
   customerAccount?: boolean | Prisma.CustomerAccountDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerAddress$customerArgs<ExtArgs>
   orderRequests?: boolean | Prisma.CustomerAddress$orderRequestsArgs<ExtArgs>
+  cartGroups?: boolean | Prisma.CustomerAddress$cartGroupsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerAddressCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customerAddress"]>
 
@@ -1155,6 +1280,7 @@ export type CustomerAddressInclude<ExtArgs extends runtime.Types.Extensions.Inte
   customerAccount?: boolean | Prisma.CustomerAccountDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerAddress$customerArgs<ExtArgs>
   orderRequests?: boolean | Prisma.CustomerAddress$orderRequestsArgs<ExtArgs>
+  cartGroups?: boolean | Prisma.CustomerAddress$cartGroupsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerAddressCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomerAddressIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1172,6 +1298,7 @@ export type $CustomerAddressPayload<ExtArgs extends runtime.Types.Extensions.Int
     customerAccount: Prisma.$CustomerAccountPayload<ExtArgs>
     customer: Prisma.$CustomerPayload<ExtArgs> | null
     orderRequests: Prisma.$OrderRequestPayload<ExtArgs>[]
+    cartGroups: Prisma.$CustomerCartGroupPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1585,6 +1712,7 @@ export interface Prisma__CustomerAddressClient<T, Null = never, ExtArgs extends 
   customerAccount<T extends Prisma.CustomerAccountDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccountDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerAccountClient<runtime.Types.Result.GetResult<Prisma.$CustomerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customer<T extends Prisma.CustomerAddress$customerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAddress$customerArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   orderRequests<T extends Prisma.CustomerAddress$orderRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAddress$orderRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cartGroups<T extends Prisma.CustomerAddress$cartGroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAddress$cartGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerCartGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2069,6 +2197,30 @@ export type CustomerAddress$orderRequestsArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.OrderRequestScalarFieldEnum | Prisma.OrderRequestScalarFieldEnum[]
+}
+
+/**
+ * CustomerAddress.cartGroups
+ */
+export type CustomerAddress$cartGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerCartGroup
+   */
+  select?: Prisma.CustomerCartGroupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerCartGroup
+   */
+  omit?: Prisma.CustomerCartGroupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerCartGroupInclude<ExtArgs> | null
+  where?: Prisma.CustomerCartGroupWhereInput
+  orderBy?: Prisma.CustomerCartGroupOrderByWithRelationInput | Prisma.CustomerCartGroupOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerCartGroupWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerCartGroupScalarFieldEnum | Prisma.CustomerCartGroupScalarFieldEnum[]
 }
 
 /**

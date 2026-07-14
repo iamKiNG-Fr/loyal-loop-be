@@ -9,10 +9,13 @@ import {
 } from "@nestjs/common";
 import { CurrentAuth } from "../../common/auth/current-auth.decorator";
 import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
+import { Capabilities } from "../../common/auth/capabilities.decorator";
+import { CapabilitiesGuard } from "../../common/auth/capabilities.guard";
 import { Roles } from "../../common/auth/roles.decorator";
 import { RolesGuard } from "../../common/auth/roles.guard";
 import { ok } from "../../common/api-response";
 import type { OwnerAuthContext } from "../../common/request-context";
+import { BusinessCapability } from "../../generated/prisma/client";
 import {
   CreateDeliveryIssueDto,
   SubmitDeliveryFeedbackDto,
@@ -21,7 +24,8 @@ import {
 import { DeliveryService } from "./delivery.service";
 
 @Controller("deliveries")
-@UseGuards(OwnerAuthGuard, RolesGuard)
+@UseGuards(OwnerAuthGuard, RolesGuard, CapabilitiesGuard)
+@Capabilities(BusinessCapability.DELIVERY_READ)
 export class DeliveryController {
   constructor(private readonly deliveries: DeliveryService) {}
 
@@ -36,6 +40,7 @@ export class DeliveryController {
   }
 
   @Patch(":id")
+  @Capabilities(BusinessCapability.DELIVERY_WRITE)
   @Roles("OWNER", "MANAGER", "SALES", "DELIVERY")
   update(
     @CurrentAuth() auth: OwnerAuthContext,
@@ -48,6 +53,7 @@ export class DeliveryController {
   }
 
   @Post(":id/share-link")
+  @Capabilities(BusinessCapability.DELIVERY_WRITE)
   @Roles("OWNER", "MANAGER", "SALES", "DELIVERY")
   shareLink(
     @CurrentAuth() auth: OwnerAuthContext,
@@ -59,6 +65,7 @@ export class DeliveryController {
   }
 
   @Post(":id/issues/:issueId/resolve")
+  @Capabilities(BusinessCapability.ISSUE_WRITE)
   @Roles("OWNER", "MANAGER", "DELIVERY")
   resolve(
     @CurrentAuth() auth: OwnerAuthContext,
@@ -71,6 +78,7 @@ export class DeliveryController {
   }
 
   @Post(":id/issues/:issueId/escalate")
+  @Capabilities(BusinessCapability.ISSUE_WRITE)
   @Roles("OWNER", "MANAGER", "DELIVERY")
   escalate(
     @CurrentAuth() auth: OwnerAuthContext,
