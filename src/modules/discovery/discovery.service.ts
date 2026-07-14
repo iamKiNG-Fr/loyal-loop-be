@@ -84,6 +84,24 @@ export class DiscoveryService {
       status: "ACTIVE",
       visibility: "PUBLIC",
       business: { storeStatus: "OPEN" },
+      AND: [
+        {
+          OR: [
+            { images: { some: { asset: { status: "ACTIVE" } } } },
+            { media: { some: { asset: { status: "ACTIVE" } } } },
+          ],
+        },
+        ...(terms.length
+          ? [{
+              OR: terms.flatMap((term) => [
+                { name: { contains: term, mode: "insensitive" as const } },
+                { category: { contains: term, mode: "insensitive" as const } },
+                { description: { contains: term, mode: "insensitive" as const } },
+                { business: { name: { contains: term, mode: "insensitive" as const } } },
+              ]),
+            }]
+          : []),
+      ],
       ...(category && category.toLowerCase() !== "all"
         ? { category: { equals: category, mode: "insensitive" } }
         : {}),
@@ -96,16 +114,6 @@ export class DiscoveryService {
         : {}),
       ...(size
         ? { variants: { some: { active: true, optionValues: { path: ["size"], string_contains: size } } } }
-        : {}),
-      ...(terms.length
-        ? {
-            OR: terms.flatMap((term) => [
-              { name: { contains: term, mode: "insensitive" as const } },
-              { category: { contains: term, mode: "insensitive" as const } },
-              { description: { contains: term, mode: "insensitive" as const } },
-              { business: { name: { contains: term, mode: "insensitive" as const } } },
-            ]),
-          }
         : {}),
     };
     const showcaseWhere: Prisma.ShowcaseWhereInput = {
