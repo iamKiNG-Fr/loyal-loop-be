@@ -88,6 +88,8 @@ export const ModelName = {
   CustomerCart: 'CustomerCart',
   CustomerCartItem: 'CustomerCartItem',
   CustomerCartGroup: 'CustomerCartGroup',
+  ProductPromotion: 'ProductPromotion',
+  PromotionReservation: 'PromotionReservation',
   OrderRequest: 'OrderRequest',
   OrderRequestItem: 'OrderRequestItem',
   OrderRequestPaymentChange: 'OrderRequestPaymentChange',
@@ -720,6 +722,45 @@ export const CustomerCartGroupScalarFieldEnum = {
 export type CustomerCartGroupScalarFieldEnum = (typeof CustomerCartGroupScalarFieldEnum)[keyof typeof CustomerCartGroupScalarFieldEnum]
 
 
+export const ProductPromotionScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  productId: 'productId',
+  variantId: 'variantId',
+  name: 'name',
+  type: 'type',
+  percentage: 'percentage',
+  promotionalPrice: 'promotionalPrice',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  claimLimit: 'claimLimit',
+  perCustomerLimit: 'perCustomerLimit',
+  reservationMinutes: 'reservationMinutes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductPromotionScalarFieldEnum = (typeof ProductPromotionScalarFieldEnum)[keyof typeof ProductPromotionScalarFieldEnum]
+
+
+export const PromotionReservationScalarFieldEnum = {
+  id: 'id',
+  promotionId: 'promotionId',
+  orderRequestId: 'orderRequestId',
+  customerAccountId: 'customerAccountId',
+  customerKey: 'customerKey',
+  quantity: 'quantity',
+  status: 'status',
+  reservedAt: 'reservedAt',
+  expiresAt: 'expiresAt',
+  redeemedAt: 'redeemedAt',
+  releasedAt: 'releasedAt'
+} as const
+
+export type PromotionReservationScalarFieldEnum = (typeof PromotionReservationScalarFieldEnum)[keyof typeof PromotionReservationScalarFieldEnum]
+
+
 export const OrderRequestScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
@@ -763,7 +804,10 @@ export const OrderRequestItemScalarFieldEnum = {
   imageUrl: 'imageUrl',
   quantity: 'quantity',
   unitPrice: 'unitPrice',
-  total: 'total'
+  total: 'total',
+  originalUnitPrice: 'originalUnitPrice',
+  promotionId: 'promotionId',
+  promotionSnapshot: 'promotionSnapshot'
 } as const
 
 export type OrderRequestItemScalarFieldEnum = (typeof OrderRequestItemScalarFieldEnum)[keyof typeof OrderRequestItemScalarFieldEnum]

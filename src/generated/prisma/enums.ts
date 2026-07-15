@@ -420,6 +420,33 @@ export const ProductInterestType = {
 export type ProductInterestType = (typeof ProductInterestType)[keyof typeof ProductInterestType]
 
 
+export const PromotionType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_PRICE: 'FIXED_PRICE'
+} as const
+
+export type PromotionType = (typeof PromotionType)[keyof typeof PromotionType]
+
+
+export const PromotionStatus = {
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type PromotionStatus = (typeof PromotionStatus)[keyof typeof PromotionStatus]
+
+
+export const PromotionReservationStatus = {
+  RESERVED: 'RESERVED',
+  REDEEMED: 'REDEEMED',
+  RELEASED: 'RELEASED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type PromotionReservationStatus = (typeof PromotionReservationStatus)[keyof typeof PromotionReservationStatus]
+
+
 export const CommerceEventType = {
   SHOP_VIEWED: 'SHOP_VIEWED',
   SHOP_FOLLOWED: 'SHOP_FOLLOWED',

@@ -397,6 +397,7 @@ export type OrderRequestWhereInput = {
   convertedSale?: Prisma.XOR<Prisma.SaleNullableScalarRelationFilter, Prisma.SaleWhereInput> | null
   events?: Prisma.CommerceEventListRelationFilter
   paymentChanges?: Prisma.OrderRequestPaymentChangeListRelationFilter
+  promotionReservations?: Prisma.PromotionReservationListRelationFilter
 }
 
 export type OrderRequestOrderByWithRelationInput = {
@@ -435,6 +436,7 @@ export type OrderRequestOrderByWithRelationInput = {
   convertedSale?: Prisma.SaleOrderByWithRelationInput
   events?: Prisma.CommerceEventOrderByRelationAggregateInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeOrderByRelationAggregateInput
+  promotionReservations?: Prisma.PromotionReservationOrderByRelationAggregateInput
 }
 
 export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
@@ -477,6 +479,7 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   convertedSale?: Prisma.XOR<Prisma.SaleNullableScalarRelationFilter, Prisma.SaleWhereInput> | null
   events?: Prisma.CommerceEventListRelationFilter
   paymentChanges?: Prisma.OrderRequestPaymentChangeListRelationFilter
+  promotionReservations?: Prisma.PromotionReservationListRelationFilter
 }, "id" | "referenceCode" | "tokenHash" | "customerAccountId_clientIdempotencyKey">
 
 export type OrderRequestOrderByWithAggregationInput = {
@@ -576,6 +579,7 @@ export type OrderRequestCreateInput = {
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateInput = {
@@ -609,6 +613,7 @@ export type OrderRequestUncheckedCreateInput = {
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUpdateInput = {
@@ -642,6 +647,7 @@ export type OrderRequestUpdateInput = {
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateInput = {
@@ -675,6 +681,7 @@ export type OrderRequestUncheckedUpdateInput = {
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateManyInput = {
@@ -767,6 +774,11 @@ export type OrderRequestListRelationFilter = {
 
 export type OrderRequestOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type OrderRequestScalarRelationFilter = {
+  is?: Prisma.OrderRequestWhereInput
+  isNot?: Prisma.OrderRequestWhereInput
 }
 
 export type OrderRequestCustomerAccountIdClientIdempotencyKeyCompoundUniqueInput = {
@@ -869,11 +881,6 @@ export type OrderRequestMinOrderByAggregateInput = {
 export type OrderRequestSumOrderByAggregateInput = {
   deliveryLatitude?: Prisma.SortOrder
   deliveryLongitude?: Prisma.SortOrder
-}
-
-export type OrderRequestScalarRelationFilter = {
-  is?: Prisma.OrderRequestWhereInput
-  isNot?: Prisma.OrderRequestWhereInput
 }
 
 export type OrderRequestNullableScalarRelationFilter = {
@@ -1091,6 +1098,20 @@ export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput = {
   deleteMany?: Prisma.OrderRequestScalarWhereInput | Prisma.OrderRequestScalarWhereInput[]
 }
 
+export type OrderRequestCreateNestedOneWithoutPromotionReservationsInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutPromotionReservationsInput, Prisma.OrderRequestUncheckedCreateWithoutPromotionReservationsInput>
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutPromotionReservationsInput
+  connect?: Prisma.OrderRequestWhereUniqueInput
+}
+
+export type OrderRequestUpdateOneRequiredWithoutPromotionReservationsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutPromotionReservationsInput, Prisma.OrderRequestUncheckedCreateWithoutPromotionReservationsInput>
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutPromotionReservationsInput
+  upsert?: Prisma.OrderRequestUpsertWithoutPromotionReservationsInput
+  connect?: Prisma.OrderRequestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderRequestUpdateToOneWithWhereWithoutPromotionReservationsInput, Prisma.OrderRequestUpdateWithoutPromotionReservationsInput>, Prisma.OrderRequestUncheckedUpdateWithoutPromotionReservationsInput>
+}
+
 export type EnumSalesChannelFieldUpdateOperationsInput = {
   set?: $Enums.SalesChannel
 }
@@ -1189,6 +1210,7 @@ export type OrderRequestCreateWithoutBusinessInput = {
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutBusinessInput = {
@@ -1221,6 +1243,7 @@ export type OrderRequestUncheckedCreateWithoutBusinessInput = {
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutBusinessInput = {
@@ -1311,6 +1334,7 @@ export type OrderRequestCreateWithoutCustomerAccountInput = {
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
@@ -1343,6 +1367,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutCustomerAccountInput = {
@@ -1401,6 +1426,7 @@ export type OrderRequestCreateWithoutCustomerInput = {
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutCustomerInput = {
@@ -1433,6 +1459,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerInput = {
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutCustomerInput = {
@@ -1491,6 +1518,7 @@ export type OrderRequestCreateWithoutCustomerAddressInput = {
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
@@ -1523,6 +1551,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutCustomerAddressInput = {
@@ -1581,6 +1610,7 @@ export type OrderRequestCreateWithoutSourceShowcaseInput = {
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
@@ -1613,6 +1643,7 @@ export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutSourceShowcaseInput = {
@@ -1639,6 +1670,154 @@ export type OrderRequestUpdateWithWhereUniqueWithoutSourceShowcaseInput = {
 export type OrderRequestUpdateManyWithWhereWithoutSourceShowcaseInput = {
   where: Prisma.OrderRequestScalarWhereInput
   data: Prisma.XOR<Prisma.OrderRequestUpdateManyMutationInput, Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput>
+}
+
+export type OrderRequestCreateWithoutPromotionReservationsInput = {
+  id?: string
+  referenceCode: string
+  tokenHash: string
+  customerName: string
+  customerPhone: string
+  channel: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
+  deliveryAddress?: string | null
+  deliveryPlaceId?: string | null
+  deliveryLatitude?: number | null
+  deliveryLongitude?: number | null
+  deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  note?: string | null
+  status?: $Enums.OrderRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
+  customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
+  customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
+  items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
+  convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+}
+
+export type OrderRequestUncheckedCreateWithoutPromotionReservationsInput = {
+  id?: string
+  businessId: string
+  customerAccountId?: string | null
+  customerId?: string | null
+  referenceCode: string
+  tokenHash: string
+  customerName: string
+  customerPhone: string
+  channel: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  customerAddressId?: string | null
+  sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
+  deliveryAddress?: string | null
+  deliveryPlaceId?: string | null
+  deliveryLatitude?: number | null
+  deliveryLongitude?: number | null
+  deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  note?: string | null
+  status?: $Enums.OrderRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
+  convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+}
+
+export type OrderRequestCreateOrConnectWithoutPromotionReservationsInput = {
+  where: Prisma.OrderRequestWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderRequestCreateWithoutPromotionReservationsInput, Prisma.OrderRequestUncheckedCreateWithoutPromotionReservationsInput>
+}
+
+export type OrderRequestUpsertWithoutPromotionReservationsInput = {
+  update: Prisma.XOR<Prisma.OrderRequestUpdateWithoutPromotionReservationsInput, Prisma.OrderRequestUncheckedUpdateWithoutPromotionReservationsInput>
+  create: Prisma.XOR<Prisma.OrderRequestCreateWithoutPromotionReservationsInput, Prisma.OrderRequestUncheckedCreateWithoutPromotionReservationsInput>
+  where?: Prisma.OrderRequestWhereInput
+}
+
+export type OrderRequestUpdateToOneWithWhereWithoutPromotionReservationsInput = {
+  where?: Prisma.OrderRequestWhereInput
+  data: Prisma.XOR<Prisma.OrderRequestUpdateWithoutPromotionReservationsInput, Prisma.OrderRequestUncheckedUpdateWithoutPromotionReservationsInput>
+}
+
+export type OrderRequestUpdateWithoutPromotionReservationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
+  customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
+  customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
+  items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
+  convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+}
+
+export type OrderRequestUncheckedUpdateWithoutPromotionReservationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
+  convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateWithoutItemsInput = {
@@ -1671,6 +1850,7 @@ export type OrderRequestCreateWithoutItemsInput = {
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutItemsInput = {
@@ -1703,6 +1883,7 @@ export type OrderRequestUncheckedCreateWithoutItemsInput = {
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutItemsInput = {
@@ -1751,6 +1932,7 @@ export type OrderRequestUpdateWithoutItemsInput = {
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutItemsInput = {
@@ -1783,6 +1965,7 @@ export type OrderRequestUncheckedUpdateWithoutItemsInput = {
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateWithoutPaymentChangesInput = {
@@ -1815,6 +1998,7 @@ export type OrderRequestCreateWithoutPaymentChangesInput = {
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutPaymentChangesInput = {
@@ -1847,6 +2031,7 @@ export type OrderRequestUncheckedCreateWithoutPaymentChangesInput = {
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutPaymentChangesInput = {
@@ -1895,6 +2080,7 @@ export type OrderRequestUpdateWithoutPaymentChangesInput = {
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutPaymentChangesInput = {
@@ -1927,6 +2113,7 @@ export type OrderRequestUncheckedUpdateWithoutPaymentChangesInput = {
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateWithoutEventsInput = {
@@ -1959,6 +2146,7 @@ export type OrderRequestCreateWithoutEventsInput = {
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutEventsInput = {
@@ -1991,6 +2179,7 @@ export type OrderRequestUncheckedCreateWithoutEventsInput = {
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutEventsInput = {
@@ -2039,6 +2228,7 @@ export type OrderRequestUpdateWithoutEventsInput = {
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutEventsInput = {
@@ -2071,6 +2261,7 @@ export type OrderRequestUncheckedUpdateWithoutEventsInput = {
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateWithoutConvertedSaleInput = {
@@ -2103,6 +2294,7 @@ export type OrderRequestCreateWithoutConvertedSaleInput = {
   items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
@@ -2135,6 +2327,7 @@ export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutConvertedSaleInput = {
@@ -2183,6 +2376,7 @@ export type OrderRequestUpdateWithoutConvertedSaleInput = {
   items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
@@ -2215,6 +2409,7 @@ export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateManyBusinessInput = {
@@ -2275,6 +2470,7 @@ export type OrderRequestUpdateWithoutBusinessInput = {
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
@@ -2307,6 +2503,7 @@ export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutBusinessInput = {
@@ -2395,6 +2592,7 @@ export type OrderRequestUpdateWithoutCustomerAccountInput = {
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
@@ -2427,6 +2625,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutCustomerAccountInput = {
@@ -2515,6 +2714,7 @@ export type OrderRequestUpdateWithoutCustomerInput = {
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
@@ -2547,6 +2747,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutCustomerInput = {
@@ -2635,6 +2836,7 @@ export type OrderRequestUpdateWithoutCustomerAddressInput = {
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
@@ -2667,6 +2869,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput = {
@@ -2755,6 +2958,7 @@ export type OrderRequestUpdateWithoutSourceShowcaseInput = {
   convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
@@ -2787,6 +2991,7 @@ export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput = {
@@ -2826,12 +3031,14 @@ export type OrderRequestCountOutputType = {
   items: number
   events: number
   paymentChanges: number
+  promotionReservations: number
 }
 
 export type OrderRequestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | OrderRequestCountOutputTypeCountItemsArgs
   events?: boolean | OrderRequestCountOutputTypeCountEventsArgs
   paymentChanges?: boolean | OrderRequestCountOutputTypeCountPaymentChangesArgs
+  promotionReservations?: boolean | OrderRequestCountOutputTypeCountPromotionReservationsArgs
 }
 
 /**
@@ -2863,6 +3070,13 @@ export type OrderRequestCountOutputTypeCountEventsArgs<ExtArgs extends runtime.T
  */
 export type OrderRequestCountOutputTypeCountPaymentChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.OrderRequestPaymentChangeWhereInput
+}
+
+/**
+ * OrderRequestCountOutputType without action
+ */
+export type OrderRequestCountOutputTypeCountPromotionReservationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PromotionReservationWhereInput
 }
 
 
@@ -2902,6 +3116,7 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   convertedSale?: boolean | Prisma.OrderRequest$convertedSaleArgs<ExtArgs>
   events?: boolean | Prisma.OrderRequest$eventsArgs<ExtArgs>
   paymentChanges?: boolean | Prisma.OrderRequest$paymentChangesArgs<ExtArgs>
+  promotionReservations?: boolean | Prisma.OrderRequest$promotionReservationsArgs<ExtArgs>
   _count?: boolean | Prisma.OrderRequestCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderRequest"]>
 
@@ -3013,6 +3228,7 @@ export type OrderRequestInclude<ExtArgs extends runtime.Types.Extensions.Interna
   convertedSale?: boolean | Prisma.OrderRequest$convertedSaleArgs<ExtArgs>
   events?: boolean | Prisma.OrderRequest$eventsArgs<ExtArgs>
   paymentChanges?: boolean | Prisma.OrderRequest$paymentChangesArgs<ExtArgs>
+  promotionReservations?: boolean | Prisma.OrderRequest$promotionReservationsArgs<ExtArgs>
   _count?: boolean | Prisma.OrderRequestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrderRequestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3042,6 +3258,7 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     convertedSale: Prisma.$SalePayload<ExtArgs> | null
     events: Prisma.$CommerceEventPayload<ExtArgs>[]
     paymentChanges: Prisma.$OrderRequestPaymentChangePayload<ExtArgs>[]
+    promotionReservations: Prisma.$PromotionReservationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3473,6 +3690,7 @@ export interface Prisma__OrderRequestClient<T, Null = never, ExtArgs extends run
   convertedSale<T extends Prisma.OrderRequest$convertedSaleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$convertedSaleArgs<ExtArgs>>): Prisma.Prisma__SaleClient<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   events<T extends Prisma.OrderRequest$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommerceEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentChanges<T extends Prisma.OrderRequest$paymentChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$paymentChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestPaymentChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  promotionReservations<T extends Prisma.OrderRequest$promotionReservationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$promotionReservationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PromotionReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4093,6 +4311,30 @@ export type OrderRequest$paymentChangesArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.OrderRequestPaymentChangeScalarFieldEnum | Prisma.OrderRequestPaymentChangeScalarFieldEnum[]
+}
+
+/**
+ * OrderRequest.promotionReservations
+ */
+export type OrderRequest$promotionReservationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PromotionReservation
+   */
+  select?: Prisma.PromotionReservationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PromotionReservation
+   */
+  omit?: Prisma.PromotionReservationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PromotionReservationInclude<ExtArgs> | null
+  where?: Prisma.PromotionReservationWhereInput
+  orderBy?: Prisma.PromotionReservationOrderByWithRelationInput | Prisma.PromotionReservationOrderByWithRelationInput[]
+  cursor?: Prisma.PromotionReservationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PromotionReservationScalarFieldEnum | Prisma.PromotionReservationScalarFieldEnum[]
 }
 
 /**

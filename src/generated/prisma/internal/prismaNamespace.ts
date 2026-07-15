@@ -421,6 +421,8 @@ export const ModelName = {
   CustomerCart: 'CustomerCart',
   CustomerCartItem: 'CustomerCartItem',
   CustomerCartGroup: 'CustomerCartGroup',
+  ProductPromotion: 'ProductPromotion',
+  PromotionReservation: 'PromotionReservation',
   OrderRequest: 'OrderRequest',
   OrderRequestItem: 'OrderRequestItem',
   OrderRequestPaymentChange: 'OrderRequestPaymentChange',
@@ -465,7 +467,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "user" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "orderRequest" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "messageAttempt" | "messagingWebhookEvent"
+    modelProps: "waitlistEntry" | "user" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "messageAttempt" | "messagingWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3204,6 +3206,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CustomerCartGroupCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CustomerCartGroupCountAggregateOutputType> | number
+        }
+      }
+    }
+    ProductPromotion: {
+      payload: Prisma.$ProductPromotionPayload<ExtArgs>
+      fields: Prisma.ProductPromotionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ProductPromotionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ProductPromotionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload>
+        }
+        findFirst: {
+          args: Prisma.ProductPromotionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ProductPromotionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload>
+        }
+        findMany: {
+          args: Prisma.ProductPromotionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload>[]
+        }
+        create: {
+          args: Prisma.ProductPromotionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload>
+        }
+        createMany: {
+          args: Prisma.ProductPromotionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ProductPromotionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload>[]
+        }
+        delete: {
+          args: Prisma.ProductPromotionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload>
+        }
+        update: {
+          args: Prisma.ProductPromotionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ProductPromotionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ProductPromotionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ProductPromotionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ProductPromotionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPromotionPayload>
+        }
+        aggregate: {
+          args: Prisma.ProductPromotionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateProductPromotion>
+        }
+        groupBy: {
+          args: Prisma.ProductPromotionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductPromotionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ProductPromotionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ProductPromotionCountAggregateOutputType> | number
+        }
+      }
+    }
+    PromotionReservation: {
+      payload: Prisma.$PromotionReservationPayload<ExtArgs>
+      fields: Prisma.PromotionReservationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PromotionReservationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PromotionReservationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload>
+        }
+        findFirst: {
+          args: Prisma.PromotionReservationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PromotionReservationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload>
+        }
+        findMany: {
+          args: Prisma.PromotionReservationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload>[]
+        }
+        create: {
+          args: Prisma.PromotionReservationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload>
+        }
+        createMany: {
+          args: Prisma.PromotionReservationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PromotionReservationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload>[]
+        }
+        delete: {
+          args: Prisma.PromotionReservationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload>
+        }
+        update: {
+          args: Prisma.PromotionReservationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload>
+        }
+        deleteMany: {
+          args: Prisma.PromotionReservationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PromotionReservationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PromotionReservationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload>[]
+        }
+        upsert: {
+          args: Prisma.PromotionReservationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromotionReservationPayload>
+        }
+        aggregate: {
+          args: Prisma.PromotionReservationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePromotionReservation>
+        }
+        groupBy: {
+          args: Prisma.PromotionReservationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PromotionReservationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PromotionReservationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PromotionReservationCountAggregateOutputType> | number
         }
       }
     }
@@ -5977,6 +6127,45 @@ export const CustomerCartGroupScalarFieldEnum = {
 export type CustomerCartGroupScalarFieldEnum = (typeof CustomerCartGroupScalarFieldEnum)[keyof typeof CustomerCartGroupScalarFieldEnum]
 
 
+export const ProductPromotionScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  productId: 'productId',
+  variantId: 'variantId',
+  name: 'name',
+  type: 'type',
+  percentage: 'percentage',
+  promotionalPrice: 'promotionalPrice',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  claimLimit: 'claimLimit',
+  perCustomerLimit: 'perCustomerLimit',
+  reservationMinutes: 'reservationMinutes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductPromotionScalarFieldEnum = (typeof ProductPromotionScalarFieldEnum)[keyof typeof ProductPromotionScalarFieldEnum]
+
+
+export const PromotionReservationScalarFieldEnum = {
+  id: 'id',
+  promotionId: 'promotionId',
+  orderRequestId: 'orderRequestId',
+  customerAccountId: 'customerAccountId',
+  customerKey: 'customerKey',
+  quantity: 'quantity',
+  status: 'status',
+  reservedAt: 'reservedAt',
+  expiresAt: 'expiresAt',
+  redeemedAt: 'redeemedAt',
+  releasedAt: 'releasedAt'
+} as const
+
+export type PromotionReservationScalarFieldEnum = (typeof PromotionReservationScalarFieldEnum)[keyof typeof PromotionReservationScalarFieldEnum]
+
+
 export const OrderRequestScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
@@ -6020,7 +6209,10 @@ export const OrderRequestItemScalarFieldEnum = {
   imageUrl: 'imageUrl',
   quantity: 'quantity',
   unitPrice: 'unitPrice',
-  total: 'total'
+  total: 'total',
+  originalUnitPrice: 'originalUnitPrice',
+  promotionId: 'promotionId',
+  promotionSnapshot: 'promotionSnapshot'
 } as const
 
 export type OrderRequestItemScalarFieldEnum = (typeof OrderRequestItemScalarFieldEnum)[keyof typeof OrderRequestItemScalarFieldEnum]
@@ -6999,6 +7191,48 @@ export type ListEnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'PromotionType'
+ */
+export type EnumPromotionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PromotionType'>
+    
+
+
+/**
+ * Reference to a field of type 'PromotionType[]'
+ */
+export type ListEnumPromotionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PromotionType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PromotionStatus'
+ */
+export type EnumPromotionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PromotionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PromotionStatus[]'
+ */
+export type ListEnumPromotionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PromotionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PromotionReservationStatus'
+ */
+export type EnumPromotionReservationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PromotionReservationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PromotionReservationStatus[]'
+ */
+export type ListEnumPromotionReservationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PromotionReservationStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'SalesChannel'
  */
 export type EnumSalesChannelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SalesChannel'>
@@ -7382,6 +7616,8 @@ export type GlobalOmitConfig = {
   customerCart?: Prisma.CustomerCartOmit
   customerCartItem?: Prisma.CustomerCartItemOmit
   customerCartGroup?: Prisma.CustomerCartGroupOmit
+  productPromotion?: Prisma.ProductPromotionOmit
+  promotionReservation?: Prisma.PromotionReservationOmit
   orderRequest?: Prisma.OrderRequestOmit
   orderRequestItem?: Prisma.OrderRequestItemOmit
   orderRequestPaymentChange?: Prisma.OrderRequestPaymentChangeOmit

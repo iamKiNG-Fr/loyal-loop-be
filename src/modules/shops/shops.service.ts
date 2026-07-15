@@ -21,6 +21,7 @@ import { BusinessesService } from "../businesses/businesses.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { SalesService } from "../sales/sales.service";
 import { TrustService } from "../trust/trust.service";
+import { PromotionsService } from "../promotions/promotions.service";
 import {
   CreateOrderRequestDto,
   ConfirmOrderRequestDto,
@@ -43,6 +44,8 @@ const publicShowcaseInclude = {
     include: { product: { include: publicProductInclude } },
     orderBy: { sortOrder: "asc" as const },
   },
+  variants: { where: { active: true }, orderBy: { sortOrder: "asc" as const } },
+  promotions: { where: { status: "ACTIVE" as const }, orderBy: { createdAt: "desc" as const } },
 };
 
 @Injectable()
@@ -54,6 +57,7 @@ export class ShopsService {
     private readonly trust: TrustService,
     private readonly config: ConfigService,
     private readonly businesses: BusinessesService,
+    private readonly promotions: PromotionsService,
   ) {}
 
   async getPublicShop(slug: string, visitor?: string, query?: DiscoveryQuery) {
@@ -199,51 +203,60 @@ export class ShopsService {
       });
     }
     const generated = createOpaqueToken();
-    const request = await this.prisma.orderRequest.create({
-      data: {
-        businessId: business.id,
-        customerAccountId,
-        referenceCode: createReference("REQ"),
-        tokenHash: generated.tokenHash,
-        customerName,
-        customerPhone,
-        channel: dto.channel,
-        requestedPaymentMethod: dto.requestedPaymentMethod,
-        fulfillment,
-        customerAddressId: savedAddress?.id,
-        sourceShowcaseId: dto.sourceShowcaseId,
-        deliveryAddress,
-        deliveryPlaceId:
-          savedAddress?.googlePlaceId?.trim() || dto.deliveryPlaceId?.trim(),
-        deliveryLatitude: savedAddress?.latitude ?? dto.deliveryLatitude,
-        deliveryLongitude: savedAddress?.longitude ?? dto.deliveryLongitude,
-        deliveryNotes:
-          savedAddress?.deliveryNotes?.trim() || dto.deliveryNotes?.trim(),
-        isGift: dto.isGift ?? false,
-        recipientName: dto.isGift ? dto.recipientName?.trim() : undefined,
-        recipientPhone: dto.isGift ? dto.recipientPhone?.trim() : undefined,
-        note: dto.note?.trim(),
-        items: {
-          create: dto.items.map((item) => {
-            const product = products.find(
-              (entry) => entry.id === item.productId,
-            )!;
-            return {
+    const customerKey = customerAccountId
+      ? `account:${customerAccountId}`
+      : hashPrivateValue(customerPhone, this.config.get("SESSION_HASH_SECRET", ""));
+    const request = await this.prisma.$transaction(async (tx) => {
+      const quotedItems = [];
+      for (const item of dto.items) {
+        const product = products.find((entry) => entry.id === item.productId)!;
+        const quote = await this.promotions.quote(tx, { businessId: business.id, customerKey, productId: product.id, quantity: item.quantity });
+        quotedItems.push({ item, product, quote });
+      }
+      const created = await tx.orderRequest.create({
+        data: {
+          businessId: business.id,
+          customerAccountId,
+          referenceCode: createReference("REQ"),
+          tokenHash: generated.tokenHash,
+          customerName,
+          customerPhone,
+          channel: dto.channel,
+          requestedPaymentMethod: dto.requestedPaymentMethod,
+          fulfillment,
+          customerAddressId: savedAddress?.id,
+          sourceShowcaseId: dto.sourceShowcaseId,
+          deliveryAddress,
+          deliveryPlaceId: savedAddress?.googlePlaceId?.trim() || dto.deliveryPlaceId?.trim(),
+          deliveryLatitude: savedAddress?.latitude ?? dto.deliveryLatitude,
+          deliveryLongitude: savedAddress?.longitude ?? dto.deliveryLongitude,
+          deliveryNotes: savedAddress?.deliveryNotes?.trim() || dto.deliveryNotes?.trim(),
+          isGift: dto.isGift ?? false,
+          recipientName: dto.isGift ? dto.recipientName?.trim() : undefined,
+          recipientPhone: dto.isGift ? dto.recipientPhone?.trim() : undefined,
+          note: dto.note?.trim(),
+          items: {
+            create: quotedItems.map(({ item, product, quote }) => ({
               productId: product.id,
               name: product.name,
               imageUrl: product.images[0]?.asset.secureUrl,
               quantity: item.quantity,
-              unitPrice: product.price,
-              total: product.price.mul(item.quantity),
-            };
-          }),
+              originalUnitPrice: quote.promotionId ? quote.originalUnitPrice : undefined,
+              promotionId: quote.promotionId,
+              promotionSnapshot: quote.promotionSnapshot,
+              unitPrice: quote.unitPrice,
+              total: quote.unitPrice.mul(item.quantity),
+            })),
+          },
+          events: { create: { businessId: business.id, type: "REQUEST_SUBMITTED" } },
         },
-        events: {
-          create: { businessId: business.id, type: "REQUEST_SUBMITTED" },
-        },
-      },
-      include: { items: true },
-    });
+        include: { items: true },
+      });
+      for (const { item, quote } of quotedItems) {
+        await this.promotions.reserve(tx, { customerAccountId, customerKey, orderRequestId: created.id, quantity: item.quantity, quote });
+      }
+      return created;
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
     return { request, token: generated.token };
   }
 
@@ -288,6 +301,7 @@ export class ShopsService {
     if (canceled.count !== 1) {
       throw new BadRequestException("This request can no longer be canceled from the request link");
     }
+    await this.promotions.releaseForRequest(this.prisma, request.id);
     const updated = await this.prisma.orderRequest.findUnique({
       where: { id: request.id },
       include: {
@@ -318,10 +332,10 @@ export class ShopsService {
     if (request.status === "CONVERTED") {
       throw new BadRequestException("Converted requests cannot be changed");
     }
-    return this.prisma.orderRequest.update({
-      where: { id: requestId },
-      data: { status: dto.status },
-      include: { items: true },
+    return this.prisma.$transaction(async (tx) => {
+      const updated = await tx.orderRequest.update({ where: { id: requestId }, data: { status: dto.status }, include: { items: true } });
+      if (dto.status === "CANCELED") await this.promotions.releaseForRequest(tx, requestId);
+      return updated;
     });
   }
 
@@ -426,7 +440,7 @@ export class ShopsService {
             );
           }
 
-          return this.sales.create(
+          const converted = await this.sales.create(
             auth,
             {
               customerId: customer.id,
@@ -461,6 +475,8 @@ export class ShopsService {
             idempotencyKey ?? `request:${request.id}`,
             tx,
           );
+          await this.promotions.redeemForRequest(tx, request.id);
+          return converted;
         },
         {
           isolationLevel: Prisma.TransactionIsolationLevel.Serializable,

@@ -34,6 +34,7 @@ const discoveryProductInclude = {
     orderBy: { sortOrder: "asc" as const },
   },
   variants: { where: { active: true }, orderBy: { sortOrder: "asc" as const } },
+  promotions: { where: { status: "ACTIVE" as const }, orderBy: { createdAt: "desc" as const } },
 };
 
 const discoveryShowcaseInclude = {
@@ -597,6 +598,16 @@ function productCard(product: DiscoveryProduct) {
     name: product.name,
     placement: product.placement,
     price: product.price,
+    promotions: product.promotions.map((promotion) => ({
+      endsAt: promotion.endsAt,
+      id: promotion.id,
+      name: promotion.name,
+      percentage: promotion.percentage,
+      promotionalPrice: promotion.promotionalPrice,
+      startsAt: promotion.startsAt,
+      type: promotion.type,
+      variantId: promotion.variantId,
+    })),
     slug: product.slug,
     stockCount: product.stockCount,
     variants: product.variants.map((variant) => ({

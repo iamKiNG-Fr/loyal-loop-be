@@ -7,6 +7,7 @@ import { createOpaqueToken, createReference } from "../../common/crypto.util";
 import type { CustomerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
+import { PromotionsService } from "../promotions/promotions.service";
 import {
   AddCartItemDto,
   SubmitCartDto,
@@ -27,6 +28,7 @@ const cartInclude = {
       product: {
         include: {
           images: { include: { asset: true }, orderBy: { sortOrder: "asc" as const }, take: 1 },
+          promotions: { where: { status: "ACTIVE" as const }, orderBy: { createdAt: "desc" as const } },
         },
       },
       variant: true,
@@ -39,7 +41,7 @@ type CartWithItems = Prisma.CustomerCartGetPayload<{ include: typeof cartInclude
 
 @Injectable()
 export class CartsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService, private readonly promotions: PromotionsService) {}
 
   async deviceCart(deviceKey: string) {
     return this.read(await this.getOrCreateDeviceCart(this.validDeviceKey(deviceKey)));
@@ -214,6 +216,12 @@ export class CartsService {
         if (group.fulfillment === "DELIVERY" && !address) throw new BadRequestException("Choose a saved delivery address");
         const token = createOpaqueToken();
         const request = await this.prisma.$transaction(async (tx) => {
+          const customerKey = `account:${auth.customerAccountId}`;
+          const quotedItems = [];
+          for (const item of groupItems) {
+            const quote = await this.promotions.quote(tx, { businessId: group.business.id, customerKey, productId: item.productId, quantity: item.quantity, variantId: item.variantId });
+            quotedItems.push({ item, quote });
+          }
           const created = await tx.orderRequest.create({
             data: {
               businessId: group.business.id,
@@ -234,7 +242,7 @@ export class CartsService {
               note: group.note,
               requestedPaymentMethod: group.paymentPreference,
               items: {
-                create: groupItems.map((item) => ({
+                create: quotedItems.map(({ item, quote }) => ({
                   productId: item.productId,
                   variantId: item.variantId,
                   variantName: item.variant?.name,
@@ -244,18 +252,24 @@ export class CartsService {
                   name: item.product.name,
                   imageUrl: item.product.images[0]?.asset.secureUrl,
                   quantity: item.quantity,
-                  unitPrice: item.currentPrice,
-                  total: new Prisma.Decimal(item.currentPrice).mul(item.quantity),
+                  originalUnitPrice: quote.promotionId ? quote.originalUnitPrice : undefined,
+                  promotionId: quote.promotionId,
+                  promotionSnapshot: quote.promotionSnapshot,
+                  unitPrice: quote.unitPrice,
+                  total: quote.unitPrice.mul(item.quantity),
                 })),
               },
               events: { create: { businessId: group.business.id, customerAccountId: auth.customerAccountId, type: "REQUEST_SUBMITTED" } },
             },
             include: { items: true },
           });
+          for (const { item, quote } of quotedItems) {
+            await this.promotions.reserve(tx, { customerAccountId: auth.customerAccountId, customerKey, orderRequestId: created.id, quantity: item.quantity, quote });
+          }
           await tx.customerCartItem.deleteMany({ where: { cartId: cart.id, businessId: group.business.id } });
           await tx.customerCartGroup.deleteMany({ where: { cartId: cart.id, businessId: group.business.id } });
           return created;
-        });
+        }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
         results.push({ businessId: group.business.id, ok: true, request, token: token.token });
       } catch (error) {
         results.push({ businessId: group.business.id, ok: false, error: error instanceof Error ? error.message : "Request failed" });
@@ -267,7 +281,7 @@ export class CartsService {
   private async addItem(cartId: string, dto: AddCartItemDto) {
     const product = await this.prisma.product.findFirst({
       where: { id: dto.productId, status: "ACTIVE", visibility: "PUBLIC", business: { storeStatus: "OPEN" } },
-      include: { variants: { where: { active: true } } },
+      include: { variants: { where: { active: true } }, promotions: { where: { status: "ACTIVE" }, orderBy: { createdAt: "desc" } } },
     });
     if (!product) throw new NotFoundException("Product is unavailable");
     const variant = dto.variantId
@@ -275,7 +289,7 @@ export class CartsService {
       : product.variants.length === 1 ? product.variants[0] : undefined;
     if (dto.variantId && !variant) throw new BadRequestException("Product variant is unavailable");
     if (!dto.variantId && product.variants.length > 1) throw new BadRequestException("Choose a product variant");
-    const price = variant?.priceOverride ?? product.price;
+    const price = displayPromotionPrice(product, variant?.id, variant?.priceOverride ?? product.price).price;
     const stock = variant?.stockCount ?? product.stockCount;
     if (stock !== null && stock < dto.quantity) throw new BadRequestException("Requested quantity is not in stock");
     const variantKey = variant?.id ?? "default";
@@ -340,7 +354,8 @@ export class CartsService {
 
 function cartPayload(cart: CartWithItems) {
   const items = cart.items.map((item) => {
-    const currentPrice = (item.variant?.priceOverride ?? item.product.price).toString();
+    const priced = displayPromotionPrice(item.product, item.variantId, item.variant?.priceOverride ?? item.product.price);
+    const currentPrice = priced.price.toString();
     const currentStock = item.variant?.stockCount ?? item.product.stockCount;
     const available = item.product.status === "ACTIVE"
       && item.product.visibility === "PUBLIC"
@@ -350,6 +365,8 @@ function cartPayload(cart: CartWithItems) {
       ...item,
       available,
       currentPrice,
+      originalPrice: priced.promotion ? priced.originalPrice.toString() : null,
+      promotion: priced.promotion,
       currentStock,
       priceChanged: !new Prisma.Decimal(currentPrice).equals(item.priceSnapshot),
       stockChanged: currentStock !== item.stockSnapshot,
@@ -360,4 +377,17 @@ function cartPayload(cart: CartWithItems) {
     items: items.filter((item) => item.businessId === group.businessId),
   }));
   return { id: cart.id, items, groups, status: cart.status, updatedAt: cart.updatedAt };
+}
+
+function displayPromotionPrice(
+  product: { promotions: Array<{ endsAt: Date | null; id: string; name: string; percentage: number | null; promotionalPrice: Prisma.Decimal | null; startsAt: Date | null; type: string; variantId: string | null }> },
+  variantId: string | null | undefined,
+  originalPrice: Prisma.Decimal,
+) {
+  const now = new Date();
+  const promotion = (product.promotions || []).find((item) => (!item.variantId || item.variantId === variantId) && (!item.startsAt || item.startsAt <= now) && (!item.endsAt || item.endsAt > now));
+  const price = !promotion ? originalPrice : promotion.type === "PERCENTAGE"
+    ? originalPrice.mul(100 - (promotion.percentage ?? 0)).div(100).toDecimalPlaces(2)
+    : promotion.promotionalPrice!;
+  return { originalPrice, price, promotion: promotion ? { endsAt: promotion.endsAt, id: promotion.id, name: promotion.name, percentage: promotion.percentage, type: promotion.type } : null };
 }

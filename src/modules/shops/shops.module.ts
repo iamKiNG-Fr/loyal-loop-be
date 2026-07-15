@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { BusinessesModule } from "../businesses/businesses.module";
 import { SalesModule } from "../sales/sales.module";
+import { PromotionsModule } from "../promotions/promotions.module";
 import {
   CustomerShopController,
   CustomerOrderRequestsController,
@@ -10,7 +11,7 @@ import {
 import { ShopsService } from "./shops.service";
 
 @Module({
-  imports: [BusinessesModule, SalesModule],
+  imports: [BusinessesModule, SalesModule, PromotionsModule],
   controllers: [
     PublicShopsController,
     CustomerShopController,

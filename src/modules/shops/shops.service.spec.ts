@@ -19,6 +19,7 @@ function serviceFor(initial: ReturnType<typeof request> | null, after?: ReturnTy
     .mockResolvedValueOnce(after ?? (initial ? request("CANCELED") : null));
   const updateMany = vi.fn().mockResolvedValue({ count: updateCount });
   const prisma = { orderRequest: { findUnique, updateMany } };
+  const releaseForRequest = vi.fn().mockResolvedValue({ count: 1 });
   const service = new ShopsService(
     prisma as never,
     {} as never,
@@ -26,8 +27,9 @@ function serviceFor(initial: ReturnType<typeof request> | null, after?: ReturnTy
     {} as never,
     {} as never,
     {} as never,
+    { releaseForRequest } as never,
   );
-  return { findUnique, service, updateMany };
+  return { findUnique, releaseForRequest, service, updateMany };
 }
 
 describe("ShopsService.cancelRequestByToken", () => {

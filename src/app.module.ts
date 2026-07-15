@@ -23,6 +23,7 @@ import { IntelligenceModule } from "./modules/intelligence/intelligence.module";
 import { PaymentsModule } from "./modules/payments/payments.module";
 import { PrismaModule } from "./modules/prisma/prisma.module";
 import { ProductsModule } from "./modules/products/products.module";
+import { PromotionsModule } from "./modules/promotions/promotions.module";
 import { ReceiptsModule } from "./modules/receipts/receipts.module";
 import { SalesModule } from "./modules/sales/sales.module";
 import { ShopsModule } from "./modules/shops/shops.module";
@@ -59,6 +60,7 @@ import { WaitlistModule } from "./modules/waitlist/waitlist.module";
     PaymentsModule,
     CustomersModule,
     CartsModule,
+    PromotionsModule,
     ProductsModule,
     SalesModule,
     ReceiptsModule,

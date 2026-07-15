@@ -203,6 +203,16 @@ export type CustomerCartItem = Prisma.CustomerCartItemModel
  */
 export type CustomerCartGroup = Prisma.CustomerCartGroupModel
 /**
+ * Model ProductPromotion
+ * 
+ */
+export type ProductPromotion = Prisma.ProductPromotionModel
+/**
+ * Model PromotionReservation
+ * 
+ */
+export type PromotionReservation = Prisma.PromotionReservationModel
+/**
  * Model OrderRequest
  * 
  */

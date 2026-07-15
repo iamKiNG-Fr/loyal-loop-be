@@ -12,7 +12,7 @@ describe("CartsService", () => {
       businessId: "business-1", id: "product-1", price: "1000", stockCount: 10,
       variants: [{ id: "v1" }, { id: "v2" }],
     });
-    const service = new CartsService(prisma as unknown as PrismaService);
+    const service = new CartsService(prisma as unknown as PrismaService, promotions() as never);
     await expect(service.addAccountItem(auth, { productId: "product-1", quantity: 1 }))
       .rejects.toBeInstanceOf(BadRequestException);
   });
@@ -24,7 +24,7 @@ describe("CartsService", () => {
       variants: [{ id: "v1", priceOverride: null, stockCount: 2 }],
     });
     prisma.customerCartItem.findUnique.mockResolvedValue({ quantity: 2 });
-    const service = new CartsService(prisma as unknown as PrismaService);
+    const service = new CartsService(prisma as unknown as PrismaService, promotions() as never);
     await expect(service.addAccountItem(auth, { productId: "product-1", quantity: 1, variantId: "v1" }))
       .rejects.toThrow("Requested quantity is not in stock");
   });
@@ -34,7 +34,7 @@ describe("CartsService", () => {
     const cart = { groups: [], id: "cart-1", items: [], status: "ACTIVE", updatedAt: new Date() };
     prisma.customerCart.findUniqueOrThrow.mockResolvedValue(cart);
     prisma.orderRequest.findFirst.mockResolvedValue({ id: "request-1", items: [] });
-    const service = new CartsService(prisma as unknown as PrismaService);
+    const service = new CartsService(prisma as unknown as PrismaService, promotions() as never);
     const result = await service.submit(auth, {
       businessIds: ["business-1"], confirmedChanges: true, idempotencyKey: "stable-request-key",
     });
@@ -57,4 +57,8 @@ function basePrisma() {
     product: { findFirst: vi.fn() },
     $transaction: vi.fn(),
   } as Record<string, any>;
+}
+
+function promotions() {
+  return { quote: vi.fn(), reserve: vi.fn() };
 }

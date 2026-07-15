@@ -30,6 +30,7 @@ const productInclude = {
     orderBy: { sortOrder: "asc" as const },
   },
   variants: { orderBy: { sortOrder: "asc" as const } },
+  promotions: { include: { _count: { select: { reservations: true } } }, orderBy: { createdAt: "desc" as const } },
 };
 
 const categoryTemplates = [
