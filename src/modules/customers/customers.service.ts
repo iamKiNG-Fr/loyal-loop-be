@@ -32,6 +32,8 @@ const customerInclude = {
   _count: { select: { sales: true, receipts: true, deliveries: true } },
 };
 
+const CUSTOMER_BRIEF_CONTEXT_VERSION = "customer-brief-v2";
+
 @Injectable()
 export class CustomersService {
   constructor(
@@ -255,51 +257,73 @@ export class CustomersService {
   }
 
   async insight(auth: OwnerAuthContext, customerId: string) {
-    await this.assertOwned(auth.businessId, customerId);
-    const [cached, evidence] = await Promise.all([
-      this.prisma.customerInsightSummary.findUnique({ where: { customerId } }),
-      this.insightEvidence(auth.businessId, customerId),
-    ]);
+    const { cached, evidence, evidenceVersion } = await this.insightContext(
+      auth.businessId,
+      customerId,
+    );
     return {
       cached,
       evidence,
       generated: Boolean(cached),
+      needsRefresh: !isCurrentBrief(cached, evidenceVersion),
     };
   }
 
   async refreshInsight(auth: OwnerAuthContext, customerId: string) {
-    const customer = await this.assertOwned(auth.businessId, customerId);
-    const evidence = await this.insightEvidence(auth.businessId, customerId);
-    const evidenceVersion = createHash("sha256")
-      .update(JSON.stringify(evidence.map(({ id, occurredAt, title }) => ({ id, occurredAt, title }))))
-      .digest("hex");
+    const context = await this.insightContext(auth.businessId, customerId);
+    if (isCurrentBrief(context.cached, context.evidenceVersion)) {
+      return {
+        cached: context.cached,
+        evidence: context.evidence,
+        generated: true,
+        needsRefresh: false,
+      };
+    }
 
     try {
       const summary = await this.intelligence.summarizeCustomer({
-        customerName: customer.name,
-        evidence,
+        businessCategory: context.customer.business.category,
+        businessName: context.customer.business.name,
+        customerLabels: context.customer.tagAssignments.map(({ tag }) => tag.name),
+        customerName: context.customer.name,
+        evidence: context.evidence,
       });
+      const providerFailed = Boolean(
+        this.intelligence.model
+        && context.evidence.length
+        && summary.source === "fallback",
+      );
       const cached = await this.prisma.customerInsightSummary.upsert({
         where: { customerId },
         create: {
           businessId: auth.businessId,
           customerId,
-          status: "READY",
+          status: providerFailed ? "FAILED" : "READY",
           summary,
-          evidenceVersion,
-          model: this.intelligence.model,
+          evidenceVersion: context.evidenceVersion,
+          model: summary.source === "ai" ? this.intelligence.model : null,
+          lastError: providerFailed
+            ? "Gemini was unavailable; a deterministic customer brief was stored."
+            : null,
         },
         update: {
-          status: "READY",
+          status: providerFailed ? "FAILED" : "READY",
           summary,
-          evidenceVersion,
-          model: this.intelligence.model,
+          evidenceVersion: context.evidenceVersion,
+          model: summary.source === "ai" ? this.intelligence.model : null,
           generatedAt: new Date(),
           staleAt: null,
-          lastError: null,
+          lastError: providerFailed
+            ? "Gemini was unavailable; a deterministic customer brief was stored."
+            : null,
         },
       });
-      return { cached, evidence, generated: true };
+      return {
+        cached,
+        evidence: context.evidence,
+        generated: true,
+        needsRefresh: providerFailed,
+      };
     } catch (error) {
       const message = error instanceof Error ? error.message.slice(0, 240) : "Summary generation failed";
       await this.prisma.customerInsightSummary.updateMany({
@@ -327,7 +351,7 @@ export class CustomersService {
     businessId: string,
     customerId: string,
   ): Promise<CustomerEvidenceItem[]> {
-    const [activities, sales, deliveries, notes] = await this.prisma.$transaction([
+    const [activities, sales, deliveries, notes, issues, feedback] = await this.prisma.$transaction([
       this.prisma.activityEvent.findMany({
         where: { businessId, customerId },
         select: { id: true, title: true, createdAt: true },
@@ -360,6 +384,23 @@ export class CustomersService {
         orderBy: { createdAt: "desc" },
         take: 10,
       }),
+      this.prisma.customerIssue.findMany({
+        where: { businessId, customerId },
+        select: {
+          id: true,
+          description: true,
+          status: true,
+          updatedAt: true,
+        },
+        orderBy: { updatedAt: "desc" },
+        take: 10,
+      }),
+      this.prisma.customerFeedback.findMany({
+        where: { businessId, customerId },
+        select: { id: true, rating: true, comment: true, createdAt: true },
+        orderBy: { createdAt: "desc" },
+        take: 10,
+      }),
     ]);
 
     return [
@@ -387,8 +428,70 @@ export class CustomersService {
         occurredAt: note.createdAt.toISOString(),
         title: `Team note: ${note.content.slice(0, 180)}`,
       })),
+      ...issues.map((issue) => ({
+        id: `issue:${issue.id}`,
+        kind: "issue" as const,
+        occurredAt: issue.updatedAt.toISOString(),
+        title: `${issue.status === "OPEN" ? "Open" : "Resolved"} customer issue: ${issue.description.slice(0, 180)}`,
+      })),
+      ...feedback.map((entry) => ({
+        id: `feedback:${entry.id}`,
+        kind: "feedback" as const,
+        occurredAt: entry.createdAt.toISOString(),
+        title: `Customer feedback: ${entry.rating}/5${entry.comment ? ` — ${entry.comment.slice(0, 160)}` : ""}`,
+      })),
     ]
       .sort((left, right) => right.occurredAt.localeCompare(left.occurredAt))
       .slice(0, 80);
   }
+
+  private async insightContext(businessId: string, customerId: string) {
+    const customer = await this.prisma.customer.findFirst({
+      where: { id: customerId, businessId },
+      select: {
+        id: true,
+        name: true,
+        channel: true,
+        business: { select: { id: true, name: true, category: true } },
+        tagAssignments: {
+          select: { tag: { select: { name: true } } },
+          orderBy: { tag: { name: "asc" } },
+        },
+      },
+    });
+    if (!customer) throw new NotFoundException("Customer not found");
+
+    const [cached, evidence] = await Promise.all([
+      this.prisma.customerInsightSummary.findFirst({
+        where: { businessId, customerId },
+      }),
+      this.insightEvidence(businessId, customerId),
+    ]);
+    const evidenceVersion = createHash("sha256")
+      .update(JSON.stringify({
+        version: CUSTOMER_BRIEF_CONTEXT_VERSION,
+        business: customer.business,
+        customer: {
+          channel: customer.channel,
+          labels: customer.tagAssignments.map(({ tag }) => tag.name),
+          name: customer.name,
+        },
+        evidence: evidence.map(({ id, kind, occurredAt, title }) => ({
+          id,
+          kind,
+          occurredAt,
+          title,
+        })),
+      }))
+      .digest("hex");
+
+    return { cached, customer, evidence, evidenceVersion };
+  }
+}
+
+function isCurrentBrief(
+  cached: { evidenceVersion: string; status: string } | null,
+  evidenceVersion: string,
+) {
+  return cached?.status === "READY" && cached.evidenceVersion === evidenceVersion;
 }

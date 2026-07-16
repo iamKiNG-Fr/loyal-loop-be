@@ -19,11 +19,30 @@ describe("IntelligenceService deterministic fallback", () => {
   });
 
   it("keeps evidence-linked customer history available without Gemini", async () => {
-    const summary = await service.summarizeCustomer({
+    const brief = await service.summarizeCustomer({
+      businessName: "Ada's Wardrobe",
       customerName: "Ada",
       evidence: [{ id: "sale-1", kind: "sale", occurredAt: "2026-07-14T10:00:00.000Z", title: "Bought a dress" }],
     });
-    expect(summary.evidenceIds).toEqual(["sale-1"]);
-    expect(summary.summary).toContain("Bought a dress");
+    expect(brief.evidenceIds).toEqual(["sale-1"]);
+    expect(brief.overview).toContain("Bought a dress");
+    expect(brief.recommendedAction).toContain("Ada");
+    expect(brief.source).toBe("fallback");
+  });
+
+  it("turns an open customer issue into a specific next action", async () => {
+    const brief = await service.summarizeCustomer({
+      businessName: "Ada's Wardrobe",
+      customerName: "Chidi",
+      evidence: [
+        { id: "issue-1", kind: "issue", occurredAt: "2026-07-15T10:00:00.000Z", title: "Open customer issue: wrong size delivered" },
+        { id: "open-1", kind: "activity", occurredAt: "2026-07-14T10:00:00.000Z", title: "Receipt RCP-1 opened" },
+        { id: "open-2", kind: "activity", occurredAt: "2026-07-14T09:00:00.000Z", title: "Receipt RCP-1 opened" },
+      ],
+    });
+
+    expect(brief.headline).toContain("issue");
+    expect(brief.recommendedAction).toContain("Chidi");
+    expect(brief.evidenceIds).toEqual(["issue-1", "open-1"]);
   });
 });

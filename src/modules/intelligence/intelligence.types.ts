@@ -13,20 +13,34 @@ export type DiscoveryQueryPlan = {
 
 export type CustomerEvidenceItem = {
   id: string;
-  kind: "activity" | "delivery" | "interest" | "note" | "sale";
+  kind:
+    | "activity"
+    | "delivery"
+    | "feedback"
+    | "interest"
+    | "issue"
+    | "note"
+    | "sale";
   occurredAt: string;
   title: string;
 };
 
 export type CustomerInsight = {
+  actionReason: string;
   evidenceIds: string[];
-  summary: string;
+  headline: string;
+  overview: string;
+  recommendedAction: string;
+  source: "ai" | "fallback";
 };
 
 export interface IntelligenceProvider {
   readonly model: string | null;
   parseDiscoveryQuery(query: string): Promise<DiscoveryQueryPlan>;
   summarizeCustomer(input: {
+    businessCategory?: string | null;
+    businessName: string;
+    customerLabels?: string[];
     customerName: string;
     evidence: CustomerEvidenceItem[];
   }): Promise<CustomerInsight>;

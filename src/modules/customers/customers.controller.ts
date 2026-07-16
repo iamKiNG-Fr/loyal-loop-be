@@ -129,7 +129,7 @@ export class CustomersController {
   ) {
     return this.customers
       .refreshInsight(auth, id)
-      .then((data) => ok(data, "Customer summary refreshed"));
+      .then((data) => ok(data, "Customer brief updated"));
   }
 
   @Delete(":id")
