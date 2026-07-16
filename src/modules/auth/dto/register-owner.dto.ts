@@ -40,6 +40,10 @@ export class RegisterOwnerDto {
   password!: string;
 
   @IsString()
+  @Length(1, 120)
+  phoneVerificationChallengeId!: string;
+
+  @IsString()
   @Length(2, 120)
   businessName!: string;
 

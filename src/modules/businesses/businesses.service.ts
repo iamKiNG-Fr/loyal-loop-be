@@ -1,14 +1,19 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
+  Inject,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import { resolveCapabilities } from "../../common/auth/capabilities";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
+import { OTP_PROVIDER, type OtpProvider } from "../customer-auth/otp-provider";
+import { normalizeE164 } from "../messaging/twilio-whatsapp.provider";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   AcceptBusinessInvitationDto,
@@ -31,6 +36,7 @@ export class BusinessesService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
+    @Inject(OTP_PROVIDER) private readonly otpProvider: OtpProvider,
   ) {}
 
   async getCurrent(auth: OwnerAuthContext) {
@@ -485,17 +491,55 @@ export class BusinessesService {
     auth: OwnerAuthContext,
     dto: ReplaceBusinessContactsDto,
   ) {
-    const primaryWhatsapp = dto.contacts.find(
-      (contact, index) =>
-        contact.platform === "WHATSAPP" &&
-        (contact.isPrimary ?? index === 0),
-    );
+    const whatsapp = dto.contacts
+      .filter((contact) => contact.platform === "WHATSAPP")
+      .sort(
+        (left, right) =>
+          Number(Boolean(right.isPrimary)) - Number(Boolean(left.isPrimary)),
+      )[0];
+    if (!whatsapp) {
+      throw new BadRequestException(
+        "Keep a verified WhatsApp number connected to the business",
+      );
+    }
+    const replacementPhone = normalizeE164(whatsapp.value);
     try {
       await this.prisma.$transaction(async (tx) => {
         const business = await tx.business.findUniqueOrThrow({
           where: { id: auth.businessId },
-          select: { ownerId: true },
+          select: { ownerId: true, owner: { select: { phone: true } } },
         });
+        const currentPhone = business.owner.phone
+          ? comparablePhone(business.owner.phone)
+          : "";
+        const phoneChanged = currentPhone !== replacementPhone;
+        if (phoneChanged) {
+          if (auth.role !== "OWNER" || business.ownerId !== auth.userId) {
+            throw new ForbiddenException(
+              "Only the business owner can replace the verified WhatsApp number",
+            );
+          }
+          if (!dto.phoneVerificationChallengeId) {
+            throw new BadRequestException(
+              "Verify the replacement WhatsApp number before saving contacts",
+            );
+          }
+          const claimed = await tx.ownerOtpChallenge.updateMany({
+            where: {
+              id: dto.phoneVerificationChallengeId,
+              userId: auth.userId,
+              phone: replacementPhone,
+              verifiedAt: { not: null },
+              expiresAt: { gt: new Date() },
+            },
+            data: { expiresAt: new Date() },
+          });
+          if (claimed.count !== 1) {
+            throw new BadRequestException(
+              "Verify the replacement WhatsApp number again before saving contacts",
+            );
+          }
+        }
         await tx.businessContact.deleteMany({
           where: { businessId: auth.businessId },
         });
@@ -504,7 +548,10 @@ export class BusinessesService {
             data: dto.contacts.map((contact, index) => ({
               businessId: auth.businessId,
               platform: contact.platform,
-              value: contact.value.trim(),
+              value:
+                contact.platform === "WHATSAPP"
+                  ? normalizeE164(contact.value)
+                  : contact.value.trim(),
               label: contact.label?.trim(),
               isPrimary: contact.isPrimary ?? index === 0,
               sortOrder: index,
@@ -513,11 +560,7 @@ export class BusinessesService {
         }
         await tx.user.update({
           where: { id: business.ownerId },
-          data: {
-            phone: primaryWhatsapp
-              ? normalizePhone(primaryWhatsapp.value)
-              : null,
-          },
+          data: { phone: replacementPhone },
         });
       });
     } catch (error) {
@@ -535,6 +578,91 @@ export class BusinessesService {
       where: { businessId: auth.businessId },
       orderBy: { sortOrder: "asc" },
     });
+  }
+
+  async startWhatsappChange(auth: OwnerAuthContext, phone: string) {
+    this.assertBusinessOwner(auth);
+    const normalizedPhone = normalizeE164(phone);
+    const started = await this.otpProvider.start(normalizedPhone);
+    await this.prisma.ownerOtpChallenge.updateMany({
+      where: {
+        userId: auth.userId,
+        phone: normalizedPhone,
+        verifiedAt: null,
+        expiresAt: { gt: new Date() },
+      },
+      data: { expiresAt: new Date() },
+    });
+    const challenge = await this.prisma.ownerOtpChallenge.create({
+      data: {
+        userId: auth.userId,
+        phone: normalizedPhone,
+        provider: started.provider,
+        providerReference: started.reference,
+        expiresAt: started.expiresAt,
+      },
+    });
+    return { challengeId: challenge.id, expiresAt: challenge.expiresAt };
+  }
+
+  async verifyWhatsappChange(
+    auth: OwnerAuthContext,
+    challengeId: string,
+    code: string,
+  ) {
+    this.assertBusinessOwner(auth);
+    const challenge = await this.prisma.ownerOtpChallenge.findUnique({
+      where: { id: challengeId },
+    });
+    if (
+      !challenge ||
+      challenge.userId !== auth.userId ||
+      challenge.verifiedAt ||
+      challenge.expiresAt.getTime() <= Date.now()
+    ) {
+      throw new UnauthorizedException("Verification challenge expired");
+    }
+    if (challenge.attempts >= 5) {
+      throw new UnauthorizedException("Too many verification attempts");
+    }
+    await this.prisma.ownerOtpChallenge.update({
+      where: { id: challenge.id },
+      data: { attempts: { increment: 1 } },
+    });
+    const approved = await this.otpProvider.verify(
+      challenge.providerReference,
+      challenge.phone,
+      code,
+    );
+    if (!approved) throw new UnauthorizedException("Invalid verification code");
+
+    const verifiedAt = new Date();
+    const expiresAt = new Date(
+      verifiedAt.getTime() + this.phoneChangeProofMinutes() * 60_000,
+    );
+    await this.prisma.ownerOtpChallenge.update({
+      where: { id: challenge.id },
+      data: { verifiedAt, expiresAt },
+    });
+    return { challengeId: challenge.id, expiresAt, verifiedAt };
+  }
+
+  private assertBusinessOwner(auth: OwnerAuthContext) {
+    if (auth.role !== "OWNER") {
+      throw new ForbiddenException(
+        "Only the business owner can verify a replacement WhatsApp number",
+      );
+    }
+  }
+
+  private phoneChangeProofMinutes() {
+    return Math.min(
+      Math.max(
+        Number(this.config.get("OWNER_PHONE_CHANGE_PROOF_MINUTES") || 30),
+        5,
+      ),
+      60,
+    );
   }
 
   async pledge(auth: OwnerAuthContext, dto: OwnerPledgeDto) {
@@ -639,7 +767,7 @@ function isValidTimeZone(timezone: string) {
   }
 }
 
-function normalizePhone(value: string) {
+function comparablePhone(value: string) {
   const digits = value.replace(/\D/g, "");
-  return digits ? `+${digits}` : value.trim();
+  return digits ? `+${digits}` : "";
 }

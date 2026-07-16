@@ -14,6 +14,11 @@ import { MessagingService } from "./messaging.service";
 export class MessagingController {
   constructor(private readonly messaging: MessagingService) {}
 
+  @Get("status")
+  status() {
+    return ok(this.messaging.status());
+  }
+
   @Get("consents")
   @UseGuards(CustomerAuthGuard)
   consents(@CurrentCustomer() customer: CustomerAuthContext) {
@@ -50,6 +55,15 @@ export class MessagingController {
   @Capabilities("DELIVERY_WRITE")
   sendDelivery(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
     return this.messaging.enqueueDelivery(auth, id).then((data) => ok(data, "Delivery update queued for WhatsApp"));
+  }
+
+  @Post("reminders/:id/send")
+  @UseGuards(OwnerAuthGuard, CapabilitiesGuard)
+  @Capabilities("CUSTOMER_WRITE")
+  sendReminder(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
+    return this.messaging
+      .enqueueReminder(auth, id)
+      .then((data) => ok(data, "Reminder queued for WhatsApp"));
   }
 
   @Post("webhooks/twilio")

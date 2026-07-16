@@ -14,6 +14,7 @@ const auth: OwnerAuthContext = {
 describe("BusinessesService launch lifecycle", () => {
   let prisma: ReturnType<typeof prismaMock>;
   let service: BusinessesService;
+  let otpProvider: { start: ReturnType<typeof vi.fn>; verify: ReturnType<typeof vi.fn> };
 
   beforeEach(() => {
     prisma = prismaMock();
@@ -22,9 +23,11 @@ describe("BusinessesService launch lifecycle", () => {
         ? (callback as (client: typeof prisma) => unknown)(prisma)
         : callback,
     );
+    otpProvider = { start: vi.fn(), verify: vi.fn() };
     service = new BusinessesService(
       prisma as never,
       new ConfigService({ APP_URL: "https://www.useloyalloop.com" }),
+      otpProvider,
     );
   });
 
@@ -113,6 +116,50 @@ describe("BusinessesService launch lifecycle", () => {
     await expect(service.reconcileScheduledLaunch(auth.businessId)).resolves.toBe(false);
     expect(prisma.business.updateMany).not.toHaveBeenCalled();
   });
+
+  it("refuses to replace the owner WhatsApp number without a verified proof", async () => {
+    prisma.business.findUniqueOrThrow.mockResolvedValue({
+      ownerId: auth.userId,
+      owner: { phone: "+2348011111111" },
+    });
+
+    await expect(service.replaceContacts(auth, {
+      contacts: [{ platform: "WHATSAPP", value: "+2348022222222", isPrimary: true }],
+    })).rejects.toThrow("Verify the replacement WhatsApp number before saving contacts");
+
+    expect(prisma.businessContact.deleteMany).not.toHaveBeenCalled();
+    expect(prisma.user.update).not.toHaveBeenCalled();
+  });
+
+  it("atomically consumes the matching proof before replacing the number", async () => {
+    prisma.business.findUniqueOrThrow.mockResolvedValue({
+      ownerId: auth.userId,
+      owner: { phone: "+2348011111111" },
+    });
+    prisma.ownerOtpChallenge.updateMany.mockResolvedValue({ count: 1 });
+    prisma.businessContact.findMany.mockResolvedValue([
+      { platform: "WHATSAPP", value: "+2348022222222", isPrimary: true },
+    ]);
+
+    await service.replaceContacts(auth, {
+      contacts: [{ platform: "WHATSAPP", value: "+2348022222222", isPrimary: true }],
+      phoneVerificationChallengeId: "verified-proof-1",
+    });
+
+    expect(prisma.ownerOtpChallenge.updateMany).toHaveBeenCalledWith({
+      where: expect.objectContaining({
+        id: "verified-proof-1",
+        phone: "+2348022222222",
+        userId: auth.userId,
+        verifiedAt: { not: null },
+      }),
+      data: { expiresAt: expect.any(Date) },
+    });
+    expect(prisma.user.update).toHaveBeenCalledWith({
+      where: { id: auth.userId },
+      data: { phone: "+2348022222222" },
+    });
+  });
 });
 
 function prismaMock() {
@@ -126,8 +173,22 @@ function prismaMock() {
       update: vi.fn(),
       updateMany: vi.fn(),
     },
+    businessContact: {
+      createMany: vi.fn(),
+      deleteMany: vi.fn(),
+      findMany: vi.fn(),
+    },
+    ownerOtpChallenge: {
+      create: vi.fn(),
+      findUnique: vi.fn(),
+      update: vi.fn(),
+      updateMany: vi.fn(),
+    },
     product: {
       findFirst: vi.fn(),
+    },
+    user: {
+      update: vi.fn(),
     },
     $transaction: vi.fn(),
   };

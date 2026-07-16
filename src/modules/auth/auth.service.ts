@@ -21,6 +21,7 @@ import type {
 import { resolveCapabilities } from "../../common/auth/capabilities";
 import { MailService } from "../mail/mail.service";
 import { OTP_PROVIDER, type OtpProvider } from "../customer-auth/otp-provider";
+import { normalizeE164 } from "../messaging/twilio-whatsapp.provider";
 import { PrismaService } from "../prisma/prisma.service";
 import { ChangePasswordDto, ResetPasswordDto } from "./dto/password.dto";
 import { RegisterOwnerDto } from "./dto/register-owner.dto";
@@ -48,6 +49,11 @@ export class AuthService {
     }
     const passwordHash = await hashPassword(dto.password);
     const ownerPhone = primaryWhatsappPhone(dto.contacts);
+    if (!ownerPhone) {
+      throw new BadRequestException(
+        "Add and verify a WhatsApp number before creating the business",
+      );
+    }
     try {
       const result = await this.prisma.$transaction(async (tx) => {
         const user = await tx.user.create({
@@ -58,6 +64,21 @@ export class AuthService {
             phone: ownerPhone,
           },
         });
+        const claimedVerification = await tx.ownerOtpChallenge.updateMany({
+          where: {
+            id: dto.phoneVerificationChallengeId,
+            phone: ownerPhone,
+            userId: null,
+            verifiedAt: { not: null },
+            expiresAt: { gt: new Date() },
+          },
+          data: { userId: user.id },
+        });
+        if (claimedVerification.count !== 1) {
+          throw new BadRequestException(
+            "Verify this WhatsApp number again before creating the business",
+          );
+        }
         const business = await tx.business.create({
           data: {
             ownerId: user.id,
@@ -169,7 +190,7 @@ export class AuthService {
   }
 
   async startWhatsapp(phone: string) {
-    const normalizedPhone = normalizePhone(phone);
+    const normalizedPhone = normalizeE164(phone);
     const user = await this.prisma.user.findUnique({
       where: { phone: normalizedPhone },
       select: { id: true },
@@ -193,10 +214,70 @@ export class AuthService {
     return {
       challengeId: challenge.id,
       expiresAt: challenge.expiresAt,
-      ...(started.provider === "development"
-        ? { developmentCode: started.reference.split(":")[2] }
-        : {}),
     };
+  }
+
+  async startOnboardingWhatsapp(phone: string) {
+    const normalizedPhone = normalizeE164(phone);
+    const started = await this.otpProvider.start(normalizedPhone);
+    await this.prisma.ownerOtpChallenge.updateMany({
+      where: {
+        phone: normalizedPhone,
+        userId: null,
+        verifiedAt: null,
+        expiresAt: { gt: new Date() },
+      },
+      data: { expiresAt: new Date() },
+    });
+    const challenge = await this.prisma.ownerOtpChallenge.create({
+      data: {
+        phone: normalizedPhone,
+        provider: started.provider,
+        providerReference: started.reference,
+        expiresAt: started.expiresAt,
+      },
+    });
+    return {
+      challengeId: challenge.id,
+      expiresAt: challenge.expiresAt,
+    };
+  }
+
+  async verifyOnboardingWhatsapp(challengeId: string, code: string) {
+    const challenge = await this.prisma.ownerOtpChallenge.findUnique({
+      where: { id: challengeId },
+    });
+    if (
+      !challenge ||
+      challenge.userId ||
+      challenge.verifiedAt ||
+      challenge.expiresAt.getTime() <= Date.now()
+    ) {
+      throw new UnauthorizedException("Verification challenge expired");
+    }
+    if (challenge.attempts >= 5) {
+      throw new UnauthorizedException("Too many verification attempts");
+    }
+    await this.prisma.ownerOtpChallenge.update({
+      where: { id: challenge.id },
+      data: { attempts: { increment: 1 } },
+    });
+    const approved = await this.otpProvider.verify(
+      challenge.providerReference,
+      challenge.phone,
+      code,
+    );
+    if (!approved) throw new UnauthorizedException("Invalid verification code");
+
+    const verifiedAt = new Date();
+    const expiresAt = new Date(
+      verifiedAt.getTime() + this.onboardingProofMinutes() * 60_000,
+    );
+    await this.prisma.ownerOtpChallenge.update({
+      where: { id: challenge.id },
+      data: { verifiedAt, expiresAt },
+    });
+    return { challengeId: challenge.id, expiresAt, verifiedAt };
   }
 
   async verifyWhatsapp(
@@ -420,6 +501,16 @@ export class AuthService {
     return new Date(Date.now() + days * 24 * 60 * 60 * 1000);
   }
 
+  private onboardingProofMinutes() {
+    return Math.min(
+      Math.max(
+        Number(this.config.get("OWNER_ONBOARDING_PHONE_PROOF_MINUTES") || 30),
+        5,
+      ),
+      60,
+    );
+  }
+
   private safeIdentity(
     user: {
       id: string;
@@ -463,13 +554,8 @@ export class AuthService {
 function primaryWhatsappPhone(
   contacts: RegisterOwnerDto["contacts"] | undefined,
 ) {
-  const whatsapp = contacts?.find(
-    (contact) => contact.platform === "WHATSAPP" && contact.isPrimary,
-  );
-  return whatsapp ? normalizePhone(whatsapp.value) : undefined;
-}
-
-function normalizePhone(value: string) {
-  const digits = value.replace(/\D/g, "");
-  return digits ? `+${digits}` : value.trim();
+  const whatsapp = contacts
+    ?.filter((contact) => contact.platform === "WHATSAPP")
+    .sort((left, right) => Number(Boolean(right.isPrimary)) - Number(Boolean(left.isPrimary)))[0];
+  return whatsapp ? normalizeE164(whatsapp.value) : undefined;
 }

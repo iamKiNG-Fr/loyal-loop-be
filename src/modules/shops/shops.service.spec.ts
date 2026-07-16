@@ -28,6 +28,7 @@ function serviceFor(initial: ReturnType<typeof request> | null, after?: ReturnTy
     {} as never,
     {} as never,
     { releaseForRequest } as never,
+    {} as never,
   );
   return { findUnique, releaseForRequest, service, updateMany };
 }

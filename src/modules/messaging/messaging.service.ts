@@ -1,17 +1,22 @@
 import {
   BadRequestException,
   ForbiddenException,
+  Inject,
   Injectable,
   ServiceUnavailableException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { hashPrivateValue } from "../../common/crypto.util";
-import { createOpaqueToken } from "../../common/crypto.util";
+import { createOpaqueToken, hashPrivateValue } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { PrismaService } from "../prisma/prisma.service";
+import { normalizeE164 } from "./twilio-whatsapp.provider";
+import {
+  WHATSAPP_PROVIDER,
+  type WhatsAppProvider,
+} from "./whatsapp-provider";
 
-type UtilityPurpose = "RECEIPT" | "DELIVERY";
+type UtilityPurpose = "RECEIPT" | "DELIVERY" | "REMINDER";
 type WebhookValues = Record<string, string | undefined>;
 
 @Injectable()
@@ -19,7 +24,13 @@ export class MessagingService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
+    @Inject(WHATSAPP_PROVIDER)
+    private readonly whatsapp: WhatsAppProvider,
   ) {}
+
+  status() {
+    return this.whatsapp.status();
+  }
 
   async consentState(customerAccountId: string) {
     const account = await this.prisma.customerAccount.findUniqueOrThrow({
@@ -45,23 +56,38 @@ export class MessagingService {
       where: { id: customerAccountId },
       select: { phone: true },
     });
-    const phoneHash = this.phoneHash(account.phone);
+    await this.grantPhoneConsent(
+      account.phone,
+      purpose,
+      "customer-settings",
+      customerAccountId,
+    );
+    return this.consentState(customerAccountId);
+  }
+
+  async grantPhoneConsent(
+    phone: string,
+    purpose: UtilityPurpose,
+    source: string,
+    customerAccountId?: string,
+  ) {
+    const normalizedPhone = normalizePhone(phone);
+    const phoneHash = this.phoneHash(normalizedPhone);
     await this.prisma.messagingConsent.upsert({
       where: { phoneHash_purpose: { phoneHash, purpose } },
       create: {
         customerAccountId,
         phoneHash,
         purpose,
-        source: "customer-settings",
+        source,
       },
       update: {
         customerAccountId,
-        source: "customer-settings",
+        source,
         grantedAt: new Date(),
         revokedAt: null,
       },
     });
-    return this.consentState(customerAccountId);
   }
 
   async revokeConsent(customerAccountId: string, purpose: UtilityPurpose) {
@@ -162,6 +188,39 @@ export class MessagingService {
     });
   }
 
+  async enqueueReminder(auth: OwnerAuthContext, suggestionId: string) {
+    const suggestion = await this.prisma.followUpSuggestion.findFirst({
+      where: { id: suggestionId, businessId: auth.businessId },
+      include: { business: true, customer: true, template: true },
+    });
+    if (!suggestion || !suggestion.customer.phone) {
+      throw new BadRequestException(
+        "Approved reminder needs a customer WhatsApp phone number",
+      );
+    }
+    if (suggestion.status !== "APPROVED") {
+      throw new BadRequestException(
+        "Approve this follow-up before sending its WhatsApp reminder",
+      );
+    }
+    const reminder = (suggestion.template?.body || suggestion.reason)
+      .trim()
+      .slice(0, 1000);
+    return this.enqueueUtility({
+      businessId: auth.businessId,
+      customerAccountId: suggestion.customer.accountId ?? undefined,
+      phone: suggestion.customer.phone,
+      purpose: "REMINDER",
+      templateKey: "reminder",
+      variables: {
+        "1": suggestion.customer.name,
+        "2": suggestion.business.name,
+        "3": reminder,
+      },
+      idempotencyKey: `reminder:${suggestion.id}:${suggestion.updatedAt.getTime()}`,
+    });
+  }
+
   async processDue(limit = 25) {
     this.assertWorkerEnabled();
     const due = await this.prisma.messageOutbox.findMany({
@@ -187,10 +246,14 @@ export class MessagingService {
     this.assertWorkerEnabled();
     const outbox = await this.prisma.messageOutbox.findUniqueOrThrow({ where: { id } });
     if (!["PENDING", "FAILED"].includes(outbox.status)) return outbox.status;
-    if (!this.recipientAllowed(outbox.toAddress)) {
+    const eligibility = this.whatsapp.recipientEligibility(outbox.toAddress);
+    if (!eligibility.allowed) {
       await this.prisma.messageOutbox.update({
         where: { id },
-        data: { status: "SUPPRESSED", lastError: "Recipient is outside the private pilot allow-list" },
+        data: {
+          status: "SUPPRESSED",
+          lastError: eligibility.reason || "WhatsApp recipient is not eligible",
+        },
       });
       return "SUPPRESSED";
     }
@@ -212,7 +275,7 @@ export class MessagingService {
     await this.prisma.messageOutbox.update({ where: { id }, data: { status: "PROCESSING" } });
 
     try {
-      const result = await this.sendTemplate(
+      const result = await this.sendWithProvider(
         outbox.toAddress,
         outbox.templateKey,
         outbox.payload as Record<string, string>,
@@ -231,10 +294,13 @@ export class MessagingService {
         this.prisma.messageAttempt.create({
           data: {
             outboxId: id,
-            provider: "twilio-whatsapp",
+            provider: result.provider,
             providerReference: result.sid,
             status: "SENT",
-            metadata: { twilioStatus: result.status },
+            metadata: {
+              twilioStatus: result.status,
+              whatsappMode: this.whatsapp.status().whatsappMode,
+            },
           },
         }),
       ]);
@@ -256,7 +322,7 @@ export class MessagingService {
         this.prisma.messageAttempt.create({
           data: {
             outboxId: id,
-            provider: "twilio-whatsapp",
+            provider: `twilio-whatsapp-${this.whatsapp.status().whatsappMode}`,
             status: terminal ? "DEAD_LETTER" : "FAILED",
             error: message.slice(0, 500),
           },
@@ -307,7 +373,7 @@ export class MessagingService {
           data: {
             status: mapped,
             deliveredAt: mapped === "DELIVERED" ? new Date() : undefined,
-            lastError: values.ErrorMessage || values.ErrorCode || undefined,
+            lastError: webhookErrorMessage(values),
           },
         });
       }
@@ -316,30 +382,23 @@ export class MessagingService {
     return { accepted: true, duplicate: false };
   }
 
-  private async sendTemplate(to: string, templateKey: string, variables: Record<string, string>) {
-    const accountSid = this.config.getOrThrow<string>("TWILIO_ACCOUNT_SID");
-    const authToken = this.config.getOrThrow<string>("TWILIO_AUTH_TOKEN");
-    const sender = normalizePhone(this.config.getOrThrow<string>("TWILIO_WHATSAPP_SENDER"));
-    const contentSid = this.config.get<string>(`TWILIO_WHATSAPP_${templateKey.toUpperCase()}_CONTENT_SID`);
-    if (!contentSid) throw new ServiceUnavailableException(`Approved Twilio template ${templateKey} is not configured`);
-    const webhookUrl = this.config.getOrThrow<string>("TWILIO_WHATSAPP_WEBHOOK_URL");
-    const response = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`, {
-      method: "POST",
-      headers: {
-        authorization: `Basic ${Buffer.from(`${accountSid}:${authToken}`).toString("base64")}`,
-        "content-type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        From: `whatsapp:${sender}`,
-        To: `whatsapp:${normalizePhone(to)}`,
-        ContentSid: contentSid,
-        ContentVariables: JSON.stringify(variables),
-        StatusCallback: webhookUrl,
-      }),
-    });
-    const payload = (await response.json().catch(() => ({}))) as { sid?: string; status?: string; message?: string };
-    if (!response.ok || !payload.sid) throw new ServiceUnavailableException(payload.message || `Twilio returned ${response.status}`);
-    return { sid: payload.sid, status: payload.status || "queued" };
+  private sendWithProvider(
+    to: string,
+    templateKey: string,
+    variables: Record<string, string>,
+  ) {
+    if (templateKey === "receipt") {
+      return this.whatsapp.sendReceipt(to, variables);
+    }
+    if (templateKey === "delivery") {
+      return this.whatsapp.sendDeliveryUpdate(to, variables);
+    }
+    if (templateKey === "reminder") {
+      return this.whatsapp.sendReminder(to, variables);
+    }
+    throw new ServiceUnavailableException(
+      `Unsupported WhatsApp message template: ${templateKey}`,
+    );
   }
 
   private assertWorkerEnabled() {
@@ -347,25 +406,17 @@ export class MessagingService {
     if (this.config.get("TWILIO_WHATSAPP_KILL_SWITCH") !== "false") {
       throw new ServiceUnavailableException("WhatsApp kill switch is active");
     }
-    if (this.config.get("NODE_ENV") === "production" && this.config.get("TWILIO_WHATSAPP_PRODUCTION_READY") !== "true") {
+    if (
+      this.whatsapp.status().whatsappMode === "production" &&
+      this.config.get("NODE_ENV") === "production" &&
+      this.config.get("TWILIO_WHATSAPP_PRODUCTION_READY") !== "true"
+    ) {
       throw new ServiceUnavailableException("WhatsApp production readiness has not been approved");
-    }
-    const sender = this.config.get<string>("TWILIO_WHATSAPP_SENDER", "");
-    if (this.config.get("NODE_ENV") === "production" && normalizePhone(sender) === "+14155238886") {
-      throw new ServiceUnavailableException("Twilio Sandbox sender cannot be used in production");
     }
   }
 
   private pilotEnabled() {
     return this.config.get("TWILIO_WHATSAPP_ENABLED") === "true";
-  }
-
-  private recipientAllowed(phone: string) {
-    const allowed = this.config.get<string>("TWILIO_WHATSAPP_PILOT_ALLOWLIST", "")
-      .split(",")
-      .map(normalizePhone)
-      .filter(Boolean);
-    return allowed.includes(normalizePhone(phone));
   }
 
   private async assertDailyCap() {
@@ -388,7 +439,7 @@ export class MessagingService {
 }
 
 export function normalizePhone(value: string) {
-  return value.trim().replace(/^whatsapp:/i, "").replace(/[\s()-]/g, "");
+  return normalizeE164(value);
 }
 
 export function verifyTwilioSignature(authToken: string, url: string, values: WebhookValues, signature: string) {
@@ -412,4 +463,14 @@ function mapTwilioStatus(status: string) {
   if (["sent", "queued", "accepted", "scheduled"].includes(status)) return "SENT" as const;
   if (["failed", "undelivered", "canceled"].includes(status)) return "FAILED" as const;
   return null;
+}
+
+function webhookErrorMessage(values: WebhookValues) {
+  if (values.ErrorCode === "63015") {
+    return "Development WhatsApp Sandbox recipient has not joined this Sandbox";
+  }
+  if (values.ErrorCode === "63016") {
+    return "WhatsApp Sandbox conversation window is closed; the test phone must message or rejoin the Sandbox";
+  }
+  return values.ErrorMessage || values.ErrorCode || undefined;
 }

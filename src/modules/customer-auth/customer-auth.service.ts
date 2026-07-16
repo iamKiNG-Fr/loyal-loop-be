@@ -8,6 +8,7 @@ import {
 import { ConfigService } from "@nestjs/config";
 import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import { PrismaService } from "../prisma/prisma.service";
+import { normalizeE164 } from "../messaging/twilio-whatsapp.provider";
 import {
   CreateCustomerAddressDto,
   UpdateCustomerAddressDto,
@@ -23,10 +24,11 @@ export class CustomerAuthService {
   ) {}
 
   async start(phone: string) {
-    const started = await this.provider.start(phone);
+    const normalizedPhone = normalizeE164(phone);
+    const started = await this.provider.start(normalizedPhone);
     const challenge = await this.prisma.customerOtpChallenge.create({
       data: {
-        phone,
+        phone: normalizedPhone,
         provider: started.provider,
         providerReference: started.reference,
         expiresAt: started.expiresAt,
@@ -35,9 +37,6 @@ export class CustomerAuthService {
     return {
       challengeId: challenge.id,
       expiresAt: challenge.expiresAt,
-      ...(started.provider === "development"
-        ? { developmentCode: started.reference.split(":")[2] }
-        : {}),
     };
   }
 

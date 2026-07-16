@@ -67,6 +67,10 @@ export class CreateOrderRequestDto {
   @Length(5, 30)
   customerPhone!: string;
 
+  @IsOptional()
+  @IsBoolean()
+  whatsappUpdatesConsent?: boolean;
+
   @IsEnum(SalesChannel)
   channel!: SalesChannel;
 

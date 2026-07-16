@@ -374,7 +374,8 @@ export type MessageChannel = (typeof MessageChannel)[keyof typeof MessageChannel
 export const MessagePurpose = {
   OTP: 'OTP',
   RECEIPT: 'RECEIPT',
-  DELIVERY: 'DELIVERY'
+  DELIVERY: 'DELIVERY',
+  REMINDER: 'REMINDER'
 } as const
 
 export type MessagePurpose = (typeof MessagePurpose)[keyof typeof MessagePurpose]

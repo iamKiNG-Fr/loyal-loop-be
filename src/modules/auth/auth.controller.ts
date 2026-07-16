@@ -82,6 +82,24 @@ export class AuthController {
     return ok(await this.auth.startWhatsapp(dto.phone), "Verification sent");
   }
 
+  @Post("onboarding/whatsapp/start")
+  @Throttle({ default: { limit: 3, ttl: minutes(10) } })
+  async startOnboardingWhatsapp(@Body() dto: StartOwnerOtpDto) {
+    return ok(
+      await this.auth.startOnboardingWhatsapp(dto.phone),
+      "Onboarding verification sent",
+    );
+  }
+
+  @Post("onboarding/whatsapp/verify")
+  @Throttle({ default: { limit: 8, ttl: minutes(10) } })
+  async verifyOnboardingWhatsapp(@Body() dto: VerifyOwnerOtpDto) {
+    return ok(
+      await this.auth.verifyOnboardingWhatsapp(dto.challengeId, dto.code),
+      "WhatsApp number verified",
+    );
+  }
+
   @Post("whatsapp/verify")
   @Throttle({ default: { limit: 8, ttl: minutes(10) } })
   async verifyWhatsapp(

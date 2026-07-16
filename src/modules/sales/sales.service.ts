@@ -12,6 +12,7 @@ import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
+import { MessagingService } from "../messaging/messaging.service";
 import {
   CreateSaleDto,
   RecordPaymentDto,
@@ -42,6 +43,7 @@ export class SalesService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly activity: ActivityService,
+    private readonly messaging: MessagingService,
   ) {}
 
   async list(auth: OwnerAuthContext, query: SaleListDto) {
@@ -409,6 +411,11 @@ export class SalesService {
         if (existing) return { sale: existing };
       }
       throw error;
+    }
+    if (!transaction && sale.delivery?.id) {
+      await this.messaging
+        .enqueueDelivery(auth, sale.delivery.id)
+        .catch(() => undefined);
     }
     return {
       sale,

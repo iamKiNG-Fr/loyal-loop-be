@@ -280,6 +280,7 @@ enum MessagePurpose {
   OTP
   RECEIPT
   DELIVERY
+  REMINDER
 }
 
 enum MessageStatus {

@@ -26,49 +26,198 @@ Setup:
 
 Official references: https://googleapis.github.io/js-genai/release_docs/ and https://ai.google.dev/gemini-api/docs/models
 
-## Twilio Verify for WhatsApp OTP
+## Twilio WhatsApp operating modes
 
-Required values:
+Loyal Loop has one provider-neutral WhatsApp boundary and two explicit Twilio
+runtime modes. Business logic enqueues receipts, delivery updates, reminders,
+and OTP requests without knowing which mode is active.
 
 ```env
-CUSTOMER_OTP_PROVIDER=twilio
+# Allowed values: sandbox | production
+TWILIO_WHATSAPP_MODE=sandbox
+
+# Shared server-only credentials
 TWILIO_ACCOUNT_SID=
 TWILIO_AUTH_TOKEN=
-TWILIO_VERIFY_SERVICE_SID=
-TWILIO_WHATSAPP_VERIFY_ENABLED=false
-TWILIO_WHATSAPP_PILOT_ALLOWLIST=+234...
-TWILIO_WHATSAPP_KILL_SWITCH=true
-TWILIO_WHATSAPP_PRODUCTION_READY=false
+
+# Exact signed inbound and status-callback URL
+TWILIO_WHATSAPP_WEBHOOK_URL=https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio
 ```
 
-Start with an upgraded company-owned Twilio account and a Verify Service. Test only allow-listed E.164 phone numbers. Activating the pilot requires `TWILIO_WHATSAPP_VERIFY_ENABLED=true` and `TWILIO_WHATSAPP_KILL_SWITCH=false`; production also requires `TWILIO_WHATSAPP_PRODUCTION_READY=true`. Do not change the production-readiness flag until sender ownership, consent, fallback, spend limits, and observability are approved.
+The callback URL is verified against the application route composition:
 
-Official reference: https://www.twilio.com/docs/verify/whatsapp
+- Nest global prefix: `api/v1`
+- controller prefix: `messaging`
+- controller action: `webhooks/twilio`
+- resulting route: `POST /api/v1/messaging/webhooks/twilio`
 
-## Twilio WhatsApp utility messages
+Twilio `X-Twilio-Signature` validation is mandatory in both modes and uses the
+exact configured public URL. The non-sensitive runtime status is available at
+`GET /api/v1/messaging/status` and returns only:
 
-Additional values:
+```json
+{
+  "whatsappMode": "sandbox",
+  "messagingConfigured": true,
+  "otpProvider": "internal-sandbox"
+}
+```
+
+It never returns credentials, phone allow-lists, or SIDs.
+
+The existing consent-aware test/send routes are mode-independent:
+
+- `POST /api/v1/messaging/receipts/:id/send`
+- `POST /api/v1/messaging/deliveries/:id/send`
+- `POST /api/v1/messaging/reminders/:id/send` for an approved follow-up
+
+The recipient must have the matching `RECEIPT`, `DELIVERY`, or `REMINDER`
+consent, must not be suppressed, and must be eligible for the active Sandbox or
+production allow-list before the outbox attempts delivery.
+
+### A. Development with Twilio WhatsApp Sandbox
+
+Sandbox mode is development-only. It cannot start when `NODE_ENV=production`
+and its internal OTP path is additionally restricted to a local database or a
+remote database explicitly marked `DATABASE_SAFETY_MODE=isolated`.
+
+1. In Twilio Console, activate the WhatsApp Sandbox.
+2. From every test phone, send the displayed `join <sandbox-code>` message to
+   the Sandbox number. A Sandbox recipient may need to rejoin after Twilio's
+   enrollment window expires.
+3. Record only those joined test numbers in E.164 format in
+   `TWILIO_WHATSAPP_SANDBOX_JOINED_NUMBERS`. Loyal Loop refuses to call Twilio
+   for any other Sandbox recipient. Twilio error `63015` is also translated to
+   a clear rejoin instruction if the local list becomes stale.
+4. Add the shared Account SID and Auth Token to the development backend secret
+   store. Do not add an `MG...`, `VA...`, or `HX...` SID in Sandbox mode.
+5. Configure the exact webhook in the Twilio Sandbox page for inbound messages
+   and status callbacks.
+6. Enable only the local test runtime after the joined list is ready.
 
 ```env
-TWILIO_WHATSAPP_ENABLED=false
-TWILIO_WHATSAPP_SENDER=+1...
-TWILIO_WHATSAPP_RECEIPT_CONTENT_SID=
-TWILIO_WHATSAPP_DELIVERY_CONTENT_SID=
+TWILIO_WHATSAPP_MODE=sandbox
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_WHATSAPP_SANDBOX_FROM=whatsapp:+14155238886
+TWILIO_WHATSAPP_SANDBOX_JOINED_NUMBERS=+234...
 TWILIO_WHATSAPP_WEBHOOK_URL=https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio
+
+TWILIO_WHATSAPP_VERIFY_ENABLED=true
+TWILIO_WHATSAPP_ENABLED=true
+TWILIO_WHATSAPP_KILL_SWITCH=false
+TWILIO_WHATSAPP_PRODUCTION_READY=false
+TWILIO_WHATSAPP_DAILY_SEND_CAP=10
+TWILIO_WHATSAPP_MAX_ATTEMPTS=4
+MESSAGING_WORKER_SECRET=
+```
+
+Sandbox receipts, delivery updates, and reminders are sent as free-form text
+prefixed with `[LOYAL LOOP DEVELOPMENT SANDBOX]`. Receipt and tracking messages
+retain their real opaque application links. The test phone must keep an active
+Sandbox conversation window for free-form delivery.
+
+Sandbox OTP behavior is deliberately different from the old visible
+development-code flow:
+
+- the six-digit code is sent only through the WhatsApp Sandbox;
+- the API response never returns it;
+- the database stores a salted HMAC reference, never the raw code;
+- existing ten-minute expiry, five-attempt limit, and single-use challenge
+  behavior remain enforced by the owner/customer authentication services.
+
+Business onboarding uses the same development-only Sandbox delivery through
+`POST /api/v1/auth/onboarding/whatsapp/start` and
+`POST /api/v1/auth/onboarding/whatsapp/verify`. The owner cannot leave the
+business-details step until the exact WhatsApp number is verified. The
+short-lived verification proof is claimed inside the registration transaction,
+so it cannot be reused for a second account or for a different number.
+
+Changing the business WhatsApp number later uses the authenticated owner-only
+endpoints `POST /api/v1/businesses/current/contacts/whatsapp/start` and
+`POST /api/v1/businesses/current/contacts/whatsapp/verify`. The replacement is
+not published and does not change the owner sign-in identity until the exact
+number has been verified. The proof is consumed in the same transaction as the
+contact replacement. Managers can continue editing other social contacts but
+cannot replace the owner's WhatsApp identity, and the personal-details endpoint
+cannot bypass this verification path. `OWNER_PHONE_CHANGE_PROOF_MINUTES`
+controls the bounded 5-to-60-minute proof window and defaults to 30 minutes.
+
+Customers can separately opt into `DELIVERY` messages when they submit an
+order request. After the seller confirms the request, and again when its
+delivery status changes, Loyal Loop queues the delivery message with the real
+opaque `/delivery/...` order-journey link. Missing consent suppresses the
+message; a Twilio outage never rolls back the order or sale.
+
+The Sandbox is not a production fallback. If it is selected in a production
+runtime, application startup fails.
+
+Official reference: https://www.twilio.com/docs/whatsapp/sandbox
+
+### B. Production with Loyal Loop WhatsApp Sender
+
+Production mode retains the complete registered-sender implementation. At
+startup it requires valid-looking Account, Messaging Service, Verify Service,
+registered sender, webhook, and all three approved Content Template values.
+Missing or malformed values stop startup with environment-variable names only;
+secret or complete SID values are never printed. There is no automatic fallback
+to the Sandbox.
+
+```env
+TWILIO_WHATSAPP_MODE=production
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+
+TWILIO_WHATSAPP_SENDER=+234...
+TWILIO_MESSAGING_SERVICE_SID=MG...
+TWILIO_VERIFY_SERVICE_SID=VA...
+TWILIO_RECEIPT_CONTENT_SID=HX...
+TWILIO_DELIVERY_CONTENT_SID=HX...
+TWILIO_REMINDER_CONTENT_SID=HX...
+
+TWILIO_WHATSAPP_PILOT_ALLOWLIST=+234...
+TWILIO_WHATSAPP_WEBHOOK_URL=https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio
+TWILIO_WHATSAPP_VERIFY_ENABLED=false
+TWILIO_WHATSAPP_ENABLED=false
+TWILIO_WHATSAPP_KILL_SWITCH=true
+TWILIO_WHATSAPP_PRODUCTION_READY=false
 TWILIO_WHATSAPP_DAILY_SEND_CAP=25
 TWILIO_WHATSAPP_MAX_ATTEMPTS=4
 MESSAGING_WORKER_SECRET=
 ```
 
+The previous `TWILIO_WHATSAPP_RECEIPT_CONTENT_SID` and
+`TWILIO_WHATSAPP_DELIVERY_CONTENT_SID` names remain accepted as compatibility
+aliases, but new environments should use the names above.
+
+Production behavior:
+
+- receipts use the registered sender, Messaging Service, and approved receipt
+  Content SID;
+- delivery updates use the registered sender, Messaging Service, and approved
+  delivery Content SID, including the customer-safe order-journey link after
+  an opted-in request is confirmed and on later delivery status changes;
+- approved follow-up reminders use the registered sender, Messaging Service,
+  and approved reminder Content SID;
+- owner and customer OTP use the existing Twilio Verify WhatsApp Service;
+- recipients remain restricted by the private-pilot allow-list;
+- consent, STOP suppression, outbox idempotency, retries, daily cap, signed
+  callbacks, and the kill switch remain active.
+
 Production sequence:
 
 1. Upgrade the company-controlled Twilio account.
-2. Register the dedicated phone number as a WhatsApp Sender through Twilio Self Sign-up and complete the Meta Business/WABA requirements.
-3. Build and approve receipt and delivery utility templates, then copy their `HX...` Content SIDs into the backend environment.
-4. Configure the exact public webhook URL and keep Twilio signature validation enabled.
-5. Confirm purpose-scoped consent, STOP suppression, the pilot allow-list, outbox idempotency, retries, spend cap, fallback, alerts, and kill switch.
-6. Test with `TWILIO_WHATSAPP_ENABLED=true` only in the private pilot. Remove the kill switch and set production readiness only as the final approval step.
+2. Register the dedicated Loyal Loop number through WhatsApp Self Sign-up and
+   complete Meta Business/WABA verification.
+3. Attach the registered sender to the `MG...` Messaging Service and the
+   WhatsApp Verify configuration.
+4. Approve receipt, delivery, and reminder utility templates and store their
+   `HX...` SIDs in the deployment secret store.
+5. Configure the exact signed webhook and test inbound, delivery status, STOP,
+   invalid signatures, retries, and failure alerts.
+6. Add only pilot recipients, review pricing and spend controls, then set the
+   enable/readiness flags and remove the kill switch as the final approval.
 
-The Twilio Sandbox is for isolated development recipients. A custom production sender and templates require the upgraded account and WhatsApp Sender registration.
-
-Official references: https://www.twilio.com/docs/whatsapp/self-sign-up and https://www.twilio.com/docs/whatsapp/content-api
+Official references: https://www.twilio.com/docs/verify/whatsapp,
+https://www.twilio.com/docs/whatsapp/self-sign-up, and
+https://www.twilio.com/docs/content/content-api-resources

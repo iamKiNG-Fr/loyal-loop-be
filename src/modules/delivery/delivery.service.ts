@@ -7,6 +7,7 @@ import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import type { DeliveryStatus } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
+import { MessagingService } from "../messaging/messaging.service";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   CreateDeliveryIssueDto,
@@ -58,6 +59,7 @@ export class DeliveryService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly activity: ActivityService,
+    private readonly messaging: MessagingService,
   ) {}
 
   list(auth: OwnerAuthContext) {
@@ -107,7 +109,7 @@ export class DeliveryService {
         `Delivery cannot move from ${delivery.status} to ${dto.status}`,
       );
     }
-    return this.prisma.$transaction(async (tx) => {
+    const updated = await this.prisma.$transaction(async (tx) => {
       const updated = await tx.delivery.update({
         where: { id: deliveryId },
         data: {
@@ -152,6 +154,8 @@ export class DeliveryService {
       );
       return updated;
     });
+    await this.messaging.enqueueDelivery(auth, deliveryId).catch(() => undefined);
+    return updated;
   }
 
   async getPublic(token: string) {

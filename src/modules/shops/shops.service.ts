@@ -19,6 +19,7 @@ import {
 import { ActivityService } from "../activity/activity.service";
 import { BusinessesService } from "../businesses/businesses.service";
 import { PrismaService } from "../prisma/prisma.service";
+import { MessagingService } from "../messaging/messaging.service";
 import { SalesService } from "../sales/sales.service";
 import { TrustService } from "../trust/trust.service";
 import { PromotionsService } from "../promotions/promotions.service";
@@ -36,7 +37,9 @@ const publicProductInclude = {
     include: { asset: true },
     orderBy: { sortOrder: "asc" as const },
   },
-};
+  variants: { where: { active: true }, orderBy: { sortOrder: "asc" as const } },
+  promotions: { where: { status: "ACTIVE" as const }, orderBy: { createdAt: "desc" as const } },
+} satisfies Prisma.ProductInclude;
 
 const publicShowcaseInclude = {
   asset: true,
@@ -44,9 +47,7 @@ const publicShowcaseInclude = {
     include: { product: { include: publicProductInclude } },
     orderBy: { sortOrder: "asc" as const },
   },
-  variants: { where: { active: true }, orderBy: { sortOrder: "asc" as const } },
-  promotions: { where: { status: "ACTIVE" as const }, orderBy: { createdAt: "desc" as const } },
-};
+} satisfies Prisma.ShowcaseInclude;
 
 @Injectable()
 export class ShopsService {
@@ -58,6 +59,7 @@ export class ShopsService {
     private readonly config: ConfigService,
     private readonly businesses: BusinessesService,
     private readonly promotions: PromotionsService,
+    private readonly messaging: MessagingService,
   ) {}
 
   async getPublicShop(slug: string, visitor?: string, query?: DiscoveryQuery) {
@@ -257,6 +259,14 @@ export class ShopsService {
       }
       return created;
     }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+    if (dto.whatsappUpdatesConsent) {
+      await this.messaging.grantPhoneConsent(
+        customerPhone,
+        "DELIVERY",
+        "order-request",
+        customerAccountId,
+      );
+    }
     return { request, token: generated.token };
   }
 
@@ -388,7 +398,7 @@ export class ShopsService {
     idempotencyKey?: string,
   ) {
     try {
-      return await this.prisma.$transaction(
+      const converted = await this.prisma.$transaction(
         async (tx) => {
           const request = await tx.orderRequest.findFirst({
             where: { id: requestId, businessId: auth.businessId },
@@ -484,6 +494,12 @@ export class ShopsService {
           timeout: 30_000,
         },
       );
+      if (converted.sale.delivery?.id) {
+        await this.messaging
+          .enqueueDelivery(auth, converted.sale.delivery.id)
+          .catch(() => undefined);
+      }
+      return converted;
     } catch (error) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
@@ -497,7 +513,14 @@ export class ShopsService {
             },
           },
         });
-        if (request?.convertedSale) return { sale: request.convertedSale };
+        if (request?.convertedSale) {
+          if (request.convertedSale.delivery?.id) {
+            await this.messaging
+              .enqueueDelivery(auth, request.convertedSale.delivery.id)
+              .catch(() => undefined);
+          }
+          return { sale: request.convertedSale };
+        }
       }
       throw error;
     }

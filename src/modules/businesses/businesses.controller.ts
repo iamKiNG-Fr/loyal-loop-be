@@ -9,6 +9,7 @@ import {
   Put,
   UseGuards,
 } from "@nestjs/common";
+import { minutes, Throttle } from "@nestjs/throttler";
 import { CurrentAuth } from "../../common/auth/current-auth.decorator";
 import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
 import { Capabilities } from "../../common/auth/capabilities.decorator";
@@ -30,8 +31,10 @@ import {
 import {
   OwnerPledgeDto,
   ReplaceBusinessContactsDto,
+  StartBusinessWhatsappVerificationDto,
   UpdateBusinessDto,
   UpdateBusinessPreferencesDto,
+  VerifyBusinessWhatsappVerificationDto,
 } from "./dto/update-business.dto";
 import { UpdateMemberPermissionsDto } from "./dto/member-permission.dto";
 
@@ -77,6 +80,32 @@ export class BusinessesController {
     return this.businesses
       .replaceContacts(auth, dto)
       .then((data) => ok(data, "Contacts updated"));
+  }
+
+  @Post("contacts/whatsapp/start")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
+  @Roles("OWNER")
+  @Throttle({ default: { limit: 3, ttl: minutes(10) } })
+  startWhatsappChange(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Body() dto: StartBusinessWhatsappVerificationDto,
+  ) {
+    return this.businesses
+      .startWhatsappChange(auth, dto.phone)
+      .then((data) => ok(data, "WhatsApp verification sent"));
+  }
+
+  @Post("contacts/whatsapp/verify")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
+  @Roles("OWNER")
+  @Throttle({ default: { limit: 8, ttl: minutes(10) } })
+  verifyWhatsappChange(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Body() dto: VerifyBusinessWhatsappVerificationDto,
+  ) {
+    return this.businesses
+      .verifyWhatsappChange(auth, dto.challengeId, dto.code)
+      .then((data) => ok(data, "Replacement WhatsApp number verified"));
   }
 
   @Patch("preferences")

@@ -87,6 +87,27 @@ export class ReplaceBusinessContactsDto {
   @ValidateNested({ each: true })
   @Type(() => BusinessContactDto)
   contacts!: BusinessContactDto[];
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  phoneVerificationChallengeId?: string;
+}
+
+export class StartBusinessWhatsappVerificationDto {
+  @IsString()
+  @Matches(/^\+[1-9]\d{7,14}$/)
+  phone!: string;
+}
+
+export class VerifyBusinessWhatsappVerificationDto {
+  @IsString()
+  @Length(1, 120)
+  challengeId!: string;
+
+  @IsString()
+  @Matches(/^\d{6}$/)
+  code!: string;
 }
 
 export class OwnerPledgeDto {
