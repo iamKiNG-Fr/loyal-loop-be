@@ -240,6 +240,11 @@ export type PromotionReservation = Prisma.PromotionReservationModel
  */
 export type OrderRequest = Prisma.OrderRequestModel
 /**
+ * Model OrderRequestShareToken
+ *
+ */
+export type OrderRequestShareToken = Prisma.OrderRequestShareTokenModel
+/**
  * Model OrderRequestItem
  * 
  */

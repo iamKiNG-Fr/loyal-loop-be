@@ -28,6 +28,9 @@ export type CustomerAccountMinAggregateOutputType = {
   id: string | null
   phone: string | null
   name: string | null
+  alternatePhone: string | null
+  birthday: Date | null
+  gender: string | null
   verifiedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -37,6 +40,9 @@ export type CustomerAccountMaxAggregateOutputType = {
   id: string | null
   phone: string | null
   name: string | null
+  alternatePhone: string | null
+  birthday: Date | null
+  gender: string | null
   verifiedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -46,6 +52,10 @@ export type CustomerAccountCountAggregateOutputType = {
   id: number
   phone: number
   name: number
+  alternatePhone: number
+  birthday: number
+  gender: number
+  socials: number
   verifiedAt: number
   createdAt: number
   updatedAt: number
@@ -57,6 +67,9 @@ export type CustomerAccountMinAggregateInputType = {
   id?: true
   phone?: true
   name?: true
+  alternatePhone?: true
+  birthday?: true
+  gender?: true
   verifiedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -66,6 +79,9 @@ export type CustomerAccountMaxAggregateInputType = {
   id?: true
   phone?: true
   name?: true
+  alternatePhone?: true
+  birthday?: true
+  gender?: true
   verifiedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -75,6 +91,10 @@ export type CustomerAccountCountAggregateInputType = {
   id?: true
   phone?: true
   name?: true
+  alternatePhone?: true
+  birthday?: true
+  gender?: true
+  socials?: true
   verifiedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -157,6 +177,10 @@ export type CustomerAccountGroupByOutputType = {
   id: string
   phone: string
   name: string | null
+  alternatePhone: string | null
+  birthday: Date | null
+  gender: string | null
+  socials: runtime.JsonValue | null
   verifiedAt: Date
   createdAt: Date
   updatedAt: Date
@@ -187,6 +211,10 @@ export type CustomerAccountWhereInput = {
   id?: Prisma.StringFilter<"CustomerAccount"> | string
   phone?: Prisma.StringFilter<"CustomerAccount"> | string
   name?: Prisma.StringNullableFilter<"CustomerAccount"> | string | null
+  alternatePhone?: Prisma.StringNullableFilter<"CustomerAccount"> | string | null
+  birthday?: Prisma.DateTimeNullableFilter<"CustomerAccount"> | Date | string | null
+  gender?: Prisma.StringNullableFilter<"CustomerAccount"> | string | null
+  socials?: Prisma.JsonNullableFilter<"CustomerAccount">
   verifiedAt?: Prisma.DateTimeFilter<"CustomerAccount"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"CustomerAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CustomerAccount"> | Date | string
@@ -212,6 +240,10 @@ export type CustomerAccountOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  alternatePhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  birthday?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  socials?: Prisma.SortOrderInput | Prisma.SortOrder
   verifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -240,6 +272,10 @@ export type CustomerAccountWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CustomerAccountWhereInput[]
   NOT?: Prisma.CustomerAccountWhereInput | Prisma.CustomerAccountWhereInput[]
   name?: Prisma.StringNullableFilter<"CustomerAccount"> | string | null
+  alternatePhone?: Prisma.StringNullableFilter<"CustomerAccount"> | string | null
+  birthday?: Prisma.DateTimeNullableFilter<"CustomerAccount"> | Date | string | null
+  gender?: Prisma.StringNullableFilter<"CustomerAccount"> | string | null
+  socials?: Prisma.JsonNullableFilter<"CustomerAccount">
   verifiedAt?: Prisma.DateTimeFilter<"CustomerAccount"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"CustomerAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CustomerAccount"> | Date | string
@@ -265,6 +301,10 @@ export type CustomerAccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  alternatePhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  birthday?: Prisma.SortOrderInput | Prisma.SortOrder
+  gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  socials?: Prisma.SortOrderInput | Prisma.SortOrder
   verifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -280,6 +320,10 @@ export type CustomerAccountScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"CustomerAccount"> | string
   phone?: Prisma.StringWithAggregatesFilter<"CustomerAccount"> | string
   name?: Prisma.StringNullableWithAggregatesFilter<"CustomerAccount"> | string | null
+  alternatePhone?: Prisma.StringNullableWithAggregatesFilter<"CustomerAccount"> | string | null
+  birthday?: Prisma.DateTimeNullableWithAggregatesFilter<"CustomerAccount"> | Date | string | null
+  gender?: Prisma.StringNullableWithAggregatesFilter<"CustomerAccount"> | string | null
+  socials?: Prisma.JsonNullableWithAggregatesFilter<"CustomerAccount">
   verifiedAt?: Prisma.DateTimeWithAggregatesFilter<"CustomerAccount"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CustomerAccount"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CustomerAccount"> | Date | string
@@ -289,6 +333,10 @@ export type CustomerAccountCreateInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -314,6 +362,10 @@ export type CustomerAccountUncheckedCreateInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -339,6 +391,10 @@ export type CustomerAccountUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -364,6 +420,10 @@ export type CustomerAccountUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -389,6 +449,10 @@ export type CustomerAccountCreateManyInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -398,6 +462,10 @@ export type CustomerAccountUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -407,6 +475,10 @@ export type CustomerAccountUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -416,6 +488,10 @@ export type CustomerAccountCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  alternatePhone?: Prisma.SortOrder
+  birthday?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
+  socials?: Prisma.SortOrder
   verifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -425,6 +501,9 @@ export type CustomerAccountMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  alternatePhone?: Prisma.SortOrder
+  birthday?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
   verifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -434,6 +513,9 @@ export type CustomerAccountMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  alternatePhone?: Prisma.SortOrder
+  birthday?: Prisma.SortOrder
+  gender?: Prisma.SortOrder
   verifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -697,6 +779,10 @@ export type CustomerAccountCreateWithoutSessionsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -721,6 +807,10 @@ export type CustomerAccountUncheckedCreateWithoutSessionsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -761,6 +851,10 @@ export type CustomerAccountUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -785,6 +879,10 @@ export type CustomerAccountUncheckedUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -809,6 +907,10 @@ export type CustomerAccountCreateWithoutChallengesInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -833,6 +935,10 @@ export type CustomerAccountUncheckedCreateWithoutChallengesInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -873,6 +979,10 @@ export type CustomerAccountUpdateWithoutChallengesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -897,6 +1007,10 @@ export type CustomerAccountUncheckedUpdateWithoutChallengesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -921,6 +1035,10 @@ export type CustomerAccountCreateWithoutCustomersInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -945,6 +1063,10 @@ export type CustomerAccountUncheckedCreateWithoutCustomersInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -985,6 +1107,10 @@ export type CustomerAccountUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1009,6 +1135,10 @@ export type CustomerAccountUncheckedUpdateWithoutCustomersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1033,6 +1163,10 @@ export type CustomerAccountCreateWithoutAddressesInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1057,6 +1191,10 @@ export type CustomerAccountUncheckedCreateWithoutAddressesInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1097,6 +1235,10 @@ export type CustomerAccountUpdateWithoutAddressesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1121,6 +1263,10 @@ export type CustomerAccountUncheckedUpdateWithoutAddressesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1145,6 +1291,10 @@ export type CustomerAccountCreateWithoutSavedShowcasesInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1169,6 +1319,10 @@ export type CustomerAccountUncheckedCreateWithoutSavedShowcasesInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1209,6 +1363,10 @@ export type CustomerAccountUpdateWithoutSavedShowcasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1233,6 +1391,10 @@ export type CustomerAccountUncheckedUpdateWithoutSavedShowcasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1257,6 +1419,10 @@ export type CustomerAccountCreateWithoutFollowedShopsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1281,6 +1447,10 @@ export type CustomerAccountUncheckedCreateWithoutFollowedShopsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1321,6 +1491,10 @@ export type CustomerAccountUpdateWithoutFollowedShopsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1345,6 +1519,10 @@ export type CustomerAccountUncheckedUpdateWithoutFollowedShopsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1369,6 +1547,10 @@ export type CustomerAccountCreateWithoutWishlistInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1393,6 +1575,10 @@ export type CustomerAccountUncheckedCreateWithoutWishlistInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1433,6 +1619,10 @@ export type CustomerAccountUpdateWithoutWishlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1457,6 +1647,10 @@ export type CustomerAccountUncheckedUpdateWithoutWishlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1481,6 +1675,10 @@ export type CustomerAccountCreateWithoutInterestsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1505,6 +1703,10 @@ export type CustomerAccountUncheckedCreateWithoutInterestsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1545,6 +1747,10 @@ export type CustomerAccountUpdateWithoutInterestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1569,6 +1775,10 @@ export type CustomerAccountUncheckedUpdateWithoutInterestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1593,6 +1803,10 @@ export type CustomerAccountCreateWithoutCartsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1617,6 +1831,10 @@ export type CustomerAccountUncheckedCreateWithoutCartsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1657,6 +1875,10 @@ export type CustomerAccountUpdateWithoutCartsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1681,6 +1903,10 @@ export type CustomerAccountUncheckedUpdateWithoutCartsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1705,6 +1931,10 @@ export type CustomerAccountCreateWithoutPromotionReservationsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1729,6 +1959,10 @@ export type CustomerAccountUncheckedCreateWithoutPromotionReservationsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1769,6 +2003,10 @@ export type CustomerAccountUpdateWithoutPromotionReservationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1793,6 +2031,10 @@ export type CustomerAccountUncheckedUpdateWithoutPromotionReservationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1817,6 +2059,10 @@ export type CustomerAccountCreateWithoutRequestsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1841,6 +2087,10 @@ export type CustomerAccountUncheckedCreateWithoutRequestsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1881,6 +2131,10 @@ export type CustomerAccountUpdateWithoutRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1905,6 +2159,10 @@ export type CustomerAccountUncheckedUpdateWithoutRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1929,6 +2187,10 @@ export type CustomerAccountCreateWithoutEventsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1953,6 +2215,10 @@ export type CustomerAccountUncheckedCreateWithoutEventsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1993,6 +2259,10 @@ export type CustomerAccountUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2017,6 +2287,10 @@ export type CustomerAccountUncheckedUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2041,6 +2315,10 @@ export type CustomerAccountCreateWithoutDiscoveryPreferencesInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2065,6 +2343,10 @@ export type CustomerAccountUncheckedCreateWithoutDiscoveryPreferencesInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2105,6 +2387,10 @@ export type CustomerAccountUpdateWithoutDiscoveryPreferencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2129,6 +2415,10 @@ export type CustomerAccountUncheckedUpdateWithoutDiscoveryPreferencesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2153,6 +2443,10 @@ export type CustomerAccountCreateWithoutDiscoveryTelemetryInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2177,6 +2471,10 @@ export type CustomerAccountUncheckedCreateWithoutDiscoveryTelemetryInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2217,6 +2515,10 @@ export type CustomerAccountUpdateWithoutDiscoveryTelemetryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2241,6 +2543,10 @@ export type CustomerAccountUncheckedUpdateWithoutDiscoveryTelemetryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2265,6 +2571,10 @@ export type CustomerAccountCreateWithoutMessagingConsentsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2289,6 +2599,10 @@ export type CustomerAccountUncheckedCreateWithoutMessagingConsentsInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2329,6 +2643,10 @@ export type CustomerAccountUpdateWithoutMessagingConsentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2353,6 +2671,10 @@ export type CustomerAccountUncheckedUpdateWithoutMessagingConsentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2377,6 +2699,10 @@ export type CustomerAccountCreateWithoutMessageOutboxInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2401,6 +2727,10 @@ export type CustomerAccountUncheckedCreateWithoutMessageOutboxInput = {
   id?: string
   phone: string
   name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2441,6 +2771,10 @@ export type CustomerAccountUpdateWithoutMessageOutboxInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2465,6 +2799,10 @@ export type CustomerAccountUncheckedUpdateWithoutMessageOutboxInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2655,6 +2993,10 @@ export type CustomerAccountSelect<ExtArgs extends runtime.Types.Extensions.Inter
   id?: boolean
   phone?: boolean
   name?: boolean
+  alternatePhone?: boolean
+  birthday?: boolean
+  gender?: boolean
+  socials?: boolean
   verifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2681,6 +3023,10 @@ export type CustomerAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   id?: boolean
   phone?: boolean
   name?: boolean
+  alternatePhone?: boolean
+  birthday?: boolean
+  gender?: boolean
+  socials?: boolean
   verifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2690,6 +3036,10 @@ export type CustomerAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   id?: boolean
   phone?: boolean
   name?: boolean
+  alternatePhone?: boolean
+  birthday?: boolean
+  gender?: boolean
+  socials?: boolean
   verifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -2699,12 +3049,16 @@ export type CustomerAccountSelectScalar = {
   id?: boolean
   phone?: boolean
   name?: boolean
+  alternatePhone?: boolean
+  birthday?: boolean
+  gender?: boolean
+  socials?: boolean
   verifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CustomerAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phone" | "name" | "verifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["customerAccount"]>
+export type CustomerAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "phone" | "name" | "alternatePhone" | "birthday" | "gender" | "socials" | "verifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["customerAccount"]>
 export type CustomerAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.CustomerAccount$sessionsArgs<ExtArgs>
   challenges?: boolean | Prisma.CustomerAccount$challengesArgs<ExtArgs>
@@ -2751,6 +3105,10 @@ export type $CustomerAccountPayload<ExtArgs extends runtime.Types.Extensions.Int
     id: string
     phone: string
     name: string | null
+    alternatePhone: string | null
+    birthday: Date | null
+    gender: string | null
+    socials: runtime.JsonValue | null
     verifiedAt: Date
     createdAt: Date
     updatedAt: Date
@@ -3196,6 +3554,10 @@ export interface CustomerAccountFieldRefs {
   readonly id: Prisma.FieldRef<"CustomerAccount", 'String'>
   readonly phone: Prisma.FieldRef<"CustomerAccount", 'String'>
   readonly name: Prisma.FieldRef<"CustomerAccount", 'String'>
+  readonly alternatePhone: Prisma.FieldRef<"CustomerAccount", 'String'>
+  readonly birthday: Prisma.FieldRef<"CustomerAccount", 'DateTime'>
+  readonly gender: Prisma.FieldRef<"CustomerAccount", 'String'>
+  readonly socials: Prisma.FieldRef<"CustomerAccount", 'Json'>
   readonly verifiedAt: Prisma.FieldRef<"CustomerAccount", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"CustomerAccount", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CustomerAccount", 'DateTime'>

@@ -151,6 +151,12 @@ export class UpdateBusinessPreferencesDto {
   defaultPaymentMethod?: PaymentMethod;
 
   @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(20)
+  @IsString({ each: true })
+  deliveryAreas?: string[];
+
+  @IsOptional()
   @IsBoolean()
   protectedPaymentEnabled?: boolean;
 

@@ -568,6 +568,7 @@ model BusinessPreferences {
   defaultPaymentStatus    PaymentStatus       @default(UNPAID)
   allowedPaymentMethods   PaymentMethod[]     @default([BANK_TRANSFER, PAY_ON_DELIVERY, CASH, ARRANGE_SEPARATELY])
   defaultPaymentMethod    PaymentMethod?
+  deliveryAreas           String[]            @default([])
   protectedPaymentEnabled Boolean             @default(false)
   receiptDeliveryLine     ReceiptDeliveryLine @default(OPTIONAL)
   receiptFooter           String?
@@ -712,6 +713,10 @@ model CustomerAccount {
   id                   String                   @id @default(cuid())
   phone                String                   @unique
   name                 String?
+  alternatePhone       String?
+  birthday             DateTime?                @db.Date
+  gender               String?
+  socials              Json?
   verifiedAt           DateTime
   createdAt            DateTime                 @default(now())
   updatedAt            DateTime                 @updatedAt
@@ -1167,6 +1172,10 @@ model CustomerCartGroup {
   fulfillment       FulfillmentType  @default(ARRANGE_LATER)
   note              String?
   paymentPreference PaymentMethod?
+  isGift           Boolean          @default(false)
+  recipientName    String?
+  recipientPhone   String?
+  whatsappUpdatesConsent Boolean    @default(false)
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   cart              CustomerCart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
@@ -1252,6 +1261,9 @@ model OrderRequest {
   recipientName          String?
   recipientPhone         String?
   note                   String?
+  cancellationReasonCode String?
+  cancellationReason     String?
+  canceledBy             String?
   status                 OrderRequestStatus          @default(SENT)
   createdAt              DateTime                    @default(now())
   updatedAt              DateTime                    @updatedAt
@@ -1265,12 +1277,25 @@ model OrderRequest {
   events                 CommerceEvent[]
   paymentChanges         OrderRequestPaymentChange[]
   promotionReservations  PromotionReservation[]
+  shareTokens            OrderRequestShareToken[]
 
   @@unique([customerAccountId, clientIdempotencyKey])
   @@index([businessId, status, createdAt])
   @@index([customerAddressId])
   @@index([sourceShowcaseId])
   @@map("order_requests")
+}
+
+model OrderRequestShareToken {
+  id             String       @id @default(cuid())
+  orderRequestId String
+  tokenHash      String       @unique
+  createdAt      DateTime     @default(now())
+  revokedAt      DateTime?
+  orderRequest   OrderRequest @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
+
+  @@index([orderRequestId, createdAt])
+  @@map("order_request_share_tokens")
 }
 
 model OrderRequestItem {

@@ -146,6 +146,15 @@ export class ChangeRequestedPaymentMethodDto {
 export class UpdateOrderRequestStatusDto {
   @IsEnum(OrderRequestStatus)
   status!: OrderRequestStatus;
+
+  @IsOptional()
+  @IsIn(["NO_STOCK", "OUTSIDE_DELIVERY_AREA", "CANNOT_FULFILL", "STORE_CLOSED", "OTHER"])
+  cancellationReasonCode?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 300)
+  cancellationReason?: string;
 }
 
 export class ConfirmOrderRequestDto {

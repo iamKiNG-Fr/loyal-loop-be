@@ -424,6 +424,9 @@ export class BusinessesService {
       allowedPaymentMethods: dto.allowedPaymentMethods
         ? [...new Set(dto.allowedPaymentMethods)]
         : undefined,
+      deliveryAreas: dto.deliveryAreas
+        ? [...new Set(dto.deliveryAreas.map((item) => item.trim()).filter(Boolean))].slice(0, 20)
+        : undefined,
       tickerItems: dto.tickerItems
         ? [...new Set(dto.tickerItems.map((item) => item.trim()).filter(Boolean))]
         : undefined,

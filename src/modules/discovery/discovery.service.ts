@@ -185,18 +185,27 @@ export class DiscoveryService {
         }),
       ]);
 
+    const [savedProducts, savedShowcases] = customerAccountId
+      ? await Promise.all([
+          this.prisma.wishlistItem.findMany({ where: { customerAccountId }, select: { productId: true } }),
+          this.prisma.savedShowcase.findMany({ where: { customerAccountId }, select: { showcaseId: true } }),
+        ])
+      : [[], []];
+    const savedProductIds = new Set(savedProducts.map((item) => item.productId));
+    const savedShowcaseIds = new Set(savedShowcases.map((item) => item.showcaseId));
+
     const combined = diverseDiscoveryOrder([
       ...products.map((product) => ({
         sortDate: product.updatedAt,
         score: signalScore(productSignals, "productId", product.id),
         businessId: product.businessId,
-        value: productCard(product),
+        value: productCard(product, savedProductIds.has(product.id)),
       })),
       ...showcases.map((showcase) => ({
         sortDate: showcase.publishedAt ?? showcase.updatedAt,
         score: signalScore(showcaseSignals, "showcaseId", showcase.id),
         businessId: showcase.businessId,
-        value: showcaseCard(showcase),
+        value: showcaseCard(showcase, savedShowcaseIds.has(showcase.id)),
       })),
     ], preference?.preferences);
     const total = productCount + showcaseCount;
@@ -472,8 +481,8 @@ export class DiscoveryService {
       }),
     ]);
     return {
-      products: products.map((item) => productCard(item.product)),
-      showcases: showcases.map((item) => showcaseCard(item.showcase)),
+      products: products.map((item) => productCard(item.product, true)),
+      showcases: showcases.map((item) => showcaseCard(item.showcase, true)),
     };
   }
 
@@ -571,7 +580,7 @@ export class DiscoveryService {
   }
 }
 
-function productCard(product: DiscoveryProduct) {
+function productCard(product: DiscoveryProduct, saved = false) {
   return {
     business: shopIdentity(product.business),
     category: product.category,
@@ -595,6 +604,7 @@ function productCard(product: DiscoveryProduct) {
       width: media.asset.width,
     })),
     kind: "product" as const,
+    saved,
     name: product.name,
     placement: product.placement,
     price: product.price,
@@ -622,7 +632,7 @@ function productCard(product: DiscoveryProduct) {
   };
 }
 
-function showcaseCard(showcase: DiscoveryShowcase) {
+function showcaseCard(showcase: DiscoveryShowcase, saved = false) {
   return {
     business: shopIdentity(showcase.business),
     caption: showcase.caption,
@@ -655,6 +665,7 @@ function showcaseCard(showcase: DiscoveryShowcase) {
       url: showcase.asset.secureUrl,
     },
     kind: "showcase" as const,
+    saved,
     title: showcase.title,
   };
 }

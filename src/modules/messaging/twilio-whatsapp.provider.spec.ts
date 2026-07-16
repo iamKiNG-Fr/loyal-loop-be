@@ -85,7 +85,7 @@ describe("TwilioWhatsAppProvider modes", () => {
 
     const started = await provider.sendOtp("+2348012345678");
     const deliveredBody = requestBody(fetchMock).get("Body") || "";
-    const code = deliveredBody.match(/code is (\d{6})/)?.[1];
+    const code = deliveredBody.match(/\b(\d{6})\b/)?.[1];
 
     expect(started.provider).toBe("internal-sandbox");
     expect(code).toMatch(/^\d{6}$/);

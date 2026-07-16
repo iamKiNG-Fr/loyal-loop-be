@@ -53,6 +53,24 @@ export class UpdateCartGroupDto {
   @IsOptional()
   @IsEnum(PaymentMethod)
   paymentPreference?: PaymentMethod;
+
+  @IsOptional()
+  @IsBoolean()
+  isGift?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  recipientName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 30)
+  recipientPhone?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  whatsappUpdatesConsent?: boolean;
 }
 
 export class MergeDeviceCartDto {

@@ -36,6 +36,10 @@ export interface WhatsAppProvider {
     phone: string,
     variables: Record<string, string>,
   ): Promise<WhatsAppSendResult>;
+  sendOrderUpdate(
+    phone: string,
+    variables: Record<string, string>,
+  ): Promise<WhatsAppSendResult>;
   sendReminder(
     phone: string,
     variables: Record<string, string>,

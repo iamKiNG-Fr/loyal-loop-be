@@ -188,6 +188,37 @@ export class MessagingService {
     });
   }
 
+  async enqueueOrderRequestStatus(orderRequestId: string, existingToken?: string) {
+    const request = await this.prisma.orderRequest.findUnique({
+      where: { id: orderRequestId },
+      include: { business: true },
+    });
+    if (!request) throw new BadRequestException("Order request is not available");
+    const generated = existingToken ? null : createOpaqueToken();
+    if (generated) {
+      await this.prisma.orderRequestShareToken.create({
+        data: { orderRequestId: request.id, tokenHash: generated.tokenHash },
+      });
+    }
+    const token = existingToken || generated!.token;
+    const appUrl = this.config.get<string>("APP_URL", "https://www.useloyalloop.com").replace(/\/$/, "");
+    return this.enqueueUtility({
+      businessId: request.businessId,
+      customerAccountId: request.customerAccountId ?? undefined,
+      phone: request.customerPhone,
+      purpose: "DELIVERY",
+      templateKey: "order_request",
+      variables: {
+        "1": request.customerName,
+        "2": request.business.name,
+        "3": request.referenceCode,
+        "4": orderRequestMessage(request.status, request.cancellationReason),
+        "5": `${appUrl}/request/${token}`,
+      },
+      idempotencyKey: `order-request:${request.id}:${request.updatedAt.getTime()}`,
+    });
+  }
+
   async enqueueReminder(auth: OwnerAuthContext, suggestionId: string) {
     const suggestion = await this.prisma.followUpSuggestion.findFirst({
       where: { id: suggestionId, businessId: auth.businessId },
@@ -393,6 +424,9 @@ export class MessagingService {
     if (templateKey === "delivery") {
       return this.whatsapp.sendDeliveryUpdate(to, variables);
     }
+    if (templateKey === "order_request") {
+      return this.whatsapp.sendOrderUpdate(to, variables);
+    }
     if (templateKey === "reminder") {
       return this.whatsapp.sendReminder(to, variables);
     }
@@ -463,6 +497,14 @@ function mapTwilioStatus(status: string) {
   if (["sent", "queued", "accepted", "scheduled"].includes(status)) return "SENT" as const;
   if (["failed", "undelivered", "canceled"].includes(status)) return "FAILED" as const;
   return null;
+}
+
+function orderRequestMessage(status: string, cancellationReason: string | null) {
+  if (status === "CANCELED") return cancellationReason || "The shop could not complete this request";
+  if (status === "NEEDS_CHANGES") return "The shop needs one detail from you before confirming";
+  if (status === "ACCEPTED") return "The shop is checking stock, final price, and collection details";
+  if (status === "CONVERTED") return "Confirmed â€” your order journey is ready";
+  return "The shop is reviewing your request. You will pay after the shop confirms it";
 }
 
 function webhookErrorMessage(values: WebhookValues) {

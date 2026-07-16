@@ -14,6 +14,18 @@ import {
   UpdateCustomerAddressDto,
 } from "./dto/customer-address.dto";
 import { OTP_PROVIDER, type OtpProvider } from "./otp-provider";
+import { UpdateCustomerProfileDto } from "./dto/customer-profile.dto";
+
+const customerProfileSelect = {
+  id: true,
+  name: true,
+  phone: true,
+  alternatePhone: true,
+  birthday: true,
+  gender: true,
+  socials: true,
+  verifiedAt: true,
+} as const;
 
 @Injectable()
 export class CustomerAuthService {
@@ -120,25 +132,26 @@ export class CustomerAuthService {
   getAccount(customerAccountId: string) {
     return this.prisma.customerAccount.findUniqueOrThrow({
       where: { id: customerAccountId },
-      select: {
-        id: true,
-        name: true,
-        phone: true,
-        verifiedAt: true,
-      },
+      select: customerProfileSelect,
     });
   }
 
-  updateProfile(customerAccountId: string, name: string) {
+  updateProfile(customerAccountId: string, dto: UpdateCustomerProfileDto) {
+    const socials = dto.socials
+      ? Object.fromEntries(Object.entries(dto.socials)
+          .map(([platform, value]) => [platform.slice(0, 30), String(value).trim().slice(0, 160)])
+          .filter(([, value]) => Boolean(value)))
+      : undefined;
     return this.prisma.customerAccount.update({
       where: { id: customerAccountId },
-      data: { name: name.trim() },
-      select: {
-        id: true,
-        name: true,
-        phone: true,
-        verifiedAt: true,
+      data: {
+        ...(dto.name !== undefined ? { name: dto.name.trim() } : {}),
+        ...(dto.alternatePhone !== undefined ? { alternatePhone: dto.alternatePhone.trim() || null } : {}),
+        ...(dto.birthday !== undefined ? { birthday: dto.birthday ? new Date(`${dto.birthday.slice(0, 10)}T00:00:00.000Z`) : null } : {}),
+        ...(dto.gender !== undefined ? { gender: dto.gender.trim() || null } : {}),
+        ...(socials !== undefined ? { socials } : {}),
       },
+      select: customerProfileSelect,
     });
   }
 
@@ -179,13 +192,19 @@ export class CustomerAuthService {
       where: { id: requestId, customerAccountId },
       include: { convertedSale: { include: { delivery: true } } },
     });
-    const delivery = request?.convertedSale?.delivery;
-    if (!delivery) throw new NotFoundException("Order journey is not available yet");
+    if (!request) throw new NotFoundException("Order not found");
+    const delivery = request.convertedSale?.delivery;
     const generated = createOpaqueToken();
-    await this.prisma.deliveryShareToken.create({
-      data: { deliveryId: delivery.id, tokenHash: generated.tokenHash },
+    if (delivery) {
+      await this.prisma.deliveryShareToken.create({
+        data: { deliveryId: delivery.id, tokenHash: generated.tokenHash },
+      });
+      return { kind: "delivery" as const, token: generated.token };
+    }
+    await this.prisma.orderRequestShareToken.create({
+      data: { orderRequestId: request.id, tokenHash: generated.tokenHash },
     });
-    return { token: generated.token };
+    return { kind: "request" as const, token: generated.token };
   }
 
   async createAddress(customerAccountId: string, dto: CreateCustomerAddressDto) {

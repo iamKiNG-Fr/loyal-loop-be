@@ -32,6 +32,10 @@ export type CustomerCartGroupMinAggregateOutputType = {
   fulfillment: $Enums.FulfillmentType | null
   note: string | null
   paymentPreference: $Enums.PaymentMethod | null
+  isGift: boolean | null
+  recipientName: string | null
+  recipientPhone: string | null
+  whatsappUpdatesConsent: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +48,10 @@ export type CustomerCartGroupMaxAggregateOutputType = {
   fulfillment: $Enums.FulfillmentType | null
   note: string | null
   paymentPreference: $Enums.PaymentMethod | null
+  isGift: boolean | null
+  recipientName: string | null
+  recipientPhone: string | null
+  whatsappUpdatesConsent: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +64,10 @@ export type CustomerCartGroupCountAggregateOutputType = {
   fulfillment: number
   note: number
   paymentPreference: number
+  isGift: number
+  recipientName: number
+  recipientPhone: number
+  whatsappUpdatesConsent: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -70,6 +82,10 @@ export type CustomerCartGroupMinAggregateInputType = {
   fulfillment?: true
   note?: true
   paymentPreference?: true
+  isGift?: true
+  recipientName?: true
+  recipientPhone?: true
+  whatsappUpdatesConsent?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +98,10 @@ export type CustomerCartGroupMaxAggregateInputType = {
   fulfillment?: true
   note?: true
   paymentPreference?: true
+  isGift?: true
+  recipientName?: true
+  recipientPhone?: true
+  whatsappUpdatesConsent?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +114,10 @@ export type CustomerCartGroupCountAggregateInputType = {
   fulfillment?: true
   note?: true
   paymentPreference?: true
+  isGift?: true
+  recipientName?: true
+  recipientPhone?: true
+  whatsappUpdatesConsent?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -179,6 +203,10 @@ export type CustomerCartGroupGroupByOutputType = {
   fulfillment: $Enums.FulfillmentType
   note: string | null
   paymentPreference: $Enums.PaymentMethod | null
+  isGift: boolean
+  recipientName: string | null
+  recipientPhone: string | null
+  whatsappUpdatesConsent: boolean
   createdAt: Date
   updatedAt: Date
   _count: CustomerCartGroupCountAggregateOutputType | null
@@ -212,6 +240,10 @@ export type CustomerCartGroupWhereInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"CustomerCartGroup"> | $Enums.FulfillmentType
   note?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   paymentPreference?: Prisma.EnumPaymentMethodNullableFilter<"CustomerCartGroup"> | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
+  recipientName?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
+  recipientPhone?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
   createdAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   cart?: Prisma.XOR<Prisma.CustomerCartScalarRelationFilter, Prisma.CustomerCartWhereInput>
@@ -227,6 +259,10 @@ export type CustomerCartGroupOrderByWithRelationInput = {
   fulfillment?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentPreference?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  whatsappUpdatesConsent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cart?: Prisma.CustomerCartOrderByWithRelationInput
@@ -246,6 +282,10 @@ export type CustomerCartGroupWhereUniqueInput = Prisma.AtLeast<{
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"CustomerCartGroup"> | $Enums.FulfillmentType
   note?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   paymentPreference?: Prisma.EnumPaymentMethodNullableFilter<"CustomerCartGroup"> | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
+  recipientName?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
+  recipientPhone?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
   createdAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   cart?: Prisma.XOR<Prisma.CustomerCartScalarRelationFilter, Prisma.CustomerCartWhereInput>
@@ -261,6 +301,10 @@ export type CustomerCartGroupOrderByWithAggregationInput = {
   fulfillment?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentPreference?: Prisma.SortOrderInput | Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  whatsappUpdatesConsent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CustomerCartGroupCountOrderByAggregateInput
@@ -279,6 +323,10 @@ export type CustomerCartGroupScalarWhereWithAggregatesInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeWithAggregatesFilter<"CustomerCartGroup"> | $Enums.FulfillmentType
   note?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
   paymentPreference?: Prisma.EnumPaymentMethodNullableWithAggregatesFilter<"CustomerCartGroup"> | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolWithAggregatesFilter<"CustomerCartGroup"> | boolean
+  recipientName?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
+  recipientPhone?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
+  whatsappUpdatesConsent?: Prisma.BoolWithAggregatesFilter<"CustomerCartGroup"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CustomerCartGroup"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CustomerCartGroup"> | Date | string
 }
@@ -288,6 +336,10 @@ export type CustomerCartGroupCreateInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   cart: Prisma.CustomerCartCreateNestedOneWithoutGroupsInput
@@ -303,6 +355,10 @@ export type CustomerCartGroupUncheckedCreateInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -312,6 +368,10 @@ export type CustomerCartGroupUpdateInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CustomerCartUpdateOneRequiredWithoutGroupsNestedInput
@@ -327,6 +387,10 @@ export type CustomerCartGroupUncheckedUpdateInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -339,6 +403,10 @@ export type CustomerCartGroupCreateManyInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -348,6 +416,10 @@ export type CustomerCartGroupUpdateManyMutationInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -360,6 +432,10 @@ export type CustomerCartGroupUncheckedUpdateManyInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -387,6 +463,10 @@ export type CustomerCartGroupCountOrderByAggregateInput = {
   fulfillment?: Prisma.SortOrder
   note?: Prisma.SortOrder
   paymentPreference?: Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrder
+  whatsappUpdatesConsent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -399,6 +479,10 @@ export type CustomerCartGroupMaxOrderByAggregateInput = {
   fulfillment?: Prisma.SortOrder
   note?: Prisma.SortOrder
   paymentPreference?: Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrder
+  whatsappUpdatesConsent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -411,6 +495,10 @@ export type CustomerCartGroupMinOrderByAggregateInput = {
   fulfillment?: Prisma.SortOrder
   note?: Prisma.SortOrder
   paymentPreference?: Prisma.SortOrder
+  isGift?: Prisma.SortOrder
+  recipientName?: Prisma.SortOrder
+  recipientPhone?: Prisma.SortOrder
+  whatsappUpdatesConsent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -550,6 +638,10 @@ export type CustomerCartGroupCreateWithoutBusinessInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   cart: Prisma.CustomerCartCreateNestedOneWithoutGroupsInput
@@ -563,6 +655,10 @@ export type CustomerCartGroupUncheckedCreateWithoutBusinessInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -604,6 +700,10 @@ export type CustomerCartGroupScalarWhereInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"CustomerCartGroup"> | $Enums.FulfillmentType
   note?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   paymentPreference?: Prisma.EnumPaymentMethodNullableFilter<"CustomerCartGroup"> | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
+  recipientName?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
+  recipientPhone?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
   createdAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
 }
@@ -613,6 +713,10 @@ export type CustomerCartGroupCreateWithoutCustomerAddressInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   cart: Prisma.CustomerCartCreateNestedOneWithoutGroupsInput
@@ -626,6 +730,10 @@ export type CustomerCartGroupUncheckedCreateWithoutCustomerAddressInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -661,6 +769,10 @@ export type CustomerCartGroupCreateWithoutCartInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutCartGroupsInput
@@ -674,6 +786,10 @@ export type CustomerCartGroupUncheckedCreateWithoutCartInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -711,6 +827,10 @@ export type CustomerCartGroupCreateManyBusinessInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -720,6 +840,10 @@ export type CustomerCartGroupUpdateWithoutBusinessInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CustomerCartUpdateOneRequiredWithoutGroupsNestedInput
@@ -733,6 +857,10 @@ export type CustomerCartGroupUncheckedUpdateWithoutBusinessInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -744,6 +872,10 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutBusinessInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -755,6 +887,10 @@ export type CustomerCartGroupCreateManyCustomerAddressInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -764,6 +900,10 @@ export type CustomerCartGroupUpdateWithoutCustomerAddressInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CustomerCartUpdateOneRequiredWithoutGroupsNestedInput
@@ -777,6 +917,10 @@ export type CustomerCartGroupUncheckedUpdateWithoutCustomerAddressInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -788,6 +932,10 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -799,6 +947,10 @@ export type CustomerCartGroupCreateManyCartInput = {
   fulfillment?: $Enums.FulfillmentType
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -808,6 +960,10 @@ export type CustomerCartGroupUpdateWithoutCartInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutCartGroupsNestedInput
@@ -821,6 +977,10 @@ export type CustomerCartGroupUncheckedUpdateWithoutCartInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -832,6 +992,10 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutCartInput = {
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -846,6 +1010,10 @@ export type CustomerCartGroupSelect<ExtArgs extends runtime.Types.Extensions.Int
   fulfillment?: boolean
   note?: boolean
   paymentPreference?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
+  whatsappUpdatesConsent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
@@ -861,6 +1029,10 @@ export type CustomerCartGroupSelectCreateManyAndReturn<ExtArgs extends runtime.T
   fulfillment?: boolean
   note?: boolean
   paymentPreference?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
+  whatsappUpdatesConsent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
@@ -876,6 +1048,10 @@ export type CustomerCartGroupSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   fulfillment?: boolean
   note?: boolean
   paymentPreference?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
+  whatsappUpdatesConsent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
@@ -891,11 +1067,15 @@ export type CustomerCartGroupSelectScalar = {
   fulfillment?: boolean
   note?: boolean
   paymentPreference?: boolean
+  isGift?: boolean
+  recipientName?: boolean
+  recipientPhone?: boolean
+  whatsappUpdatesConsent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CustomerCartGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "businessId" | "customerAddressId" | "fulfillment" | "note" | "paymentPreference" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartGroup"]>
+export type CustomerCartGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "businessId" | "customerAddressId" | "fulfillment" | "note" | "paymentPreference" | "isGift" | "recipientName" | "recipientPhone" | "whatsappUpdatesConsent" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartGroup"]>
 export type CustomerCartGroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -927,6 +1107,10 @@ export type $CustomerCartGroupPayload<ExtArgs extends runtime.Types.Extensions.I
     fulfillment: $Enums.FulfillmentType
     note: string | null
     paymentPreference: $Enums.PaymentMethod | null
+    isGift: boolean
+    recipientName: string | null
+    recipientPhone: string | null
+    whatsappUpdatesConsent: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["customerCartGroup"]>
@@ -1362,6 +1546,10 @@ export interface CustomerCartGroupFieldRefs {
   readonly fulfillment: Prisma.FieldRef<"CustomerCartGroup", 'FulfillmentType'>
   readonly note: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly paymentPreference: Prisma.FieldRef<"CustomerCartGroup", 'PaymentMethod'>
+  readonly isGift: Prisma.FieldRef<"CustomerCartGroup", 'Boolean'>
+  readonly recipientName: Prisma.FieldRef<"CustomerCartGroup", 'String'>
+  readonly recipientPhone: Prisma.FieldRef<"CustomerCartGroup", 'String'>
+  readonly whatsappUpdatesConsent: Prisma.FieldRef<"CustomerCartGroup", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"CustomerCartGroup", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CustomerCartGroup", 'DateTime'>
 }

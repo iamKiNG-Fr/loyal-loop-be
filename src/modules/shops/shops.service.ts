@@ -186,6 +186,12 @@ export class ShopsService {
     if (fulfillment === "DELIVERY" && !deliveryAddress) {
       throw new BadRequestException("Delivery address is required for delivery requests");
     }
+    if (fulfillment === "DELIVERY" && deliveryAddress && business.preferences?.deliveryAreas.length) {
+      const covered = business.preferences.deliveryAreas.some((area) => deliveryAddress.toLowerCase().includes(area.toLowerCase()));
+      if (!covered) {
+        throw new BadRequestException(`This shop currently delivers to ${business.preferences.deliveryAreas.join(", ")}`);
+      }
+    }
     if (
       dto.isGift &&
       (fulfillment !== "DELIVERY" ||
@@ -203,6 +209,14 @@ export class ShopsService {
         where: { id: customerAccount.id },
         data: { name: customerName },
       });
+    }
+    if (dto.whatsappUpdatesConsent) {
+      await this.messaging.grantPhoneConsent(
+        customerPhone,
+        "DELIVERY",
+        "order-request",
+        customerAccountId,
+      );
     }
     const generated = createOpaqueToken();
     const customerKey = customerAccountId
@@ -259,20 +273,14 @@ export class ShopsService {
       }
       return created;
     }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
-    if (dto.whatsappUpdatesConsent) {
-      await this.messaging.grantPhoneConsent(
-        customerPhone,
-        "DELIVERY",
-        "order-request",
-        customerAccountId,
-      );
-    }
+    await this.messaging.enqueueOrderRequestStatus(request.id, generated.token).catch(() => undefined);
     return { request, token: generated.token };
   }
 
   async getRequestByToken(token: string) {
-    const request = await this.prisma.orderRequest.findUnique({
-      where: { tokenHash: hashToken(token) },
+    const tokenHash = hashToken(token);
+    const request = await this.prisma.orderRequest.findFirst({
+      where: { OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }] },
       include: {
         business: { select: { name: true, slug: true } },
         items: true,
@@ -285,8 +293,9 @@ export class ShopsService {
   }
 
   async cancelRequestByToken(token: string) {
-    const request = await this.prisma.orderRequest.findUnique({
-      where: { tokenHash: hashToken(token) },
+    const tokenHash = hashToken(token);
+    const request = await this.prisma.orderRequest.findFirst({
+      where: { OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }] },
       include: {
         business: { select: { name: true, slug: true } },
         items: true,
@@ -306,7 +315,12 @@ export class ShopsService {
         id: request.id,
         status: { in: ["SENT", "ACCEPTED", "NEEDS_CHANGES"] },
       },
-      data: { status: "CANCELED" },
+      data: {
+        status: "CANCELED",
+        cancellationReasonCode: "CUSTOMER_CHANGED_MIND",
+        cancellationReason: "Canceled by the customer before confirmation",
+        canceledBy: "CUSTOMER",
+      },
     });
     if (canceled.count !== 1) {
       throw new BadRequestException("This request can no longer be canceled from the request link");
@@ -321,6 +335,7 @@ export class ShopsService {
       },
     });
     if (!updated) throw new NotFoundException("Request not found");
+    await this.messaging.enqueueOrderRequestStatus(updated.id).catch(() => undefined);
     const { tokenHash: _tokenHash, ...safe } = updated;
     return safe;
   }
@@ -342,11 +357,30 @@ export class ShopsService {
     if (request.status === "CONVERTED") {
       throw new BadRequestException("Converted requests cannot be changed");
     }
-    return this.prisma.$transaction(async (tx) => {
-      const updated = await tx.orderRequest.update({ where: { id: requestId }, data: { status: dto.status }, include: { items: true } });
+    if (dto.status === "CANCELED" && !dto.cancellationReasonCode) {
+      throw new BadRequestException("Choose why this request cannot be completed");
+    }
+    if (dto.status === "CANCELED" && dto.cancellationReasonCode === "OTHER" && !dto.cancellationReason?.trim()) {
+      throw new BadRequestException("Add a short cancellation reason for the customer");
+    }
+    const updated = await this.prisma.$transaction(async (tx) => {
+      const updated = await tx.orderRequest.update({
+        where: { id: requestId },
+        data: {
+          status: dto.status,
+          ...(dto.status === "CANCELED" ? {
+            cancellationReasonCode: dto.cancellationReasonCode,
+            cancellationReason: dto.cancellationReason?.trim() || cancellationReasonLabel(dto.cancellationReasonCode!),
+            canceledBy: "BUSINESS",
+          } : {}),
+        },
+        include: { items: true },
+      });
       if (dto.status === "CANCELED") await this.promotions.releaseForRequest(tx, requestId);
       return updated;
     });
+    await this.messaging.enqueueOrderRequestStatus(updated.id).catch(() => undefined);
+    return updated;
   }
 
   async changeRequestedPaymentMethod(
@@ -743,6 +777,7 @@ function sanitizeBusiness(business: Record<string, unknown>) {
       feedbackResponseTime?: string;
       allowedPaymentMethods?: string[];
       defaultPaymentMethod?: string | null;
+      deliveryAreas?: string[];
     } | null;
     launchProduct?: {
       id: string;
@@ -799,6 +834,7 @@ function sanitizeBusiness(business: Record<string, unknown>) {
           feedbackResponseTime: source.preferences.feedbackResponseTime,
           allowedPaymentMethods: source.preferences.allowedPaymentMethods,
           defaultPaymentMethod: source.preferences.defaultPaymentMethod,
+          deliveryAreas: source.preferences.deliveryAreas,
         }
       : null,
     launchAt: source.launchAt,
@@ -827,4 +863,13 @@ function channelToCustomerChannel(channel: string) {
     OTHER: "OTHER",
   };
   return mapping[channel] ?? "OTHER";
+}
+
+function cancellationReasonLabel(code: string) {
+  return {
+    CANNOT_FULFILL: "The shop cannot complete this request right now",
+    NO_STOCK: "One or more requested items are out of stock",
+    OUTSIDE_DELIVERY_AREA: "The delivery address is outside the shop's current delivery area",
+    STORE_CLOSED: "The shop is temporarily unable to accept this order",
+  }[code] || "The shop could not complete this request";
 }

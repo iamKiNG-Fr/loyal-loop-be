@@ -14,12 +14,13 @@ function request(status: string, convertedSale: object | null = null) {
 }
 
 function serviceFor(initial: ReturnType<typeof request> | null, after?: ReturnType<typeof request> | null, updateCount = 1) {
+  const findFirst = vi.fn().mockResolvedValue(initial);
   const findUnique = vi.fn()
-    .mockResolvedValueOnce(initial)
-    .mockResolvedValueOnce(after ?? (initial ? request("CANCELED") : null));
+    .mockResolvedValue(after ?? (initial ? request("CANCELED") : null));
   const updateMany = vi.fn().mockResolvedValue({ count: updateCount });
-  const prisma = { orderRequest: { findUnique, updateMany } };
+  const prisma = { orderRequest: { findFirst, findUnique, updateMany } };
   const releaseForRequest = vi.fn().mockResolvedValue({ count: 1 });
+  const enqueueOrderRequestStatus = vi.fn().mockResolvedValue(undefined);
   const service = new ShopsService(
     prisma as never,
     {} as never,
@@ -28,9 +29,9 @@ function serviceFor(initial: ReturnType<typeof request> | null, after?: ReturnTy
     {} as never,
     {} as never,
     { releaseForRequest } as never,
-    {} as never,
+    { enqueueOrderRequestStatus } as never,
   );
-  return { findUnique, releaseForRequest, service, updateMany };
+  return { enqueueOrderRequestStatus, findFirst, findUnique, releaseForRequest, service, updateMany };
 }
 
 describe("ShopsService.cancelRequestByToken", () => {
@@ -42,7 +43,11 @@ describe("ShopsService.cancelRequestByToken", () => {
     expect(result.status).toBe("CANCELED");
     expect(result).not.toHaveProperty("tokenHash");
     expect(updateMany).toHaveBeenCalledWith(expect.objectContaining({
-      data: { status: "CANCELED" },
+      data: expect.objectContaining({
+        status: "CANCELED",
+        cancellationReasonCode: "CUSTOMER_CHANGED_MIND",
+        canceledBy: "CUSTOMER",
+      }),
       where: expect.objectContaining({
         id: "request-1",
         status: { in: ["SENT", "ACCEPTED", "NEEDS_CHANGES"] },

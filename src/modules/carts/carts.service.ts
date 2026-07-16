@@ -8,6 +8,7 @@ import type { CustomerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
 import { PromotionsService } from "../promotions/promotions.service";
+import { MessagingService } from "../messaging/messaging.service";
 import {
   AddCartItemDto,
   SubmitCartDto,
@@ -41,7 +42,11 @@ type CartWithItems = Prisma.CustomerCartGetPayload<{ include: typeof cartInclude
 
 @Injectable()
 export class CartsService {
-  constructor(private readonly prisma: PrismaService, private readonly promotions: PromotionsService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly promotions: PromotionsService,
+    private readonly messaging: MessagingService,
+  ) {}
 
   async deviceCart(deviceKey: string) {
     return this.read(await this.getOrCreateDeviceCart(this.validDeviceKey(deviceKey)));
@@ -165,6 +170,10 @@ export class CartsService {
             fulfillment: group.fulfillment,
             note: group.note,
             paymentPreference: group.paymentPreference,
+            isGift: group.isGift,
+            recipientName: group.recipientName,
+            recipientPhone: group.recipientPhone,
+            whatsappUpdatesConsent: group.whatsappUpdatesConsent,
           },
           update: {},
         });
@@ -214,6 +223,17 @@ export class CartsService {
           ? await this.prisma.customerAddress.findFirst({ where: { id: group.customerAddressId, customerAccountId: auth.customerAccountId } })
           : null;
         if (group.fulfillment === "DELIVERY" && !address) throw new BadRequestException("Choose a saved delivery address");
+        if (group.fulfillment === "DELIVERY" && address && group.business.preferences?.deliveryAreas.length) {
+          const normalizedAddress = address.address.toLowerCase();
+          const covered = group.business.preferences.deliveryAreas.some((area) => normalizedAddress.includes(area.toLowerCase()));
+          if (!covered) throw new BadRequestException(`${group.business.name} currently delivers to ${group.business.preferences.deliveryAreas.join(", ")}`);
+        }
+        if (group.isGift && (group.fulfillment !== "DELIVERY" || !group.recipientName?.trim() || !group.recipientPhone?.trim())) {
+          throw new BadRequestException("Gift delivery needs the recipient name and phone");
+        }
+        if (group.whatsappUpdatesConsent) {
+          await this.messaging.grantPhoneConsent(account.phone, "DELIVERY", "order-request", auth.customerAccountId);
+        }
         const token = createOpaqueToken();
         const request = await this.prisma.$transaction(async (tx) => {
           const customerKey = `account:${auth.customerAccountId}`;
@@ -241,6 +261,9 @@ export class CartsService {
               deliveryNotes: address?.deliveryNotes,
               note: group.note,
               requestedPaymentMethod: group.paymentPreference,
+              isGift: group.isGift,
+              recipientName: group.isGift ? group.recipientName?.trim() : undefined,
+              recipientPhone: group.isGift ? group.recipientPhone?.trim() : undefined,
               items: {
                 create: quotedItems.map(({ item, quote }) => ({
                   productId: item.productId,
@@ -270,6 +293,7 @@ export class CartsService {
           await tx.customerCartGroup.deleteMany({ where: { cartId: cart.id, businessId: group.business.id } });
           return created;
         }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+        await this.messaging.enqueueOrderRequestStatus(request.id, token.token).catch(() => undefined);
         results.push({ businessId: group.business.id, ok: true, request, token: token.token });
       } catch (error) {
         results.push({ businessId: group.business.id, ok: false, error: error instanceof Error ? error.message : "Request failed" });

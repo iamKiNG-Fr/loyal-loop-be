@@ -78,13 +78,18 @@ export class TwilioWhatsAppProvider
 
   sendReceipt(phone: string, variables: Record<string, string>) {
     if (this.mode() === "sandbox") {
+      const greeting = socialCopyVariant(phone, [
+        `Hey ${variables["1"] || "there"} ðŸ‘‹ your receipt from ${variables["2"] || "the shop"} is ready.`,
+        `Tiny update, ${variables["1"] || "friend"} âœ¨ ${variables["2"] || "the shop"} just shared your receipt.`,
+        `Receipt drop ðŸ§¾ ${variables["2"] || "the shop"} has your order record ready.`,
+      ]);
       return this.sendSandboxMessage(
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          `Hi ${variables["1"] || "there"}, your receipt from ${variables["2"] || "the business"} is ready.`,
+          greeting,
           `Receipt: ${variables["3"] || "available"}`,
-          `View securely: ${variables["4"] || ""}`,
+          `Keep it close: ${variables["4"] || ""}`,
         ].join("\n"),
       );
     }
@@ -93,14 +98,36 @@ export class TwilioWhatsAppProvider
 
   sendDeliveryUpdate(phone: string, variables: Record<string, string>) {
     if (this.mode() === "sandbox") {
+      const update = socialCopyVariant(`${phone}:${variables["4"]}`, [
+        `Hola ${variables["1"] || "there"} ðŸ‘‹ ${variables["2"] || "your shop"} moved ${variables["3"] || "your order"} to ${variables["4"] || "the next step"}.`,
+        `Psst, order update ðŸ“¦ ${variables["3"] || "Your order"} is now ${variables["4"] || "updated"}.`,
+        `${variables["2"] || "Your shop"} just checked in âœ¨ ${variables["3"] || "Your order"} is ${variables["4"] || "moving along"}.`,
+      ]);
       return this.sendSandboxMessage(
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          `Hi ${variables["1"] || "there"}, your ${variables["2"] || "order"} delivery for ${variables["3"] || "your order"} is now ${variables["4"] || "updated"}.`,
-          `Track securely: ${variables["5"] || ""}`,
+          update,
+          `Stay with the journey: ${variables["5"] || ""}`,
         ].join("\n"),
       );
+    }
+    return this.sendProductionTemplate(phone, "delivery", variables);
+  }
+
+  sendOrderUpdate(phone: string, variables: Record<string, string>) {
+    if (this.mode() === "sandbox") {
+      const update = socialCopyVariant(`${phone}:${variables["4"]}`, [
+        `Hola ${variables["1"] || "there"} ðŸ‘‹ we alerted ${variables["2"] || "the shop"} about ${variables["3"] || "your request"}.`,
+        `Psst, ${variables["2"] || "the shop"} has an order update for you ðŸ“¦`,
+        `A quick Loyal Loop check-in âœ¨ ${variables["3"] || "Your request"} has moved forward.`,
+      ]);
+      return this.sendSandboxMessage(phone, [
+        "[LOYAL LOOP DEVELOPMENT SANDBOX]",
+        update,
+        variables["4"] || "The shop is reviewing your request.",
+        `Follow it here: ${variables["5"] || ""}`,
+      ].join("\n"));
     }
     return this.sendProductionTemplate(phone, "delivery", variables);
   }
@@ -150,8 +177,13 @@ export class TwilioWhatsAppProvider
       normalized,
       [
         "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-        `Your one-time verification code is ${code}.`,
-        "It expires in 10 minutes. Do not share this code.",
+        socialCopyVariant(normalized, [
+          `Psst ðŸ¤« here is your secret Loyal Loop code: ${code}`,
+          `Quick hello ðŸ‘‹ your Loyal Loop code is ${code}`,
+          `A little key for your Loyal Loop door ðŸ”‘ ${code}`,
+          `You are almost in âœ¨ use ${code} on Loyal Loop`,
+        ]),
+        "It expires in 10 minutes, so keep it between us.",
       ].join("\n"),
     );
     return {
@@ -601,6 +633,11 @@ function safeEqual(left: string, right: string) {
   const a = Buffer.from(left);
   const b = Buffer.from(right);
   return a.length === b.length && timingSafeEqual(a, b);
+}
+
+function socialCopyVariant(seed: string, variants: string[]) {
+  const score = [...seed].reduce((total, character) => total + character.charCodeAt(0), 0);
+  return variants[score % variants.length] || variants[0] || "Loyal Loop update";
 }
 
 function basicAuth(accountSid: string, authToken: string) {

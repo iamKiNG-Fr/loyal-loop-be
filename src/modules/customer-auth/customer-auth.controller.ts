@@ -99,7 +99,7 @@ export class CustomerAuthController {
     @Body() dto: UpdateCustomerProfileDto,
   ) {
     return this.auth
-      .updateProfile(customer.customerAccountId, dto.name)
+      .updateProfile(customer.customerAccountId, dto)
       .then((data) => ok(data, "Customer profile updated"));
   }
 

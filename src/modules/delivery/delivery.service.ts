@@ -358,8 +358,8 @@ export class DeliveryService {
     });
     if (shared && !shared.revokedAt) return shared.delivery;
 
-    const convertedRequest = await this.prisma.orderRequest.findUnique({
-      where: { tokenHash },
+    const convertedRequest = await this.prisma.orderRequest.findFirst({
+      where: { OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }] },
       include: { convertedSale: { include: { delivery: true } } },
     });
     if (convertedRequest?.convertedSale?.delivery) {
