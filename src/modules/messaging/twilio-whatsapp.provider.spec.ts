@@ -145,12 +145,49 @@ describe("TwilioWhatsAppProvider modes", () => {
     );
   });
 
-  it("never permits Sandbox mode in a production runtime", () => {
+  it("rejects Sandbox mode in a production runtime without an explicit staging override", () => {
     const provider = new TwilioWhatsAppProvider(
       config({ ...sandboxValues(), NODE_ENV: "production" }),
     );
 
     expect(() => provider.onModuleInit()).toThrow("development-only");
+  });
+
+  it("rejects a deployed Sandbox override unless its database is explicitly isolated", () => {
+    const provider = new TwilioWhatsAppProvider(
+      config({
+        ...sandboxValues(),
+        NODE_ENV: "production",
+        DATABASE_SAFETY_MODE: "shared",
+        TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX: "true",
+      }),
+    );
+
+    expect(() => provider.onModuleInit()).toThrow(
+      "DATABASE_SAFETY_MODE=isolated",
+    );
+  });
+
+  it("allows Sandbox OTP on an explicitly isolated production-built staging runtime", async () => {
+    const fetchMock = successfulMessageFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = new TwilioWhatsAppProvider(
+      config({
+        ...sandboxValues(),
+        NODE_ENV: "production",
+        DATABASE_URL: "postgresql://remote-placeholder/staging",
+        DATABASE_SAFETY_MODE: "isolated",
+        TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX: "true",
+      }),
+    );
+
+    expect(() => provider.onModuleInit()).not.toThrow();
+    await expect(provider.sendOtp("+2348012345678")).resolves.toMatchObject({
+      provider: "internal-sandbox",
+    });
+    expect(requestBody(fetchMock).get("Body")).toContain(
+      "LOYAL LOOP DEVELOPMENT SANDBOX",
+    );
   });
 
   it("uses the production sender, Messaging Service, and approved receipt Content SID", async () => {

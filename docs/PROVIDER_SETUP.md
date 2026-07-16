@@ -77,9 +77,12 @@ production allow-list before the outbox attempts delivery.
 
 ### A. Development with Twilio WhatsApp Sandbox
 
-Sandbox mode is development-only. It cannot start when `NODE_ENV=production`
-and its internal OTP path is additionally restricted to a local database or a
-remote database explicitly marked `DATABASE_SAFETY_MODE=isolated`.
+Sandbox mode is development/test-only. It runs locally by default. Because
+deployment platforms commonly build staging services with `NODE_ENV=production`,
+an explicitly isolated staging service may opt in with both
+`TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX=true` and
+`DATABASE_SAFETY_MODE=isolated`. Without both values, startup fails closed. Its
+internal OTP path remains restricted to a local or explicitly isolated database.
 
 1. In Twilio Console, activate the WhatsApp Sandbox.
 2. From every test phone, send the displayed `join <sandbox-code>` message to
@@ -101,6 +104,7 @@ TWILIO_ACCOUNT_SID=
 TWILIO_AUTH_TOKEN=
 TWILIO_WHATSAPP_SANDBOX_FROM=whatsapp:+14155238886
 TWILIO_WHATSAPP_SANDBOX_JOINED_NUMBERS=+234...
+TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX=false
 TWILIO_WHATSAPP_WEBHOOK_URL=https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio
 
 TWILIO_WHATSAPP_VERIFY_ENABLED=true
@@ -111,6 +115,18 @@ TWILIO_WHATSAPP_DAILY_SEND_CAP=10
 TWILIO_WHATSAPP_MAX_ATTEMPTS=4
 MESSAGING_WORKER_SECRET=
 ```
+
+For a production-built Render staging service only, use the same values above
+and change these two safety settings:
+
+```env
+DATABASE_SAFETY_MODE=isolated
+TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX=true
+```
+
+Only label the database `isolated` when it is genuinely a staging/test database
+that is not shared with a live service. Never enable the deployed-Sandbox
+override on real production.
 
 Sandbox receipts, delivery updates, and reminders are sent as free-form text
 prefixed with `[LOYAL LOOP DEVELOPMENT SANDBOX]`. Receipt and tracking messages
@@ -149,8 +165,9 @@ delivery status changes, Loyal Loop queues the delivery message with the real
 opaque `/delivery/...` order-journey link. Missing consent suppresses the
 message; a Twilio outage never rolls back the order or sale.
 
-The Sandbox is not a production fallback. If it is selected in a production
-runtime, application startup fails.
+The Sandbox is not a production fallback. A production-built staging runtime
+must explicitly satisfy the two safety settings above; all other production
+runtimes fail startup when Sandbox mode is selected.
 
 Official reference: https://www.twilio.com/docs/whatsapp/sandbox
 
