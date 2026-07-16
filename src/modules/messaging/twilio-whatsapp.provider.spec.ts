@@ -153,30 +153,29 @@ describe("TwilioWhatsAppProvider modes", () => {
     expect(() => provider.onModuleInit()).toThrow("development-only");
   });
 
-  it("rejects a deployed Sandbox override unless its database is explicitly isolated", () => {
+  it("does not treat an isolated database label as deployed Sandbox authorization", () => {
     const provider = new TwilioWhatsAppProvider(
       config({
         ...sandboxValues(),
         NODE_ENV: "production",
-        DATABASE_SAFETY_MODE: "shared",
-        TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX: "true",
+        DATABASE_SAFETY_MODE: "isolated",
       }),
     );
 
     expect(() => provider.onModuleInit()).toThrow(
-      "DATABASE_SAFETY_MODE=isolated",
+      "TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX=true",
     );
   });
 
-  it("allows Sandbox OTP on an explicitly isolated production-built staging runtime", async () => {
+  it("allows Sandbox OTP against a live database after the explicit deployed override", async () => {
     const fetchMock = successfulMessageFetch();
     vi.stubGlobal("fetch", fetchMock);
     const provider = new TwilioWhatsAppProvider(
       config({
         ...sandboxValues(),
         NODE_ENV: "production",
-        DATABASE_URL: "postgresql://remote-placeholder/staging",
-        DATABASE_SAFETY_MODE: "isolated",
+        DATABASE_URL: "postgresql://remote-placeholder/production",
+        DATABASE_SAFETY_MODE: "production",
         TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX: "true",
       }),
     );

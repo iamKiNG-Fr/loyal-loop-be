@@ -372,9 +372,16 @@ export class TwilioWhatsAppProvider
     const databaseUrl = this.config.get<string>("DATABASE_URL", "");
     const explicitlyIsolated =
       this.config.get<string>("DATABASE_SAFETY_MODE") === "isolated";
-    if (!isLocalDatabaseUrl(databaseUrl) && !explicitlyIsolated) {
+    const explicitlyDeployed =
+      this.config.get("NODE_ENV") === "production" &&
+      this.deployedSandboxOverrideEnabled();
+    if (
+      !isLocalDatabaseUrl(databaseUrl) &&
+      !explicitlyIsolated &&
+      !explicitlyDeployed
+    ) {
       throw new ServiceUnavailableException(
-        "Internal Sandbox OTP requires a local or explicitly isolated database",
+        "Internal Sandbox OTP requires a local/isolated database or the explicit deployed-Sandbox override",
       );
     }
   }
@@ -388,14 +395,6 @@ export class TwilioWhatsAppProvider
       ) {
         throw new Error(
           "TWILIO_WHATSAPP_MODE=sandbox is development-only; a production-built staging runtime must explicitly set TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX=true",
-        );
-      }
-      if (
-        this.config.get("NODE_ENV") === "production" &&
-        this.config.get("DATABASE_SAFETY_MODE") !== "isolated"
-      ) {
-        throw new Error(
-          "A deployed Twilio WhatsApp Sandbox requires DATABASE_SAFETY_MODE=isolated",
         );
       }
       this.validateConfiguredPhone(
@@ -425,8 +424,13 @@ export class TwilioWhatsAppProvider
   private sandboxRuntimeIsAllowed() {
     return (
       this.config.get("NODE_ENV") !== "production" ||
-      (this.config.get("TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX") === "true" &&
-        this.config.get("DATABASE_SAFETY_MODE") === "isolated")
+      this.deployedSandboxOverrideEnabled()
+    );
+  }
+
+  private deployedSandboxOverrideEnabled() {
+    return (
+      this.config.get("TWILIO_WHATSAPP_ALLOW_DEPLOYED_SANDBOX") === "true"
     );
   }
 
