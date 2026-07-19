@@ -87,13 +87,13 @@ export class ShortLinksService {
 
   private async validateTarget(dto: CreateShortLinkDto) {
     if (dto.kind === "SHOP" && dto.shopSlug) {
-      const business = await this.prisma.business.findFirst({ where: { slug: dto.shopSlug, storeStatus: { not: "CLOSED" } }, select: { id: true } });
+      const business = await this.prisma.business.findFirst({ where: { slug: dto.shopSlug, storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" }, select: { id: true } });
       if (business) return { businessId: business.id };
     }
     if (dto.kind === "PRODUCT" && dto.shopSlug && dto.productKey) {
       const product = await this.prisma.product.findFirst({
         where: {
-          business: { slug: dto.shopSlug, storeStatus: { not: "CLOSED" } },
+          business: { slug: dto.shopSlug, storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" },
           status: "ACTIVE",
           visibility: "PUBLIC",
           OR: [{ id: dto.productKey }, { slug: dto.productKey }, { name: { equals: dto.productKey, mode: "insensitive" } }],
@@ -110,7 +110,7 @@ export class ShortLinksService {
       if (receipt && receipt.status !== "VOID") return { businessId: receipt.businessId, receiptId: receipt.id };
     }
     if (dto.kind === "TRUST_CARD" && dto.cardId) {
-      const business = await this.prisma.business.findFirst({ where: { publicCardId: dto.cardId.toUpperCase(), storeStatus: { not: "CLOSED" } }, select: { id: true } });
+      const business = await this.prisma.business.findFirst({ where: { publicCardId: dto.cardId.toUpperCase(), storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" }, select: { id: true } });
       if (business) return { businessId: business.id };
     }
     throw new NotFoundException("Share target not found");

@@ -2,6 +2,8 @@ import type { Response } from "express";
 
 export const OWNER_SESSION_COOKIE = "ll_owner_session";
 export const CUSTOMER_SESSION_COOKIE = "ll_customer_session";
+export const PLATFORM_ADMIN_SESSION_COOKIE = "ll_platform_admin_session";
+export const ONBOARDING_GRANT_COOKIE = "ll_onboarding_grant";
 const SESSION_COOKIE_PATH = "/";
 
 export function readCookie(header: string | undefined, name: string) {

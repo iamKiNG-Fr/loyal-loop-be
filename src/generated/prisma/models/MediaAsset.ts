@@ -58,6 +58,18 @@ export type MediaAssetMinAggregateOutputType = {
   originalFilename: string | null
   purpose: $Enums.MediaPurpose | null
   status: $Enums.MediaStatus | null
+  qualityStatus: $Enums.MediaQualityStatus | null
+  moderationStatus: $Enums.MediaModerationStatus | null
+  contentRating: $Enums.MediaContentRating | null
+  moderationProvider: string | null
+  moderationModelVersion: string | null
+  moderationEventId: string | null
+  moderationNotifiedAt: Date | null
+  exactHash: string | null
+  perceptualHash: string | null
+  assessedAt: Date | null
+  appealedAt: Date | null
+  appealReason: string | null
   createdAt: Date | null
   deletedAt: Date | null
 }
@@ -80,6 +92,18 @@ export type MediaAssetMaxAggregateOutputType = {
   originalFilename: string | null
   purpose: $Enums.MediaPurpose | null
   status: $Enums.MediaStatus | null
+  qualityStatus: $Enums.MediaQualityStatus | null
+  moderationStatus: $Enums.MediaModerationStatus | null
+  contentRating: $Enums.MediaContentRating | null
+  moderationProvider: string | null
+  moderationModelVersion: string | null
+  moderationEventId: string | null
+  moderationNotifiedAt: Date | null
+  exactHash: string | null
+  perceptualHash: string | null
+  assessedAt: Date | null
+  appealedAt: Date | null
+  appealReason: string | null
   createdAt: Date | null
   deletedAt: Date | null
 }
@@ -102,6 +126,20 @@ export type MediaAssetCountAggregateOutputType = {
   originalFilename: number
   purpose: number
   status: number
+  qualityStatus: number
+  moderationStatus: number
+  contentRating: number
+  qualityMetrics: number
+  moderationLabels: number
+  moderationProvider: number
+  moderationModelVersion: number
+  moderationEventId: number
+  moderationNotifiedAt: number
+  exactHash: number
+  perceptualHash: number
+  assessedAt: number
+  appealedAt: number
+  appealReason: number
   createdAt: number
   deletedAt: number
   _all: number
@@ -140,6 +178,18 @@ export type MediaAssetMinAggregateInputType = {
   originalFilename?: true
   purpose?: true
   status?: true
+  qualityStatus?: true
+  moderationStatus?: true
+  contentRating?: true
+  moderationProvider?: true
+  moderationModelVersion?: true
+  moderationEventId?: true
+  moderationNotifiedAt?: true
+  exactHash?: true
+  perceptualHash?: true
+  assessedAt?: true
+  appealedAt?: true
+  appealReason?: true
   createdAt?: true
   deletedAt?: true
 }
@@ -162,6 +212,18 @@ export type MediaAssetMaxAggregateInputType = {
   originalFilename?: true
   purpose?: true
   status?: true
+  qualityStatus?: true
+  moderationStatus?: true
+  contentRating?: true
+  moderationProvider?: true
+  moderationModelVersion?: true
+  moderationEventId?: true
+  moderationNotifiedAt?: true
+  exactHash?: true
+  perceptualHash?: true
+  assessedAt?: true
+  appealedAt?: true
+  appealReason?: true
   createdAt?: true
   deletedAt?: true
 }
@@ -184,6 +246,20 @@ export type MediaAssetCountAggregateInputType = {
   originalFilename?: true
   purpose?: true
   status?: true
+  qualityStatus?: true
+  moderationStatus?: true
+  contentRating?: true
+  qualityMetrics?: true
+  moderationLabels?: true
+  moderationProvider?: true
+  moderationModelVersion?: true
+  moderationEventId?: true
+  moderationNotifiedAt?: true
+  exactHash?: true
+  perceptualHash?: true
+  assessedAt?: true
+  appealedAt?: true
+  appealReason?: true
   createdAt?: true
   deletedAt?: true
   _all?: true
@@ -293,6 +369,20 @@ export type MediaAssetGroupByOutputType = {
   originalFilename: string | null
   purpose: $Enums.MediaPurpose
   status: $Enums.MediaStatus
+  qualityStatus: $Enums.MediaQualityStatus
+  moderationStatus: $Enums.MediaModerationStatus
+  contentRating: $Enums.MediaContentRating
+  qualityMetrics: runtime.JsonValue | null
+  moderationLabels: runtime.JsonValue | null
+  moderationProvider: string | null
+  moderationModelVersion: string | null
+  moderationEventId: string | null
+  moderationNotifiedAt: Date | null
+  exactHash: string | null
+  perceptualHash: string | null
+  assessedAt: Date | null
+  appealedAt: Date | null
+  appealReason: string | null
   createdAt: Date
   deletedAt: Date | null
   _count: MediaAssetCountAggregateOutputType | null
@@ -338,6 +428,20 @@ export type MediaAssetWhereInput = {
   originalFilename?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   purpose?: Prisma.EnumMediaPurposeFilter<"MediaAsset"> | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFilter<"MediaAsset"> | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFilter<"MediaAsset"> | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFilter<"MediaAsset"> | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFilter<"MediaAsset"> | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.JsonNullableFilter<"MediaAsset">
+  moderationLabels?: Prisma.JsonNullableFilter<"MediaAsset">
+  moderationProvider?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  moderationModelVersion?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  moderationEventId?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  moderationNotifiedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
+  exactHash?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  perceptualHash?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  assessedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
+  appealedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
+  appealReason?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -351,6 +455,7 @@ export type MediaAssetWhereInput = {
   showcaseImages?: Prisma.ShowcaseListRelationFilter
   showcasePosters?: Prisma.ShowcaseListRelationFilter
   paymentProof?: Prisma.XOR<Prisma.PaymentProofNullableScalarRelationFilter, Prisma.PaymentProofWhereInput> | null
+  moderationReviews?: Prisma.MediaModerationReviewListRelationFilter
 }
 
 export type MediaAssetOrderByWithRelationInput = {
@@ -371,6 +476,20 @@ export type MediaAssetOrderByWithRelationInput = {
   originalFilename?: Prisma.SortOrderInput | Prisma.SortOrder
   purpose?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qualityStatus?: Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
+  qualityMetrics?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationLabels?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationProvider?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationModelVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationEventId?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationNotifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  exactHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  perceptualHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  assessedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  appealedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  appealReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
@@ -384,11 +503,13 @@ export type MediaAssetOrderByWithRelationInput = {
   showcaseImages?: Prisma.ShowcaseOrderByRelationAggregateInput
   showcasePosters?: Prisma.ShowcaseOrderByRelationAggregateInput
   paymentProof?: Prisma.PaymentProofOrderByWithRelationInput
+  moderationReviews?: Prisma.MediaModerationReviewOrderByRelationAggregateInput
 }
 
 export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   publicId?: string
+  moderationEventId?: string
   AND?: Prisma.MediaAssetWhereInput | Prisma.MediaAssetWhereInput[]
   OR?: Prisma.MediaAssetWhereInput[]
   NOT?: Prisma.MediaAssetWhereInput | Prisma.MediaAssetWhereInput[]
@@ -407,6 +528,19 @@ export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
   originalFilename?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   purpose?: Prisma.EnumMediaPurposeFilter<"MediaAsset"> | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFilter<"MediaAsset"> | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFilter<"MediaAsset"> | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFilter<"MediaAsset"> | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFilter<"MediaAsset"> | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.JsonNullableFilter<"MediaAsset">
+  moderationLabels?: Prisma.JsonNullableFilter<"MediaAsset">
+  moderationProvider?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  moderationModelVersion?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  moderationNotifiedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
+  exactHash?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  perceptualHash?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  assessedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
+  appealedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
+  appealReason?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -420,7 +554,8 @@ export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
   showcaseImages?: Prisma.ShowcaseListRelationFilter
   showcasePosters?: Prisma.ShowcaseListRelationFilter
   paymentProof?: Prisma.XOR<Prisma.PaymentProofNullableScalarRelationFilter, Prisma.PaymentProofWhereInput> | null
-}, "id" | "publicId">
+  moderationReviews?: Prisma.MediaModerationReviewListRelationFilter
+}, "id" | "publicId" | "moderationEventId">
 
 export type MediaAssetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -440,6 +575,20 @@ export type MediaAssetOrderByWithAggregationInput = {
   originalFilename?: Prisma.SortOrderInput | Prisma.SortOrder
   purpose?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qualityStatus?: Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
+  qualityMetrics?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationLabels?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationProvider?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationModelVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationEventId?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationNotifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  exactHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  perceptualHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  assessedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  appealedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  appealReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.MediaAssetCountOrderByAggregateInput
@@ -470,6 +619,20 @@ export type MediaAssetScalarWhereWithAggregatesInput = {
   originalFilename?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
   purpose?: Prisma.EnumMediaPurposeWithAggregatesFilter<"MediaAsset"> | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusWithAggregatesFilter<"MediaAsset"> | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusWithAggregatesFilter<"MediaAsset"> | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusWithAggregatesFilter<"MediaAsset"> | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingWithAggregatesFilter<"MediaAsset"> | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.JsonNullableWithAggregatesFilter<"MediaAsset">
+  moderationLabels?: Prisma.JsonNullableWithAggregatesFilter<"MediaAsset">
+  moderationProvider?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
+  moderationModelVersion?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
+  moderationEventId?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
+  moderationNotifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MediaAsset"> | Date | string | null
+  exactHash?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
+  perceptualHash?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
+  assessedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MediaAsset"> | Date | string | null
+  appealedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MediaAsset"> | Date | string | null
+  appealReason?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"MediaAsset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MediaAsset"> | Date | string | null
 }
@@ -490,6 +653,20 @@ export type MediaAssetCreateInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -503,6 +680,7 @@ export type MediaAssetCreateInput = {
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateInput = {
@@ -523,6 +701,20 @@ export type MediaAssetUncheckedCreateInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -534,6 +726,7 @@ export type MediaAssetUncheckedCreateInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUpdateInput = {
@@ -552,6 +745,20 @@ export type MediaAssetUpdateInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -565,6 +772,7 @@ export type MediaAssetUpdateInput = {
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateInput = {
@@ -585,6 +793,20 @@ export type MediaAssetUncheckedUpdateInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -596,6 +818,7 @@ export type MediaAssetUncheckedUpdateInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateManyInput = {
@@ -616,6 +839,20 @@ export type MediaAssetCreateManyInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
 }
@@ -636,6 +873,20 @@ export type MediaAssetUpdateManyMutationInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -658,6 +909,20 @@ export type MediaAssetUncheckedUpdateManyInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -695,6 +960,20 @@ export type MediaAssetCountOrderByAggregateInput = {
   originalFilename?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qualityStatus?: Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
+  qualityMetrics?: Prisma.SortOrder
+  moderationLabels?: Prisma.SortOrder
+  moderationProvider?: Prisma.SortOrder
+  moderationModelVersion?: Prisma.SortOrder
+  moderationEventId?: Prisma.SortOrder
+  moderationNotifiedAt?: Prisma.SortOrder
+  exactHash?: Prisma.SortOrder
+  perceptualHash?: Prisma.SortOrder
+  assessedAt?: Prisma.SortOrder
+  appealedAt?: Prisma.SortOrder
+  appealReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -724,6 +1003,18 @@ export type MediaAssetMaxOrderByAggregateInput = {
   originalFilename?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qualityStatus?: Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
+  moderationProvider?: Prisma.SortOrder
+  moderationModelVersion?: Prisma.SortOrder
+  moderationEventId?: Prisma.SortOrder
+  moderationNotifiedAt?: Prisma.SortOrder
+  exactHash?: Prisma.SortOrder
+  perceptualHash?: Prisma.SortOrder
+  assessedAt?: Prisma.SortOrder
+  appealedAt?: Prisma.SortOrder
+  appealReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -746,6 +1037,18 @@ export type MediaAssetMinOrderByAggregateInput = {
   originalFilename?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  qualityStatus?: Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
+  moderationProvider?: Prisma.SortOrder
+  moderationModelVersion?: Prisma.SortOrder
+  moderationEventId?: Prisma.SortOrder
+  moderationNotifiedAt?: Prisma.SortOrder
+  exactHash?: Prisma.SortOrder
+  perceptualHash?: Prisma.SortOrder
+  assessedAt?: Prisma.SortOrder
+  appealedAt?: Prisma.SortOrder
+  appealReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
@@ -910,6 +1213,32 @@ export type EnumMediaStatusFieldUpdateOperationsInput = {
   set?: $Enums.MediaStatus
 }
 
+export type EnumMediaQualityStatusFieldUpdateOperationsInput = {
+  set?: $Enums.MediaQualityStatus
+}
+
+export type EnumMediaModerationStatusFieldUpdateOperationsInput = {
+  set?: $Enums.MediaModerationStatus
+}
+
+export type EnumMediaContentRatingFieldUpdateOperationsInput = {
+  set?: $Enums.MediaContentRating
+}
+
+export type MediaAssetCreateNestedOneWithoutModerationReviewsInput = {
+  create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutModerationReviewsInput, Prisma.MediaAssetUncheckedCreateWithoutModerationReviewsInput>
+  connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutModerationReviewsInput
+  connect?: Prisma.MediaAssetWhereUniqueInput
+}
+
+export type MediaAssetUpdateOneRequiredWithoutModerationReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutModerationReviewsInput, Prisma.MediaAssetUncheckedCreateWithoutModerationReviewsInput>
+  connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutModerationReviewsInput
+  upsert?: Prisma.MediaAssetUpsertWithoutModerationReviewsInput
+  connect?: Prisma.MediaAssetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MediaAssetUpdateToOneWithWhereWithoutModerationReviewsInput, Prisma.MediaAssetUpdateWithoutModerationReviewsInput>, Prisma.MediaAssetUncheckedUpdateWithoutModerationReviewsInput>
+}
+
 export type MediaAssetCreateNestedOneWithoutProductImagesInput = {
   create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutProductImagesInput, Prisma.MediaAssetUncheckedCreateWithoutProductImagesInput>
   connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutProductImagesInput
@@ -1014,6 +1343,20 @@ export type MediaAssetCreateWithoutUploadedByInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -1026,6 +1369,7 @@ export type MediaAssetCreateWithoutUploadedByInput = {
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutUploadedByInput = {
@@ -1045,6 +1389,20 @@ export type MediaAssetUncheckedCreateWithoutUploadedByInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -1056,6 +1414,7 @@ export type MediaAssetUncheckedCreateWithoutUploadedByInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutUploadedByInput = {
@@ -1084,6 +1443,20 @@ export type MediaAssetCreateWithoutAvatarForInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -1096,6 +1469,7 @@ export type MediaAssetCreateWithoutAvatarForInput = {
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutAvatarForInput = {
@@ -1116,6 +1490,20 @@ export type MediaAssetUncheckedCreateWithoutAvatarForInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -1126,6 +1514,7 @@ export type MediaAssetUncheckedCreateWithoutAvatarForInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutAvatarForInput = {
@@ -1170,6 +1559,20 @@ export type MediaAssetScalarWhereInput = {
   originalFilename?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   purpose?: Prisma.EnumMediaPurposeFilter<"MediaAsset"> | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFilter<"MediaAsset"> | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFilter<"MediaAsset"> | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFilter<"MediaAsset"> | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFilter<"MediaAsset"> | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.JsonNullableFilter<"MediaAsset">
+  moderationLabels?: Prisma.JsonNullableFilter<"MediaAsset">
+  moderationProvider?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  moderationModelVersion?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  moderationEventId?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  moderationNotifiedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
+  exactHash?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  perceptualHash?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
+  assessedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
+  appealedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
+  appealReason?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   createdAt?: Prisma.DateTimeFilter<"MediaAsset"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"MediaAsset"> | Date | string | null
 }
@@ -1201,6 +1604,20 @@ export type MediaAssetUpdateWithoutAvatarForInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -1213,6 +1630,7 @@ export type MediaAssetUpdateWithoutAvatarForInput = {
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutAvatarForInput = {
@@ -1233,6 +1651,20 @@ export type MediaAssetUncheckedUpdateWithoutAvatarForInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -1243,6 +1675,7 @@ export type MediaAssetUncheckedUpdateWithoutAvatarForInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateWithoutLogoForInput = {
@@ -1261,6 +1694,20 @@ export type MediaAssetCreateWithoutLogoForInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -1273,6 +1720,7 @@ export type MediaAssetCreateWithoutLogoForInput = {
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutLogoForInput = {
@@ -1293,6 +1741,20 @@ export type MediaAssetUncheckedCreateWithoutLogoForInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   coverFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutCoverAssetInput
@@ -1303,6 +1765,7 @@ export type MediaAssetUncheckedCreateWithoutLogoForInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutLogoForInput = {
@@ -1326,6 +1789,20 @@ export type MediaAssetCreateWithoutCoverForInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -1338,6 +1815,7 @@ export type MediaAssetCreateWithoutCoverForInput = {
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutCoverForInput = {
@@ -1358,6 +1836,20 @@ export type MediaAssetUncheckedCreateWithoutCoverForInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -1368,6 +1860,7 @@ export type MediaAssetUncheckedCreateWithoutCoverForInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutCoverForInput = {
@@ -1391,6 +1884,20 @@ export type MediaAssetCreateWithoutBusinessInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
@@ -1403,6 +1910,7 @@ export type MediaAssetCreateWithoutBusinessInput = {
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutBusinessInput = {
@@ -1422,6 +1930,20 @@ export type MediaAssetUncheckedCreateWithoutBusinessInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -1433,6 +1955,7 @@ export type MediaAssetUncheckedCreateWithoutBusinessInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutBusinessInput = {
@@ -1472,6 +1995,20 @@ export type MediaAssetUpdateWithoutLogoForInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -1484,6 +2021,7 @@ export type MediaAssetUpdateWithoutLogoForInput = {
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutLogoForInput = {
@@ -1504,6 +2042,20 @@ export type MediaAssetUncheckedUpdateWithoutLogoForInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   coverFor?: Prisma.BusinessUncheckedUpdateOneWithoutCoverAssetNestedInput
@@ -1514,6 +2066,7 @@ export type MediaAssetUncheckedUpdateWithoutLogoForInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUpsertWithoutCoverForInput = {
@@ -1543,6 +2096,20 @@ export type MediaAssetUpdateWithoutCoverForInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -1555,6 +2122,7 @@ export type MediaAssetUpdateWithoutCoverForInput = {
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutCoverForInput = {
@@ -1575,6 +2143,20 @@ export type MediaAssetUncheckedUpdateWithoutCoverForInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -1585,6 +2167,7 @@ export type MediaAssetUncheckedUpdateWithoutCoverForInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUpsertWithWhereUniqueWithoutBusinessInput = {
@@ -1603,6 +2186,202 @@ export type MediaAssetUpdateManyWithWhereWithoutBusinessInput = {
   data: Prisma.XOR<Prisma.MediaAssetUpdateManyMutationInput, Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessInput>
 }
 
+export type MediaAssetCreateWithoutModerationReviewsInput = {
+  id?: string
+  provider?: string
+  publicId: string
+  secureUrl: string
+  resourceType?: string
+  mimeType?: string | null
+  format: string
+  width?: number | null
+  height?: number | null
+  durationSeconds?: number | null
+  bytes: number
+  version?: string | null
+  originalFilename?: string | null
+  purpose: $Enums.MediaPurpose
+  status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
+  logoFor?: Prisma.BusinessCreateNestedOneWithoutLogoAssetInput
+  coverFor?: Prisma.BusinessCreateNestedOneWithoutCoverAssetInput
+  avatarFor?: Prisma.UserCreateNestedOneWithoutAvatarAssetInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutAssetInput
+  productMedia?: Prisma.ProductMediaCreateNestedManyWithoutAssetInput
+  productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
+  showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
+  showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+}
+
+export type MediaAssetUncheckedCreateWithoutModerationReviewsInput = {
+  id?: string
+  businessId: string
+  uploadedById?: string | null
+  provider?: string
+  publicId: string
+  secureUrl: string
+  resourceType?: string
+  mimeType?: string | null
+  format: string
+  width?: number | null
+  height?: number | null
+  durationSeconds?: number | null
+  bytes: number
+  version?: string | null
+  originalFilename?: string | null
+  purpose: $Enums.MediaPurpose
+  status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
+  coverFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutCoverAssetInput
+  avatarFor?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarAssetInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutAssetInput
+  productMedia?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutAssetInput
+  productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
+  showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
+  showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+}
+
+export type MediaAssetCreateOrConnectWithoutModerationReviewsInput = {
+  where: Prisma.MediaAssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.MediaAssetCreateWithoutModerationReviewsInput, Prisma.MediaAssetUncheckedCreateWithoutModerationReviewsInput>
+}
+
+export type MediaAssetUpsertWithoutModerationReviewsInput = {
+  update: Prisma.XOR<Prisma.MediaAssetUpdateWithoutModerationReviewsInput, Prisma.MediaAssetUncheckedUpdateWithoutModerationReviewsInput>
+  create: Prisma.XOR<Prisma.MediaAssetCreateWithoutModerationReviewsInput, Prisma.MediaAssetUncheckedCreateWithoutModerationReviewsInput>
+  where?: Prisma.MediaAssetWhereInput
+}
+
+export type MediaAssetUpdateToOneWithWhereWithoutModerationReviewsInput = {
+  where?: Prisma.MediaAssetWhereInput
+  data: Prisma.XOR<Prisma.MediaAssetUpdateWithoutModerationReviewsInput, Prisma.MediaAssetUncheckedUpdateWithoutModerationReviewsInput>
+}
+
+export type MediaAssetUpdateWithoutModerationReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  resourceType?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  bytes?: Prisma.IntFieldUpdateOperationsInput | number
+  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
+  status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedAssetsNestedInput
+  logoFor?: Prisma.BusinessUpdateOneWithoutLogoAssetNestedInput
+  coverFor?: Prisma.BusinessUpdateOneWithoutCoverAssetNestedInput
+  avatarFor?: Prisma.UserUpdateOneWithoutAvatarAssetNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutAssetNestedInput
+  productMedia?: Prisma.ProductMediaUpdateManyWithoutAssetNestedInput
+  productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
+  showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
+  showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+}
+
+export type MediaAssetUncheckedUpdateWithoutModerationReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  resourceType?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  bytes?: Prisma.IntFieldUpdateOperationsInput | number
+  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
+  status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
+  coverFor?: Prisma.BusinessUncheckedUpdateOneWithoutCoverAssetNestedInput
+  avatarFor?: Prisma.UserUncheckedUpdateOneWithoutAvatarAssetNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutAssetNestedInput
+  productMedia?: Prisma.ProductMediaUncheckedUpdateManyWithoutAssetNestedInput
+  productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
+  showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
+  showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+}
+
 export type MediaAssetCreateWithoutProductImagesInput = {
   id?: string
   provider?: string
@@ -1619,6 +2398,20 @@ export type MediaAssetCreateWithoutProductImagesInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -1631,6 +2424,7 @@ export type MediaAssetCreateWithoutProductImagesInput = {
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutProductImagesInput = {
@@ -1651,6 +2445,20 @@ export type MediaAssetUncheckedCreateWithoutProductImagesInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -1661,6 +2469,7 @@ export type MediaAssetUncheckedCreateWithoutProductImagesInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutProductImagesInput = {
@@ -1695,6 +2504,20 @@ export type MediaAssetUpdateWithoutProductImagesInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -1707,6 +2530,7 @@ export type MediaAssetUpdateWithoutProductImagesInput = {
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutProductImagesInput = {
@@ -1727,6 +2551,20 @@ export type MediaAssetUncheckedUpdateWithoutProductImagesInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -1737,6 +2575,7 @@ export type MediaAssetUncheckedUpdateWithoutProductImagesInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateWithoutProductMediaInput = {
@@ -1755,6 +2594,20 @@ export type MediaAssetCreateWithoutProductMediaInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -1767,6 +2620,7 @@ export type MediaAssetCreateWithoutProductMediaInput = {
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutProductMediaInput = {
@@ -1787,6 +2641,20 @@ export type MediaAssetUncheckedCreateWithoutProductMediaInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -1797,6 +2665,7 @@ export type MediaAssetUncheckedCreateWithoutProductMediaInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutProductMediaInput = {
@@ -1820,6 +2689,20 @@ export type MediaAssetCreateWithoutProductPostersInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -1832,6 +2715,7 @@ export type MediaAssetCreateWithoutProductPostersInput = {
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutProductPostersInput = {
@@ -1852,6 +2736,20 @@ export type MediaAssetUncheckedCreateWithoutProductPostersInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -1862,6 +2760,7 @@ export type MediaAssetUncheckedCreateWithoutProductPostersInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutProductPostersInput = {
@@ -1896,6 +2795,20 @@ export type MediaAssetUpdateWithoutProductMediaInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -1908,6 +2821,7 @@ export type MediaAssetUpdateWithoutProductMediaInput = {
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutProductMediaInput = {
@@ -1928,6 +2842,20 @@ export type MediaAssetUncheckedUpdateWithoutProductMediaInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -1938,6 +2866,7 @@ export type MediaAssetUncheckedUpdateWithoutProductMediaInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUpsertWithoutProductPostersInput = {
@@ -1967,6 +2896,20 @@ export type MediaAssetUpdateWithoutProductPostersInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -1979,6 +2922,7 @@ export type MediaAssetUpdateWithoutProductPostersInput = {
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutProductPostersInput = {
@@ -1999,6 +2943,20 @@ export type MediaAssetUncheckedUpdateWithoutProductPostersInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -2009,6 +2967,7 @@ export type MediaAssetUncheckedUpdateWithoutProductPostersInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateWithoutShowcaseImagesInput = {
@@ -2027,6 +2986,20 @@ export type MediaAssetCreateWithoutShowcaseImagesInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -2039,6 +3012,7 @@ export type MediaAssetCreateWithoutShowcaseImagesInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutShowcaseImagesInput = {
@@ -2059,6 +3033,20 @@ export type MediaAssetUncheckedCreateWithoutShowcaseImagesInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -2069,6 +3057,7 @@ export type MediaAssetUncheckedCreateWithoutShowcaseImagesInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutShowcaseImagesInput = {
@@ -2092,6 +3081,20 @@ export type MediaAssetCreateWithoutShowcasePostersInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -2104,6 +3107,7 @@ export type MediaAssetCreateWithoutShowcasePostersInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutShowcasePostersInput = {
@@ -2124,6 +3128,20 @@ export type MediaAssetUncheckedCreateWithoutShowcasePostersInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -2134,6 +3152,7 @@ export type MediaAssetUncheckedCreateWithoutShowcasePostersInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutShowcasePostersInput = {
@@ -2168,6 +3187,20 @@ export type MediaAssetUpdateWithoutShowcaseImagesInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -2180,6 +3213,7 @@ export type MediaAssetUpdateWithoutShowcaseImagesInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutShowcaseImagesInput = {
@@ -2200,6 +3234,20 @@ export type MediaAssetUncheckedUpdateWithoutShowcaseImagesInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -2210,6 +3258,7 @@ export type MediaAssetUncheckedUpdateWithoutShowcaseImagesInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUpsertWithoutShowcasePostersInput = {
@@ -2239,6 +3288,20 @@ export type MediaAssetUpdateWithoutShowcasePostersInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -2251,6 +3314,7 @@ export type MediaAssetUpdateWithoutShowcasePostersInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutShowcasePostersInput = {
@@ -2271,6 +3335,20 @@ export type MediaAssetUncheckedUpdateWithoutShowcasePostersInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -2281,6 +3359,7 @@ export type MediaAssetUncheckedUpdateWithoutShowcasePostersInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateWithoutPaymentProofInput = {
@@ -2299,6 +3378,20 @@ export type MediaAssetCreateWithoutPaymentProofInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
@@ -2311,6 +3404,7 @@ export type MediaAssetCreateWithoutPaymentProofInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetUncheckedCreateWithoutPaymentProofInput = {
@@ -2331,6 +3425,20 @@ export type MediaAssetUncheckedCreateWithoutPaymentProofInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
   logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
@@ -2341,6 +3449,7 @@ export type MediaAssetUncheckedCreateWithoutPaymentProofInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
 
 export type MediaAssetCreateOrConnectWithoutPaymentProofInput = {
@@ -2375,6 +3484,20 @@ export type MediaAssetUpdateWithoutPaymentProofInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -2387,6 +3510,7 @@ export type MediaAssetUpdateWithoutPaymentProofInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutPaymentProofInput = {
@@ -2407,6 +3531,20 @@ export type MediaAssetUncheckedUpdateWithoutPaymentProofInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -2417,6 +3555,7 @@ export type MediaAssetUncheckedUpdateWithoutPaymentProofInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetCreateManyUploadedByInput = {
@@ -2436,6 +3575,20 @@ export type MediaAssetCreateManyUploadedByInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
 }
@@ -2456,6 +3609,20 @@ export type MediaAssetUpdateWithoutUploadedByInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
@@ -2468,6 +3635,7 @@ export type MediaAssetUpdateWithoutUploadedByInput = {
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutUploadedByInput = {
@@ -2487,6 +3655,20 @@ export type MediaAssetUncheckedUpdateWithoutUploadedByInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -2498,6 +3680,7 @@ export type MediaAssetUncheckedUpdateWithoutUploadedByInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateManyWithoutUploadedByInput = {
@@ -2517,6 +3700,20 @@ export type MediaAssetUncheckedUpdateManyWithoutUploadedByInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -2538,6 +3735,20 @@ export type MediaAssetCreateManyBusinessInput = {
   originalFilename?: string | null
   purpose: $Enums.MediaPurpose
   status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
   createdAt?: Date | string
   deletedAt?: Date | string | null
 }
@@ -2558,6 +3769,20 @@ export type MediaAssetUpdateWithoutBusinessInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   uploadedBy?: Prisma.UserUpdateOneWithoutUploadedAssetsNestedInput
@@ -2570,6 +3795,7 @@ export type MediaAssetUpdateWithoutBusinessInput = {
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateWithoutBusinessInput = {
@@ -2589,6 +3815,20 @@ export type MediaAssetUncheckedUpdateWithoutBusinessInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
@@ -2600,6 +3840,7 @@ export type MediaAssetUncheckedUpdateWithoutBusinessInput = {
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
 
 export type MediaAssetUncheckedUpdateManyWithoutBusinessInput = {
@@ -2619,6 +3860,20 @@ export type MediaAssetUncheckedUpdateManyWithoutBusinessInput = {
   originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
   status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
@@ -2634,6 +3889,7 @@ export type MediaAssetCountOutputType = {
   productPosters: number
   showcaseImages: number
   showcasePosters: number
+  moderationReviews: number
 }
 
 export type MediaAssetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2642,6 +3898,7 @@ export type MediaAssetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extens
   productPosters?: boolean | MediaAssetCountOutputTypeCountProductPostersArgs
   showcaseImages?: boolean | MediaAssetCountOutputTypeCountShowcaseImagesArgs
   showcasePosters?: boolean | MediaAssetCountOutputTypeCountShowcasePostersArgs
+  moderationReviews?: boolean | MediaAssetCountOutputTypeCountModerationReviewsArgs
 }
 
 /**
@@ -2689,6 +3946,13 @@ export type MediaAssetCountOutputTypeCountShowcasePostersArgs<ExtArgs extends ru
   where?: Prisma.ShowcaseWhereInput
 }
 
+/**
+ * MediaAssetCountOutputType without action
+ */
+export type MediaAssetCountOutputTypeCountModerationReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MediaModerationReviewWhereInput
+}
+
 
 export type MediaAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2708,6 +3972,20 @@ export type MediaAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   originalFilename?: boolean
   purpose?: boolean
   status?: boolean
+  qualityStatus?: boolean
+  moderationStatus?: boolean
+  contentRating?: boolean
+  qualityMetrics?: boolean
+  moderationLabels?: boolean
+  moderationProvider?: boolean
+  moderationModelVersion?: boolean
+  moderationEventId?: boolean
+  moderationNotifiedAt?: boolean
+  exactHash?: boolean
+  perceptualHash?: boolean
+  assessedAt?: boolean
+  appealedAt?: boolean
+  appealReason?: boolean
   createdAt?: boolean
   deletedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -2721,6 +3999,7 @@ export type MediaAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   showcaseImages?: boolean | Prisma.MediaAsset$showcaseImagesArgs<ExtArgs>
   showcasePosters?: boolean | Prisma.MediaAsset$showcasePostersArgs<ExtArgs>
   paymentProof?: boolean | Prisma.MediaAsset$paymentProofArgs<ExtArgs>
+  moderationReviews?: boolean | Prisma.MediaAsset$moderationReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.MediaAssetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mediaAsset"]>
 
@@ -2742,6 +4021,20 @@ export type MediaAssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   originalFilename?: boolean
   purpose?: boolean
   status?: boolean
+  qualityStatus?: boolean
+  moderationStatus?: boolean
+  contentRating?: boolean
+  qualityMetrics?: boolean
+  moderationLabels?: boolean
+  moderationProvider?: boolean
+  moderationModelVersion?: boolean
+  moderationEventId?: boolean
+  moderationNotifiedAt?: boolean
+  exactHash?: boolean
+  perceptualHash?: boolean
+  assessedAt?: boolean
+  appealedAt?: boolean
+  appealReason?: boolean
   createdAt?: boolean
   deletedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -2766,6 +4059,20 @@ export type MediaAssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   originalFilename?: boolean
   purpose?: boolean
   status?: boolean
+  qualityStatus?: boolean
+  moderationStatus?: boolean
+  contentRating?: boolean
+  qualityMetrics?: boolean
+  moderationLabels?: boolean
+  moderationProvider?: boolean
+  moderationModelVersion?: boolean
+  moderationEventId?: boolean
+  moderationNotifiedAt?: boolean
+  exactHash?: boolean
+  perceptualHash?: boolean
+  assessedAt?: boolean
+  appealedAt?: boolean
+  appealReason?: boolean
   createdAt?: boolean
   deletedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -2790,11 +4097,25 @@ export type MediaAssetSelectScalar = {
   originalFilename?: boolean
   purpose?: boolean
   status?: boolean
+  qualityStatus?: boolean
+  moderationStatus?: boolean
+  contentRating?: boolean
+  qualityMetrics?: boolean
+  moderationLabels?: boolean
+  moderationProvider?: boolean
+  moderationModelVersion?: boolean
+  moderationEventId?: boolean
+  moderationNotifiedAt?: boolean
+  exactHash?: boolean
+  perceptualHash?: boolean
+  assessedAt?: boolean
+  appealedAt?: boolean
+  appealReason?: boolean
   createdAt?: boolean
   deletedAt?: boolean
 }
 
-export type MediaAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "uploadedById" | "provider" | "publicId" | "secureUrl" | "resourceType" | "mimeType" | "format" | "width" | "height" | "durationSeconds" | "bytes" | "version" | "originalFilename" | "purpose" | "status" | "createdAt" | "deletedAt", ExtArgs["result"]["mediaAsset"]>
+export type MediaAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "uploadedById" | "provider" | "publicId" | "secureUrl" | "resourceType" | "mimeType" | "format" | "width" | "height" | "durationSeconds" | "bytes" | "version" | "originalFilename" | "purpose" | "status" | "qualityStatus" | "moderationStatus" | "contentRating" | "qualityMetrics" | "moderationLabels" | "moderationProvider" | "moderationModelVersion" | "moderationEventId" | "moderationNotifiedAt" | "exactHash" | "perceptualHash" | "assessedAt" | "appealedAt" | "appealReason" | "createdAt" | "deletedAt", ExtArgs["result"]["mediaAsset"]>
 export type MediaAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.MediaAsset$uploadedByArgs<ExtArgs>
@@ -2807,6 +4128,7 @@ export type MediaAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   showcaseImages?: boolean | Prisma.MediaAsset$showcaseImagesArgs<ExtArgs>
   showcasePosters?: boolean | Prisma.MediaAsset$showcasePostersArgs<ExtArgs>
   paymentProof?: boolean | Prisma.MediaAsset$paymentProofArgs<ExtArgs>
+  moderationReviews?: boolean | Prisma.MediaAsset$moderationReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.MediaAssetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MediaAssetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2832,6 +4154,7 @@ export type $MediaAssetPayload<ExtArgs extends runtime.Types.Extensions.Internal
     showcaseImages: Prisma.$ShowcasePayload<ExtArgs>[]
     showcasePosters: Prisma.$ShowcasePayload<ExtArgs>[]
     paymentProof: Prisma.$PaymentProofPayload<ExtArgs> | null
+    moderationReviews: Prisma.$MediaModerationReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2851,6 +4174,20 @@ export type $MediaAssetPayload<ExtArgs extends runtime.Types.Extensions.Internal
     originalFilename: string | null
     purpose: $Enums.MediaPurpose
     status: $Enums.MediaStatus
+    qualityStatus: $Enums.MediaQualityStatus
+    moderationStatus: $Enums.MediaModerationStatus
+    contentRating: $Enums.MediaContentRating
+    qualityMetrics: runtime.JsonValue | null
+    moderationLabels: runtime.JsonValue | null
+    moderationProvider: string | null
+    moderationModelVersion: string | null
+    moderationEventId: string | null
+    moderationNotifiedAt: Date | null
+    exactHash: string | null
+    perceptualHash: string | null
+    assessedAt: Date | null
+    appealedAt: Date | null
+    appealReason: string | null
     createdAt: Date
     deletedAt: Date | null
   }, ExtArgs["result"]["mediaAsset"]>
@@ -3258,6 +4595,7 @@ export interface Prisma__MediaAssetClient<T, Null = never, ExtArgs extends runti
   showcaseImages<T extends Prisma.MediaAsset$showcaseImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$showcaseImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShowcasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   showcasePosters<T extends Prisma.MediaAsset$showcasePostersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$showcasePostersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShowcasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentProof<T extends Prisma.MediaAsset$paymentProofArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$paymentProofArgs<ExtArgs>>): Prisma.Prisma__PaymentProofClient<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  moderationReviews<T extends Prisma.MediaAsset$moderationReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$moderationReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaModerationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3304,6 +4642,20 @@ export interface MediaAssetFieldRefs {
   readonly originalFilename: Prisma.FieldRef<"MediaAsset", 'String'>
   readonly purpose: Prisma.FieldRef<"MediaAsset", 'MediaPurpose'>
   readonly status: Prisma.FieldRef<"MediaAsset", 'MediaStatus'>
+  readonly qualityStatus: Prisma.FieldRef<"MediaAsset", 'MediaQualityStatus'>
+  readonly moderationStatus: Prisma.FieldRef<"MediaAsset", 'MediaModerationStatus'>
+  readonly contentRating: Prisma.FieldRef<"MediaAsset", 'MediaContentRating'>
+  readonly qualityMetrics: Prisma.FieldRef<"MediaAsset", 'Json'>
+  readonly moderationLabels: Prisma.FieldRef<"MediaAsset", 'Json'>
+  readonly moderationProvider: Prisma.FieldRef<"MediaAsset", 'String'>
+  readonly moderationModelVersion: Prisma.FieldRef<"MediaAsset", 'String'>
+  readonly moderationEventId: Prisma.FieldRef<"MediaAsset", 'String'>
+  readonly moderationNotifiedAt: Prisma.FieldRef<"MediaAsset", 'DateTime'>
+  readonly exactHash: Prisma.FieldRef<"MediaAsset", 'String'>
+  readonly perceptualHash: Prisma.FieldRef<"MediaAsset", 'String'>
+  readonly assessedAt: Prisma.FieldRef<"MediaAsset", 'DateTime'>
+  readonly appealedAt: Prisma.FieldRef<"MediaAsset", 'DateTime'>
+  readonly appealReason: Prisma.FieldRef<"MediaAsset", 'String'>
   readonly createdAt: Prisma.FieldRef<"MediaAsset", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"MediaAsset", 'DateTime'>
 }
@@ -3919,6 +5271,30 @@ export type MediaAsset$paymentProofArgs<ExtArgs extends runtime.Types.Extensions
    */
   include?: Prisma.PaymentProofInclude<ExtArgs> | null
   where?: Prisma.PaymentProofWhereInput
+}
+
+/**
+ * MediaAsset.moderationReviews
+ */
+export type MediaAsset$moderationReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MediaModerationReview
+   */
+  select?: Prisma.MediaModerationReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MediaModerationReview
+   */
+  omit?: Prisma.MediaModerationReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MediaModerationReviewInclude<ExtArgs> | null
+  where?: Prisma.MediaModerationReviewWhereInput
+  orderBy?: Prisma.MediaModerationReviewOrderByWithRelationInput | Prisma.MediaModerationReviewOrderByWithRelationInput[]
+  cursor?: Prisma.MediaModerationReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MediaModerationReviewScalarFieldEnum | Prisma.MediaModerationReviewScalarFieldEnum[]
 }
 
 /**

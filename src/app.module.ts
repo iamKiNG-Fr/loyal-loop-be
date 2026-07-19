@@ -32,6 +32,9 @@ import { SupportModule } from "./modules/support/support.module";
 import { TrustModule } from "./modules/trust/trust.module";
 import { UsersModule } from "./modules/users/users.module";
 import { WaitlistModule } from "./modules/waitlist/waitlist.module";
+import { FoundingCircleModule } from "./modules/founding-circle/founding-circle.module";
+import { PlatformAuthModule } from "./modules/platform-auth/platform-auth.module";
+import { PlatformAdminModule } from "./modules/platform-admin/platform-admin.module";
 
 @Module({
   imports: [
@@ -52,6 +55,9 @@ import { WaitlistModule } from "./modules/waitlist/waitlist.module";
     MailModule,
     MessagingModule,
     WaitlistModule,
+    FoundingCircleModule,
+    PlatformAuthModule,
+    PlatformAdminModule,
     AuthModule,
     CustomerAuthModule,
     BusinessesModule,

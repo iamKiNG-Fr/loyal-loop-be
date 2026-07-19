@@ -85,6 +85,67 @@ enum WorkspaceAppearance {
   SYSTEM
 }
 
+enum PlatformRole {
+  SUPERADMIN
+  ADMIN
+  FINANCE_ADMIN
+}
+
+enum PlatformAdminStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum BusinessPlatformStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum OwnerOtpPurpose {
+  LOGIN
+  ONBOARDING
+  PLATFORM_ADMIN_STEP_UP
+}
+
+enum FoundingApplicationStatus {
+  PENDING
+  APPROVED
+  DECLINED
+  INVITED
+}
+
+enum FoundingApplicationSource {
+  HOMEPAGE
+  DIRECT_ADMIN
+  LEGACY_WAITLIST
+}
+
+enum FoundingCohortStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum OnboardingInvitationStatus {
+  ISSUED
+  REDEEMED
+  REVOKED
+  EXPIRED
+}
+
+enum FoundingEnrollmentStatus {
+  ONBOARDING
+  ACTIVE
+  PAUSED
+  EXITED
+}
+
+enum PaidPilotInterest {
+  NOT_ASKED
+  YES
+  MAYBE
+  NO
+}
+
 enum ContactPlatform {
   EMAIL
   FACEBOOK
@@ -281,6 +342,7 @@ enum MessagePurpose {
   RECEIPT
   DELIVERY
   REMINDER
+  FOUNDING_ACCESS
 }
 
 enum MessageStatus {
@@ -296,6 +358,43 @@ enum MessageStatus {
 enum MediaStatus {
   ACTIVE
   DELETED
+}
+
+enum MediaQualityStatus {
+  PENDING
+  PASS
+  WARN
+  FAIL
+}
+
+enum MediaModerationStatus {
+  PENDING
+  AUTO_APPROVED
+  REVIEW_REQUIRED
+  REJECTED
+  MANUALLY_APPROVED
+}
+
+enum MediaContentRating {
+  GENERAL
+  SENSITIVE_18
+  PROHIBITED
+}
+
+enum MediaReviewDecision {
+  APPROVE_GENERAL
+  APPROVE_SENSITIVE
+  REJECT
+}
+
+enum CustomerOrderNoticeType {
+  REQUEST_ACCEPTED
+  REQUEST_NEEDS_CHANGES
+  REQUEST_CANCELED
+  ORDER_CONFIRMED
+  PAYMENT_UPDATED
+  DELIVERY_UPDATED
+  ISSUE_UPDATED
 }
 
 enum OrderRequestStatus {
@@ -406,6 +505,138 @@ model WaitlistEntry {
   @@map("waitlist")
 }
 
+model FoundingAccessApplication {
+  id                    String                    @id @default(cuid())
+  ownerName             String
+  businessName          String
+  email                 String                    @unique
+  phone                 String?                   @unique
+  whatTheySell          String?
+  primarySellingChannel String?
+  whatsappConsentAt     DateTime?
+  whatsappConsentSource String?
+  source                FoundingApplicationSource @default(HOMEPAGE)
+  status                FoundingApplicationStatus @default(PENDING)
+  reviewNotes           String?
+  reviewedAt            DateTime?
+  reviewedByAdminId     String?
+  createdAt             DateTime                  @default(now())
+  updatedAt             DateTime                  @updatedAt
+  reviewedBy            PlatformAdmin?            @relation("ApplicationReviewer", fields: [reviewedByAdminId], references: [id], onDelete: SetNull)
+  invitation            OnboardingInvitation?
+
+  @@index([status, createdAt])
+  @@map("founding_access_applications")
+}
+
+model FoundingCohort {
+  id               String                      @id @default(cuid())
+  key              String                      @unique
+  name             String
+  hypothesis       String?
+  status           FoundingCohortStatus        @default(ACTIVE)
+  startsAt         DateTime?
+  endsAt           DateTime?
+  createdByAdminId String
+  createdAt        DateTime                    @default(now())
+  updatedAt        DateTime                    @updatedAt
+  createdBy        PlatformAdmin               @relation("CohortCreator", fields: [createdByAdminId], references: [id], onDelete: Restrict)
+  invitations      OnboardingInvitation[]
+  enrollments      FoundingProgramEnrollment[]
+
+  @@index([status, createdAt])
+  @@map("founding_cohorts")
+}
+
+model OnboardingInvitation {
+  id                  String                     @id @default(cuid())
+  applicationId       String?                    @unique
+  cohortId            String?
+  codeHash            String                     @unique
+  codeSuffix          String
+  encryptedToken      String?
+  recipientName       String
+  businessName        String
+  phone               String
+  email               String?
+  status              OnboardingInvitationStatus @default(ISSUED)
+  expiresAt           DateTime
+  maxUses             Int                        @default(1)
+  useCount            Int                        @default(0)
+  validatedAt         DateTime?
+  redeemedAt          DateTime?
+  redeemedByUserId    String?
+  resultingBusinessId String?                    @unique
+  messageOutboxId     String?                    @unique
+  createdByAdminId    String
+  revokedByAdminId    String?
+  revokedAt           DateTime?
+  revokeReason        String?
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+  application         FoundingAccessApplication? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+  cohort              FoundingCohort?            @relation(fields: [cohortId], references: [id], onDelete: SetNull)
+  createdBy           PlatformAdmin              @relation("InvitationCreator", fields: [createdByAdminId], references: [id], onDelete: Restrict)
+  revokedBy           PlatformAdmin?             @relation("InvitationRevoker", fields: [revokedByAdminId], references: [id], onDelete: SetNull)
+  messageOutbox       MessageOutbox?             @relation(fields: [messageOutboxId], references: [id], onDelete: SetNull)
+  enrollment          FoundingProgramEnrollment?
+
+  @@index([status, expiresAt])
+  @@index([phone, status])
+  @@index([cohortId, createdAt])
+  @@map("onboarding_invitations")
+}
+
+model FoundingProgramEnrollment {
+  id                    String                      @id @default(cuid())
+  businessId            String                      @unique
+  invitationId          String                      @unique
+  cohortId              String?
+  status                FoundingEnrollmentStatus    @default(ONBOARDING)
+  invitedAt             DateTime
+  onboardedAt           DateTime                    @default(now())
+  activatedAt           DateTime?
+  weekOneRetainedAt     DateTime?
+  weekFourRetainedAt    DateTime?
+  complimentaryNoticeAt DateTime?
+  complimentaryEndsAt   DateTime?
+  exitedAt              DateTime?
+  exitReason            String?
+  createdAt             DateTime                    @default(now())
+  updatedAt             DateTime                    @updatedAt
+  business              Business                    @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  invitation            OnboardingInvitation        @relation(fields: [invitationId], references: [id], onDelete: Restrict)
+  cohort                FoundingCohort?             @relation(fields: [cohortId], references: [id], onDelete: SetNull)
+  interviews            FoundingResearchInterview[]
+
+  @@index([status, activatedAt])
+  @@index([cohortId, createdAt])
+  @@map("founding_program_enrollments")
+}
+
+model FoundingResearchInterview {
+  id                       String                    @id @default(cuid())
+  enrollmentId             String
+  interviewerAdminId       String
+  occurredAt               DateTime                  @default(now())
+  stage                    String
+  mostValuableOutcome      String?
+  primaryBlocker           String?
+  paidPilotInterest        PaidPilotInterest         @default(NOT_ASKED)
+  reasonToPayOrNot         String?
+  volunteeredPriceAmount   Decimal?                  @db.Decimal(12, 2)
+  volunteeredPriceCurrency String                    @default("NGN")
+  notes                    String?
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+  enrollment               FoundingProgramEnrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  interviewer              PlatformAdmin             @relation("ResearchInterviewer", fields: [interviewerAdminId], references: [id], onDelete: Restrict)
+
+  @@index([enrollmentId, occurredAt])
+  @@index([interviewerAdminId, occurredAt])
+  @@map("founding_research_interviews")
+}
+
 model User {
   id                  String                     @id @default(cuid())
   avatarAssetId       String?                    @unique
@@ -430,37 +661,101 @@ model User {
   deliveryEvents      DeliveryEvent[]            @relation("DeliveryEventActor")
   activityEvents      ActivityEvent[]            @relation("ActivityActor")
   permissionOverrides MemberPermissionOverride[] @relation("PermissionOverrideActor")
+  platformAdmin       PlatformAdmin?
+  mediaReviews        MediaModerationReview[]    @relation("MediaReviewActor")
 
   @@map("users")
 }
 
+model PlatformAdmin {
+  id                   String                      @id @default(cuid())
+  userId               String                      @unique
+  role                 PlatformRole
+  status               PlatformAdminStatus         @default(ACTIVE)
+  createdAt            DateTime                    @default(now())
+  updatedAt            DateTime                    @updatedAt
+  lastReviewedAt       DateTime?
+  user                 User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessions             PlatformAdminSession[]
+  auditLogs            PlatformAdminAuditLog[]
+  reviewedApplications FoundingAccessApplication[] @relation("ApplicationReviewer")
+  createdCohorts       FoundingCohort[]            @relation("CohortCreator")
+  createdInvitations   OnboardingInvitation[]      @relation("InvitationCreator")
+  revokedInvitations   OnboardingInvitation[]      @relation("InvitationRevoker")
+  researchInterviews   FoundingResearchInterview[] @relation("ResearchInterviewer")
+  suspendedBusinesses  Business[]                  @relation("BusinessSuspensionActor")
+
+  @@index([role, status])
+  @@map("platform_admins")
+}
+
+model PlatformAdminSession {
+  id              String        @id @default(cuid())
+  platformAdminId String
+  ownerSessionId  String
+  tokenHash       String        @unique
+  verifiedAt      DateTime      @default(now())
+  expiresAt       DateTime
+  lastUsedAt      DateTime      @default(now())
+  revokedAt       DateTime?
+  createdAt       DateTime      @default(now())
+  platformAdmin   PlatformAdmin @relation(fields: [platformAdminId], references: [id], onDelete: Cascade)
+  ownerSession    OwnerSession  @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
+
+  @@index([platformAdminId, expiresAt])
+  @@index([ownerSessionId, revokedAt])
+  @@map("platform_admin_sessions")
+}
+
+model PlatformAdminAuditLog {
+  id           String        @id @default(cuid())
+  actorAdminId String
+  action       String
+  targetType   String
+  targetId     String?
+  reason       String?
+  before       Json?
+  after        Json?
+  requestId    String?
+  ipHash       String?
+  userAgent    String?
+  createdAt    DateTime      @default(now())
+  actor        PlatformAdmin @relation(fields: [actorAdminId], references: [id], onDelete: Restrict)
+
+  @@index([actorAdminId, createdAt])
+  @@index([targetType, targetId, createdAt])
+  @@map("platform_admin_audit_logs")
+}
+
 model OwnerSession {
-  id         String    @id @default(cuid())
-  userId     String
-  tokenHash  String    @unique
-  userAgent  String?
-  ipHash     String?
-  expiresAt  DateTime
-  lastUsedAt DateTime  @default(now())
-  revokedAt  DateTime?
-  createdAt  DateTime  @default(now())
-  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                    String                 @id @default(cuid())
+  userId                String
+  tokenHash             String                 @unique
+  userAgent             String?
+  ipHash                String?
+  expiresAt             DateTime
+  lastUsedAt            DateTime               @default(now())
+  revokedAt             DateTime?
+  createdAt             DateTime               @default(now())
+  user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platformAdminSessions PlatformAdminSession[]
 
   @@index([userId, expiresAt])
   @@map("owner_sessions")
 }
 
 model OwnerOtpChallenge {
-  id                String    @id @default(cuid())
+  id                String          @id @default(cuid())
   userId            String?
   phone             String
   provider          String
-  providerReference String    @unique
+  providerReference String          @unique
   expiresAt         DateTime
   verifiedAt        DateTime?
-  attempts          Int       @default(0)
-  createdAt         DateTime  @default(now())
-  user              User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  attempts          Int             @default(0)
+  purpose           OwnerOtpPurpose @default(LOGIN)
+  createdAt         DateTime        @default(now())
+  user              User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([phone, createdAt])
   @@map("owner_otp_challenges")
@@ -480,78 +775,86 @@ model PasswordRecoveryToken {
 }
 
 model Business {
-  id                   String                   @id @default(cuid())
-  ownerId              String
-  logoAssetId          String?                  @unique
-  coverAssetId         String?                  @unique
-  name                 String
-  slug                 String                   @unique
-  publicCardId         String                   @unique
-  category             String?
-  categoryDetail       String?
-  description          String?
-  location             String?
-  storeStatus          StoreStatus              @default(SETTING_UP)
-  launchAt             DateTime?
-  launchTimezone       String?
-  launchTemplate       LaunchTemplate           @default(SHOP_LOADING)
-  launchMessage        String?
-  launchProductId      String?
-  launchAutoOpen       Boolean                  @default(false)
-  launchShareVersion   Int                      @default(1)
-  launchedAt           DateTime?
-  pledgeSignature      String?
-  pledgedAt            DateTime?
-  plan                 BusinessPlan             @default(PRIVATE_TESTER)
-  subscriptionStatus   SubscriptionStatus       @default(INTERNAL_TEST)
-  trialStartedAt       DateTime?
-  trialEndsAt          DateTime?
-  customerLimit        Int?
-  receiptLimit         Int?
-  createdAt            DateTime                 @default(now())
-  updatedAt            DateTime                 @updatedAt
-  owner                User                     @relation("BusinessOwner", fields: [ownerId], references: [id])
-  logoAsset            MediaAsset?              @relation("BusinessLogo", fields: [logoAssetId], references: [id], onDelete: SetNull)
-  coverAsset           MediaAsset?              @relation("BusinessCover", fields: [coverAssetId], references: [id], onDelete: SetNull)
-  launchProduct        Product?                 @relation("BusinessLaunchProduct", fields: [launchProductId], references: [id], onDelete: SetNull)
-  preferences          BusinessPreferences?
-  contacts             BusinessContact[]
-  members              BusinessMember[]
-  invitations          BusinessInvitation[]
-  assets               MediaAsset[]             @relation("BusinessAssets")
-  customers            Customer[]
-  customerTags         CustomerTag[]
-  products             Product[]
-  showcases            Showcase[]
-  shopFollowers        ShopFollow[]
-  savedShowcases       SavedShowcase[]
-  sales                Sale[]
-  receipts             Receipt[]
-  deliveries           Delivery[]
-  activityEvents       ActivityEvent[]
-  followUpTemplates    FollowUpTemplate[]
-  followUpSuggestions  FollowUpSuggestion[]
-  orderRequests        OrderRequest[]
-  wishlistItems        WishlistItem[]
-  productInterests     ProductInterest[]
-  commerceEvents       CommerceEvent[]
-  feedback             CustomerFeedback[]
-  issues               CustomerIssue[]
-  trustLedger          TrustLedgerEntry[]
-  supportRequests      SupportRequest[]
-  paymentAccounts      BusinessPaymentAccount[]
-  paymentProofs        PaymentProof[]
-  shortLinks           ShortLink[]
-  categories           BusinessCategory[]
-  customerInsights     CustomerInsightSummary[]
-  cartItems            CustomerCartItem[]
-  cartGroups           CustomerCartGroup[]
-  discoveryPreferences DiscoveryPreference[]
-  promotions           ProductPromotion[]
-  messageOutbox        MessageOutbox[]
+  id                         String                     @id @default(cuid())
+  ownerId                    String
+  logoAssetId                String?                    @unique
+  coverAssetId               String?                    @unique
+  name                       String
+  slug                       String                     @unique
+  publicCardId               String                     @unique
+  category                   String?
+  categoryDetail             String?
+  description                String?
+  location                   String?
+  storeStatus                StoreStatus                @default(SETTING_UP)
+  launchAt                   DateTime?
+  launchTimezone             String?
+  launchTemplate             LaunchTemplate             @default(SHOP_LOADING)
+  launchMessage              String?
+  launchProductId            String?
+  launchAutoOpen             Boolean                    @default(false)
+  launchShareVersion         Int                        @default(1)
+  launchedAt                 DateTime?
+  pledgeSignature            String?
+  pledgedAt                  DateTime?
+  plan                       BusinessPlan               @default(PRIVATE_TESTER)
+  subscriptionStatus         SubscriptionStatus         @default(INTERNAL_TEST)
+  platformStatus             BusinessPlatformStatus     @default(ACTIVE)
+  platformSuspendedAt        DateTime?
+  platformSuspensionReason   String?
+  platformSuspendedByAdminId String?
+  isDemo                     Boolean                    @default(false)
+  trialStartedAt             DateTime?
+  trialEndsAt                DateTime?
+  customerLimit              Int?
+  receiptLimit               Int?
+  createdAt                  DateTime                   @default(now())
+  updatedAt                  DateTime                   @updatedAt
+  owner                      User                       @relation("BusinessOwner", fields: [ownerId], references: [id])
+  platformSuspendedBy        PlatformAdmin?             @relation("BusinessSuspensionActor", fields: [platformSuspendedByAdminId], references: [id], onDelete: SetNull)
+  logoAsset                  MediaAsset?                @relation("BusinessLogo", fields: [logoAssetId], references: [id], onDelete: SetNull)
+  coverAsset                 MediaAsset?                @relation("BusinessCover", fields: [coverAssetId], references: [id], onDelete: SetNull)
+  launchProduct              Product?                   @relation("BusinessLaunchProduct", fields: [launchProductId], references: [id], onDelete: SetNull)
+  preferences                BusinessPreferences?
+  contacts                   BusinessContact[]
+  members                    BusinessMember[]
+  invitations                BusinessInvitation[]
+  assets                     MediaAsset[]               @relation("BusinessAssets")
+  customers                  Customer[]
+  customerTags               CustomerTag[]
+  products                   Product[]
+  showcases                  Showcase[]
+  shopFollowers              ShopFollow[]
+  savedShowcases             SavedShowcase[]
+  sales                      Sale[]
+  receipts                   Receipt[]
+  deliveries                 Delivery[]
+  activityEvents             ActivityEvent[]
+  followUpTemplates          FollowUpTemplate[]
+  followUpSuggestions        FollowUpSuggestion[]
+  orderRequests              OrderRequest[]
+  wishlistItems              WishlistItem[]
+  productInterests           ProductInterest[]
+  commerceEvents             CommerceEvent[]
+  feedback                   CustomerFeedback[]
+  issues                     CustomerIssue[]
+  trustLedger                TrustLedgerEntry[]
+  supportRequests            SupportRequest[]
+  paymentAccounts            BusinessPaymentAccount[]
+  paymentProofs              PaymentProof[]
+  shortLinks                 ShortLink[]
+  categories                 BusinessCategory[]
+  customerInsights           CustomerInsightSummary[]
+  cartItems                  CustomerCartItem[]
+  cartGroups                 CustomerCartGroup[]
+  discoveryPreferences       DiscoveryPreference[]
+  promotions                 ProductPromotion[]
+  messageOutbox              MessageOutbox[]
+  foundingEnrollment         FoundingProgramEnrollment?
 
   @@index([ownerId])
   @@index([storeStatus, launchAt])
+  @@index([platformStatus, isDemo, createdAt])
   @@map("businesses")
 }
 
@@ -674,68 +977,106 @@ model BusinessInvitation {
 }
 
 model MediaAsset {
-  id               String         @id @default(cuid())
-  businessId       String
-  uploadedById     String?
-  provider         String         @default("cloudinary")
-  publicId         String         @unique
-  secureUrl        String
-  resourceType     String         @default("image")
-  mimeType         String?
-  format           String
-  width            Int?
-  height           Int?
-  durationSeconds  Float?
-  bytes            Int
-  version          String?
-  originalFilename String?
-  purpose          MediaPurpose
-  status           MediaStatus    @default(ACTIVE)
-  createdAt        DateTime       @default(now())
-  deletedAt        DateTime?
-  business         Business       @relation("BusinessAssets", fields: [businessId], references: [id], onDelete: Cascade)
-  uploadedBy       User?          @relation("AssetUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
-  logoFor          Business?      @relation("BusinessLogo")
-  coverFor         Business?      @relation("BusinessCover")
-  avatarFor        User?          @relation("UserAvatar")
-  productImages    ProductImage[]
-  productMedia     ProductMedia[] @relation("ProductMediaAsset")
-  productPosters   ProductMedia[] @relation("ProductMediaPoster")
-  showcaseImages   Showcase[]     @relation("ShowcaseImage")
-  showcasePosters  Showcase[]     @relation("ShowcasePoster")
-  paymentProof     PaymentProof?
+  id                     String                  @id @default(cuid())
+  businessId             String
+  uploadedById           String?
+  provider               String                  @default("cloudinary")
+  publicId               String                  @unique
+  secureUrl              String
+  resourceType           String                  @default("image")
+  mimeType               String?
+  format                 String
+  width                  Int?
+  height                 Int?
+  durationSeconds        Float?
+  bytes                  Int
+  version                String?
+  originalFilename       String?
+  purpose                MediaPurpose
+  status                 MediaStatus             @default(ACTIVE)
+  qualityStatus          MediaQualityStatus      @default(PASS)
+  moderationStatus       MediaModerationStatus   @default(AUTO_APPROVED)
+  contentRating          MediaContentRating      @default(GENERAL)
+  qualityMetrics         Json?
+  moderationLabels       Json?
+  moderationProvider     String?
+  moderationModelVersion String?
+  moderationEventId      String?                 @unique
+  moderationNotifiedAt   DateTime?
+  exactHash              String?
+  perceptualHash         String?
+  assessedAt             DateTime?
+  appealedAt             DateTime?
+  appealReason           String?
+  createdAt              DateTime                @default(now())
+  deletedAt              DateTime?
+  business               Business                @relation("BusinessAssets", fields: [businessId], references: [id], onDelete: Cascade)
+  uploadedBy             User?                   @relation("AssetUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
+  logoFor                Business?               @relation("BusinessLogo")
+  coverFor               Business?               @relation("BusinessCover")
+  avatarFor              User?                   @relation("UserAvatar")
+  productImages          ProductImage[]
+  productMedia           ProductMedia[]          @relation("ProductMediaAsset")
+  productPosters         ProductMedia[]          @relation("ProductMediaPoster")
+  showcaseImages         Showcase[]              @relation("ShowcaseImage")
+  showcasePosters        Showcase[]              @relation("ShowcasePoster")
+  paymentProof           PaymentProof?
+  moderationReviews      MediaModerationReview[]
 
   @@index([businessId, purpose, status])
+  @@index([moderationStatus, contentRating, qualityStatus])
+  @@index([businessId, exactHash])
+  @@index([businessId, perceptualHash])
   @@map("media_assets")
 }
 
+model MediaModerationReview {
+  id             String                @id @default(cuid())
+  assetId        String
+  reviewerId     String
+  decision       MediaReviewDecision
+  previousStatus MediaModerationStatus
+  nextStatus     MediaModerationStatus
+  previousRating MediaContentRating
+  nextRating     MediaContentRating
+  reason         String
+  createdAt      DateTime              @default(now())
+  asset          MediaAsset            @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  reviewer       User                  @relation("MediaReviewActor", fields: [reviewerId], references: [id], onDelete: Restrict)
+
+  @@index([assetId, createdAt])
+  @@index([reviewerId, createdAt])
+  @@map("media_moderation_reviews")
+}
+
 model CustomerAccount {
-  id                   String                   @id @default(cuid())
-  phone                String                   @unique
-  name                 String?
-  alternatePhone       String?
-  birthday             DateTime?                @db.Date
-  gender               String?
-  socials              Json?
-  verifiedAt           DateTime
-  createdAt            DateTime                 @default(now())
-  updatedAt            DateTime                 @updatedAt
-  sessions             CustomerAccountSession[]
-  challenges           CustomerOtpChallenge[]
-  customers            Customer[]
-  addresses            CustomerAddress[]
-  wishlist             WishlistItem[]
-  savedShowcases       SavedShowcase[]
-  followedShops        ShopFollow[]
-  interests            ProductInterest[]
-  requests             OrderRequest[]
-  events               CommerceEvent[]
-  carts                CustomerCart[]
-  discoveryPreferences DiscoveryPreference[]
-  discoveryTelemetry   DiscoveryTelemetry[]
-  messagingConsents    MessagingConsent[]
-  messageOutbox        MessageOutbox[]
+  id                    String                   @id @default(cuid())
+  phone                 String                   @unique
+  name                  String?
+  alternatePhone        String?
+  birthday              DateTime?                @db.Date
+  gender                String?
+  socials               Json?
+  verifiedAt            DateTime
+  createdAt             DateTime                 @default(now())
+  updatedAt             DateTime                 @updatedAt
+  sessions              CustomerAccountSession[]
+  challenges            CustomerOtpChallenge[]
+  customers             Customer[]
+  addresses             CustomerAddress[]
+  wishlist              WishlistItem[]
+  savedShowcases        SavedShowcase[]
+  followedShops         ShopFollow[]
+  interests             ProductInterest[]
+  requests              OrderRequest[]
+  events                CommerceEvent[]
+  carts                 CustomerCart[]
+  discoveryPreferences  DiscoveryPreference[]
+  discoveryTelemetry    DiscoveryTelemetry[]
+  messagingConsents     MessagingConsent[]
+  messageOutbox         MessageOutbox[]
   promotionReservations PromotionReservation[]
+  orderNotices          CustomerOrderNotice[]
 
   @@map("customer_accounts")
 }
@@ -938,6 +1279,7 @@ model Product {
   status           ProductStatus      @default(ACTIVE)
   placement        ProductPlacement   @default(STANDARD)
   visibility       ProductVisibility  @default(PUBLIC)
+  contentRating    MediaContentRating @default(GENERAL)
   stockCount       Int?
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
@@ -1024,22 +1366,23 @@ model ProductMedia {
 }
 
 model Showcase {
-  id              String            @id @default(cuid())
+  id              String             @id @default(cuid())
   businessId      String
   assetId         String
   posterAssetId   String?
-  mediaKind       ProductMediaKind  @default(IMAGE)
+  mediaKind       ProductMediaKind   @default(IMAGE)
   durationSeconds Float?
   title           String
   caption         String?
-  status          ShowcaseStatus    @default(PUBLISHED)
-  featured        Boolean           @default(false)
+  status          ShowcaseStatus     @default(PUBLISHED)
+  featured        Boolean            @default(false)
+  contentRating   MediaContentRating @default(GENERAL)
   publishedAt     DateTime?
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  business        Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  asset           MediaAsset        @relation("ShowcaseImage", fields: [assetId], references: [id], onDelete: Restrict)
-  posterAsset     MediaAsset?       @relation("ShowcasePoster", fields: [posterAssetId], references: [id], onDelete: SetNull)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  business        Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  asset           MediaAsset         @relation("ShowcaseImage", fields: [assetId], references: [id], onDelete: Restrict)
+  posterAsset     MediaAsset?        @relation("ShowcasePoster", fields: [posterAssetId], references: [id], onDelete: SetNull)
   hotspots        ShowcaseHotspot[]
   savedBy         SavedShowcase[]
   requests        OrderRequest[]
@@ -1165,22 +1508,22 @@ model CustomerCartItem {
 }
 
 model CustomerCartGroup {
-  id                String           @id @default(cuid())
-  cartId            String
-  businessId        String
-  customerAddressId String?
-  fulfillment       FulfillmentType  @default(ARRANGE_LATER)
-  note              String?
-  paymentPreference PaymentMethod?
-  isGift           Boolean          @default(false)
-  recipientName    String?
-  recipientPhone   String?
-  whatsappUpdatesConsent Boolean    @default(false)
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  cart              CustomerCart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  business          Business         @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customerAddress   CustomerAddress? @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
+  id                     String           @id @default(cuid())
+  cartId                 String
+  businessId             String
+  customerAddressId      String?
+  fulfillment            FulfillmentType  @default(ARRANGE_LATER)
+  note                   String?
+  paymentPreference      PaymentMethod?
+  isGift                 Boolean          @default(false)
+  recipientName          String?
+  recipientPhone         String?
+  whatsappUpdatesConsent Boolean          @default(false)
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
+  cart                   CustomerCart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  business               Business         @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerAddress        CustomerAddress? @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
 
   @@unique([cartId, businessId])
   @@index([businessId])
@@ -1188,25 +1531,25 @@ model CustomerCartGroup {
 }
 
 model ProductPromotion {
-  id                 String             @id @default(cuid())
+  id                 String                 @id @default(cuid())
   businessId         String
   productId          String
   variantId          String?
   name               String
   type               PromotionType
   percentage         Int?
-  promotionalPrice   Decimal?           @db.Decimal(12, 2)
+  promotionalPrice   Decimal?               @db.Decimal(12, 2)
   startsAt           DateTime?
   endsAt             DateTime?
   claimLimit         Int?
-  perCustomerLimit   Int                @default(1)
-  reservationMinutes Int                @default(2880)
-  status             PromotionStatus    @default(ACTIVE)
-  createdAt          DateTime            @default(now())
-  updatedAt          DateTime            @updatedAt
-  business           Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  product            Product             @relation(fields: [productId], references: [id], onDelete: Cascade)
-  variant            ProductVariant?     @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  perCustomerLimit   Int                    @default(1)
+  reservationMinutes Int                    @default(2880)
+  status             PromotionStatus        @default(ACTIVE)
+  createdAt          DateTime               @default(now())
+  updatedAt          DateTime               @updatedAt
+  business           Business               @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  product            Product                @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant            ProductVariant?        @relation(fields: [variantId], references: [id], onDelete: Cascade)
   requestItems       OrderRequestItem[]
   reservations       PromotionReservation[]
 
@@ -1278,12 +1621,32 @@ model OrderRequest {
   paymentChanges         OrderRequestPaymentChange[]
   promotionReservations  PromotionReservation[]
   shareTokens            OrderRequestShareToken[]
+  customerNotices        CustomerOrderNotice[]
 
   @@unique([customerAccountId, clientIdempotencyKey])
   @@index([businessId, status, createdAt])
   @@index([customerAddressId])
   @@index([sourceShowcaseId])
   @@map("order_requests")
+}
+
+model CustomerOrderNotice {
+  id                String                  @id @default(cuid())
+  customerAccountId String
+  orderRequestId    String
+  type              CustomerOrderNoticeType
+  message           String
+  dedupeKey         String                  @unique
+  actionRequired    Boolean                 @default(false)
+  actionResolvedAt  DateTime?
+  readAt            DateTime?
+  createdAt         DateTime                @default(now())
+  customerAccount   CustomerAccount         @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+  orderRequest      OrderRequest            @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
+
+  @@index([customerAccountId, readAt, createdAt])
+  @@index([orderRequestId, createdAt])
+  @@map("customer_order_notices")
 }
 
 model OrderRequestShareToken {
@@ -1299,24 +1662,24 @@ model OrderRequestShareToken {
 }
 
 model OrderRequestItem {
-  id              String          @id @default(cuid())
-  orderRequestId  String
-  productId       String?
-  variantId       String?
-  variantName     String?
-  variantSnapshot Json?
-  name            String
-  imageUrl        String?
-  quantity        Int             @default(1)
-  unitPrice       Decimal         @db.Decimal(12, 2)
-  total           Decimal         @db.Decimal(12, 2)
-  originalUnitPrice Decimal?       @db.Decimal(12, 2)
-  promotionId     String?
+  id                String            @id @default(cuid())
+  orderRequestId    String
+  productId         String?
+  variantId         String?
+  variantName       String?
+  variantSnapshot   Json?
+  name              String
+  imageUrl          String?
+  quantity          Int               @default(1)
+  unitPrice         Decimal           @db.Decimal(12, 2)
+  total             Decimal           @db.Decimal(12, 2)
+  originalUnitPrice Decimal?          @db.Decimal(12, 2)
+  promotionId       String?
   promotionSnapshot Json?
-  orderRequest    OrderRequest    @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
-  product         Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
-  variant         ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
-  promotion       ProductPromotion? @relation(fields: [promotionId], references: [id], onDelete: SetNull)
+  orderRequest      OrderRequest      @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
+  product           Product?          @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variant           ProductVariant?   @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  promotion         ProductPromotion? @relation(fields: [promotionId], references: [id], onDelete: SetNull)
 
   @@index([orderRequestId])
   @@index([variantId])
@@ -1810,27 +2173,28 @@ model MessagingSuppression {
 }
 
 model MessageOutbox {
-  id                String           @id @default(cuid())
-  businessId        String?
-  customerAccountId String?
-  channel           MessageChannel   @default(WHATSAPP)
-  purpose           MessagePurpose
-  toAddress         String
-  templateKey       String
-  payload           Json
-  idempotencyKey    String           @unique
-  status            MessageStatus    @default(PENDING)
-  attemptCount      Int              @default(0)
-  nextAttemptAt     DateTime         @default(now())
-  providerReference String?          @unique
-  lastError         String?
-  sentAt            DateTime?
-  deliveredAt       DateTime?
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  business          Business?        @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customerAccount   CustomerAccount? @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
-  attempts          MessageAttempt[]
+  id                 String                @id @default(cuid())
+  businessId         String?
+  customerAccountId  String?
+  channel            MessageChannel        @default(WHATSAPP)
+  purpose            MessagePurpose
+  toAddress          String
+  templateKey        String
+  payload            Json
+  idempotencyKey     String                @unique
+  status             MessageStatus         @default(PENDING)
+  attemptCount       Int                   @default(0)
+  nextAttemptAt      DateTime              @default(now())
+  providerReference  String?               @unique
+  lastError          String?
+  sentAt             DateTime?
+  deliveredAt        DateTime?
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+  business           Business?             @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerAccount    CustomerAccount?      @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+  attempts           MessageAttempt[]
+  foundingInvitation OnboardingInvitation?
 
   @@index([status, nextAttemptAt])
   @@index([businessId, createdAt])

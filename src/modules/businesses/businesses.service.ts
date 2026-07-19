@@ -100,9 +100,14 @@ export class BusinessesService {
         name: true,
         slug: true,
         storeStatus: true,
+        platformStatus: true,
       },
     });
-    if (!business || business.storeStatus === "CLOSED") {
+    if (
+      !business ||
+      business.storeStatus === "CLOSED" ||
+      business.platformStatus !== "ACTIVE"
+    ) {
       throw new NotFoundException("Trust Card is unavailable");
     }
     return {
@@ -352,10 +357,12 @@ export class BusinessesService {
         launchAt: true,
         launchAutoOpen: true,
         launchedAt: true,
+        platformStatus: true,
       },
     });
     if (
       !current ||
+      (current.platformStatus && current.platformStatus !== "ACTIVE") ||
       current.storeStatus !== "SCHEDULED" ||
       !current.launchAutoOpen ||
       !current.launchAt ||
@@ -373,6 +380,7 @@ export class BusinessesService {
           storeStatus: "SCHEDULED",
           launchAutoOpen: true,
           launchAt: { lte: now },
+          platformStatus: "ACTIVE",
         },
         data: {
           storeStatus: "OPEN",

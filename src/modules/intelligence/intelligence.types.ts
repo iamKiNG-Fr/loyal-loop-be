@@ -34,6 +34,12 @@ export type CustomerInsight = {
   source: "ai" | "fallback";
 };
 
+export type ProductDescriptionSuggestion = {
+  description: string;
+  missingDetails: string[];
+  source: "ai" | "fallback";
+};
+
 export interface IntelligenceProvider {
   readonly model: string | null;
   parseDiscoveryQuery(query: string): Promise<DiscoveryQueryPlan>;
@@ -44,4 +50,10 @@ export interface IntelligenceProvider {
     customerName: string;
     evidence: CustomerEvidenceItem[];
   }): Promise<CustomerInsight>;
+  suggestProductDescription(input: {
+    name: string;
+    category?: string;
+    currentDescription?: string;
+    attributes?: Record<string, string | number | boolean>;
+  }): Promise<ProductDescriptionSuggestion>;
 }

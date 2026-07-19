@@ -7,7 +7,7 @@ import { AppModule } from "./app.module";
 import { isCorsOriginAllowed } from "./common/cors.util";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { rawBody: true });
   const configService = app.get(ConfigService);
   const trustProxy = configService.get<string>("TRUST_PROXY");
 

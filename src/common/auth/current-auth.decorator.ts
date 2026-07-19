@@ -3,6 +3,7 @@ import type {
   CustomerAuthContext,
   LoyalLoopRequest,
   OwnerAuthContext,
+  PlatformAuthContext,
 } from "../request-context";
 
 export const CurrentAuth = createParamDecorator(
@@ -18,5 +19,13 @@ export const CurrentCustomer = createParamDecorator(
     const request = context.switchToHttp().getRequest<LoyalLoopRequest>();
     if (!request.customerAuth) throw new Error("Customer auth context is missing");
     return request.customerAuth;
+  },
+);
+
+export const CurrentPlatformAdmin = createParamDecorator(
+  (_data: unknown, context: ExecutionContext): PlatformAuthContext => {
+    const request = context.switchToHttp().getRequest<LoyalLoopRequest>();
+    if (!request.platformAuth) throw new Error("Platform auth context is missing");
+    return request.platformAuth;
   },
 );

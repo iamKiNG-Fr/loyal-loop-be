@@ -36,7 +36,7 @@ async function main() {
   if (existingBusiness) {
     await prisma.business.update({
       where: { id: existingBusiness.id },
-      data: { publicCardId: DEMO_CARD_ID },
+      data: { publicCardId: DEMO_CARD_ID, isDemo: true },
     });
     await prisma.businessPreferences.upsert({
       where: { businessId: existingBusiness.id },
@@ -92,6 +92,7 @@ async function main() {
       name: "King's Store Demo",
       slug: DEMO_SLUG,
       publicCardId: DEMO_CARD_ID,
+      isDemo: true,
       category: "Fashion, fragrance & accessories",
       description:
         "A seeded Loyal Loop workspace for testing customer memory, receipts, and delivery.",

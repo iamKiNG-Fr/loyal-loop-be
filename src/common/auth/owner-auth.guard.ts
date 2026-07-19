@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from "@nestjs/common";
@@ -27,7 +28,10 @@ export class OwnerAuthGuard implements CanActivate {
             memberships: {
               where: { status: "ACTIVE" },
               orderBy: { createdAt: "asc" },
-              include: { permissionOverrides: true },
+              include: {
+                permissionOverrides: true,
+                business: { select: { platformStatus: true } },
+              },
             },
           },
         },
@@ -50,6 +54,19 @@ export class OwnerAuthGuard implements CanActivate {
       : session.user.memberships[0];
     if (!membership) {
       throw new UnauthorizedException("No active business membership");
+    }
+    const requestPath = request.path || request.originalUrl || "";
+    const suspensionSafePath = ["/auth/me", "/auth/logout"].some((path) =>
+      requestPath.endsWith(path),
+    );
+    if (
+      membership.business?.platformStatus === "SUSPENDED" &&
+      !suspensionSafePath
+    ) {
+      throw new ForbiddenException({
+        error: "BUSINESS_SUSPENDED",
+        message: "This business workspace is temporarily restricted. Contact Loyal Loop support.",
+      });
     }
 
     request.auth = {

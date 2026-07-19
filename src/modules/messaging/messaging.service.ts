@@ -6,7 +6,12 @@ import {
   ServiceUnavailableException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { createHmac, timingSafeEqual } from "node:crypto";
+import {
+  createDecipheriv,
+  createHash,
+  createHmac,
+  timingSafeEqual,
+} from "node:crypto";
 import { createOpaqueToken, hashPrivateValue } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { PrismaService } from "../prisma/prisma.service";
@@ -16,7 +21,7 @@ import {
   type WhatsAppProvider,
 } from "./whatsapp-provider";
 
-type UtilityPurpose = "RECEIPT" | "DELIVERY" | "REMINDER";
+type UtilityPurpose = "RECEIPT" | "DELIVERY" | "REMINDER" | "FOUNDING_ACCESS";
 type WebhookValues = Record<string, string | undefined>;
 
 @Injectable()
@@ -90,6 +95,10 @@ export class MessagingService {
     });
   }
 
+  async grantFoundingAccessConsent(phone: string, source: string) {
+    await this.grantPhoneConsent(phone, "FOUNDING_ACCESS", source);
+  }
+
   async revokeConsent(customerAccountId: string, purpose: UtilityPurpose) {
     const account = await this.prisma.customerAccount.findUniqueOrThrow({
       where: { id: customerAccountId },
@@ -136,10 +145,44 @@ export class MessagingService {
       update: {},
     });
 
-    if (record.status === "PENDING" && this.pilotEnabled()) {
+    // Founding invitations are linked to their outbox record immediately after
+    // enqueueing. Do not race that link: the caller explicitly starts delivery
+    // once the invitation can supply the one-time encrypted token.
+    if (
+      record.status === "PENDING" &&
+      input.templateKey !== "founding_access" &&
+      this.pilotEnabled()
+    ) {
       void this.processOne(record.id).catch(() => undefined);
     }
     return { id: record.id, status: record.status };
+  }
+
+  async enqueueFoundingAccess(input: {
+    invitationId: string;
+    phone: string;
+    recipientName: string;
+    businessName: string;
+    expiresAt: Date;
+  }) {
+    return this.enqueueUtility({
+      phone: input.phone,
+      purpose: "FOUNDING_ACCESS",
+      templateKey: "founding_access",
+      variables: {
+        "1": input.recipientName,
+        "2": input.businessName,
+        "4": input.expiresAt.toLocaleDateString("en-NG"),
+        invitationId: input.invitationId,
+      },
+      idempotencyKey: `founding-access:${input.invitationId}`,
+    });
+  }
+
+  startFoundingAccessDelivery(outboxId: string) {
+    if (this.pilotEnabled()) {
+      void this.processOne(outboxId).catch(() => undefined);
+    }
   }
 
   async enqueueReceipt(auth: OwnerAuthContext, receiptId: string) {
@@ -279,13 +322,21 @@ export class MessagingService {
     if (!["PENDING", "FAILED"].includes(outbox.status)) return outbox.status;
     const eligibility = this.whatsapp.recipientEligibility(outbox.toAddress);
     if (!eligibility.allowed) {
-      await this.prisma.messageOutbox.update({
-        where: { id },
-        data: {
-          status: "SUPPRESSED",
-          lastError: eligibility.reason || "WhatsApp recipient is not eligible",
-        },
-      });
+      await this.prisma.$transaction([
+        this.prisma.messageOutbox.update({
+          where: { id },
+          data: {
+            status: "SUPPRESSED",
+            lastError: eligibility.reason || "WhatsApp recipient is not eligible",
+          },
+        }),
+        ...(outbox.templateKey === "founding_access"
+          ? [this.prisma.onboardingInvitation.updateMany({
+              where: { messageOutboxId: outbox.id },
+              data: { encryptedToken: null },
+            })]
+          : []),
+      ]);
       return "SUPPRESSED";
     }
     const phoneHash = this.phoneHash(outbox.toAddress);
@@ -296,20 +347,29 @@ export class MessagingService {
       this.prisma.messagingSuppression.findUnique({ where: { phoneHash } }),
     ]);
     if (!consent || consent.revokedAt || suppression) {
-      await this.prisma.messageOutbox.update({
-        where: { id },
-        data: { status: "SUPPRESSED", lastError: "Consent missing, revoked, or recipient suppressed" },
-      });
+      await this.prisma.$transaction([
+        this.prisma.messageOutbox.update({
+          where: { id },
+          data: { status: "SUPPRESSED", lastError: "Consent missing, revoked, or recipient suppressed" },
+        }),
+        ...(outbox.templateKey === "founding_access"
+          ? [this.prisma.onboardingInvitation.updateMany({
+              where: { messageOutboxId: outbox.id },
+              data: { encryptedToken: null },
+            })]
+          : []),
+      ]);
       return "SUPPRESSED";
     }
     await this.assertDailyCap();
     await this.prisma.messageOutbox.update({ where: { id }, data: { status: "PROCESSING" } });
 
     try {
+      const variables = await this.messageVariables(outbox);
       const result = await this.sendWithProvider(
         outbox.toAddress,
         outbox.templateKey,
-        outbox.payload as Record<string, string>,
+        variables,
       );
       await this.prisma.$transaction([
         this.prisma.messageOutbox.update({
@@ -334,6 +394,14 @@ export class MessagingService {
             },
           },
         }),
+        ...(outbox.templateKey === "founding_access"
+          ? [
+              this.prisma.onboardingInvitation.updateMany({
+                where: { messageOutboxId: outbox.id },
+                data: { encryptedToken: null },
+              }),
+            ]
+          : []),
       ]);
       return "SENT";
     } catch (error) {
@@ -358,6 +426,14 @@ export class MessagingService {
             error: message.slice(0, 500),
           },
         }),
+        ...(terminal && outbox.templateKey === "founding_access"
+          ? [
+              this.prisma.onboardingInvitation.updateMany({
+                where: { messageOutboxId: outbox.id },
+                data: { encryptedToken: null },
+              }),
+            ]
+          : []),
       ]);
       return terminal ? "DEAD_LETTER" : "FAILED";
     }
@@ -430,9 +506,50 @@ export class MessagingService {
     if (templateKey === "reminder") {
       return this.whatsapp.sendReminder(to, variables);
     }
+    if (templateKey === "founding_access") {
+      return this.whatsapp.sendFoundingAccess(to, variables);
+    }
     throw new ServiceUnavailableException(
       `Unsupported WhatsApp message template: ${templateKey}`,
     );
+  }
+
+  private async messageVariables(outbox: {
+    id: string;
+    templateKey: string;
+    payload: unknown;
+  }) {
+    const variables = { ...(outbox.payload as Record<string, string>) };
+    if (outbox.templateKey !== "founding_access") return variables;
+    const invitation = await this.prisma.onboardingInvitation.findFirst({
+      where: { messageOutboxId: outbox.id },
+      select: { encryptedToken: true },
+    });
+    if (!invitation?.encryptedToken) {
+      throw new ServiceUnavailableException("Founding invitation delivery token is unavailable");
+    }
+    const code = this.decryptFoundingToken(invitation.encryptedToken);
+    const appUrl = this.config
+      .get<string>("APP_URL", "https://www.useloyalloop.com")
+      .replace(/\/$/, "");
+    variables["3"] = `${appUrl}/join#invite=${encodeURIComponent(code)}`;
+    delete variables.invitationId;
+    return variables;
+  }
+
+  private decryptFoundingToken(value: string) {
+    const parts = value.split(".");
+    if (parts.length !== 3) throw new ServiceUnavailableException("Invitation token is invalid");
+    const [iv, tag, encrypted] = parts.map((part) => Buffer.from(part, "base64url"));
+    const secret =
+      this.config.get<string>("FOUNDING_INVITATION_ENCRYPTION_KEY") ||
+      this.config.get<string>("FOUNDING_GRANT_SECRET") ||
+      this.config.get<string>("SESSION_HASH_SECRET");
+    if (!secret) throw new ServiceUnavailableException("Invitation encryption is not configured");
+    const key = createHash("sha256").update(secret).digest();
+    const decipher = createDecipheriv("aes-256-gcm", key, iv);
+    decipher.setAuthTag(tag);
+    return Buffer.concat([decipher.update(encrypted), decipher.final()]).toString("utf8");
   }
 
   private assertWorkerEnabled() {

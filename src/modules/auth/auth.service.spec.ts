@@ -24,14 +24,20 @@ function createService() {
     start: vi.fn(),
     verify: vi.fn(),
   };
+  const founding = {
+    resolveRegistrationGrant: vi.fn().mockReturnValue(null),
+    redeemInTransaction: vi.fn(),
+  };
   return {
     config,
+    founding,
     otpProvider,
     prisma,
     service: new AuthService(
       prisma as never,
       config as never,
       mail as never,
+      founding as never,
       otpProvider,
     ),
   };

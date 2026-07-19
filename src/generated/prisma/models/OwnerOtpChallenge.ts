@@ -43,6 +43,7 @@ export type OwnerOtpChallengeMinAggregateOutputType = {
   expiresAt: Date | null
   verifiedAt: Date | null
   attempts: number | null
+  purpose: $Enums.OwnerOtpPurpose | null
   createdAt: Date | null
 }
 
@@ -55,6 +56,7 @@ export type OwnerOtpChallengeMaxAggregateOutputType = {
   expiresAt: Date | null
   verifiedAt: Date | null
   attempts: number | null
+  purpose: $Enums.OwnerOtpPurpose | null
   createdAt: Date | null
 }
 
@@ -67,6 +69,7 @@ export type OwnerOtpChallengeCountAggregateOutputType = {
   expiresAt: number
   verifiedAt: number
   attempts: number
+  purpose: number
   createdAt: number
   _all: number
 }
@@ -89,6 +92,7 @@ export type OwnerOtpChallengeMinAggregateInputType = {
   expiresAt?: true
   verifiedAt?: true
   attempts?: true
+  purpose?: true
   createdAt?: true
 }
 
@@ -101,6 +105,7 @@ export type OwnerOtpChallengeMaxAggregateInputType = {
   expiresAt?: true
   verifiedAt?: true
   attempts?: true
+  purpose?: true
   createdAt?: true
 }
 
@@ -113,6 +118,7 @@ export type OwnerOtpChallengeCountAggregateInputType = {
   expiresAt?: true
   verifiedAt?: true
   attempts?: true
+  purpose?: true
   createdAt?: true
   _all?: true
 }
@@ -212,6 +218,7 @@ export type OwnerOtpChallengeGroupByOutputType = {
   expiresAt: Date
   verifiedAt: Date | null
   attempts: number
+  purpose: $Enums.OwnerOtpPurpose
   createdAt: Date
   _count: OwnerOtpChallengeCountAggregateOutputType | null
   _avg: OwnerOtpChallengeAvgAggregateOutputType | null
@@ -247,6 +254,7 @@ export type OwnerOtpChallengeWhereInput = {
   expiresAt?: Prisma.DateTimeFilter<"OwnerOtpChallenge"> | Date | string
   verifiedAt?: Prisma.DateTimeNullableFilter<"OwnerOtpChallenge"> | Date | string | null
   attempts?: Prisma.IntFilter<"OwnerOtpChallenge"> | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFilter<"OwnerOtpChallenge"> | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFilter<"OwnerOtpChallenge"> | Date | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
@@ -260,6 +268,7 @@ export type OwnerOtpChallengeOrderByWithRelationInput = {
   expiresAt?: Prisma.SortOrder
   verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   attempts?: Prisma.SortOrder
+  purpose?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -276,6 +285,7 @@ export type OwnerOtpChallengeWhereUniqueInput = Prisma.AtLeast<{
   expiresAt?: Prisma.DateTimeFilter<"OwnerOtpChallenge"> | Date | string
   verifiedAt?: Prisma.DateTimeNullableFilter<"OwnerOtpChallenge"> | Date | string | null
   attempts?: Prisma.IntFilter<"OwnerOtpChallenge"> | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFilter<"OwnerOtpChallenge"> | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFilter<"OwnerOtpChallenge"> | Date | string
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "providerReference">
@@ -289,6 +299,7 @@ export type OwnerOtpChallengeOrderByWithAggregationInput = {
   expiresAt?: Prisma.SortOrder
   verifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   attempts?: Prisma.SortOrder
+  purpose?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.OwnerOtpChallengeCountOrderByAggregateInput
   _avg?: Prisma.OwnerOtpChallengeAvgOrderByAggregateInput
@@ -309,6 +320,7 @@ export type OwnerOtpChallengeScalarWhereWithAggregatesInput = {
   expiresAt?: Prisma.DateTimeWithAggregatesFilter<"OwnerOtpChallenge"> | Date | string
   verifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"OwnerOtpChallenge"> | Date | string | null
   attempts?: Prisma.IntWithAggregatesFilter<"OwnerOtpChallenge"> | number
+  purpose?: Prisma.EnumOwnerOtpPurposeWithAggregatesFilter<"OwnerOtpChallenge"> | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"OwnerOtpChallenge"> | Date | string
 }
 
@@ -320,6 +332,7 @@ export type OwnerOtpChallengeCreateInput = {
   expiresAt: Date | string
   verifiedAt?: Date | string | null
   attempts?: number
+  purpose?: $Enums.OwnerOtpPurpose
   createdAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutOtpChallengesInput
 }
@@ -333,6 +346,7 @@ export type OwnerOtpChallengeUncheckedCreateInput = {
   expiresAt: Date | string
   verifiedAt?: Date | string | null
   attempts?: number
+  purpose?: $Enums.OwnerOtpPurpose
   createdAt?: Date | string
 }
 
@@ -344,6 +358,7 @@ export type OwnerOtpChallengeUpdateInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFieldUpdateOperationsInput | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutOtpChallengesNestedInput
 }
@@ -357,6 +372,7 @@ export type OwnerOtpChallengeUncheckedUpdateInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFieldUpdateOperationsInput | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -369,6 +385,7 @@ export type OwnerOtpChallengeCreateManyInput = {
   expiresAt: Date | string
   verifiedAt?: Date | string | null
   attempts?: number
+  purpose?: $Enums.OwnerOtpPurpose
   createdAt?: Date | string
 }
 
@@ -380,6 +397,7 @@ export type OwnerOtpChallengeUpdateManyMutationInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFieldUpdateOperationsInput | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -392,6 +410,7 @@ export type OwnerOtpChallengeUncheckedUpdateManyInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFieldUpdateOperationsInput | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -414,6 +433,7 @@ export type OwnerOtpChallengeCountOrderByAggregateInput = {
   expiresAt?: Prisma.SortOrder
   verifiedAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
+  purpose?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -430,6 +450,7 @@ export type OwnerOtpChallengeMaxOrderByAggregateInput = {
   expiresAt?: Prisma.SortOrder
   verifiedAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
+  purpose?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -442,6 +463,7 @@ export type OwnerOtpChallengeMinOrderByAggregateInput = {
   expiresAt?: Prisma.SortOrder
   verifiedAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
+  purpose?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -491,6 +513,10 @@ export type OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.OwnerOtpChallengeScalarWhereInput | Prisma.OwnerOtpChallengeScalarWhereInput[]
 }
 
+export type EnumOwnerOtpPurposeFieldUpdateOperationsInput = {
+  set?: $Enums.OwnerOtpPurpose
+}
+
 export type OwnerOtpChallengeCreateWithoutUserInput = {
   id?: string
   phone: string
@@ -499,6 +525,7 @@ export type OwnerOtpChallengeCreateWithoutUserInput = {
   expiresAt: Date | string
   verifiedAt?: Date | string | null
   attempts?: number
+  purpose?: $Enums.OwnerOtpPurpose
   createdAt?: Date | string
 }
 
@@ -510,6 +537,7 @@ export type OwnerOtpChallengeUncheckedCreateWithoutUserInput = {
   expiresAt: Date | string
   verifiedAt?: Date | string | null
   attempts?: number
+  purpose?: $Enums.OwnerOtpPurpose
   createdAt?: Date | string
 }
 
@@ -551,6 +579,7 @@ export type OwnerOtpChallengeScalarWhereInput = {
   expiresAt?: Prisma.DateTimeFilter<"OwnerOtpChallenge"> | Date | string
   verifiedAt?: Prisma.DateTimeNullableFilter<"OwnerOtpChallenge"> | Date | string | null
   attempts?: Prisma.IntFilter<"OwnerOtpChallenge"> | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFilter<"OwnerOtpChallenge"> | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFilter<"OwnerOtpChallenge"> | Date | string
 }
 
@@ -562,6 +591,7 @@ export type OwnerOtpChallengeCreateManyUserInput = {
   expiresAt: Date | string
   verifiedAt?: Date | string | null
   attempts?: number
+  purpose?: $Enums.OwnerOtpPurpose
   createdAt?: Date | string
 }
 
@@ -573,6 +603,7 @@ export type OwnerOtpChallengeUpdateWithoutUserInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFieldUpdateOperationsInput | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -584,6 +615,7 @@ export type OwnerOtpChallengeUncheckedUpdateWithoutUserInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFieldUpdateOperationsInput | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -595,6 +627,7 @@ export type OwnerOtpChallengeUncheckedUpdateManyWithoutUserInput = {
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   verifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
+  purpose?: Prisma.EnumOwnerOtpPurposeFieldUpdateOperationsInput | $Enums.OwnerOtpPurpose
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -609,6 +642,7 @@ export type OwnerOtpChallengeSelect<ExtArgs extends runtime.Types.Extensions.Int
   expiresAt?: boolean
   verifiedAt?: boolean
   attempts?: boolean
+  purpose?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.OwnerOtpChallenge$userArgs<ExtArgs>
 }, ExtArgs["result"]["ownerOtpChallenge"]>
@@ -622,6 +656,7 @@ export type OwnerOtpChallengeSelectCreateManyAndReturn<ExtArgs extends runtime.T
   expiresAt?: boolean
   verifiedAt?: boolean
   attempts?: boolean
+  purpose?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.OwnerOtpChallenge$userArgs<ExtArgs>
 }, ExtArgs["result"]["ownerOtpChallenge"]>
@@ -635,6 +670,7 @@ export type OwnerOtpChallengeSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   expiresAt?: boolean
   verifiedAt?: boolean
   attempts?: boolean
+  purpose?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.OwnerOtpChallenge$userArgs<ExtArgs>
 }, ExtArgs["result"]["ownerOtpChallenge"]>
@@ -648,10 +684,11 @@ export type OwnerOtpChallengeSelectScalar = {
   expiresAt?: boolean
   verifiedAt?: boolean
   attempts?: boolean
+  purpose?: boolean
   createdAt?: boolean
 }
 
-export type OwnerOtpChallengeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "phone" | "provider" | "providerReference" | "expiresAt" | "verifiedAt" | "attempts" | "createdAt", ExtArgs["result"]["ownerOtpChallenge"]>
+export type OwnerOtpChallengeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "phone" | "provider" | "providerReference" | "expiresAt" | "verifiedAt" | "attempts" | "purpose" | "createdAt", ExtArgs["result"]["ownerOtpChallenge"]>
 export type OwnerOtpChallengeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.OwnerOtpChallenge$userArgs<ExtArgs>
 }
@@ -676,6 +713,7 @@ export type $OwnerOtpChallengePayload<ExtArgs extends runtime.Types.Extensions.I
     expiresAt: Date
     verifiedAt: Date | null
     attempts: number
+    purpose: $Enums.OwnerOtpPurpose
     createdAt: Date
   }, ExtArgs["result"]["ownerOtpChallenge"]>
   composites: {}
@@ -1109,6 +1147,7 @@ export interface OwnerOtpChallengeFieldRefs {
   readonly expiresAt: Prisma.FieldRef<"OwnerOtpChallenge", 'DateTime'>
   readonly verifiedAt: Prisma.FieldRef<"OwnerOtpChallenge", 'DateTime'>
   readonly attempts: Prisma.FieldRef<"OwnerOtpChallenge", 'Int'>
+  readonly purpose: Prisma.FieldRef<"OwnerOtpChallenge", 'OwnerOtpPurpose'>
   readonly createdAt: Prisma.FieldRef<"OwnerOtpChallenge", 'DateTime'>
 }
     

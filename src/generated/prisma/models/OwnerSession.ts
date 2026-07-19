@@ -215,6 +215,7 @@ export type OwnerSessionWhereInput = {
   revokedAt?: Prisma.DateTimeNullableFilter<"OwnerSession"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"OwnerSession"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  platformAdminSessions?: Prisma.PlatformAdminSessionListRelationFilter
 }
 
 export type OwnerSessionOrderByWithRelationInput = {
@@ -228,6 +229,7 @@ export type OwnerSessionOrderByWithRelationInput = {
   revokedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  platformAdminSessions?: Prisma.PlatformAdminSessionOrderByRelationAggregateInput
 }
 
 export type OwnerSessionWhereUniqueInput = Prisma.AtLeast<{
@@ -244,6 +246,7 @@ export type OwnerSessionWhereUniqueInput = Prisma.AtLeast<{
   revokedAt?: Prisma.DateTimeNullableFilter<"OwnerSession"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"OwnerSession"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  platformAdminSessions?: Prisma.PlatformAdminSessionListRelationFilter
 }, "id" | "tokenHash">
 
 export type OwnerSessionOrderByWithAggregationInput = {
@@ -286,6 +289,7 @@ export type OwnerSessionCreateInput = {
   revokedAt?: Date | string | null
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSessionsInput
+  platformAdminSessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutOwnerSessionInput
 }
 
 export type OwnerSessionUncheckedCreateInput = {
@@ -298,6 +302,7 @@ export type OwnerSessionUncheckedCreateInput = {
   lastUsedAt?: Date | string
   revokedAt?: Date | string | null
   createdAt?: Date | string
+  platformAdminSessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutOwnerSessionInput
 }
 
 export type OwnerSessionUpdateInput = {
@@ -310,6 +315,7 @@ export type OwnerSessionUpdateInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSessionsNestedInput
+  platformAdminSessions?: Prisma.PlatformAdminSessionUpdateManyWithoutOwnerSessionNestedInput
 }
 
 export type OwnerSessionUncheckedUpdateInput = {
@@ -322,6 +328,7 @@ export type OwnerSessionUncheckedUpdateInput = {
   lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformAdminSessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutOwnerSessionNestedInput
 }
 
 export type OwnerSessionCreateManyInput = {
@@ -367,6 +374,11 @@ export type OwnerSessionListRelationFilter = {
 
 export type OwnerSessionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type OwnerSessionScalarRelationFilter = {
+  is?: Prisma.OwnerSessionWhereInput
+  isNot?: Prisma.OwnerSessionWhereInput
 }
 
 export type OwnerSessionCountOrderByAggregateInput = {
@@ -447,8 +459,18 @@ export type OwnerSessionUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.OwnerSessionScalarWhereInput | Prisma.OwnerSessionScalarWhereInput[]
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
+export type OwnerSessionCreateNestedOneWithoutPlatformAdminSessionsInput = {
+  create?: Prisma.XOR<Prisma.OwnerSessionCreateWithoutPlatformAdminSessionsInput, Prisma.OwnerSessionUncheckedCreateWithoutPlatformAdminSessionsInput>
+  connectOrCreate?: Prisma.OwnerSessionCreateOrConnectWithoutPlatformAdminSessionsInput
+  connect?: Prisma.OwnerSessionWhereUniqueInput
+}
+
+export type OwnerSessionUpdateOneRequiredWithoutPlatformAdminSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.OwnerSessionCreateWithoutPlatformAdminSessionsInput, Prisma.OwnerSessionUncheckedCreateWithoutPlatformAdminSessionsInput>
+  connectOrCreate?: Prisma.OwnerSessionCreateOrConnectWithoutPlatformAdminSessionsInput
+  upsert?: Prisma.OwnerSessionUpsertWithoutPlatformAdminSessionsInput
+  connect?: Prisma.OwnerSessionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OwnerSessionUpdateToOneWithWhereWithoutPlatformAdminSessionsInput, Prisma.OwnerSessionUpdateWithoutPlatformAdminSessionsInput>, Prisma.OwnerSessionUncheckedUpdateWithoutPlatformAdminSessionsInput>
 }
 
 export type OwnerSessionCreateWithoutUserInput = {
@@ -460,6 +482,7 @@ export type OwnerSessionCreateWithoutUserInput = {
   lastUsedAt?: Date | string
   revokedAt?: Date | string | null
   createdAt?: Date | string
+  platformAdminSessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutOwnerSessionInput
 }
 
 export type OwnerSessionUncheckedCreateWithoutUserInput = {
@@ -471,6 +494,7 @@ export type OwnerSessionUncheckedCreateWithoutUserInput = {
   lastUsedAt?: Date | string
   revokedAt?: Date | string | null
   createdAt?: Date | string
+  platformAdminSessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutOwnerSessionInput
 }
 
 export type OwnerSessionCreateOrConnectWithoutUserInput = {
@@ -514,6 +538,70 @@ export type OwnerSessionScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"OwnerSession"> | Date | string
 }
 
+export type OwnerSessionCreateWithoutPlatformAdminSessionsInput = {
+  id?: string
+  tokenHash: string
+  userAgent?: string | null
+  ipHash?: string | null
+  expiresAt: Date | string
+  lastUsedAt?: Date | string
+  revokedAt?: Date | string | null
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSessionsInput
+}
+
+export type OwnerSessionUncheckedCreateWithoutPlatformAdminSessionsInput = {
+  id?: string
+  userId: string
+  tokenHash: string
+  userAgent?: string | null
+  ipHash?: string | null
+  expiresAt: Date | string
+  lastUsedAt?: Date | string
+  revokedAt?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type OwnerSessionCreateOrConnectWithoutPlatformAdminSessionsInput = {
+  where: Prisma.OwnerSessionWhereUniqueInput
+  create: Prisma.XOR<Prisma.OwnerSessionCreateWithoutPlatformAdminSessionsInput, Prisma.OwnerSessionUncheckedCreateWithoutPlatformAdminSessionsInput>
+}
+
+export type OwnerSessionUpsertWithoutPlatformAdminSessionsInput = {
+  update: Prisma.XOR<Prisma.OwnerSessionUpdateWithoutPlatformAdminSessionsInput, Prisma.OwnerSessionUncheckedUpdateWithoutPlatformAdminSessionsInput>
+  create: Prisma.XOR<Prisma.OwnerSessionCreateWithoutPlatformAdminSessionsInput, Prisma.OwnerSessionUncheckedCreateWithoutPlatformAdminSessionsInput>
+  where?: Prisma.OwnerSessionWhereInput
+}
+
+export type OwnerSessionUpdateToOneWithWhereWithoutPlatformAdminSessionsInput = {
+  where?: Prisma.OwnerSessionWhereInput
+  data: Prisma.XOR<Prisma.OwnerSessionUpdateWithoutPlatformAdminSessionsInput, Prisma.OwnerSessionUncheckedUpdateWithoutPlatformAdminSessionsInput>
+}
+
+export type OwnerSessionUpdateWithoutPlatformAdminSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSessionsNestedInput
+}
+
+export type OwnerSessionUncheckedUpdateWithoutPlatformAdminSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type OwnerSessionCreateManyUserInput = {
   id?: string
   tokenHash: string
@@ -534,6 +622,7 @@ export type OwnerSessionUpdateWithoutUserInput = {
   lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformAdminSessions?: Prisma.PlatformAdminSessionUpdateManyWithoutOwnerSessionNestedInput
 }
 
 export type OwnerSessionUncheckedUpdateWithoutUserInput = {
@@ -545,6 +634,7 @@ export type OwnerSessionUncheckedUpdateWithoutUserInput = {
   lastUsedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformAdminSessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutOwnerSessionNestedInput
 }
 
 export type OwnerSessionUncheckedUpdateManyWithoutUserInput = {
@@ -559,6 +649,35 @@ export type OwnerSessionUncheckedUpdateManyWithoutUserInput = {
 }
 
 
+/**
+ * Count Type OwnerSessionCountOutputType
+ */
+
+export type OwnerSessionCountOutputType = {
+  platformAdminSessions: number
+}
+
+export type OwnerSessionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  platformAdminSessions?: boolean | OwnerSessionCountOutputTypeCountPlatformAdminSessionsArgs
+}
+
+/**
+ * OwnerSessionCountOutputType without action
+ */
+export type OwnerSessionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OwnerSessionCountOutputType
+   */
+  select?: Prisma.OwnerSessionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * OwnerSessionCountOutputType without action
+ */
+export type OwnerSessionCountOutputTypeCountPlatformAdminSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlatformAdminSessionWhereInput
+}
+
 
 export type OwnerSessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -571,6 +690,8 @@ export type OwnerSessionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   revokedAt?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  platformAdminSessions?: boolean | Prisma.OwnerSession$platformAdminSessionsArgs<ExtArgs>
+  _count?: boolean | Prisma.OwnerSessionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownerSession"]>
 
 export type OwnerSessionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -614,6 +735,8 @@ export type OwnerSessionSelectScalar = {
 export type OwnerSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "tokenHash" | "userAgent" | "ipHash" | "expiresAt" | "lastUsedAt" | "revokedAt" | "createdAt", ExtArgs["result"]["ownerSession"]>
 export type OwnerSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  platformAdminSessions?: boolean | Prisma.OwnerSession$platformAdminSessionsArgs<ExtArgs>
+  _count?: boolean | Prisma.OwnerSessionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OwnerSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -626,6 +749,7 @@ export type $OwnerSessionPayload<ExtArgs extends runtime.Types.Extensions.Intern
   name: "OwnerSession"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    platformAdminSessions: Prisma.$PlatformAdminSessionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1032,6 +1156,7 @@ readonly fields: OwnerSessionFieldRefs;
 export interface Prisma__OwnerSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  platformAdminSessions<T extends Prisma.OwnerSession$platformAdminSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OwnerSession$platformAdminSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAdminSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1468,6 +1593,30 @@ export type OwnerSessionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many OwnerSessions to delete.
    */
   limit?: number
+}
+
+/**
+ * OwnerSession.platformAdminSessions
+ */
+export type OwnerSession$platformAdminSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlatformAdminSession
+   */
+  select?: Prisma.PlatformAdminSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlatformAdminSession
+   */
+  omit?: Prisma.PlatformAdminSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformAdminSessionInclude<ExtArgs> | null
+  where?: Prisma.PlatformAdminSessionWhereInput
+  orderBy?: Prisma.PlatformAdminSessionOrderByWithRelationInput | Prisma.PlatformAdminSessionOrderByWithRelationInput[]
+  cursor?: Prisma.PlatformAdminSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlatformAdminSessionScalarFieldEnum | Prisma.PlatformAdminSessionScalarFieldEnum[]
 }
 
 /**

@@ -16,6 +16,7 @@ import { hashPrivateValue } from "../../common/crypto.util";
 import {
   clearSessionCookie,
   OWNER_SESSION_COOKIE,
+  ONBOARDING_GRANT_COOKIE,
   readCookie,
   setSessionCookie,
 } from "../../common/http.util";
@@ -44,7 +45,11 @@ export class AuthController {
     @Req() request: Request,
     @Res({ passthrough: true }) response: Response,
   ) {
-    const result = await this.auth.register(dto, this.sessionMeta(request));
+    const result = await this.auth.register(
+      dto,
+      this.sessionMeta(request),
+      readCookie(request.headers.cookie, ONBOARDING_GRANT_COOKIE),
+    );
     setSessionCookie(
       response,
       OWNER_SESSION_COOKIE,

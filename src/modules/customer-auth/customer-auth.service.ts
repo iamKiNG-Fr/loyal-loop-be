@@ -182,9 +182,35 @@ export class CustomerAuthService {
             referenceCode: true,
           },
         },
+        customerNotices: {
+          where: { readAt: null },
+          orderBy: { createdAt: "desc" },
+        },
       },
       orderBy: { createdAt: "desc" },
     });
+  }
+
+  async orderNoticeSummary(customerAccountId: string) {
+    const [unreadCount, actionRequiredCount, recent] = await this.prisma.$transaction([
+      this.prisma.customerOrderNotice.count({ where: { customerAccountId, readAt: null } }),
+      this.prisma.customerOrderNotice.count({ where: { customerAccountId, actionRequired: true, actionResolvedAt: null } }),
+      this.prisma.customerOrderNotice.findMany({
+        where: { customerAccountId },
+        orderBy: { createdAt: "desc" },
+        take: 5,
+        select: { id: true, message: true, orderRequestId: true, type: true, actionRequired: true, readAt: true, createdAt: true },
+      }),
+    ]);
+    return { actionRequiredCount, recent, unreadCount };
+  }
+
+  async markOrderNoticesRead(customerAccountId: string) {
+    const result = await this.prisma.customerOrderNotice.updateMany({
+      where: { customerAccountId, readAt: null },
+      data: { readAt: new Date() },
+    });
+    return { read: result.count };
   }
 
   async createOrderLink(customerAccountId: string, requestId: string) {

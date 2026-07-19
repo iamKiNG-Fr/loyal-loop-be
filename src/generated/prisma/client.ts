@@ -45,10 +45,50 @@ export { Prisma }
  */
 export type WaitlistEntry = Prisma.WaitlistEntryModel
 /**
+ * Model FoundingAccessApplication
+ * 
+ */
+export type FoundingAccessApplication = Prisma.FoundingAccessApplicationModel
+/**
+ * Model FoundingCohort
+ * 
+ */
+export type FoundingCohort = Prisma.FoundingCohortModel
+/**
+ * Model OnboardingInvitation
+ * 
+ */
+export type OnboardingInvitation = Prisma.OnboardingInvitationModel
+/**
+ * Model FoundingProgramEnrollment
+ * 
+ */
+export type FoundingProgramEnrollment = Prisma.FoundingProgramEnrollmentModel
+/**
+ * Model FoundingResearchInterview
+ * 
+ */
+export type FoundingResearchInterview = Prisma.FoundingResearchInterviewModel
+/**
  * Model User
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model PlatformAdmin
+ * 
+ */
+export type PlatformAdmin = Prisma.PlatformAdminModel
+/**
+ * Model PlatformAdminSession
+ * 
+ */
+export type PlatformAdminSession = Prisma.PlatformAdminSessionModel
+/**
+ * Model PlatformAdminAuditLog
+ * 
+ */
+export type PlatformAdminAuditLog = Prisma.PlatformAdminAuditLogModel
 /**
  * Model OwnerSession
  * 
@@ -104,6 +144,11 @@ export type BusinessInvitation = Prisma.BusinessInvitationModel
  * 
  */
 export type MediaAsset = Prisma.MediaAssetModel
+/**
+ * Model MediaModerationReview
+ * 
+ */
+export type MediaModerationReview = Prisma.MediaModerationReviewModel
 /**
  * Model CustomerAccount
  * 
@@ -240,8 +285,13 @@ export type PromotionReservation = Prisma.PromotionReservationModel
  */
 export type OrderRequest = Prisma.OrderRequestModel
 /**
+ * Model CustomerOrderNotice
+ * 
+ */
+export type CustomerOrderNotice = Prisma.CustomerOrderNoticeModel
+/**
  * Model OrderRequestShareToken
- *
+ * 
  */
 export type OrderRequestShareToken = Prisma.OrderRequestShareTokenModel
 /**

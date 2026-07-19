@@ -1,11 +1,12 @@
 import { Module } from "@nestjs/common";
 import { CustomerAuthModule } from "../customer-auth/customer-auth.module";
 import { MailModule } from "../mail/mail.module";
+import { FoundingCircleModule } from "../founding-circle/founding-circle.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 
 @Module({
-  imports: [CustomerAuthModule, MailModule],
+  imports: [CustomerAuthModule, MailModule, FoundingCircleModule],
   controllers: [AuthController],
   providers: [AuthService],
   exports: [AuthService],

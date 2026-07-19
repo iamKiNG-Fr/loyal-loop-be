@@ -44,6 +44,10 @@ export interface WhatsAppProvider {
     phone: string,
     variables: Record<string, string>,
   ): Promise<WhatsAppSendResult>;
+  sendFoundingAccess(
+    phone: string,
+    variables: Record<string, string>,
+  ): Promise<WhatsAppSendResult>;
   sendOtp(phone: string): Promise<WhatsAppOtpStartResult>;
   verifyOtp(reference: string, phone: string, code: string): Promise<boolean>;
   sendMessage(phone: string, body: string): Promise<WhatsAppSendResult>;

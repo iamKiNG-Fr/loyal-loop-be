@@ -5,6 +5,7 @@ import {
   IsArray,
   IsEnum,
   IsInt,
+  IsIn,
   IsOptional,
   IsString,
   IsObject,
@@ -66,6 +67,10 @@ export class CreateProductDto {
   @IsOptional()
   @IsEnum(ProductVisibility)
   visibility?: ProductVisibility;
+
+  @IsOptional()
+  @IsIn(["GENERAL", "SENSITIVE_18"])
+  contentRating?: "GENERAL" | "SENSITIVE_18";
 
   @IsOptional()
   @Type(() => Number)
@@ -146,6 +151,10 @@ export class UpdateProductDto {
   visibility?: ProductVisibility;
 
   @IsOptional()
+  @IsIn(["GENERAL", "SENSITIVE_18"])
+  contentRating?: "GENERAL" | "SENSITIVE_18";
+
+  @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(0)
@@ -224,4 +233,24 @@ export class ProductListDto extends PaginationDto {
   @IsOptional()
   @IsEnum(ProductStatus)
   status?: ProductStatus;
+}
+
+export class SuggestProductDescriptionDto {
+  @IsString()
+  @Length(1, 160)
+  name!: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 100)
+  category?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 1000)
+  currentDescription?: string;
+
+  @IsOptional()
+  @IsObject()
+  attributes?: Record<string, string | number | boolean>;
 }

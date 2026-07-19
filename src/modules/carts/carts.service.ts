@@ -18,14 +18,14 @@ import {
 const cartInclude = {
   groups: {
     include: {
-      business: { select: { id: true, name: true, slug: true, preferences: true } },
+      business: { select: { id: true, name: true, slug: true, platformStatus: true, preferences: true } },
       customerAddress: true,
     },
     orderBy: { createdAt: "asc" as const },
   },
   items: {
     include: {
-      business: { select: { id: true, name: true, slug: true, storeStatus: true, preferences: true } },
+      business: { select: { id: true, name: true, slug: true, storeStatus: true, platformStatus: true, preferences: true } },
       product: {
         include: {
           images: { include: { asset: true }, orderBy: { sortOrder: "asc" as const }, take: 1 },
@@ -304,7 +304,12 @@ export class CartsService {
 
   private async addItem(cartId: string, dto: AddCartItemDto) {
     const product = await this.prisma.product.findFirst({
-      where: { id: dto.productId, status: "ACTIVE", visibility: "PUBLIC", business: { storeStatus: "OPEN" } },
+      where: {
+        id: dto.productId,
+        status: "ACTIVE",
+        visibility: "PUBLIC",
+        business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
+      },
       include: { variants: { where: { active: true } }, promotions: { where: { status: "ACTIVE" }, orderBy: { createdAt: "desc" } } },
     });
     if (!product) throw new NotFoundException("Product is unavailable");
@@ -384,6 +389,7 @@ function cartPayload(cart: CartWithItems) {
     const available = item.product.status === "ACTIVE"
       && item.product.visibility === "PUBLIC"
       && item.business.storeStatus === "OPEN"
+      && item.business.platformStatus === "ACTIVE"
       && (currentStock === null || currentStock >= item.quantity);
     return {
       ...item,

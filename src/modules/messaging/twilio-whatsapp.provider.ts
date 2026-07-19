@@ -146,6 +146,21 @@ export class TwilioWhatsAppProvider
     return this.sendProductionTemplate(phone, "reminder", variables);
   }
 
+  sendFoundingAccess(phone: string, variables: Record<string, string>) {
+    if (this.mode() === "sandbox") {
+      return this.sendSandboxMessage(
+        phone,
+        [
+          "[LOYAL LOOP DEVELOPMENT SANDBOX]",
+          `Hi ${variables["1"] || "there"} 👋`,
+          `${variables["2"] || "Your business"} has been invited to the Loyal Loop Founding Circle.`,
+          `Start before ${variables["4"] || "the invitation expires"}: ${variables["3"] || ""}`,
+        ].join("\n"),
+      );
+    }
+    return this.sendProductionTemplate(phone, "founding_access", variables);
+  }
+
   async sendOtp(phone: string): Promise<WhatsAppOtpStartResult> {
     const normalized = normalizeE164(phone);
     this.assertOtpEnabled();
@@ -261,7 +276,7 @@ export class TwilioWhatsAppProvider
 
   private sendProductionTemplate(
     phone: string,
-    template: "receipt" | "delivery" | "reminder",
+    template: "receipt" | "delivery" | "reminder" | "founding_access",
     variables: Record<string, string>,
   ) {
     this.assertMessagingEnabled();
@@ -509,7 +524,7 @@ export class TwilioWhatsAppProvider
     const problems = required
       .filter((key) => !this.config.get<string>(key))
       .map((key) => `missing ${key}`);
-    for (const template of ["receipt", "delivery", "reminder"] as const) {
+    for (const template of ["receipt", "delivery", "reminder", "founding_access"] as const) {
       if (!this.optionalContentSid(template)) {
         problems.push(`missing ${contentSidEnvironmentName(template)}`);
       }
@@ -522,7 +537,7 @@ export class TwilioWhatsAppProvider
     for (const [key, value, pattern] of prefixChecks) {
       if (value && !pattern.test(value)) problems.push(`invalid ${key}`);
     }
-    for (const template of ["receipt", "delivery", "reminder"] as const) {
+    for (const template of ["receipt", "delivery", "reminder", "founding_access"] as const) {
       const value = this.optionalContentSid(template);
       if (value && !/^HX[0-9a-fA-F]{32}$/.test(value)) {
         problems.push(`invalid ${contentSidEnvironmentName(template)}`);
@@ -535,7 +550,7 @@ export class TwilioWhatsAppProvider
     return problems;
   }
 
-  private contentSid(template: "receipt" | "delivery" | "reminder") {
+  private contentSid(template: "receipt" | "delivery" | "reminder" | "founding_access") {
     const value = this.optionalContentSid(template);
     if (!value) {
       throw new ServiceUnavailableException(
@@ -546,7 +561,7 @@ export class TwilioWhatsAppProvider
   }
 
   private optionalContentSid(
-    template: "receipt" | "delivery" | "reminder",
+    template: "receipt" | "delivery" | "reminder" | "founding_access",
   ) {
     return (
       this.config.get<string>(contentSidEnvironmentName(template)) ||
@@ -613,7 +628,7 @@ function channelAddress(value: string) {
 }
 
 function contentSidEnvironmentName(
-  template: "receipt" | "delivery" | "reminder",
+  template: "receipt" | "delivery" | "reminder" | "founding_access",
 ) {
   return `TWILIO_${template.toUpperCase()}_CONTENT_SID`;
 }

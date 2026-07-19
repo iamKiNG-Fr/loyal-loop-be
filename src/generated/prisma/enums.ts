@@ -114,6 +114,97 @@ export const WorkspaceAppearance = {
 export type WorkspaceAppearance = (typeof WorkspaceAppearance)[keyof typeof WorkspaceAppearance]
 
 
+export const PlatformRole = {
+  SUPERADMIN: 'SUPERADMIN',
+  ADMIN: 'ADMIN',
+  FINANCE_ADMIN: 'FINANCE_ADMIN'
+} as const
+
+export type PlatformRole = (typeof PlatformRole)[keyof typeof PlatformRole]
+
+
+export const PlatformAdminStatus = {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type PlatformAdminStatus = (typeof PlatformAdminStatus)[keyof typeof PlatformAdminStatus]
+
+
+export const BusinessPlatformStatus = {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type BusinessPlatformStatus = (typeof BusinessPlatformStatus)[keyof typeof BusinessPlatformStatus]
+
+
+export const OwnerOtpPurpose = {
+  LOGIN: 'LOGIN',
+  ONBOARDING: 'ONBOARDING',
+  PLATFORM_ADMIN_STEP_UP: 'PLATFORM_ADMIN_STEP_UP'
+} as const
+
+export type OwnerOtpPurpose = (typeof OwnerOtpPurpose)[keyof typeof OwnerOtpPurpose]
+
+
+export const FoundingApplicationStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  DECLINED: 'DECLINED',
+  INVITED: 'INVITED'
+} as const
+
+export type FoundingApplicationStatus = (typeof FoundingApplicationStatus)[keyof typeof FoundingApplicationStatus]
+
+
+export const FoundingApplicationSource = {
+  HOMEPAGE: 'HOMEPAGE',
+  DIRECT_ADMIN: 'DIRECT_ADMIN',
+  LEGACY_WAITLIST: 'LEGACY_WAITLIST'
+} as const
+
+export type FoundingApplicationSource = (typeof FoundingApplicationSource)[keyof typeof FoundingApplicationSource]
+
+
+export const FoundingCohortStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type FoundingCohortStatus = (typeof FoundingCohortStatus)[keyof typeof FoundingCohortStatus]
+
+
+export const OnboardingInvitationStatus = {
+  ISSUED: 'ISSUED',
+  REDEEMED: 'REDEEMED',
+  REVOKED: 'REVOKED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type OnboardingInvitationStatus = (typeof OnboardingInvitationStatus)[keyof typeof OnboardingInvitationStatus]
+
+
+export const FoundingEnrollmentStatus = {
+  ONBOARDING: 'ONBOARDING',
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  EXITED: 'EXITED'
+} as const
+
+export type FoundingEnrollmentStatus = (typeof FoundingEnrollmentStatus)[keyof typeof FoundingEnrollmentStatus]
+
+
+export const PaidPilotInterest = {
+  NOT_ASKED: 'NOT_ASKED',
+  YES: 'YES',
+  MAYBE: 'MAYBE',
+  NO: 'NO'
+} as const
+
+export type PaidPilotInterest = (typeof PaidPilotInterest)[keyof typeof PaidPilotInterest]
+
+
 export const ContactPlatform = {
   EMAIL: 'EMAIL',
   FACEBOOK: 'FACEBOOK',
@@ -375,7 +466,8 @@ export const MessagePurpose = {
   OTP: 'OTP',
   RECEIPT: 'RECEIPT',
   DELIVERY: 'DELIVERY',
-  REMINDER: 'REMINDER'
+  REMINDER: 'REMINDER',
+  FOUNDING_ACCESS: 'FOUNDING_ACCESS'
 } as const
 
 export type MessagePurpose = (typeof MessagePurpose)[keyof typeof MessagePurpose]
@@ -400,6 +492,58 @@ export const MediaStatus = {
 } as const
 
 export type MediaStatus = (typeof MediaStatus)[keyof typeof MediaStatus]
+
+
+export const MediaQualityStatus = {
+  PENDING: 'PENDING',
+  PASS: 'PASS',
+  WARN: 'WARN',
+  FAIL: 'FAIL'
+} as const
+
+export type MediaQualityStatus = (typeof MediaQualityStatus)[keyof typeof MediaQualityStatus]
+
+
+export const MediaModerationStatus = {
+  PENDING: 'PENDING',
+  AUTO_APPROVED: 'AUTO_APPROVED',
+  REVIEW_REQUIRED: 'REVIEW_REQUIRED',
+  REJECTED: 'REJECTED',
+  MANUALLY_APPROVED: 'MANUALLY_APPROVED'
+} as const
+
+export type MediaModerationStatus = (typeof MediaModerationStatus)[keyof typeof MediaModerationStatus]
+
+
+export const MediaContentRating = {
+  GENERAL: 'GENERAL',
+  SENSITIVE_18: 'SENSITIVE_18',
+  PROHIBITED: 'PROHIBITED'
+} as const
+
+export type MediaContentRating = (typeof MediaContentRating)[keyof typeof MediaContentRating]
+
+
+export const MediaReviewDecision = {
+  APPROVE_GENERAL: 'APPROVE_GENERAL',
+  APPROVE_SENSITIVE: 'APPROVE_SENSITIVE',
+  REJECT: 'REJECT'
+} as const
+
+export type MediaReviewDecision = (typeof MediaReviewDecision)[keyof typeof MediaReviewDecision]
+
+
+export const CustomerOrderNoticeType = {
+  REQUEST_ACCEPTED: 'REQUEST_ACCEPTED',
+  REQUEST_NEEDS_CHANGES: 'REQUEST_NEEDS_CHANGES',
+  REQUEST_CANCELED: 'REQUEST_CANCELED',
+  ORDER_CONFIRMED: 'ORDER_CONFIRMED',
+  PAYMENT_UPDATED: 'PAYMENT_UPDATED',
+  DELIVERY_UPDATED: 'DELIVERY_UPDATED',
+  ISSUE_UPDATED: 'ISSUE_UPDATED'
+} as const
+
+export type CustomerOrderNoticeType = (typeof CustomerOrderNoticeType)[keyof typeof CustomerOrderNoticeType]
 
 
 export const OrderRequestStatus = {

@@ -234,6 +234,7 @@ export type CustomerAccountWhereInput = {
   messagingConsents?: Prisma.MessagingConsentListRelationFilter
   messageOutbox?: Prisma.MessageOutboxListRelationFilter
   promotionReservations?: Prisma.PromotionReservationListRelationFilter
+  orderNotices?: Prisma.CustomerOrderNoticeListRelationFilter
 }
 
 export type CustomerAccountOrderByWithRelationInput = {
@@ -263,6 +264,7 @@ export type CustomerAccountOrderByWithRelationInput = {
   messagingConsents?: Prisma.MessagingConsentOrderByRelationAggregateInput
   messageOutbox?: Prisma.MessageOutboxOrderByRelationAggregateInput
   promotionReservations?: Prisma.PromotionReservationOrderByRelationAggregateInput
+  orderNotices?: Prisma.CustomerOrderNoticeOrderByRelationAggregateInput
 }
 
 export type CustomerAccountWhereUniqueInput = Prisma.AtLeast<{
@@ -295,6 +297,7 @@ export type CustomerAccountWhereUniqueInput = Prisma.AtLeast<{
   messagingConsents?: Prisma.MessagingConsentListRelationFilter
   messageOutbox?: Prisma.MessageOutboxListRelationFilter
   promotionReservations?: Prisma.PromotionReservationListRelationFilter
+  orderNotices?: Prisma.CustomerOrderNoticeListRelationFilter
 }, "id" | "phone">
 
 export type CustomerAccountOrderByWithAggregationInput = {
@@ -356,6 +359,7 @@ export type CustomerAccountCreateInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateInput = {
@@ -385,6 +389,7 @@ export type CustomerAccountUncheckedCreateInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUpdateInput = {
@@ -414,6 +419,7 @@ export type CustomerAccountUpdateInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateInput = {
@@ -443,6 +449,7 @@ export type CustomerAccountUncheckedUpdateInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateManyInput = {
@@ -695,6 +702,20 @@ export type CustomerAccountUpdateOneWithoutRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutRequestsInput, Prisma.CustomerAccountUpdateWithoutRequestsInput>, Prisma.CustomerAccountUncheckedUpdateWithoutRequestsInput>
 }
 
+export type CustomerAccountCreateNestedOneWithoutOrderNoticesInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutOrderNoticesInput, Prisma.CustomerAccountUncheckedCreateWithoutOrderNoticesInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutOrderNoticesInput
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+}
+
+export type CustomerAccountUpdateOneRequiredWithoutOrderNoticesNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutOrderNoticesInput, Prisma.CustomerAccountUncheckedCreateWithoutOrderNoticesInput>
+  connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutOrderNoticesInput
+  upsert?: Prisma.CustomerAccountUpsertWithoutOrderNoticesInput
+  connect?: Prisma.CustomerAccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CustomerAccountUpdateToOneWithWhereWithoutOrderNoticesInput, Prisma.CustomerAccountUpdateWithoutOrderNoticesInput>, Prisma.CustomerAccountUncheckedUpdateWithoutOrderNoticesInput>
+}
+
 export type CustomerAccountCreateNestedOneWithoutEventsInput = {
   create?: Prisma.XOR<Prisma.CustomerAccountCreateWithoutEventsInput, Prisma.CustomerAccountUncheckedCreateWithoutEventsInput>
   connectOrCreate?: Prisma.CustomerAccountCreateOrConnectWithoutEventsInput
@@ -801,6 +822,7 @@ export type CustomerAccountCreateWithoutSessionsInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutSessionsInput = {
@@ -829,6 +851,7 @@ export type CustomerAccountUncheckedCreateWithoutSessionsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutSessionsInput = {
@@ -873,6 +896,7 @@ export type CustomerAccountUpdateWithoutSessionsInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutSessionsInput = {
@@ -901,6 +925,7 @@ export type CustomerAccountUncheckedUpdateWithoutSessionsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutChallengesInput = {
@@ -929,6 +954,7 @@ export type CustomerAccountCreateWithoutChallengesInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutChallengesInput = {
@@ -957,6 +983,7 @@ export type CustomerAccountUncheckedCreateWithoutChallengesInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutChallengesInput = {
@@ -1001,6 +1028,7 @@ export type CustomerAccountUpdateWithoutChallengesInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutChallengesInput = {
@@ -1029,6 +1057,7 @@ export type CustomerAccountUncheckedUpdateWithoutChallengesInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutCustomersInput = {
@@ -1057,6 +1086,7 @@ export type CustomerAccountCreateWithoutCustomersInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutCustomersInput = {
@@ -1085,6 +1115,7 @@ export type CustomerAccountUncheckedCreateWithoutCustomersInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutCustomersInput = {
@@ -1129,6 +1160,7 @@ export type CustomerAccountUpdateWithoutCustomersInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutCustomersInput = {
@@ -1157,6 +1189,7 @@ export type CustomerAccountUncheckedUpdateWithoutCustomersInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutAddressesInput = {
@@ -1185,6 +1218,7 @@ export type CustomerAccountCreateWithoutAddressesInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutAddressesInput = {
@@ -1213,6 +1247,7 @@ export type CustomerAccountUncheckedCreateWithoutAddressesInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutAddressesInput = {
@@ -1257,6 +1292,7 @@ export type CustomerAccountUpdateWithoutAddressesInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutAddressesInput = {
@@ -1285,6 +1321,7 @@ export type CustomerAccountUncheckedUpdateWithoutAddressesInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutSavedShowcasesInput = {
@@ -1313,6 +1350,7 @@ export type CustomerAccountCreateWithoutSavedShowcasesInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutSavedShowcasesInput = {
@@ -1341,6 +1379,7 @@ export type CustomerAccountUncheckedCreateWithoutSavedShowcasesInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutSavedShowcasesInput = {
@@ -1385,6 +1424,7 @@ export type CustomerAccountUpdateWithoutSavedShowcasesInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutSavedShowcasesInput = {
@@ -1413,6 +1453,7 @@ export type CustomerAccountUncheckedUpdateWithoutSavedShowcasesInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutFollowedShopsInput = {
@@ -1441,6 +1482,7 @@ export type CustomerAccountCreateWithoutFollowedShopsInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutFollowedShopsInput = {
@@ -1469,6 +1511,7 @@ export type CustomerAccountUncheckedCreateWithoutFollowedShopsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutFollowedShopsInput = {
@@ -1513,6 +1556,7 @@ export type CustomerAccountUpdateWithoutFollowedShopsInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutFollowedShopsInput = {
@@ -1541,6 +1585,7 @@ export type CustomerAccountUncheckedUpdateWithoutFollowedShopsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutWishlistInput = {
@@ -1569,6 +1614,7 @@ export type CustomerAccountCreateWithoutWishlistInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutWishlistInput = {
@@ -1597,6 +1643,7 @@ export type CustomerAccountUncheckedCreateWithoutWishlistInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutWishlistInput = {
@@ -1641,6 +1688,7 @@ export type CustomerAccountUpdateWithoutWishlistInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutWishlistInput = {
@@ -1669,6 +1717,7 @@ export type CustomerAccountUncheckedUpdateWithoutWishlistInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutInterestsInput = {
@@ -1697,6 +1746,7 @@ export type CustomerAccountCreateWithoutInterestsInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutInterestsInput = {
@@ -1725,6 +1775,7 @@ export type CustomerAccountUncheckedCreateWithoutInterestsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutInterestsInput = {
@@ -1769,6 +1820,7 @@ export type CustomerAccountUpdateWithoutInterestsInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutInterestsInput = {
@@ -1797,6 +1849,7 @@ export type CustomerAccountUncheckedUpdateWithoutInterestsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutCartsInput = {
@@ -1825,6 +1878,7 @@ export type CustomerAccountCreateWithoutCartsInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutCartsInput = {
@@ -1853,6 +1907,7 @@ export type CustomerAccountUncheckedCreateWithoutCartsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutCartsInput = {
@@ -1897,6 +1952,7 @@ export type CustomerAccountUpdateWithoutCartsInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutCartsInput = {
@@ -1925,6 +1981,7 @@ export type CustomerAccountUncheckedUpdateWithoutCartsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutPromotionReservationsInput = {
@@ -1953,6 +2010,7 @@ export type CustomerAccountCreateWithoutPromotionReservationsInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutPromotionReservationsInput = {
@@ -1981,6 +2039,7 @@ export type CustomerAccountUncheckedCreateWithoutPromotionReservationsInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutPromotionReservationsInput = {
@@ -2025,6 +2084,7 @@ export type CustomerAccountUpdateWithoutPromotionReservationsInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutPromotionReservationsInput = {
@@ -2053,6 +2113,7 @@ export type CustomerAccountUncheckedUpdateWithoutPromotionReservationsInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutRequestsInput = {
@@ -2081,6 +2142,7 @@ export type CustomerAccountCreateWithoutRequestsInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutRequestsInput = {
@@ -2109,6 +2171,7 @@ export type CustomerAccountUncheckedCreateWithoutRequestsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutRequestsInput = {
@@ -2153,6 +2216,7 @@ export type CustomerAccountUpdateWithoutRequestsInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutRequestsInput = {
@@ -2174,6 +2238,139 @@ export type CustomerAccountUncheckedUpdateWithoutRequestsInput = {
   savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutCustomerAccountNestedInput
   followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
   interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountCreateWithoutOrderNoticesInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountUncheckedCreateWithoutOrderNoticesInput = {
+  id?: string
+  phone: string
+  name?: string | null
+  alternatePhone?: string | null
+  birthday?: Date | string | null
+  gender?: string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  verifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedCreateNestedManyWithoutCustomerAccountInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedCreateNestedManyWithoutCustomerAccountInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutAccountInput
+  addresses?: Prisma.CustomerAddressUncheckedCreateNestedManyWithoutCustomerAccountInput
+  wishlist?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutCustomerAccountInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutCustomerAccountInput
+  followedShops?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutCustomerAccountInput
+  interests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutCustomerAccountInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutCustomerAccountInput
+  carts?: Prisma.CustomerCartUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutCustomerAccountInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+}
+
+export type CustomerAccountCreateOrConnectWithoutOrderNoticesInput = {
+  where: Prisma.CustomerAccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutOrderNoticesInput, Prisma.CustomerAccountUncheckedCreateWithoutOrderNoticesInput>
+}
+
+export type CustomerAccountUpsertWithoutOrderNoticesInput = {
+  update: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutOrderNoticesInput, Prisma.CustomerAccountUncheckedUpdateWithoutOrderNoticesInput>
+  create: Prisma.XOR<Prisma.CustomerAccountCreateWithoutOrderNoticesInput, Prisma.CustomerAccountUncheckedCreateWithoutOrderNoticesInput>
+  where?: Prisma.CustomerAccountWhereInput
+}
+
+export type CustomerAccountUpdateToOneWithWhereWithoutOrderNoticesInput = {
+  where?: Prisma.CustomerAccountWhereInput
+  data: Prisma.XOR<Prisma.CustomerAccountUpdateWithoutOrderNoticesInput, Prisma.CustomerAccountUncheckedUpdateWithoutOrderNoticesInput>
+}
+
+export type CustomerAccountUpdateWithoutOrderNoticesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutCustomerAccountNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutCustomerAccountNestedInput
+  carts?: Prisma.CustomerCartUpdateManyWithoutCustomerAccountNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutCustomerAccountNestedInput
+  discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+}
+
+export type CustomerAccountUncheckedUpdateWithoutOrderNoticesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  alternatePhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthday?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  socials?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sessions?: Prisma.CustomerAccountSessionUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  challenges?: Prisma.CustomerOtpChallengeUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutAccountNestedInput
+  addresses?: Prisma.CustomerAddressUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  wishlist?: Prisma.WishlistItemUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  followedShops?: Prisma.ShopFollowUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  interests?: Prisma.ProductInterestUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutCustomerAccountNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutCustomerAccountNestedInput
   carts?: Prisma.CustomerCartUncheckedUpdateManyWithoutCustomerAccountNestedInput
   discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutCustomerAccountNestedInput
@@ -2209,6 +2406,7 @@ export type CustomerAccountCreateWithoutEventsInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutEventsInput = {
@@ -2237,6 +2435,7 @@ export type CustomerAccountUncheckedCreateWithoutEventsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutEventsInput = {
@@ -2281,6 +2480,7 @@ export type CustomerAccountUpdateWithoutEventsInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutEventsInput = {
@@ -2309,6 +2509,7 @@ export type CustomerAccountUncheckedUpdateWithoutEventsInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutDiscoveryPreferencesInput = {
@@ -2337,6 +2538,7 @@ export type CustomerAccountCreateWithoutDiscoveryPreferencesInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutDiscoveryPreferencesInput = {
@@ -2365,6 +2567,7 @@ export type CustomerAccountUncheckedCreateWithoutDiscoveryPreferencesInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutDiscoveryPreferencesInput = {
@@ -2409,6 +2612,7 @@ export type CustomerAccountUpdateWithoutDiscoveryPreferencesInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutDiscoveryPreferencesInput = {
@@ -2437,6 +2641,7 @@ export type CustomerAccountUncheckedUpdateWithoutDiscoveryPreferencesInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutDiscoveryTelemetryInput = {
@@ -2465,6 +2670,7 @@ export type CustomerAccountCreateWithoutDiscoveryTelemetryInput = {
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutDiscoveryTelemetryInput = {
@@ -2493,6 +2699,7 @@ export type CustomerAccountUncheckedCreateWithoutDiscoveryTelemetryInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutDiscoveryTelemetryInput = {
@@ -2537,6 +2744,7 @@ export type CustomerAccountUpdateWithoutDiscoveryTelemetryInput = {
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutDiscoveryTelemetryInput = {
@@ -2565,6 +2773,7 @@ export type CustomerAccountUncheckedUpdateWithoutDiscoveryTelemetryInput = {
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutMessagingConsentsInput = {
@@ -2593,6 +2802,7 @@ export type CustomerAccountCreateWithoutMessagingConsentsInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutMessagingConsentsInput = {
@@ -2621,6 +2831,7 @@ export type CustomerAccountUncheckedCreateWithoutMessagingConsentsInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutMessagingConsentsInput = {
@@ -2665,6 +2876,7 @@ export type CustomerAccountUpdateWithoutMessagingConsentsInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutMessagingConsentsInput = {
@@ -2693,6 +2905,7 @@ export type CustomerAccountUncheckedUpdateWithoutMessagingConsentsInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountCreateWithoutMessageOutboxInput = {
@@ -2721,6 +2934,7 @@ export type CustomerAccountCreateWithoutMessageOutboxInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryCreateNestedManyWithoutCustomerAccountInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountUncheckedCreateWithoutMessageOutboxInput = {
@@ -2749,6 +2963,7 @@ export type CustomerAccountUncheckedCreateWithoutMessageOutboxInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedCreateNestedManyWithoutCustomerAccountInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutCustomerAccountInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutCustomerAccountInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutCustomerAccountInput
 }
 
 export type CustomerAccountCreateOrConnectWithoutMessageOutboxInput = {
@@ -2793,6 +3008,7 @@ export type CustomerAccountUpdateWithoutMessageOutboxInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryUpdateManyWithoutCustomerAccountNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutCustomerAccountNestedInput
 }
 
 export type CustomerAccountUncheckedUpdateWithoutMessageOutboxInput = {
@@ -2821,6 +3037,7 @@ export type CustomerAccountUncheckedUpdateWithoutMessageOutboxInput = {
   discoveryTelemetry?: Prisma.DiscoveryTelemetryUncheckedUpdateManyWithoutCustomerAccountNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutCustomerAccountNestedInput
+  orderNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutCustomerAccountNestedInput
 }
 
 
@@ -2845,6 +3062,7 @@ export type CustomerAccountCountOutputType = {
   messagingConsents: number
   messageOutbox: number
   promotionReservations: number
+  orderNotices: number
 }
 
 export type CustomerAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2864,6 +3082,7 @@ export type CustomerAccountCountOutputTypeSelect<ExtArgs extends runtime.Types.E
   messagingConsents?: boolean | CustomerAccountCountOutputTypeCountMessagingConsentsArgs
   messageOutbox?: boolean | CustomerAccountCountOutputTypeCountMessageOutboxArgs
   promotionReservations?: boolean | CustomerAccountCountOutputTypeCountPromotionReservationsArgs
+  orderNotices?: boolean | CustomerAccountCountOutputTypeCountOrderNoticesArgs
 }
 
 /**
@@ -2988,6 +3207,13 @@ export type CustomerAccountCountOutputTypeCountPromotionReservationsArgs<ExtArgs
   where?: Prisma.PromotionReservationWhereInput
 }
 
+/**
+ * CustomerAccountCountOutputType without action
+ */
+export type CustomerAccountCountOutputTypeCountOrderNoticesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerOrderNoticeWhereInput
+}
+
 
 export type CustomerAccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3016,6 +3242,7 @@ export type CustomerAccountSelect<ExtArgs extends runtime.Types.Extensions.Inter
   messagingConsents?: boolean | Prisma.CustomerAccount$messagingConsentsArgs<ExtArgs>
   messageOutbox?: boolean | Prisma.CustomerAccount$messageOutboxArgs<ExtArgs>
   promotionReservations?: boolean | Prisma.CustomerAccount$promotionReservationsArgs<ExtArgs>
+  orderNotices?: boolean | Prisma.CustomerAccount$orderNoticesArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerAccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customerAccount"]>
 
@@ -3076,6 +3303,7 @@ export type CustomerAccountInclude<ExtArgs extends runtime.Types.Extensions.Inte
   messagingConsents?: boolean | Prisma.CustomerAccount$messagingConsentsArgs<ExtArgs>
   messageOutbox?: boolean | Prisma.CustomerAccount$messageOutboxArgs<ExtArgs>
   promotionReservations?: boolean | Prisma.CustomerAccount$promotionReservationsArgs<ExtArgs>
+  orderNotices?: boolean | Prisma.CustomerAccount$orderNoticesArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerAccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CustomerAccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3100,6 +3328,7 @@ export type $CustomerAccountPayload<ExtArgs extends runtime.Types.Extensions.Int
     messagingConsents: Prisma.$MessagingConsentPayload<ExtArgs>[]
     messageOutbox: Prisma.$MessageOutboxPayload<ExtArgs>[]
     promotionReservations: Prisma.$PromotionReservationPayload<ExtArgs>[]
+    orderNotices: Prisma.$CustomerOrderNoticePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3522,6 +3751,7 @@ export interface Prisma__CustomerAccountClient<T, Null = never, ExtArgs extends 
   messagingConsents<T extends Prisma.CustomerAccount$messagingConsentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$messagingConsentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagingConsentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messageOutbox<T extends Prisma.CustomerAccount$messageOutboxArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$messageOutboxArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageOutboxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   promotionReservations<T extends Prisma.CustomerAccount$promotionReservationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$promotionReservationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PromotionReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orderNotices<T extends Prisma.CustomerAccount$orderNoticesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerAccount$orderNoticesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerOrderNoticePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4335,6 +4565,30 @@ export type CustomerAccount$promotionReservationsArgs<ExtArgs extends runtime.Ty
   take?: number
   skip?: number
   distinct?: Prisma.PromotionReservationScalarFieldEnum | Prisma.PromotionReservationScalarFieldEnum[]
+}
+
+/**
+ * CustomerAccount.orderNotices
+ */
+export type CustomerAccount$orderNoticesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerOrderNotice
+   */
+  select?: Prisma.CustomerOrderNoticeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerOrderNotice
+   */
+  omit?: Prisma.CustomerOrderNoticeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerOrderNoticeInclude<ExtArgs> | null
+  where?: Prisma.CustomerOrderNoticeWhereInput
+  orderBy?: Prisma.CustomerOrderNoticeOrderByWithRelationInput | Prisma.CustomerOrderNoticeOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerOrderNoticeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerOrderNoticeScalarFieldEnum | Prisma.CustomerOrderNoticeScalarFieldEnum[]
 }
 
 /**

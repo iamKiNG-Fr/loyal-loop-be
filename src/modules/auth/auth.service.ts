@@ -23,6 +23,7 @@ import { MailService } from "../mail/mail.service";
 import { OTP_PROVIDER, type OtpProvider } from "../customer-auth/otp-provider";
 import { normalizeE164 } from "../messaging/twilio-whatsapp.provider";
 import { PrismaService } from "../prisma/prisma.service";
+import { FoundingCircleService } from "../founding-circle/founding-circle.service";
 import { ChangePasswordDto, ResetPasswordDto } from "./dto/password.dto";
 import { RegisterOwnerDto } from "./dto/register-owner.dto";
 
@@ -37,10 +38,11 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
     private readonly mail: MailService,
+    private readonly founding: FoundingCircleService,
     @Inject(OTP_PROVIDER) private readonly otpProvider: OtpProvider,
   ) {}
 
-  async register(dto: RegisterOwnerDto, meta: SessionMeta) {
+  async register(dto: RegisterOwnerDto, meta: SessionMeta, rawGrant?: string) {
     if (dto.allowedPaymentMethods?.length === 0) {
       throw new BadRequestException("Choose at least one accepted payment method");
     }
@@ -54,6 +56,7 @@ export class AuthService {
         "Add and verify a WhatsApp number before creating the business",
       );
     }
+    const foundingGrant = this.founding.resolveRegistrationGrant(rawGrant);
     try {
       const result = await this.prisma.$transaction(async (tx) => {
         const user = await tx.user.create({
@@ -137,6 +140,12 @@ export class AuthService {
           },
           include: { preferences: true, contacts: true },
         });
+        await this.founding.redeemInTransaction(tx, foundingGrant, {
+          businessId: business.id,
+          email: user.email,
+          phone: ownerPhone,
+          userId: user.id,
+        });
         return { user, business };
       });
       const session = await this.createSession(result.user.id, meta);
@@ -203,13 +212,14 @@ export class AuthService {
 
     const started = await this.otpProvider.start(normalizedPhone);
     const challenge = await this.prisma.ownerOtpChallenge.create({
-      data: {
-        userId: user.id,
-        phone: normalizedPhone,
-        provider: started.provider,
-        providerReference: started.reference,
-        expiresAt: started.expiresAt,
-      },
+        data: {
+          userId: user.id,
+          phone: normalizedPhone,
+          provider: started.provider,
+          providerReference: started.reference,
+          expiresAt: started.expiresAt,
+          purpose: "LOGIN",
+        },
     });
     return {
       challengeId: challenge.id,
@@ -230,12 +240,13 @@ export class AuthService {
       data: { expiresAt: new Date() },
     });
     const challenge = await this.prisma.ownerOtpChallenge.create({
-      data: {
-        phone: normalizedPhone,
-        provider: started.provider,
-        providerReference: started.reference,
-        expiresAt: started.expiresAt,
-      },
+        data: {
+          phone: normalizedPhone,
+          provider: started.provider,
+          providerReference: started.reference,
+          expiresAt: started.expiresAt,
+          purpose: "ONBOARDING",
+        },
     });
     return {
       challengeId: challenge.id,
@@ -245,7 +256,7 @@ export class AuthService {
 
   async verifyOnboardingWhatsapp(challengeId: string, code: string) {
     const challenge = await this.prisma.ownerOtpChallenge.findUnique({
-      where: { id: challengeId },
+      where: { id: challengeId, purpose: "ONBOARDING" },
     });
     if (
       !challenge ||
@@ -286,7 +297,7 @@ export class AuthService {
     meta: SessionMeta,
   ) {
     const challenge = await this.prisma.ownerOtpChallenge.findUnique({
-      where: { id: challengeId },
+      where: { id: challengeId, purpose: "LOGIN" },
     });
     if (
       !challenge ||

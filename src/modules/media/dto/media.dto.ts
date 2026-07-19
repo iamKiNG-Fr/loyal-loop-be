@@ -1,15 +1,21 @@
 import {
+  IsArray,
   IsEnum,
   IsIn,
   IsInt,
+  IsObject,
   IsOptional,
   IsString,
   IsUrl,
   Length,
+  Matches,
   Max,
   Min,
 } from "class-validator";
-import { MediaPurpose } from "../../../generated/prisma/client";
+import {
+  MediaPurpose,
+  MediaReviewDecision,
+} from "../../../generated/prisma/client";
 
 export class CreateUploadSignatureDto {
   @IsEnum(MediaPurpose)
@@ -78,4 +84,41 @@ export class RegisterMediaAssetDto {
   @IsOptional()
   @IsString()
   originalFilename?: string;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^[a-f0-9]{64}$/i)
+  exactHash?: string;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^[a-f0-9]{16}$/i)
+  perceptualHash?: string;
+
+  @IsOptional()
+  @IsObject()
+  clientQualityMetrics?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsObject()
+  providerQualityAnalysis?: Record<string, unknown>;
+
+  @IsOptional()
+  @IsArray()
+  providerModeration?: unknown[];
+}
+
+export class AppealMediaAssetDto {
+  @IsString()
+  @Length(10, 500)
+  reason!: string;
+}
+
+export class ReviewMediaAssetDto {
+  @IsEnum(MediaReviewDecision)
+  decision!: MediaReviewDecision;
+
+  @IsString()
+  @Length(5, 500)
+  reason!: string;
 }

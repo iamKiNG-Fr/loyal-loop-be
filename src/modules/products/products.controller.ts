@@ -24,16 +24,21 @@ import {
   ProductListDto,
   ReplaceProductImagesDto,
   ReplaceProductMediaDto,
+  SuggestProductDescriptionDto,
   UpdateProductDto,
 } from "./dto/product.dto";
 import { CreateBusinessCategoryDto } from "./dto/category.dto";
 import { ProductsService } from "./products.service";
+import { IntelligenceService } from "../intelligence/intelligence.service";
 
 @Controller("products")
 @UseGuards(OwnerAuthGuard, RolesGuard, CapabilitiesGuard)
 @Capabilities(BusinessCapability.CATALOG_READ)
 export class ProductsController {
-  constructor(private readonly products: ProductsService) {}
+  constructor(
+    private readonly products: ProductsService,
+    private readonly intelligence: IntelligenceService,
+  ) {}
 
   @Get()
   list(@CurrentAuth() auth: OwnerAuthContext, @Query() query: ProductListDto) {
@@ -45,6 +50,13 @@ export class ProductsController {
   @Roles("OWNER", "MANAGER", "SALES")
   create(@CurrentAuth() auth: OwnerAuthContext, @Body() dto: CreateProductDto) {
     return this.products.create(auth, dto).then((data) => ok(data, "Product added"));
+  }
+
+  @Post("description-suggestion")
+  @Capabilities(BusinessCapability.CATALOG_WRITE)
+  @Roles("OWNER", "MANAGER", "SALES")
+  descriptionSuggestion(@Body() dto: SuggestProductDescriptionDto) {
+    return this.intelligence.suggestProductDescription(dto).then(data => ok(data));
   }
 
   @Get("categories")

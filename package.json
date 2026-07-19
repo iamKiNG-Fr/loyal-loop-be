@@ -13,6 +13,7 @@
     "prisma:deploy:pg": "ts-node scripts/deploy-migrations.ts",
     "prisma:push": "prisma db push",
     "seed": "ts-node scripts/seed.ts",
+    "bootstrap:superadmin": "ts-node scripts/bootstrap-superadmin.ts",
     "db:setup": "npm run prisma:deploy:pg && npm run seed",
     "check:isolated": "node scripts/check-isolated-profile.mjs",
     "verify:isolated-core": "npm run check:isolated && node scripts/verify-isolated-core-flow.mjs",

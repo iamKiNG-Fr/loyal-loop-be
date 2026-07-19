@@ -20,6 +20,7 @@ import { ActivityService } from "../activity/activity.service";
 import { BusinessesService } from "../businesses/businesses.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { MessagingService } from "../messaging/messaging.service";
+import { publicMediaAssetWhere } from "../media/public-media";
 import { SalesService } from "../sales/sales.service";
 import { TrustService } from "../trust/trust.service";
 import { PromotionsService } from "../promotions/promotions.service";
@@ -34,6 +35,7 @@ import { discoverySource, toDiscoveryAttribution } from "./discovery-attribution
 
 const publicProductInclude = {
   images: {
+    where: { asset: { is: publicMediaAssetWhere } },
     include: { asset: true },
     orderBy: { sortOrder: "asc" as const },
   },
@@ -65,7 +67,7 @@ export class ShopsService {
   async getPublicShop(slug: string, visitor?: string, query?: DiscoveryQuery) {
     await this.businesses.reconcileScheduledLaunchBySlug(slug);
     const business = await this.prisma.business.findFirst({
-      where: { slug, storeStatus: { not: "CLOSED" } },
+      where: { slug, storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" },
       include: {
         coverAsset: true,
         logoAsset: true,
@@ -73,12 +75,16 @@ export class ShopsService {
         contacts: { orderBy: { sortOrder: "asc" } },
         preferences: true,
         products: {
-          where: { status: "ACTIVE", visibility: "PUBLIC" },
+          where: {
+            status: "ACTIVE",
+            visibility: "PUBLIC",
+            images: { some: { asset: { is: publicMediaAssetWhere } } },
+          },
           include: publicProductInclude,
           orderBy: [{ placement: "asc" }, { createdAt: "desc" }],
         },
         showcases: {
-          where: { status: "PUBLISHED" },
+          where: { status: "PUBLISHED", asset: { is: publicMediaAssetWhere } },
           include: publicShowcaseInclude,
           orderBy: [{ featured: "desc" }, { publishedAt: "desc" }],
         },
@@ -103,7 +109,8 @@ export class ShopsService {
         slug: productSlug,
         status: "ACTIVE",
         visibility: "PUBLIC",
-        business: { slug, storeStatus: "OPEN" },
+        business: { slug, storeStatus: "OPEN", platformStatus: "ACTIVE" },
+        images: { some: { asset: { is: publicMediaAssetWhere } } },
       },
       include: {
         ...publicProductInclude,
@@ -128,7 +135,7 @@ export class ShopsService {
   ) {
     await this.businesses.reconcileScheduledLaunchBySlug(slug);
     const business = await this.prisma.business.findFirst({
-      where: { slug, storeStatus: "OPEN" },
+      where: { slug, storeStatus: "OPEN", platformStatus: "ACTIVE" },
       select: { id: true, preferences: true },
     });
     if (!business) throw new NotFoundException("Shop is not accepting requests");
@@ -377,6 +384,18 @@ export class ShopsService {
         include: { items: true },
       });
       if (dto.status === "CANCELED") await this.promotions.releaseForRequest(tx, requestId);
+      if (request.customerAccountId && request.status !== dto.status) {
+        await tx.customerOrderNotice.create({
+          data: customerNoticeData({
+            customerAccountId: request.customerAccountId,
+            newStatus: dto.status,
+            orderRequestId: request.id,
+            previousStatus: request.status,
+            referenceCode: request.referenceCode,
+            updatedAt: updated.updatedAt,
+          }),
+        });
+      }
       return updated;
     });
     await this.messaging.enqueueOrderRequestStatus(updated.id).catch(() => undefined);
@@ -412,6 +431,10 @@ export class ShopsService {
         where: { id: request.id },
         data: { requestedPaymentMethod: paymentMethod, status: "SENT" },
         include: { items: true, paymentChanges: true },
+      });
+      await tx.customerOrderNotice.updateMany({
+        where: { orderRequestId: request.id, actionRequired: true, actionResolvedAt: null },
+        data: { actionResolvedAt: new Date() },
       });
       await tx.activityEvent.create({
         data: {
@@ -520,6 +543,17 @@ export class ShopsService {
             tx,
           );
           await this.promotions.redeemForRequest(tx, request.id);
+          if (request.customerAccountId) {
+            await tx.customerOrderNotice.create({
+              data: {
+                customerAccountId: request.customerAccountId,
+                orderRequestId: request.id,
+                type: "ORDER_CONFIRMED",
+                message: `${request.referenceCode} is confirmed. You can follow payment and delivery from Orders.`,
+                dedupeKey: `${request.id}:confirmed:${converted.sale.id}`,
+              },
+            });
+          }
           return converted;
         },
         {
@@ -658,7 +692,7 @@ export class ShopsService {
     const product = await this.prisma.product.findFirst({
       where: {
         id: productId,
-        business: { slug: businessSlug, storeStatus: "OPEN" },
+        business: { slug: businessSlug, storeStatus: "OPEN", platformStatus: "ACTIVE" },
         status: "ACTIVE",
         visibility: "PUBLIC",
       },
@@ -863,6 +897,29 @@ function channelToCustomerChannel(channel: string) {
     OTHER: "OTHER",
   };
   return mapping[channel] ?? "OTHER";
+}
+
+function customerNoticeData(input: {
+  customerAccountId: string;
+  newStatus: "SENT" | "ACCEPTED" | "NEEDS_CHANGES" | "CONVERTED" | "CANCELED";
+  orderRequestId: string;
+  previousStatus: string;
+  referenceCode: string;
+  updatedAt: Date;
+}) {
+  const details = input.newStatus === "ACCEPTED"
+    ? { type: "REQUEST_ACCEPTED" as const, message: `${input.referenceCode} was accepted by the shop.`, actionRequired: false }
+    : input.newStatus === "NEEDS_CHANGES"
+      ? { type: "REQUEST_NEEDS_CHANGES" as const, message: `${input.referenceCode} needs your attention before the shop can continue.`, actionRequired: true }
+      : input.newStatus === "CANCELED"
+        ? { type: "REQUEST_CANCELED" as const, message: `${input.referenceCode} was canceled. Open the order for details.`, actionRequired: false }
+        : { type: "ORDER_CONFIRMED" as const, message: `${input.referenceCode} was updated.`, actionRequired: false };
+  return {
+    customerAccountId: input.customerAccountId,
+    orderRequestId: input.orderRequestId,
+    ...details,
+    dedupeKey: `${input.orderRequestId}:${input.previousStatus}:${input.newStatus}:${input.updatedAt.toISOString()}`,
+  };
 }
 
 function cancellationReasonLabel(code: string) {

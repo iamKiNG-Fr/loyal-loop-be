@@ -7,6 +7,7 @@ import type {
   DiscoveryFilter,
   DiscoveryQueryPlan,
   IntelligenceProvider,
+  ProductDescriptionSuggestion,
 } from "./intelligence.types";
 import { PrismaService } from "../prisma/prisma.service";
 
@@ -67,6 +68,16 @@ const SUMMARY_SCHEMA = {
       maxItems: 12,
       items: { type: "string" },
     },
+  },
+};
+
+const PRODUCT_DESCRIPTION_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  required: ["description", "missingDetails"],
+  properties: {
+    description: { type: "string", maxLength: 700 },
+    missingDetails: { type: "array", maxItems: 6, items: { type: "string" } },
   },
 };
 
@@ -186,6 +197,48 @@ export class IntelligenceService implements IntelligenceProvider {
     }
   }
 
+  async suggestProductDescription(input: {
+    name: string;
+    category?: string;
+    currentDescription?: string;
+    attributes?: Record<string, string | number | boolean>;
+  }): Promise<ProductDescriptionSuggestion> {
+    const fallback = fallbackProductDescription(input);
+    if (!this.client || !this.model) return fallback;
+    const startedAt = Date.now();
+    try {
+      const response = await withTimeout(
+        this.client.models.generateContent({
+          model: this.model,
+          contents: [
+            "Improve this product description for a social shop. Use only facts supplied by the merchant. " +
+              "Do not invent materials, measurements, benefits, certifications, stock, delivery, or guarantees. " +
+              "Write clear natural prose, then list factual details the merchant should still add.\n" +
+              JSON.stringify({
+                name: input.name.slice(0, 160),
+                category: input.category?.slice(0, 100) ?? null,
+                currentDescription: input.currentDescription?.slice(0, 1000) ?? null,
+                attributes: input.attributes ?? {},
+              }),
+          ],
+          config: {
+            responseMimeType: "application/json",
+            responseJsonSchema: PRODUCT_DESCRIPTION_SCHEMA,
+            temperature: 0.2,
+          },
+        }),
+        this.timeoutMs,
+      );
+      const parsed = parseJson(response.text);
+      const validated = validateProductDescription(parsed);
+      void this.telemetry(validated ? "GEMINI_PRODUCT_DESCRIPTION_SUCCESS" : "GEMINI_PRODUCT_DESCRIPTION_INVALID", Date.now() - startedAt, usageMetadata(response));
+      return validated ? { ...validated, source: "ai" } : fallback;
+    } catch {
+      void this.telemetry("GEMINI_PRODUCT_DESCRIPTION_FAILURE", Date.now() - startedAt);
+      return fallback;
+    }
+  }
+
   private telemetry(type: string, latencyMs: number, metadata?: Record<string, string | number>) {
     return this.prisma.discoveryTelemetry.create({
       data: { type, value: latencyMs, metadata: { latencyMs, model: this.model ?? "deterministic", ...metadata } },
@@ -283,6 +336,38 @@ function fallbackCustomerSummary(
     recommendedAction: recommendation.action,
     source: "fallback",
   };
+}
+
+function fallbackProductDescription(input: {
+  name: string;
+  category?: string;
+  currentDescription?: string;
+  attributes?: Record<string, string | number | boolean>;
+}): ProductDescriptionSuggestion {
+  const facts = Object.entries(input.attributes ?? {})
+    .filter(([, value]) => String(value).trim())
+    .slice(0, 8)
+    .map(([key, value]) => `${key.replace(/[_-]+/g, " ")}: ${value}`);
+  const current = input.currentDescription?.trim();
+  const opening = current || `${input.name.trim()}${input.category ? ` is listed in ${input.category.trim()}` : ""}.`;
+  return {
+    description: [opening, facts.length ? `Details: ${facts.join(", ")}.` : ""].filter(Boolean).join(" ").slice(0, 700),
+    missingDetails: facts.length
+      ? ["Add measurements or fit where relevant", "Explain what is included"]
+      : ["Add material or key features", "Add size or measurements", "Explain what is included"],
+    source: "fallback",
+  };
+}
+
+function validateProductDescription(value: unknown): Omit<ProductDescriptionSuggestion, "source"> | null {
+  if (!isRecord(value) || typeof value.description !== "string" || !Array.isArray(value.missingDetails)) return null;
+  const description = value.description.trim().slice(0, 700);
+  const missingDetails = value.missingDetails
+    .filter((item): item is string => typeof item === "string")
+    .map(item => item.trim().slice(0, 120))
+    .filter(Boolean)
+    .slice(0, 6);
+  return description ? { description, missingDetails } : null;
 }
 
 function validateQueryPlan(

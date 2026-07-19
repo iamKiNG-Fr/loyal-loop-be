@@ -423,6 +423,7 @@ export type OrderRequestWhereInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeListRelationFilter
   promotionReservations?: Prisma.PromotionReservationListRelationFilter
   shareTokens?: Prisma.OrderRequestShareTokenListRelationFilter
+  customerNotices?: Prisma.CustomerOrderNoticeListRelationFilter
 }
 
 export type OrderRequestOrderByWithRelationInput = {
@@ -466,6 +467,7 @@ export type OrderRequestOrderByWithRelationInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeOrderByRelationAggregateInput
   promotionReservations?: Prisma.PromotionReservationOrderByRelationAggregateInput
   shareTokens?: Prisma.OrderRequestShareTokenOrderByRelationAggregateInput
+  customerNotices?: Prisma.CustomerOrderNoticeOrderByRelationAggregateInput
 }
 
 export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
@@ -513,6 +515,7 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   paymentChanges?: Prisma.OrderRequestPaymentChangeListRelationFilter
   promotionReservations?: Prisma.PromotionReservationListRelationFilter
   shareTokens?: Prisma.OrderRequestShareTokenListRelationFilter
+  customerNotices?: Prisma.CustomerOrderNoticeListRelationFilter
 }, "id" | "referenceCode" | "tokenHash" | "customerAccountId_clientIdempotencyKey">
 
 export type OrderRequestOrderByWithAggregationInput = {
@@ -623,6 +626,7 @@ export type OrderRequestCreateInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateInput = {
@@ -661,6 +665,7 @@ export type OrderRequestUncheckedCreateInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUpdateInput = {
@@ -699,6 +704,7 @@ export type OrderRequestUpdateInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateInput = {
@@ -737,6 +743,7 @@ export type OrderRequestUncheckedUpdateInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateManyInput = {
@@ -1193,6 +1200,20 @@ export type EnumOrderRequestStatusFieldUpdateOperationsInput = {
   set?: $Enums.OrderRequestStatus
 }
 
+export type OrderRequestCreateNestedOneWithoutCustomerNoticesInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutCustomerNoticesInput, Prisma.OrderRequestUncheckedCreateWithoutCustomerNoticesInput>
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutCustomerNoticesInput
+  connect?: Prisma.OrderRequestWhereUniqueInput
+}
+
+export type OrderRequestUpdateOneRequiredWithoutCustomerNoticesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutCustomerNoticesInput, Prisma.OrderRequestUncheckedCreateWithoutCustomerNoticesInput>
+  connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutCustomerNoticesInput
+  upsert?: Prisma.OrderRequestUpsertWithoutCustomerNoticesInput
+  connect?: Prisma.OrderRequestWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrderRequestUpdateToOneWithWhereWithoutCustomerNoticesInput, Prisma.OrderRequestUpdateWithoutCustomerNoticesInput>, Prisma.OrderRequestUncheckedUpdateWithoutCustomerNoticesInput>
+}
+
 export type OrderRequestCreateNestedOneWithoutShareTokensInput = {
   create?: Prisma.XOR<Prisma.OrderRequestCreateWithoutShareTokensInput, Prisma.OrderRequestUncheckedCreateWithoutShareTokensInput>
   connectOrCreate?: Prisma.OrderRequestCreateOrConnectWithoutShareTokensInput
@@ -1302,6 +1323,7 @@ export type OrderRequestCreateWithoutBusinessInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutBusinessInput = {
@@ -1339,6 +1361,7 @@ export type OrderRequestUncheckedCreateWithoutBusinessInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutBusinessInput = {
@@ -1437,6 +1460,7 @@ export type OrderRequestCreateWithoutCustomerAccountInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
@@ -1474,6 +1498,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutCustomerAccountInput = {
@@ -1537,6 +1562,7 @@ export type OrderRequestCreateWithoutCustomerInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutCustomerInput = {
@@ -1574,6 +1600,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutCustomerInput = {
@@ -1637,6 +1664,7 @@ export type OrderRequestCreateWithoutCustomerAddressInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
@@ -1674,6 +1702,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutCustomerAddressInput = {
@@ -1737,6 +1766,7 @@ export type OrderRequestCreateWithoutSourceShowcaseInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
@@ -1774,6 +1804,7 @@ export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutSourceShowcaseInput = {
@@ -1837,6 +1868,7 @@ export type OrderRequestCreateWithoutPromotionReservationsInput = {
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutPromotionReservationsInput = {
@@ -1874,6 +1906,7 @@ export type OrderRequestUncheckedCreateWithoutPromotionReservationsInput = {
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutPromotionReservationsInput = {
@@ -1927,6 +1960,7 @@ export type OrderRequestUpdateWithoutPromotionReservationsInput = {
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutPromotionReservationsInput = {
@@ -1963,6 +1997,175 @@ export type OrderRequestUncheckedUpdateWithoutPromotionReservationsInput = {
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
+}
+
+export type OrderRequestCreateWithoutCustomerNoticesInput = {
+  id?: string
+  referenceCode: string
+  tokenHash: string
+  customerName: string
+  customerPhone: string
+  channel: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
+  deliveryAddress?: string | null
+  deliveryPlaceId?: string | null
+  deliveryLatitude?: number | null
+  deliveryLongitude?: number | null
+  deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  note?: string | null
+  cancellationReasonCode?: string | null
+  cancellationReason?: string | null
+  canceledBy?: string | null
+  status?: $Enums.OrderRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
+  customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
+  customer?: Prisma.CustomerCreateNestedOneWithoutRequestsInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutOrderRequestsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutRequestsInput
+  items?: Prisma.OrderRequestItemCreateNestedManyWithoutOrderRequestInput
+  convertedSale?: Prisma.SaleCreateNestedOneWithoutSourceRequestInput
+  events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
+  shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+}
+
+export type OrderRequestUncheckedCreateWithoutCustomerNoticesInput = {
+  id?: string
+  businessId: string
+  customerAccountId?: string | null
+  customerId?: string | null
+  referenceCode: string
+  tokenHash: string
+  customerName: string
+  customerPhone: string
+  channel: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  customerAddressId?: string | null
+  sourceShowcaseId?: string | null
+  requestedPaymentMethod?: $Enums.PaymentMethod | null
+  clientIdempotencyKey?: string | null
+  deliveryAddress?: string | null
+  deliveryPlaceId?: string | null
+  deliveryLatitude?: number | null
+  deliveryLongitude?: number | null
+  deliveryNotes?: string | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  note?: string | null
+  cancellationReasonCode?: string | null
+  cancellationReason?: string | null
+  canceledBy?: string | null
+  status?: $Enums.OrderRequestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
+  convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
+  events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
+  shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+}
+
+export type OrderRequestCreateOrConnectWithoutCustomerNoticesInput = {
+  where: Prisma.OrderRequestWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderRequestCreateWithoutCustomerNoticesInput, Prisma.OrderRequestUncheckedCreateWithoutCustomerNoticesInput>
+}
+
+export type OrderRequestUpsertWithoutCustomerNoticesInput = {
+  update: Prisma.XOR<Prisma.OrderRequestUpdateWithoutCustomerNoticesInput, Prisma.OrderRequestUncheckedUpdateWithoutCustomerNoticesInput>
+  create: Prisma.XOR<Prisma.OrderRequestCreateWithoutCustomerNoticesInput, Prisma.OrderRequestUncheckedCreateWithoutCustomerNoticesInput>
+  where?: Prisma.OrderRequestWhereInput
+}
+
+export type OrderRequestUpdateToOneWithWhereWithoutCustomerNoticesInput = {
+  where?: Prisma.OrderRequestWhereInput
+  data: Prisma.XOR<Prisma.OrderRequestUpdateWithoutCustomerNoticesInput, Prisma.OrderRequestUncheckedUpdateWithoutCustomerNoticesInput>
+}
+
+export type OrderRequestUpdateWithoutCustomerNoticesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
+  customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
+  customer?: Prisma.CustomerUpdateOneWithoutRequestsNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateOneWithoutOrderRequestsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutRequestsNestedInput
+  items?: Prisma.OrderRequestItemUpdateManyWithoutOrderRequestNestedInput
+  convertedSale?: Prisma.SaleUpdateOneWithoutSourceRequestNestedInput
+  events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
+  shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+}
+
+export type OrderRequestUncheckedUpdateWithoutCustomerNoticesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  customerName?: Prisma.StringFieldUpdateOperationsInput | string
+  customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryPlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
+  convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
+  events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
+  paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
+  promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
@@ -2001,6 +2204,7 @@ export type OrderRequestCreateWithoutShareTokensInput = {
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutShareTokensInput = {
@@ -2038,6 +2242,7 @@ export type OrderRequestUncheckedCreateWithoutShareTokensInput = {
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutShareTokensInput = {
@@ -2091,6 +2296,7 @@ export type OrderRequestUpdateWithoutShareTokensInput = {
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutShareTokensInput = {
@@ -2128,6 +2334,7 @@ export type OrderRequestUncheckedUpdateWithoutShareTokensInput = {
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateWithoutItemsInput = {
@@ -2165,6 +2372,7 @@ export type OrderRequestCreateWithoutItemsInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutItemsInput = {
@@ -2202,6 +2410,7 @@ export type OrderRequestUncheckedCreateWithoutItemsInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutItemsInput = {
@@ -2255,6 +2464,7 @@ export type OrderRequestUpdateWithoutItemsInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutItemsInput = {
@@ -2292,6 +2502,7 @@ export type OrderRequestUncheckedUpdateWithoutItemsInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateWithoutPaymentChangesInput = {
@@ -2329,6 +2540,7 @@ export type OrderRequestCreateWithoutPaymentChangesInput = {
   events?: Prisma.CommerceEventCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutPaymentChangesInput = {
@@ -2366,6 +2578,7 @@ export type OrderRequestUncheckedCreateWithoutPaymentChangesInput = {
   events?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutPaymentChangesInput = {
@@ -2419,6 +2632,7 @@ export type OrderRequestUpdateWithoutPaymentChangesInput = {
   events?: Prisma.CommerceEventUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutPaymentChangesInput = {
@@ -2456,6 +2670,7 @@ export type OrderRequestUncheckedUpdateWithoutPaymentChangesInput = {
   events?: Prisma.CommerceEventUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateWithoutEventsInput = {
@@ -2493,6 +2708,7 @@ export type OrderRequestCreateWithoutEventsInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutEventsInput = {
@@ -2530,6 +2746,7 @@ export type OrderRequestUncheckedCreateWithoutEventsInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutEventsInput = {
@@ -2583,6 +2800,7 @@ export type OrderRequestUpdateWithoutEventsInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutEventsInput = {
@@ -2620,6 +2838,7 @@ export type OrderRequestUncheckedUpdateWithoutEventsInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateWithoutConvertedSaleInput = {
@@ -2657,6 +2876,7 @@ export type OrderRequestCreateWithoutConvertedSaleInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
@@ -2694,6 +2914,7 @@ export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedCreateNestedManyWithoutOrderRequestInput
   promotionReservations?: Prisma.PromotionReservationUncheckedCreateNestedManyWithoutOrderRequestInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedCreateNestedManyWithoutOrderRequestInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedCreateNestedManyWithoutOrderRequestInput
 }
 
 export type OrderRequestCreateOrConnectWithoutConvertedSaleInput = {
@@ -2747,6 +2968,7 @@ export type OrderRequestUpdateWithoutConvertedSaleInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
@@ -2784,6 +3006,7 @@ export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestCreateManyBusinessInput = {
@@ -2852,6 +3075,7 @@ export type OrderRequestUpdateWithoutBusinessInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
@@ -2889,6 +3113,7 @@ export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutBusinessInput = {
@@ -2988,6 +3213,7 @@ export type OrderRequestUpdateWithoutCustomerAccountInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
@@ -3025,6 +3251,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutCustomerAccountInput = {
@@ -3124,6 +3351,7 @@ export type OrderRequestUpdateWithoutCustomerInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
@@ -3161,6 +3389,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutCustomerInput = {
@@ -3260,6 +3489,7 @@ export type OrderRequestUpdateWithoutCustomerAddressInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
@@ -3297,6 +3527,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput = {
@@ -3396,6 +3627,7 @@ export type OrderRequestUpdateWithoutSourceShowcaseInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
@@ -3433,6 +3665,7 @@ export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
   paymentChanges?: Prisma.OrderRequestPaymentChangeUncheckedUpdateManyWithoutOrderRequestNestedInput
   promotionReservations?: Prisma.PromotionReservationUncheckedUpdateManyWithoutOrderRequestNestedInput
   shareTokens?: Prisma.OrderRequestShareTokenUncheckedUpdateManyWithoutOrderRequestNestedInput
+  customerNotices?: Prisma.CustomerOrderNoticeUncheckedUpdateManyWithoutOrderRequestNestedInput
 }
 
 export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput = {
@@ -3477,6 +3710,7 @@ export type OrderRequestCountOutputType = {
   paymentChanges: number
   promotionReservations: number
   shareTokens: number
+  customerNotices: number
 }
 
 export type OrderRequestCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3485,6 +3719,7 @@ export type OrderRequestCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   paymentChanges?: boolean | OrderRequestCountOutputTypeCountPaymentChangesArgs
   promotionReservations?: boolean | OrderRequestCountOutputTypeCountPromotionReservationsArgs
   shareTokens?: boolean | OrderRequestCountOutputTypeCountShareTokensArgs
+  customerNotices?: boolean | OrderRequestCountOutputTypeCountCustomerNoticesArgs
 }
 
 /**
@@ -3532,6 +3767,13 @@ export type OrderRequestCountOutputTypeCountShareTokensArgs<ExtArgs extends runt
   where?: Prisma.OrderRequestShareTokenWhereInput
 }
 
+/**
+ * OrderRequestCountOutputType without action
+ */
+export type OrderRequestCountOutputTypeCountCustomerNoticesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerOrderNoticeWhereInput
+}
+
 
 export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3574,6 +3816,7 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   paymentChanges?: boolean | Prisma.OrderRequest$paymentChangesArgs<ExtArgs>
   promotionReservations?: boolean | Prisma.OrderRequest$promotionReservationsArgs<ExtArgs>
   shareTokens?: boolean | Prisma.OrderRequest$shareTokensArgs<ExtArgs>
+  customerNotices?: boolean | Prisma.OrderRequest$customerNoticesArgs<ExtArgs>
   _count?: boolean | Prisma.OrderRequestCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderRequest"]>
 
@@ -3696,6 +3939,7 @@ export type OrderRequestInclude<ExtArgs extends runtime.Types.Extensions.Interna
   paymentChanges?: boolean | Prisma.OrderRequest$paymentChangesArgs<ExtArgs>
   promotionReservations?: boolean | Prisma.OrderRequest$promotionReservationsArgs<ExtArgs>
   shareTokens?: boolean | Prisma.OrderRequest$shareTokensArgs<ExtArgs>
+  customerNotices?: boolean | Prisma.OrderRequest$customerNoticesArgs<ExtArgs>
   _count?: boolean | Prisma.OrderRequestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrderRequestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3727,6 +3971,7 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     paymentChanges: Prisma.$OrderRequestPaymentChangePayload<ExtArgs>[]
     promotionReservations: Prisma.$PromotionReservationPayload<ExtArgs>[]
     shareTokens: Prisma.$OrderRequestShareTokenPayload<ExtArgs>[]
+    customerNotices: Prisma.$CustomerOrderNoticePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4163,6 +4408,7 @@ export interface Prisma__OrderRequestClient<T, Null = never, ExtArgs extends run
   paymentChanges<T extends Prisma.OrderRequest$paymentChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$paymentChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestPaymentChangePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   promotionReservations<T extends Prisma.OrderRequest$promotionReservationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$promotionReservationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PromotionReservationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shareTokens<T extends Prisma.OrderRequest$shareTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$shareTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestShareTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  customerNotices<T extends Prisma.OrderRequest$customerNoticesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderRequest$customerNoticesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerOrderNoticePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4834,6 +5080,30 @@ export type OrderRequest$shareTokensArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.OrderRequestShareTokenScalarFieldEnum | Prisma.OrderRequestShareTokenScalarFieldEnum[]
+}
+
+/**
+ * OrderRequest.customerNotices
+ */
+export type OrderRequest$customerNoticesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerOrderNotice
+   */
+  select?: Prisma.CustomerOrderNoticeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerOrderNotice
+   */
+  omit?: Prisma.CustomerOrderNoticeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerOrderNoticeInclude<ExtArgs> | null
+  where?: Prisma.CustomerOrderNoticeWhereInput
+  orderBy?: Prisma.CustomerOrderNoticeOrderByWithRelationInput | Prisma.CustomerOrderNoticeOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerOrderNoticeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerOrderNoticeScalarFieldEnum | Prisma.CustomerOrderNoticeScalarFieldEnum[]
 }
 
 /**

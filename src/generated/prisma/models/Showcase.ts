@@ -45,6 +45,7 @@ export type ShowcaseMinAggregateOutputType = {
   caption: string | null
   status: $Enums.ShowcaseStatus | null
   featured: boolean | null
+  contentRating: $Enums.MediaContentRating | null
   publishedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -61,6 +62,7 @@ export type ShowcaseMaxAggregateOutputType = {
   caption: string | null
   status: $Enums.ShowcaseStatus | null
   featured: boolean | null
+  contentRating: $Enums.MediaContentRating | null
   publishedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -77,6 +79,7 @@ export type ShowcaseCountAggregateOutputType = {
   caption: number
   status: number
   featured: number
+  contentRating: number
   publishedAt: number
   createdAt: number
   updatedAt: number
@@ -103,6 +106,7 @@ export type ShowcaseMinAggregateInputType = {
   caption?: true
   status?: true
   featured?: true
+  contentRating?: true
   publishedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -119,6 +123,7 @@ export type ShowcaseMaxAggregateInputType = {
   caption?: true
   status?: true
   featured?: true
+  contentRating?: true
   publishedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -135,6 +140,7 @@ export type ShowcaseCountAggregateInputType = {
   caption?: true
   status?: true
   featured?: true
+  contentRating?: true
   publishedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -238,6 +244,7 @@ export type ShowcaseGroupByOutputType = {
   caption: string | null
   status: $Enums.ShowcaseStatus
   featured: boolean
+  contentRating: $Enums.MediaContentRating
   publishedAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -277,6 +284,7 @@ export type ShowcaseWhereInput = {
   caption?: Prisma.StringNullableFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusFilter<"Showcase"> | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFilter<"Showcase"> | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFilter<"Showcase"> | $Enums.MediaContentRating
   publishedAt?: Prisma.DateTimeNullableFilter<"Showcase"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
@@ -300,6 +308,7 @@ export type ShowcaseOrderByWithRelationInput = {
   caption?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -326,6 +335,7 @@ export type ShowcaseWhereUniqueInput = Prisma.AtLeast<{
   caption?: Prisma.StringNullableFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusFilter<"Showcase"> | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFilter<"Showcase"> | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFilter<"Showcase"> | $Enums.MediaContentRating
   publishedAt?: Prisma.DateTimeNullableFilter<"Showcase"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
@@ -349,6 +359,7 @@ export type ShowcaseOrderByWithAggregationInput = {
   caption?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -373,6 +384,7 @@ export type ShowcaseScalarWhereWithAggregatesInput = {
   caption?: Prisma.StringNullableWithAggregatesFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusWithAggregatesFilter<"Showcase"> | $Enums.ShowcaseStatus
   featured?: Prisma.BoolWithAggregatesFilter<"Showcase"> | boolean
+  contentRating?: Prisma.EnumMediaContentRatingWithAggregatesFilter<"Showcase"> | $Enums.MediaContentRating
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Showcase"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Showcase"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Showcase"> | Date | string
@@ -386,6 +398,7 @@ export type ShowcaseCreateInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -409,6 +422,7 @@ export type ShowcaseUncheckedCreateInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -426,6 +440,7 @@ export type ShowcaseUpdateInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -449,6 +464,7 @@ export type ShowcaseUncheckedUpdateInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -469,6 +485,7 @@ export type ShowcaseCreateManyInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -482,6 +499,7 @@ export type ShowcaseUpdateManyMutationInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -498,6 +516,7 @@ export type ShowcaseUncheckedUpdateManyInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -524,6 +543,7 @@ export type ShowcaseCountOrderByAggregateInput = {
   caption?: Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -544,6 +564,7 @@ export type ShowcaseMaxOrderByAggregateInput = {
   caption?: Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -560,6 +581,7 @@ export type ShowcaseMinOrderByAggregateInput = {
   caption?: Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -777,6 +799,7 @@ export type ShowcaseCreateWithoutBusinessInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -798,6 +821,7 @@ export type ShowcaseUncheckedCreateWithoutBusinessInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -847,6 +871,7 @@ export type ShowcaseScalarWhereInput = {
   caption?: Prisma.StringNullableFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusFilter<"Showcase"> | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFilter<"Showcase"> | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFilter<"Showcase"> | $Enums.MediaContentRating
   publishedAt?: Prisma.DateTimeNullableFilter<"Showcase"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
@@ -860,6 +885,7 @@ export type ShowcaseCreateWithoutAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -881,6 +907,7 @@ export type ShowcaseUncheckedCreateWithoutAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -908,6 +935,7 @@ export type ShowcaseCreateWithoutPosterAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -929,6 +957,7 @@ export type ShowcaseUncheckedCreateWithoutPosterAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -988,6 +1017,7 @@ export type ShowcaseCreateWithoutHotspotsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1010,6 +1040,7 @@ export type ShowcaseUncheckedCreateWithoutHotspotsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1042,6 +1073,7 @@ export type ShowcaseUpdateWithoutHotspotsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1064,6 +1096,7 @@ export type ShowcaseUncheckedUpdateWithoutHotspotsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1080,6 +1113,7 @@ export type ShowcaseCreateWithoutSavedByInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1102,6 +1136,7 @@ export type ShowcaseUncheckedCreateWithoutSavedByInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1134,6 +1169,7 @@ export type ShowcaseUpdateWithoutSavedByInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1156,6 +1192,7 @@ export type ShowcaseUncheckedUpdateWithoutSavedByInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1172,6 +1209,7 @@ export type ShowcaseCreateWithoutRequestsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1194,6 +1232,7 @@ export type ShowcaseUncheckedCreateWithoutRequestsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1226,6 +1265,7 @@ export type ShowcaseUpdateWithoutRequestsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1248,6 +1288,7 @@ export type ShowcaseUncheckedUpdateWithoutRequestsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1264,6 +1305,7 @@ export type ShowcaseCreateWithoutCommerceEventsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1286,6 +1328,7 @@ export type ShowcaseUncheckedCreateWithoutCommerceEventsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1318,6 +1361,7 @@ export type ShowcaseUpdateWithoutCommerceEventsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1340,6 +1384,7 @@ export type ShowcaseUncheckedUpdateWithoutCommerceEventsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1358,6 +1403,7 @@ export type ShowcaseCreateManyBusinessInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1371,6 +1417,7 @@ export type ShowcaseUpdateWithoutBusinessInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1392,6 +1439,7 @@ export type ShowcaseUncheckedUpdateWithoutBusinessInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1411,6 +1459,7 @@ export type ShowcaseUncheckedUpdateManyWithoutBusinessInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1426,6 +1475,7 @@ export type ShowcaseCreateManyAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1441,6 +1491,7 @@ export type ShowcaseCreateManyPosterAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1454,6 +1505,7 @@ export type ShowcaseUpdateWithoutAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1475,6 +1527,7 @@ export type ShowcaseUncheckedUpdateWithoutAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1494,6 +1547,7 @@ export type ShowcaseUncheckedUpdateManyWithoutAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1507,6 +1561,7 @@ export type ShowcaseUpdateWithoutPosterAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1528,6 +1583,7 @@ export type ShowcaseUncheckedUpdateWithoutPosterAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1547,6 +1603,7 @@ export type ShowcaseUncheckedUpdateManyWithoutPosterAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1621,6 +1678,7 @@ export type ShowcaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   caption?: boolean
   status?: boolean
   featured?: boolean
+  contentRating?: boolean
   publishedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1645,6 +1703,7 @@ export type ShowcaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   caption?: boolean
   status?: boolean
   featured?: boolean
+  contentRating?: boolean
   publishedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1664,6 +1723,7 @@ export type ShowcaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   caption?: boolean
   status?: boolean
   featured?: boolean
+  contentRating?: boolean
   publishedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1683,12 +1743,13 @@ export type ShowcaseSelectScalar = {
   caption?: boolean
   status?: boolean
   featured?: boolean
+  contentRating?: boolean
   publishedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ShowcaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "assetId" | "posterAssetId" | "mediaKind" | "durationSeconds" | "title" | "caption" | "status" | "featured" | "publishedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["showcase"]>
+export type ShowcaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "assetId" | "posterAssetId" | "mediaKind" | "durationSeconds" | "title" | "caption" | "status" | "featured" | "contentRating" | "publishedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["showcase"]>
 export type ShowcaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.MediaAssetDefaultArgs<ExtArgs>
@@ -1732,6 +1793,7 @@ export type $ShowcasePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     caption: string | null
     status: $Enums.ShowcaseStatus
     featured: boolean
+    contentRating: $Enums.MediaContentRating
     publishedAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -2175,6 +2237,7 @@ export interface ShowcaseFieldRefs {
   readonly caption: Prisma.FieldRef<"Showcase", 'String'>
   readonly status: Prisma.FieldRef<"Showcase", 'ShowcaseStatus'>
   readonly featured: Prisma.FieldRef<"Showcase", 'Boolean'>
+  readonly contentRating: Prisma.FieldRef<"Showcase", 'MediaContentRating'>
   readonly publishedAt: Prisma.FieldRef<"Showcase", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Showcase", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Showcase", 'DateTime'>

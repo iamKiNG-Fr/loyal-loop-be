@@ -10,6 +10,11 @@ import { Prisma } from "../../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
 import { IntelligenceService } from "../intelligence/intelligence.service";
 import {
+  discoverableProductWhere,
+  discoverableShowcaseWhere,
+  publicMediaAssetWhere,
+} from "../media/public-media";
+import {
   CreateShowcaseDto,
   DiscoveryEventDto,
   ExploreDto,
@@ -17,6 +22,7 @@ import {
 } from "./dto/discovery.dto";
 
 const productImages = {
+  where: { asset: { is: publicMediaAssetWhere } },
   include: { asset: true },
   orderBy: { sortOrder: "asc" as const },
 };
@@ -30,6 +36,7 @@ const discoveryProductInclude = {
   business: { include: discoveryBusinessInclude },
   images: productImages,
   media: {
+    where: { asset: { is: publicMediaAssetWhere } },
     include: { asset: true, posterAsset: true },
     orderBy: { sortOrder: "asc" as const },
   },
@@ -82,16 +89,9 @@ export class DiscoveryService {
     const terms = [...new Set([normalized, ...plan.expandedTerms].filter(Boolean) as string[])].slice(0, 8);
     const take = Math.min(start + query.pageSize + 12, 100);
     const productWhere: Prisma.ProductWhereInput = {
-      status: "ACTIVE",
-      visibility: "PUBLIC",
-      business: { storeStatus: "OPEN" },
+      ...discoverableProductWhere,
+      business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
       AND: [
-        {
-          OR: [
-            { images: { some: { asset: { status: "ACTIVE" } } } },
-            { media: { some: { asset: { status: "ACTIVE" } } } },
-          ],
-        },
         ...(terms.length
           ? [{
               OR: terms.flatMap((term) => [
@@ -118,8 +118,8 @@ export class DiscoveryService {
         : {}),
     };
     const showcaseWhere: Prisma.ShowcaseWhereInput = {
-      status: "PUBLISHED",
-      business: { storeStatus: "OPEN" },
+      ...discoverableShowcaseWhere,
+      business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
       ...(category && category.toLowerCase() !== "all"
         ? {
             hotspots: {
@@ -160,10 +160,9 @@ export class DiscoveryService {
         query.mode === "products" ? Promise.resolve(0) : this.prisma.showcase.count({ where: showcaseWhere }),
         this.prisma.product.findMany({
           where: {
-            status: "ACTIVE",
-            visibility: "PUBLIC",
+            ...discoverableProductWhere,
             category: { not: null },
-            business: { storeStatus: "OPEN" },
+            business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
           },
           distinct: ["category"],
           select: { category: true },
@@ -337,7 +336,7 @@ export class DiscoveryService {
       where: {
         id,
         status: "PUBLISHED",
-        business: { storeStatus: "OPEN" },
+        business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
       },
       include: discoveryShowcaseInclude,
     });
@@ -355,7 +354,7 @@ export class DiscoveryService {
 
   async createShowcase(auth: OwnerAuthContext, dto: CreateShowcaseDto) {
     const mediaKind = dto.mediaKind ?? "IMAGE";
-    await this.validateShowcaseInput(auth.businessId, dto.assetId, mediaKind, dto.posterAssetId, dto.hotspots);
+    const contentRating = await this.validateShowcaseInput(auth.businessId, dto.assetId, mediaKind, dto.posterAssetId, dto.hotspots);
     const status = dto.status ?? "PUBLISHED";
     return this.prisma.showcase.create({
       data: {
@@ -364,6 +363,7 @@ export class DiscoveryService {
         mediaKind,
         durationSeconds: mediaKind === "VIDEO" ? dto.durationSeconds : null,
         businessId: auth.businessId,
+        contentRating,
         caption: dto.caption?.trim(),
         featured: dto.featured ?? false,
         publishedAt: status === "PUBLISHED" ? new Date() : undefined,
@@ -389,7 +389,7 @@ export class DiscoveryService {
       where: { id, businessId: auth.businessId, status: { not: "ARCHIVED" } },
     });
     if (!current) throw new NotFoundException("Showcase not found");
-    await this.validateShowcaseInput(
+    const contentRating = await this.validateShowcaseInput(
       auth.businessId,
       dto.assetId ?? current.assetId,
       dto.mediaKind ?? current.mediaKind,
@@ -408,6 +408,7 @@ export class DiscoveryService {
           mediaKind: dto.mediaKind,
           durationSeconds: dto.mediaKind === "IMAGE" ? null : dto.durationSeconds,
           caption: dto.caption?.trim(),
+          contentRating,
           featured: dto.featured,
           publishedAt:
             dto.status === "PUBLISHED" && !current.publishedAt
@@ -441,12 +442,18 @@ export class DiscoveryService {
   async myShops(customerAccountId: string) {
     const [follows, requests] = await Promise.all([
       this.prisma.shopFollow.findMany({
-        where: { customerAccountId, business: { storeStatus: { not: "CLOSED" } } },
+        where: {
+          customerAccountId,
+          business: { storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" },
+        },
         include: { business: { include: discoveryBusinessInclude } },
         orderBy: { createdAt: "desc" },
       }),
       this.prisma.orderRequest.findMany({
-        where: { customerAccountId, business: { storeStatus: { not: "CLOSED" } } },
+        where: {
+          customerAccountId,
+          business: { storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" },
+        },
         distinct: ["businessId"],
         include: { business: { include: discoveryBusinessInclude } },
         orderBy: { createdAt: "desc" },
@@ -469,13 +476,23 @@ export class DiscoveryService {
       this.prisma.wishlistItem.findMany({
         where: {
           customerAccountId,
-          product: { status: "ACTIVE", visibility: "PUBLIC" },
+          product: {
+            status: "ACTIVE",
+            visibility: "PUBLIC",
+            business: { platformStatus: "ACTIVE" },
+          },
         },
         include: { product: { include: discoveryProductInclude } },
         orderBy: { createdAt: "desc" },
       }),
       this.prisma.savedShowcase.findMany({
-        where: { customerAccountId, showcase: { status: "PUBLISHED" } },
+        where: {
+          customerAccountId,
+          showcase: {
+            status: "PUBLISHED",
+            business: { platformStatus: "ACTIVE" },
+          },
+        },
         include: { showcase: { include: discoveryShowcaseInclude } },
         orderBy: { createdAt: "desc" },
       }),
@@ -495,7 +512,11 @@ export class DiscoveryService {
 
   async follow(customerAccountId: string, businessId: string) {
     const business = await this.prisma.business.findFirst({
-      where: { id: businessId, storeStatus: { not: "CLOSED" } },
+      where: {
+        id: businessId,
+        storeStatus: { not: "CLOSED" },
+        platformStatus: "ACTIVE",
+      },
       select: { id: true },
     });
     if (!business) throw new NotFoundException("Shop not found");
@@ -519,7 +540,10 @@ export class DiscoveryService {
       where: {
         id: showcaseId,
         status: "PUBLISHED",
-        business: { storeStatus: { not: "CLOSED" } },
+        business: {
+          storeStatus: { not: "CLOSED" },
+          platformStatus: "ACTIVE",
+        },
       },
       select: { businessId: true },
     });
@@ -556,20 +580,31 @@ export class DiscoveryService {
         businessId,
         purpose: mediaKind === "VIDEO" ? "SHOWCASE_VIDEO" : "SHOWCASE_IMAGE",
         status: "ACTIVE",
+        qualityStatus: { not: "FAIL" },
+        moderationStatus: { in: ["AUTO_APPROVED", "MANUALLY_APPROVED"] },
+        contentRating: { not: "PROHIBITED" },
       },
-      select: { durationSeconds: true, id: true },
+      select: { contentRating: true, durationSeconds: true, id: true },
     });
     if (!asset) throw new BadRequestException(`Showcase ${mediaKind.toLowerCase()} is invalid`);
     if (mediaKind === "VIDEO") {
       if ((asset.durationSeconds ?? 0) > 30) throw new BadRequestException("Showcase videos must be 30 seconds or shorter");
       if (!posterAssetId) throw new BadRequestException("Showcase videos require a poster image");
       const poster = await this.prisma.mediaAsset.findFirst({
-        where: { id: posterAssetId, businessId, purpose: "SHOWCASE_POSTER", status: "ACTIVE" },
+        where: {
+          id: posterAssetId,
+          businessId,
+          purpose: "SHOWCASE_POSTER",
+          status: "ACTIVE",
+          qualityStatus: { not: "FAIL" },
+          moderationStatus: { in: ["AUTO_APPROVED", "MANUALLY_APPROVED"] },
+          contentRating: { not: "PROHIBITED" },
+        },
         select: { id: true },
       });
       if (!poster) throw new BadRequestException("Showcase video poster is invalid");
     }
-    if (!hotspots?.length) return;
+    if (!hotspots?.length) return asset.contentRating === "SENSITIVE_18" ? "SENSITIVE_18" : "GENERAL";
     const productIds = [...new Set(hotspots.map((hotspot) => hotspot.productId))];
     const productCount = await this.prisma.product.count({
       where: { id: { in: productIds }, businessId, status: { not: "ARCHIVED" } },
@@ -577,6 +612,12 @@ export class DiscoveryService {
     if (productCount !== productIds.length) {
       throw new BadRequestException("One or more Showcase products are invalid");
     }
+    const sensitiveProducts = await this.prisma.product.count({
+      where: { id: { in: productIds }, businessId, contentRating: "SENSITIVE_18" },
+    });
+    return asset.contentRating === "SENSITIVE_18" || sensitiveProducts > 0
+      ? "SENSITIVE_18"
+      : "GENERAL";
   }
 }
 

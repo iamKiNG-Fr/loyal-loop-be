@@ -119,6 +119,18 @@ export class CustomerAuthController {
       .then((data) => ok(data));
   }
 
+  @Get("me/order-notices")
+  @UseGuards(CustomerAuthGuard)
+  orderNotices(@CurrentCustomer() customer: CustomerAuthContext) {
+    return this.auth.orderNoticeSummary(customer.customerAccountId).then((data) => ok(data));
+  }
+
+  @Post("me/order-notices/read")
+  @UseGuards(CustomerAuthGuard)
+  markOrderNoticesRead(@CurrentCustomer() customer: CustomerAuthContext) {
+    return this.auth.markOrderNoticesRead(customer.customerAccountId).then((data) => ok(data));
+  }
+
   @Post("me/orders/:id/link")
   @UseGuards(CustomerAuthGuard)
   orderLink(

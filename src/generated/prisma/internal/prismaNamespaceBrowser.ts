@@ -52,7 +52,15 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   WaitlistEntry: 'WaitlistEntry',
+  FoundingAccessApplication: 'FoundingAccessApplication',
+  FoundingCohort: 'FoundingCohort',
+  OnboardingInvitation: 'OnboardingInvitation',
+  FoundingProgramEnrollment: 'FoundingProgramEnrollment',
+  FoundingResearchInterview: 'FoundingResearchInterview',
   User: 'User',
+  PlatformAdmin: 'PlatformAdmin',
+  PlatformAdminSession: 'PlatformAdminSession',
+  PlatformAdminAuditLog: 'PlatformAdminAuditLog',
   OwnerSession: 'OwnerSession',
   OwnerOtpChallenge: 'OwnerOtpChallenge',
   PasswordRecoveryToken: 'PasswordRecoveryToken',
@@ -64,6 +72,7 @@ export const ModelName = {
   MemberPermissionOverride: 'MemberPermissionOverride',
   BusinessInvitation: 'BusinessInvitation',
   MediaAsset: 'MediaAsset',
+  MediaModerationReview: 'MediaModerationReview',
   CustomerAccount: 'CustomerAccount',
   CustomerAccountSession: 'CustomerAccountSession',
   CustomerOtpChallenge: 'CustomerOtpChallenge',
@@ -91,6 +100,7 @@ export const ModelName = {
   ProductPromotion: 'ProductPromotion',
   PromotionReservation: 'PromotionReservation',
   OrderRequest: 'OrderRequest',
+  CustomerOrderNotice: 'CustomerOrderNotice',
   OrderRequestShareToken: 'OrderRequestShareToken',
   OrderRequestItem: 'OrderRequestItem',
   OrderRequestPaymentChange: 'OrderRequestPaymentChange',
@@ -152,6 +162,117 @@ export const WaitlistEntryScalarFieldEnum = {
 export type WaitlistEntryScalarFieldEnum = (typeof WaitlistEntryScalarFieldEnum)[keyof typeof WaitlistEntryScalarFieldEnum]
 
 
+export const FoundingAccessApplicationScalarFieldEnum = {
+  id: 'id',
+  ownerName: 'ownerName',
+  businessName: 'businessName',
+  email: 'email',
+  phone: 'phone',
+  whatTheySell: 'whatTheySell',
+  primarySellingChannel: 'primarySellingChannel',
+  whatsappConsentAt: 'whatsappConsentAt',
+  whatsappConsentSource: 'whatsappConsentSource',
+  source: 'source',
+  status: 'status',
+  reviewNotes: 'reviewNotes',
+  reviewedAt: 'reviewedAt',
+  reviewedByAdminId: 'reviewedByAdminId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FoundingAccessApplicationScalarFieldEnum = (typeof FoundingAccessApplicationScalarFieldEnum)[keyof typeof FoundingAccessApplicationScalarFieldEnum]
+
+
+export const FoundingCohortScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  name: 'name',
+  hypothesis: 'hypothesis',
+  status: 'status',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  createdByAdminId: 'createdByAdminId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FoundingCohortScalarFieldEnum = (typeof FoundingCohortScalarFieldEnum)[keyof typeof FoundingCohortScalarFieldEnum]
+
+
+export const OnboardingInvitationScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  cohortId: 'cohortId',
+  codeHash: 'codeHash',
+  codeSuffix: 'codeSuffix',
+  encryptedToken: 'encryptedToken',
+  recipientName: 'recipientName',
+  businessName: 'businessName',
+  phone: 'phone',
+  email: 'email',
+  status: 'status',
+  expiresAt: 'expiresAt',
+  maxUses: 'maxUses',
+  useCount: 'useCount',
+  validatedAt: 'validatedAt',
+  redeemedAt: 'redeemedAt',
+  redeemedByUserId: 'redeemedByUserId',
+  resultingBusinessId: 'resultingBusinessId',
+  messageOutboxId: 'messageOutboxId',
+  createdByAdminId: 'createdByAdminId',
+  revokedByAdminId: 'revokedByAdminId',
+  revokedAt: 'revokedAt',
+  revokeReason: 'revokeReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OnboardingInvitationScalarFieldEnum = (typeof OnboardingInvitationScalarFieldEnum)[keyof typeof OnboardingInvitationScalarFieldEnum]
+
+
+export const FoundingProgramEnrollmentScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  invitationId: 'invitationId',
+  cohortId: 'cohortId',
+  status: 'status',
+  invitedAt: 'invitedAt',
+  onboardedAt: 'onboardedAt',
+  activatedAt: 'activatedAt',
+  weekOneRetainedAt: 'weekOneRetainedAt',
+  weekFourRetainedAt: 'weekFourRetainedAt',
+  complimentaryNoticeAt: 'complimentaryNoticeAt',
+  complimentaryEndsAt: 'complimentaryEndsAt',
+  exitedAt: 'exitedAt',
+  exitReason: 'exitReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FoundingProgramEnrollmentScalarFieldEnum = (typeof FoundingProgramEnrollmentScalarFieldEnum)[keyof typeof FoundingProgramEnrollmentScalarFieldEnum]
+
+
+export const FoundingResearchInterviewScalarFieldEnum = {
+  id: 'id',
+  enrollmentId: 'enrollmentId',
+  interviewerAdminId: 'interviewerAdminId',
+  occurredAt: 'occurredAt',
+  stage: 'stage',
+  mostValuableOutcome: 'mostValuableOutcome',
+  primaryBlocker: 'primaryBlocker',
+  paidPilotInterest: 'paidPilotInterest',
+  reasonToPayOrNot: 'reasonToPayOrNot',
+  volunteeredPriceAmount: 'volunteeredPriceAmount',
+  volunteeredPriceCurrency: 'volunteeredPriceCurrency',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FoundingResearchInterviewScalarFieldEnum = (typeof FoundingResearchInterviewScalarFieldEnum)[keyof typeof FoundingResearchInterviewScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   avatarAssetId: 'avatarAssetId',
@@ -165,6 +286,52 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const PlatformAdminScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  role: 'role',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastReviewedAt: 'lastReviewedAt'
+} as const
+
+export type PlatformAdminScalarFieldEnum = (typeof PlatformAdminScalarFieldEnum)[keyof typeof PlatformAdminScalarFieldEnum]
+
+
+export const PlatformAdminSessionScalarFieldEnum = {
+  id: 'id',
+  platformAdminId: 'platformAdminId',
+  ownerSessionId: 'ownerSessionId',
+  tokenHash: 'tokenHash',
+  verifiedAt: 'verifiedAt',
+  expiresAt: 'expiresAt',
+  lastUsedAt: 'lastUsedAt',
+  revokedAt: 'revokedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PlatformAdminSessionScalarFieldEnum = (typeof PlatformAdminSessionScalarFieldEnum)[keyof typeof PlatformAdminSessionScalarFieldEnum]
+
+
+export const PlatformAdminAuditLogScalarFieldEnum = {
+  id: 'id',
+  actorAdminId: 'actorAdminId',
+  action: 'action',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  reason: 'reason',
+  before: 'before',
+  after: 'after',
+  requestId: 'requestId',
+  ipHash: 'ipHash',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+} as const
+
+export type PlatformAdminAuditLogScalarFieldEnum = (typeof PlatformAdminAuditLogScalarFieldEnum)[keyof typeof PlatformAdminAuditLogScalarFieldEnum]
 
 
 export const OwnerSessionScalarFieldEnum = {
@@ -191,6 +358,7 @@ export const OwnerOtpChallengeScalarFieldEnum = {
   expiresAt: 'expiresAt',
   verifiedAt: 'verifiedAt',
   attempts: 'attempts',
+  purpose: 'purpose',
   createdAt: 'createdAt'
 } as const
 
@@ -234,6 +402,11 @@ export const BusinessScalarFieldEnum = {
   pledgedAt: 'pledgedAt',
   plan: 'plan',
   subscriptionStatus: 'subscriptionStatus',
+  platformStatus: 'platformStatus',
+  platformSuspendedAt: 'platformSuspendedAt',
+  platformSuspensionReason: 'platformSuspensionReason',
+  platformSuspendedByAdminId: 'platformSuspendedByAdminId',
+  isDemo: 'isDemo',
   trialStartedAt: 'trialStartedAt',
   trialEndsAt: 'trialEndsAt',
   customerLimit: 'customerLimit',
@@ -370,11 +543,41 @@ export const MediaAssetScalarFieldEnum = {
   originalFilename: 'originalFilename',
   purpose: 'purpose',
   status: 'status',
+  qualityStatus: 'qualityStatus',
+  moderationStatus: 'moderationStatus',
+  contentRating: 'contentRating',
+  qualityMetrics: 'qualityMetrics',
+  moderationLabels: 'moderationLabels',
+  moderationProvider: 'moderationProvider',
+  moderationModelVersion: 'moderationModelVersion',
+  moderationEventId: 'moderationEventId',
+  moderationNotifiedAt: 'moderationNotifiedAt',
+  exactHash: 'exactHash',
+  perceptualHash: 'perceptualHash',
+  assessedAt: 'assessedAt',
+  appealedAt: 'appealedAt',
+  appealReason: 'appealReason',
   createdAt: 'createdAt',
   deletedAt: 'deletedAt'
 } as const
 
 export type MediaAssetScalarFieldEnum = (typeof MediaAssetScalarFieldEnum)[keyof typeof MediaAssetScalarFieldEnum]
+
+
+export const MediaModerationReviewScalarFieldEnum = {
+  id: 'id',
+  assetId: 'assetId',
+  reviewerId: 'reviewerId',
+  decision: 'decision',
+  previousStatus: 'previousStatus',
+  nextStatus: 'nextStatus',
+  previousRating: 'previousRating',
+  nextRating: 'nextRating',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type MediaModerationReviewScalarFieldEnum = (typeof MediaModerationReviewScalarFieldEnum)[keyof typeof MediaModerationReviewScalarFieldEnum]
 
 
 export const CustomerAccountScalarFieldEnum = {
@@ -551,6 +754,7 @@ export const ProductScalarFieldEnum = {
   status: 'status',
   placement: 'placement',
   visibility: 'visibility',
+  contentRating: 'contentRating',
   stockCount: 'stockCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -618,6 +822,7 @@ export const ShowcaseScalarFieldEnum = {
   caption: 'caption',
   status: 'status',
   featured: 'featured',
+  contentRating: 'contentRating',
   publishedAt: 'publishedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -804,6 +1009,22 @@ export const OrderRequestScalarFieldEnum = {
 } as const
 
 export type OrderRequestScalarFieldEnum = (typeof OrderRequestScalarFieldEnum)[keyof typeof OrderRequestScalarFieldEnum]
+
+
+export const CustomerOrderNoticeScalarFieldEnum = {
+  id: 'id',
+  customerAccountId: 'customerAccountId',
+  orderRequestId: 'orderRequestId',
+  type: 'type',
+  message: 'message',
+  dedupeKey: 'dedupeKey',
+  actionRequired: 'actionRequired',
+  actionResolvedAt: 'actionResolvedAt',
+  readAt: 'readAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CustomerOrderNoticeScalarFieldEnum = (typeof CustomerOrderNoticeScalarFieldEnum)[keyof typeof CustomerOrderNoticeScalarFieldEnum]
 
 
 export const OrderRequestShareTokenScalarFieldEnum = {

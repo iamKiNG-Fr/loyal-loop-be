@@ -115,14 +115,15 @@ export class ProductsService {
       }),
       this.prisma.product.count({ where }),
     ]);
-    return paginated(items, total, query.page, query.pageSize);
+    return paginated(items.map(withListingReadiness), total, query.page, query.pageSize);
   }
 
-  get(auth: OwnerAuthContext, id: string) {
-    return this.prisma.product.findFirstOrThrow({
+  async get(auth: OwnerAuthContext, id: string) {
+    const product = await this.prisma.product.findFirstOrThrow({
       where: { id, businessId: auth.businessId },
       include: productInclude,
     });
+    return withListingReadiness(product);
   }
 
   async create(auth: OwnerAuthContext, dto: CreateProductDto) {
@@ -159,6 +160,7 @@ export class ProductsService {
           status: dto.status,
           placement: dto.placement,
           visibility: dto.visibility,
+          contentRating: dto.contentRating,
           stockCount: dto.stockCount,
           images: assets.length
             ? {
@@ -206,7 +208,7 @@ export class ProductsService {
         },
         tx,
       );
-      return product;
+      return withListingReadiness(product);
     });
   }
 
@@ -236,6 +238,7 @@ export class ProductsService {
           status: dto.status,
           placement: dto.placement,
           visibility: dto.visibility,
+          contentRating: dto.contentRating,
           stockCount: dto.stockCount,
           variants: dto.variants
             ? {
@@ -265,7 +268,7 @@ export class ProductsService {
         },
         tx,
       );
-      return updated;
+      return withListingReadiness(updated);
     });
   }
 
@@ -366,6 +369,9 @@ export class ProductsService {
         businessId,
         purpose: "PRODUCT_IMAGE",
         status: "ACTIVE",
+        qualityStatus: { not: "FAIL" },
+        moderationStatus: { in: ["AUTO_APPROVED", "MANUALLY_APPROVED"] },
+        contentRating: { not: "PROHIBITED" },
       },
     });
     if (assets.length !== uniqueIds.length) {
@@ -399,7 +405,14 @@ export class ProductsService {
       ...new Set(input.flatMap((item) => [item.assetId, item.posterAssetId].filter(Boolean) as string[])),
     ];
     const assets = await this.prisma.mediaAsset.findMany({
-      where: { id: { in: ids }, businessId, status: "ACTIVE" },
+      where: {
+        id: { in: ids },
+        businessId,
+        status: "ACTIVE",
+        qualityStatus: { not: "FAIL" },
+        moderationStatus: { in: ["AUTO_APPROVED", "MANUALLY_APPROVED"] },
+        contentRating: { not: "PROHIBITED" },
+      },
     });
     if (assets.length !== ids.length) {
       throw new BadRequestException("One or more product media assets are invalid");
@@ -469,4 +482,45 @@ export class ProductsService {
     }
     return candidate;
   }
+}
+
+function withListingReadiness<T extends {
+  category: string | null;
+  description: string | null;
+  images: Array<{ asset: { qualityStatus: string; moderationStatus: string } }>;
+  media: Array<{ altText: string | null; asset: { qualityStatus: string; moderationStatus: string } }>;
+  price: unknown;
+  stockCount: number | null;
+  variants: Array<{ active: boolean; stockCount: number | null }>;
+}>(product: T) {
+  const mediaCount = Math.max(product.images.length, product.media.length);
+  const descriptionLength = product.description?.trim().length ?? 0;
+  const checks = [
+    { key: "primary_media", label: "Clear primary media", passed: mediaCount > 0, weight: 30 },
+    { key: "supporting_media", label: "At least two useful views", passed: mediaCount >= 2, weight: 10 },
+    { key: "description", label: "Informative description", passed: descriptionLength >= 80, weight: 20 },
+    { key: "category", label: "Category selected", passed: Boolean(product.category), weight: 10 },
+    { key: "price", label: "Price set", passed: Number(product.price) > 0, weight: 10 },
+    {
+      key: "availability",
+      label: "Availability is clear",
+      passed: product.stockCount !== null || product.variants.some(item => item.active && item.stockCount !== null),
+      weight: 10,
+    },
+    {
+      key: "alt_text",
+      label: "Media is described",
+      passed: product.media.length === 0 || product.media.every(item => Boolean(item.altText?.trim())),
+      weight: 10,
+    },
+  ];
+  const score = checks.reduce((total, check) => total + (check.passed ? check.weight : 0), 0);
+  return {
+    ...product,
+    listingReadiness: {
+      score,
+      status: score >= 80 ? "READY" : score >= 50 ? "NEEDS_WORK" : "INCOMPLETE",
+      checks,
+    },
+  };
 }
