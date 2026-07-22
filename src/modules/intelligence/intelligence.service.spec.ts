@@ -45,4 +45,29 @@ describe("IntelligenceService deterministic fallback", () => {
     expect(brief.recommendedAction).toContain("Chidi");
     expect(brief.evidenceIds).toEqual(["issue-1", "open-1"]);
   });
+
+  it("suggests product option axes without inventing option values", async () => {
+    const guidance = await service.suggestProductFormGuidance({
+      availableCategories: ["Food & drinks", "Fashion"],
+      category: "Food & drinks",
+      contentRating: "GENERAL",
+      currentDescription: "A celebration cake.",
+      mediaCount: 1,
+      name: "Big Cake",
+      optionCount: 0,
+      optionNames: [],
+      placement: "Standard listing",
+      price: "12000",
+      stock: "4",
+    });
+
+    expect(guidance.source).toBe("fallback");
+    expect(guidance.recommendations).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        kind: "SET_UP_OPTIONS",
+        optionAxes: expect.arrayContaining(["Size", "Flavour"]),
+      }),
+    ]));
+    expect(JSON.stringify(guidance)).not.toContain("Vanilla");
+  });
 });

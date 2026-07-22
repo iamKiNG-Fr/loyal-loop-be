@@ -172,12 +172,14 @@ export class AuthController {
   }
 
   @Post("password/request-reset")
+  @Throttle({ default: { limit: 5, ttl: minutes(10) } })
   async requestReset(@Body() dto: RequestPasswordResetDto) {
     await this.auth.requestPasswordReset(dto.email);
     return ok(null, "If the account exists, a reset link has been sent");
   }
 
   @Post("password/reset")
+  @Throttle({ default: { limit: 10, ttl: minutes(10) } })
   async reset(@Body() dto: ResetPasswordDto) {
     await this.auth.resetPassword(dto);
     return ok(null, "Password reset");

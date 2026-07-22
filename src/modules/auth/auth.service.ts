@@ -3,6 +3,7 @@ import {
   ConflictException,
   Inject,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
@@ -34,6 +35,8 @@ type SessionMeta = {
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly config: ConfigService,
@@ -450,18 +453,36 @@ export class AuthService {
     if (!user) return;
 
     const generated = createOpaqueToken();
-    await this.prisma.passwordRecoveryToken.create({
-      data: {
-        userId: user.id,
-        tokenHash: generated.tokenHash,
-        expiresAt: new Date(Date.now() + 30 * 60 * 1000),
-      },
-    });
-    await this.mail.sendPasswordResetEmail({
-      to: user.email,
-      name: user.name,
-      token: generated.token,
-    });
+    const now = new Date();
+    const [, recovery] = await this.prisma.$transaction([
+      this.prisma.passwordRecoveryToken.updateMany({
+        where: { userId: user.id, usedAt: null },
+        data: { usedAt: now },
+      }),
+      this.prisma.passwordRecoveryToken.create({
+        data: {
+          userId: user.id,
+          tokenHash: generated.tokenHash,
+          expiresAt: new Date(now.getTime() + 30 * 60 * 1000),
+        },
+      }),
+    ]);
+    try {
+      await this.mail.sendPasswordResetEmail({
+        to: user.email,
+        name: user.name,
+        token: generated.token,
+      });
+    } catch (error) {
+      await this.prisma.passwordRecoveryToken.update({
+        where: { id: recovery.id },
+        data: { usedAt: new Date() },
+      });
+      this.logger.error(
+        `Password reset email failed for user ${user.id}`,
+        error instanceof Error ? error.stack : undefined,
+      );
+    }
   }
 
   async resetPassword(dto: ResetPasswordDto) {
@@ -481,8 +502,8 @@ export class AuthService {
         where: { id: recovery.userId },
         data: { passwordHash },
       }),
-      this.prisma.passwordRecoveryToken.update({
-        where: { id: recovery.id },
+      this.prisma.passwordRecoveryToken.updateMany({
+        where: { userId: recovery.userId, usedAt: null },
         data: { usedAt: new Date() },
       }),
       this.prisma.ownerSession.updateMany({

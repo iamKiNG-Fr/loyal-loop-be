@@ -92,31 +92,122 @@ export class MailService {
     token: string;
   }) {
     if (!this.resend) {
-      this.logger.warn("RESEND_API_KEY is not set. Skipping password reset email.");
-      return;
+      throw new Error("Password reset email provider is not configured");
     }
 
     const appUrl = this.configService
       .get<string>("APP_URL", "https://www.useloyalloop.com")
       .replace(/\/$/, "");
-    const resetUrl = `${appUrl}/auth/reset-password?token=${encodeURIComponent(params.token)}`;
+    const resetUrl = `${appUrl}/auth/reset-password#token=${encodeURIComponent(params.token)}`;
     const from = this.configService.get<string>(
       "EMAIL_FROM",
       "Francis King <francis@mail.useloyalloop.com>",
     );
+    const logoUrl = getEmailImageUrl(
+      this.configService.get<string>("EMAIL_LOGO_URL"),
+    );
+    const safeName = escapeHtml(params.name);
+    const safeResetUrl = escapeHtml(resetUrl);
+    const safeLogoUrl = logoUrl ? escapeHtml(logoUrl) : undefined;
 
-    await this.resend.emails.send({
+    const result = await this.resend.emails.send({
       from,
       to: params.to,
       replyTo: this.configService.get<string>(
         "EMAIL_REPLY_TO",
         "support@useloyalloop.com",
       ),
-      subject: "Reset your Loyal Loop password",
-      text: `Hi ${params.name},\n\nReset your Loyal Loop password within 30 minutes:\n${resetUrl}\n\nIf you did not request this, you can ignore this email.`,
-      html: `<p>Hi ${escapeHtml(params.name)},</p><p>Use the link below within 30 minutes to reset your Loyal Loop password.</p><p><a href="${escapeHtml(resetUrl)}">Reset password</a></p><p>If you did not request this, you can ignore this email.</p>`,
+      subject: "Return to your Loyal Loop",
+      text: buildPasswordResetText({ name: params.name, resetUrl }),
+      html: buildPasswordResetEmail({
+        logoUrl: safeLogoUrl,
+        name: safeName,
+        resetUrl: safeResetUrl,
+      }),
     });
+    if (result.error) {
+      this.logger.error(`Resend rejected password reset email: ${result.error.message}`);
+      throw new Error("Password reset email could not be sent");
+    }
   }
+}
+
+export function buildPasswordResetText(params: { name: string; resetUrl: string }) {
+  return [
+    `Hi ${params.name},`,
+    "",
+    "Your customers are still here. Use this secure link to choose a new Loyal Loop password and return to your workspace:",
+    params.resetUrl,
+    "",
+    "This link expires in 30 minutes and works once.",
+    "If you did not request it, ignore this email. Your password will stay unchanged.",
+    "",
+    "Loyal Loop - keep customers close",
+  ].join("\n");
+}
+
+export function buildPasswordResetEmail(params: {
+  logoUrl?: string;
+  name: string;
+  resetUrl: string;
+}) {
+  const brand = params.logoUrl
+    ? `<img src="${params.logoUrl}" width="116" alt="Loyal Loop" style="display:block; width:116px; max-width:116px; height:auto; border:0;">`
+    : `<span style="font-family:'Space Grotesk','DM Sans',Arial,sans-serif; font-size:18px; font-weight:800; color:#ffffff;">Loyal Loop</span>`;
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Reset your Loyal Loop password</title>
+  </head>
+  <body style="margin:0; padding:0; background:#f6f5f7; color:#241b2b;">
+    <div style="display:none; max-height:0; overflow:hidden; opacity:0;">A secure, one-time link to return to your Loyal Loop workspace.</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f6f5f7;">
+      <tr>
+        <td align="center" style="padding:28px 14px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:620px; width:100%; overflow:hidden; border:1px solid #e5dee8; border-radius:24px; background:#ffffff; box-shadow:0 18px 46px rgba(36,27,43,.10);">
+            <tr>
+              <td style="padding:28px 28px 30px; background:#201925; background-image:radial-gradient(circle at 92% 12%,rgba(142,220,193,.32),transparent 28%),linear-gradient(145deg,#201925,#362347);">
+                ${brand}
+                <p style="margin:28px 0 0; font-family:'DM Sans',Arial,sans-serif; font-size:12px; line-height:1.4; font-weight:800; letter-spacing:.11em; text-transform:uppercase; color:#8edcc1;">Back to your customers</p>
+                <h1 style="margin:10px 0 0; max-width:470px; font-family:'Space Grotesk','DM Sans',Arial,sans-serif; font-size:34px; line-height:1.08; font-weight:800; color:#ffffff;">Your customers are still here.</h1>
+                <p style="margin:13px 0 0; max-width:470px; font-family:'DM Sans',Arial,sans-serif; font-size:16px; line-height:1.6; color:#d8d1dc;">Choose a new password, then pick up from your next sale, request, or delivery.</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:30px 28px;">
+                <p style="margin:0; font-family:'DM Sans',Arial,sans-serif; font-size:16px; line-height:1.65; color:#3f3743;">Hi ${params.name},</p>
+                <p style="margin:12px 0 0; font-family:'DM Sans',Arial,sans-serif; font-size:16px; line-height:1.65; color:#5f5564;">We received a request to reset the password for your Loyal Loop business workspace.</p>
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:24px 0 0;">
+                  <tr>
+                    <td style="border-radius:12px; background:#5d13e7;">
+                      <a href="${params.resetUrl}" style="display:inline-block; padding:14px 22px; border-radius:12px; font-family:'DM Sans',Arial,sans-serif; font-size:15px; font-weight:800; color:#ffffff; text-decoration:none;">Choose a new password</a>
+                    </td>
+                  </tr>
+                </table>
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:24px 0 0; border:1px solid #e8e1ea; border-radius:16px; background:#faf8fb;">
+                  <tr>
+                    <td style="padding:16px 18px; font-family:'DM Sans',Arial,sans-serif; font-size:13px; line-height:1.6; color:#6f6375;">
+                      <strong style="color:#3f3743;">Secure and time-limited.</strong> This link expires in 30 minutes and works once. Loyal Loop will never ask you to send this link or your password in a message.
+                    </td>
+                  </tr>
+                </table>
+                <p style="margin:22px 0 0; font-family:'DM Sans',Arial,sans-serif; font-size:13px; line-height:1.6; color:#817788;">If you did not request this reset, ignore this email. Your current password will stay unchanged.</p>
+                <p style="margin:18px 0 0; font-family:'DM Sans',Arial,sans-serif; font-size:12px; line-height:1.55; color:#9a909f; word-break:break-all;">Button not working? Copy this link:<br><a href="${params.resetUrl}" style="color:#5d13e7;">${params.resetUrl}</a></p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px 28px; border-top:1px solid #eee8f0; font-family:'DM Sans',Arial,sans-serif; font-size:12px; line-height:1.6; color:#817788;">Loyal Loop &middot; Keep customers close</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
 }
 
 function buildWaitlistWelcomeEmail(params: {

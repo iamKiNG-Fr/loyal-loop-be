@@ -255,7 +255,7 @@ export class MediaService {
       where: { id: assetId, businessId: auth.businessId, status: "ACTIVE" },
     });
     if (!asset) throw new NotFoundException("Asset not found");
-    if (["AUTO_APPROVED", "MANUALLY_APPROVED"].includes(asset.moderationStatus)) {
+    if (["AUTO_APPROVED", "MANUALLY_APPROVED"].includes(asset.moderationStatus) && asset.qualityStatus !== "FAIL") {
       throw new BadRequestException("Approved media does not need an appeal");
     }
     return this.prisma.mediaAsset.update({
@@ -357,6 +357,7 @@ export class MediaService {
         data: {
           moderationStatus: next.status,
           contentRating: next.rating,
+          qualityStatus: dto.decision === "REJECT" || asset.qualityStatus !== "FAIL" ? undefined : "WARN",
           appealReason: null,
         },
       });
@@ -517,6 +518,7 @@ function assessQuality(input: {
   const darkRatio = readNumber(input.client?.darkRatio);
   const brightRatio = readNumber(input.client?.brightRatio);
   const minDimension = Math.min(input.width ?? Infinity, input.height ?? Infinity);
+  const aspectRatio = input.width && input.height ? input.width / input.height : undefined;
 
   if (input.client?.corrupt === true) reasons.push("corrupt_file");
   if (minDimension < 320) reasons.push("resolution_too_low");
@@ -527,6 +529,7 @@ function assessQuality(input: {
   else if (darkRatio !== undefined && darkRatio > 0.72) warnings.push("image_is_dark");
   if (brightRatio !== undefined && brightRatio >= 0.92) reasons.push("severe_overexposure");
   else if (brightRatio !== undefined && brightRatio > 0.72) warnings.push("image_is_bright");
+  if (aspectRatio !== undefined && (aspectRatio > 4 || aspectRatio < 0.25)) warnings.push("extreme_crop_or_aspect_ratio");
   if (input.duplicate) warnings.push("exact_duplicate");
   else if (input.nearDuplicate) warnings.push("near_duplicate");
 

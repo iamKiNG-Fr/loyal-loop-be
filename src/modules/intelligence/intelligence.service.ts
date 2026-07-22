@@ -8,6 +8,10 @@ import type {
   DiscoveryQueryPlan,
   IntelligenceProvider,
   ProductDescriptionSuggestion,
+  ProductFormGuidance,
+  ProductFormGuidanceInput,
+  ProductFormRecommendation,
+  ProductFormRecommendationKind,
 } from "./intelligence.types";
 import { PrismaService } from "../prisma/prisma.service";
 
@@ -78,6 +82,47 @@ const PRODUCT_DESCRIPTION_SCHEMA = {
   properties: {
     description: { type: "string", maxLength: 700 },
     missingDetails: { type: "array", maxItems: 6, items: { type: "string" } },
+  },
+};
+
+const PRODUCT_FORM_GUIDANCE_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  required: ["summary", "recommendations"],
+  properties: {
+    summary: { type: "string", maxLength: 180 },
+    recommendations: {
+      type: "array",
+      maxItems: 5,
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: ["kind", "title", "reason", "optionAxes"],
+        properties: {
+          kind: {
+            type: "string",
+            enum: [
+              "ADD_MEDIA",
+              "ADD_SUPPORTING_MEDIA",
+              "ADD_NAME",
+              "IMPROVE_DESCRIPTION",
+              "REVIEW_AUDIENCE",
+              "SELECT_CATEGORY",
+              "SET_PRICE",
+              "SET_STOCK",
+              "SET_UP_OPTIONS",
+            ],
+          },
+          title: { type: "string", maxLength: 100 },
+          reason: { type: "string", maxLength: 220 },
+          optionAxes: {
+            type: "array",
+            maxItems: 3,
+            items: { type: "string", maxLength: 40 },
+          },
+        },
+      },
+    },
   },
 };
 
@@ -239,6 +284,42 @@ export class IntelligenceService implements IntelligenceProvider {
     }
   }
 
+  async suggestProductFormGuidance(input: ProductFormGuidanceInput): Promise<ProductFormGuidance> {
+    const fallback = fallbackProductFormGuidance(input);
+    if (!this.client || !this.model) return fallback;
+    const startedAt = Date.now();
+    try {
+      const response = await withTimeout(
+        this.client.models.generateContent({
+          model: this.model,
+          contents: [
+            "Help a merchant finish the Add Product form using only the supplied draft. " +
+              "The form supports product name, ordered image/video media, price, inventory, one business category, shop placement, description, audience visibility, and product options. " +
+              "Each product option supports a customer-facing option name plus optional size, colour, SKU, stock, and price override. " +
+              "Recommend SET_UP_OPTIONS only when customers are genuinely likely to choose between versions. For that recommendation, optionAxes may name generic choice types such as Size, Colour, Flavour, Pack, Capacity, or Model, but must not invent actual values. " +
+              "Never invent a category outside availableCategories, price, stock, SKU, ingredients, allergens, measurements, certifications, benefits, guarantees, or regulated claims. " +
+              "Do not claim that a listing is safe, approved, or available. Return at most five concise, actionable recommendations and use an empty recommendations array when the form is already complete. " +
+              "Interface version: catalog-add-product-v2.\n" +
+              JSON.stringify(sanitizedProductFormInput(input)),
+          ],
+          config: {
+            responseMimeType: "application/json",
+            responseJsonSchema: PRODUCT_FORM_GUIDANCE_SCHEMA,
+            temperature: 0,
+          },
+        }),
+        this.timeoutMs,
+      );
+      const parsed = parseJson(response.text);
+      const validated = validateProductFormGuidance(parsed, input);
+      void this.telemetry(validated ? "GEMINI_PRODUCT_FORM_SUCCESS" : "GEMINI_PRODUCT_FORM_INVALID", Date.now() - startedAt, usageMetadata(response));
+      return validated ? { ...validated, source: "ai" } : fallback;
+    } catch {
+      void this.telemetry("GEMINI_PRODUCT_FORM_FAILURE", Date.now() - startedAt);
+      return fallback;
+    }
+  }
+
   private telemetry(type: string, latencyMs: number, metadata?: Record<string, string | number>) {
     return this.prisma.discoveryTelemetry.create({
       data: { type, value: latencyMs, metadata: { latencyMs, model: this.model ?? "deterministic", ...metadata } },
@@ -357,6 +438,97 @@ function fallbackProductDescription(input: {
       : ["Add material or key features", "Add size or measurements", "Explain what is included"],
     source: "fallback",
   };
+}
+
+function fallbackProductFormGuidance(input: ProductFormGuidanceInput): ProductFormGuidance {
+  const recommendations: ProductFormRecommendation[] = [];
+  const name = input.name?.trim() ?? "";
+  const description = input.currentDescription?.trim() ?? "";
+  const category = input.category?.trim() ?? "";
+
+  if (!name) recommendations.push({ kind: "ADD_NAME", optionAxes: [], title: "Name the product", reason: "A clear product name helps customers understand what they are opening." });
+  if (input.mediaCount === 0) recommendations.push({ kind: "ADD_MEDIA", optionAxes: [], title: "Add a clear cover", reason: "Products need clear primary media before they can be considered for discovery." });
+  else if (input.mediaCount === 1) recommendations.push({ kind: "ADD_SUPPORTING_MEDIA", optionAxes: [], title: "Add another useful view", reason: "A second angle, label, detail, or scale view can answer a customer question." });
+  if (!category) recommendations.push({ kind: "SELECT_CATEGORY", optionAxes: [], title: "Choose a category", reason: "The category controls relevant listing guidance and helps customers browse." });
+  if (!(Number(input.price) > 0)) recommendations.push({ kind: "SET_PRICE", optionAxes: [], title: "Add the selling price", reason: "Customers need the current price before deciding whether to request the product." });
+  if (input.stock === undefined || input.stock === "") recommendations.push({ kind: "SET_STOCK", optionAxes: [], title: "Clarify availability", reason: "Add current stock so the listing does not imply availability you have not recorded." });
+  if (description.length < 80 && name) recommendations.push({ kind: "IMPROVE_DESCRIPTION", optionAxes: [], title: "Strengthen the description", reason: "Add only the features, contents, measurements, or care details you can confirm." });
+
+  if (input.optionCount === 0) {
+    const axes = suggestedOptionAxes(`${name} ${category} ${description}`);
+    if (axes.length) recommendations.push({
+      kind: "SET_UP_OPTIONS",
+      optionAxes: axes,
+      title: `Consider ${axes.join(" and ")} options`,
+      reason: `Use options only if customers choose between different ${axes.map(axis => axis.toLowerCase()).join(" or ")} versions of this product.`,
+    });
+  }
+
+  const limited = recommendations.slice(0, 5);
+  return {
+    recommendations: limited,
+    source: "fallback",
+    summary: limited.length
+      ? `${limited.length} practical ${limited.length === 1 ? "step can" : "steps can"} make this listing clearer.`
+      : "This draft covers the essential Add Product fields.",
+  };
+}
+
+function sanitizedProductFormInput(input: ProductFormGuidanceInput) {
+  return {
+    availableCategories: (input.availableCategories ?? []).map(item => item.trim().slice(0, 100)).filter(Boolean).slice(0, 40),
+    category: input.category?.trim().slice(0, 100) || null,
+    contentRating: input.contentRating ?? "GENERAL",
+    currentDescription: input.currentDescription?.trim().slice(0, 1000) || null,
+    mediaCount: Math.max(0, Math.min(8, input.mediaCount)),
+    name: input.name?.trim().slice(0, 160) || null,
+    optionCount: Math.max(0, Math.min(20, input.optionCount)),
+    optionNames: (input.optionNames ?? []).map(item => item.trim().slice(0, 120)).filter(Boolean).slice(0, 20),
+    placement: input.placement?.trim().slice(0, 80) || null,
+    priceProvided: Number(input.price) > 0,
+    stockProvided: input.stock !== undefined && input.stock !== "",
+  };
+}
+
+function suggestedOptionAxes(value: string) {
+  const normalized = value.toLowerCase();
+  if (/cake|pastr|cookie|food|drink|juice|yogh?urt/.test(normalized)) return ["Size", "Flavour"];
+  if (/shirt|dress|trouser|cloth|shoe|sneaker|fashion/.test(normalized)) return ["Size", "Colour"];
+  if (/makeup|foundation|lipstick|beauty/.test(normalized)) return ["Shade", "Size"];
+  if (/phone|laptop|tablet|electronic/.test(normalized)) return ["Model", "Capacity"];
+  if (/perfume|fragrance/.test(normalized)) return ["Size"];
+  return [];
+}
+
+function validateProductFormGuidance(
+  value: unknown,
+  input: ProductFormGuidanceInput,
+): Omit<ProductFormGuidance, "source"> | null {
+  if (!isRecord(value) || typeof value.summary !== "string" || !Array.isArray(value.recommendations)) return null;
+  const allowedKinds = new Set<ProductFormRecommendationKind>([
+    "ADD_MEDIA",
+    "ADD_SUPPORTING_MEDIA",
+    "ADD_NAME",
+    "IMPROVE_DESCRIPTION",
+    "REVIEW_AUDIENCE",
+    "SELECT_CATEGORY",
+    "SET_PRICE",
+    "SET_STOCK",
+    "SET_UP_OPTIONS",
+  ]);
+  const recommendations = value.recommendations.flatMap((entry): ProductFormRecommendation[] => {
+    if (!isRecord(entry) || typeof entry.kind !== "string" || !allowedKinds.has(entry.kind as ProductFormRecommendationKind)) return [];
+    if (typeof entry.title !== "string" || typeof entry.reason !== "string" || !Array.isArray(entry.optionAxes)) return [];
+    const optionAxes = entry.kind === "SET_UP_OPTIONS"
+      ? entry.optionAxes.filter((item): item is string => typeof item === "string").map(item => item.trim().slice(0, 40)).filter(Boolean).slice(0, 3)
+      : [];
+    if (entry.kind === "SET_UP_OPTIONS" && (input.optionCount > 0 || optionAxes.length === 0)) return [];
+    const title = entry.title.trim().slice(0, 100);
+    const reason = entry.reason.trim().slice(0, 220);
+    return title && reason ? [{ kind: entry.kind as ProductFormRecommendationKind, optionAxes, reason, title }] : [];
+  }).slice(0, 5);
+  const summary = value.summary.trim().slice(0, 180);
+  return summary ? { recommendations, summary } : null;
 }
 
 function validateProductDescription(value: unknown): Omit<ProductDescriptionSuggestion, "source"> | null {

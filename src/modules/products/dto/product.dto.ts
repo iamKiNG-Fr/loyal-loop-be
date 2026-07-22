@@ -254,3 +254,63 @@ export class SuggestProductDescriptionDto {
   @IsObject()
   attributes?: Record<string, string | number | boolean>;
 }
+
+export class SuggestProductFormGuidanceDto {
+  @IsOptional()
+  @IsString()
+  @Length(0, 160)
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 100)
+  category?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 1000)
+  currentDescription?: string;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{0,10}(?:\.\d{1,2})?$/)
+  price?: string;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{0,7}$/)
+  stock?: string;
+
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  @Max(8)
+  mediaCount!: number;
+
+  @Type(() => Number)
+  @IsInt()
+  @Min(0)
+  @Max(20)
+  optionCount!: number;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(20)
+  @IsString({ each: true })
+  optionNames?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(40)
+  @IsString({ each: true })
+  availableCategories?: string[];
+
+  @IsOptional()
+  @IsIn(["GENERAL", "SENSITIVE_18"])
+  contentRating?: "GENERAL" | "SENSITIVE_18";
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 80)
+  placement?: string;
+}

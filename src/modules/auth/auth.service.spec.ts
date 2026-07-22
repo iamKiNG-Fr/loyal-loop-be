@@ -3,8 +3,10 @@ import { AuthService } from "./auth.service";
 
 function createService() {
   const prisma = {
+    $transaction: vi.fn(async (operations: unknown[]) => Promise.all(operations)),
     user: {
       findUnique: vi.fn(),
+      update: vi.fn(),
     },
     ownerOtpChallenge: {
       create: vi.fn(),
@@ -14,12 +16,21 @@ function createService() {
     },
     ownerSession: {
       create: vi.fn(),
+      updateMany: vi.fn(),
+    },
+    passwordRecoveryToken: {
+      create: vi.fn(),
+      findUnique: vi.fn(),
+      update: vi.fn(),
+      updateMany: vi.fn(),
     },
   };
   const config = {
     get: vi.fn((_key: string, fallback: unknown) => fallback),
   };
-  const mail = {};
+  const mail = {
+    sendPasswordResetEmail: vi.fn(),
+  };
   const otpProvider = {
     start: vi.fn(),
     verify: vi.fn(),
@@ -31,6 +42,7 @@ function createService() {
   return {
     config,
     founding,
+    mail,
     otpProvider,
     prisma,
     service: new AuthService(
@@ -42,6 +54,42 @@ function createService() {
     ),
   };
 }
+
+describe("AuthService password recovery", () => {
+  it("retires older links before sending a one-time reset link", async () => {
+    const { mail, prisma, service } = createService();
+    prisma.user.findUnique.mockResolvedValue({ id: "user-1", email: "owner@example.com", name: "Ada" });
+    prisma.passwordRecoveryToken.updateMany.mockResolvedValue({ count: 1 });
+    prisma.passwordRecoveryToken.create.mockResolvedValue({ id: "reset-1" });
+    mail.sendPasswordResetEmail.mockResolvedValue(undefined);
+
+    await service.requestPasswordReset(" OWNER@example.com ");
+
+    expect(prisma.user.findUnique).toHaveBeenCalledWith({ where: { email: "owner@example.com" } });
+    expect(prisma.passwordRecoveryToken.updateMany).toHaveBeenCalledWith(expect.objectContaining({
+      where: { userId: "user-1", usedAt: null },
+    }));
+    expect(mail.sendPasswordResetEmail).toHaveBeenCalledWith(expect.objectContaining({
+      name: "Ada",
+      to: "owner@example.com",
+      token: expect.any(String),
+    }));
+  });
+
+  it("invalidates a generated link when email delivery fails without exposing the account", async () => {
+    const { mail, prisma, service } = createService();
+    prisma.user.findUnique.mockResolvedValue({ id: "user-1", email: "owner@example.com", name: "Ada" });
+    prisma.passwordRecoveryToken.updateMany.mockResolvedValue({ count: 0 });
+    prisma.passwordRecoveryToken.create.mockResolvedValue({ id: "reset-1" });
+    mail.sendPasswordResetEmail.mockRejectedValue(new Error("provider unavailable"));
+
+    await expect(service.requestPasswordReset("owner@example.com")).resolves.toBeUndefined();
+    expect(prisma.passwordRecoveryToken.update).toHaveBeenCalledWith({
+      where: { id: "reset-1" },
+      data: { usedAt: expect.any(Date) },
+    });
+  });
+});
 
 describe("AuthService WhatsApp owner sign-in", () => {
   it("starts a development onboarding challenge without requiring an owner account", async () => {
