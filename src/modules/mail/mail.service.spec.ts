@@ -12,6 +12,11 @@ describe("password reset email", () => {
 
     expect(html).toContain("Your customers are still here.");
     expect(html).toContain("expires in 30 minutes");
+    expect(html).toContain("family=DM+Sans");
+    expect(html).toContain("family=Space+Grotesk");
+    expect(html).toContain("background:#f1ecfb");
+    expect(html).toContain("background:#edf7f3");
+    expect(html).not.toMatch(/linear-gradient|radial-gradient/);
     expect(html).toContain(resetUrl);
     expect(text).toContain("works once");
     expect(resetUrl).toContain("#token=");

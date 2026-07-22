@@ -117,7 +117,7 @@ export class MailService {
         "EMAIL_REPLY_TO",
         "support@useloyalloop.com",
       ),
-      subject: "Return to your Loyal Loop",
+      subject: "Reset your Loyal Loop password",
       text: buildPasswordResetText({ name: params.name, resetUrl }),
       html: buildPasswordResetEmail({
         logoUrl: safeLogoUrl,
@@ -161,24 +161,40 @@ export function buildPasswordResetEmail(params: {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet">
+    <style>
+      .ll-body { font-family: 'DM Sans', Arial, sans-serif !important; }
+      .ll-heading { font-family: 'Space Grotesk', 'DM Sans', Arial, sans-serif !important; }
+      @media only screen and (max-width: 620px) {
+        .ll-shell { padding: 16px 10px !important; }
+        .ll-section { padding-left: 22px !important; padding-right: 22px !important; }
+        .ll-heading { font-size: 29px !important; }
+      }
+    </style>
     <title>Reset your Loyal Loop password</title>
   </head>
-  <body style="margin:0; padding:0; background:#f6f5f7; color:#241b2b;">
+  <body class="ll-body" style="margin:0; padding:0; background:#f5f2f6; color:#241b2b; font-family:'DM Sans',Arial,sans-serif;">
     <div style="display:none; max-height:0; overflow:hidden; opacity:0;">A secure, one-time link to return to your Loyal Loop workspace.</div>
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f6f5f7;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f5f2f6;">
       <tr>
-        <td align="center" style="padding:28px 14px;">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:620px; width:100%; overflow:hidden; border:1px solid #e5dee8; border-radius:24px; background:#ffffff; box-shadow:0 18px 46px rgba(36,27,43,.10);">
+        <td class="ll-shell" align="center" style="padding:28px 14px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:600px; width:100%; overflow:hidden; border:1px solid #dfd7e2; border-radius:20px; background:#ffffff;">
             <tr>
-              <td style="padding:28px 28px 30px; background:#201925; background-image:radial-gradient(circle at 92% 12%,rgba(142,220,193,.32),transparent 28%),linear-gradient(145deg,#201925,#362347);">
+              <td class="ll-section" style="padding:20px 28px; background:#201925;">
                 ${brand}
-                <p style="margin:28px 0 0; font-family:'DM Sans',Arial,sans-serif; font-size:12px; line-height:1.4; font-weight:800; letter-spacing:.11em; text-transform:uppercase; color:#8edcc1;">Back to your customers</p>
-                <h1 style="margin:10px 0 0; max-width:470px; font-family:'Space Grotesk','DM Sans',Arial,sans-serif; font-size:34px; line-height:1.08; font-weight:800; color:#ffffff;">Your customers are still here.</h1>
-                <p style="margin:13px 0 0; max-width:470px; font-family:'DM Sans',Arial,sans-serif; font-size:16px; line-height:1.6; color:#d8d1dc;">Choose a new password, then pick up from your next sale, request, or delivery.</p>
               </td>
             </tr>
             <tr>
-              <td style="padding:30px 28px;">
+              <td class="ll-section" style="padding:30px 28px; background:#f1ecfb; border-bottom:1px solid #e2d8ef;">
+                <p style="margin:0; font-family:'DM Sans',Arial,sans-serif; font-size:12px; line-height:1.4; font-weight:800; letter-spacing:.10em; text-transform:uppercase; color:#5d13e7;">Password reset</p>
+                <h1 class="ll-heading" style="margin:10px 0 0; max-width:470px; font-family:'Space Grotesk','DM Sans',Arial,sans-serif; font-size:32px; line-height:1.12; font-weight:700; color:#201925;">Your customers are still here.</h1>
+                <p style="margin:12px 0 0; max-width:470px; font-family:'DM Sans',Arial,sans-serif; font-size:16px; line-height:1.6; color:#665b6b;">Choose a new password, then pick up from your next sale, request, or delivery.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="ll-section" style="padding:30px 28px; background:#ffffff;">
                 <p style="margin:0; font-family:'DM Sans',Arial,sans-serif; font-size:16px; line-height:1.65; color:#3f3743;">Hi ${params.name},</p>
                 <p style="margin:12px 0 0; font-family:'DM Sans',Arial,sans-serif; font-size:16px; line-height:1.65; color:#5f5564;">We received a request to reset the password for your Loyal Loop business workspace.</p>
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:24px 0 0;">
@@ -188,10 +204,10 @@ export function buildPasswordResetEmail(params: {
                     </td>
                   </tr>
                 </table>
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:24px 0 0; border:1px solid #e8e1ea; border-radius:16px; background:#faf8fb;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:24px 0 0; border:1px solid #d4e9df; border-radius:14px; background:#edf7f3;">
                   <tr>
-                    <td style="padding:16px 18px; font-family:'DM Sans',Arial,sans-serif; font-size:13px; line-height:1.6; color:#6f6375;">
-                      <strong style="color:#3f3743;">Secure and time-limited.</strong> This link expires in 30 minutes and works once. Loyal Loop will never ask you to send this link or your password in a message.
+                    <td style="padding:16px 18px; font-family:'DM Sans',Arial,sans-serif; font-size:13px; line-height:1.6; color:#496257;">
+                      <strong style="color:#234d3c;">Secure and time-limited.</strong> This link expires in 30 minutes and works once. Loyal Loop will never ask you to send this link or your password in a message.
                     </td>
                   </tr>
                 </table>
@@ -200,7 +216,7 @@ export function buildPasswordResetEmail(params: {
               </td>
             </tr>
             <tr>
-              <td style="padding:20px 28px; border-top:1px solid #eee8f0; font-family:'DM Sans',Arial,sans-serif; font-size:12px; line-height:1.6; color:#817788;">Loyal Loop &middot; Keep customers close</td>
+              <td class="ll-section" style="padding:18px 28px; border-top:1px solid #eee8f0; background:#faf8fb; font-family:'DM Sans',Arial,sans-serif; font-size:12px; line-height:1.6; color:#817788;">Loyal Loop &middot; Keep customers close</td>
             </tr>
           </table>
         </td>
