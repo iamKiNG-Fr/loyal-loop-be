@@ -192,13 +192,8 @@ export class TwilioWhatsAppProvider
       normalized,
       [
         "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-        socialCopyVariant(normalized, [
-          `Psst ðŸ¤« here is your secret Loyal Loop code: ${code}`,
-          `Quick hello ðŸ‘‹ your Loyal Loop code is ${code}`,
-          `A little key for your Loyal Loop door ðŸ”‘ ${code}`,
-          `You are almost in âœ¨ use ${code} on Loyal Loop`,
-        ]),
-        "It expires in 10 minutes, so keep it between us.",
+        `Use ${code} to verify your WhatsApp number on Loyal Loop.`,
+        "This code expires in 10 minutes. Never share it with anyone, including Loyal Loop support.",
       ].join("\n"),
     );
     return {

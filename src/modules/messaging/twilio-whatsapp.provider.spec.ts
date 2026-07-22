@@ -89,6 +89,13 @@ describe("TwilioWhatsAppProvider modes", () => {
 
     expect(started.provider).toBe("internal-sandbox");
     expect(code).toMatch(/^\d{6}$/);
+    expect(deliveredBody).toContain(
+      `Use ${code} to verify your WhatsApp number on Loyal Loop.`,
+    );
+    expect(deliveredBody).toContain(
+      "This code expires in 10 minutes. Never share it with anyone, including Loyal Loop support.",
+    );
+    expect(deliveredBody).not.toMatch(/â|ðŸ/);
     expect(started.reference).toMatch(/^sandbox:[^:]+:[0-9a-f]{64}$/);
     expect(started.reference).not.toContain(code);
     await expect(
