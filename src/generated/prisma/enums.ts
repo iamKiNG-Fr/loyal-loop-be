@@ -344,6 +344,25 @@ export const FulfillmentType = {
 export type FulfillmentType = (typeof FulfillmentType)[keyof typeof FulfillmentType]
 
 
+export const DeliveryEligibilityStatus = {
+  ELIGIBLE: 'ELIGIBLE',
+  NEEDS_REVIEW: 'NEEDS_REVIEW',
+  NOT_APPLICABLE: 'NOT_APPLICABLE'
+} as const
+
+export type DeliveryEligibilityStatus = (typeof DeliveryEligibilityStatus)[keyof typeof DeliveryEligibilityStatus]
+
+
+export const OrderTermChangeStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  DECLINED: 'DECLINED',
+  SUPERSEDED: 'SUPERSEDED'
+} as const
+
+export type OrderTermChangeStatus = (typeof OrderTermChangeStatus)[keyof typeof OrderTermChangeStatus]
+
+
 export const ReceiptStatus = {
   CREATED: 'CREATED',
   SENT: 'SENT',

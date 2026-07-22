@@ -9,6 +9,7 @@ import {
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { createOpaqueToken, hashToken } from "../../common/crypto.util";
+import { canonicalNigerianState } from "../../common/delivery-eligibility";
 import { resolveCapabilities } from "../../common/auth/capabilities";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
@@ -418,6 +419,9 @@ export class BusinessesService {
     auth: OwnerAuthContext,
     dto: UpdateBusinessPreferencesDto,
   ) {
+    if (dto.allowedFulfillmentMethods?.some((method) => method === "NOT_REQUIRED")) {
+      throw new BadRequestException("Customer collection methods can only be delivery, pickup, or decide with shop");
+    }
     if (
       dto.defaultPaymentMethod &&
       dto.allowedPaymentMethods &&
@@ -427,13 +431,23 @@ export class BusinessesService {
         "The default payment method must be one of the allowed methods",
       );
     }
+    const deliveryStates = dto.deliveryStates?.map((state) => canonicalNigerianState(state));
+    if (deliveryStates?.some((state) => !state)) {
+      throw new BadRequestException("Choose delivery states from the supported Nigerian state list");
+    }
     const data = {
       ...dto,
       allowedPaymentMethods: dto.allowedPaymentMethods
         ? [...new Set(dto.allowedPaymentMethods)]
         : undefined,
+      allowedFulfillmentMethods: dto.allowedFulfillmentMethods
+        ? [...new Set(dto.allowedFulfillmentMethods)]
+        : undefined,
       deliveryAreas: dto.deliveryAreas
         ? [...new Set(dto.deliveryAreas.map((item) => item.trim()).filter(Boolean))].slice(0, 20)
+        : undefined,
+      deliveryStates: deliveryStates
+        ? [...new Set(deliveryStates.filter((state): state is NonNullable<typeof state> => Boolean(state)))]
         : undefined,
       tickerItems: dto.tickerItems
         ? [...new Set(dto.tickerItems.map((item) => item.trim()).filter(Boolean))]

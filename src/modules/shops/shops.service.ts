@@ -10,11 +10,13 @@ import {
   hashPrivateValue,
   hashToken,
 } from "../../common/crypto.util";
+import { assessDeliveryCoverage, customerFulfillmentMethods } from "../../common/delivery-eligibility";
 import type { OwnerAuthContext } from "../../common/request-context";
 import {
   Prisma,
   type CustomerChannel,
   type FulfillmentType,
+  type PaymentMethod,
 } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { BusinessesService } from "../businesses/businesses.service";
@@ -28,6 +30,8 @@ import {
   CreateOrderRequestDto,
   ConfirmOrderRequestDto,
   ProductInterestDto,
+  RequestOrderTermsChangeDto,
+  RespondOrderTermsChangeDto,
   UpdateOrderRequestStatusDto,
 } from "./dto/shop.dto";
 import type { DiscoveryQuery } from "./discovery-attribution";
@@ -50,6 +54,13 @@ const publicShowcaseInclude = {
     orderBy: { sortOrder: "asc" as const },
   },
 } satisfies Prisma.ShowcaseInclude;
+
+type TermsResponseRequest = Prisma.OrderRequestGetPayload<{
+  include: {
+    business: { include: { preferences: true } };
+    termChanges: true;
+  };
+}>;
 
 @Injectable()
 export class ShopsService {
@@ -139,10 +150,14 @@ export class ShopsService {
       select: { id: true, preferences: true },
     });
     if (!business) throw new NotFoundException("Shop is not accepting requests");
-    if (
-      dto.requestedPaymentMethod &&
-      !business.preferences?.allowedPaymentMethods.includes(dto.requestedPaymentMethod)
-    ) {
+    const allowedPaymentMethods = business.preferences?.allowedPaymentMethods ?? ["BANK_TRANSFER", "PAY_ON_DELIVERY", "CASH"];
+    const requestedPaymentMethod = dto.requestedPaymentMethod
+      ?? business.preferences?.defaultPaymentMethod
+      ?? (allowedPaymentMethods.length === 1 ? allowedPaymentMethods[0] : undefined);
+    if (!requestedPaymentMethod) {
+      throw new BadRequestException("Choose how you want to pay before sending this request");
+    }
+    if (!allowedPaymentMethods.includes(requestedPaymentMethod)) {
       throw new BadRequestException("That payment method is not accepted by this shop");
     }
     const productIds = [...new Set(dto.items.map((item) => item.productId))];
@@ -184,7 +199,11 @@ export class ShopsService {
           where: { id: customerAccountId },
         })
       : undefined;
-    const fulfillment: FulfillmentType = dto.fulfillment ?? "ARRANGE_LATER";
+    const allowedFulfillmentMethods = customerFulfillmentMethods(business.preferences?.allowedFulfillmentMethods);
+    const fulfillment: FulfillmentType = dto.fulfillment ?? allowedFulfillmentMethods[0]!;
+    if (!allowedFulfillmentMethods.includes(fulfillment)) {
+      throw new BadRequestException("That collection method is not offered by this shop");
+    }
     const savedAddress = dto.customerAddressId
       ? await this.resolveCustomerAddress(customerAccountId, dto.customerAddressId)
       : undefined;
@@ -193,11 +212,23 @@ export class ShopsService {
     if (fulfillment === "DELIVERY" && !deliveryAddress) {
       throw new BadRequestException("Delivery address is required for delivery requests");
     }
-    if (fulfillment === "DELIVERY" && deliveryAddress && business.preferences?.deliveryAreas.length) {
-      const covered = business.preferences.deliveryAreas.some((area) => deliveryAddress.toLowerCase().includes(area.toLowerCase()));
-      if (!covered) {
-        throw new BadRequestException(`This shop currently delivers to ${business.preferences.deliveryAreas.join(", ")}`);
-      }
+    const deliveryCountryCode = savedAddress?.countryCode?.trim() || dto.deliveryCountryCode?.trim().toUpperCase();
+    const deliveryAdministrativeArea1 = savedAddress?.administrativeArea1?.trim() || dto.deliveryAdministrativeArea1?.trim();
+    const deliveryLocality = savedAddress?.locality?.trim() || dto.deliveryLocality?.trim();
+    const coverage = fulfillment === "DELIVERY"
+      ? assessDeliveryCoverage({
+          address: deliveryAddress,
+          administrativeArea1: deliveryAdministrativeArea1,
+          countryCode: deliveryCountryCode,
+          deliveryAreas: business.preferences?.deliveryAreas,
+          deliveryStates: business.preferences?.deliveryStates,
+        })
+      : { administrativeArea1: undefined, status: "NOT_APPLICABLE" as const };
+    if (coverage.status === "OUTSIDE_AREA") {
+      const areas = business.preferences?.deliveryStates.length
+        ? business.preferences.deliveryStates
+        : business.preferences?.deliveryAreas ?? [];
+      throw new BadRequestException(`This shop currently delivers to ${areas.join(", ")}`);
     }
     if (
       dto.isGift &&
@@ -245,7 +276,7 @@ export class ShopsService {
           customerName,
           customerPhone,
           channel: dto.channel,
-          requestedPaymentMethod: dto.requestedPaymentMethod,
+          requestedPaymentMethod,
           fulfillment,
           customerAddressId: savedAddress?.id,
           sourceShowcaseId: dto.sourceShowcaseId,
@@ -253,6 +284,10 @@ export class ShopsService {
           deliveryPlaceId: savedAddress?.googlePlaceId?.trim() || dto.deliveryPlaceId?.trim(),
           deliveryLatitude: savedAddress?.latitude ?? dto.deliveryLatitude,
           deliveryLongitude: savedAddress?.longitude ?? dto.deliveryLongitude,
+          deliveryCountryCode,
+          deliveryAdministrativeArea1: coverage.administrativeArea1 ?? deliveryAdministrativeArea1,
+          deliveryLocality,
+          deliveryEligibility: coverage.status === "OUTSIDE_AREA" ? "NEEDS_REVIEW" : coverage.status,
           deliveryNotes: savedAddress?.deliveryNotes?.trim() || dto.deliveryNotes?.trim(),
           isGift: dto.isGift ?? false,
           recipientName: dto.isGift ? dto.recipientName?.trim() : undefined,
@@ -289,8 +324,20 @@ export class ShopsService {
     const request = await this.prisma.orderRequest.findFirst({
       where: { OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }] },
       include: {
-        business: { select: { name: true, slug: true } },
+        business: {
+          select: {
+            name: true,
+            slug: true,
+            preferences: {
+              select: {
+                allowedFulfillmentMethods: true,
+                allowedPaymentMethods: true,
+              },
+            },
+          },
+        },
         items: true,
+        termChanges: { orderBy: { createdAt: "desc" }, take: 10 },
         convertedSale: { include: { receipt: true, delivery: true } },
       },
     });
@@ -306,6 +353,7 @@ export class ShopsService {
       include: {
         business: { select: { name: true, slug: true } },
         items: true,
+        termChanges: { orderBy: { createdAt: "desc" }, take: 10 },
         convertedSale: { include: { receipt: true, delivery: true } },
       },
     });
@@ -338,6 +386,7 @@ export class ShopsService {
       include: {
         business: { select: { name: true, slug: true } },
         items: true,
+        termChanges: { orderBy: { createdAt: "desc" }, take: 10 },
         convertedSale: { include: { receipt: true, delivery: true } },
       },
     });
@@ -350,7 +399,11 @@ export class ShopsService {
   listRequests(auth: OwnerAuthContext) {
     return this.prisma.orderRequest.findMany({
       where: { businessId: auth.businessId },
-      include: { items: true, convertedSale: true },
+      include: {
+        items: true,
+        convertedSale: true,
+        termChanges: { orderBy: { createdAt: "desc" }, take: 10 },
+      },
       orderBy: { createdAt: "desc" },
     });
   }
@@ -405,32 +458,164 @@ export class ShopsService {
   async changeRequestedPaymentMethod(
     customerAccountId: string,
     requestId: string,
-    paymentMethod: import("../../generated/prisma/client").PaymentMethod,
+    paymentMethod: PaymentMethod,
+  ) {
+    return this.respondToTermsChange(customerAccountId, requestId, { paymentMethod });
+  }
+
+  async requestTermsChange(
+    auth: OwnerAuthContext,
+    requestId: string,
+    dto: RequestOrderTermsChangeDto,
   ) {
     const request = await this.prisma.orderRequest.findFirst({
-      where: { id: requestId, customerAccountId },
+      where: { id: requestId, businessId: auth.businessId },
       include: { business: { include: { preferences: true } } },
     });
     if (!request) throw new NotFoundException("Request not found");
-    if (request.status !== "NEEDS_CHANGES") {
-      throw new BadRequestException("Payment preference is locked after submission");
+    if (["CANCELED", "CONVERTED"].includes(request.status)) {
+      throw new BadRequestException("This request can no longer be changed");
     }
-    if (!request.business.preferences?.allowedPaymentMethods.includes(paymentMethod)) {
+    const currentFulfillment = request.agreedFulfillment ?? request.fulfillment;
+    const currentPaymentMethod = request.agreedPaymentMethod ?? request.requestedPaymentMethod;
+    const fulfillmentChanged = Boolean(dto.fulfillment && dto.fulfillment !== currentFulfillment);
+    const paymentChanged = Boolean(dto.paymentMethod && dto.paymentMethod !== currentPaymentMethod);
+    if (!fulfillmentChanged && !paymentChanged) {
+      throw new BadRequestException("Choose a different payment or collection method");
+    }
+    const preferences = request.business.preferences;
+    if (dto.fulfillment && !customerFulfillmentMethods(preferences?.allowedFulfillmentMethods).includes(dto.fulfillment)) {
+      throw new BadRequestException("That collection method is not offered by this shop");
+    }
+    if (dto.fulfillment === "DELIVERY" && !request.deliveryAddress) {
+      throw new BadRequestException("The customer needs to add a delivery address before delivery can be proposed");
+    }
+    if (dto.paymentMethod && !preferences?.allowedPaymentMethods.includes(dto.paymentMethod)) {
       throw new BadRequestException("That payment method is not accepted by this shop");
     }
-    return this.prisma.$transaction(async (tx) => {
-      await tx.orderRequestPaymentChange.create({
+    const updated = await this.prisma.$transaction(async (tx) => {
+      await tx.orderRequestTermChange.updateMany({
+        where: { orderRequestId: request.id, status: "PENDING" },
+        data: { status: "SUPERSEDED", resolvedAt: new Date() },
+      });
+      const change = await tx.orderRequestTermChange.create({
         data: {
           orderRequestId: request.id,
-          customerAccountId,
-          previousMethod: request.requestedPaymentMethod,
-          nextMethod: paymentMethod,
+          requestedByUserId: auth.userId,
+          customerAccountId: request.customerAccountId,
+          previousFulfillment: currentFulfillment,
+          previousPaymentMethod: currentPaymentMethod,
+          proposedFulfillment: fulfillmentChanged ? dto.fulfillment : undefined,
+          proposedPaymentMethod: paymentChanged ? dto.paymentMethod : undefined,
+          reason: dto.reason.trim(),
         },
       });
-      const updated = await tx.orderRequest.update({
+      const next = await tx.orderRequest.update({
         where: { id: request.id },
-        data: { requestedPaymentMethod: paymentMethod, status: "SENT" },
-        include: { items: true, paymentChanges: true },
+        data: { status: "NEEDS_CHANGES" },
+        include: { items: true, termChanges: { orderBy: { createdAt: "desc" }, take: 10 } },
+      });
+      if (request.customerAccountId) {
+        await tx.customerOrderNotice.create({
+          data: {
+            customerAccountId: request.customerAccountId,
+            orderRequestId: request.id,
+            type: "REQUEST_NEEDS_CHANGES",
+            message: `${request.referenceCode} needs your reply before the shop can confirm it.`,
+            dedupeKey: `${request.id}:terms:${change.id}`,
+            actionRequired: true,
+          },
+        });
+      }
+      return next;
+    });
+    await this.messaging.enqueueOrderRequestStatus(updated.id).catch(() => undefined);
+    return updated;
+  }
+
+  async respondToTermsChangeByToken(token: string, dto: RespondOrderTermsChangeDto) {
+    const tokenHash = hashToken(token);
+    const request = await this.prisma.orderRequest.findFirst({
+      where: { OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }] },
+      include: {
+        business: { include: { preferences: true } },
+        termChanges: { where: { status: "PENDING" }, orderBy: { createdAt: "desc" }, take: 1 },
+      },
+    });
+    if (!request) throw new NotFoundException("Request not found");
+    return this.applyTermsResponse(request, dto);
+  }
+
+  async respondToTermsChange(
+    customerAccountId: string,
+    requestId: string,
+    dto: RespondOrderTermsChangeDto,
+  ) {
+    const request = await this.prisma.orderRequest.findFirst({
+      where: { id: requestId, customerAccountId },
+      include: {
+        business: { include: { preferences: true } },
+        termChanges: { where: { status: "PENDING" }, orderBy: { createdAt: "desc" }, take: 1 },
+      },
+    });
+    if (!request) throw new NotFoundException("Request not found");
+    return this.applyTermsResponse(request, dto);
+  }
+
+  private async applyTermsResponse(
+    request: TermsResponseRequest,
+    dto: RespondOrderTermsChangeDto,
+  ) {
+    if (request.status !== "NEEDS_CHANGES") {
+      throw new BadRequestException("Order choices are locked after submission");
+    }
+    const change = request.termChanges[0];
+    if (!change) throw new BadRequestException("There is no pending order change to review");
+    const currentFulfillment = request.agreedFulfillment ?? request.fulfillment;
+    const currentPaymentMethod = request.agreedPaymentMethod ?? request.requestedPaymentMethod;
+    const fulfillment = dto.fulfillment ?? change.proposedFulfillment ?? currentFulfillment;
+    const paymentMethod = dto.paymentMethod ?? change.proposedPaymentMethod ?? currentPaymentMethod;
+    const preferences = request.business.preferences;
+    if (!customerFulfillmentMethods(preferences?.allowedFulfillmentMethods).includes(fulfillment)) {
+      throw new BadRequestException("That collection method is no longer offered by this shop");
+    }
+    if (fulfillment === "DELIVERY" && !request.deliveryAddress) {
+      throw new BadRequestException("Add a delivery address before choosing delivery");
+    }
+    if (!paymentMethod || !preferences?.allowedPaymentMethods.includes(paymentMethod)) {
+      throw new BadRequestException("Choose a payment method accepted by this shop");
+    }
+    const updated = await this.prisma.$transaction(async (tx) => {
+      const resolved = await tx.orderRequestTermChange.updateMany({
+        where: { id: change.id, status: "PENDING" },
+        data: {
+          resolvedFulfillment: fulfillment,
+          resolvedPaymentMethod: paymentMethod,
+          status: "ACCEPTED",
+          resolvedAt: new Date(),
+        },
+      });
+      if (resolved.count !== 1) {
+        throw new BadRequestException("This order change has already been answered");
+      }
+      if (paymentMethod !== currentPaymentMethod) {
+        await tx.orderRequestPaymentChange.create({
+          data: {
+            orderRequestId: request.id,
+            customerAccountId: request.customerAccountId,
+            previousMethod: currentPaymentMethod,
+            nextMethod: paymentMethod,
+          },
+        });
+      }
+      const next = await tx.orderRequest.update({
+        where: { id: request.id },
+        data: {
+          agreedFulfillment: fulfillment,
+          agreedPaymentMethod: paymentMethod,
+          status: "SENT",
+        },
+        include: { items: true, termChanges: { orderBy: { createdAt: "desc" }, take: 10 } },
       });
       await tx.customerOrderNotice.updateMany({
         where: { orderRequestId: request.id, actionRequired: true, actionResolvedAt: null },
@@ -440,12 +625,14 @@ export class ShopsService {
         data: {
           businessId: request.businessId,
           type: "REQUEST_PAYMENT_UPDATED",
-          title: `Payment preference updated for ${request.referenceCode}`,
-          metadata: { orderRequestId: request.id, paymentMethod },
+          title: `Order choices updated for ${request.referenceCode}`,
+          metadata: { orderRequestId: request.id, fulfillment, paymentMethod },
         },
       });
-      return updated;
+      return next;
     });
+    await this.messaging.enqueueOrderRequestStatus(updated.id).catch(() => undefined);
+    return updated;
   }
 
   async convertRequest(
@@ -470,6 +657,20 @@ export class ShopsService {
           if (request.convertedSale) return { sale: request.convertedSale };
           if (request.status === "CANCELED") {
             throw new BadRequestException("Canceled requests cannot be converted");
+          }
+          if (request.status === "NEEDS_CHANGES") {
+            throw new BadRequestException("Wait for the customer to approve the requested order change");
+          }
+          const confirmedFulfillment = request.agreedFulfillment ?? request.fulfillment;
+          const confirmedPaymentMethod = request.agreedPaymentMethod ?? request.requestedPaymentMethod;
+          if (dto.fulfillment && dto.fulfillment !== confirmedFulfillment) {
+            throw new BadRequestException("Request a customer-approved collection change before confirming this order");
+          }
+          if (dto.paymentMethod && dto.paymentMethod !== confirmedPaymentMethod) {
+            throw new BadRequestException("Request a customer-approved payment change before confirming this order");
+          }
+          if (!confirmedPaymentMethod) {
+            throw new BadRequestException("Ask the customer to choose a payment method before confirming this order");
           }
 
           let customer = await tx.customer.findFirst({
@@ -515,7 +716,7 @@ export class ShopsService {
               amountPaid: dto.amountPaid,
               channel: "WEBSITE",
               deliveryFee: dto.deliveryFee,
-              fulfillment: dto.fulfillment ?? request.fulfillment,
+              fulfillment: confirmedFulfillment,
               deliveryAddress: request.deliveryAddress ?? undefined,
               deliveryPlaceId: request.deliveryPlaceId ?? undefined,
               deliveryLatitude: request.deliveryLatitude ?? undefined,
@@ -530,7 +731,7 @@ export class ShopsService {
               paymentAccountNumber: dto.paymentAccountNumber,
               paymentBankName: dto.paymentBankName,
               paymentInstructions: dto.paymentInstructions,
-              paymentMethod: dto.paymentMethod,
+              paymentMethod: confirmedPaymentMethod,
               items: request.items.map((item) => ({
                 productId: item.productId ?? undefined,
                 name: item.name,
@@ -811,7 +1012,9 @@ function sanitizeBusiness(business: Record<string, unknown>) {
       feedbackResponseTime?: string;
       allowedPaymentMethods?: string[];
       defaultPaymentMethod?: string | null;
+      allowedFulfillmentMethods?: string[];
       deliveryAreas?: string[];
+      deliveryStates?: string[];
     } | null;
     launchProduct?: {
       id: string;
@@ -868,7 +1071,9 @@ function sanitizeBusiness(business: Record<string, unknown>) {
           feedbackResponseTime: source.preferences.feedbackResponseTime,
           allowedPaymentMethods: source.preferences.allowedPaymentMethods,
           defaultPaymentMethod: source.preferences.defaultPaymentMethod,
+          allowedFulfillmentMethods: source.preferences.allowedFulfillmentMethods,
           deliveryAreas: source.preferences.deliveryAreas,
+          deliveryStates: source.preferences.deliveryStates,
         }
       : null,
     launchAt: source.launchAt,
@@ -898,6 +1103,7 @@ function channelToCustomerChannel(channel: string) {
   };
   return mapping[channel] ?? "OTHER";
 }
+
 
 function customerNoticeData(input: {
   customerAccountId: string;

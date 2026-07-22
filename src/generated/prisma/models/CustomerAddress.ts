@@ -47,6 +47,9 @@ export type CustomerAddressMinAggregateOutputType = {
   googlePlaceId: string | null
   latitude: number | null
   longitude: number | null
+  countryCode: string | null
+  administrativeArea1: string | null
+  locality: string | null
   deliveryNotes: string | null
   isDefault: boolean | null
   createdAt: Date | null
@@ -64,6 +67,9 @@ export type CustomerAddressMaxAggregateOutputType = {
   googlePlaceId: string | null
   latitude: number | null
   longitude: number | null
+  countryCode: string | null
+  administrativeArea1: string | null
+  locality: string | null
   deliveryNotes: string | null
   isDefault: boolean | null
   createdAt: Date | null
@@ -81,6 +87,9 @@ export type CustomerAddressCountAggregateOutputType = {
   googlePlaceId: number
   latitude: number
   longitude: number
+  countryCode: number
+  administrativeArea1: number
+  locality: number
   deliveryNotes: number
   isDefault: number
   createdAt: number
@@ -110,6 +119,9 @@ export type CustomerAddressMinAggregateInputType = {
   googlePlaceId?: true
   latitude?: true
   longitude?: true
+  countryCode?: true
+  administrativeArea1?: true
+  locality?: true
   deliveryNotes?: true
   isDefault?: true
   createdAt?: true
@@ -127,6 +139,9 @@ export type CustomerAddressMaxAggregateInputType = {
   googlePlaceId?: true
   latitude?: true
   longitude?: true
+  countryCode?: true
+  administrativeArea1?: true
+  locality?: true
   deliveryNotes?: true
   isDefault?: true
   createdAt?: true
@@ -144,6 +159,9 @@ export type CustomerAddressCountAggregateInputType = {
   googlePlaceId?: true
   latitude?: true
   longitude?: true
+  countryCode?: true
+  administrativeArea1?: true
+  locality?: true
   deliveryNotes?: true
   isDefault?: true
   createdAt?: true
@@ -248,6 +266,9 @@ export type CustomerAddressGroupByOutputType = {
   googlePlaceId: string | null
   latitude: number | null
   longitude: number | null
+  countryCode: string | null
+  administrativeArea1: string | null
+  locality: string | null
   deliveryNotes: string | null
   isDefault: boolean
   createdAt: Date
@@ -288,6 +309,9 @@ export type CustomerAddressWhereInput = {
   googlePlaceId?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
   latitude?: Prisma.FloatNullableFilter<"CustomerAddress"> | number | null
   longitude?: Prisma.FloatNullableFilter<"CustomerAddress"> | number | null
+  countryCode?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
+  administrativeArea1?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
+  locality?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
   deliveryNotes?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
   isDefault?: Prisma.BoolFilter<"CustomerAddress"> | boolean
   createdAt?: Prisma.DateTimeFilter<"CustomerAddress"> | Date | string
@@ -309,6 +333,9 @@ export type CustomerAddressOrderByWithRelationInput = {
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  countryCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  administrativeArea1?: Prisma.SortOrderInput | Prisma.SortOrder
+  locality?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -333,6 +360,9 @@ export type CustomerAddressWhereUniqueInput = Prisma.AtLeast<{
   googlePlaceId?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
   latitude?: Prisma.FloatNullableFilter<"CustomerAddress"> | number | null
   longitude?: Prisma.FloatNullableFilter<"CustomerAddress"> | number | null
+  countryCode?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
+  administrativeArea1?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
+  locality?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
   deliveryNotes?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
   isDefault?: Prisma.BoolFilter<"CustomerAddress"> | boolean
   createdAt?: Prisma.DateTimeFilter<"CustomerAddress"> | Date | string
@@ -354,6 +384,9 @@ export type CustomerAddressOrderByWithAggregationInput = {
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  countryCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  administrativeArea1?: Prisma.SortOrderInput | Prisma.SortOrder
+  locality?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -379,6 +412,9 @@ export type CustomerAddressScalarWhereWithAggregatesInput = {
   googlePlaceId?: Prisma.StringNullableWithAggregatesFilter<"CustomerAddress"> | string | null
   latitude?: Prisma.FloatNullableWithAggregatesFilter<"CustomerAddress"> | number | null
   longitude?: Prisma.FloatNullableWithAggregatesFilter<"CustomerAddress"> | number | null
+  countryCode?: Prisma.StringNullableWithAggregatesFilter<"CustomerAddress"> | string | null
+  administrativeArea1?: Prisma.StringNullableWithAggregatesFilter<"CustomerAddress"> | string | null
+  locality?: Prisma.StringNullableWithAggregatesFilter<"CustomerAddress"> | string | null
   deliveryNotes?: Prisma.StringNullableWithAggregatesFilter<"CustomerAddress"> | string | null
   isDefault?: Prisma.BoolWithAggregatesFilter<"CustomerAddress"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CustomerAddress"> | Date | string
@@ -394,6 +430,9 @@ export type CustomerAddressCreateInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -415,6 +454,9 @@ export type CustomerAddressUncheckedCreateInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -432,6 +474,9 @@ export type CustomerAddressUpdateInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -453,6 +498,9 @@ export type CustomerAddressUncheckedUpdateInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -472,6 +520,9 @@ export type CustomerAddressCreateManyInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -487,6 +538,9 @@ export type CustomerAddressUpdateManyMutationInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -504,6 +558,9 @@ export type CustomerAddressUncheckedUpdateManyInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -531,6 +588,9 @@ export type CustomerAddressCountOrderByAggregateInput = {
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  countryCode?: Prisma.SortOrder
+  administrativeArea1?: Prisma.SortOrder
+  locality?: Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -553,6 +613,9 @@ export type CustomerAddressMaxOrderByAggregateInput = {
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  countryCode?: Prisma.SortOrder
+  administrativeArea1?: Prisma.SortOrder
+  locality?: Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -570,6 +633,9 @@ export type CustomerAddressMinOrderByAggregateInput = {
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  countryCode?: Prisma.SortOrder
+  administrativeArea1?: Prisma.SortOrder
+  locality?: Prisma.SortOrder
   deliveryNotes?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -711,6 +777,9 @@ export type CustomerAddressCreateWithoutCustomerAccountInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -730,6 +799,9 @@ export type CustomerAddressUncheckedCreateWithoutCustomerAccountInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -778,6 +850,9 @@ export type CustomerAddressScalarWhereInput = {
   googlePlaceId?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
   latitude?: Prisma.FloatNullableFilter<"CustomerAddress"> | number | null
   longitude?: Prisma.FloatNullableFilter<"CustomerAddress"> | number | null
+  countryCode?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
+  administrativeArea1?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
+  locality?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
   deliveryNotes?: Prisma.StringNullableFilter<"CustomerAddress"> | string | null
   isDefault?: Prisma.BoolFilter<"CustomerAddress"> | boolean
   createdAt?: Prisma.DateTimeFilter<"CustomerAddress"> | Date | string
@@ -793,6 +868,9 @@ export type CustomerAddressCreateWithoutCustomerInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -812,6 +890,9 @@ export type CustomerAddressUncheckedCreateWithoutCustomerInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -855,6 +936,9 @@ export type CustomerAddressCreateWithoutCartGroupsInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -875,6 +959,9 @@ export type CustomerAddressUncheckedCreateWithoutCartGroupsInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -907,6 +994,9 @@ export type CustomerAddressUpdateWithoutCartGroupsInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -927,6 +1017,9 @@ export type CustomerAddressUncheckedUpdateWithoutCartGroupsInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -943,6 +1036,9 @@ export type CustomerAddressCreateWithoutOrderRequestsInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -963,6 +1059,9 @@ export type CustomerAddressUncheckedCreateWithoutOrderRequestsInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -995,6 +1094,9 @@ export type CustomerAddressUpdateWithoutOrderRequestsInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1015,6 +1117,9 @@ export type CustomerAddressUncheckedUpdateWithoutOrderRequestsInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1032,6 +1137,9 @@ export type CustomerAddressCreateManyCustomerAccountInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -1047,6 +1155,9 @@ export type CustomerAddressUpdateWithoutCustomerAccountInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1066,6 +1177,9 @@ export type CustomerAddressUncheckedUpdateWithoutCustomerAccountInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1084,6 +1198,9 @@ export type CustomerAddressUncheckedUpdateManyWithoutCustomerAccountInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1100,6 +1217,9 @@ export type CustomerAddressCreateManyCustomerInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string | null
+  administrativeArea1?: string | null
+  locality?: string | null
   deliveryNotes?: string | null
   isDefault?: boolean
   createdAt?: Date | string
@@ -1115,6 +1235,9 @@ export type CustomerAddressUpdateWithoutCustomerInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1134,6 +1257,9 @@ export type CustomerAddressUncheckedUpdateWithoutCustomerInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1152,6 +1278,9 @@ export type CustomerAddressUncheckedUpdateManyWithoutCustomerInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  administrativeArea1?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  locality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1209,6 +1338,9 @@ export type CustomerAddressSelect<ExtArgs extends runtime.Types.Extensions.Inter
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  countryCode?: boolean
+  administrativeArea1?: boolean
+  locality?: boolean
   deliveryNotes?: boolean
   isDefault?: boolean
   createdAt?: boolean
@@ -1231,6 +1363,9 @@ export type CustomerAddressSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  countryCode?: boolean
+  administrativeArea1?: boolean
+  locality?: boolean
   deliveryNotes?: boolean
   isDefault?: boolean
   createdAt?: boolean
@@ -1250,6 +1385,9 @@ export type CustomerAddressSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  countryCode?: boolean
+  administrativeArea1?: boolean
+  locality?: boolean
   deliveryNotes?: boolean
   isDefault?: boolean
   createdAt?: boolean
@@ -1269,13 +1407,16 @@ export type CustomerAddressSelectScalar = {
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  countryCode?: boolean
+  administrativeArea1?: boolean
+  locality?: boolean
   deliveryNotes?: boolean
   isDefault?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CustomerAddressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customerAccountId" | "customerId" | "label" | "recipientName" | "phone" | "address" | "googlePlaceId" | "latitude" | "longitude" | "deliveryNotes" | "isDefault" | "createdAt" | "updatedAt", ExtArgs["result"]["customerAddress"]>
+export type CustomerAddressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customerAccountId" | "customerId" | "label" | "recipientName" | "phone" | "address" | "googlePlaceId" | "latitude" | "longitude" | "countryCode" | "administrativeArea1" | "locality" | "deliveryNotes" | "isDefault" | "createdAt" | "updatedAt", ExtArgs["result"]["customerAddress"]>
 export type CustomerAddressInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customerAccount?: boolean | Prisma.CustomerAccountDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerAddress$customerArgs<ExtArgs>
@@ -1311,6 +1452,9 @@ export type $CustomerAddressPayload<ExtArgs extends runtime.Types.Extensions.Int
     googlePlaceId: string | null
     latitude: number | null
     longitude: number | null
+    countryCode: string | null
+    administrativeArea1: string | null
+    locality: string | null
     deliveryNotes: string | null
     isDefault: boolean
     createdAt: Date
@@ -1752,6 +1896,9 @@ export interface CustomerAddressFieldRefs {
   readonly googlePlaceId: Prisma.FieldRef<"CustomerAddress", 'String'>
   readonly latitude: Prisma.FieldRef<"CustomerAddress", 'Float'>
   readonly longitude: Prisma.FieldRef<"CustomerAddress", 'Float'>
+  readonly countryCode: Prisma.FieldRef<"CustomerAddress", 'String'>
+  readonly administrativeArea1: Prisma.FieldRef<"CustomerAddress", 'String'>
+  readonly locality: Prisma.FieldRef<"CustomerAddress", 'String'>
   readonly deliveryNotes: Prisma.FieldRef<"CustomerAddress", 'String'>
   readonly isDefault: Prisma.FieldRef<"CustomerAddress", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"CustomerAddress", 'DateTime'>

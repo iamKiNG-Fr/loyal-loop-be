@@ -108,6 +108,21 @@ export class CreateOrderRequestDto {
 
   @IsOptional()
   @IsString()
+  @Length(2, 2)
+  deliveryCountryCode?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  deliveryAdministrativeArea1?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  deliveryLocality?: string;
+
+  @IsOptional()
+  @IsString()
   @Length(0, 500)
   deliveryNotes?: string;
 
@@ -141,6 +156,30 @@ export class CreateOrderRequestDto {
 export class ChangeRequestedPaymentMethodDto {
   @IsEnum(PaymentMethod)
   paymentMethod!: PaymentMethod;
+}
+
+export class RequestOrderTermsChangeDto {
+  @IsOptional()
+  @IsEnum(FulfillmentType)
+  fulfillment?: FulfillmentType;
+
+  @IsOptional()
+  @IsEnum(PaymentMethod)
+  paymentMethod?: PaymentMethod;
+
+  @IsString()
+  @Length(3, 300)
+  reason!: string;
+}
+
+export class RespondOrderTermsChangeDto {
+  @IsOptional()
+  @IsEnum(FulfillmentType)
+  fulfillment?: FulfillmentType;
+
+  @IsOptional()
+  @IsEnum(PaymentMethod)
+  paymentMethod?: PaymentMethod;
 }
 
 export class UpdateOrderRequestStatusDto {

@@ -32,6 +32,8 @@ import {
   ChangeRequestedPaymentMethodDto,
   DiscoveryAttributionDto,
   ProductInterestDto,
+  RequestOrderTermsChangeDto,
+  RespondOrderTermsChangeDto,
   UpdateOrderRequestStatusDto,
   WishlistProductDto,
 } from "./dto/shop.dto";
@@ -85,6 +87,16 @@ export class PublicShopsController {
     return this.shops
       .cancelRequestByToken(token)
       .then((data) => ok(data, "Request canceled"));
+  }
+
+  @Patch("requests/:token/terms")
+  respondToTermsChange(
+    @Param("token") token: string,
+    @Body() dto: RespondOrderTermsChangeDto,
+  ) {
+    return this.shops
+      .respondToTermsChangeByToken(token, dto)
+      .then((data) => ok(data, "Order choices updated"));
   }
 
   private visitor(request: Request) {
@@ -157,6 +169,17 @@ export class CustomerOrderRequestsController {
       .changeRequestedPaymentMethod(customer.customerAccountId, id, dto.paymentMethod)
       .then((data) => ok(data, "Payment preference updated"));
   }
+
+  @Patch(":id/terms")
+  respondToTermsChange(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Param("id") id: string,
+    @Body() dto: RespondOrderTermsChangeDto,
+  ) {
+    return this.shops
+      .respondToTermsChange(customer.customerAccountId, id, dto)
+      .then((data) => ok(data, "Order choices updated"));
+  }
 }
 
 @Controller("order-requests")
@@ -192,5 +215,17 @@ export class OrderRequestsController {
     return this.shops
       .convertRequest(auth, id, dto, idempotencyKey)
       .then((data) => ok(data, "Request converted"));
+  }
+
+  @Post(":id/request-terms-change")
+  @Roles("OWNER", "MANAGER", "SALES")
+  requestTermsChange(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Param("id") id: string,
+    @Body() dto: RequestOrderTermsChangeDto,
+  ) {
+    return this.shops
+      .requestTermsChange(auth, id, dto)
+      .then((data) => ok(data, "Customer approval requested"));
   }
 }

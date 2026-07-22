@@ -50,6 +50,21 @@ export class CreateCustomerAddressDto {
 
   @IsOptional()
   @IsString()
+  @Length(2, 2)
+  countryCode?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  administrativeArea1?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  locality?: string;
+
+  @IsOptional()
+  @IsString()
   @Length(0, 500)
   deliveryNotes?: string;
 

@@ -263,6 +263,11 @@ export type PromotionReservation = Prisma.PromotionReservationModel
  */
 export type OrderRequest = Prisma.OrderRequestModel
 /**
+ * Model OrderRequestTermChange
+ * 
+ */
+export type OrderRequestTermChange = Prisma.OrderRequestTermChangeModel
+/**
  * Model CustomerOrderNotice
  * 
  */

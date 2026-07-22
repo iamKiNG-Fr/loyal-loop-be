@@ -15,6 +15,7 @@ import {
   BusinessTheme,
   ContactPlatform,
   ExportAccess,
+  FulfillmentType,
   NumberFormat,
   PaymentMethod,
   PaymentStatus,
@@ -152,9 +153,22 @@ export class UpdateBusinessPreferencesDto {
 
   @IsOptional()
   @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(3)
+  @IsEnum(FulfillmentType, { each: true })
+  allowedFulfillmentMethods?: FulfillmentType[];
+
+  @IsOptional()
+  @IsArray()
   @ArrayMaxSize(20)
   @IsString({ each: true })
   deliveryAreas?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(37)
+  @IsString({ each: true })
+  deliveryStates?: string[];
 
   @IsOptional()
   @IsBoolean()

@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { createOpaqueToken, createReference } from "../../common/crypto.util";
+import { assessDeliveryCoverage, customerFulfillmentMethods } from "../../common/delivery-eligibility";
 import type { CustomerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
@@ -119,6 +120,9 @@ export class CartsService {
     if (dto.paymentPreference && preferences && !preferences.allowedPaymentMethods.includes(dto.paymentPreference)) {
       throw new BadRequestException("That payment method is not accepted by this shop");
     }
+    if (dto.fulfillment && preferences && !customerFulfillmentMethods(preferences.allowedFulfillmentMethods).includes(dto.fulfillment)) {
+      throw new BadRequestException("That collection method is not offered by this shop");
+    }
     await this.prisma.customerCartGroup.upsert({
       where: { cartId_businessId: { cartId: cart.id, businessId } },
       create: { cartId: cart.id, businessId, ...dto, note: dto.note?.trim() },
@@ -211,6 +215,12 @@ export class CartsService {
         if (group.paymentPreference && group.business.preferences && !group.business.preferences.allowedPaymentMethods.includes(group.paymentPreference)) {
           throw new BadRequestException("The selected payment method is no longer accepted");
         }
+        if (!group.paymentPreference) {
+          throw new BadRequestException("Choose how you want to pay before sending this request");
+        }
+        if (!customerFulfillmentMethods(group.business.preferences?.allowedFulfillmentMethods).includes(group.fulfillment)) {
+          throw new BadRequestException("Choose a collection method currently offered by this shop");
+        }
         const existing = await this.prisma.orderRequest.findFirst({
           where: { customerAccountId: auth.customerAccountId, clientIdempotencyKey: groupKey },
           include: { items: true },
@@ -223,10 +233,20 @@ export class CartsService {
           ? await this.prisma.customerAddress.findFirst({ where: { id: group.customerAddressId, customerAccountId: auth.customerAccountId } })
           : null;
         if (group.fulfillment === "DELIVERY" && !address) throw new BadRequestException("Choose a saved delivery address");
-        if (group.fulfillment === "DELIVERY" && address && group.business.preferences?.deliveryAreas.length) {
-          const normalizedAddress = address.address.toLowerCase();
-          const covered = group.business.preferences.deliveryAreas.some((area) => normalizedAddress.includes(area.toLowerCase()));
-          if (!covered) throw new BadRequestException(`${group.business.name} currently delivers to ${group.business.preferences.deliveryAreas.join(", ")}`);
+        const coverage = group.fulfillment === "DELIVERY" && address
+          ? assessDeliveryCoverage({
+              address: address.address,
+              administrativeArea1: address.administrativeArea1,
+              countryCode: address.countryCode,
+              deliveryAreas: group.business.preferences?.deliveryAreas,
+              deliveryStates: group.business.preferences?.deliveryStates,
+            })
+          : { administrativeArea1: undefined, status: "NOT_APPLICABLE" as const };
+        if (coverage.status === "OUTSIDE_AREA") {
+          const areas = group.business.preferences?.deliveryStates.length
+            ? group.business.preferences.deliveryStates
+            : group.business.preferences?.deliveryAreas ?? [];
+          throw new BadRequestException(`${group.business.name} currently delivers to ${areas.join(", ")}`);
         }
         if (group.isGift && (group.fulfillment !== "DELIVERY" || !group.recipientName?.trim() || !group.recipientPhone?.trim())) {
           throw new BadRequestException("Gift delivery needs the recipient name and phone");
@@ -257,7 +277,11 @@ export class CartsService {
               deliveryAddress: address?.address,
               deliveryPlaceId: address?.googlePlaceId,
               deliveryLatitude: address?.latitude,
-              deliveryLongitude: address?.longitude,
+               deliveryLongitude: address?.longitude,
+               deliveryCountryCode: address?.countryCode,
+               deliveryAdministrativeArea1: coverage.administrativeArea1 ?? address?.administrativeArea1,
+               deliveryLocality: address?.locality,
+               deliveryEligibility: coverage.status === "OUTSIDE_AREA" ? "NEEDS_REVIEW" : coverage.status,
               deliveryNotes: address?.deliveryNotes,
               note: group.note,
               requestedPaymentMethod: group.paymentPreference,
@@ -310,7 +334,11 @@ export class CartsService {
         visibility: "PUBLIC",
         business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
       },
-      include: { variants: { where: { active: true } }, promotions: { where: { status: "ACTIVE" }, orderBy: { createdAt: "desc" } } },
+      include: {
+        business: { select: { preferences: true } },
+        variants: { where: { active: true } },
+        promotions: { where: { status: "ACTIVE" }, orderBy: { createdAt: "desc" } },
+      },
     });
     if (!product) throw new NotFoundException("Product is unavailable");
     const variant = dto.variantId
@@ -345,7 +373,15 @@ export class CartsService {
       }),
       this.prisma.customerCartGroup.upsert({
         where: { cartId_businessId: { cartId, businessId: product.businessId } },
-        create: { cartId, businessId: product.businessId },
+        create: {
+          cartId,
+          businessId: product.businessId,
+          fulfillment: customerFulfillmentMethods(product.business.preferences?.allowedFulfillmentMethods)[0],
+          paymentPreference: product.business.preferences?.defaultPaymentMethod
+            ?? (product.business.preferences?.allowedPaymentMethods.length === 1
+              ? product.business.preferences.allowedPaymentMethods[0]
+              : undefined),
+        },
         update: {},
       }),
     ]);

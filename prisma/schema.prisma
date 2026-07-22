@@ -246,6 +246,19 @@ enum FulfillmentType {
   NOT_REQUIRED
 }
 
+enum DeliveryEligibilityStatus {
+  ELIGIBLE
+  NEEDS_REVIEW
+  NOT_APPLICABLE
+}
+
+enum OrderTermChangeStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  SUPERSEDED
+}
+
 enum ReceiptStatus {
   CREATED
   SENT
@@ -869,9 +882,11 @@ model BusinessPreferences {
   showLatest              Boolean             @default(true)
   tickerItems             String[]            @default(["New drops", "Trusted receipts", "Delivery updates", "Customer favourites"])
   defaultPaymentStatus    PaymentStatus       @default(UNPAID)
-  allowedPaymentMethods   PaymentMethod[]     @default([BANK_TRANSFER, PAY_ON_DELIVERY, CASH, ARRANGE_SEPARATELY])
+  allowedPaymentMethods   PaymentMethod[]     @default([BANK_TRANSFER, PAY_ON_DELIVERY, CASH])
   defaultPaymentMethod    PaymentMethod?
+  allowedFulfillmentMethods FulfillmentType[] @default([DELIVERY, PICKUP])
   deliveryAreas           String[]            @default([])
+  deliveryStates          String[]            @default([])
   protectedPaymentEnabled Boolean             @default(false)
   receiptDeliveryLine     ReceiptDeliveryLine @default(OPTIONAL)
   receiptFooter           String?
@@ -1171,6 +1186,9 @@ model CustomerAddress {
   googlePlaceId     String?
   latitude          Float?
   longitude         Float?
+  countryCode       String?
+  administrativeArea1 String?
+  locality          String?
   deliveryNotes     String?
   isDefault         Boolean             @default(false)
   createdAt         DateTime            @default(now())
@@ -1591,14 +1609,20 @@ model OrderRequest {
   customerPhone          String
   channel                SalesChannel
   fulfillment            FulfillmentType             @default(ARRANGE_LATER)
+  agreedFulfillment      FulfillmentType?
   customerAddressId      String?
   sourceShowcaseId       String?
   requestedPaymentMethod PaymentMethod?
+  agreedPaymentMethod    PaymentMethod?
   clientIdempotencyKey   String?
   deliveryAddress        String?
   deliveryPlaceId        String?
   deliveryLatitude       Float?
   deliveryLongitude      Float?
+  deliveryCountryCode    String?
+  deliveryAdministrativeArea1 String?
+  deliveryLocality       String?
+  deliveryEligibility    DeliveryEligibilityStatus   @default(NOT_APPLICABLE)
   deliveryNotes          String?
   isGift                 Boolean                     @default(false)
   recipientName          String?
@@ -1619,6 +1643,7 @@ model OrderRequest {
   convertedSale          Sale?                       @relation("RequestConversion")
   events                 CommerceEvent[]
   paymentChanges         OrderRequestPaymentChange[]
+  termChanges            OrderRequestTermChange[]
   promotionReservations  PromotionReservation[]
   shareTokens            OrderRequestShareToken[]
   customerNotices        CustomerOrderNotice[]
@@ -1628,6 +1653,27 @@ model OrderRequest {
   @@index([customerAddressId])
   @@index([sourceShowcaseId])
   @@map("order_requests")
+}
+
+model OrderRequestTermChange {
+  id                      String                @id @default(cuid())
+  orderRequestId          String
+  requestedByUserId       String?
+  customerAccountId       String?
+  previousFulfillment     FulfillmentType
+  previousPaymentMethod   PaymentMethod?
+  proposedFulfillment     FulfillmentType?
+  proposedPaymentMethod   PaymentMethod?
+  resolvedFulfillment     FulfillmentType?
+  resolvedPaymentMethod   PaymentMethod?
+  reason                  String
+  status                  OrderTermChangeStatus @default(PENDING)
+  createdAt               DateTime              @default(now())
+  resolvedAt              DateTime?
+  orderRequest            OrderRequest          @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
+
+  @@index([orderRequestId, status, createdAt])
+  @@map("order_request_term_changes")
 }
 
 model CustomerOrderNotice {

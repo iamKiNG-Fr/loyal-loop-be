@@ -433,6 +433,7 @@ export const ModelName = {
   ProductPromotion: 'ProductPromotion',
   PromotionReservation: 'PromotionReservation',
   OrderRequest: 'OrderRequest',
+  OrderRequestTermChange: 'OrderRequestTermChange',
   CustomerOrderNotice: 'CustomerOrderNotice',
   OrderRequestShareToken: 'OrderRequestShareToken',
   OrderRequestItem: 'OrderRequestItem',
@@ -478,7 +479,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "messageAttempt" | "messagingWebhookEvent"
+    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "messageAttempt" | "messagingWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4108,6 +4109,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OrderRequestTermChange: {
+      payload: Prisma.$OrderRequestTermChangePayload<ExtArgs>
+      fields: Prisma.OrderRequestTermChangeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OrderRequestTermChangeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OrderRequestTermChangeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload>
+        }
+        findFirst: {
+          args: Prisma.OrderRequestTermChangeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OrderRequestTermChangeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload>
+        }
+        findMany: {
+          args: Prisma.OrderRequestTermChangeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload>[]
+        }
+        create: {
+          args: Prisma.OrderRequestTermChangeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload>
+        }
+        createMany: {
+          args: Prisma.OrderRequestTermChangeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OrderRequestTermChangeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload>[]
+        }
+        delete: {
+          args: Prisma.OrderRequestTermChangeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload>
+        }
+        update: {
+          args: Prisma.OrderRequestTermChangeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload>
+        }
+        deleteMany: {
+          args: Prisma.OrderRequestTermChangeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OrderRequestTermChangeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OrderRequestTermChangeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload>[]
+        }
+        upsert: {
+          args: Prisma.OrderRequestTermChangeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderRequestTermChangePayload>
+        }
+        aggregate: {
+          args: Prisma.OrderRequestTermChangeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrderRequestTermChange>
+        }
+        groupBy: {
+          args: Prisma.OrderRequestTermChangeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrderRequestTermChangeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OrderRequestTermChangeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrderRequestTermChangeCountAggregateOutputType> | number
+        }
+      }
+    }
     CustomerOrderNotice: {
       payload: Prisma.$CustomerOrderNoticePayload<ExtArgs>
       fields: Prisma.CustomerOrderNoticeFieldRefs
@@ -6650,7 +6725,9 @@ export const BusinessPreferencesScalarFieldEnum = {
   defaultPaymentStatus: 'defaultPaymentStatus',
   allowedPaymentMethods: 'allowedPaymentMethods',
   defaultPaymentMethod: 'defaultPaymentMethod',
+  allowedFulfillmentMethods: 'allowedFulfillmentMethods',
   deliveryAreas: 'deliveryAreas',
+  deliveryStates: 'deliveryStates',
   protectedPaymentEnabled: 'protectedPaymentEnabled',
   receiptDeliveryLine: 'receiptDeliveryLine',
   receiptFooter: 'receiptFooter',
@@ -6884,6 +6961,9 @@ export const CustomerAddressScalarFieldEnum = {
   googlePlaceId: 'googlePlaceId',
   latitude: 'latitude',
   longitude: 'longitude',
+  countryCode: 'countryCode',
+  administrativeArea1: 'administrativeArea1',
+  locality: 'locality',
   deliveryNotes: 'deliveryNotes',
   isDefault: 'isDefault',
   createdAt: 'createdAt',
@@ -7206,14 +7286,20 @@ export const OrderRequestScalarFieldEnum = {
   customerPhone: 'customerPhone',
   channel: 'channel',
   fulfillment: 'fulfillment',
+  agreedFulfillment: 'agreedFulfillment',
   customerAddressId: 'customerAddressId',
   sourceShowcaseId: 'sourceShowcaseId',
   requestedPaymentMethod: 'requestedPaymentMethod',
+  agreedPaymentMethod: 'agreedPaymentMethod',
   clientIdempotencyKey: 'clientIdempotencyKey',
   deliveryAddress: 'deliveryAddress',
   deliveryPlaceId: 'deliveryPlaceId',
   deliveryLatitude: 'deliveryLatitude',
   deliveryLongitude: 'deliveryLongitude',
+  deliveryCountryCode: 'deliveryCountryCode',
+  deliveryAdministrativeArea1: 'deliveryAdministrativeArea1',
+  deliveryLocality: 'deliveryLocality',
+  deliveryEligibility: 'deliveryEligibility',
   deliveryNotes: 'deliveryNotes',
   isGift: 'isGift',
   recipientName: 'recipientName',
@@ -7228,6 +7314,26 @@ export const OrderRequestScalarFieldEnum = {
 } as const
 
 export type OrderRequestScalarFieldEnum = (typeof OrderRequestScalarFieldEnum)[keyof typeof OrderRequestScalarFieldEnum]
+
+
+export const OrderRequestTermChangeScalarFieldEnum = {
+  id: 'id',
+  orderRequestId: 'orderRequestId',
+  requestedByUserId: 'requestedByUserId',
+  customerAccountId: 'customerAccountId',
+  previousFulfillment: 'previousFulfillment',
+  previousPaymentMethod: 'previousPaymentMethod',
+  proposedFulfillment: 'proposedFulfillment',
+  proposedPaymentMethod: 'proposedPaymentMethod',
+  resolvedFulfillment: 'resolvedFulfillment',
+  resolvedPaymentMethod: 'resolvedPaymentMethod',
+  reason: 'reason',
+  status: 'status',
+  createdAt: 'createdAt',
+  resolvedAt: 'resolvedAt'
+} as const
+
+export type OrderRequestTermChangeScalarFieldEnum = (typeof OrderRequestTermChangeScalarFieldEnum)[keyof typeof OrderRequestTermChangeScalarFieldEnum]
 
 
 export const CustomerOrderNoticeScalarFieldEnum = {
@@ -8110,6 +8216,20 @@ export type EnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
+ * Reference to a field of type 'FulfillmentType[]'
+ */
+export type ListEnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FulfillmentType'
+ */
+export type EnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType'>
+    
+
+
+/**
  * Reference to a field of type 'ReceiptDeliveryLine'
  */
 export type EnumReceiptDeliveryLineFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReceiptDeliveryLine'>
@@ -8432,20 +8552,6 @@ export type ListEnumCartStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
- * Reference to a field of type 'FulfillmentType'
- */
-export type EnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType'>
-    
-
-
-/**
- * Reference to a field of type 'FulfillmentType[]'
- */
-export type ListEnumFulfillmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FulfillmentType[]'>
-    
-
-
-/**
  * Reference to a field of type 'PromotionType'
  */
 export type EnumPromotionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PromotionType'>
@@ -8502,6 +8608,20 @@ export type ListEnumSalesChannelFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
+ * Reference to a field of type 'DeliveryEligibilityStatus'
+ */
+export type EnumDeliveryEligibilityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryEligibilityStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'DeliveryEligibilityStatus[]'
+ */
+export type ListEnumDeliveryEligibilityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryEligibilityStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'OrderRequestStatus'
  */
 export type EnumOrderRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderRequestStatus'>
@@ -8512,6 +8632,20 @@ export type EnumOrderRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
  * Reference to a field of type 'OrderRequestStatus[]'
  */
 export type ListEnumOrderRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderRequestStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'OrderTermChangeStatus'
+ */
+export type EnumOrderTermChangeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderTermChangeStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'OrderTermChangeStatus[]'
+ */
+export type ListEnumOrderTermChangeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderTermChangeStatus[]'>
     
 
 
@@ -8897,6 +9031,7 @@ export type GlobalOmitConfig = {
   productPromotion?: Prisma.ProductPromotionOmit
   promotionReservation?: Prisma.PromotionReservationOmit
   orderRequest?: Prisma.OrderRequestOmit
+  orderRequestTermChange?: Prisma.OrderRequestTermChangeOmit
   customerOrderNotice?: Prisma.CustomerOrderNoticeOmit
   orderRequestShareToken?: Prisma.OrderRequestShareTokenOmit
   orderRequestItem?: Prisma.OrderRequestItemOmit

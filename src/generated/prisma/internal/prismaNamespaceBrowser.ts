@@ -100,6 +100,7 @@ export const ModelName = {
   ProductPromotion: 'ProductPromotion',
   PromotionReservation: 'PromotionReservation',
   OrderRequest: 'OrderRequest',
+  OrderRequestTermChange: 'OrderRequestTermChange',
   CustomerOrderNotice: 'CustomerOrderNotice',
   OrderRequestShareToken: 'OrderRequestShareToken',
   OrderRequestItem: 'OrderRequestItem',
@@ -431,7 +432,9 @@ export const BusinessPreferencesScalarFieldEnum = {
   defaultPaymentStatus: 'defaultPaymentStatus',
   allowedPaymentMethods: 'allowedPaymentMethods',
   defaultPaymentMethod: 'defaultPaymentMethod',
+  allowedFulfillmentMethods: 'allowedFulfillmentMethods',
   deliveryAreas: 'deliveryAreas',
+  deliveryStates: 'deliveryStates',
   protectedPaymentEnabled: 'protectedPaymentEnabled',
   receiptDeliveryLine: 'receiptDeliveryLine',
   receiptFooter: 'receiptFooter',
@@ -665,6 +668,9 @@ export const CustomerAddressScalarFieldEnum = {
   googlePlaceId: 'googlePlaceId',
   latitude: 'latitude',
   longitude: 'longitude',
+  countryCode: 'countryCode',
+  administrativeArea1: 'administrativeArea1',
+  locality: 'locality',
   deliveryNotes: 'deliveryNotes',
   isDefault: 'isDefault',
   createdAt: 'createdAt',
@@ -987,14 +993,20 @@ export const OrderRequestScalarFieldEnum = {
   customerPhone: 'customerPhone',
   channel: 'channel',
   fulfillment: 'fulfillment',
+  agreedFulfillment: 'agreedFulfillment',
   customerAddressId: 'customerAddressId',
   sourceShowcaseId: 'sourceShowcaseId',
   requestedPaymentMethod: 'requestedPaymentMethod',
+  agreedPaymentMethod: 'agreedPaymentMethod',
   clientIdempotencyKey: 'clientIdempotencyKey',
   deliveryAddress: 'deliveryAddress',
   deliveryPlaceId: 'deliveryPlaceId',
   deliveryLatitude: 'deliveryLatitude',
   deliveryLongitude: 'deliveryLongitude',
+  deliveryCountryCode: 'deliveryCountryCode',
+  deliveryAdministrativeArea1: 'deliveryAdministrativeArea1',
+  deliveryLocality: 'deliveryLocality',
+  deliveryEligibility: 'deliveryEligibility',
   deliveryNotes: 'deliveryNotes',
   isGift: 'isGift',
   recipientName: 'recipientName',
@@ -1009,6 +1021,26 @@ export const OrderRequestScalarFieldEnum = {
 } as const
 
 export type OrderRequestScalarFieldEnum = (typeof OrderRequestScalarFieldEnum)[keyof typeof OrderRequestScalarFieldEnum]
+
+
+export const OrderRequestTermChangeScalarFieldEnum = {
+  id: 'id',
+  orderRequestId: 'orderRequestId',
+  requestedByUserId: 'requestedByUserId',
+  customerAccountId: 'customerAccountId',
+  previousFulfillment: 'previousFulfillment',
+  previousPaymentMethod: 'previousPaymentMethod',
+  proposedFulfillment: 'proposedFulfillment',
+  proposedPaymentMethod: 'proposedPaymentMethod',
+  resolvedFulfillment: 'resolvedFulfillment',
+  resolvedPaymentMethod: 'resolvedPaymentMethod',
+  reason: 'reason',
+  status: 'status',
+  createdAt: 'createdAt',
+  resolvedAt: 'resolvedAt'
+} as const
+
+export type OrderRequestTermChangeScalarFieldEnum = (typeof OrderRequestTermChangeScalarFieldEnum)[keyof typeof OrderRequestTermChangeScalarFieldEnum]
 
 
 export const CustomerOrderNoticeScalarFieldEnum = {

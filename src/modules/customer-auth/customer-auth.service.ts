@@ -168,6 +168,7 @@ export class CustomerAuthService {
       include: {
         business: { select: { name: true, slug: true } },
         items: true,
+        termChanges: { orderBy: { createdAt: "desc" }, take: 5 },
         sourceShowcase: {
           select: {
             id: true,
@@ -315,6 +316,9 @@ function addressData(
     googlePlaceId: dto.googlePlaceId?.trim(),
     latitude: dto.latitude,
     longitude: dto.longitude,
+    countryCode: dto.countryCode?.trim().toUpperCase(),
+    administrativeArea1: dto.administrativeArea1?.trim(),
+    locality: dto.locality?.trim(),
     deliveryNotes: dto.deliveryNotes?.trim(),
   };
 }
