@@ -372,6 +372,7 @@ export type SaleWhereInput = {
   activityEvents?: Prisma.ActivityEventListRelationFilter
   feedback?: Prisma.CustomerFeedbackListRelationFilter
   issues?: Prisma.CustomerIssueListRelationFilter
+  reports?: Prisma.CustomerReportListRelationFilter
 }
 
 export type SaleOrderByWithRelationInput = {
@@ -408,6 +409,7 @@ export type SaleOrderByWithRelationInput = {
   activityEvents?: Prisma.ActivityEventOrderByRelationAggregateInput
   feedback?: Prisma.CustomerFeedbackOrderByRelationAggregateInput
   issues?: Prisma.CustomerIssueOrderByRelationAggregateInput
+  reports?: Prisma.CustomerReportOrderByRelationAggregateInput
 }
 
 export type SaleWhereUniqueInput = Prisma.AtLeast<{
@@ -448,6 +450,7 @@ export type SaleWhereUniqueInput = Prisma.AtLeast<{
   activityEvents?: Prisma.ActivityEventListRelationFilter
   feedback?: Prisma.CustomerFeedbackListRelationFilter
   issues?: Prisma.CustomerIssueListRelationFilter
+  reports?: Prisma.CustomerReportListRelationFilter
 }, "id" | "sourceRequestId" | "referenceCode" | "businessId_idempotencyKey">
 
 export type SaleOrderByWithAggregationInput = {
@@ -537,6 +540,7 @@ export type SaleCreateInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateInput = {
@@ -570,6 +574,7 @@ export type SaleUncheckedCreateInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUpdateInput = {
@@ -603,6 +608,7 @@ export type SaleUpdateInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateInput = {
@@ -636,6 +642,7 @@ export type SaleUncheckedUpdateInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateManyInput = {
@@ -936,6 +943,22 @@ export type SaleUncheckedUpdateOneWithoutSourceRequestNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SaleUpdateToOneWithWhereWithoutSourceRequestInput, Prisma.SaleUpdateWithoutSourceRequestInput>, Prisma.SaleUncheckedUpdateWithoutSourceRequestInput>
 }
 
+export type SaleCreateNestedOneWithoutReportsInput = {
+  create?: Prisma.XOR<Prisma.SaleCreateWithoutReportsInput, Prisma.SaleUncheckedCreateWithoutReportsInput>
+  connectOrCreate?: Prisma.SaleCreateOrConnectWithoutReportsInput
+  connect?: Prisma.SaleWhereUniqueInput
+}
+
+export type SaleUpdateOneWithoutReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleCreateWithoutReportsInput, Prisma.SaleUncheckedCreateWithoutReportsInput>
+  connectOrCreate?: Prisma.SaleCreateOrConnectWithoutReportsInput
+  upsert?: Prisma.SaleUpsertWithoutReportsInput
+  disconnect?: Prisma.SaleWhereInput | boolean
+  delete?: Prisma.SaleWhereInput | boolean
+  connect?: Prisma.SaleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SaleUpdateToOneWithWhereWithoutReportsInput, Prisma.SaleUpdateWithoutReportsInput>, Prisma.SaleUncheckedUpdateWithoutReportsInput>
+}
+
 export type EnumSaleStatusFieldUpdateOperationsInput = {
   set?: $Enums.SaleStatus
 }
@@ -1098,6 +1121,7 @@ export type SaleCreateWithoutBusinessInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutBusinessInput = {
@@ -1130,6 +1154,7 @@ export type SaleUncheckedCreateWithoutBusinessInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutBusinessInput = {
@@ -1215,6 +1240,7 @@ export type SaleCreateWithoutCustomerInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutCustomerInput = {
@@ -1247,6 +1273,7 @@ export type SaleUncheckedCreateWithoutCustomerInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutCustomerInput = {
@@ -1305,6 +1332,7 @@ export type SaleCreateWithoutSourceRequestInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutSourceRequestInput = {
@@ -1337,6 +1365,7 @@ export type SaleUncheckedCreateWithoutSourceRequestInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutSourceRequestInput = {
@@ -1385,12 +1414,162 @@ export type SaleUpdateWithoutSourceRequestInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutSourceRequestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.SaleItemUncheckedUpdateManyWithoutSaleNestedInput
+  payments?: Prisma.PaymentEntryUncheckedUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutSaleNestedInput
+  receipt?: Prisma.ReceiptUncheckedUpdateOneWithoutSaleNestedInput
+  delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
+}
+
+export type SaleCreateWithoutReportsInput = {
+  id?: string
+  idempotencyKey?: string | null
+  referenceCode: string
+  status?: $Enums.SaleStatus
+  paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
+  channel?: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  currency?: string
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  soldAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutSalesInput
+  customer: Prisma.CustomerCreateNestedOneWithoutSalesInput
+  sourceRequest?: Prisma.OrderRequestCreateNestedOneWithoutConvertedSaleInput
+  items?: Prisma.SaleItemCreateNestedManyWithoutSaleInput
+  payments?: Prisma.PaymentEntryCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutSaleInput
+  receipt?: Prisma.ReceiptCreateNestedOneWithoutSaleInput
+  delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+}
+
+export type SaleUncheckedCreateWithoutReportsInput = {
+  id?: string
+  businessId: string
+  customerId: string
+  sourceRequestId?: string | null
+  idempotencyKey?: string | null
+  referenceCode: string
+  status?: $Enums.SaleStatus
+  paymentStatus?: $Enums.PaymentStatus
+  protectedPayment?: boolean
+  channel?: $Enums.SalesChannel
+  fulfillment?: $Enums.FulfillmentType
+  currency?: string
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: string | null
+  soldAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.SaleItemUncheckedCreateNestedManyWithoutSaleInput
+  payments?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutSaleInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUncheckedCreateNestedOneWithoutSaleInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutSaleInput
+  receipt?: Prisma.ReceiptUncheckedCreateNestedOneWithoutSaleInput
+  delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+}
+
+export type SaleCreateOrConnectWithoutReportsInput = {
+  where: Prisma.SaleWhereUniqueInput
+  create: Prisma.XOR<Prisma.SaleCreateWithoutReportsInput, Prisma.SaleUncheckedCreateWithoutReportsInput>
+}
+
+export type SaleUpsertWithoutReportsInput = {
+  update: Prisma.XOR<Prisma.SaleUpdateWithoutReportsInput, Prisma.SaleUncheckedUpdateWithoutReportsInput>
+  create: Prisma.XOR<Prisma.SaleCreateWithoutReportsInput, Prisma.SaleUncheckedCreateWithoutReportsInput>
+  where?: Prisma.SaleWhereInput
+}
+
+export type SaleUpdateToOneWithWhereWithoutReportsInput = {
+  where?: Prisma.SaleWhereInput
+  data: Prisma.XOR<Prisma.SaleUpdateWithoutReportsInput, Prisma.SaleUncheckedUpdateWithoutReportsInput>
+}
+
+export type SaleUpdateWithoutReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  protectedPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deliveryFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutSalesNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutSalesNestedInput
+  sourceRequest?: Prisma.OrderRequestUpdateOneWithoutConvertedSaleNestedInput
+  items?: Prisma.SaleItemUpdateManyWithoutSaleNestedInput
+  payments?: Prisma.PaymentEntryUpdateManyWithoutSaleNestedInput
+  paymentInstruction?: Prisma.SalePaymentInstructionUpdateOneWithoutSaleNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutSaleNestedInput
+  receipt?: Prisma.ReceiptUpdateOneWithoutSaleNestedInput
+  delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+}
+
+export type SaleUncheckedUpdateWithoutReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceRequestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceCode?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSaleStatusFieldUpdateOperationsInput | $Enums.SaleStatus
@@ -1449,6 +1628,7 @@ export type SaleCreateWithoutPaymentInstructionInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutPaymentInstructionInput = {
@@ -1481,6 +1661,7 @@ export type SaleUncheckedCreateWithoutPaymentInstructionInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutPaymentInstructionInput = {
@@ -1529,6 +1710,7 @@ export type SaleUpdateWithoutPaymentInstructionInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutPaymentInstructionInput = {
@@ -1561,6 +1743,7 @@ export type SaleUncheckedUpdateWithoutPaymentInstructionInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateWithoutItemsInput = {
@@ -1593,6 +1776,7 @@ export type SaleCreateWithoutItemsInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutItemsInput = {
@@ -1625,6 +1809,7 @@ export type SaleUncheckedCreateWithoutItemsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutItemsInput = {
@@ -1673,6 +1858,7 @@ export type SaleUpdateWithoutItemsInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutItemsInput = {
@@ -1705,6 +1891,7 @@ export type SaleUncheckedUpdateWithoutItemsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateWithoutPaymentsInput = {
@@ -1737,6 +1924,7 @@ export type SaleCreateWithoutPaymentsInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutPaymentsInput = {
@@ -1769,6 +1957,7 @@ export type SaleUncheckedCreateWithoutPaymentsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutPaymentsInput = {
@@ -1817,6 +2006,7 @@ export type SaleUpdateWithoutPaymentsInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutPaymentsInput = {
@@ -1849,6 +2039,7 @@ export type SaleUncheckedUpdateWithoutPaymentsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateWithoutPaymentProofsInput = {
@@ -1881,6 +2072,7 @@ export type SaleCreateWithoutPaymentProofsInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutPaymentProofsInput = {
@@ -1913,6 +2105,7 @@ export type SaleUncheckedCreateWithoutPaymentProofsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutPaymentProofsInput = {
@@ -1961,6 +2154,7 @@ export type SaleUpdateWithoutPaymentProofsInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutPaymentProofsInput = {
@@ -1993,6 +2187,7 @@ export type SaleUncheckedUpdateWithoutPaymentProofsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateWithoutReceiptInput = {
@@ -2025,6 +2220,7 @@ export type SaleCreateWithoutReceiptInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutReceiptInput = {
@@ -2057,6 +2253,7 @@ export type SaleUncheckedCreateWithoutReceiptInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutReceiptInput = {
@@ -2105,6 +2302,7 @@ export type SaleUpdateWithoutReceiptInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutReceiptInput = {
@@ -2137,6 +2335,7 @@ export type SaleUncheckedUpdateWithoutReceiptInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateWithoutDeliveryInput = {
@@ -2169,6 +2368,7 @@ export type SaleCreateWithoutDeliveryInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutDeliveryInput = {
@@ -2201,6 +2401,7 @@ export type SaleUncheckedCreateWithoutDeliveryInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutDeliveryInput = {
@@ -2249,6 +2450,7 @@ export type SaleUpdateWithoutDeliveryInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutDeliveryInput = {
@@ -2281,6 +2483,7 @@ export type SaleUncheckedUpdateWithoutDeliveryInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateWithoutActivityEventsInput = {
@@ -2313,6 +2516,7 @@ export type SaleCreateWithoutActivityEventsInput = {
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutActivityEventsInput = {
@@ -2345,6 +2549,7 @@ export type SaleUncheckedCreateWithoutActivityEventsInput = {
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutActivityEventsInput = {
@@ -2393,6 +2598,7 @@ export type SaleUpdateWithoutActivityEventsInput = {
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutActivityEventsInput = {
@@ -2425,6 +2631,7 @@ export type SaleUncheckedUpdateWithoutActivityEventsInput = {
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateWithoutFeedbackInput = {
@@ -2457,6 +2664,7 @@ export type SaleCreateWithoutFeedbackInput = {
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutFeedbackInput = {
@@ -2489,6 +2697,7 @@ export type SaleUncheckedCreateWithoutFeedbackInput = {
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutFeedbackInput = {
@@ -2537,6 +2746,7 @@ export type SaleUpdateWithoutFeedbackInput = {
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutFeedbackInput = {
@@ -2569,6 +2779,7 @@ export type SaleUncheckedUpdateWithoutFeedbackInput = {
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateWithoutIssuesInput = {
@@ -2601,6 +2812,7 @@ export type SaleCreateWithoutIssuesInput = {
   delivery?: Prisma.DeliveryCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutSaleInput
 }
 
 export type SaleUncheckedCreateWithoutIssuesInput = {
@@ -2633,6 +2845,7 @@ export type SaleUncheckedCreateWithoutIssuesInput = {
   delivery?: Prisma.DeliveryUncheckedCreateNestedOneWithoutSaleInput
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutSaleInput
   feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutSaleInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutSaleInput
 }
 
 export type SaleCreateOrConnectWithoutIssuesInput = {
@@ -2681,6 +2894,7 @@ export type SaleUpdateWithoutIssuesInput = {
   delivery?: Prisma.DeliveryUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutIssuesInput = {
@@ -2713,6 +2927,7 @@ export type SaleUncheckedUpdateWithoutIssuesInput = {
   delivery?: Prisma.DeliveryUncheckedUpdateOneWithoutSaleNestedInput
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleCreateManyBusinessInput = {
@@ -2768,6 +2983,7 @@ export type SaleUpdateWithoutBusinessInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutBusinessInput = {
@@ -2800,6 +3016,7 @@ export type SaleUncheckedUpdateWithoutBusinessInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateManyWithoutBusinessInput = {
@@ -2878,6 +3095,7 @@ export type SaleUpdateWithoutCustomerInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateWithoutCustomerInput = {
@@ -2910,6 +3128,7 @@ export type SaleUncheckedUpdateWithoutCustomerInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutSaleNestedInput
   feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutSaleNestedInput
   issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutSaleNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutSaleNestedInput
 }
 
 export type SaleUncheckedUpdateManyWithoutCustomerInput = {
@@ -2947,6 +3166,7 @@ export type SaleCountOutputType = {
   activityEvents: number
   feedback: number
   issues: number
+  reports: number
 }
 
 export type SaleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2956,6 +3176,7 @@ export type SaleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   activityEvents?: boolean | SaleCountOutputTypeCountActivityEventsArgs
   feedback?: boolean | SaleCountOutputTypeCountFeedbackArgs
   issues?: boolean | SaleCountOutputTypeCountIssuesArgs
+  reports?: boolean | SaleCountOutputTypeCountReportsArgs
 }
 
 /**
@@ -3010,6 +3231,13 @@ export type SaleCountOutputTypeCountIssuesArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.CustomerIssueWhereInput
 }
 
+/**
+ * SaleCountOutputType without action
+ */
+export type SaleCountOutputTypeCountReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerReportWhereInput
+}
+
 
 export type SaleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3045,6 +3273,7 @@ export type SaleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   activityEvents?: boolean | Prisma.Sale$activityEventsArgs<ExtArgs>
   feedback?: boolean | Prisma.Sale$feedbackArgs<ExtArgs>
   issues?: boolean | Prisma.Sale$issuesArgs<ExtArgs>
+  reports?: boolean | Prisma.Sale$reportsArgs<ExtArgs>
   _count?: boolean | Prisma.SaleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["sale"]>
 
@@ -3140,6 +3369,7 @@ export type SaleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   activityEvents?: boolean | Prisma.Sale$activityEventsArgs<ExtArgs>
   feedback?: boolean | Prisma.Sale$feedbackArgs<ExtArgs>
   issues?: boolean | Prisma.Sale$issuesArgs<ExtArgs>
+  reports?: boolean | Prisma.Sale$reportsArgs<ExtArgs>
   _count?: boolean | Prisma.SaleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SaleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3168,6 +3398,7 @@ export type $SalePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     activityEvents: Prisma.$ActivityEventPayload<ExtArgs>[]
     feedback: Prisma.$CustomerFeedbackPayload<ExtArgs>[]
     issues: Prisma.$CustomerIssuePayload<ExtArgs>[]
+    reports: Prisma.$CustomerReportPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3597,6 +3828,7 @@ export interface Prisma__SaleClient<T, Null = never, ExtArgs extends runtime.Typ
   activityEvents<T extends Prisma.Sale$activityEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$activityEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   feedback<T extends Prisma.Sale$feedbackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$feedbackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   issues<T extends Prisma.Sale$issuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$issuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerIssuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reports<T extends Prisma.Sale$reportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Sale$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4265,6 +4497,30 @@ export type Sale$issuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.CustomerIssueScalarFieldEnum | Prisma.CustomerIssueScalarFieldEnum[]
+}
+
+/**
+ * Sale.reports
+ */
+export type Sale$reportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerReport
+   */
+  select?: Prisma.CustomerReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerReport
+   */
+  omit?: Prisma.CustomerReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerReportInclude<ExtArgs> | null
+  where?: Prisma.CustomerReportWhereInput
+  orderBy?: Prisma.CustomerReportOrderByWithRelationInput | Prisma.CustomerReportOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerReportScalarFieldEnum | Prisma.CustomerReportScalarFieldEnum[]
 }
 
 /**

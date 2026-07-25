@@ -639,6 +639,40 @@ export const CustomerIssueStatus = {
 export type CustomerIssueStatus = (typeof CustomerIssueStatus)[keyof typeof CustomerIssueStatus]
 
 
+export const CustomerReportSubjectType = {
+  ORDER: 'ORDER',
+  ORDER_REQUEST: 'ORDER_REQUEST',
+  PRODUCT: 'PRODUCT',
+  SHOWCASE: 'SHOWCASE',
+  SHOP: 'SHOP'
+} as const
+
+export type CustomerReportSubjectType = (typeof CustomerReportSubjectType)[keyof typeof CustomerReportSubjectType]
+
+
+export const CustomerReportReason = {
+  FRAUD_OR_SCAM: 'FRAUD_OR_SCAM',
+  HARASSMENT_OR_HATE: 'HARASSMENT_OR_HATE',
+  MISLEADING_OR_INCORRECT: 'MISLEADING_OR_INCORRECT',
+  ORDER_PROBLEM: 'ORDER_PROBLEM',
+  PRIVACY_OR_SAFETY: 'PRIVACY_OR_SAFETY',
+  PROHIBITED_CONTENT: 'PROHIBITED_CONTENT',
+  OTHER: 'OTHER'
+} as const
+
+export type CustomerReportReason = (typeof CustomerReportReason)[keyof typeof CustomerReportReason]
+
+
+export const CustomerReportStatus = {
+  OPEN: 'OPEN',
+  IN_REVIEW: 'IN_REVIEW',
+  RESOLVED: 'RESOLVED',
+  DISMISSED: 'DISMISSED'
+} as const
+
+export type CustomerReportStatus = (typeof CustomerReportStatus)[keyof typeof CustomerReportStatus]
+
+
 export const FollowUpStatus = {
   SUGGESTED: 'SUGGESTED',
   APPROVED: 'APPROVED',

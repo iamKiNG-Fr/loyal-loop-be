@@ -1,5 +1,6 @@
 import { Transform } from "class-transformer";
 import {
+  IsEnum,
   IsBoolean,
   IsInt,
   IsOptional,
@@ -8,6 +9,7 @@ import {
   Max,
   Min,
 } from "class-validator";
+import { CustomerReportStatus } from "../../../generated/prisma/client";
 
 const trim = ({ value }: { value: unknown }) =>
   typeof value === "string" ? value.trim() : value;
@@ -65,4 +67,15 @@ export class ReactivateBusinessDto {
   @IsString()
   @Length(2, 120)
   confirmation!: string;
+}
+
+export class ReviewCustomerReportDto {
+  @IsEnum(CustomerReportStatus)
+  status!: CustomerReportStatus;
+
+  @Transform(trim)
+  @IsOptional()
+  @IsString()
+  @Length(3, 1200)
+  notes?: string;
 }

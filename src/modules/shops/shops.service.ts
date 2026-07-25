@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import {
@@ -142,7 +143,7 @@ export class ShopsService {
   async createRequest(
     slug: string,
     dto: CreateOrderRequestDto,
-    rawCustomerSession?: string,
+    customerAccountId: string,
   ) {
     await this.businesses.reconcileScheduledLaunchBySlug(slug);
     const business = await this.prisma.business.findFirst({
@@ -191,14 +192,10 @@ export class ShopsService {
       });
       if (!source) throw new BadRequestException("Showcase source is invalid");
     }
-    const customerAccountId = rawCustomerSession
-      ? await this.resolveCustomerAccount(rawCustomerSession)
-      : undefined;
-    const customerAccount = customerAccountId
-      ? await this.prisma.customerAccount.findUnique({
-          where: { id: customerAccountId },
-        })
-      : undefined;
+    const customerAccount = await this.prisma.customerAccount.findUnique({
+      where: { id: customerAccountId },
+    });
+    if (!customerAccount) throw new UnauthorizedException("Customer sign in required");
     const allowedFulfillmentMethods = customerFulfillmentMethods(business.preferences?.allowedFulfillmentMethods);
     const fulfillment: FulfillmentType = dto.fulfillment ?? allowedFulfillmentMethods[0]!;
     if (!allowedFulfillmentMethods.includes(fulfillment)) {
@@ -319,10 +316,13 @@ export class ShopsService {
     return { request, token: generated.token };
   }
 
-  async getRequestByToken(token: string) {
+  async getRequestByToken(customerAccountId: string, token: string) {
     const tokenHash = hashToken(token);
     const request = await this.prisma.orderRequest.findFirst({
-      where: { OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }] },
+      where: {
+        customerAccountId,
+        OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }],
+      },
       include: {
         business: {
           select: {
@@ -346,10 +346,13 @@ export class ShopsService {
     return safe;
   }
 
-  async cancelRequestByToken(token: string) {
+  async cancelRequestByToken(customerAccountId: string, token: string) {
     const tokenHash = hashToken(token);
     const request = await this.prisma.orderRequest.findFirst({
-      where: { OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }] },
+      where: {
+        customerAccountId,
+        OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }],
+      },
       include: {
         business: { select: { name: true, slug: true } },
         items: true,
@@ -368,6 +371,7 @@ export class ShopsService {
     const canceled = await this.prisma.orderRequest.updateMany({
       where: {
         id: request.id,
+        customerAccountId,
         status: { in: ["SENT", "ACCEPTED", "NEEDS_CHANGES"] },
       },
       data: {
@@ -533,10 +537,17 @@ export class ShopsService {
     return updated;
   }
 
-  async respondToTermsChangeByToken(token: string, dto: RespondOrderTermsChangeDto) {
+  async respondToTermsChangeByToken(
+    customerAccountId: string,
+    token: string,
+    dto: RespondOrderTermsChangeDto,
+  ) {
     const tokenHash = hashToken(token);
     const request = await this.prisma.orderRequest.findFirst({
-      where: { OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }] },
+      where: {
+        customerAccountId,
+        OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }],
+      },
       include: {
         business: { include: { preferences: true } },
         termChanges: { where: { status: "PENDING" }, orderBy: { createdAt: "desc" }, take: 1 },
@@ -908,20 +919,6 @@ export class ShopsService {
     });
     if (!request) throw new NotFoundException("Request not found");
     return request;
-  }
-
-  private async resolveCustomerAccount(rawToken: string) {
-    const session = await this.prisma.customerAccountSession.findUnique({
-      where: { tokenHash: hashToken(rawToken) },
-    });
-    if (
-      !session ||
-      session.revokedAt ||
-      session.expiresAt.getTime() <= Date.now()
-    ) {
-      return undefined;
-    }
-    return session.customerAccountId;
   }
 
   private async resolveCustomerAddress(

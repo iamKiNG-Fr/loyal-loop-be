@@ -7,14 +7,15 @@ import {
   Post,
   UseGuards,
 } from "@nestjs/common";
-import { CurrentAuth } from "../../common/auth/current-auth.decorator";
+import { CurrentAuth, CurrentCustomer } from "../../common/auth/current-auth.decorator";
+import { CustomerAuthGuard } from "../../common/auth/customer-auth.guard";
 import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
 import { Capabilities } from "../../common/auth/capabilities.decorator";
 import { CapabilitiesGuard } from "../../common/auth/capabilities.guard";
 import { Roles } from "../../common/auth/roles.decorator";
 import { RolesGuard } from "../../common/auth/roles.guard";
 import { ok } from "../../common/api-response";
-import type { OwnerAuthContext } from "../../common/request-context";
+import type { CustomerAuthContext, OwnerAuthContext } from "../../common/request-context";
 import { BusinessCapability } from "../../generated/prisma/client";
 import {
   CreateDeliveryIssueDto,
@@ -92,38 +93,41 @@ export class DeliveryController {
 }
 
 @Controller("public/deliveries")
+@UseGuards(CustomerAuthGuard)
 export class PublicDeliveryController {
   constructor(private readonly deliveries: DeliveryService) {}
 
   @Get(":token")
-  get(@Param("token") token: string) {
-    return this.deliveries.getPublic(token).then((data) => ok(data));
+  get(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
+    return this.deliveries.getPublic(customer.customerAccountId, token).then((data) => ok(data));
   }
 
   @Post(":token/confirm")
-  confirm(@Param("token") token: string) {
+  confirm(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
     return this.deliveries
-      .confirm(token)
+      .confirm(customer.customerAccountId, token)
       .then((data) => ok(data, "Delivery confirmed"));
   }
 
   @Post(":token/feedback")
   feedback(
+    @CurrentCustomer() customer: CustomerAuthContext,
     @Param("token") token: string,
     @Body() dto: SubmitDeliveryFeedbackDto,
   ) {
     return this.deliveries
-      .feedback(token, dto)
+      .feedback(customer.customerAccountId, token, dto)
       .then((data) => ok(data, "Feedback submitted"));
   }
 
   @Post(":token/issues")
   issue(
+    @CurrentCustomer() customer: CustomerAuthContext,
     @Param("token") token: string,
     @Body() dto: CreateDeliveryIssueDto,
   ) {
     return this.deliveries
-      .createIssue(token, dto)
+      .createIssue(customer.customerAccountId, token, dto)
       .then((data) => ok(data, "Issue submitted"));
   }
 }

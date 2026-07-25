@@ -18,6 +18,7 @@ import { normalizeE164 } from "../messaging/twilio-whatsapp.provider";
 import type {
   AdminListQueryDto,
   ReactivateBusinessDto,
+  ReviewCustomerReportDto,
   SuspendBusinessDto,
 } from "./dto/platform-admin.dto";
 
@@ -60,6 +61,7 @@ export class PlatformAdminService {
       pendingApplications,
       issuedInvitations,
       pendingMediaReviews,
+      pendingCustomerReports,
       enrollments,
     ] = await Promise.all([
       this.prisma.business.count({ where: businessWhere }),
@@ -98,6 +100,12 @@ export class PlatformAdminService {
           status: "ACTIVE",
         },
       }),
+      this.prisma.customerReport.count({
+        where: {
+          business: businessWhere,
+          status: { in: ["OPEN", "IN_REVIEW"] },
+        },
+      }),
       this.memberJourneys(includeDemo),
     ]);
     const activated = enrollments.filter((item) => item.activation.activated).length;
@@ -129,6 +137,7 @@ export class PlatformAdminService {
       },
       alerts: {
         pendingMediaReviews,
+        pendingCustomerReports,
         suspendedBusinesses: await this.prisma.business.count({
           where: { platformStatus: "SUSPENDED" },
         }),
@@ -141,6 +150,78 @@ export class PlatformAdminService {
       },
       memberJourneys: enrollments,
     };
+  }
+
+  async customerReports(query: AdminListQueryDto) {
+    const allowedStatuses = ["OPEN", "IN_REVIEW", "RESOLVED", "DISMISSED"] as const;
+    if (query.status && !allowedStatuses.includes(query.status as typeof allowedStatuses[number])) {
+      throw new BadRequestException("Unknown report status");
+    }
+    const { page, pageSize, skip } = paging(query);
+    const where: Prisma.CustomerReportWhereInput = {
+      ...(query.status ? { status: query.status as typeof allowedStatuses[number] } : {}),
+      ...(query.search
+        ? {
+            OR: [
+              { subjectLabelSnapshot: { contains: query.search, mode: "insensitive" } },
+              { details: { contains: query.search, mode: "insensitive" } },
+              { business: { name: { contains: query.search, mode: "insensitive" } } },
+              { reporter: { name: { contains: query.search, mode: "insensitive" } } },
+              { reporter: { phone: { contains: query.search } } },
+            ],
+          }
+        : {}),
+    };
+    const [items, total] = await Promise.all([
+      this.prisma.customerReport.findMany({
+        where,
+        include: {
+          business: { select: { id: true, name: true, slug: true, platformStatus: true } },
+          reporter: { select: { id: true, name: true, phone: true } },
+          reviewedBy: { select: { id: true, user: { select: { name: true } } } },
+        },
+        orderBy: [{ status: "asc" }, { createdAt: "desc" }],
+        skip,
+        take: pageSize,
+      }),
+      this.prisma.customerReport.count({ where }),
+    ]);
+    return pageResult(items, total, page, pageSize);
+  }
+
+  async reviewCustomerReport(
+    auth: PlatformAuthContext,
+    reportId: string,
+    dto: ReviewCustomerReportDto,
+  ) {
+    const before = await this.prisma.customerReport.findUnique({
+      where: { id: reportId },
+    });
+    if (!before) throw new NotFoundException("Customer report not found");
+    const report = await this.prisma.customerReport.update({
+      where: { id: reportId },
+      data: {
+        status: dto.status,
+        reviewNotes: dto.notes?.trim(),
+        reviewedAt: dto.status === "OPEN" ? null : new Date(),
+        reviewedByAdminId: dto.status === "OPEN" ? null : auth.platformAdminId,
+      },
+      include: {
+        business: { select: { id: true, name: true, slug: true, platformStatus: true } },
+        reporter: { select: { id: true, name: true, phone: true } },
+        reviewedBy: { select: { id: true, user: { select: { name: true } } } },
+      },
+    });
+    await this.audit(
+      auth,
+      "CUSTOMER_REPORT_REVIEWED",
+      "CustomerReport",
+      report.id,
+      dto.notes,
+      before,
+      report,
+    );
+    return report;
   }
 
   async applications(query: AdminListQueryDto) {

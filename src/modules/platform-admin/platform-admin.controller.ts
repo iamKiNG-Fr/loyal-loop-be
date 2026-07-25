@@ -25,6 +25,7 @@ import {
 import {
   AdminListQueryDto,
   ReactivateBusinessDto,
+  ReviewCustomerReportDto,
   SuspendBusinessDto,
 } from "./dto/platform-admin.dto";
 import { PlatformAdminService } from "./platform-admin.service";
@@ -44,6 +45,25 @@ export class PlatformAdminController {
   @PlatformRoles("SUPERADMIN", "ADMIN")
   async businesses(@Query() query: AdminListQueryDto) {
     return ok(await this.admin.businesses(query));
+  }
+
+  @Get("customer-reports")
+  @PlatformRoles("SUPERADMIN", "ADMIN")
+  async customerReports(@Query() query: AdminListQueryDto) {
+    return ok(await this.admin.customerReports(query));
+  }
+
+  @Patch("customer-reports/:id")
+  @PlatformRoles("SUPERADMIN", "ADMIN")
+  async reviewCustomerReport(
+    @CurrentPlatformAdmin() auth: PlatformAuthContext,
+    @Param("id") id: string,
+    @Body() dto: ReviewCustomerReportDto,
+  ) {
+    return ok(
+      await this.admin.reviewCustomerReport(auth, id, dto),
+      "Report review updated",
+    );
   }
 
   @Get("businesses/:id")

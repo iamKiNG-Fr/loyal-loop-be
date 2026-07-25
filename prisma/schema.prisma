@@ -463,6 +463,31 @@ enum CustomerIssueStatus {
   DISMISSED
 }
 
+enum CustomerReportSubjectType {
+  ORDER
+  ORDER_REQUEST
+  PRODUCT
+  SHOWCASE
+  SHOP
+}
+
+enum CustomerReportReason {
+  FRAUD_OR_SCAM
+  HARASSMENT_OR_HATE
+  MISLEADING_OR_INCORRECT
+  ORDER_PROBLEM
+  PRIVACY_OR_SAFETY
+  PROHIBITED_CONTENT
+  OTHER
+}
+
+enum CustomerReportStatus {
+  OPEN
+  IN_REVIEW
+  RESOLVED
+  DISMISSED
+}
+
 enum FollowUpStatus {
   SUGGESTED
   APPROVED
@@ -697,6 +722,7 @@ model PlatformAdmin {
   revokedInvitations   OnboardingInvitation[]      @relation("InvitationRevoker")
   researchInterviews   FoundingResearchInterview[] @relation("ResearchInterviewer")
   suspendedBusinesses  Business[]                  @relation("BusinessSuspensionActor")
+  reviewedReports      CustomerReport[]             @relation("CustomerReportReviewer")
 
   @@index([role, status])
   @@map("platform_admins")
@@ -863,6 +889,7 @@ model Business {
   discoveryPreferences       DiscoveryPreference[]
   promotions                 ProductPromotion[]
   messageOutbox              MessageOutbox[]
+  customerReports            CustomerReport[]
   foundingEnrollment         FoundingProgramEnrollment?
 
   @@index([ownerId])
@@ -1092,6 +1119,7 @@ model CustomerAccount {
   messageOutbox         MessageOutbox[]
   promotionReservations PromotionReservation[]
   orderNotices          CustomerOrderNotice[]
+  reports               CustomerReport[]
 
   @@map("customer_accounts")
 }
@@ -1316,6 +1344,7 @@ model Product {
   shortLinks       ShortLink[]
   launchBusinesses Business[]         @relation("BusinessLaunchProduct")
   promotions       ProductPromotion[]
+  reports          CustomerReport[]
 
   @@unique([businessId, slug])
   @@index([businessId, status, visibility])
@@ -1405,6 +1434,7 @@ model Showcase {
   savedBy         SavedShowcase[]
   requests        OrderRequest[]
   commerceEvents  CommerceEvent[]
+  reports          CustomerReport[]
 
   @@index([businessId, status, featured, publishedAt])
   @@map("showcases")
@@ -1647,12 +1677,49 @@ model OrderRequest {
   promotionReservations  PromotionReservation[]
   shareTokens            OrderRequestShareToken[]
   customerNotices        CustomerOrderNotice[]
+  reports                CustomerReport[]
 
   @@unique([customerAccountId, clientIdempotencyKey])
   @@index([businessId, status, createdAt])
   @@index([customerAddressId])
   @@index([sourceShowcaseId])
   @@map("order_requests")
+}
+
+model CustomerReport {
+  id                        String                    @id @default(cuid())
+  reporterCustomerAccountId String
+  businessId                String
+  subjectType               CustomerReportSubjectType
+  reason                    CustomerReportReason
+  status                    CustomerReportStatus      @default(OPEN)
+  subjectLabelSnapshot      String
+  details                   String?
+  orderRequestId            String?
+  saleId                    String?
+  productId                 String?
+  showcaseId                String?
+  reviewedByAdminId         String?
+  reviewNotes               String?
+  reviewedAt                DateTime?
+  createdAt                 DateTime                  @default(now())
+  updatedAt                 DateTime                  @updatedAt
+  reporter                  CustomerAccount           @relation(fields: [reporterCustomerAccountId], references: [id], onDelete: Cascade)
+  business                  Business                  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  orderRequest              OrderRequest?             @relation(fields: [orderRequestId], references: [id], onDelete: SetNull)
+  sale                      Sale?                     @relation(fields: [saleId], references: [id], onDelete: SetNull)
+  product                   Product?                  @relation(fields: [productId], references: [id], onDelete: SetNull)
+  showcase                  Showcase?                 @relation(fields: [showcaseId], references: [id], onDelete: SetNull)
+  reviewedBy                PlatformAdmin?            @relation("CustomerReportReviewer", fields: [reviewedByAdminId], references: [id], onDelete: SetNull)
+
+  @@index([status, createdAt])
+  @@index([businessId, status, createdAt])
+  @@index([reporterCustomerAccountId, subjectType, createdAt])
+  @@index([orderRequestId])
+  @@index([saleId])
+  @@index([productId])
+  @@index([showcaseId])
+  @@map("customer_reports")
 }
 
 model OrderRequestTermChange {
@@ -1839,6 +1906,7 @@ model Sale {
   activityEvents     ActivityEvent[]
   feedback           CustomerFeedback[]
   issues             CustomerIssue[]
+  reports            CustomerReport[]
 
   @@unique([businessId, idempotencyKey])
   @@index([businessId, soldAt])

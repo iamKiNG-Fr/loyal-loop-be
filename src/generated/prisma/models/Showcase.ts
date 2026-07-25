@@ -295,6 +295,7 @@ export type ShowcaseWhereInput = {
   savedBy?: Prisma.SavedShowcaseListRelationFilter
   requests?: Prisma.OrderRequestListRelationFilter
   commerceEvents?: Prisma.CommerceEventListRelationFilter
+  reports?: Prisma.CustomerReportListRelationFilter
 }
 
 export type ShowcaseOrderByWithRelationInput = {
@@ -319,6 +320,7 @@ export type ShowcaseOrderByWithRelationInput = {
   savedBy?: Prisma.SavedShowcaseOrderByRelationAggregateInput
   requests?: Prisma.OrderRequestOrderByRelationAggregateInput
   commerceEvents?: Prisma.CommerceEventOrderByRelationAggregateInput
+  reports?: Prisma.CustomerReportOrderByRelationAggregateInput
 }
 
 export type ShowcaseWhereUniqueInput = Prisma.AtLeast<{
@@ -346,6 +348,7 @@ export type ShowcaseWhereUniqueInput = Prisma.AtLeast<{
   savedBy?: Prisma.SavedShowcaseListRelationFilter
   requests?: Prisma.OrderRequestListRelationFilter
   commerceEvents?: Prisma.CommerceEventListRelationFilter
+  reports?: Prisma.CustomerReportListRelationFilter
 }, "id">
 
 export type ShowcaseOrderByWithAggregationInput = {
@@ -409,6 +412,7 @@ export type ShowcaseCreateInput = {
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateInput = {
@@ -430,6 +434,7 @@ export type ShowcaseUncheckedCreateInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUpdateInput = {
@@ -451,6 +456,7 @@ export type ShowcaseUpdateInput = {
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateInput = {
@@ -472,6 +478,7 @@ export type ShowcaseUncheckedUpdateInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseCreateManyInput = {
@@ -775,6 +782,22 @@ export type ShowcaseUpdateOneWithoutRequestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShowcaseUpdateToOneWithWhereWithoutRequestsInput, Prisma.ShowcaseUpdateWithoutRequestsInput>, Prisma.ShowcaseUncheckedUpdateWithoutRequestsInput>
 }
 
+export type ShowcaseCreateNestedOneWithoutReportsInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutReportsInput, Prisma.ShowcaseUncheckedCreateWithoutReportsInput>
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutReportsInput
+  connect?: Prisma.ShowcaseWhereUniqueInput
+}
+
+export type ShowcaseUpdateOneWithoutReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutReportsInput, Prisma.ShowcaseUncheckedCreateWithoutReportsInput>
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutReportsInput
+  upsert?: Prisma.ShowcaseUpsertWithoutReportsInput
+  disconnect?: Prisma.ShowcaseWhereInput | boolean
+  delete?: Prisma.ShowcaseWhereInput | boolean
+  connect?: Prisma.ShowcaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShowcaseUpdateToOneWithWhereWithoutReportsInput, Prisma.ShowcaseUpdateWithoutReportsInput>, Prisma.ShowcaseUncheckedUpdateWithoutReportsInput>
+}
+
 export type ShowcaseCreateNestedOneWithoutCommerceEventsInput = {
   create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutCommerceEventsInput, Prisma.ShowcaseUncheckedCreateWithoutCommerceEventsInput>
   connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutCommerceEventsInput
@@ -809,6 +832,7 @@ export type ShowcaseCreateWithoutBusinessInput = {
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutBusinessInput = {
@@ -829,6 +853,7 @@ export type ShowcaseUncheckedCreateWithoutBusinessInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutBusinessInput = {
@@ -895,6 +920,7 @@ export type ShowcaseCreateWithoutAssetInput = {
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutAssetInput = {
@@ -915,6 +941,7 @@ export type ShowcaseUncheckedCreateWithoutAssetInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutAssetInput = {
@@ -945,6 +972,7 @@ export type ShowcaseCreateWithoutPosterAssetInput = {
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutPosterAssetInput = {
@@ -965,6 +993,7 @@ export type ShowcaseUncheckedCreateWithoutPosterAssetInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutPosterAssetInput = {
@@ -1027,6 +1056,7 @@ export type ShowcaseCreateWithoutHotspotsInput = {
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutHotspotsInput = {
@@ -1047,6 +1077,7 @@ export type ShowcaseUncheckedCreateWithoutHotspotsInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutHotspotsInput = {
@@ -1083,6 +1114,7 @@ export type ShowcaseUpdateWithoutHotspotsInput = {
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutHotspotsInput = {
@@ -1103,6 +1135,7 @@ export type ShowcaseUncheckedUpdateWithoutHotspotsInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseCreateWithoutSavedByInput = {
@@ -1123,6 +1156,7 @@ export type ShowcaseCreateWithoutSavedByInput = {
   hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutSavedByInput = {
@@ -1143,6 +1177,7 @@ export type ShowcaseUncheckedCreateWithoutSavedByInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutSavedByInput = {
@@ -1179,6 +1214,7 @@ export type ShowcaseUpdateWithoutSavedByInput = {
   hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutSavedByInput = {
@@ -1199,6 +1235,7 @@ export type ShowcaseUncheckedUpdateWithoutSavedByInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseCreateWithoutRequestsInput = {
@@ -1219,6 +1256,7 @@ export type ShowcaseCreateWithoutRequestsInput = {
   hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutRequestsInput = {
@@ -1239,6 +1277,7 @@ export type ShowcaseUncheckedCreateWithoutRequestsInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutRequestsInput = {
@@ -1275,6 +1314,7 @@ export type ShowcaseUpdateWithoutRequestsInput = {
   hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutRequestsInput = {
@@ -1294,6 +1334,107 @@ export type ShowcaseUncheckedUpdateWithoutRequestsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+}
+
+export type ShowcaseCreateWithoutReportsInput = {
+  id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  contentRating?: $Enums.MediaContentRating
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
+  asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
+  hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+}
+
+export type ShowcaseUncheckedCreateWithoutReportsInput = {
+  id?: string
+  businessId: string
+  assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  contentRating?: $Enums.MediaContentRating
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+}
+
+export type ShowcaseCreateOrConnectWithoutReportsInput = {
+  where: Prisma.ShowcaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutReportsInput, Prisma.ShowcaseUncheckedCreateWithoutReportsInput>
+}
+
+export type ShowcaseUpsertWithoutReportsInput = {
+  update: Prisma.XOR<Prisma.ShowcaseUpdateWithoutReportsInput, Prisma.ShowcaseUncheckedUpdateWithoutReportsInput>
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutReportsInput, Prisma.ShowcaseUncheckedCreateWithoutReportsInput>
+  where?: Prisma.ShowcaseWhereInput
+}
+
+export type ShowcaseUpdateToOneWithWhereWithoutReportsInput = {
+  where?: Prisma.ShowcaseWhereInput
+  data: Prisma.XOR<Prisma.ShowcaseUpdateWithoutReportsInput, Prisma.ShowcaseUncheckedUpdateWithoutReportsInput>
+}
+
+export type ShowcaseUpdateWithoutReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
+  asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
+  hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+}
+
+export type ShowcaseUncheckedUpdateWithoutReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
@@ -1315,6 +1456,7 @@ export type ShowcaseCreateWithoutCommerceEventsInput = {
   hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutCommerceEventsInput = {
@@ -1335,6 +1477,7 @@ export type ShowcaseUncheckedCreateWithoutCommerceEventsInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutCommerceEventsInput = {
@@ -1371,6 +1514,7 @@ export type ShowcaseUpdateWithoutCommerceEventsInput = {
   hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutCommerceEventsInput = {
@@ -1391,6 +1535,7 @@ export type ShowcaseUncheckedUpdateWithoutCommerceEventsInput = {
   hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseCreateManyBusinessInput = {
@@ -1427,6 +1572,7 @@ export type ShowcaseUpdateWithoutBusinessInput = {
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutBusinessInput = {
@@ -1447,6 +1593,7 @@ export type ShowcaseUncheckedUpdateWithoutBusinessInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateManyWithoutBusinessInput = {
@@ -1515,6 +1662,7 @@ export type ShowcaseUpdateWithoutAssetInput = {
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutAssetInput = {
@@ -1535,6 +1683,7 @@ export type ShowcaseUncheckedUpdateWithoutAssetInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateManyWithoutAssetInput = {
@@ -1571,6 +1720,7 @@ export type ShowcaseUpdateWithoutPosterAssetInput = {
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutPosterAssetInput = {
@@ -1591,6 +1741,7 @@ export type ShowcaseUncheckedUpdateWithoutPosterAssetInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateManyWithoutPosterAssetInput = {
@@ -1619,6 +1770,7 @@ export type ShowcaseCountOutputType = {
   savedBy: number
   requests: number
   commerceEvents: number
+  reports: number
 }
 
 export type ShowcaseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1626,6 +1778,7 @@ export type ShowcaseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   savedBy?: boolean | ShowcaseCountOutputTypeCountSavedByArgs
   requests?: boolean | ShowcaseCountOutputTypeCountRequestsArgs
   commerceEvents?: boolean | ShowcaseCountOutputTypeCountCommerceEventsArgs
+  reports?: boolean | ShowcaseCountOutputTypeCountReportsArgs
 }
 
 /**
@@ -1666,6 +1819,13 @@ export type ShowcaseCountOutputTypeCountCommerceEventsArgs<ExtArgs extends runti
   where?: Prisma.CommerceEventWhereInput
 }
 
+/**
+ * ShowcaseCountOutputType without action
+ */
+export type ShowcaseCountOutputTypeCountReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerReportWhereInput
+}
+
 
 export type ShowcaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1689,6 +1849,7 @@ export type ShowcaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   savedBy?: boolean | Prisma.Showcase$savedByArgs<ExtArgs>
   requests?: boolean | Prisma.Showcase$requestsArgs<ExtArgs>
   commerceEvents?: boolean | Prisma.Showcase$commerceEventsArgs<ExtArgs>
+  reports?: boolean | Prisma.Showcase$reportsArgs<ExtArgs>
   _count?: boolean | Prisma.ShowcaseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["showcase"]>
 
@@ -1758,6 +1919,7 @@ export type ShowcaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   savedBy?: boolean | Prisma.Showcase$savedByArgs<ExtArgs>
   requests?: boolean | Prisma.Showcase$requestsArgs<ExtArgs>
   commerceEvents?: boolean | Prisma.Showcase$commerceEventsArgs<ExtArgs>
+  reports?: boolean | Prisma.Showcase$reportsArgs<ExtArgs>
   _count?: boolean | Prisma.ShowcaseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShowcaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1781,6 +1943,7 @@ export type $ShowcasePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     savedBy: Prisma.$SavedShowcasePayload<ExtArgs>[]
     requests: Prisma.$OrderRequestPayload<ExtArgs>[]
     commerceEvents: Prisma.$CommerceEventPayload<ExtArgs>[]
+    reports: Prisma.$CustomerReportPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2198,6 +2361,7 @@ export interface Prisma__ShowcaseClient<T, Null = never, ExtArgs extends runtime
   savedBy<T extends Prisma.Showcase$savedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$savedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedShowcasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   requests<T extends Prisma.Showcase$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   commerceEvents<T extends Prisma.Showcase$commerceEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$commerceEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommerceEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reports<T extends Prisma.Showcase$reportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2754,6 +2918,30 @@ export type Showcase$commerceEventsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.CommerceEventScalarFieldEnum | Prisma.CommerceEventScalarFieldEnum[]
+}
+
+/**
+ * Showcase.reports
+ */
+export type Showcase$reportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerReport
+   */
+  select?: Prisma.CustomerReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerReport
+   */
+  omit?: Prisma.CustomerReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerReportInclude<ExtArgs> | null
+  where?: Prisma.CustomerReportWhereInput
+  orderBy?: Prisma.CustomerReportOrderByWithRelationInput | Prisma.CustomerReportOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerReportScalarFieldEnum | Prisma.CustomerReportScalarFieldEnum[]
 }
 
 /**

@@ -10,6 +10,7 @@ import { AuthModule } from "./modules/auth/auth.module";
 import { BillingModule } from "./modules/billing/billing.module";
 import { BusinessesModule } from "./modules/businesses/businesses.module";
 import { CustomerAuthModule } from "./modules/customer-auth/customer-auth.module";
+import { CustomerReportsModule } from "./modules/customer-reports/customer-reports.module";
 import { CustomersModule } from "./modules/customers/customers.module";
 import { CartsModule } from "./modules/carts/carts.module";
 import { DashboardModule } from "./modules/dashboard/dashboard.module";
@@ -60,6 +61,7 @@ import { PlatformAdminModule } from "./modules/platform-admin/platform-admin.mod
     PlatformAdminModule,
     AuthModule,
     CustomerAuthModule,
+    CustomerReportsModule,
     BusinessesModule,
     UsersModule,
     MediaModule,

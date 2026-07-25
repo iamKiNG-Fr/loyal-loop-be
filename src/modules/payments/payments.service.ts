@@ -90,9 +90,10 @@ export class PaymentsService {
 
   async createUploadSignature(
     access: "delivery" | "receipt",
+    customerAccountId: string,
     token: string,
   ) {
-    const sale = await this.resolveSale(access, token);
+    const sale = await this.resolveSale(access, customerAccountId, token);
     this.assertBankTransferOpen(sale);
     return this.media.createPaymentProofUploadSignature(
       sale.businessId,
@@ -102,10 +103,11 @@ export class PaymentsService {
 
   async submitProof(
     access: "delivery" | "receipt",
+    customerAccountId: string,
     token: string,
     dto: SubmitPaymentProofDto,
   ) {
-    const sale = await this.resolveSale(access, token);
+    const sale = await this.resolveSale(access, customerAccountId, token);
     this.assertBankTransferOpen(sale);
     const amount = new Prisma.Decimal(dto.amount);
     const balance = sale.total.sub(sale.amountPaid);
@@ -251,12 +253,13 @@ export class PaymentsService {
 
   private async resolveSale(
     access: "delivery" | "receipt",
+    customerAccountId: string,
     token: string,
   ) {
     const tokenHash = hashToken(token);
     if (access === "receipt") {
-      const direct = await this.prisma.receipt.findUnique({
-        where: { tokenHash },
+      const direct = await this.prisma.receipt.findFirst({
+        where: { tokenHash, customer: { accountId: customerAccountId } },
         include: {
           sale: {
             include: { paymentInstruction: true, paymentProofs: true },
@@ -264,8 +267,12 @@ export class PaymentsService {
         },
       });
       if (direct && direct.status !== "VOID") return direct.sale;
-      const shared = await this.prisma.receiptShareToken.findUnique({
-        where: { tokenHash },
+      const shared = await this.prisma.receiptShareToken.findFirst({
+        where: {
+          tokenHash,
+          revokedAt: null,
+          receipt: { customer: { accountId: customerAccountId } },
+        },
         include: {
           receipt: {
             include: {
@@ -276,7 +283,7 @@ export class PaymentsService {
           },
         },
       });
-      if (shared && !shared.revokedAt && shared.receipt.status !== "VOID") {
+      if (shared && shared.receipt.status !== "VOID") {
         return shared.receipt.sale;
       }
       if (/^[A-Za-z2-9]{8}$/.test(token)) {
@@ -285,6 +292,7 @@ export class PaymentsService {
             code: token,
             kind: "RECEIPT",
             receiptId: { not: null },
+            receipt: { customer: { accountId: customerAccountId } },
             revokedAt: null,
             OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
           },
@@ -303,8 +311,8 @@ export class PaymentsService {
         }
       }
     } else {
-      const direct = await this.prisma.delivery.findUnique({
-        where: { tokenHash },
+      const direct = await this.prisma.delivery.findFirst({
+        where: { tokenHash, customer: { accountId: customerAccountId } },
         include: {
           sale: {
             include: { paymentInstruction: true, paymentProofs: true },
@@ -312,8 +320,12 @@ export class PaymentsService {
         },
       });
       if (direct) return direct.sale;
-      const shared = await this.prisma.deliveryShareToken.findUnique({
-        where: { tokenHash },
+      const shared = await this.prisma.deliveryShareToken.findFirst({
+        where: {
+          tokenHash,
+          revokedAt: null,
+          delivery: { customer: { accountId: customerAccountId } },
+        },
         include: {
           delivery: {
             include: {
@@ -324,9 +336,9 @@ export class PaymentsService {
           },
         },
       });
-      if (shared && !shared.revokedAt) return shared.delivery.sale;
-      const convertedRequest = await this.prisma.orderRequest.findUnique({
-        where: { tokenHash },
+      if (shared) return shared.delivery.sale;
+      const convertedRequest = await this.prisma.orderRequest.findFirst({
+        where: { tokenHash, customerAccountId },
         include: {
           convertedSale: {
             include: { paymentInstruction: true, paymentProofs: true },

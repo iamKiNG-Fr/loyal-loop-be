@@ -38,7 +38,7 @@ describe("ShopsService.cancelRequestByToken", () => {
   it.each(["SENT", "ACCEPTED", "NEEDS_CHANGES"])("atomically cancels %s requests", async (status) => {
     const { service, updateMany } = serviceFor(request(status));
 
-    const result = await service.cancelRequestByToken("public-token");
+    const result = await service.cancelRequestByToken("customer-1", "public-token");
 
     expect(result.status).toBe("CANCELED");
     expect(result).not.toHaveProperty("tokenHash");
@@ -58,7 +58,7 @@ describe("ShopsService.cancelRequestByToken", () => {
   it("is idempotent when the request is already canceled", async () => {
     const { service, updateMany } = serviceFor(request("CANCELED"));
 
-    const result = await service.cancelRequestByToken("public-token");
+    const result = await service.cancelRequestByToken("customer-1", "public-token");
 
     expect(result.status).toBe("CANCELED");
     expect(result).not.toHaveProperty("tokenHash");
@@ -71,19 +71,19 @@ describe("ShopsService.cancelRequestByToken", () => {
   ])("rejects a request that has become an order", async (existing) => {
     const { service, updateMany } = serviceFor(existing);
 
-    await expect(service.cancelRequestByToken("public-token")).rejects.toBeInstanceOf(BadRequestException);
+    await expect(service.cancelRequestByToken("customer-1", "public-token")).rejects.toBeInstanceOf(BadRequestException);
     expect(updateMany).not.toHaveBeenCalled();
   });
 
   it("rejects when conversion wins the conditional-update race", async () => {
     const { service } = serviceFor(request("SENT"), undefined, 0);
 
-    await expect(service.cancelRequestByToken("public-token")).rejects.toThrow("can no longer be canceled");
+    await expect(service.cancelRequestByToken("customer-1", "public-token")).rejects.toThrow("can no longer be canceled");
   });
 
   it("does not reveal whether an unknown token maps to another resource", async () => {
     const { service } = serviceFor(null);
 
-    await expect(service.cancelRequestByToken("unknown-token")).rejects.toBeInstanceOf(NotFoundException);
+    await expect(service.cancelRequestByToken("customer-1", "unknown-token")).rejects.toBeInstanceOf(NotFoundException);
   });
 });

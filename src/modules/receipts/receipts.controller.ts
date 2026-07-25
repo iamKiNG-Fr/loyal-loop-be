@@ -7,12 +7,13 @@ import {
   Post,
   UseGuards,
 } from "@nestjs/common";
-import { CurrentAuth } from "../../common/auth/current-auth.decorator";
+import { CurrentAuth, CurrentCustomer } from "../../common/auth/current-auth.decorator";
+import { CustomerAuthGuard } from "../../common/auth/customer-auth.guard";
 import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
 import { Roles } from "../../common/auth/roles.decorator";
 import { RolesGuard } from "../../common/auth/roles.guard";
 import { ok } from "../../common/api-response";
-import type { OwnerAuthContext } from "../../common/request-context";
+import type { CustomerAuthContext, OwnerAuthContext } from "../../common/request-context";
 import { CreateReceiptIssueDto, UpdateReceiptDto } from "./dto/receipt.dto";
 import { ReceiptsService } from "./receipts.service";
 
@@ -57,28 +58,30 @@ export class ReceiptsController {
 }
 
 @Controller("public/receipts")
+@UseGuards(CustomerAuthGuard)
 export class PublicReceiptsController {
   constructor(private readonly receipts: ReceiptsService) {}
 
   @Get(":token")
-  get(@Param("token") token: string) {
-    return this.receipts.getPublic(token).then((data) => ok(data));
+  get(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
+    return this.receipts.getPublic(customer.customerAccountId, token).then((data) => ok(data));
   }
 
   @Post(":token/acknowledge")
-  acknowledge(@Param("token") token: string) {
+  acknowledge(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
     return this.receipts
-      .acknowledge(token)
+      .acknowledge(customer.customerAccountId, token)
       .then((data) => ok(data, "Receipt acknowledged"));
   }
 
   @Post(":token/issues")
   issue(
+    @CurrentCustomer() customer: CustomerAuthContext,
     @Param("token") token: string,
     @Body() dto: CreateReceiptIssueDto,
   ) {
     return this.receipts
-      .createIssue(token, dto)
+      .createIssue(customer.customerAccountId, token, dto)
       .then((data) => ok(data, "Issue submitted"));
   }
 }

@@ -17,10 +17,6 @@ import { CustomerAuthGuard } from "../../common/auth/customer-auth.guard";
 import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
 import { Roles } from "../../common/auth/roles.decorator";
 import { RolesGuard } from "../../common/auth/roles.guard";
-import {
-  CUSTOMER_SESSION_COOKIE,
-  readCookie,
-} from "../../common/http.util";
 import { ok } from "../../common/api-response";
 import type {
   CustomerAuthContext,
@@ -63,39 +59,46 @@ export class PublicShopsController {
   }
 
   @Post(":slug/requests")
+  @UseGuards(CustomerAuthGuard)
   createRequest(
+    @CurrentCustomer() customer: CustomerAuthContext,
     @Param("slug") slug: string,
     @Body() dto: CreateOrderRequestDto,
-    @Req() request: Request,
   ) {
-    const token = readCookie(
-      request.headers.cookie,
-      CUSTOMER_SESSION_COOKIE,
-    );
     return this.shops
-      .createRequest(slug, dto, token)
+      .createRequest(slug, dto, customer.customerAccountId)
       .then((data) => ok(data, "Request submitted"));
   }
 
   @Get("requests/:token")
-  request(@Param("token") token: string) {
-    return this.shops.getRequestByToken(token).then((data) => ok(data));
+  @UseGuards(CustomerAuthGuard)
+  request(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Param("token") token: string,
+  ) {
+    return this.shops.getRequestByToken(customer.customerAccountId, token).then((data) => ok(data));
   }
 
   @Patch("requests/:token/cancel")
-  cancelRequest(@Param("token") token: string) {
+  @UseGuards(CustomerAuthGuard)
+  cancelRequest(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Param("token") token: string,
+  ) {
     return this.shops
-      .cancelRequestByToken(token)
+      .cancelRequestByToken(customer.customerAccountId, token)
       .then((data) => ok(data, "Request canceled"));
   }
 
   @Patch("requests/:token/terms")
+  @UseGuards(CustomerAuthGuard)
   respondToTermsChange(
+    @CurrentCustomer() customer: CustomerAuthContext,
     @Param("token") token: string,
     @Body() dto: RespondOrderTermsChangeDto,
   ) {
     return this.shops
-      .respondToTermsChangeByToken(token, dto)
+      .respondToTermsChangeByToken(customer.customerAccountId, token, dto)
       .then((data) => ok(data, "Order choices updated"));
   }
 

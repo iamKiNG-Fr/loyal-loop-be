@@ -1245,6 +1245,57 @@ export type EnumOrderRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumOrderRequestStatusFilter<$PrismaModel>
 }
 
+export type EnumCustomerReportSubjectTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportSubjectType | Prisma.EnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportSubjectType[] | Prisma.ListEnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportSubjectType[] | Prisma.ListEnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportSubjectTypeFilter<$PrismaModel> | $Enums.CustomerReportSubjectType
+}
+
+export type EnumCustomerReportReasonFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportReason | Prisma.EnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportReason[] | Prisma.ListEnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportReason[] | Prisma.ListEnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportReasonFilter<$PrismaModel> | $Enums.CustomerReportReason
+}
+
+export type EnumCustomerReportStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportStatus | Prisma.EnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportStatus[] | Prisma.ListEnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportStatus[] | Prisma.ListEnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportStatusFilter<$PrismaModel> | $Enums.CustomerReportStatus
+}
+
+export type EnumCustomerReportSubjectTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportSubjectType | Prisma.EnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportSubjectType[] | Prisma.ListEnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportSubjectType[] | Prisma.ListEnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportSubjectTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomerReportSubjectType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerReportSubjectTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerReportSubjectTypeFilter<$PrismaModel>
+}
+
+export type EnumCustomerReportReasonWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportReason | Prisma.EnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportReason[] | Prisma.ListEnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportReason[] | Prisma.ListEnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportReasonWithAggregatesFilter<$PrismaModel> | $Enums.CustomerReportReason
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerReportReasonFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerReportReasonFilter<$PrismaModel>
+}
+
+export type EnumCustomerReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportStatus | Prisma.EnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportStatus[] | Prisma.ListEnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportStatus[] | Prisma.ListEnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.CustomerReportStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerReportStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerReportStatusFilter<$PrismaModel>
+}
+
 export type EnumOrderTermChangeStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.OrderTermChangeStatus | Prisma.EnumOrderTermChangeStatusFieldRefInput<$PrismaModel>
   in?: $Enums.OrderTermChangeStatus[] | Prisma.ListEnumOrderTermChangeStatusFieldRefInput<$PrismaModel>
@@ -2717,6 +2768,57 @@ export type NestedEnumOrderRequestStatusWithAggregatesFilter<$PrismaModel = neve
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumOrderRequestStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumOrderRequestStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumCustomerReportSubjectTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportSubjectType | Prisma.EnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportSubjectType[] | Prisma.ListEnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportSubjectType[] | Prisma.ListEnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportSubjectTypeFilter<$PrismaModel> | $Enums.CustomerReportSubjectType
+}
+
+export type NestedEnumCustomerReportReasonFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportReason | Prisma.EnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportReason[] | Prisma.ListEnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportReason[] | Prisma.ListEnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportReasonFilter<$PrismaModel> | $Enums.CustomerReportReason
+}
+
+export type NestedEnumCustomerReportStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportStatus | Prisma.EnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportStatus[] | Prisma.ListEnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportStatus[] | Prisma.ListEnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportStatusFilter<$PrismaModel> | $Enums.CustomerReportStatus
+}
+
+export type NestedEnumCustomerReportSubjectTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportSubjectType | Prisma.EnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportSubjectType[] | Prisma.ListEnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportSubjectType[] | Prisma.ListEnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportSubjectTypeWithAggregatesFilter<$PrismaModel> | $Enums.CustomerReportSubjectType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerReportSubjectTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerReportSubjectTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumCustomerReportReasonWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportReason | Prisma.EnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportReason[] | Prisma.ListEnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportReason[] | Prisma.ListEnumCustomerReportReasonFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportReasonWithAggregatesFilter<$PrismaModel> | $Enums.CustomerReportReason
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerReportReasonFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerReportReasonFilter<$PrismaModel>
+}
+
+export type NestedEnumCustomerReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.CustomerReportStatus | Prisma.EnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.CustomerReportStatus[] | Prisma.ListEnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.CustomerReportStatus[] | Prisma.ListEnumCustomerReportStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumCustomerReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.CustomerReportStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumCustomerReportStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumCustomerReportStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumOrderTermChangeStatusFilter<$PrismaModel = never> = {

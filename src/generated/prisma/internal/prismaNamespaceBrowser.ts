@@ -100,6 +100,7 @@ export const ModelName = {
   ProductPromotion: 'ProductPromotion',
   PromotionReservation: 'PromotionReservation',
   OrderRequest: 'OrderRequest',
+  CustomerReport: 'CustomerReport',
   OrderRequestTermChange: 'OrderRequestTermChange',
   CustomerOrderNotice: 'CustomerOrderNotice',
   OrderRequestShareToken: 'OrderRequestShareToken',
@@ -1021,6 +1022,29 @@ export const OrderRequestScalarFieldEnum = {
 } as const
 
 export type OrderRequestScalarFieldEnum = (typeof OrderRequestScalarFieldEnum)[keyof typeof OrderRequestScalarFieldEnum]
+
+
+export const CustomerReportScalarFieldEnum = {
+  id: 'id',
+  reporterCustomerAccountId: 'reporterCustomerAccountId',
+  businessId: 'businessId',
+  subjectType: 'subjectType',
+  reason: 'reason',
+  status: 'status',
+  subjectLabelSnapshot: 'subjectLabelSnapshot',
+  details: 'details',
+  orderRequestId: 'orderRequestId',
+  saleId: 'saleId',
+  productId: 'productId',
+  showcaseId: 'showcaseId',
+  reviewedByAdminId: 'reviewedByAdminId',
+  reviewNotes: 'reviewNotes',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerReportScalarFieldEnum = (typeof CustomerReportScalarFieldEnum)[keyof typeof CustomerReportScalarFieldEnum]
 
 
 export const OrderRequestTermChangeScalarFieldEnum = {

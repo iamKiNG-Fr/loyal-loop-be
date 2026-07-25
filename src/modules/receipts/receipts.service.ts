@@ -125,8 +125,8 @@ export class ReceiptsService {
     return { token: generated.token };
   }
 
-  async getPublic(token: string) {
-    const receipt = await this.findPublicReceipt(token);
+  async getPublic(customerAccountId: string, token: string) {
+    const receipt = await this.findPublicReceipt(customerAccountId, token);
     if (!receipt || receipt.status === "VOID") {
       throw new NotFoundException("Receipt not found");
     }
@@ -153,8 +153,8 @@ export class ReceiptsService {
     return sanitizePublicReceipt(receipt);
   }
 
-  async acknowledge(token: string) {
-    const receipt = await this.findByToken(token);
+  async acknowledge(customerAccountId: string, token: string) {
+    const receipt = await this.findByToken(customerAccountId, token);
     if (receipt.acknowledgedAt) return { acknowledgedAt: receipt.acknowledgedAt };
     const acknowledgedAt = new Date();
     await this.prisma.$transaction(async (tx) => {
@@ -178,8 +178,8 @@ export class ReceiptsService {
     return { acknowledgedAt };
   }
 
-  async createIssue(token: string, dto: CreateReceiptIssueDto) {
-    const receipt = await this.findByToken(token);
+  async createIssue(customerAccountId: string, token: string, dto: CreateReceiptIssueDto) {
+    const receipt = await this.findByToken(customerAccountId, token);
     return this.prisma.$transaction(async (tx) => {
       const issue = await tx.customerIssue.create({
         data: {
@@ -214,34 +214,39 @@ export class ReceiptsService {
     return receipt;
   }
 
-  private async findByToken(token: string) {
-    const receipt = await this.findPublicReceipt(token);
+  private async findByToken(customerAccountId: string, token: string) {
+    const receipt = await this.findPublicReceipt(customerAccountId, token);
     if (!receipt || receipt.status === "VOID") {
       throw new NotFoundException("Receipt not found");
     }
     return receipt;
   }
 
-  private async findPublicReceipt(token: string) {
+  private async findPublicReceipt(customerAccountId: string, token: string) {
     const tokenHash = hashToken(token);
-    const receipt = await this.prisma.receipt.findUnique({
-      where: { tokenHash },
+    const receipt = await this.prisma.receipt.findFirst({
+      where: { tokenHash, customer: { accountId: customerAccountId } },
       include: receiptInclude,
     });
     if (receipt) return receipt;
-    const shared = await this.prisma.receiptShareToken.findUnique({
-      where: { tokenHash },
+    const shared = await this.prisma.receiptShareToken.findFirst({
+      where: {
+        tokenHash,
+        revokedAt: null,
+        receipt: { customer: { accountId: customerAccountId } },
+      },
       include: {
         receipt: { include: receiptInclude },
       },
     });
-    if (shared) return shared.revokedAt ? null : shared.receipt;
+    if (shared) return shared.receipt;
     if (/^[A-Za-z2-9]{8}$/.test(token)) {
       const link = await this.prisma.shortLink.findFirst({
         where: {
           code: token,
           kind: "RECEIPT",
           receiptId: { not: null },
+          receipt: { customer: { accountId: customerAccountId } },
           revokedAt: null,
           OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
         },
@@ -258,6 +263,7 @@ function sanitizePublicReceipt(receipt: Awaited<ReturnType<ReceiptsService["get"
     acknowledgedAt: receipt.acknowledgedAt,
     receiptCode: receipt.receiptCode,
     business: {
+      id: receipt.business.id,
       name: receipt.business.name,
       slug: receipt.business.slug,
       logoAsset: receipt.business.logoAsset
@@ -274,6 +280,8 @@ function sanitizePublicReceipt(receipt: Awaited<ReturnType<ReceiptsService["get"
       amountPaid: receipt.sale.amountPaid,
       channel: receipt.sale.channel,
       currency: receipt.sale.currency,
+      id: receipt.sale.id,
+      sourceRequestId: receipt.sale.sourceRequestId,
       deliveryFee: receipt.sale.deliveryFee,
       protectedPayment: false,
       subtotal: receipt.sale.subtotal,

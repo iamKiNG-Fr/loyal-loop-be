@@ -158,8 +158,8 @@ export class DeliveryService {
     return updated;
   }
 
-  async getPublic(token: string) {
-    const delivery = await this.findByToken(token);
+  async getPublic(customerAccountId: string, token: string) {
+    const delivery = await this.findByToken(customerAccountId, token);
     return sanitizePublicDelivery(
       await this.prisma.delivery.findUniqueOrThrow({
         where: { id: delivery.id },
@@ -173,8 +173,8 @@ export class DeliveryService {
     );
   }
 
-  async confirm(token: string) {
-    const delivery = await this.findByToken(token);
+  async confirm(customerAccountId: string, token: string) {
+    const delivery = await this.findByToken(customerAccountId, token);
     if (delivery.status === "CONFIRMED") {
       return this.prisma.delivery.findUniqueOrThrow({
         where: { id: delivery.id },
@@ -214,8 +214,8 @@ export class DeliveryService {
     });
   }
 
-  async feedback(token: string, dto: SubmitDeliveryFeedbackDto) {
-    const delivery = await this.findByToken(token);
+  async feedback(customerAccountId: string, token: string, dto: SubmitDeliveryFeedbackDto) {
+    const delivery = await this.findByToken(customerAccountId, token);
     if (delivery.status !== "CONFIRMED") {
       throw new BadRequestException("Confirm delivery before leaving feedback");
     }
@@ -250,8 +250,8 @@ export class DeliveryService {
     });
   }
 
-  async createIssue(token: string, dto: CreateDeliveryIssueDto) {
-    const delivery = await this.findByToken(token);
+  async createIssue(customerAccountId: string, token: string, dto: CreateDeliveryIssueDto) {
+    const delivery = await this.findByToken(customerAccountId, token);
     return this.prisma.$transaction(async (tx) => {
       const issue = await tx.customerIssue.create({
         data: {
@@ -346,20 +346,27 @@ export class DeliveryService {
     return delivery;
   }
 
-  private async findByToken(token: string) {
+  private async findByToken(customerAccountId: string, token: string) {
     const tokenHash = hashToken(token);
-    const delivery = await this.prisma.delivery.findUnique({
-      where: { tokenHash },
+    const delivery = await this.prisma.delivery.findFirst({
+      where: { tokenHash, customer: { accountId: customerAccountId } },
     });
     if (delivery) return delivery;
-    const shared = await this.prisma.deliveryShareToken.findUnique({
-      where: { tokenHash },
+    const shared = await this.prisma.deliveryShareToken.findFirst({
+      where: {
+        tokenHash,
+        revokedAt: null,
+        delivery: { customer: { accountId: customerAccountId } },
+      },
       include: { delivery: true },
     });
-    if (shared && !shared.revokedAt) return shared.delivery;
+    if (shared) return shared.delivery;
 
     const convertedRequest = await this.prisma.orderRequest.findFirst({
-      where: { OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }] },
+      where: {
+        customerAccountId,
+        OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }],
+      },
       include: { convertedSale: { include: { delivery: true } } },
     });
     if (convertedRequest?.convertedSale?.delivery) {
@@ -373,6 +380,7 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
   const value = delivery as {
     address: string | null;
     business: {
+      id: string;
       contacts: Array<{
         isPrimary: boolean;
         label: string | null;
@@ -407,6 +415,8 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
     sale: {
       amountPaid: unknown;
       currency: string;
+      id: string;
+      sourceRequestId: string | null;
       items: Array<{
         id: string;
         imageUrl: string | null;
@@ -444,6 +454,7 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
   return {
     address: value.address,
     business: {
+      id: value.business.id,
       name: value.business.name,
       contacts: value.business.contacts.map((contact) => ({
         isPrimary: contact.isPrimary,
@@ -483,6 +494,8 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
     sale: {
       amountPaid: value.sale.amountPaid,
       currency: value.sale.currency,
+      id: value.sale.id,
+      sourceRequestId: value.sale.sourceRequestId,
       items: value.sale.items.map((item) => ({
         id: item.id,
         imageUrl: item.imageUrl,

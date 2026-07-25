@@ -207,6 +207,7 @@ export type PlatformAdminWhereInput = {
   revokedInvitations?: Prisma.OnboardingInvitationListRelationFilter
   researchInterviews?: Prisma.FoundingResearchInterviewListRelationFilter
   suspendedBusinesses?: Prisma.BusinessListRelationFilter
+  reviewedReports?: Prisma.CustomerReportListRelationFilter
 }
 
 export type PlatformAdminOrderByWithRelationInput = {
@@ -226,6 +227,7 @@ export type PlatformAdminOrderByWithRelationInput = {
   revokedInvitations?: Prisma.OnboardingInvitationOrderByRelationAggregateInput
   researchInterviews?: Prisma.FoundingResearchInterviewOrderByRelationAggregateInput
   suspendedBusinesses?: Prisma.BusinessOrderByRelationAggregateInput
+  reviewedReports?: Prisma.CustomerReportOrderByRelationAggregateInput
 }
 
 export type PlatformAdminWhereUniqueInput = Prisma.AtLeast<{
@@ -248,6 +250,7 @@ export type PlatformAdminWhereUniqueInput = Prisma.AtLeast<{
   revokedInvitations?: Prisma.OnboardingInvitationListRelationFilter
   researchInterviews?: Prisma.FoundingResearchInterviewListRelationFilter
   suspendedBusinesses?: Prisma.BusinessListRelationFilter
+  reviewedReports?: Prisma.CustomerReportListRelationFilter
 }, "id" | "userId">
 
 export type PlatformAdminOrderByWithAggregationInput = {
@@ -292,6 +295,7 @@ export type PlatformAdminCreateInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateInput = {
@@ -310,6 +314,7 @@ export type PlatformAdminUncheckedCreateInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUpdateInput = {
@@ -328,6 +333,7 @@ export type PlatformAdminUpdateInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateInput = {
@@ -346,6 +352,7 @@ export type PlatformAdminUncheckedUpdateInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminCreateManyInput = {
@@ -575,6 +582,22 @@ export type PlatformAdminUpdateOneWithoutSuspendedBusinessesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PlatformAdminUpdateToOneWithWhereWithoutSuspendedBusinessesInput, Prisma.PlatformAdminUpdateWithoutSuspendedBusinessesInput>, Prisma.PlatformAdminUncheckedUpdateWithoutSuspendedBusinessesInput>
 }
 
+export type PlatformAdminCreateNestedOneWithoutReviewedReportsInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutReviewedReportsInput, Prisma.PlatformAdminUncheckedCreateWithoutReviewedReportsInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutReviewedReportsInput
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+}
+
+export type PlatformAdminUpdateOneWithoutReviewedReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutReviewedReportsInput, Prisma.PlatformAdminUncheckedCreateWithoutReviewedReportsInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutReviewedReportsInput
+  upsert?: Prisma.PlatformAdminUpsertWithoutReviewedReportsInput
+  disconnect?: Prisma.PlatformAdminWhereInput | boolean
+  delete?: Prisma.PlatformAdminWhereInput | boolean
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlatformAdminUpdateToOneWithWhereWithoutReviewedReportsInput, Prisma.PlatformAdminUpdateWithoutReviewedReportsInput>, Prisma.PlatformAdminUncheckedUpdateWithoutReviewedReportsInput>
+}
+
 export type PlatformAdminCreateWithoutReviewedApplicationsInput = {
   id?: string
   role: $Enums.PlatformRole
@@ -590,6 +613,7 @@ export type PlatformAdminCreateWithoutReviewedApplicationsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutReviewedApplicationsInput = {
@@ -607,6 +631,7 @@ export type PlatformAdminUncheckedCreateWithoutReviewedApplicationsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutReviewedApplicationsInput = {
@@ -640,6 +665,7 @@ export type PlatformAdminUpdateWithoutReviewedApplicationsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutReviewedApplicationsInput = {
@@ -657,6 +683,7 @@ export type PlatformAdminUncheckedUpdateWithoutReviewedApplicationsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminCreateWithoutCreatedCohortsInput = {
@@ -674,6 +701,7 @@ export type PlatformAdminCreateWithoutCreatedCohortsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutCreatedCohortsInput = {
@@ -691,6 +719,7 @@ export type PlatformAdminUncheckedCreateWithoutCreatedCohortsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutCreatedCohortsInput = {
@@ -724,6 +753,7 @@ export type PlatformAdminUpdateWithoutCreatedCohortsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutCreatedCohortsInput = {
@@ -741,6 +771,7 @@ export type PlatformAdminUncheckedUpdateWithoutCreatedCohortsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminCreateWithoutCreatedInvitationsInput = {
@@ -758,6 +789,7 @@ export type PlatformAdminCreateWithoutCreatedInvitationsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutCreatedInvitationsInput = {
@@ -775,6 +807,7 @@ export type PlatformAdminUncheckedCreateWithoutCreatedInvitationsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutCreatedInvitationsInput = {
@@ -797,6 +830,7 @@ export type PlatformAdminCreateWithoutRevokedInvitationsInput = {
   createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutRevokedInvitationsInput = {
@@ -814,6 +848,7 @@ export type PlatformAdminUncheckedCreateWithoutRevokedInvitationsInput = {
   createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutRevokedInvitationsInput = {
@@ -847,6 +882,7 @@ export type PlatformAdminUpdateWithoutCreatedInvitationsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutCreatedInvitationsInput = {
@@ -864,6 +900,7 @@ export type PlatformAdminUncheckedUpdateWithoutCreatedInvitationsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUpsertWithoutRevokedInvitationsInput = {
@@ -892,6 +929,7 @@ export type PlatformAdminUpdateWithoutRevokedInvitationsInput = {
   createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutRevokedInvitationsInput = {
@@ -909,6 +947,7 @@ export type PlatformAdminUncheckedUpdateWithoutRevokedInvitationsInput = {
   createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminCreateWithoutResearchInterviewsInput = {
@@ -926,6 +965,7 @@ export type PlatformAdminCreateWithoutResearchInterviewsInput = {
   createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutResearchInterviewsInput = {
@@ -943,6 +983,7 @@ export type PlatformAdminUncheckedCreateWithoutResearchInterviewsInput = {
   createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutResearchInterviewsInput = {
@@ -976,6 +1017,7 @@ export type PlatformAdminUpdateWithoutResearchInterviewsInput = {
   createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutResearchInterviewsInput = {
@@ -993,6 +1035,7 @@ export type PlatformAdminUncheckedUpdateWithoutResearchInterviewsInput = {
   createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminCreateWithoutUserInput = {
@@ -1010,6 +1053,7 @@ export type PlatformAdminCreateWithoutUserInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutUserInput = {
@@ -1027,6 +1071,7 @@ export type PlatformAdminUncheckedCreateWithoutUserInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutUserInput = {
@@ -1060,6 +1105,7 @@ export type PlatformAdminUpdateWithoutUserInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutUserInput = {
@@ -1077,6 +1123,7 @@ export type PlatformAdminUncheckedUpdateWithoutUserInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminCreateWithoutSessionsInput = {
@@ -1094,6 +1141,7 @@ export type PlatformAdminCreateWithoutSessionsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutSessionsInput = {
@@ -1111,6 +1159,7 @@ export type PlatformAdminUncheckedCreateWithoutSessionsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutSessionsInput = {
@@ -1144,6 +1193,7 @@ export type PlatformAdminUpdateWithoutSessionsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutSessionsInput = {
@@ -1161,6 +1211,7 @@ export type PlatformAdminUncheckedUpdateWithoutSessionsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminCreateWithoutAuditLogsInput = {
@@ -1178,6 +1229,7 @@ export type PlatformAdminCreateWithoutAuditLogsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutAuditLogsInput = {
@@ -1195,6 +1247,7 @@ export type PlatformAdminUncheckedCreateWithoutAuditLogsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutAuditLogsInput = {
@@ -1228,6 +1281,7 @@ export type PlatformAdminUpdateWithoutAuditLogsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutAuditLogsInput = {
@@ -1245,6 +1299,7 @@ export type PlatformAdminUncheckedUpdateWithoutAuditLogsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminCreateWithoutSuspendedBusinessesInput = {
@@ -1262,6 +1317,7 @@ export type PlatformAdminCreateWithoutSuspendedBusinessesInput = {
   createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutSuspendedBusinessesInput = {
@@ -1279,6 +1335,7 @@ export type PlatformAdminUncheckedCreateWithoutSuspendedBusinessesInput = {
   createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutSuspendedBusinessesInput = {
@@ -1312,6 +1369,7 @@ export type PlatformAdminUpdateWithoutSuspendedBusinessesInput = {
   createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutSuspendedBusinessesInput = {
@@ -1329,6 +1387,95 @@ export type PlatformAdminUncheckedUpdateWithoutSuspendedBusinessesInput = {
   createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type PlatformAdminCreateWithoutReviewedReportsInput = {
+  id?: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
+  sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+}
+
+export type PlatformAdminUncheckedCreateWithoutReviewedReportsInput = {
+  id?: string
+  userId: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+}
+
+export type PlatformAdminCreateOrConnectWithoutReviewedReportsInput = {
+  where: Prisma.PlatformAdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutReviewedReportsInput, Prisma.PlatformAdminUncheckedCreateWithoutReviewedReportsInput>
+}
+
+export type PlatformAdminUpsertWithoutReviewedReportsInput = {
+  update: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutReviewedReportsInput, Prisma.PlatformAdminUncheckedUpdateWithoutReviewedReportsInput>
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutReviewedReportsInput, Prisma.PlatformAdminUncheckedCreateWithoutReviewedReportsInput>
+  where?: Prisma.PlatformAdminWhereInput
+}
+
+export type PlatformAdminUpdateToOneWithWhereWithoutReviewedReportsInput = {
+  where?: Prisma.PlatformAdminWhereInput
+  data: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutReviewedReportsInput, Prisma.PlatformAdminUncheckedUpdateWithoutReviewedReportsInput>
+}
+
+export type PlatformAdminUpdateWithoutReviewedReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
+  sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+}
+
+export type PlatformAdminUncheckedUpdateWithoutReviewedReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
 }
 
 
@@ -1345,6 +1492,7 @@ export type PlatformAdminCountOutputType = {
   revokedInvitations: number
   researchInterviews: number
   suspendedBusinesses: number
+  reviewedReports: number
 }
 
 export type PlatformAdminCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1356,6 +1504,7 @@ export type PlatformAdminCountOutputTypeSelect<ExtArgs extends runtime.Types.Ext
   revokedInvitations?: boolean | PlatformAdminCountOutputTypeCountRevokedInvitationsArgs
   researchInterviews?: boolean | PlatformAdminCountOutputTypeCountResearchInterviewsArgs
   suspendedBusinesses?: boolean | PlatformAdminCountOutputTypeCountSuspendedBusinessesArgs
+  reviewedReports?: boolean | PlatformAdminCountOutputTypeCountReviewedReportsArgs
 }
 
 /**
@@ -1424,6 +1573,13 @@ export type PlatformAdminCountOutputTypeCountSuspendedBusinessesArgs<ExtArgs ext
   where?: Prisma.BusinessWhereInput
 }
 
+/**
+ * PlatformAdminCountOutputType without action
+ */
+export type PlatformAdminCountOutputTypeCountReviewedReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerReportWhereInput
+}
+
 
 export type PlatformAdminSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1442,6 +1598,7 @@ export type PlatformAdminSelect<ExtArgs extends runtime.Types.Extensions.Interna
   revokedInvitations?: boolean | Prisma.PlatformAdmin$revokedInvitationsArgs<ExtArgs>
   researchInterviews?: boolean | Prisma.PlatformAdmin$researchInterviewsArgs<ExtArgs>
   suspendedBusinesses?: boolean | Prisma.PlatformAdmin$suspendedBusinessesArgs<ExtArgs>
+  reviewedReports?: boolean | Prisma.PlatformAdmin$reviewedReportsArgs<ExtArgs>
   _count?: boolean | Prisma.PlatformAdminCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["platformAdmin"]>
 
@@ -1488,6 +1645,7 @@ export type PlatformAdminInclude<ExtArgs extends runtime.Types.Extensions.Intern
   revokedInvitations?: boolean | Prisma.PlatformAdmin$revokedInvitationsArgs<ExtArgs>
   researchInterviews?: boolean | Prisma.PlatformAdmin$researchInterviewsArgs<ExtArgs>
   suspendedBusinesses?: boolean | Prisma.PlatformAdmin$suspendedBusinessesArgs<ExtArgs>
+  reviewedReports?: boolean | Prisma.PlatformAdmin$reviewedReportsArgs<ExtArgs>
   _count?: boolean | Prisma.PlatformAdminCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlatformAdminIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1509,6 +1667,7 @@ export type $PlatformAdminPayload<ExtArgs extends runtime.Types.Extensions.Inter
     revokedInvitations: Prisma.$OnboardingInvitationPayload<ExtArgs>[]
     researchInterviews: Prisma.$FoundingResearchInterviewPayload<ExtArgs>[]
     suspendedBusinesses: Prisma.$BusinessPayload<ExtArgs>[]
+    reviewedReports: Prisma.$CustomerReportPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1921,6 +2080,7 @@ export interface Prisma__PlatformAdminClient<T, Null = never, ExtArgs extends ru
   revokedInvitations<T extends Prisma.PlatformAdmin$revokedInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$revokedInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OnboardingInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   researchInterviews<T extends Prisma.PlatformAdmin$researchInterviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$researchInterviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoundingResearchInterviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suspendedBusinesses<T extends Prisma.PlatformAdmin$suspendedBusinessesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$suspendedBusinessesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedReports<T extends Prisma.PlatformAdmin$reviewedReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$reviewedReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2547,6 +2707,30 @@ export type PlatformAdmin$suspendedBusinessesArgs<ExtArgs extends runtime.Types.
   take?: number
   skip?: number
   distinct?: Prisma.BusinessScalarFieldEnum | Prisma.BusinessScalarFieldEnum[]
+}
+
+/**
+ * PlatformAdmin.reviewedReports
+ */
+export type PlatformAdmin$reviewedReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerReport
+   */
+  select?: Prisma.CustomerReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerReport
+   */
+  omit?: Prisma.CustomerReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerReportInclude<ExtArgs> | null
+  where?: Prisma.CustomerReportWhereInput
+  orderBy?: Prisma.CustomerReportOrderByWithRelationInput | Prisma.CustomerReportOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerReportScalarFieldEnum | Prisma.CustomerReportScalarFieldEnum[]
 }
 
 /**

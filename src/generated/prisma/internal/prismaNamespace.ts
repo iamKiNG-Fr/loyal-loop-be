@@ -433,6 +433,7 @@ export const ModelName = {
   ProductPromotion: 'ProductPromotion',
   PromotionReservation: 'PromotionReservation',
   OrderRequest: 'OrderRequest',
+  CustomerReport: 'CustomerReport',
   OrderRequestTermChange: 'OrderRequestTermChange',
   CustomerOrderNotice: 'CustomerOrderNotice',
   OrderRequestShareToken: 'OrderRequestShareToken',
@@ -479,7 +480,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "messageAttempt" | "messagingWebhookEvent"
+    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerReport" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "messageAttempt" | "messagingWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -4109,6 +4110,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CustomerReport: {
+      payload: Prisma.$CustomerReportPayload<ExtArgs>
+      fields: Prisma.CustomerReportFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CustomerReportFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CustomerReportFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload>
+        }
+        findFirst: {
+          args: Prisma.CustomerReportFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CustomerReportFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload>
+        }
+        findMany: {
+          args: Prisma.CustomerReportFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload>[]
+        }
+        create: {
+          args: Prisma.CustomerReportCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload>
+        }
+        createMany: {
+          args: Prisma.CustomerReportCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CustomerReportCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload>[]
+        }
+        delete: {
+          args: Prisma.CustomerReportDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload>
+        }
+        update: {
+          args: Prisma.CustomerReportUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload>
+        }
+        deleteMany: {
+          args: Prisma.CustomerReportDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CustomerReportUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CustomerReportUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload>[]
+        }
+        upsert: {
+          args: Prisma.CustomerReportUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomerReportPayload>
+        }
+        aggregate: {
+          args: Prisma.CustomerReportAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCustomerReport>
+        }
+        groupBy: {
+          args: Prisma.CustomerReportGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerReportGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CustomerReportCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CustomerReportCountAggregateOutputType> | number
+        }
+      }
+    }
     OrderRequestTermChange: {
       payload: Prisma.$OrderRequestTermChangePayload<ExtArgs>
       fields: Prisma.OrderRequestTermChangeFieldRefs
@@ -7316,6 +7391,29 @@ export const OrderRequestScalarFieldEnum = {
 export type OrderRequestScalarFieldEnum = (typeof OrderRequestScalarFieldEnum)[keyof typeof OrderRequestScalarFieldEnum]
 
 
+export const CustomerReportScalarFieldEnum = {
+  id: 'id',
+  reporterCustomerAccountId: 'reporterCustomerAccountId',
+  businessId: 'businessId',
+  subjectType: 'subjectType',
+  reason: 'reason',
+  status: 'status',
+  subjectLabelSnapshot: 'subjectLabelSnapshot',
+  details: 'details',
+  orderRequestId: 'orderRequestId',
+  saleId: 'saleId',
+  productId: 'productId',
+  showcaseId: 'showcaseId',
+  reviewedByAdminId: 'reviewedByAdminId',
+  reviewNotes: 'reviewNotes',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomerReportScalarFieldEnum = (typeof CustomerReportScalarFieldEnum)[keyof typeof CustomerReportScalarFieldEnum]
+
+
 export const OrderRequestTermChangeScalarFieldEnum = {
   id: 'id',
   orderRequestId: 'orderRequestId',
@@ -8636,6 +8734,48 @@ export type ListEnumOrderRequestStatusFieldRefInput<$PrismaModel> = FieldRefInpu
 
 
 /**
+ * Reference to a field of type 'CustomerReportSubjectType'
+ */
+export type EnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerReportSubjectType'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerReportSubjectType[]'
+ */
+export type ListEnumCustomerReportSubjectTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerReportSubjectType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerReportReason'
+ */
+export type EnumCustomerReportReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerReportReason'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerReportReason[]'
+ */
+export type ListEnumCustomerReportReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerReportReason[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerReportStatus'
+ */
+export type EnumCustomerReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerReportStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'CustomerReportStatus[]'
+ */
+export type ListEnumCustomerReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CustomerReportStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'OrderTermChangeStatus'
  */
 export type EnumOrderTermChangeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderTermChangeStatus'>
@@ -9031,6 +9171,7 @@ export type GlobalOmitConfig = {
   productPromotion?: Prisma.ProductPromotionOmit
   promotionReservation?: Prisma.PromotionReservationOmit
   orderRequest?: Prisma.OrderRequestOmit
+  customerReport?: Prisma.CustomerReportOmit
   orderRequestTermChange?: Prisma.OrderRequestTermChangeOmit
   customerOrderNotice?: Prisma.CustomerOrderNoticeOmit
   orderRequestShareToken?: Prisma.OrderRequestShareTokenOmit
