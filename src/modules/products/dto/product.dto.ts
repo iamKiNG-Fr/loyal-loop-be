@@ -314,3 +314,20 @@ export class SuggestProductFormGuidanceDto {
   @Length(0, 80)
   placement?: string;
 }
+
+export class SuggestShowcaseCaptionDto {
+  @IsString()
+  @Length(1, 120)
+  title!: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 500)
+  currentCaption?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(12)
+  @IsString({ each: true })
+  productNames?: string[];
+}

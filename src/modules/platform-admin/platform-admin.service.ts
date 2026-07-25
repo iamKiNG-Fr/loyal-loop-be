@@ -59,6 +59,7 @@ export class PlatformAdminService {
       deliveries,
       pendingApplications,
       issuedInvitations,
+      pendingMediaReviews,
       enrollments,
     ] = await Promise.all([
       this.prisma.business.count({ where: businessWhere }),
@@ -88,6 +89,14 @@ export class PlatformAdminService {
       this.prisma.foundingAccessApplication.count({ where: { status: "PENDING" } }),
       this.prisma.onboardingInvitation.count({
         where: { status: "ISSUED", expiresAt: { gt: new Date() } },
+      }),
+      this.prisma.mediaAsset.count({
+        where: {
+          business: businessWhere,
+          deletedAt: null,
+          moderationStatus: { in: ["PENDING", "REVIEW_REQUIRED"] },
+          status: "ACTIVE",
+        },
       }),
       this.memberJourneys(includeDemo),
     ]);
@@ -119,6 +128,7 @@ export class PlatformAdminService {
         weekFourRetentionRate: percentage(weekFourRetained, activated),
       },
       alerts: {
+        pendingMediaReviews,
         suspendedBusinesses: await this.prisma.business.count({
           where: { platformStatus: "SUSPENDED" },
         }),

@@ -127,6 +127,7 @@ export class ProductsService {
   }
 
   async create(auth: OwnerAuthContext, dto: CreateProductDto) {
+    this.validateVariantStock(dto.stockCount, dto.variants);
     const assets = await this.validateAssets(
       auth.businessId,
       dto.imageAssetIds ?? [],
@@ -218,6 +219,9 @@ export class ProductsService {
     dto: UpdateProductDto,
   ) {
     const product = await this.assertOwned(auth.businessId, productId);
+    if (dto.variants || dto.stockCount !== undefined) {
+      this.validateVariantStock(dto.stockCount ?? product.stockCount, dto.variants ?? product.variants);
+    }
     const hasCategoryUpdate = dto.categoryId !== undefined || dto.category !== undefined;
     const category = hasCategoryUpdate
       ? await this.resolveCategory(auth, dto.categoryId, dto.category)
@@ -356,9 +360,23 @@ export class ProductsService {
   private async assertOwned(businessId: string, productId: string) {
     const product = await this.prisma.product.findFirst({
       where: { id: productId, businessId },
+      include: { variants: true },
     });
     if (!product) throw new NotFoundException("Product not found");
     return product;
+  }
+
+  private validateVariantStock(
+    productStock: number | null | undefined,
+    variants?: Array<{ stockCount?: number | null }>,
+  ) {
+    if (productStock === null || productStock === undefined || !variants?.length) return;
+    const assignedStock = variants.reduce((total, variant) => total + (variant.stockCount ?? 0), 0);
+    if (assignedStock > productStock) {
+      throw new BadRequestException(
+        `Option stock totals ${assignedStock}, which exceeds Product inventory of ${productStock}`,
+      );
+    }
   }
 
   private async validateAssets(businessId: string, ids: string[]) {

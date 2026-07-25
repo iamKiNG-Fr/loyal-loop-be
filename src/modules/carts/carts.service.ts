@@ -208,7 +208,16 @@ export class CartsService {
       const groupKey = `${dto.idempotencyKey}:${group.business.id}`;
       try {
         if (!groupItems.length) continue;
-        if (groupItems.some((item) => !item.available)) throw new BadRequestException("One or more items are unavailable");
+        const unavailable = groupItems.filter((item) => !item.available);
+        if (unavailable.length) {
+          const details = unavailable.map((item) => {
+            const label = `${item.product.name}${item.variant?.name ? ` (${item.variant.name})` : ""}`;
+            if (item.currentStock === 0) return `${label} is out of stock`;
+            if (item.currentStock !== null && item.currentStock < item.quantity) return `${label} has only ${item.currentStock} available`;
+            return `${label} is no longer available`;
+          });
+          throw new BadRequestException(`${details.join("; ")}. Remove or adjust the item before sending`);
+        }
         if (!dto.confirmedChanges && groupItems.some((item) => item.priceChanged || item.stockChanged)) {
           throw new BadRequestException("Confirm the latest price and availability before sending");
         }

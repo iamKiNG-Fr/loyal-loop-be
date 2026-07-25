@@ -99,6 +99,13 @@ export class PromotionsService {
     if (!product) throw new BadRequestException("Product is unavailable");
     const variant = input.variantId ? product.variants.find((item) => item.id === input.variantId && item.active) : undefined;
     if (input.variantId && !variant) throw new BadRequestException("Product variant is unavailable");
+    const currentStock = variant?.stockCount ?? product.stockCount;
+    if (currentStock !== null && currentStock < input.quantity) {
+      const label = `${product.name}${variant?.name ? ` (${variant.name})` : ""}`;
+      throw new BadRequestException(
+        currentStock === 0 ? `${label} is out of stock` : `Only ${currentStock} of ${label} is available`,
+      );
+    }
     const originalUnitPrice = variant?.priceOverride ?? product.price;
     const promotion = product.promotions.find((item) =>
       (!item.variantId || item.variantId === input.variantId)

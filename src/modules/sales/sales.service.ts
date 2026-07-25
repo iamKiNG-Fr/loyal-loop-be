@@ -27,6 +27,7 @@ const saleInclude = {
   paymentProofs: {
     select: {
       amount: true,
+      asset: { select: { secureUrl: true } },
       id: true,
       reference: true,
       status: true,

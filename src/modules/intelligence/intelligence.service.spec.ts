@@ -70,4 +70,18 @@ describe("IntelligenceService deterministic fallback", () => {
     ]));
     expect(JSON.stringify(guidance)).not.toContain("Vanilla");
   });
+
+  it("builds a Showcase caption only from merchant-supplied facts when Gemini is disabled", async () => {
+    const suggestion = await service.suggestShowcaseCaption({
+      title: "Weekend table",
+      currentCaption: "A few favourites for slow mornings.",
+      productNames: ["Clay mug", "Linen runner"],
+    });
+
+    expect(suggestion.source).toBe("fallback");
+    expect(suggestion.caption).toContain("A few favourites for slow mornings.");
+    expect(suggestion.caption).toContain("Clay mug");
+    expect(suggestion.caption).toContain("Linen runner");
+    expect(suggestion.caption).not.toContain("discount");
+  });
 });

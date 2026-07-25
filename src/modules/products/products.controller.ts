@@ -26,6 +26,7 @@ import {
   ReplaceProductMediaDto,
   SuggestProductDescriptionDto,
   SuggestProductFormGuidanceDto,
+  SuggestShowcaseCaptionDto,
   UpdateProductDto,
 } from "./dto/product.dto";
 import { CreateBusinessCategoryDto } from "./dto/category.dto";
@@ -65,6 +66,13 @@ export class ProductsController {
   @Roles("OWNER", "MANAGER", "SALES")
   formGuidance(@Body() dto: SuggestProductFormGuidanceDto) {
     return this.intelligence.suggestProductFormGuidance(dto).then(data => ok(data));
+  }
+
+  @Post("showcase-caption-suggestion")
+  @Capabilities(BusinessCapability.CATALOG_WRITE)
+  @Roles("OWNER", "MANAGER", "SALES")
+  showcaseCaptionSuggestion(@Body() dto: SuggestShowcaseCaptionDto) {
+    return this.intelligence.suggestShowcaseCaption(dto).then(data => ok(data));
   }
 
   @Get("categories")

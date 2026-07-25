@@ -85,6 +85,15 @@ const PRODUCT_DESCRIPTION_SCHEMA = {
   },
 };
 
+const SHOWCASE_CAPTION_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  required: ["caption"],
+  properties: {
+    caption: { type: "string", maxLength: 500 },
+  },
+};
+
 const PRODUCT_FORM_GUIDANCE_SCHEMA = {
   type: "object",
   additionalProperties: false,
@@ -280,6 +289,50 @@ export class IntelligenceService implements IntelligenceProvider {
       return validated ? { ...validated, source: "ai" } : fallback;
     } catch {
       void this.telemetry("GEMINI_PRODUCT_DESCRIPTION_FAILURE", Date.now() - startedAt);
+      return fallback;
+    }
+  }
+
+  async suggestShowcaseCaption(input: {
+    title: string;
+    currentCaption?: string;
+    productNames?: string[];
+  }) {
+    const products = (input.productNames ?? []).map(value => value.trim()).filter(Boolean).slice(0, 12);
+    const fallbackCaption = [
+      input.currentCaption?.trim(),
+      products.length ? `Tap to explore ${products.join(", ")}.` : `Tap to explore ${input.title.trim()}.`,
+    ].filter(Boolean).join(" ").slice(0, 500);
+    const fallback = { caption: fallbackCaption, source: "fallback" as const };
+    if (!this.client || !this.model) return fallback;
+    const startedAt = Date.now();
+    try {
+      const response = await withTimeout(
+        this.client.models.generateContent({
+          model: this.model,
+          contents: [
+            "Write one concise social-commerce Showcase caption. Use only the merchant-supplied title, current caption, and product names. " +
+              "Do not invent prices, availability, materials, benefits, delivery promises, discounts, urgency, or hashtags. Return natural customer-facing copy with a gentle tap-to-explore invitation.\n" +
+              JSON.stringify({
+                title: input.title.slice(0, 120),
+                currentCaption: input.currentCaption?.slice(0, 500) ?? null,
+                productNames: products,
+              }),
+          ],
+          config: {
+            responseMimeType: "application/json",
+            responseJsonSchema: SHOWCASE_CAPTION_SCHEMA,
+            temperature: 0.25,
+          },
+        }),
+        this.timeoutMs,
+      );
+      const parsed = parseJson(response.text);
+      const caption = isRecord(parsed) && typeof parsed.caption === "string" ? parsed.caption.trim().slice(0, 500) : "";
+      void this.telemetry(caption ? "GEMINI_SHOWCASE_CAPTION_SUCCESS" : "GEMINI_SHOWCASE_CAPTION_INVALID", Date.now() - startedAt, usageMetadata(response));
+      return caption ? { caption, source: "ai" as const } : fallback;
+    } catch {
+      void this.telemetry("GEMINI_SHOWCASE_CAPTION_FAILURE", Date.now() - startedAt);
       return fallback;
     }
   }
