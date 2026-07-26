@@ -21,6 +21,7 @@ import type {
   ReviewCustomerReportDto,
   SuspendBusinessDto,
 } from "./dto/platform-admin.dto";
+import { discoverySource } from "../shops/discovery-attribution";
 
 const MEANINGFUL_BUSINESS_ACTIONS = [
   "CUSTOMER_ADDED",
@@ -63,6 +64,8 @@ export class PlatformAdminService {
       pendingMediaReviews,
       pendingCustomerReports,
       enrollments,
+      discoveryEvents,
+      retentionBusinesses,
     ] = await Promise.all([
       this.prisma.business.count({ where: businessWhere }),
       this.prisma.business.count({
@@ -107,10 +110,51 @@ export class PlatformAdminService {
         },
       }),
       this.memberJourneys(includeDemo),
+      this.prisma.commerceEvent.findMany({
+        where: {
+          business: businessWhere,
+          type: { in: ["SHOP_VIEWED", "PRODUCT_VIEWED"] },
+          createdAt: { gte: daysAgo(30) },
+        },
+        select: { metadata: true },
+        orderBy: { createdAt: "desc" },
+        take: 10000,
+      }),
+      this.prisma.business.findMany({
+        where: businessWhere,
+        select: {
+          id: true,
+          activityEvents: {
+            where: {
+              createdAt: { gte: daysAgo(14) },
+              type: { in: MEANINGFUL_BUSINESS_ACTIONS },
+            },
+            select: { createdAt: true },
+          },
+        },
+      }),
     ]);
     const activated = enrollments.filter((item) => item.activation.activated).length;
     const weekOneRetained = enrollments.filter((item) => item.retention.weekOne).length;
     const weekFourRetained = enrollments.filter((item) => item.retention.weekFour).length;
+    const discoverySources = new Map<string, number>();
+    for (const event of discoveryEvents) {
+      const source = discoverySource(event.metadata);
+      if (source) discoverySources.set(source, (discoverySources.get(source) ?? 0) + 1);
+    }
+    const attributedPublicViews = [...discoverySources.values()].reduce((sum, value) => sum + value, 0);
+    const currentWeekStart = daysAgo(7).getTime();
+    const previousWeekStart = daysAgo(14).getTime();
+    const retentionRows = retentionBusinesses.map((business) => {
+      const times = business.activityEvents.map((event) => event.createdAt.getTime());
+      return {
+        currentWeek: times.some((time) => time >= currentWeekStart),
+        previousWeek: times.some((time) => time >= previousWeekStart && time < currentWeekStart),
+      };
+    });
+    const activeThisWeek = retentionRows.filter((item) => item.currentWeek).length;
+    const previousWeekActive = retentionRows.filter((item) => item.previousWeek).length;
+    const retainedThisWeek = retentionRows.filter((item) => item.currentWeek && item.previousWeek).length;
     return {
       totals: {
         businesses,
@@ -147,6 +191,21 @@ export class PlatformAdminService {
             status: { in: ["FAILED", "DEAD_LETTER", "SUPPRESSED"] },
           },
         }),
+      },
+      traffic: {
+        attributedViews: attributedPublicViews,
+        sourceBreakdown: [...discoverySources.entries()]
+          .map(([source, views]) => ({ source, views }))
+          .sort((left, right) => right.views - left.views)
+          .slice(0, 8),
+        totalPublicViews: discoveryEvents.length,
+        windowDays: 30,
+      },
+      retention: {
+        activeThisWeek,
+        previousWeekActive,
+        retainedThisWeek,
+        weeklyRetentionRate: percentage(retainedThisWeek, previousWeekActive),
       },
       memberJourneys: enrollments,
     };

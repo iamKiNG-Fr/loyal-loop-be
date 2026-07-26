@@ -405,7 +405,12 @@ export class ShopsService {
       where: { businessId: auth.businessId },
       include: {
         items: true,
-        convertedSale: true,
+        convertedSale: {
+          include: {
+            delivery: { select: { id: true, status: true } },
+            receipt: { select: { id: true, receiptCode: true } },
+          },
+        },
         termChanges: { orderBy: { createdAt: "desc" }, take: 10 },
       },
       orderBy: { createdAt: "desc" },

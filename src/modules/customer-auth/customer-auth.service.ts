@@ -181,6 +181,7 @@ export class CustomerAuthService {
             delivery: { select: { id: true, status: true } },
             paymentStatus: true,
             referenceCode: true,
+            status: true,
           },
         },
         customerNotices: {

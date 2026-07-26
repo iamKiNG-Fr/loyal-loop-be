@@ -349,14 +349,25 @@ export class DeliveryService {
   private async findByToken(customerAccountId: string, token: string) {
     const tokenHash = hashToken(token);
     const delivery = await this.prisma.delivery.findFirst({
-      where: { tokenHash, customer: { accountId: customerAccountId } },
+      where: {
+        tokenHash,
+        OR: [
+          { customer: { accountId: customerAccountId } },
+          { sale: { sourceRequest: { customerAccountId } } },
+        ],
+      },
     });
     if (delivery) return delivery;
     const shared = await this.prisma.deliveryShareToken.findFirst({
       where: {
         tokenHash,
         revokedAt: null,
-        delivery: { customer: { accountId: customerAccountId } },
+        delivery: {
+          OR: [
+            { customer: { accountId: customerAccountId } },
+            { sale: { sourceRequest: { customerAccountId } } },
+          ],
+        },
       },
       include: { delivery: true },
     });
