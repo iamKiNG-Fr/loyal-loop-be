@@ -96,7 +96,7 @@ export class DashboardService {
           type: { in: ["SHOP_VIEWED", "PRODUCT_VIEWED"] },
           createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
         },
-        select: { metadata: true },
+        select: { createdAt: true, metadata: true, type: true },
         orderBy: { createdAt: "desc" },
         take: 2000,
       }),
@@ -109,6 +109,20 @@ export class DashboardService {
     }
     const attributedViews = [...sourceCounts.values()].reduce((sum, value) => sum + value, 0);
     const reportingReady = attributedViews >= 5;
+    const discoverySeries = new Map<string, { date: string; productViews: number; shopViews: number }>();
+    for (let offset = 29; offset >= 0; offset -= 1) {
+      const date = new Date();
+      date.setUTCHours(0, 0, 0, 0);
+      date.setUTCDate(date.getUTCDate() - offset);
+      const key = date.toISOString().slice(0, 10);
+      discoverySeries.set(key, { date: key, productViews: 0, shopViews: 0 });
+    }
+    for (const event of discoveryEvents) {
+      const day = discoverySeries.get(event.createdAt.toISOString().slice(0, 10));
+      if (!day) continue;
+      if (event.type === "PRODUCT_VIEWED") day.productViews += 1;
+      if (event.type === "SHOP_VIEWED") day.shopViews += 1;
+    }
 
     return {
       counts: {
@@ -137,6 +151,7 @@ export class DashboardService {
       discovery: {
         attributedViews,
         reportingReady,
+        series: [...discoverySeries.values()],
         topSources: reportingReady
           ? [...sourceCounts.entries()]
               .map(([source, views]) => ({ source, views }))

@@ -66,6 +66,7 @@ export class PlatformAdminService {
       enrollments,
       discoveryEvents,
       retentionBusinesses,
+      trustLedgerEntries,
     ] = await Promise.all([
       this.prisma.business.count({ where: businessWhere }),
       this.prisma.business.count({
@@ -116,7 +117,13 @@ export class PlatformAdminService {
           type: { in: ["SHOP_VIEWED", "PRODUCT_VIEWED"] },
           createdAt: { gte: daysAgo(30) },
         },
-        select: { metadata: true },
+        select: {
+          businessId: true,
+          metadata: true,
+          productId: true,
+          business: { select: { name: true, slug: true } },
+          product: { select: { name: true, slug: true } },
+        },
         orderBy: { createdAt: "desc" },
         take: 10000,
       }),
@@ -133,14 +140,55 @@ export class PlatformAdminService {
           },
         },
       }),
+      this.prisma.trustLedgerEntry.findMany({
+        where: { business: businessWhere },
+        select: {
+          businessId: true,
+          points: true,
+          business: { select: { name: true, slug: true } },
+        },
+        orderBy: { createdAt: "desc" },
+        take: 10000,
+      }),
     ]);
     const activated = enrollments.filter((item) => item.activation.activated).length;
     const weekOneRetained = enrollments.filter((item) => item.retention.weekOne).length;
     const weekFourRetained = enrollments.filter((item) => item.retention.weekFour).length;
     const discoverySources = new Map<string, number>();
+    const businessTraffic = new Map<string, { id: string; name: string; slug: string; views: number }>();
+    const productTraffic = new Map<string, { id: string; name: string; slug: string; views: number }>();
     for (const event of discoveryEvents) {
       const source = discoverySource(event.metadata);
       if (source) discoverySources.set(source, (discoverySources.get(source) ?? 0) + 1);
+      const business = businessTraffic.get(event.businessId) ?? {
+        id: event.businessId,
+        name: event.business.name,
+        slug: event.business.slug,
+        views: 0,
+      };
+      business.views += 1;
+      businessTraffic.set(event.businessId, business);
+      if (event.productId && event.product) {
+        const product = productTraffic.get(event.productId) ?? {
+          id: event.productId,
+          name: event.product.name,
+          slug: event.product.slug,
+          views: 0,
+        };
+        product.views += 1;
+        productTraffic.set(event.productId, product);
+      }
+    }
+    const trustBusinesses = new Map<string, { id: string; name: string; points: number; slug: string }>();
+    for (const entry of trustLedgerEntries) {
+      const business = trustBusinesses.get(entry.businessId) ?? {
+        id: entry.businessId,
+        name: entry.business.name,
+        points: 0,
+        slug: entry.business.slug,
+      };
+      business.points += entry.points;
+      trustBusinesses.set(entry.businessId, business);
     }
     const attributedPublicViews = [...discoverySources.values()].reduce((sum, value) => sum + value, 0);
     const currentWeekStart = daysAgo(7).getTime();
@@ -194,12 +242,23 @@ export class PlatformAdminService {
       },
       traffic: {
         attributedViews: attributedPublicViews,
+        topBusinesses: [...businessTraffic.values()]
+          .sort((left, right) => right.views - left.views || left.name.localeCompare(right.name))
+          .slice(0, 8),
+        topProducts: [...productTraffic.values()]
+          .sort((left, right) => right.views - left.views || left.name.localeCompare(right.name))
+          .slice(0, 8),
         sourceBreakdown: [...discoverySources.entries()]
           .map(([source, views]) => ({ source, views }))
           .sort((left, right) => right.views - left.views)
           .slice(0, 8),
         totalPublicViews: discoveryEvents.length,
         windowDays: 30,
+      },
+      trust: {
+        topBusinesses: [...trustBusinesses.values()]
+          .sort((left, right) => right.points - left.points || left.name.localeCompare(right.name))
+          .slice(0, 8),
       },
       retention: {
         activeThisWeek,
