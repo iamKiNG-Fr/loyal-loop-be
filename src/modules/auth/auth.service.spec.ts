@@ -8,6 +8,9 @@ function createService() {
       findUnique: vi.fn(),
       update: vi.fn(),
     },
+    business: {
+      findFirst: vi.fn(),
+    },
     ownerOtpChallenge: {
       create: vi.fn(),
       findUnique: vi.fn(),
@@ -106,7 +109,10 @@ describe("AuthService WhatsApp owner sign-in", () => {
 
     const result = await service.startOnboardingWhatsapp("+2348012345678");
 
-    expect(prisma.user.findUnique).not.toHaveBeenCalled();
+    expect(prisma.user.findUnique).toHaveBeenCalledWith({
+      where: { phone: "+2348012345678" },
+      select: { id: true },
+    });
     expect(otpProvider.start).toHaveBeenCalledWith("+2348012345678");
     expect(prisma.ownerOtpChallenge.updateMany).toHaveBeenCalledWith({
       where: {
@@ -118,6 +124,15 @@ describe("AuthService WhatsApp owner sign-in", () => {
       data: { expiresAt: expect.any(Date) },
     });
     expect(result.challengeId).toBe("onboarding-otp-1");
+  });
+
+  it("does not send an onboarding code to a phone that already owns a workspace", async () => {
+    const { otpProvider, prisma, service } = createService();
+    prisma.user.findUnique.mockResolvedValue({ id: "user-1" });
+
+    await expect(service.startOnboardingWhatsapp("+2348012345678"))
+      .rejects.toThrow("already belongs to a Loyal Loop business");
+    expect(otpProvider.start).not.toHaveBeenCalled();
   });
 
   it("verifies a pre-account onboarding phone without creating a session", async () => {

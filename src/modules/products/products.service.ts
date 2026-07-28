@@ -10,6 +10,7 @@ import type { OwnerAuthContext } from "../../common/request-context";
 import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { Prisma } from "../../generated/prisma/client";
+import { discoverySource } from "../shops/discovery-attribution";
 import { CreateBusinessCategoryDto } from "./dto/category.dto";
 import {
   CreateProductDto,
@@ -55,6 +56,63 @@ export class ProductsService {
       include: { _count: { select: { products: true } } },
     });
     return { items, templates: categoryTemplates };
+  }
+
+  async analytics(auth: OwnerAuthContext, id: string, days = 30) {
+    const product = await this.prisma.product.findFirst({
+      where: { id, businessId: auth.businessId },
+      select: { id: true },
+    });
+    if (!product) throw new NotFoundException("Product not found");
+
+    const safeDays = [7, 30, 90].includes(days) ? days : 30;
+    const since = new Date();
+    since.setUTCHours(0, 0, 0, 0);
+    since.setUTCDate(since.getUTCDate() - safeDays + 1);
+    const events = await this.prisma.commerceEvent.findMany({
+      where: {
+        businessId: auth.businessId,
+        createdAt: { gte: since },
+        OR: [
+          { productId: id, type: { in: ["PRODUCT_VIEWED", "PRODUCT_SHARED"] } },
+          { type: "SHOP_VIEWED" },
+        ],
+      },
+      select: { createdAt: true, metadata: true, productId: true, type: true },
+      orderBy: { createdAt: "asc" },
+    });
+
+    const series = new Map<string, { date: string; productViews: number; shares: number; shopViews: number }>();
+    for (let offset = 0; offset < safeDays; offset += 1) {
+      const date = new Date(since);
+      date.setUTCDate(since.getUTCDate() + offset);
+      const key = date.toISOString().slice(0, 10);
+      series.set(key, { date: key, productViews: 0, shares: 0, shopViews: 0 });
+    }
+    const sourceCounts = new Map<string, number>();
+    for (const event of events) {
+      const day = series.get(event.createdAt.toISOString().slice(0, 10));
+      if (!day) continue;
+      if (event.type === "SHOP_VIEWED") day.shopViews += 1;
+      if (event.productId === id && event.type === "PRODUCT_VIEWED") day.productViews += 1;
+      if (event.productId === id && event.type === "PRODUCT_SHARED") day.shares += 1;
+      if (event.productId === id && ["PRODUCT_VIEWED", "PRODUCT_SHARED"].includes(event.type)) {
+        const source = discoverySource(event.metadata);
+        if (source) sourceCounts.set(source, (sourceCounts.get(source) ?? 0) + 1);
+      }
+    }
+
+    const values = [...series.values()];
+    return {
+      days: safeDays,
+      productClicks: values.reduce((total, day) => total + day.productViews, 0),
+      shares: values.reduce((total, day) => total + day.shares, 0),
+      shopVisits: values.reduce((total, day) => total + day.shopViews, 0),
+      sourceBreakdown: [...sourceCounts.entries()]
+        .map(([source, count]) => ({ source, count }))
+        .sort((left, right) => right.count - left.count || left.source.localeCompare(right.source)),
+      series: values,
+    };
   }
 
   async createCategory(

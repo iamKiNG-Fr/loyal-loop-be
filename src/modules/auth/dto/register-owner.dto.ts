@@ -5,6 +5,7 @@ import {
   IsBoolean,
   IsEmail,
   IsEnum,
+  IsNotEmpty,
   IsOptional,
   IsString,
   Length,
@@ -40,7 +41,8 @@ export class RegisterOwnerDto {
   password!: string;
 
   @IsString()
-  @Length(1, 120)
+  @IsNotEmpty({ message: "Verify your WhatsApp number before creating the business" })
+  @Length(1, 120, { message: "Verify your WhatsApp number before creating the business" })
   phoneVerificationChallengeId!: string;
 
   @IsString()
@@ -92,4 +94,10 @@ export class RegisterOwnerDto {
   @IsOptional()
   @IsEnum(PaymentMethod)
   defaultPaymentMethod?: PaymentMethod;
+}
+
+export class CheckOnboardingAvailabilityDto {
+  @IsOptional()
+  @IsEmail()
+  email?: string;
 }

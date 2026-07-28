@@ -24,6 +24,13 @@ import {
 } from "../../../generated/prisma/client";
 import { PaginationDto } from "../../../common/pagination.dto";
 
+export class ProductAnalyticsQueryDto {
+  @IsOptional()
+  @Type(() => Number)
+  @IsIn([7, 30, 90])
+  days: number = 30;
+}
+
 export class CreateProductDto {
   @IsString()
   @Length(1, 160)

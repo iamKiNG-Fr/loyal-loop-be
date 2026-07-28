@@ -21,6 +21,7 @@ import type { OwnerAuthContext } from "../../common/request-context";
 import { BusinessCapability } from "../../generated/prisma/client";
 import {
   CreateProductDto,
+  ProductAnalyticsQueryDto,
   ProductListDto,
   ReplaceProductImagesDto,
   ReplaceProductMediaDto,
@@ -90,6 +91,15 @@ export class ProductsController {
     return this.products
       .createCategory(auth, dto)
       .then((data) => ok(data, "Category added"));
+  }
+
+  @Get(":id/analytics")
+  analytics(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Param("id") id: string,
+    @Query() query: ProductAnalyticsQueryDto,
+  ) {
+    return this.products.analytics(auth, id, query.days).then((data) => ok(data));
   }
 
   @Get(":id")

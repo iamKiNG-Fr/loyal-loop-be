@@ -59,13 +59,28 @@ export class AuthService {
         "Add and verify a WhatsApp number before creating the business",
       );
     }
+    const normalizedEmail = dto.email.trim().toLowerCase();
+    const [emailOwner, phoneOwner, slugOwner] = await Promise.all([
+      this.prisma.user.findUnique({ where: { email: normalizedEmail }, select: { id: true } }),
+      this.prisma.user.findUnique({ where: { phone: ownerPhone }, select: { id: true } }),
+      this.prisma.business.findFirst({ where: { slug: dto.slug }, select: { id: true } }),
+    ]);
+    if (emailOwner) {
+      throw new ConflictException("This email already has a Loyal Loop account. Sign in instead.");
+    }
+    if (phoneOwner) {
+      throw new ConflictException("This WhatsApp number already belongs to a Loyal Loop business. Sign in instead.");
+    }
+    if (slugOwner) {
+      throw new ConflictException("That shop link is already taken. Choose another one.");
+    }
     const foundingGrant = this.founding.resolveRegistrationGrant(rawGrant);
     try {
       const result = await this.prisma.$transaction(async (tx) => {
         const user = await tx.user.create({
           data: {
             name: dto.ownerName.trim(),
-            email: dto.email.trim().toLowerCase(),
+            email: normalizedEmail,
             passwordHash,
             phone: ownerPhone,
           },
@@ -161,7 +176,16 @@ export class AuthService {
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === "P2002"
       ) {
-        throw new ConflictException("Email or business link is already in use");
+        const target = Array.isArray(error.meta?.target)
+          ? error.meta.target.join(" ")
+          : String(error.meta?.target ?? "");
+        if (target.includes("phone")) {
+          throw new ConflictException("This WhatsApp number already belongs to a Loyal Loop business. Sign in instead.");
+        }
+        if (target.includes("slug")) {
+          throw new ConflictException("That shop link is already taken. Choose another one.");
+        }
+        throw new ConflictException("This email already has a Loyal Loop account. Sign in instead.");
       }
       throw error;
     }
@@ -232,6 +256,15 @@ export class AuthService {
 
   async startOnboardingWhatsapp(phone: string) {
     const normalizedPhone = normalizeE164(phone);
+    const existing = await this.prisma.user.findUnique({
+      where: { phone: normalizedPhone },
+      select: { id: true },
+    });
+    if (existing) {
+      throw new ConflictException(
+        "This WhatsApp number already belongs to a Loyal Loop business. Sign in instead.",
+      );
+    }
     const started = await this.otpProvider.start(normalizedPhone);
     await this.prisma.ownerOtpChallenge.updateMany({
       where: {
@@ -255,6 +288,17 @@ export class AuthService {
       challengeId: challenge.id,
       expiresAt: challenge.expiresAt,
     };
+  }
+
+  async checkOnboardingAvailability(email?: string) {
+    const normalizedEmail = email?.trim().toLowerCase();
+    const existing = normalizedEmail
+      ? await this.prisma.user.findUnique({
+          where: { email: normalizedEmail },
+          select: { id: true },
+        })
+      : null;
+    return { emailAvailable: !existing };
   }
 
   async verifyOnboardingWhatsapp(challengeId: string, code: string) {

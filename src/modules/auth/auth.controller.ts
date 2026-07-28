@@ -30,7 +30,10 @@ import {
   RequestPasswordResetDto,
   ResetPasswordDto,
 } from "./dto/password.dto";
-import { RegisterOwnerDto } from "./dto/register-owner.dto";
+import {
+  CheckOnboardingAvailabilityDto,
+  RegisterOwnerDto,
+} from "./dto/register-owner.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -94,6 +97,12 @@ export class AuthController {
       await this.auth.startOnboardingWhatsapp(dto.phone),
       "Onboarding verification sent",
     );
+  }
+
+  @Post("onboarding/availability")
+  @Throttle({ default: { limit: 12, ttl: minutes(10) } })
+  async onboardingAvailability(@Body() dto: CheckOnboardingAvailabilityDto) {
+    return ok(await this.auth.checkOnboardingAvailability(dto.email));
   }
 
   @Post("onboarding/whatsapp/verify")
