@@ -1,10 +1,12 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { PrismaService } from "../prisma/prisma.service";
 import { discoverySource } from "../shops/discovery-attribution";
 
 @Injectable()
 export class DashboardService {
+  private readonly logger = new Logger(DashboardService.name);
+
   constructor(private readonly prisma: PrismaService) {}
 
   async get(auth: OwnerAuthContext) {
@@ -97,6 +99,9 @@ export class DashboardService {
           createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
         },
         select: { createdAt: true, id: true, metadata: true, sessionKey: true, type: true },
+      }).catch(() => {
+        this.logger.warn("Dashboard discovery analytics are unavailable; returning core dashboard data.");
+        return [];
       }),
     ]);
 
