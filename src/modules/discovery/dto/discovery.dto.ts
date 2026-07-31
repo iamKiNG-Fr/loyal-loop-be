@@ -79,14 +79,22 @@ export class DiscoveryPreferenceDto {
 
 export class DiscoveryEventDto {
   @IsIn([
+    "PRODUCT_IMPRESSION",
     "PRODUCT_VIEWED",
     "PRODUCT_SAVED",
     "PRODUCT_SHARED",
+    "SHOWCASE_IMPRESSION",
     "SHOWCASE_VIEWED",
     "SHOWCASE_SAVED",
     "SHOWCASE_SHARED",
+    "SHOP_IMPRESSION",
+    "SHOP_VIEWED",
   ])
-  type!: "PRODUCT_VIEWED" | "PRODUCT_SAVED" | "PRODUCT_SHARED" | "SHOWCASE_VIEWED" | "SHOWCASE_SAVED" | "SHOWCASE_SHARED";
+  type!: "PRODUCT_IMPRESSION" | "PRODUCT_VIEWED" | "PRODUCT_SAVED" | "PRODUCT_SHARED" | "SHOWCASE_IMPRESSION" | "SHOWCASE_VIEWED" | "SHOWCASE_SAVED" | "SHOWCASE_SHARED" | "SHOP_IMPRESSION" | "SHOP_VIEWED";
+
+  @IsOptional()
+  @IsString()
+  businessId?: string;
 
   @IsOptional()
   @IsString()
@@ -105,6 +113,27 @@ export class DiscoveryEventDto {
   @IsString()
   @Length(8, 160)
   dedupeKey?: string;
+
+  @IsOptional()
+  @IsIn(["explore", "explore_recent", "explore_recommendation", "explore_search"])
+  surface?: "explore" | "explore_recent" | "explore_recommendation" | "explore_search";
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  searchQuery?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 140)
+  filter?: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0)
+  @Max(500)
+  position?: number;
 }
 
 export class ShowcaseHotspotDto {

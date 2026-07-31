@@ -187,7 +187,7 @@ TWILIO_AUTH_TOKEN=
 TWILIO_WHATSAPP_SENDER=+234...
 TWILIO_MESSAGING_SERVICE_SID=MG...
 TWILIO_VERIFY_SERVICE_SID=VA...
-TWILIO_RECEIPT_CONTENT_SID=HX...
+TWILIO_RECEIPT_MEDIA_CONTENT_SID=HX...
 TWILIO_DELIVERY_CONTENT_SID=HX...
 TWILIO_REMINDER_CONTENT_SID=HX...
 
@@ -200,16 +200,18 @@ TWILIO_WHATSAPP_PRODUCTION_READY=false
 TWILIO_WHATSAPP_DAILY_SEND_CAP=25
 TWILIO_WHATSAPP_MAX_ATTEMPTS=4
 MESSAGING_WORKER_SECRET=
+RECEIPT_MEDIA_SIGNING_SECRET=
 ```
 
-The previous `TWILIO_WHATSAPP_RECEIPT_CONTENT_SID` and
-`TWILIO_WHATSAPP_DELIVERY_CONTENT_SID` names remain accepted as compatibility
-aliases, but new environments should use the names above.
+`TWILIO_WHATSAPP_RECEIPT_MEDIA_CONTENT_SID` remains accepted as a compatibility
+alias for the receipt media template. `SESSION_HASH_SECRET` is used when a
+dedicated receipt-media signing secret is not set.
 
 Production behavior:
 
-- receipts use the registered sender, Messaging Service, and approved receipt
-  Content SID;
+- receipts use the registered sender, Messaging Service, and approved media
+  Content SID. The generated receipt image is attached and the live private
+  receipt link remains in the message body;
 - delivery updates use the registered sender, Messaging Service, and approved
   delivery Content SID, including the customer-safe order-journey link after
   an opted-in request is confirmed and on later delivery status changes;
@@ -227,7 +229,7 @@ Production sequence:
    complete Meta Business/WABA verification.
 3. Attach the registered sender to the `MG...` Messaging Service and the
    WhatsApp Verify configuration.
-4. Approve receipt, delivery, and reminder utility templates and store their
+4. Approve receipt-media, delivery, and reminder utility templates and store their
    `HX...` SIDs in the deployment secret store.
 5. Configure the exact signed webhook and test inbound, delivery status, STOP,
    invalid signatures, retries, and failure alerts.
@@ -237,3 +239,13 @@ Production sequence:
 Official references: https://www.twilio.com/docs/verify/whatsapp,
 https://www.twilio.com/docs/whatsapp/self-sign-up, and
 https://www.twilio.com/docs/content/content-api-resources
+
+Recommended production copy:
+
+- Receipt media template: `Hey {{1}} 👋 Payment confirmed with {{2}}. Your receipt {{3}} is ready. Open the live details: {{4}}` with `{{5}}` as the media URL.
+- Delivery/order template: `Quick order update 📦 {{3}} is now {{4}} with {{2}}. Follow it here: {{5}}`.
+- Reminder template: `Hey {{1}} 👋 {{2}} left you a quick reminder: {{3}}`.
+- Verify template: `🔐 Your Loyal Loop security code is {{code}}. It expires in 10 minutes. Never share it—Loyal Loop will never ask you for this code.`
+
+Production Content and Verify copy changes still require approval in Twilio;
+the application cannot rewrite an already-approved provider template at runtime.

@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 import { CurrentAuth, CurrentCustomer } from "../../common/auth/current-auth.decorator";
@@ -83,5 +84,19 @@ export class PublicReceiptsController {
     return this.receipts
       .createIssue(customer.customerAccountId, token, dto)
       .then((data) => ok(data, "Issue submitted"));
+  }
+}
+
+@Controller("public/receipt-media")
+export class PublicReceiptMediaController {
+  constructor(private readonly receipts: ReceiptsService) {}
+
+  @Get(":id")
+  get(
+    @Param("id") id: string,
+    @Query("expires") expires: string,
+    @Query("signature") signature: string,
+  ) {
+    return this.receipts.getMessagePreview(id, Number(expires), signature).then((data) => ok(data));
   }
 }

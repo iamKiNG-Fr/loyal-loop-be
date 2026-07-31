@@ -261,7 +261,10 @@ export class CartsService {
           throw new BadRequestException("Gift delivery needs the recipient name and phone");
         }
         if (group.whatsappUpdatesConsent) {
-          await this.messaging.grantPhoneConsent(account.phone, "DELIVERY", "order-request", auth.customerAccountId);
+          await Promise.all([
+            this.messaging.grantPhoneConsent(account.phone, "DELIVERY", "order-request", auth.customerAccountId),
+            this.messaging.grantPhoneConsent(account.phone, "RECEIPT", "order-request", auth.customerAccountId),
+          ]);
         }
         const token = createOpaqueToken();
         const request = await this.prisma.$transaction(async (tx) => {

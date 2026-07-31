@@ -11,6 +11,7 @@ import {
   MediaService,
   type RegisteredUpload,
 } from "../media/media.service";
+import { MessagingService } from "../messaging/messaging.service";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   ReviewPaymentProofDto,
@@ -37,6 +38,7 @@ export class PaymentsService {
     private readonly prisma: PrismaService,
     private readonly media: MediaService,
     private readonly activity: ActivityService,
+    private readonly messaging: MessagingService,
   ) {}
 
   paymentAccount(auth: OwnerAuthContext) {
@@ -174,7 +176,7 @@ export class PaymentsService {
     if (nextPaid.greaterThan(proof.sale.total)) {
       throw new BadRequestException("Payment proof exceeds the remaining balance");
     }
-    return this.prisma.$transaction(async (tx) => {
+    const updated = await this.prisma.$transaction(async (tx) => {
       await tx.paymentEntry.create({
         data: {
           amount: proof.amount,
@@ -235,6 +237,22 @@ export class PaymentsService {
       );
       return updated;
     });
+    const receiptId = updated.sale.receipt?.id;
+    if (!receiptId) return { ...updated, receiptDelivery: null };
+    try {
+      const receiptDelivery = await this.messaging.enqueueReceipt(auth, receiptId, { awaitDelivery: true });
+      return { ...updated, receiptDelivery };
+    } catch (error) {
+      return {
+        ...updated,
+        receiptDelivery: {
+          error: error instanceof Error ? error.message : "Receipt delivery could not start",
+          imageAttached: false,
+          receiptId,
+          status: "FAILED",
+        },
+      };
+    }
   }
 
   private uploadFromDto(dto: SubmitPaymentProofDto): RegisteredUpload {

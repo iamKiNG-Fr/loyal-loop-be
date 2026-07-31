@@ -1,5 +1,7 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { ForbiddenException, Injectable, NotFoundException, ServiceUnavailableException } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { createOpaqueToken, hashToken } from "../../common/crypto.util";
+import { verifyReceiptMediaSignature } from "../../common/receipt-media.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
@@ -39,6 +41,7 @@ export class ReceiptsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly activity: ActivityService,
+    private readonly config: ConfigService,
   ) {}
 
   list(auth: OwnerAuthContext) {
@@ -255,6 +258,31 @@ export class ReceiptsService {
       return link?.receipt ?? null;
     }
     return null;
+  }
+
+  async getMessagePreview(id: string, expires: number, signature: string) {
+    const secret = this.config.get<string>("RECEIPT_MEDIA_SIGNING_SECRET") || this.config.get<string>("SESSION_HASH_SECRET");
+    if (!secret) throw new ServiceUnavailableException("Receipt media signing is not configured");
+    const now = Math.floor(Date.now() / 1000);
+    if (!Number.isSafeInteger(expires) || expires < now || expires > now + 2 * 24 * 60 * 60 || !verifyReceiptMediaSignature(secret, id, expires, signature)) {
+      throw new ForbiddenException("Receipt image link is invalid or expired");
+    }
+    const receipt = await this.prisma.receipt.findFirst({
+      where: { id, status: { not: "VOID" } },
+      include: receiptInclude,
+    });
+    if (!receipt) throw new NotFoundException("Receipt not found");
+    return {
+      business: { name: receipt.business.name },
+      receiptCode: receipt.receiptCode,
+      status: receipt.status,
+      sale: {
+        currency: receipt.sale.currency,
+        items: receipt.sale.items.map((item) => ({ name: item.name, quantity: item.quantity, total: item.total })),
+        paymentStatus: receipt.sale.paymentStatus,
+        total: receipt.sale.total,
+      },
+    };
   }
 }
 

@@ -246,12 +246,10 @@ export class ShopsService {
       });
     }
     if (dto.whatsappUpdatesConsent) {
-      await this.messaging.grantPhoneConsent(
-        customerPhone,
-        "DELIVERY",
-        "order-request",
-        customerAccountId,
-      );
+      await Promise.all([
+        this.messaging.grantPhoneConsent(customerPhone, "DELIVERY", "order-request", customerAccountId),
+        this.messaging.grantPhoneConsent(customerPhone, "RECEIPT", "order-request", customerAccountId),
+      ]);
     }
     const generated = createOpaqueToken();
     const customerKey = customerAccountId

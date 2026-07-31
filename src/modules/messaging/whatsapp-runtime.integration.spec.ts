@@ -106,7 +106,7 @@ function productionValues() {
     TWILIO_WHATSAPP_SENDER: "+2349012345678",
     TWILIO_MESSAGING_SERVICE_SID: `MG${"b".repeat(32)}`,
     TWILIO_VERIFY_SERVICE_SID: `VA${"c".repeat(32)}`,
-    TWILIO_RECEIPT_CONTENT_SID: `HX${"d".repeat(32)}`,
+    TWILIO_RECEIPT_MEDIA_CONTENT_SID: `HX${"d".repeat(32)}`,
     TWILIO_DELIVERY_CONTENT_SID: `HX${"e".repeat(32)}`,
     TWILIO_REMINDER_CONTENT_SID: `HX${"f".repeat(32)}`,
     TWILIO_FOUNDING_ACCESS_CONTENT_SID: `HX${"1".repeat(32)}`,

@@ -142,7 +142,41 @@ export class DiscoveryService {
           }
         : {}),
     };
-    const [products, showcases, productCount, showcaseCount, categories, preference, productSignals, showcaseSignals] =
+    const shopWhere: Prisma.BusinessWhereInput = {
+      storeStatus: "OPEN",
+      platformStatus: "ACTIVE",
+      ...(category && category.toLowerCase() !== "all"
+        ? { category: { equals: category, mode: "insensitive" } }
+        : {}),
+      ...(terms.length
+        ? {
+            OR: terms.flatMap((term) => [
+              { name: { contains: term, mode: "insensitive" as const } },
+              { category: { contains: term, mode: "insensitive" as const } },
+              { categoryDetail: { contains: term, mode: "insensitive" as const } },
+              { description: { contains: term, mode: "insensitive" as const } },
+              { location: { contains: term, mode: "insensitive" as const } },
+              {
+                products: {
+                  some: {
+                    ...discoverableProductWhere,
+                    OR: [
+                      { name: { contains: term, mode: "insensitive" as const } },
+                      { category: { contains: term, mode: "insensitive" as const } },
+                    ],
+                  },
+                },
+              },
+            ]),
+          }
+        : {}),
+    };
+    const recommendationIdentity = customerAccountId
+      ? { customerAccountId }
+      : visitorHash
+        ? { visitorHash }
+        : null;
+    const [products, showcases, productCount, showcaseCount, categories, preference, productSignals, showcaseSignals, personalSignals, shops] =
       await Promise.all([
         query.mode === "showcases" ? Promise.resolve([]) : this.prisma.product.findMany({
           where: productWhere,
@@ -169,8 +203,8 @@ export class DiscoveryService {
           orderBy: { category: "asc" },
           take: 24,
         }),
-        customerAccountId
-          ? this.prisma.discoveryPreference.findFirst({ where: { customerAccountId, businessId: null } })
+        recommendationIdentity
+          ? this.prisma.discoveryPreference.findFirst({ where: { ...recommendationIdentity, businessId: null } })
           : Promise.resolve(null),
         this.prisma.commerceEvent.groupBy({
           by: ["productId", "type"],
@@ -181,6 +215,34 @@ export class DiscoveryService {
           by: ["showcaseId", "type"],
           where: { showcaseId: { not: null }, createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } },
           _count: true,
+        }),
+        recommendationIdentity
+          ? this.prisma.commerceEvent.findMany({
+              where: {
+                ...recommendationIdentity,
+                createdAt: { gte: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) },
+              },
+              select: {
+                business: { select: { category: true } },
+                product: { select: { category: true } },
+                showcase: {
+                  select: {
+                    hotspots: {
+                      select: { product: { select: { category: true } } },
+                    },
+                  },
+                },
+                type: true,
+              },
+              orderBy: { createdAt: "desc" },
+              take: 500,
+            })
+          : Promise.resolve([]),
+        this.prisma.business.findMany({
+          where: shopWhere,
+          include: discoveryBusinessInclude,
+          orderBy: [{ updatedAt: "desc" }],
+          take: 24,
         }),
       ]);
 
@@ -193,6 +255,11 @@ export class DiscoveryService {
     const savedProductIds = new Set(savedProducts.map((item) => item.productId));
     const savedShowcaseIds = new Set(savedShowcases.map((item) => item.showcaseId));
 
+    const personalizedCategories = orderDiscoveryCategories(
+      categories.flatMap((entry) => entry.category ? [entry.category] : []),
+      preference?.preferences,
+      personalSignals,
+    );
     const combined = diverseDiscoveryOrder([
       ...products.map((product) => ({
         sortDate: product.updatedAt,
@@ -206,7 +273,7 @@ export class DiscoveryService {
         businessId: showcase.businessId,
         value: showcaseCard(showcase, savedShowcaseIds.has(showcase.id)),
       })),
-    ], preference?.preferences);
+    ], preference?.preferences, personalSignals);
     const total = productCount + showcaseCount;
     const items = combined.slice(start, start + query.pageSize).map((entry) => entry.value);
     void this.recordTelemetry("SEARCH_COMPLETED", {
@@ -223,11 +290,12 @@ export class DiscoveryService {
       value: items.length,
     });
     return {
-      categories: categories.flatMap((entry) =>
-        entry.category ? [entry.category] : [],
-      ),
+      categories: personalizedCategories,
       hasMore: start + query.pageSize < total,
       items,
+      shops: orderDiscoveryShops(shops, preference?.preferences, personalSignals)
+        .slice(0, 12)
+        .map((shop) => shopCard(shop)),
       page,
       pageSize: query.pageSize,
       nextCursor: start + query.pageSize < total ? encodeDiscoveryCursor(start + query.pageSize) : null,
@@ -273,11 +341,17 @@ export class DiscoveryService {
     customerAccountId?: string,
     visitorHash?: string,
   ) {
-    if (!dto.productId && !dto.showcaseId) throw new BadRequestException("Choose a product or Showcase event target");
+    const targetCount = [dto.businessId, dto.productId, dto.showcaseId].filter(Boolean).length;
+    if (targetCount !== 1) throw new BadRequestException("Choose one shop, product, or Showcase event target");
     const target = dto.productId
       ? await this.prisma.product.findFirst({ where: { id: dto.productId, status: "ACTIVE", visibility: "PUBLIC" }, select: { id: true, businessId: true } })
-      : await this.prisma.showcase.findFirst({ where: { id: dto.showcaseId, status: "PUBLISHED" }, select: { id: true, businessId: true } });
+      : dto.showcaseId
+        ? await this.prisma.showcase.findFirst({ where: { id: dto.showcaseId, status: "PUBLISHED" }, select: { id: true, businessId: true } })
+        : await this.prisma.business.findFirst({ where: { id: dto.businessId, platformStatus: "ACTIVE", storeStatus: "OPEN" }, select: { id: true } }).then((business) => business ? { id: business.id, businessId: business.id } : null);
     if (!target) throw new NotFoundException("Discovery target not found");
+    if (dto.businessId && !dto.type.startsWith("SHOP_")) throw new BadRequestException("Shop targets require a shop event");
+    if (dto.productId && !dto.type.startsWith("PRODUCT_")) throw new BadRequestException("Product targets require a product event");
+    if (dto.showcaseId && !dto.type.startsWith("SHOWCASE_")) throw new BadRequestException("Showcase targets require a Showcase event");
     const dedupeKey = dto.dedupeKey
       ? createHash("sha256").update(`${customerAccountId ?? visitorHash}:${dto.dedupeKey}`).digest("hex")
       : undefined;
@@ -292,6 +366,14 @@ export class DiscoveryService {
           sessionKey: dto.sessionKey,
           dedupeKey,
           type: dto.type,
+          metadata: {
+            context: {
+              filter: dto.filter,
+              position: dto.position,
+              query: dto.searchQuery?.trim().toLowerCase(),
+              surface: dto.surface ?? "explore",
+            },
+          },
         },
       });
     } catch (error) {
@@ -721,13 +803,13 @@ function shopIdentity(business: DiscoveryBusiness) {
   };
 }
 
-function shopCard(business: DiscoveryBusiness, relationship: string) {
+function shopCard(business: DiscoveryBusiness, relationship?: string) {
   return {
     ...shopIdentity(business),
     category: business.category,
     description: business.description,
     location: business.location,
-    relationship,
+    ...(relationship ? { relationship } : {}),
     storeStatus: business.storeStatus,
   };
 }
@@ -766,21 +848,30 @@ function visibleFilters(
   return [...new Map([...explicit, ...parsed].map((filter) => [filter.key, filter])).values()];
 }
 
+type PersonalDiscoverySignal = {
+  business: { category: string | null };
+  product: { category: string | null } | null;
+  showcase: { hotspots: Array<{ product: { category: string | null } }> } | null;
+  type: string;
+};
+
 function diverseDiscoveryOrder<T extends {
   businessId: string;
   score?: number;
   sortDate: Date;
   value: unknown;
-}>(items: T[], rawPreference: unknown) {
+}>(items: T[], rawPreference: unknown, personalSignals: PersonalDiscoverySignal[] = []) {
   const preferences = Array.isArray(rawPreference)
     ? new Set(rawPreference.filter((value): value is string => typeof value === "string").map((value) => value.toLowerCase()))
     : new Set<string>();
+  const categorySignals = discoveryCategoryScores(personalSignals);
   const ranked = [...items].sort((left, right) => {
     const leftCategory = discoveryCategory(left.value);
     const rightCategory = discoveryCategory(right.value);
-    const leftPreference = leftCategory && preferences.has(leftCategory.toLowerCase()) ? 1 : 0;
-    const rightPreference = rightCategory && preferences.has(rightCategory.toLowerCase()) ? 1 : 0;
+    const leftPreference = leftCategory && [...preferences].some((preference) => categoryMatchesInterest(leftCategory, preference)) ? 1 : 0;
+    const rightPreference = rightCategory && [...preferences].some((preference) => categoryMatchesInterest(rightCategory, preference)) ? 1 : 0;
     return rightPreference - leftPreference
+      || categorySignalScore(categorySignals, rightCategory) - categorySignalScore(categorySignals, leftCategory)
       || (right.score ?? 0) - (left.score ?? 0)
       || right.sortDate.getTime() - left.sortDate.getTime();
   });
@@ -794,25 +885,115 @@ function diverseDiscoveryOrder<T extends {
   return result;
 }
 
-function signalScore<T extends { _count: number; type: string }>(
-  rows: T[],
-  idKey: "productId" | "showcaseId",
-  id: string,
+function orderDiscoveryCategories(
+  categories: string[],
+  rawPreference: unknown,
+  personalSignals: PersonalDiscoverySignal[],
 ) {
+  const preferences = Array.isArray(rawPreference)
+    ? rawPreference.filter((value): value is string => typeof value === "string")
+    : [];
+  const categorySignals = discoveryCategoryScores(personalSignals);
+  return [...new Set(categories)].sort((left, right) => {
+    const leftPreference = preferences.some((preference) => categoryMatchesInterest(left, preference)) ? 1 : 0;
+    const rightPreference = preferences.some((preference) => categoryMatchesInterest(right, preference)) ? 1 : 0;
+    return rightPreference - leftPreference
+      || categorySignalScore(categorySignals, right) - categorySignalScore(categorySignals, left)
+      || left.localeCompare(right);
+  });
+}
+
+function orderDiscoveryShops(
+  shops: DiscoveryBusiness[],
+  rawPreference: unknown,
+  personalSignals: PersonalDiscoverySignal[],
+) {
+  const preferences = Array.isArray(rawPreference)
+    ? rawPreference.filter((value): value is string => typeof value === "string")
+    : [];
+  const categorySignals = discoveryCategoryScores(personalSignals);
+  return [...shops].sort((left, right) => {
+    const leftPreference = left.category && preferences.some((preference) => categoryMatchesInterest(left.category!, preference)) ? 1 : 0;
+    const rightPreference = right.category && preferences.some((preference) => categoryMatchesInterest(right.category!, preference)) ? 1 : 0;
+    return rightPreference - leftPreference
+      || categorySignalScore(categorySignals, right.category) - categorySignalScore(categorySignals, left.category)
+      || right.updatedAt.getTime() - left.updatedAt.getTime();
+  });
+}
+
+function discoveryCategoryScores(events: PersonalDiscoverySignal[]) {
+  const scores = new Map<string, number>();
+  for (const event of events) {
+    const weight = discoveryEventWeight(event.type);
+    const categories = [
+      event.product?.category,
+      event.business.category,
+      ...(event.showcase?.hotspots.map((hotspot) => hotspot.product.category) ?? []),
+    ];
+    for (const category of new Set(categories.filter((value): value is string => Boolean(value?.trim())))) {
+      const key = normalizeInterest(category);
+      scores.set(key, (scores.get(key) ?? 0) + weight);
+    }
+  }
+  return scores;
+}
+
+function categorySignalScore(scores: Map<string, number>, category: string | null) {
+  if (!category) return 0;
+  const normalized = normalizeInterest(category);
+  let score = scores.get(normalized) ?? 0;
+  for (const [interest, value] of scores) {
+    if (interest !== normalized && categoryMatchesInterest(category, interest)) score = Math.max(score, value * 0.7);
+  }
+  return score;
+}
+
+function categoryMatchesInterest(category: string, interest: string) {
+  const categoryTokens = interestTokens(category);
+  const interestTokensSet = interestTokens(interest);
+  if (!categoryTokens.size || !interestTokensSet.size) return false;
+  return [...interestTokensSet].some((token) => categoryTokens.has(token));
+}
+
+function interestTokens(value: string) {
+  return new Set(normalizeInterest(value)
+    .split(" ")
+    .map((token) => token.length > 3 && token.endsWith("s") ? token.slice(0, -1) : token)
+    .filter((token) => token.length > 2));
+}
+
+function normalizeInterest(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+function discoveryEventWeight(type: string) {
   const weights: Record<string, number> = {
+    PRODUCT_IMPRESSION: 0.15,
+    SHOWCASE_IMPRESSION: 0.15,
+    SHOP_IMPRESSION: 0.1,
+    SHOP_VIEWED: 1,
     PRODUCT_VIEWED: 1,
     SHOWCASE_VIEWED: 1,
     PRODUCT_SHARED: 2,
     SHOWCASE_SHARED: 2,
+    SHOP_FOLLOWED: 3,
     PRODUCT_SAVED: 3,
     PRODUCT_WISHLISTED: 3,
     SHOWCASE_SAVED: 3,
     REQUEST_SUBMITTED: 5,
     PURCHASE_COMPLETED: 8,
   };
+  return weights[type] ?? 0;
+}
+
+function signalScore<T extends { _count: number; type: string }>(
+  rows: T[],
+  idKey: "productId" | "showcaseId",
+  id: string,
+) {
   return rows.reduce((total, row) => {
     const target = (row as T & Record<typeof idKey, string | null>)[idKey];
-    return target === id ? total + row._count * (weights[row.type] ?? 0) : total;
+    return target === id ? total + row._count * discoveryEventWeight(row.type) : total;
   }, 0);
 }
 

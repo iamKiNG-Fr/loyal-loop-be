@@ -79,29 +79,30 @@ export class TwilioWhatsAppProvider
   sendReceipt(phone: string, variables: Record<string, string>) {
     if (this.mode() === "sandbox") {
       const greeting = socialCopyVariant(phone, [
-        `Hey ${variables["1"] || "there"} ðŸ‘‹ your receipt from ${variables["2"] || "the shop"} is ready.`,
-        `Tiny update, ${variables["1"] || "friend"} âœ¨ ${variables["2"] || "the shop"} just shared your receipt.`,
-        `Receipt drop ðŸ§¾ ${variables["2"] || "the shop"} has your order record ready.`,
+        `Hey ${variables["1"] || "there"} 👋 Your receipt from ${variables["2"] || "the shop"} just landed.`,
+        `Quick update, ${variables["1"] || "friend"} ✨ ${variables["2"] || "the shop"} shared your receipt.`,
+        `Receipt drop 🧾 ${variables["2"] || "the shop"} has confirmed your payment record.`,
       ]);
       return this.sendSandboxMessage(
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
           greeting,
-          `Receipt: ${variables["3"] || "available"}`,
-          `Keep it close: ${variables["4"] || ""}`,
+          `Receipt ${variables["3"] || ""}`,
+          `View the live details: ${variables["4"] || ""}`,
         ].join("\n"),
+        variables["5"],
       );
     }
-    return this.sendProductionTemplate(phone, "receipt", variables);
+    return this.sendProductionReceiptTemplate(phone, variables);
   }
 
   sendDeliveryUpdate(phone: string, variables: Record<string, string>) {
     if (this.mode() === "sandbox") {
       const update = socialCopyVariant(`${phone}:${variables["4"]}`, [
-        `Hola ${variables["1"] || "there"} ðŸ‘‹ ${variables["2"] || "your shop"} moved ${variables["3"] || "your order"} to ${variables["4"] || "the next step"}.`,
-        `Psst, order update ðŸ“¦ ${variables["3"] || "Your order"} is now ${variables["4"] || "updated"}.`,
-        `${variables["2"] || "Your shop"} just checked in âœ¨ ${variables["3"] || "Your order"} is ${variables["4"] || "moving along"}.`,
+        `Hey ${variables["1"] || "there"} 👋 ${variables["2"] || "your shop"} moved ${variables["3"] || "your order"} to ${variables["4"] || "the next step"}.`,
+        `Psst, order update 📦 ${variables["3"] || "Your order"} is now ${variables["4"] || "updated"}.`,
+        `${variables["2"] || "Your shop"} just checked in ✨ ${variables["3"] || "Your order"} is ${variables["4"] || "moving along"}.`,
       ]);
       return this.sendSandboxMessage(
         phone,
@@ -118,9 +119,9 @@ export class TwilioWhatsAppProvider
   sendOrderUpdate(phone: string, variables: Record<string, string>) {
     if (this.mode() === "sandbox") {
       const update = socialCopyVariant(`${phone}:${variables["4"]}`, [
-        `Hola ${variables["1"] || "there"} ðŸ‘‹ we alerted ${variables["2"] || "the shop"} about ${variables["3"] || "your request"}.`,
-        `Psst, ${variables["2"] || "the shop"} has an order update for you ðŸ“¦`,
-        `A quick Loyal Loop check-in âœ¨ ${variables["3"] || "Your request"} has moved forward.`,
+        `Hey ${variables["1"] || "there"} 👋 We let ${variables["2"] || "the shop"} know about ${variables["3"] || "your request"}.`,
+        `Psst, ${variables["2"] || "the shop"} has an order update for you 📦`,
+        `Quick Loyal Loop check-in ✨ ${variables["3"] || "Your request"} has moved forward.`,
       ]);
       return this.sendSandboxMessage(phone, [
         "[LOYAL LOOP DEVELOPMENT SANDBOX]",
@@ -138,7 +139,7 @@ export class TwilioWhatsAppProvider
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          `Hi ${variables["1"] || "there"}, ${variables["2"] || "a business you know"} sent this reminder:`,
+          `Hey ${variables["1"] || "there"} 👋 ${variables["2"] || "a shop you know"} left you a quick reminder:`,
           variables["3"] || "You have a reminder from Loyal Loop.",
         ].join("\n"),
       );
@@ -192,8 +193,8 @@ export class TwilioWhatsAppProvider
       normalized,
       [
         "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-        `Use ${code} to verify your WhatsApp number on Loyal Loop.`,
-        "This code expires in 10 minutes. Never share it with anyone, including Loyal Loop support.",
+        `🔐 Your Loyal Loop security code is ${code}.`,
+        "It expires in 10 minutes. Never share this code—not even with someone claiming to be Loyal Loop. We will never ask you for it.",
       ].join("\n"),
     );
     return {
@@ -249,13 +250,13 @@ export class TwilioWhatsAppProvider
     });
   }
 
-  private async sendSandboxMessage(phone: string, body: string) {
+  private async sendSandboxMessage(phone: string, body: string, mediaUrl?: string) {
     this.assertMessagingEnabled();
     this.assertRecipientEligible(phone);
-    return this.sendSandboxTransport(phone, body);
+    return this.sendSandboxTransport(phone, body, mediaUrl);
   }
 
-  private async sendSandboxTransport(phone: string, body: string) {
+  private async sendSandboxTransport(phone: string, body: string, mediaUrl?: string) {
     return this.sendTwilioMessage({
       From: channelAddress(
         this.config.get<string>(
@@ -265,6 +266,7 @@ export class TwilioWhatsAppProvider
       ),
       To: channelAddress(phone),
       Body: body,
+      ...(mediaUrl ? { MediaUrl: mediaUrl } : {}),
       StatusCallback: this.webhookUrl(),
     });
   }
@@ -285,6 +287,21 @@ export class TwilioWhatsAppProvider
       ),
       To: channelAddress(phone),
       ContentSid: this.contentSid(template),
+      ContentVariables: JSON.stringify(variables),
+      StatusCallback: this.webhookUrl(),
+    });
+  }
+
+  private sendProductionReceiptTemplate(phone: string, variables: Record<string, string>) {
+    this.assertMessagingEnabled();
+    this.assertRecipientEligible(phone);
+    const contentSid = this.config.get<string>("TWILIO_RECEIPT_MEDIA_CONTENT_SID") || this.config.get<string>("TWILIO_WHATSAPP_RECEIPT_MEDIA_CONTENT_SID");
+    if (!contentSid) throw new ServiceUnavailableException("Approved receipt media WhatsApp Content Template is not configured");
+    return this.sendTwilioMessage({
+      From: channelAddress(this.config.getOrThrow<string>("TWILIO_WHATSAPP_SENDER")),
+      MessagingServiceSid: this.config.getOrThrow<string>("TWILIO_MESSAGING_SERVICE_SID"),
+      To: channelAddress(phone),
+      ContentSid: contentSid,
       ContentVariables: JSON.stringify(variables),
       StatusCallback: this.webhookUrl(),
     });
@@ -519,7 +536,9 @@ export class TwilioWhatsAppProvider
     const problems = required
       .filter((key) => !this.config.get<string>(key))
       .map((key) => `missing ${key}`);
-    for (const template of ["receipt", "delivery", "reminder", "founding_access"] as const) {
+    const receiptMediaSid = this.config.get<string>("TWILIO_RECEIPT_MEDIA_CONTENT_SID") || this.config.get<string>("TWILIO_WHATSAPP_RECEIPT_MEDIA_CONTENT_SID");
+    if (!receiptMediaSid) problems.push("missing TWILIO_RECEIPT_MEDIA_CONTENT_SID");
+    for (const template of ["delivery", "reminder", "founding_access"] as const) {
       if (!this.optionalContentSid(template)) {
         problems.push(`missing ${contentSidEnvironmentName(template)}`);
       }
@@ -532,7 +551,8 @@ export class TwilioWhatsAppProvider
     for (const [key, value, pattern] of prefixChecks) {
       if (value && !pattern.test(value)) problems.push(`invalid ${key}`);
     }
-    for (const template of ["receipt", "delivery", "reminder", "founding_access"] as const) {
+    if (receiptMediaSid && !/^HX[0-9a-fA-F]{32}$/.test(receiptMediaSid)) problems.push("invalid TWILIO_RECEIPT_MEDIA_CONTENT_SID");
+    for (const template of ["delivery", "reminder", "founding_access"] as const) {
       const value = this.optionalContentSid(template);
       if (value && !/^HX[0-9a-fA-F]{32}$/.test(value)) {
         problems.push(`invalid ${contentSidEnvironmentName(template)}`);

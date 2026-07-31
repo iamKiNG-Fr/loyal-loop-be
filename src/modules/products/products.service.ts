@@ -74,28 +74,53 @@ export class ProductsService {
         businessId: auth.businessId,
         createdAt: { gte: since },
         OR: [
-          { productId: id, type: { in: ["PRODUCT_VIEWED", "PRODUCT_SHARED"] } },
+          { productId: id, type: { in: ["PRODUCT_IMPRESSION", "PRODUCT_VIEWED", "PRODUCT_SAVED", "PRODUCT_SHARED", "PURCHASE_COMPLETED"] } },
           { type: "SHOP_VIEWED" },
         ],
       },
-      select: { createdAt: true, metadata: true, productId: true, type: true },
+      select: { createdAt: true, id: true, metadata: true, productId: true, sessionKey: true, type: true },
       orderBy: { createdAt: "asc" },
     });
 
-    const series = new Map<string, { date: string; productViews: number; shares: number; shopViews: number }>();
+    const series = new Map<string, { date: string; productImpressions: number; productOpens: number; productViews: number; searchAppearances: number; shares: number; shopViews: number }>();
     for (let offset = 0; offset < safeDays; offset += 1) {
       const date = new Date(since);
       date.setUTCDate(since.getUTCDate() + offset);
       const key = date.toISOString().slice(0, 10);
-      series.set(key, { date: key, productViews: 0, shares: 0, shopViews: 0 });
+      series.set(key, { date: key, productImpressions: 0, productOpens: 0, productViews: 0, searchAppearances: 0, shares: 0, shopViews: 0 });
     }
     const sourceCounts = new Map<string, number>();
+    const searchSessions = new Set<string>();
+    const searchTermSessions = new Map<string, Set<string>>();
+    let saves = 0;
+    let purchases = 0;
+    let searchOpens = 0;
     for (const event of events) {
       const day = series.get(event.createdAt.toISOString().slice(0, 10));
       if (!day) continue;
       if (event.type === "SHOP_VIEWED") day.shopViews += 1;
-      if (event.productId === id && event.type === "PRODUCT_VIEWED") day.productViews += 1;
+      if (event.productId === id && event.type === "PRODUCT_IMPRESSION") {
+        day.productImpressions += 1;
+        const context = commerceEventContext(event.metadata);
+        if (context.surface === "explore_search") {
+          day.searchAppearances += 1;
+          const searchSession = `${event.sessionKey || event.id}:${context.query || "unknown"}`;
+          searchSessions.add(searchSession);
+          if (context.query) {
+            const sessions = searchTermSessions.get(context.query) ?? new Set<string>();
+            sessions.add(searchSession);
+            searchTermSessions.set(context.query, sessions);
+          }
+        }
+      }
+      if (event.productId === id && event.type === "PRODUCT_VIEWED") {
+        day.productViews += 1;
+        if (commerceEventContext(event.metadata).surface?.startsWith("explore")) day.productOpens += 1;
+      }
       if (event.productId === id && event.type === "PRODUCT_SHARED") day.shares += 1;
+      if (event.productId === id && event.type === "PRODUCT_SAVED") saves += 1;
+      if (event.productId === id && event.type === "PURCHASE_COMPLETED") purchases += 1;
+      if (event.productId === id && event.type === "PRODUCT_VIEWED" && commerceEventContext(event.metadata).surface === "explore_search") searchOpens += 1;
       if (event.productId === id && ["PRODUCT_VIEWED", "PRODUCT_SHARED"].includes(event.type)) {
         const source = discoverySource(event.metadata);
         if (source) sourceCounts.set(source, (sourceCounts.get(source) ?? 0) + 1);
@@ -103,14 +128,33 @@ export class ProductsService {
     }
 
     const values = [...series.values()];
+    const impressions = values.reduce((total, day) => total + day.productImpressions, 0);
+    const productClicks = values.reduce((total, day) => total + day.productViews, 0);
+    const productOpens = values.reduce((total, day) => total + day.productOpens, 0);
+    const searchAppearances = values.reduce((total, day) => total + day.searchAppearances, 0);
     return {
       days: safeDays,
-      productClicks: values.reduce((total, day) => total + day.productViews, 0),
+      impressions,
+      openRate: percentage(productOpens, impressions),
+      productClicks,
+      productOpens,
+      purchases,
+      saves,
+      searchAppearances,
+      searchOpenRate: percentage(searchOpens, searchAppearances),
+      searchOpens,
+      searchReportingReady: searchAppearances >= 5,
+      searches: searchSessions.size,
       shares: values.reduce((total, day) => total + day.shares, 0),
       shopVisits: values.reduce((total, day) => total + day.shopViews, 0),
       sourceBreakdown: [...sourceCounts.entries()]
         .map(([source, count]) => ({ source, count }))
         .sort((left, right) => right.count - left.count || left.source.localeCompare(right.source)),
+      topSearchTerms: [...searchTermSessions.entries()]
+        .filter(([, sessions]) => sessions.size >= 5)
+        .map(([term, sessions]) => ({ appearances: sessions.size, term }))
+        .sort((left, right) => right.appearances - left.appearances || left.term.localeCompare(right.term))
+        .slice(0, 5),
       series: values,
     };
   }
@@ -558,6 +602,21 @@ export class ProductsService {
     }
     return candidate;
   }
+}
+
+function commerceEventContext(metadata: unknown) {
+  if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) return {} as { query?: string; surface?: string };
+  const context = (metadata as Record<string, unknown>).context;
+  if (!context || typeof context !== "object" || Array.isArray(context)) return {} as { query?: string; surface?: string };
+  const values = context as Record<string, unknown>;
+  return {
+    query: typeof values.query === "string" ? values.query : undefined,
+    surface: typeof values.surface === "string" ? values.surface : undefined,
+  };
+}
+
+function percentage(value: number, total: number) {
+  return total ? Math.round(value / total * 1000) / 10 : 0;
 }
 
 function withListingReadiness<T extends {

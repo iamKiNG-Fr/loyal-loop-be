@@ -13,6 +13,7 @@ import {
   timingSafeEqual,
 } from "node:crypto";
 import { createOpaqueToken, hashPrivateValue } from "../../common/crypto.util";
+import { receiptMediaSignature } from "../../common/receipt-media.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { PrismaService } from "../prisma/prisma.service";
 import { normalizeE164 } from "./twilio-whatsapp.provider";
@@ -119,6 +120,7 @@ export class MessagingService {
     templateKey: string;
     variables: Record<string, string>;
     idempotencyKey: string;
+    awaitDelivery?: boolean;
   }) {
     const phone = normalizePhone(input.phone);
     const phoneHash = this.phoneHash(phone);
@@ -148,14 +150,16 @@ export class MessagingService {
     // Founding invitations are linked to their outbox record immediately after
     // enqueueing. Do not race that link: the caller explicitly starts delivery
     // once the invitation can supply the one-time encrypted token.
+    let status = record.status;
     if (
       record.status === "PENDING" &&
       input.templateKey !== "founding_access" &&
       this.pilotEnabled()
     ) {
-      void this.processOne(record.id).catch(() => undefined);
+      if (input.awaitDelivery) status = await this.processOne(record.id);
+      else void this.processOne(record.id).catch(() => undefined);
     }
-    return { id: record.id, status: record.status };
+    return { id: record.id, status };
   }
 
   async enqueueFoundingAccess(input: {
@@ -185,30 +189,37 @@ export class MessagingService {
     }
   }
 
-  async enqueueReceipt(auth: OwnerAuthContext, receiptId: string) {
+  async enqueueReceipt(auth: OwnerAuthContext, receiptId: string, options: { awaitDelivery?: boolean } = {}) {
     const receipt = await this.prisma.receipt.findFirst({
       where: { id: receiptId, businessId: auth.businessId, status: { not: "VOID" } },
       include: { business: true, customer: true },
     });
     if (!receipt || !receipt.customer.phone) throw new BadRequestException("Receipt customer needs a WhatsApp phone number");
     const generated = createOpaqueToken();
-    await this.prisma.$transaction([
-      this.prisma.receiptShareToken.create({ data: { receiptId, tokenHash: generated.tokenHash } }),
-      this.prisma.receipt.update({
-        where: { id: receiptId },
-        data: { status: receipt.status === "CREATED" ? "SENT" : undefined, sentAt: receipt.sentAt ?? new Date() },
-      }),
-    ]);
+    await this.prisma.receiptShareToken.create({ data: { receiptId, tokenHash: generated.tokenHash } });
     const appUrl = this.config.get<string>("APP_URL", "https://www.useloyalloop.com").replace(/\/$/, "");
-    return this.enqueueUtility({
+    const mediaSecret = this.config.get<string>("RECEIPT_MEDIA_SIGNING_SECRET") || this.config.get<string>("SESSION_HASH_SECRET");
+    if (!mediaSecret) throw new ServiceUnavailableException("Receipt media signing is not configured");
+    const mediaExpires = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
+    const mediaSignature = receiptMediaSignature(mediaSecret, receipt.id, mediaExpires);
+    const receiptImageUrl = `${appUrl}/og/receipt-message/${encodeURIComponent(receipt.id)}.png?expires=${mediaExpires}&signature=${mediaSignature}`;
+    const delivery = await this.enqueueUtility({
+      awaitDelivery: options.awaitDelivery,
       businessId: auth.businessId,
       customerAccountId: receipt.customer.accountId ?? undefined,
       phone: receipt.customer.phone,
       purpose: "RECEIPT",
       templateKey: "receipt",
-      variables: { "1": receipt.customer.name, "2": receipt.business.name, "3": receipt.receiptCode, "4": `${appUrl}/receipt/${generated.token}` },
+      variables: { "1": receipt.customer.name, "2": receipt.business.name, "3": receipt.receiptCode, "4": `${appUrl}/receipt/${generated.token}`, "5": receiptImageUrl },
       idempotencyKey: `receipt:${receipt.id}:${receipt.updatedAt.getTime()}`,
     });
+    if (["PENDING", "SENT", "DELIVERED"].includes(delivery.status)) {
+      await this.prisma.receipt.update({
+        where: { id: receiptId },
+        data: { status: receipt.status === "CREATED" ? "SENT" : undefined, sentAt: receipt.sentAt ?? new Date() },
+      });
+    }
+    return { ...delivery, imageAttached: true, receiptId: receipt.id };
   }
 
   async enqueueDelivery(auth: OwnerAuthContext, deliveryId: string) {
@@ -617,11 +628,11 @@ function mapTwilioStatus(status: string) {
 }
 
 function orderRequestMessage(status: string, cancellationReason: string | null) {
-  if (status === "CANCELED") return cancellationReason || "The shop could not complete this request";
-  if (status === "NEEDS_CHANGES") return "The shop needs one detail from you before confirming";
-  if (status === "ACCEPTED") return "The shop is checking stock, final price, and collection details";
-  if (status === "CONVERTED") return "Confirmed â€” your order journey is ready";
-  return "The shop is reviewing your request. You will pay after the shop confirms it";
+  if (status === "CANCELED") return cancellationReason || "This request could not go ahead this time";
+  if (status === "NEEDS_CHANGES") return "One quick thing: the shop needs a detail from you before confirming";
+  if (status === "ACCEPTED") return "Good news—the shop accepted your request and is checking the final details";
+  if (status === "CONVERTED") return "You’re all set—your confirmed order journey is ready ✨";
+  return "Request received. The shop is taking a look and will confirm the details before you pay";
 }
 
 function webhookErrorMessage(values: WebhookValues) {

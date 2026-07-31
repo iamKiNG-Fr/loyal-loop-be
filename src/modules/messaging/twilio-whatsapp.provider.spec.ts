@@ -90,11 +90,12 @@ describe("TwilioWhatsAppProvider modes", () => {
     expect(started.provider).toBe("internal-sandbox");
     expect(code).toMatch(/^\d{6}$/);
     expect(deliveredBody).toContain(
-      `Use ${code} to verify your WhatsApp number on Loyal Loop.`,
+      `Your Loyal Loop security code is ${code}.`,
     );
     expect(deliveredBody).toContain(
-      "This code expires in 10 minutes. Never share it with anyone, including Loyal Loop support.",
+      "It expires in 10 minutes. Never share this code",
     );
+    expect(deliveredBody).toContain("We will never ask you for it.");
     expect(deliveredBody).not.toMatch(/â|ðŸ/);
     expect(started.reference).toMatch(/^sandbox:[^:]+:[0-9a-f]{64}$/);
     expect(started.reference).not.toContain(code);
@@ -204,13 +205,20 @@ describe("TwilioWhatsAppProvider modes", () => {
 
     await provider.sendReceipt("+2348012345678", {
       "1": "Ada",
+      "2": "King's Store",
+      "3": "LL-R-1001",
       "4": "https://www.useloyalloop.com/receipt/opaque-token",
+      "5": "https://www.useloyalloop.com/og/receipt-message/receipt-id.png?expires=1&signature=signed",
     });
 
     const body = requestBody(fetchMock);
     expect(body.get("From")).toBe("whatsapp:+2349012345678");
     expect(body.get("MessagingServiceSid")).toBe(`MG${"b".repeat(32)}`);
     expect(body.get("ContentSid")).toBe(`HX${"d".repeat(32)}`);
+    expect(JSON.parse(body.get("ContentVariables") || "{}")).toMatchObject({
+      "3": "LL-R-1001",
+      "5": expect.stringContaining("/og/receipt-message/"),
+    });
     expect(body.has("Body")).toBe(false);
   });
 
@@ -286,7 +294,7 @@ function productionValues() {
     TWILIO_WHATSAPP_SENDER: "+2349012345678",
     TWILIO_MESSAGING_SERVICE_SID: `MG${"b".repeat(32)}`,
     TWILIO_VERIFY_SERVICE_SID: `VA${"c".repeat(32)}`,
-    TWILIO_RECEIPT_CONTENT_SID: `HX${"d".repeat(32)}`,
+    TWILIO_RECEIPT_MEDIA_CONTENT_SID: `HX${"d".repeat(32)}`,
     TWILIO_DELIVERY_CONTENT_SID: `HX${"e".repeat(32)}`,
     TWILIO_REMINDER_CONTENT_SID: `HX${"f".repeat(32)}`,
     TWILIO_FOUNDING_ACCESS_CONTENT_SID: `HX${"1".repeat(32)}`,
