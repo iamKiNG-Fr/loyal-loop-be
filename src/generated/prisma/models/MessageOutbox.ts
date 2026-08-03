@@ -38,6 +38,7 @@ export type MessageOutboxMinAggregateOutputType = {
   id: string | null
   businessId: string | null
   customerAccountId: string | null
+  recipientUserId: string | null
   channel: $Enums.MessageChannel | null
   purpose: $Enums.MessagePurpose | null
   toAddress: string | null
@@ -58,6 +59,7 @@ export type MessageOutboxMaxAggregateOutputType = {
   id: string | null
   businessId: string | null
   customerAccountId: string | null
+  recipientUserId: string | null
   channel: $Enums.MessageChannel | null
   purpose: $Enums.MessagePurpose | null
   toAddress: string | null
@@ -78,6 +80,7 @@ export type MessageOutboxCountAggregateOutputType = {
   id: number
   businessId: number
   customerAccountId: number
+  recipientUserId: number
   channel: number
   purpose: number
   toAddress: number
@@ -109,6 +112,7 @@ export type MessageOutboxMinAggregateInputType = {
   id?: true
   businessId?: true
   customerAccountId?: true
+  recipientUserId?: true
   channel?: true
   purpose?: true
   toAddress?: true
@@ -129,6 +133,7 @@ export type MessageOutboxMaxAggregateInputType = {
   id?: true
   businessId?: true
   customerAccountId?: true
+  recipientUserId?: true
   channel?: true
   purpose?: true
   toAddress?: true
@@ -149,6 +154,7 @@ export type MessageOutboxCountAggregateInputType = {
   id?: true
   businessId?: true
   customerAccountId?: true
+  recipientUserId?: true
   channel?: true
   purpose?: true
   toAddress?: true
@@ -257,6 +263,7 @@ export type MessageOutboxGroupByOutputType = {
   id: string
   businessId: string | null
   customerAccountId: string | null
+  recipientUserId: string | null
   channel: $Enums.MessageChannel
   purpose: $Enums.MessagePurpose
   toAddress: string
@@ -301,6 +308,7 @@ export type MessageOutboxWhereInput = {
   id?: Prisma.StringFilter<"MessageOutbox"> | string
   businessId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
   customerAccountId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
+  recipientUserId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
   channel?: Prisma.EnumMessageChannelFilter<"MessageOutbox"> | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFilter<"MessageOutbox"> | $Enums.MessagePurpose
   toAddress?: Prisma.StringFilter<"MessageOutbox"> | string
@@ -318,6 +326,7 @@ export type MessageOutboxWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"MessageOutbox"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessNullableScalarRelationFilter, Prisma.BusinessWhereInput> | null
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountNullableScalarRelationFilter, Prisma.CustomerAccountWhereInput> | null
+  recipientUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   attempts?: Prisma.MessageAttemptListRelationFilter
   foundingInvitation?: Prisma.XOR<Prisma.OnboardingInvitationNullableScalarRelationFilter, Prisma.OnboardingInvitationWhereInput> | null
 }
@@ -326,6 +335,7 @@ export type MessageOutboxOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrderInput | Prisma.SortOrder
   customerAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
+  recipientUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   channel?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   toAddress?: Prisma.SortOrder
@@ -343,6 +353,7 @@ export type MessageOutboxOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   customerAccount?: Prisma.CustomerAccountOrderByWithRelationInput
+  recipientUser?: Prisma.UserOrderByWithRelationInput
   attempts?: Prisma.MessageAttemptOrderByRelationAggregateInput
   foundingInvitation?: Prisma.OnboardingInvitationOrderByWithRelationInput
 }
@@ -356,6 +367,7 @@ export type MessageOutboxWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MessageOutboxWhereInput | Prisma.MessageOutboxWhereInput[]
   businessId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
   customerAccountId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
+  recipientUserId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
   channel?: Prisma.EnumMessageChannelFilter<"MessageOutbox"> | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFilter<"MessageOutbox"> | $Enums.MessagePurpose
   toAddress?: Prisma.StringFilter<"MessageOutbox"> | string
@@ -371,6 +383,7 @@ export type MessageOutboxWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"MessageOutbox"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessNullableScalarRelationFilter, Prisma.BusinessWhereInput> | null
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountNullableScalarRelationFilter, Prisma.CustomerAccountWhereInput> | null
+  recipientUser?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   attempts?: Prisma.MessageAttemptListRelationFilter
   foundingInvitation?: Prisma.XOR<Prisma.OnboardingInvitationNullableScalarRelationFilter, Prisma.OnboardingInvitationWhereInput> | null
 }, "id" | "idempotencyKey" | "providerReference">
@@ -379,6 +392,7 @@ export type MessageOutboxOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrderInput | Prisma.SortOrder
   customerAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
+  recipientUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   channel?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   toAddress?: Prisma.SortOrder
@@ -408,6 +422,7 @@ export type MessageOutboxScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"MessageOutbox"> | string
   businessId?: Prisma.StringNullableWithAggregatesFilter<"MessageOutbox"> | string | null
   customerAccountId?: Prisma.StringNullableWithAggregatesFilter<"MessageOutbox"> | string | null
+  recipientUserId?: Prisma.StringNullableWithAggregatesFilter<"MessageOutbox"> | string | null
   channel?: Prisma.EnumMessageChannelWithAggregatesFilter<"MessageOutbox"> | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeWithAggregatesFilter<"MessageOutbox"> | $Enums.MessagePurpose
   toAddress?: Prisma.StringWithAggregatesFilter<"MessageOutbox"> | string
@@ -444,6 +459,7 @@ export type MessageOutboxCreateInput = {
   updatedAt?: Date | string
   business?: Prisma.BusinessCreateNestedOneWithoutMessageOutboxInput
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutMessageOutboxInput
+  recipientUser?: Prisma.UserCreateNestedOneWithoutMessageOutboxInput
   attempts?: Prisma.MessageAttemptCreateNestedManyWithoutOutboxInput
   foundingInvitation?: Prisma.OnboardingInvitationCreateNestedOneWithoutMessageOutboxInput
 }
@@ -452,6 +468,7 @@ export type MessageOutboxUncheckedCreateInput = {
   id?: string
   businessId?: string | null
   customerAccountId?: string | null
+  recipientUserId?: string | null
   channel?: $Enums.MessageChannel
   purpose: $Enums.MessagePurpose
   toAddress: string
@@ -490,6 +507,7 @@ export type MessageOutboxUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneWithoutMessageOutboxNestedInput
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutMessageOutboxNestedInput
+  recipientUser?: Prisma.UserUpdateOneWithoutMessageOutboxNestedInput
   attempts?: Prisma.MessageAttemptUpdateManyWithoutOutboxNestedInput
   foundingInvitation?: Prisma.OnboardingInvitationUpdateOneWithoutMessageOutboxNestedInput
 }
@@ -498,6 +516,7 @@ export type MessageOutboxUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   toAddress?: Prisma.StringFieldUpdateOperationsInput | string
@@ -521,6 +540,7 @@ export type MessageOutboxCreateManyInput = {
   id?: string
   businessId?: string | null
   customerAccountId?: string | null
+  recipientUserId?: string | null
   channel?: $Enums.MessageChannel
   purpose: $Enums.MessagePurpose
   toAddress: string
@@ -561,6 +581,7 @@ export type MessageOutboxUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   toAddress?: Prisma.StringFieldUpdateOperationsInput | string
@@ -597,6 +618,7 @@ export type MessageOutboxCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrder
+  recipientUserId?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   toAddress?: Prisma.SortOrder
@@ -622,6 +644,7 @@ export type MessageOutboxMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrder
+  recipientUserId?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   toAddress?: Prisma.SortOrder
@@ -642,6 +665,7 @@ export type MessageOutboxMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrder
+  recipientUserId?: Prisma.SortOrder
   channel?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   toAddress?: Prisma.SortOrder
@@ -681,6 +705,48 @@ export type MessageOutboxUpdateOneWithoutFoundingInvitationNestedInput = {
   delete?: Prisma.MessageOutboxWhereInput | boolean
   connect?: Prisma.MessageOutboxWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.MessageOutboxUpdateToOneWithWhereWithoutFoundingInvitationInput, Prisma.MessageOutboxUpdateWithoutFoundingInvitationInput>, Prisma.MessageOutboxUncheckedUpdateWithoutFoundingInvitationInput>
+}
+
+export type MessageOutboxCreateNestedManyWithoutRecipientUserInput = {
+  create?: Prisma.XOR<Prisma.MessageOutboxCreateWithoutRecipientUserInput, Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput> | Prisma.MessageOutboxCreateWithoutRecipientUserInput[] | Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput[]
+  connectOrCreate?: Prisma.MessageOutboxCreateOrConnectWithoutRecipientUserInput | Prisma.MessageOutboxCreateOrConnectWithoutRecipientUserInput[]
+  createMany?: Prisma.MessageOutboxCreateManyRecipientUserInputEnvelope
+  connect?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+}
+
+export type MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput = {
+  create?: Prisma.XOR<Prisma.MessageOutboxCreateWithoutRecipientUserInput, Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput> | Prisma.MessageOutboxCreateWithoutRecipientUserInput[] | Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput[]
+  connectOrCreate?: Prisma.MessageOutboxCreateOrConnectWithoutRecipientUserInput | Prisma.MessageOutboxCreateOrConnectWithoutRecipientUserInput[]
+  createMany?: Prisma.MessageOutboxCreateManyRecipientUserInputEnvelope
+  connect?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+}
+
+export type MessageOutboxUpdateManyWithoutRecipientUserNestedInput = {
+  create?: Prisma.XOR<Prisma.MessageOutboxCreateWithoutRecipientUserInput, Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput> | Prisma.MessageOutboxCreateWithoutRecipientUserInput[] | Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput[]
+  connectOrCreate?: Prisma.MessageOutboxCreateOrConnectWithoutRecipientUserInput | Prisma.MessageOutboxCreateOrConnectWithoutRecipientUserInput[]
+  upsert?: Prisma.MessageOutboxUpsertWithWhereUniqueWithoutRecipientUserInput | Prisma.MessageOutboxUpsertWithWhereUniqueWithoutRecipientUserInput[]
+  createMany?: Prisma.MessageOutboxCreateManyRecipientUserInputEnvelope
+  set?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+  disconnect?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+  delete?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+  connect?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+  update?: Prisma.MessageOutboxUpdateWithWhereUniqueWithoutRecipientUserInput | Prisma.MessageOutboxUpdateWithWhereUniqueWithoutRecipientUserInput[]
+  updateMany?: Prisma.MessageOutboxUpdateManyWithWhereWithoutRecipientUserInput | Prisma.MessageOutboxUpdateManyWithWhereWithoutRecipientUserInput[]
+  deleteMany?: Prisma.MessageOutboxScalarWhereInput | Prisma.MessageOutboxScalarWhereInput[]
+}
+
+export type MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput = {
+  create?: Prisma.XOR<Prisma.MessageOutboxCreateWithoutRecipientUserInput, Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput> | Prisma.MessageOutboxCreateWithoutRecipientUserInput[] | Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput[]
+  connectOrCreate?: Prisma.MessageOutboxCreateOrConnectWithoutRecipientUserInput | Prisma.MessageOutboxCreateOrConnectWithoutRecipientUserInput[]
+  upsert?: Prisma.MessageOutboxUpsertWithWhereUniqueWithoutRecipientUserInput | Prisma.MessageOutboxUpsertWithWhereUniqueWithoutRecipientUserInput[]
+  createMany?: Prisma.MessageOutboxCreateManyRecipientUserInputEnvelope
+  set?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+  disconnect?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+  delete?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+  connect?: Prisma.MessageOutboxWhereUniqueInput | Prisma.MessageOutboxWhereUniqueInput[]
+  update?: Prisma.MessageOutboxUpdateWithWhereUniqueWithoutRecipientUserInput | Prisma.MessageOutboxUpdateWithWhereUniqueWithoutRecipientUserInput[]
+  updateMany?: Prisma.MessageOutboxUpdateManyWithWhereWithoutRecipientUserInput | Prisma.MessageOutboxUpdateManyWithWhereWithoutRecipientUserInput[]
+  deleteMany?: Prisma.MessageOutboxScalarWhereInput | Prisma.MessageOutboxScalarWhereInput[]
 }
 
 export type MessageOutboxCreateNestedManyWithoutBusinessInput = {
@@ -804,6 +870,7 @@ export type MessageOutboxCreateWithoutFoundingInvitationInput = {
   updatedAt?: Date | string
   business?: Prisma.BusinessCreateNestedOneWithoutMessageOutboxInput
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutMessageOutboxInput
+  recipientUser?: Prisma.UserCreateNestedOneWithoutMessageOutboxInput
   attempts?: Prisma.MessageAttemptCreateNestedManyWithoutOutboxInput
 }
 
@@ -811,6 +878,7 @@ export type MessageOutboxUncheckedCreateWithoutFoundingInvitationInput = {
   id?: string
   businessId?: string | null
   customerAccountId?: string | null
+  recipientUserId?: string | null
   channel?: $Enums.MessageChannel
   purpose: $Enums.MessagePurpose
   toAddress: string
@@ -864,6 +932,7 @@ export type MessageOutboxUpdateWithoutFoundingInvitationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneWithoutMessageOutboxNestedInput
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutMessageOutboxNestedInput
+  recipientUser?: Prisma.UserUpdateOneWithoutMessageOutboxNestedInput
   attempts?: Prisma.MessageAttemptUpdateManyWithoutOutboxNestedInput
 }
 
@@ -871,6 +940,7 @@ export type MessageOutboxUncheckedUpdateWithoutFoundingInvitationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   toAddress?: Prisma.StringFieldUpdateOperationsInput | string
@@ -887,6 +957,103 @@ export type MessageOutboxUncheckedUpdateWithoutFoundingInvitationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attempts?: Prisma.MessageAttemptUncheckedUpdateManyWithoutOutboxNestedInput
+}
+
+export type MessageOutboxCreateWithoutRecipientUserInput = {
+  id?: string
+  channel?: $Enums.MessageChannel
+  purpose: $Enums.MessagePurpose
+  toAddress: string
+  templateKey: string
+  payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  idempotencyKey: string
+  status?: $Enums.MessageStatus
+  attemptCount?: number
+  nextAttemptAt?: Date | string
+  providerReference?: string | null
+  lastError?: string | null
+  sentAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business?: Prisma.BusinessCreateNestedOneWithoutMessageOutboxInput
+  customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutMessageOutboxInput
+  attempts?: Prisma.MessageAttemptCreateNestedManyWithoutOutboxInput
+  foundingInvitation?: Prisma.OnboardingInvitationCreateNestedOneWithoutMessageOutboxInput
+}
+
+export type MessageOutboxUncheckedCreateWithoutRecipientUserInput = {
+  id?: string
+  businessId?: string | null
+  customerAccountId?: string | null
+  channel?: $Enums.MessageChannel
+  purpose: $Enums.MessagePurpose
+  toAddress: string
+  templateKey: string
+  payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  idempotencyKey: string
+  status?: $Enums.MessageStatus
+  attemptCount?: number
+  nextAttemptAt?: Date | string
+  providerReference?: string | null
+  lastError?: string | null
+  sentAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attempts?: Prisma.MessageAttemptUncheckedCreateNestedManyWithoutOutboxInput
+  foundingInvitation?: Prisma.OnboardingInvitationUncheckedCreateNestedOneWithoutMessageOutboxInput
+}
+
+export type MessageOutboxCreateOrConnectWithoutRecipientUserInput = {
+  where: Prisma.MessageOutboxWhereUniqueInput
+  create: Prisma.XOR<Prisma.MessageOutboxCreateWithoutRecipientUserInput, Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput>
+}
+
+export type MessageOutboxCreateManyRecipientUserInputEnvelope = {
+  data: Prisma.MessageOutboxCreateManyRecipientUserInput | Prisma.MessageOutboxCreateManyRecipientUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type MessageOutboxUpsertWithWhereUniqueWithoutRecipientUserInput = {
+  where: Prisma.MessageOutboxWhereUniqueInput
+  update: Prisma.XOR<Prisma.MessageOutboxUpdateWithoutRecipientUserInput, Prisma.MessageOutboxUncheckedUpdateWithoutRecipientUserInput>
+  create: Prisma.XOR<Prisma.MessageOutboxCreateWithoutRecipientUserInput, Prisma.MessageOutboxUncheckedCreateWithoutRecipientUserInput>
+}
+
+export type MessageOutboxUpdateWithWhereUniqueWithoutRecipientUserInput = {
+  where: Prisma.MessageOutboxWhereUniqueInput
+  data: Prisma.XOR<Prisma.MessageOutboxUpdateWithoutRecipientUserInput, Prisma.MessageOutboxUncheckedUpdateWithoutRecipientUserInput>
+}
+
+export type MessageOutboxUpdateManyWithWhereWithoutRecipientUserInput = {
+  where: Prisma.MessageOutboxScalarWhereInput
+  data: Prisma.XOR<Prisma.MessageOutboxUpdateManyMutationInput, Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserInput>
+}
+
+export type MessageOutboxScalarWhereInput = {
+  AND?: Prisma.MessageOutboxScalarWhereInput | Prisma.MessageOutboxScalarWhereInput[]
+  OR?: Prisma.MessageOutboxScalarWhereInput[]
+  NOT?: Prisma.MessageOutboxScalarWhereInput | Prisma.MessageOutboxScalarWhereInput[]
+  id?: Prisma.StringFilter<"MessageOutbox"> | string
+  businessId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
+  customerAccountId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
+  recipientUserId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
+  channel?: Prisma.EnumMessageChannelFilter<"MessageOutbox"> | $Enums.MessageChannel
+  purpose?: Prisma.EnumMessagePurposeFilter<"MessageOutbox"> | $Enums.MessagePurpose
+  toAddress?: Prisma.StringFilter<"MessageOutbox"> | string
+  templateKey?: Prisma.StringFilter<"MessageOutbox"> | string
+  payload?: Prisma.JsonFilter<"MessageOutbox">
+  idempotencyKey?: Prisma.StringFilter<"MessageOutbox"> | string
+  status?: Prisma.EnumMessageStatusFilter<"MessageOutbox"> | $Enums.MessageStatus
+  attemptCount?: Prisma.IntFilter<"MessageOutbox"> | number
+  nextAttemptAt?: Prisma.DateTimeFilter<"MessageOutbox"> | Date | string
+  providerReference?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
+  lastError?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
+  sentAt?: Prisma.DateTimeNullableFilter<"MessageOutbox"> | Date | string | null
+  deliveredAt?: Prisma.DateTimeNullableFilter<"MessageOutbox"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"MessageOutbox"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"MessageOutbox"> | Date | string
 }
 
 export type MessageOutboxCreateWithoutBusinessInput = {
@@ -907,6 +1074,7 @@ export type MessageOutboxCreateWithoutBusinessInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutMessageOutboxInput
+  recipientUser?: Prisma.UserCreateNestedOneWithoutMessageOutboxInput
   attempts?: Prisma.MessageAttemptCreateNestedManyWithoutOutboxInput
   foundingInvitation?: Prisma.OnboardingInvitationCreateNestedOneWithoutMessageOutboxInput
 }
@@ -914,6 +1082,7 @@ export type MessageOutboxCreateWithoutBusinessInput = {
 export type MessageOutboxUncheckedCreateWithoutBusinessInput = {
   id?: string
   customerAccountId?: string | null
+  recipientUserId?: string | null
   channel?: $Enums.MessageChannel
   purpose: $Enums.MessagePurpose
   toAddress: string
@@ -959,30 +1128,6 @@ export type MessageOutboxUpdateManyWithWhereWithoutBusinessInput = {
   data: Prisma.XOR<Prisma.MessageOutboxUpdateManyMutationInput, Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessInput>
 }
 
-export type MessageOutboxScalarWhereInput = {
-  AND?: Prisma.MessageOutboxScalarWhereInput | Prisma.MessageOutboxScalarWhereInput[]
-  OR?: Prisma.MessageOutboxScalarWhereInput[]
-  NOT?: Prisma.MessageOutboxScalarWhereInput | Prisma.MessageOutboxScalarWhereInput[]
-  id?: Prisma.StringFilter<"MessageOutbox"> | string
-  businessId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
-  customerAccountId?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
-  channel?: Prisma.EnumMessageChannelFilter<"MessageOutbox"> | $Enums.MessageChannel
-  purpose?: Prisma.EnumMessagePurposeFilter<"MessageOutbox"> | $Enums.MessagePurpose
-  toAddress?: Prisma.StringFilter<"MessageOutbox"> | string
-  templateKey?: Prisma.StringFilter<"MessageOutbox"> | string
-  payload?: Prisma.JsonFilter<"MessageOutbox">
-  idempotencyKey?: Prisma.StringFilter<"MessageOutbox"> | string
-  status?: Prisma.EnumMessageStatusFilter<"MessageOutbox"> | $Enums.MessageStatus
-  attemptCount?: Prisma.IntFilter<"MessageOutbox"> | number
-  nextAttemptAt?: Prisma.DateTimeFilter<"MessageOutbox"> | Date | string
-  providerReference?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
-  lastError?: Prisma.StringNullableFilter<"MessageOutbox"> | string | null
-  sentAt?: Prisma.DateTimeNullableFilter<"MessageOutbox"> | Date | string | null
-  deliveredAt?: Prisma.DateTimeNullableFilter<"MessageOutbox"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"MessageOutbox"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"MessageOutbox"> | Date | string
-}
-
 export type MessageOutboxCreateWithoutCustomerAccountInput = {
   id?: string
   channel?: $Enums.MessageChannel
@@ -1001,6 +1146,7 @@ export type MessageOutboxCreateWithoutCustomerAccountInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   business?: Prisma.BusinessCreateNestedOneWithoutMessageOutboxInput
+  recipientUser?: Prisma.UserCreateNestedOneWithoutMessageOutboxInput
   attempts?: Prisma.MessageAttemptCreateNestedManyWithoutOutboxInput
   foundingInvitation?: Prisma.OnboardingInvitationCreateNestedOneWithoutMessageOutboxInput
 }
@@ -1008,6 +1154,7 @@ export type MessageOutboxCreateWithoutCustomerAccountInput = {
 export type MessageOutboxUncheckedCreateWithoutCustomerAccountInput = {
   id?: string
   businessId?: string | null
+  recipientUserId?: string | null
   channel?: $Enums.MessageChannel
   purpose: $Enums.MessagePurpose
   toAddress: string
@@ -1072,6 +1219,7 @@ export type MessageOutboxCreateWithoutAttemptsInput = {
   updatedAt?: Date | string
   business?: Prisma.BusinessCreateNestedOneWithoutMessageOutboxInput
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutMessageOutboxInput
+  recipientUser?: Prisma.UserCreateNestedOneWithoutMessageOutboxInput
   foundingInvitation?: Prisma.OnboardingInvitationCreateNestedOneWithoutMessageOutboxInput
 }
 
@@ -1079,6 +1227,7 @@ export type MessageOutboxUncheckedCreateWithoutAttemptsInput = {
   id?: string
   businessId?: string | null
   customerAccountId?: string | null
+  recipientUserId?: string | null
   channel?: $Enums.MessageChannel
   purpose: $Enums.MessagePurpose
   toAddress: string
@@ -1132,6 +1281,7 @@ export type MessageOutboxUpdateWithoutAttemptsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneWithoutMessageOutboxNestedInput
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutMessageOutboxNestedInput
+  recipientUser?: Prisma.UserUpdateOneWithoutMessageOutboxNestedInput
   foundingInvitation?: Prisma.OnboardingInvitationUpdateOneWithoutMessageOutboxNestedInput
 }
 
@@ -1139,6 +1289,7 @@ export type MessageOutboxUncheckedUpdateWithoutAttemptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   toAddress?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1157,9 +1308,98 @@ export type MessageOutboxUncheckedUpdateWithoutAttemptsInput = {
   foundingInvitation?: Prisma.OnboardingInvitationUncheckedUpdateOneWithoutMessageOutboxNestedInput
 }
 
+export type MessageOutboxCreateManyRecipientUserInput = {
+  id?: string
+  businessId?: string | null
+  customerAccountId?: string | null
+  channel?: $Enums.MessageChannel
+  purpose: $Enums.MessagePurpose
+  toAddress: string
+  templateKey: string
+  payload: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  idempotencyKey: string
+  status?: $Enums.MessageStatus
+  attemptCount?: number
+  nextAttemptAt?: Date | string
+  providerReference?: string | null
+  lastError?: string | null
+  sentAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MessageOutboxUpdateWithoutRecipientUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+  purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
+  toAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  templateKey?: Prisma.StringFieldUpdateOperationsInput | string
+  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+  attemptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneWithoutMessageOutboxNestedInput
+  customerAccount?: Prisma.CustomerAccountUpdateOneWithoutMessageOutboxNestedInput
+  attempts?: Prisma.MessageAttemptUpdateManyWithoutOutboxNestedInput
+  foundingInvitation?: Prisma.OnboardingInvitationUpdateOneWithoutMessageOutboxNestedInput
+}
+
+export type MessageOutboxUncheckedUpdateWithoutRecipientUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+  purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
+  toAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  templateKey?: Prisma.StringFieldUpdateOperationsInput | string
+  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+  attemptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attempts?: Prisma.MessageAttemptUncheckedUpdateManyWithoutOutboxNestedInput
+  foundingInvitation?: Prisma.OnboardingInvitationUncheckedUpdateOneWithoutMessageOutboxNestedInput
+}
+
+export type MessageOutboxUncheckedUpdateManyWithoutRecipientUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
+  purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
+  toAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  templateKey?: Prisma.StringFieldUpdateOperationsInput | string
+  payload?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+  attemptCount?: Prisma.IntFieldUpdateOperationsInput | number
+  nextAttemptAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  providerReference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type MessageOutboxCreateManyBusinessInput = {
   id?: string
   customerAccountId?: string | null
+  recipientUserId?: string | null
   channel?: $Enums.MessageChannel
   purpose: $Enums.MessagePurpose
   toAddress: string
@@ -1195,6 +1435,7 @@ export type MessageOutboxUpdateWithoutBusinessInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutMessageOutboxNestedInput
+  recipientUser?: Prisma.UserUpdateOneWithoutMessageOutboxNestedInput
   attempts?: Prisma.MessageAttemptUpdateManyWithoutOutboxNestedInput
   foundingInvitation?: Prisma.OnboardingInvitationUpdateOneWithoutMessageOutboxNestedInput
 }
@@ -1202,6 +1443,7 @@ export type MessageOutboxUpdateWithoutBusinessInput = {
 export type MessageOutboxUncheckedUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   toAddress?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1224,6 +1466,7 @@ export type MessageOutboxUncheckedUpdateWithoutBusinessInput = {
 export type MessageOutboxUncheckedUpdateManyWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   toAddress?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1244,6 +1487,7 @@ export type MessageOutboxUncheckedUpdateManyWithoutBusinessInput = {
 export type MessageOutboxCreateManyCustomerAccountInput = {
   id?: string
   businessId?: string | null
+  recipientUserId?: string | null
   channel?: $Enums.MessageChannel
   purpose: $Enums.MessagePurpose
   toAddress: string
@@ -1279,6 +1523,7 @@ export type MessageOutboxUpdateWithoutCustomerAccountInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneWithoutMessageOutboxNestedInput
+  recipientUser?: Prisma.UserUpdateOneWithoutMessageOutboxNestedInput
   attempts?: Prisma.MessageAttemptUpdateManyWithoutOutboxNestedInput
   foundingInvitation?: Prisma.OnboardingInvitationUpdateOneWithoutMessageOutboxNestedInput
 }
@@ -1286,6 +1531,7 @@ export type MessageOutboxUpdateWithoutCustomerAccountInput = {
 export type MessageOutboxUncheckedUpdateWithoutCustomerAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   toAddress?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1308,6 +1554,7 @@ export type MessageOutboxUncheckedUpdateWithoutCustomerAccountInput = {
 export type MessageOutboxUncheckedUpdateManyWithoutCustomerAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   channel?: Prisma.EnumMessageChannelFieldUpdateOperationsInput | $Enums.MessageChannel
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   toAddress?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1360,6 +1607,7 @@ export type MessageOutboxSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   businessId?: boolean
   customerAccountId?: boolean
+  recipientUserId?: boolean
   channel?: boolean
   purpose?: boolean
   toAddress?: boolean
@@ -1377,6 +1625,7 @@ export type MessageOutboxSelect<ExtArgs extends runtime.Types.Extensions.Interna
   updatedAt?: boolean
   business?: boolean | Prisma.MessageOutbox$businessArgs<ExtArgs>
   customerAccount?: boolean | Prisma.MessageOutbox$customerAccountArgs<ExtArgs>
+  recipientUser?: boolean | Prisma.MessageOutbox$recipientUserArgs<ExtArgs>
   attempts?: boolean | Prisma.MessageOutbox$attemptsArgs<ExtArgs>
   foundingInvitation?: boolean | Prisma.MessageOutbox$foundingInvitationArgs<ExtArgs>
   _count?: boolean | Prisma.MessageOutboxCountOutputTypeDefaultArgs<ExtArgs>
@@ -1386,6 +1635,7 @@ export type MessageOutboxSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   businessId?: boolean
   customerAccountId?: boolean
+  recipientUserId?: boolean
   channel?: boolean
   purpose?: boolean
   toAddress?: boolean
@@ -1403,12 +1653,14 @@ export type MessageOutboxSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   updatedAt?: boolean
   business?: boolean | Prisma.MessageOutbox$businessArgs<ExtArgs>
   customerAccount?: boolean | Prisma.MessageOutbox$customerAccountArgs<ExtArgs>
+  recipientUser?: boolean | Prisma.MessageOutbox$recipientUserArgs<ExtArgs>
 }, ExtArgs["result"]["messageOutbox"]>
 
 export type MessageOutboxSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   businessId?: boolean
   customerAccountId?: boolean
+  recipientUserId?: boolean
   channel?: boolean
   purpose?: boolean
   toAddress?: boolean
@@ -1426,12 +1678,14 @@ export type MessageOutboxSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   updatedAt?: boolean
   business?: boolean | Prisma.MessageOutbox$businessArgs<ExtArgs>
   customerAccount?: boolean | Prisma.MessageOutbox$customerAccountArgs<ExtArgs>
+  recipientUser?: boolean | Prisma.MessageOutbox$recipientUserArgs<ExtArgs>
 }, ExtArgs["result"]["messageOutbox"]>
 
 export type MessageOutboxSelectScalar = {
   id?: boolean
   businessId?: boolean
   customerAccountId?: boolean
+  recipientUserId?: boolean
   channel?: boolean
   purpose?: boolean
   toAddress?: boolean
@@ -1449,10 +1703,11 @@ export type MessageOutboxSelectScalar = {
   updatedAt?: boolean
 }
 
-export type MessageOutboxOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "channel" | "purpose" | "toAddress" | "templateKey" | "payload" | "idempotencyKey" | "status" | "attemptCount" | "nextAttemptAt" | "providerReference" | "lastError" | "sentAt" | "deliveredAt" | "createdAt" | "updatedAt", ExtArgs["result"]["messageOutbox"]>
+export type MessageOutboxOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "recipientUserId" | "channel" | "purpose" | "toAddress" | "templateKey" | "payload" | "idempotencyKey" | "status" | "attemptCount" | "nextAttemptAt" | "providerReference" | "lastError" | "sentAt" | "deliveredAt" | "createdAt" | "updatedAt", ExtArgs["result"]["messageOutbox"]>
 export type MessageOutboxInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.MessageOutbox$businessArgs<ExtArgs>
   customerAccount?: boolean | Prisma.MessageOutbox$customerAccountArgs<ExtArgs>
+  recipientUser?: boolean | Prisma.MessageOutbox$recipientUserArgs<ExtArgs>
   attempts?: boolean | Prisma.MessageOutbox$attemptsArgs<ExtArgs>
   foundingInvitation?: boolean | Prisma.MessageOutbox$foundingInvitationArgs<ExtArgs>
   _count?: boolean | Prisma.MessageOutboxCountOutputTypeDefaultArgs<ExtArgs>
@@ -1460,10 +1715,12 @@ export type MessageOutboxInclude<ExtArgs extends runtime.Types.Extensions.Intern
 export type MessageOutboxIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.MessageOutbox$businessArgs<ExtArgs>
   customerAccount?: boolean | Prisma.MessageOutbox$customerAccountArgs<ExtArgs>
+  recipientUser?: boolean | Prisma.MessageOutbox$recipientUserArgs<ExtArgs>
 }
 export type MessageOutboxIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.MessageOutbox$businessArgs<ExtArgs>
   customerAccount?: boolean | Prisma.MessageOutbox$customerAccountArgs<ExtArgs>
+  recipientUser?: boolean | Prisma.MessageOutbox$recipientUserArgs<ExtArgs>
 }
 
 export type $MessageOutboxPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1471,6 +1728,7 @@ export type $MessageOutboxPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     business: Prisma.$BusinessPayload<ExtArgs> | null
     customerAccount: Prisma.$CustomerAccountPayload<ExtArgs> | null
+    recipientUser: Prisma.$UserPayload<ExtArgs> | null
     attempts: Prisma.$MessageAttemptPayload<ExtArgs>[]
     foundingInvitation: Prisma.$OnboardingInvitationPayload<ExtArgs> | null
   }
@@ -1478,6 +1736,7 @@ export type $MessageOutboxPayload<ExtArgs extends runtime.Types.Extensions.Inter
     id: string
     businessId: string | null
     customerAccountId: string | null
+    recipientUserId: string | null
     channel: $Enums.MessageChannel
     purpose: $Enums.MessagePurpose
     toAddress: string
@@ -1889,6 +2148,7 @@ export interface Prisma__MessageOutboxClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   business<T extends Prisma.MessageOutbox$businessArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MessageOutbox$businessArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   customerAccount<T extends Prisma.MessageOutbox$customerAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MessageOutbox$customerAccountArgs<ExtArgs>>): Prisma.Prisma__CustomerAccountClient<runtime.Types.Result.GetResult<Prisma.$CustomerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  recipientUser<T extends Prisma.MessageOutbox$recipientUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MessageOutbox$recipientUserArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   attempts<T extends Prisma.MessageOutbox$attemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MessageOutbox$attemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   foundingInvitation<T extends Prisma.MessageOutbox$foundingInvitationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MessageOutbox$foundingInvitationArgs<ExtArgs>>): Prisma.Prisma__OnboardingInvitationClient<runtime.Types.Result.GetResult<Prisma.$OnboardingInvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1923,6 +2183,7 @@ export interface MessageOutboxFieldRefs {
   readonly id: Prisma.FieldRef<"MessageOutbox", 'String'>
   readonly businessId: Prisma.FieldRef<"MessageOutbox", 'String'>
   readonly customerAccountId: Prisma.FieldRef<"MessageOutbox", 'String'>
+  readonly recipientUserId: Prisma.FieldRef<"MessageOutbox", 'String'>
   readonly channel: Prisma.FieldRef<"MessageOutbox", 'MessageChannel'>
   readonly purpose: Prisma.FieldRef<"MessageOutbox", 'MessagePurpose'>
   readonly toAddress: Prisma.FieldRef<"MessageOutbox", 'String'>
@@ -2374,6 +2635,25 @@ export type MessageOutbox$customerAccountArgs<ExtArgs extends runtime.Types.Exte
    */
   include?: Prisma.CustomerAccountInclude<ExtArgs> | null
   where?: Prisma.CustomerAccountWhereInput
+}
+
+/**
+ * MessageOutbox.recipientUser
+ */
+export type MessageOutbox$recipientUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

@@ -9,6 +9,7 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { ok } from "../../common/api-response";
+import { AdminOriginGuard } from "../../common/auth/admin-origin.guard";
 import { PlatformAdminGuard } from "../../common/auth/platform-admin.guard";
 import { PlatformRoles } from "../../common/auth/platform-roles.decorator";
 import { PlatformRolesGuard } from "../../common/auth/platform-roles.guard";
@@ -23,15 +24,21 @@ import {
   RevokeInvitationDto,
 } from "../founding-circle/dto/founding-circle.dto";
 import {
+  ApproveFoundingApplicationDto,
   AdminListQueryDto,
+  GrantPlatformAdminDto,
   ReactivateBusinessDto,
+  ReplaceInvitationDto,
+  ReviewPlatformAdminDto,
   ReviewCustomerReportDto,
+  RevokePlatformSessionDto,
   SuspendBusinessDto,
+  UpdatePlatformAdminDto,
 } from "./dto/platform-admin.dto";
 import { PlatformAdminService } from "./platform-admin.service";
 
 @Controller("admin")
-@UseGuards(PlatformAdminGuard, PlatformRolesGuard)
+@UseGuards(AdminOriginGuard, PlatformAdminGuard, PlatformRolesGuard)
 export class PlatformAdminController {
   constructor(private readonly admin: PlatformAdminService) {}
 
@@ -103,7 +110,7 @@ export class PlatformAdminController {
   async approve(
     @CurrentPlatformAdmin() auth: PlatformAuthContext,
     @Param("id") id: string,
-    @Body() body: { cohortId?: string; expiresInDays?: number; sendWhatsapp?: boolean },
+    @Body() body: ApproveFoundingApplicationDto,
   ) {
     return ok(await this.admin.approveApplication(auth, id, body), "Application approved and invitation created");
   }
@@ -161,7 +168,7 @@ export class PlatformAdminController {
   async replace(
     @CurrentPlatformAdmin() auth: PlatformAuthContext,
     @Param("id") id: string,
-    @Body() body: { sendWhatsapp?: boolean },
+    @Body() body: ReplaceInvitationDto,
   ) {
     return ok(await this.admin.replaceInvitation(auth, id, body.sendWhatsapp ?? true), "Replacement invitation created");
   }
@@ -210,5 +217,60 @@ export class PlatformAdminController {
   @PlatformRoles("SUPERADMIN")
   async audit(@Query() query: AdminListQueryDto) {
     return ok(await this.admin.auditLogs(query));
+  }
+
+  @Get("access/admins")
+  @PlatformRoles("SUPERADMIN")
+  async platformAdmins(@Query() query: AdminListQueryDto) {
+    return ok(await this.admin.platformAdmins(query));
+  }
+
+  @Post("access/admins")
+  @PlatformRoles("SUPERADMIN")
+  async grantPlatformAdmin(
+    @CurrentPlatformAdmin() auth: PlatformAuthContext,
+    @Body() dto: GrantPlatformAdminDto,
+  ) {
+    return ok(await this.admin.grantPlatformAdmin(auth, dto), "Platform access granted");
+  }
+
+  @Patch("access/admins/:id")
+  @PlatformRoles("SUPERADMIN")
+  async updatePlatformAdmin(
+    @CurrentPlatformAdmin() auth: PlatformAuthContext,
+    @Param("id") id: string,
+    @Body() dto: UpdatePlatformAdminDto,
+  ) {
+    return ok(await this.admin.updatePlatformAdmin(auth, id, dto), "Platform access updated");
+  }
+
+  @Post("access/admins/:id/review")
+  @PlatformRoles("SUPERADMIN")
+  async reviewPlatformAdmin(
+    @CurrentPlatformAdmin() auth: PlatformAuthContext,
+    @Param("id") id: string,
+    @Body() dto: ReviewPlatformAdminDto,
+  ) {
+    return ok(await this.admin.reviewPlatformAdmin(auth, id, dto), "Access review recorded");
+  }
+
+  @Get("access/admins/:id/sessions")
+  @PlatformRoles("SUPERADMIN")
+  async platformAdminSessions(@Param("id") id: string) {
+    return ok(await this.admin.platformAdminSessions(id));
+  }
+
+  @Post("access/admins/:id/sessions/:sessionId/revoke")
+  @PlatformRoles("SUPERADMIN")
+  async revokePlatformAdminSession(
+    @CurrentPlatformAdmin() auth: PlatformAuthContext,
+    @Param("id") id: string,
+    @Param("sessionId") sessionId: string,
+    @Body() dto: RevokePlatformSessionDto,
+  ) {
+    return ok(
+      await this.admin.revokePlatformAdminSession(auth, id, sessionId, dto),
+      "Platform session revoked",
+    );
   }
 }

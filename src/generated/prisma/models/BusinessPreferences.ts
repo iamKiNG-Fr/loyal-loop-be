@@ -20,8 +20,20 @@ export type BusinessPreferencesModel = runtime.Types.Result.DefaultSelection<Pri
 
 export type AggregateBusinessPreferences = {
   _count: BusinessPreferencesCountAggregateOutputType | null
+  _avg: BusinessPreferencesAvgAggregateOutputType | null
+  _sum: BusinessPreferencesSumAggregateOutputType | null
   _min: BusinessPreferencesMinAggregateOutputType | null
   _max: BusinessPreferencesMaxAggregateOutputType | null
+}
+
+export type BusinessPreferencesAvgAggregateOutputType = {
+  lowStockThreshold: number | null
+  dailyDigestWeekdays: number | null
+}
+
+export type BusinessPreferencesSumAggregateOutputType = {
+  lowStockThreshold: number | null
+  dailyDigestWeekdays: number[]
 }
 
 export type BusinessPreferencesMinAggregateOutputType = {
@@ -42,6 +54,15 @@ export type BusinessPreferencesMinAggregateOutputType = {
   notifyFollowUps: boolean | null
   notifyReceiptViews: boolean | null
   notifyDeliveryUpdates: boolean | null
+  lowStockThreshold: number | null
+  dailyDigestWhatsapp: boolean | null
+  dailyDigestTime: string | null
+  dailyDigestPhone: string | null
+  dailyDigestConsentAt: Date | null
+  dailyDigestConsentVersion: string | null
+  dailyDigestPausedAt: Date | null
+  lastDailyDigestAt: Date | null
+  pushNotificationsEnabled: boolean | null
   exportAccess: $Enums.ExportAccess | null
   retentionPolicy: $Enums.RetentionPolicy | null
   createdAt: Date | null
@@ -66,6 +87,15 @@ export type BusinessPreferencesMaxAggregateOutputType = {
   notifyFollowUps: boolean | null
   notifyReceiptViews: boolean | null
   notifyDeliveryUpdates: boolean | null
+  lowStockThreshold: number | null
+  dailyDigestWhatsapp: boolean | null
+  dailyDigestTime: string | null
+  dailyDigestPhone: string | null
+  dailyDigestConsentAt: Date | null
+  dailyDigestConsentVersion: string | null
+  dailyDigestPausedAt: Date | null
+  lastDailyDigestAt: Date | null
+  pushNotificationsEnabled: boolean | null
   exportAccess: $Enums.ExportAccess | null
   retentionPolicy: $Enums.RetentionPolicy | null
   createdAt: Date | null
@@ -95,6 +125,16 @@ export type BusinessPreferencesCountAggregateOutputType = {
   notifyFollowUps: number
   notifyReceiptViews: number
   notifyDeliveryUpdates: number
+  lowStockThreshold: number
+  dailyDigestWhatsapp: number
+  dailyDigestTime: number
+  dailyDigestWeekdays: number
+  dailyDigestPhone: number
+  dailyDigestConsentAt: number
+  dailyDigestConsentVersion: number
+  dailyDigestPausedAt: number
+  lastDailyDigestAt: number
+  pushNotificationsEnabled: number
   exportAccess: number
   retentionPolicy: number
   createdAt: number
@@ -102,6 +142,16 @@ export type BusinessPreferencesCountAggregateOutputType = {
   _all: number
 }
 
+
+export type BusinessPreferencesAvgAggregateInputType = {
+  lowStockThreshold?: true
+  dailyDigestWeekdays?: true
+}
+
+export type BusinessPreferencesSumAggregateInputType = {
+  lowStockThreshold?: true
+  dailyDigestWeekdays?: true
+}
 
 export type BusinessPreferencesMinAggregateInputType = {
   businessId?: true
@@ -121,6 +171,15 @@ export type BusinessPreferencesMinAggregateInputType = {
   notifyFollowUps?: true
   notifyReceiptViews?: true
   notifyDeliveryUpdates?: true
+  lowStockThreshold?: true
+  dailyDigestWhatsapp?: true
+  dailyDigestTime?: true
+  dailyDigestPhone?: true
+  dailyDigestConsentAt?: true
+  dailyDigestConsentVersion?: true
+  dailyDigestPausedAt?: true
+  lastDailyDigestAt?: true
+  pushNotificationsEnabled?: true
   exportAccess?: true
   retentionPolicy?: true
   createdAt?: true
@@ -145,6 +204,15 @@ export type BusinessPreferencesMaxAggregateInputType = {
   notifyFollowUps?: true
   notifyReceiptViews?: true
   notifyDeliveryUpdates?: true
+  lowStockThreshold?: true
+  dailyDigestWhatsapp?: true
+  dailyDigestTime?: true
+  dailyDigestPhone?: true
+  dailyDigestConsentAt?: true
+  dailyDigestConsentVersion?: true
+  dailyDigestPausedAt?: true
+  lastDailyDigestAt?: true
+  pushNotificationsEnabled?: true
   exportAccess?: true
   retentionPolicy?: true
   createdAt?: true
@@ -174,6 +242,16 @@ export type BusinessPreferencesCountAggregateInputType = {
   notifyFollowUps?: true
   notifyReceiptViews?: true
   notifyDeliveryUpdates?: true
+  lowStockThreshold?: true
+  dailyDigestWhatsapp?: true
+  dailyDigestTime?: true
+  dailyDigestWeekdays?: true
+  dailyDigestPhone?: true
+  dailyDigestConsentAt?: true
+  dailyDigestConsentVersion?: true
+  dailyDigestPausedAt?: true
+  lastDailyDigestAt?: true
+  pushNotificationsEnabled?: true
   exportAccess?: true
   retentionPolicy?: true
   createdAt?: true
@@ -219,6 +297,18 @@ export type BusinessPreferencesAggregateArgs<ExtArgs extends runtime.Types.Exten
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: BusinessPreferencesAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: BusinessPreferencesSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: BusinessPreferencesMinAggregateInputType
@@ -249,6 +339,8 @@ export type BusinessPreferencesGroupByArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   _count?: BusinessPreferencesCountAggregateInputType | true
+  _avg?: BusinessPreferencesAvgAggregateInputType
+  _sum?: BusinessPreferencesSumAggregateInputType
   _min?: BusinessPreferencesMinAggregateInputType
   _max?: BusinessPreferencesMaxAggregateInputType
 }
@@ -276,11 +368,23 @@ export type BusinessPreferencesGroupByOutputType = {
   notifyFollowUps: boolean
   notifyReceiptViews: boolean
   notifyDeliveryUpdates: boolean
+  lowStockThreshold: number
+  dailyDigestWhatsapp: boolean
+  dailyDigestTime: string
+  dailyDigestWeekdays: number[]
+  dailyDigestPhone: string | null
+  dailyDigestConsentAt: Date | null
+  dailyDigestConsentVersion: string | null
+  dailyDigestPausedAt: Date | null
+  lastDailyDigestAt: Date | null
+  pushNotificationsEnabled: boolean
   exportAccess: $Enums.ExportAccess
   retentionPolicy: $Enums.RetentionPolicy
   createdAt: Date
   updatedAt: Date
   _count: BusinessPreferencesCountAggregateOutputType | null
+  _avg: BusinessPreferencesAvgAggregateOutputType | null
+  _sum: BusinessPreferencesSumAggregateOutputType | null
   _min: BusinessPreferencesMinAggregateOutputType | null
   _max: BusinessPreferencesMaxAggregateOutputType | null
 }
@@ -326,6 +430,16 @@ export type BusinessPreferencesWhereInput = {
   notifyFollowUps?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   notifyReceiptViews?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   notifyDeliveryUpdates?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
+  lowStockThreshold?: Prisma.IntFilter<"BusinessPreferences"> | number
+  dailyDigestWhatsapp?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
+  dailyDigestTime?: Prisma.StringFilter<"BusinessPreferences"> | string
+  dailyDigestWeekdays?: Prisma.IntNullableListFilter<"BusinessPreferences">
+  dailyDigestPhone?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
+  dailyDigestConsentAt?: Prisma.DateTimeNullableFilter<"BusinessPreferences"> | Date | string | null
+  dailyDigestConsentVersion?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
+  dailyDigestPausedAt?: Prisma.DateTimeNullableFilter<"BusinessPreferences"> | Date | string | null
+  lastDailyDigestAt?: Prisma.DateTimeNullableFilter<"BusinessPreferences"> | Date | string | null
+  pushNotificationsEnabled?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   exportAccess?: Prisma.EnumExportAccessFilter<"BusinessPreferences"> | $Enums.ExportAccess
   retentionPolicy?: Prisma.EnumRetentionPolicyFilter<"BusinessPreferences"> | $Enums.RetentionPolicy
   createdAt?: Prisma.DateTimeFilter<"BusinessPreferences"> | Date | string
@@ -356,6 +470,16 @@ export type BusinessPreferencesOrderByWithRelationInput = {
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  dailyDigestWhatsapp?: Prisma.SortOrder
+  dailyDigestTime?: Prisma.SortOrder
+  dailyDigestWeekdays?: Prisma.SortOrder
+  dailyDigestPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyDigestConsentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyDigestConsentVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyDigestPausedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastDailyDigestAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pushNotificationsEnabled?: Prisma.SortOrder
   exportAccess?: Prisma.SortOrder
   retentionPolicy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -389,6 +513,16 @@ export type BusinessPreferencesWhereUniqueInput = Prisma.AtLeast<{
   notifyFollowUps?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   notifyReceiptViews?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   notifyDeliveryUpdates?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
+  lowStockThreshold?: Prisma.IntFilter<"BusinessPreferences"> | number
+  dailyDigestWhatsapp?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
+  dailyDigestTime?: Prisma.StringFilter<"BusinessPreferences"> | string
+  dailyDigestWeekdays?: Prisma.IntNullableListFilter<"BusinessPreferences">
+  dailyDigestPhone?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
+  dailyDigestConsentAt?: Prisma.DateTimeNullableFilter<"BusinessPreferences"> | Date | string | null
+  dailyDigestConsentVersion?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
+  dailyDigestPausedAt?: Prisma.DateTimeNullableFilter<"BusinessPreferences"> | Date | string | null
+  lastDailyDigestAt?: Prisma.DateTimeNullableFilter<"BusinessPreferences"> | Date | string | null
+  pushNotificationsEnabled?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   exportAccess?: Prisma.EnumExportAccessFilter<"BusinessPreferences"> | $Enums.ExportAccess
   retentionPolicy?: Prisma.EnumRetentionPolicyFilter<"BusinessPreferences"> | $Enums.RetentionPolicy
   createdAt?: Prisma.DateTimeFilter<"BusinessPreferences"> | Date | string
@@ -419,13 +553,25 @@ export type BusinessPreferencesOrderByWithAggregationInput = {
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  dailyDigestWhatsapp?: Prisma.SortOrder
+  dailyDigestTime?: Prisma.SortOrder
+  dailyDigestWeekdays?: Prisma.SortOrder
+  dailyDigestPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyDigestConsentAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyDigestConsentVersion?: Prisma.SortOrderInput | Prisma.SortOrder
+  dailyDigestPausedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastDailyDigestAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pushNotificationsEnabled?: Prisma.SortOrder
   exportAccess?: Prisma.SortOrder
   retentionPolicy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.BusinessPreferencesCountOrderByAggregateInput
+  _avg?: Prisma.BusinessPreferencesAvgOrderByAggregateInput
   _max?: Prisma.BusinessPreferencesMaxOrderByAggregateInput
   _min?: Prisma.BusinessPreferencesMinOrderByAggregateInput
+  _sum?: Prisma.BusinessPreferencesSumOrderByAggregateInput
 }
 
 export type BusinessPreferencesScalarWhereWithAggregatesInput = {
@@ -454,6 +600,16 @@ export type BusinessPreferencesScalarWhereWithAggregatesInput = {
   notifyFollowUps?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
   notifyReceiptViews?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
   notifyDeliveryUpdates?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
+  lowStockThreshold?: Prisma.IntWithAggregatesFilter<"BusinessPreferences"> | number
+  dailyDigestWhatsapp?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
+  dailyDigestTime?: Prisma.StringWithAggregatesFilter<"BusinessPreferences"> | string
+  dailyDigestWeekdays?: Prisma.IntNullableListFilter<"BusinessPreferences">
+  dailyDigestPhone?: Prisma.StringNullableWithAggregatesFilter<"BusinessPreferences"> | string | null
+  dailyDigestConsentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"BusinessPreferences"> | Date | string | null
+  dailyDigestConsentVersion?: Prisma.StringNullableWithAggregatesFilter<"BusinessPreferences"> | string | null
+  dailyDigestPausedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"BusinessPreferences"> | Date | string | null
+  lastDailyDigestAt?: Prisma.DateTimeNullableWithAggregatesFilter<"BusinessPreferences"> | Date | string | null
+  pushNotificationsEnabled?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
   exportAccess?: Prisma.EnumExportAccessWithAggregatesFilter<"BusinessPreferences"> | $Enums.ExportAccess
   retentionPolicy?: Prisma.EnumRetentionPolicyWithAggregatesFilter<"BusinessPreferences"> | $Enums.RetentionPolicy
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"BusinessPreferences"> | Date | string
@@ -482,6 +638,16 @@ export type BusinessPreferencesCreateInput = {
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
+  lowStockThreshold?: number
+  dailyDigestWhatsapp?: boolean
+  dailyDigestTime?: string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesCreatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: string | null
+  dailyDigestConsentAt?: Date | string | null
+  dailyDigestConsentVersion?: string | null
+  dailyDigestPausedAt?: Date | string | null
+  lastDailyDigestAt?: Date | string | null
+  pushNotificationsEnabled?: boolean
   exportAccess?: $Enums.ExportAccess
   retentionPolicy?: $Enums.RetentionPolicy
   createdAt?: Date | string
@@ -512,6 +678,16 @@ export type BusinessPreferencesUncheckedCreateInput = {
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
+  lowStockThreshold?: number
+  dailyDigestWhatsapp?: boolean
+  dailyDigestTime?: string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesCreatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: string | null
+  dailyDigestConsentAt?: Date | string | null
+  dailyDigestConsentVersion?: string | null
+  dailyDigestPausedAt?: Date | string | null
+  lastDailyDigestAt?: Date | string | null
+  pushNotificationsEnabled?: boolean
   exportAccess?: $Enums.ExportAccess
   retentionPolicy?: $Enums.RetentionPolicy
   createdAt?: Date | string
@@ -540,6 +716,16 @@ export type BusinessPreferencesUpdateInput = {
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lowStockThreshold?: Prisma.IntFieldUpdateOperationsInput | number
+  dailyDigestWhatsapp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dailyDigestTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesUpdatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dailyDigestConsentVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestPausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastDailyDigestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pushNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   exportAccess?: Prisma.EnumExportAccessFieldUpdateOperationsInput | $Enums.ExportAccess
   retentionPolicy?: Prisma.EnumRetentionPolicyFieldUpdateOperationsInput | $Enums.RetentionPolicy
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -570,6 +756,16 @@ export type BusinessPreferencesUncheckedUpdateInput = {
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lowStockThreshold?: Prisma.IntFieldUpdateOperationsInput | number
+  dailyDigestWhatsapp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dailyDigestTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesUpdatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dailyDigestConsentVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestPausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastDailyDigestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pushNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   exportAccess?: Prisma.EnumExportAccessFieldUpdateOperationsInput | $Enums.ExportAccess
   retentionPolicy?: Prisma.EnumRetentionPolicyFieldUpdateOperationsInput | $Enums.RetentionPolicy
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -599,6 +795,16 @@ export type BusinessPreferencesCreateManyInput = {
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
+  lowStockThreshold?: number
+  dailyDigestWhatsapp?: boolean
+  dailyDigestTime?: string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesCreatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: string | null
+  dailyDigestConsentAt?: Date | string | null
+  dailyDigestConsentVersion?: string | null
+  dailyDigestPausedAt?: Date | string | null
+  lastDailyDigestAt?: Date | string | null
+  pushNotificationsEnabled?: boolean
   exportAccess?: $Enums.ExportAccess
   retentionPolicy?: $Enums.RetentionPolicy
   createdAt?: Date | string
@@ -627,6 +833,16 @@ export type BusinessPreferencesUpdateManyMutationInput = {
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lowStockThreshold?: Prisma.IntFieldUpdateOperationsInput | number
+  dailyDigestWhatsapp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dailyDigestTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesUpdatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dailyDigestConsentVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestPausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastDailyDigestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pushNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   exportAccess?: Prisma.EnumExportAccessFieldUpdateOperationsInput | $Enums.ExportAccess
   retentionPolicy?: Prisma.EnumRetentionPolicyFieldUpdateOperationsInput | $Enums.RetentionPolicy
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -656,6 +872,16 @@ export type BusinessPreferencesUncheckedUpdateManyInput = {
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lowStockThreshold?: Prisma.IntFieldUpdateOperationsInput | number
+  dailyDigestWhatsapp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dailyDigestTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesUpdatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dailyDigestConsentVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestPausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastDailyDigestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pushNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   exportAccess?: Prisma.EnumExportAccessFieldUpdateOperationsInput | $Enums.ExportAccess
   retentionPolicy?: Prisma.EnumRetentionPolicyFieldUpdateOperationsInput | $Enums.RetentionPolicy
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -665,14 +891,6 @@ export type BusinessPreferencesUncheckedUpdateManyInput = {
 export type BusinessPreferencesNullableScalarRelationFilter = {
   is?: Prisma.BusinessPreferencesWhereInput | null
   isNot?: Prisma.BusinessPreferencesWhereInput | null
-}
-
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
 }
 
 export type EnumPaymentMethodNullableListFilter<$PrismaModel = never> = {
@@ -688,6 +906,14 @@ export type EnumFulfillmentTypeNullableListFilter<$PrismaModel = never> = {
   has?: $Enums.FulfillmentType | Prisma.EnumFulfillmentTypeFieldRefInput<$PrismaModel> | null
   hasEvery?: $Enums.FulfillmentType[] | Prisma.ListEnumFulfillmentTypeFieldRefInput<$PrismaModel>
   hasSome?: $Enums.FulfillmentType[] | Prisma.ListEnumFulfillmentTypeFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type IntNullableListFilter<$PrismaModel = never> = {
+  equals?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null
+  has?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
+  hasEvery?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
+  hasSome?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
   isEmpty?: boolean
 }
 
@@ -714,10 +940,25 @@ export type BusinessPreferencesCountOrderByAggregateInput = {
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  dailyDigestWhatsapp?: Prisma.SortOrder
+  dailyDigestTime?: Prisma.SortOrder
+  dailyDigestWeekdays?: Prisma.SortOrder
+  dailyDigestPhone?: Prisma.SortOrder
+  dailyDigestConsentAt?: Prisma.SortOrder
+  dailyDigestConsentVersion?: Prisma.SortOrder
+  dailyDigestPausedAt?: Prisma.SortOrder
+  lastDailyDigestAt?: Prisma.SortOrder
+  pushNotificationsEnabled?: Prisma.SortOrder
   exportAccess?: Prisma.SortOrder
   retentionPolicy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type BusinessPreferencesAvgOrderByAggregateInput = {
+  lowStockThreshold?: Prisma.SortOrder
+  dailyDigestWeekdays?: Prisma.SortOrder
 }
 
 export type BusinessPreferencesMaxOrderByAggregateInput = {
@@ -738,6 +979,15 @@ export type BusinessPreferencesMaxOrderByAggregateInput = {
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  dailyDigestWhatsapp?: Prisma.SortOrder
+  dailyDigestTime?: Prisma.SortOrder
+  dailyDigestPhone?: Prisma.SortOrder
+  dailyDigestConsentAt?: Prisma.SortOrder
+  dailyDigestConsentVersion?: Prisma.SortOrder
+  dailyDigestPausedAt?: Prisma.SortOrder
+  lastDailyDigestAt?: Prisma.SortOrder
+  pushNotificationsEnabled?: Prisma.SortOrder
   exportAccess?: Prisma.SortOrder
   retentionPolicy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -762,10 +1012,24 @@ export type BusinessPreferencesMinOrderByAggregateInput = {
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
+  lowStockThreshold?: Prisma.SortOrder
+  dailyDigestWhatsapp?: Prisma.SortOrder
+  dailyDigestTime?: Prisma.SortOrder
+  dailyDigestPhone?: Prisma.SortOrder
+  dailyDigestConsentAt?: Prisma.SortOrder
+  dailyDigestConsentVersion?: Prisma.SortOrder
+  dailyDigestPausedAt?: Prisma.SortOrder
+  lastDailyDigestAt?: Prisma.SortOrder
+  pushNotificationsEnabled?: Prisma.SortOrder
   exportAccess?: Prisma.SortOrder
   retentionPolicy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type BusinessPreferencesSumOrderByAggregateInput = {
+  lowStockThreshold?: Prisma.SortOrder
+  dailyDigestWeekdays?: Prisma.SortOrder
 }
 
 export type BusinessPreferencesCreateNestedOneWithoutBusinessInput = {
@@ -820,6 +1084,10 @@ export type BusinessPreferencesCreatedeliveryStatesInput = {
   set: string[]
 }
 
+export type BusinessPreferencesCreatedailyDigestWeekdaysInput = {
+  set: number[]
+}
+
 export type EnumNumberFormatFieldUpdateOperationsInput = {
   set?: $Enums.NumberFormat
 }
@@ -865,6 +1133,11 @@ export type EnumReceiptDeliveryLineFieldUpdateOperationsInput = {
   set?: $Enums.ReceiptDeliveryLine
 }
 
+export type BusinessPreferencesUpdatedailyDigestWeekdaysInput = {
+  set?: number[]
+  push?: number | number[]
+}
+
 export type EnumExportAccessFieldUpdateOperationsInput = {
   set?: $Enums.ExportAccess
 }
@@ -895,6 +1168,16 @@ export type BusinessPreferencesCreateWithoutBusinessInput = {
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
+  lowStockThreshold?: number
+  dailyDigestWhatsapp?: boolean
+  dailyDigestTime?: string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesCreatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: string | null
+  dailyDigestConsentAt?: Date | string | null
+  dailyDigestConsentVersion?: string | null
+  dailyDigestPausedAt?: Date | string | null
+  lastDailyDigestAt?: Date | string | null
+  pushNotificationsEnabled?: boolean
   exportAccess?: $Enums.ExportAccess
   retentionPolicy?: $Enums.RetentionPolicy
   createdAt?: Date | string
@@ -923,6 +1206,16 @@ export type BusinessPreferencesUncheckedCreateWithoutBusinessInput = {
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
+  lowStockThreshold?: number
+  dailyDigestWhatsapp?: boolean
+  dailyDigestTime?: string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesCreatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: string | null
+  dailyDigestConsentAt?: Date | string | null
+  dailyDigestConsentVersion?: string | null
+  dailyDigestPausedAt?: Date | string | null
+  lastDailyDigestAt?: Date | string | null
+  pushNotificationsEnabled?: boolean
   exportAccess?: $Enums.ExportAccess
   retentionPolicy?: $Enums.RetentionPolicy
   createdAt?: Date | string
@@ -967,6 +1260,16 @@ export type BusinessPreferencesUpdateWithoutBusinessInput = {
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lowStockThreshold?: Prisma.IntFieldUpdateOperationsInput | number
+  dailyDigestWhatsapp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dailyDigestTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesUpdatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dailyDigestConsentVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestPausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastDailyDigestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pushNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   exportAccess?: Prisma.EnumExportAccessFieldUpdateOperationsInput | $Enums.ExportAccess
   retentionPolicy?: Prisma.EnumRetentionPolicyFieldUpdateOperationsInput | $Enums.RetentionPolicy
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -995,6 +1298,16 @@ export type BusinessPreferencesUncheckedUpdateWithoutBusinessInput = {
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lowStockThreshold?: Prisma.IntFieldUpdateOperationsInput | number
+  dailyDigestWhatsapp?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  dailyDigestTime?: Prisma.StringFieldUpdateOperationsInput | string
+  dailyDigestWeekdays?: Prisma.BusinessPreferencesUpdatedailyDigestWeekdaysInput | number[]
+  dailyDigestPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestConsentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dailyDigestConsentVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dailyDigestPausedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastDailyDigestAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pushNotificationsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   exportAccess?: Prisma.EnumExportAccessFieldUpdateOperationsInput | $Enums.ExportAccess
   retentionPolicy?: Prisma.EnumRetentionPolicyFieldUpdateOperationsInput | $Enums.RetentionPolicy
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1026,6 +1339,16 @@ export type BusinessPreferencesSelect<ExtArgs extends runtime.Types.Extensions.I
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
+  lowStockThreshold?: boolean
+  dailyDigestWhatsapp?: boolean
+  dailyDigestTime?: boolean
+  dailyDigestWeekdays?: boolean
+  dailyDigestPhone?: boolean
+  dailyDigestConsentAt?: boolean
+  dailyDigestConsentVersion?: boolean
+  dailyDigestPausedAt?: boolean
+  lastDailyDigestAt?: boolean
+  pushNotificationsEnabled?: boolean
   exportAccess?: boolean
   retentionPolicy?: boolean
   createdAt?: boolean
@@ -1056,6 +1379,16 @@ export type BusinessPreferencesSelectCreateManyAndReturn<ExtArgs extends runtime
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
+  lowStockThreshold?: boolean
+  dailyDigestWhatsapp?: boolean
+  dailyDigestTime?: boolean
+  dailyDigestWeekdays?: boolean
+  dailyDigestPhone?: boolean
+  dailyDigestConsentAt?: boolean
+  dailyDigestConsentVersion?: boolean
+  dailyDigestPausedAt?: boolean
+  lastDailyDigestAt?: boolean
+  pushNotificationsEnabled?: boolean
   exportAccess?: boolean
   retentionPolicy?: boolean
   createdAt?: boolean
@@ -1086,6 +1419,16 @@ export type BusinessPreferencesSelectUpdateManyAndReturn<ExtArgs extends runtime
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
+  lowStockThreshold?: boolean
+  dailyDigestWhatsapp?: boolean
+  dailyDigestTime?: boolean
+  dailyDigestWeekdays?: boolean
+  dailyDigestPhone?: boolean
+  dailyDigestConsentAt?: boolean
+  dailyDigestConsentVersion?: boolean
+  dailyDigestPausedAt?: boolean
+  lastDailyDigestAt?: boolean
+  pushNotificationsEnabled?: boolean
   exportAccess?: boolean
   retentionPolicy?: boolean
   createdAt?: boolean
@@ -1116,13 +1459,23 @@ export type BusinessPreferencesSelectScalar = {
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
+  lowStockThreshold?: boolean
+  dailyDigestWhatsapp?: boolean
+  dailyDigestTime?: boolean
+  dailyDigestWeekdays?: boolean
+  dailyDigestPhone?: boolean
+  dailyDigestConsentAt?: boolean
+  dailyDigestConsentVersion?: boolean
+  dailyDigestPausedAt?: boolean
+  lastDailyDigestAt?: boolean
+  pushNotificationsEnabled?: boolean
   exportAccess?: boolean
   retentionPolicy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "tickerItems" | "defaultPaymentStatus" | "allowedPaymentMethods" | "defaultPaymentMethod" | "allowedFulfillmentMethods" | "deliveryAreas" | "deliveryStates" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
+export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "tickerItems" | "defaultPaymentStatus" | "allowedPaymentMethods" | "defaultPaymentMethod" | "allowedFulfillmentMethods" | "deliveryAreas" | "deliveryStates" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "lowStockThreshold" | "dailyDigestWhatsapp" | "dailyDigestTime" | "dailyDigestWeekdays" | "dailyDigestPhone" | "dailyDigestConsentAt" | "dailyDigestConsentVersion" | "dailyDigestPausedAt" | "lastDailyDigestAt" | "pushNotificationsEnabled" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
 export type BusinessPreferencesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
 }
@@ -1161,6 +1514,16 @@ export type $BusinessPreferencesPayload<ExtArgs extends runtime.Types.Extensions
     notifyFollowUps: boolean
     notifyReceiptViews: boolean
     notifyDeliveryUpdates: boolean
+    lowStockThreshold: number
+    dailyDigestWhatsapp: boolean
+    dailyDigestTime: string
+    dailyDigestWeekdays: number[]
+    dailyDigestPhone: string | null
+    dailyDigestConsentAt: Date | null
+    dailyDigestConsentVersion: string | null
+    dailyDigestPausedAt: Date | null
+    lastDailyDigestAt: Date | null
+    pushNotificationsEnabled: boolean
     exportAccess: $Enums.ExportAccess
     retentionPolicy: $Enums.RetentionPolicy
     createdAt: Date
@@ -1611,6 +1974,16 @@ export interface BusinessPreferencesFieldRefs {
   readonly notifyFollowUps: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
   readonly notifyReceiptViews: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
   readonly notifyDeliveryUpdates: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
+  readonly lowStockThreshold: Prisma.FieldRef<"BusinessPreferences", 'Int'>
+  readonly dailyDigestWhatsapp: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
+  readonly dailyDigestTime: Prisma.FieldRef<"BusinessPreferences", 'String'>
+  readonly dailyDigestWeekdays: Prisma.FieldRef<"BusinessPreferences", 'Int[]'>
+  readonly dailyDigestPhone: Prisma.FieldRef<"BusinessPreferences", 'String'>
+  readonly dailyDigestConsentAt: Prisma.FieldRef<"BusinessPreferences", 'DateTime'>
+  readonly dailyDigestConsentVersion: Prisma.FieldRef<"BusinessPreferences", 'String'>
+  readonly dailyDigestPausedAt: Prisma.FieldRef<"BusinessPreferences", 'DateTime'>
+  readonly lastDailyDigestAt: Prisma.FieldRef<"BusinessPreferences", 'DateTime'>
+  readonly pushNotificationsEnabled: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
   readonly exportAccess: Prisma.FieldRef<"BusinessPreferences", 'ExportAccess'>
   readonly retentionPolicy: Prisma.FieldRef<"BusinessPreferences", 'RetentionPolicy'>
   readonly createdAt: Prisma.FieldRef<"BusinessPreferences", 'DateTime'>

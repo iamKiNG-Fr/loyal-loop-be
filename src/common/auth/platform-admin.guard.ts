@@ -6,7 +6,8 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { hashToken } from "../crypto.util";
+import { randomUUID } from "node:crypto";
+import { hashToken, hmacPrivateValue } from "../crypto.util";
 import {
   OWNER_SESSION_COOKIE,
   PLATFORM_ADMIN_SESSION_COOKIE,
@@ -27,6 +28,7 @@ export class PlatformAdminGuard implements CanActivate {
       throw new NotFoundException("Platform administration is not available");
     }
     const request = context.switchToHttp().getRequest<LoyalLoopRequest>();
+    request.requestId ||= randomUUID();
     const rawToken = readCookie(request.headers.cookie, OWNER_SESSION_COOKIE);
     const rawPlatformToken = readCookie(
       request.headers.cookie,
@@ -70,6 +72,13 @@ export class PlatformAdminGuard implements CanActivate {
       ownerSessionId: session.id,
       role: session.user.platformAdmin.role,
       verifiedAt: platformSession.verifiedAt,
+      requestId: request.requestId,
+      ipHash: hmacPrivateValue(
+        request.ip || "unknown",
+        this.config.get<string>("SESSION_HASH_SECRET") ||
+          "development-admin-request-secret",
+      ),
+      userAgent: request.header("user-agent")?.slice(0, 500),
     };
     if (Date.now() - platformSession.lastUsedAt.getTime() > 60_000) {
       void this.prisma.platformAdminSession.update({

@@ -3,6 +3,7 @@ import {
   calculateLoyaltyHealth,
   calculateTrustLevel,
   currentStreak,
+  currentWorkingDayStreak,
   uniqueBusinessDays,
 } from "./trust.service";
 
@@ -87,5 +88,22 @@ describe("deterministic trust rules", () => {
         staleIssues: 0,
       }),
     ).toBe("HEALTHY");
+  });
+
+  it("skips scheduled off-days and gives the current working day a grace window", () => {
+    expect(
+      currentWorkingDayStreak(
+        ["2026-07-30", "2026-07-31"],
+        "2026-08-03",
+        [1, 2, 3, 4, 5],
+      ),
+    ).toBe(2);
+    expect(
+      currentWorkingDayStreak(
+        ["2026-07-30", "2026-07-31", "2026-08-03"],
+        "2026-08-03",
+        [1, 2, 3, 4, 5],
+      ),
+    ).toBe(3);
   });
 });

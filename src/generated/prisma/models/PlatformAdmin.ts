@@ -200,6 +200,9 @@ export type PlatformAdminWhereInput = {
   lastReviewedAt?: Prisma.DateTimeNullableFilter<"PlatformAdmin"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   sessions?: Prisma.PlatformAdminSessionListRelationFilter
+  passkeys?: Prisma.PlatformAdminPasskeyListRelationFilter
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeListRelationFilter
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeListRelationFilter
   auditLogs?: Prisma.PlatformAdminAuditLogListRelationFilter
   reviewedApplications?: Prisma.FoundingAccessApplicationListRelationFilter
   createdCohorts?: Prisma.FoundingCohortListRelationFilter
@@ -220,6 +223,9 @@ export type PlatformAdminOrderByWithRelationInput = {
   lastReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   sessions?: Prisma.PlatformAdminSessionOrderByRelationAggregateInput
+  passkeys?: Prisma.PlatformAdminPasskeyOrderByRelationAggregateInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeOrderByRelationAggregateInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeOrderByRelationAggregateInput
   auditLogs?: Prisma.PlatformAdminAuditLogOrderByRelationAggregateInput
   reviewedApplications?: Prisma.FoundingAccessApplicationOrderByRelationAggregateInput
   createdCohorts?: Prisma.FoundingCohortOrderByRelationAggregateInput
@@ -243,6 +249,9 @@ export type PlatformAdminWhereUniqueInput = Prisma.AtLeast<{
   lastReviewedAt?: Prisma.DateTimeNullableFilter<"PlatformAdmin"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   sessions?: Prisma.PlatformAdminSessionListRelationFilter
+  passkeys?: Prisma.PlatformAdminPasskeyListRelationFilter
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeListRelationFilter
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeListRelationFilter
   auditLogs?: Prisma.PlatformAdminAuditLogListRelationFilter
   reviewedApplications?: Prisma.FoundingAccessApplicationListRelationFilter
   createdCohorts?: Prisma.FoundingCohortListRelationFilter
@@ -288,6 +297,9 @@ export type PlatformAdminCreateInput = {
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
@@ -307,6 +319,9 @@ export type PlatformAdminUncheckedCreateInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
@@ -326,6 +341,9 @@ export type PlatformAdminUpdateInput = {
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
@@ -345,6 +363,9 @@ export type PlatformAdminUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -552,6 +573,48 @@ export type PlatformAdminUpdateOneRequiredWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PlatformAdminUpdateToOneWithWhereWithoutSessionsInput, Prisma.PlatformAdminUpdateWithoutSessionsInput>, Prisma.PlatformAdminUncheckedUpdateWithoutSessionsInput>
 }
 
+export type PlatformAdminCreateNestedOneWithoutPasskeysInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutPasskeysInput, Prisma.PlatformAdminUncheckedCreateWithoutPasskeysInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutPasskeysInput
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+}
+
+export type PlatformAdminUpdateOneRequiredWithoutPasskeysNestedInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutPasskeysInput, Prisma.PlatformAdminUncheckedCreateWithoutPasskeysInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutPasskeysInput
+  upsert?: Prisma.PlatformAdminUpsertWithoutPasskeysInput
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlatformAdminUpdateToOneWithWhereWithoutPasskeysInput, Prisma.PlatformAdminUpdateWithoutPasskeysInput>, Prisma.PlatformAdminUncheckedUpdateWithoutPasskeysInput>
+}
+
+export type PlatformAdminCreateNestedOneWithoutPasskeyChallengesInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutPasskeyChallengesInput, Prisma.PlatformAdminUncheckedCreateWithoutPasskeyChallengesInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutPasskeyChallengesInput
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+}
+
+export type PlatformAdminUpdateOneRequiredWithoutPasskeyChallengesNestedInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutPasskeyChallengesInput, Prisma.PlatformAdminUncheckedCreateWithoutPasskeyChallengesInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutPasskeyChallengesInput
+  upsert?: Prisma.PlatformAdminUpsertWithoutPasskeyChallengesInput
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlatformAdminUpdateToOneWithWhereWithoutPasskeyChallengesInput, Prisma.PlatformAdminUpdateWithoutPasskeyChallengesInput>, Prisma.PlatformAdminUncheckedUpdateWithoutPasskeyChallengesInput>
+}
+
+export type PlatformAdminCreateNestedOneWithoutRecoveryCodesInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutRecoveryCodesInput, Prisma.PlatformAdminUncheckedCreateWithoutRecoveryCodesInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutRecoveryCodesInput
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+}
+
+export type PlatformAdminUpdateOneRequiredWithoutRecoveryCodesNestedInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutRecoveryCodesInput, Prisma.PlatformAdminUncheckedCreateWithoutRecoveryCodesInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutRecoveryCodesInput
+  upsert?: Prisma.PlatformAdminUpsertWithoutRecoveryCodesInput
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlatformAdminUpdateToOneWithWhereWithoutRecoveryCodesInput, Prisma.PlatformAdminUpdateWithoutRecoveryCodesInput>, Prisma.PlatformAdminUncheckedUpdateWithoutRecoveryCodesInput>
+}
+
 export type PlatformAdminCreateNestedOneWithoutAuditLogsInput = {
   create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutAuditLogsInput, Prisma.PlatformAdminUncheckedCreateWithoutAuditLogsInput>
   connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutAuditLogsInput
@@ -607,6 +670,9 @@ export type PlatformAdminCreateWithoutReviewedApplicationsInput = {
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
   createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
@@ -625,6 +691,9 @@ export type PlatformAdminUncheckedCreateWithoutReviewedApplicationsInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
   createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
@@ -659,6 +728,9 @@ export type PlatformAdminUpdateWithoutReviewedApplicationsInput = {
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
   createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
@@ -677,6 +749,9 @@ export type PlatformAdminUncheckedUpdateWithoutReviewedApplicationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
   createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -695,6 +770,9 @@ export type PlatformAdminCreateWithoutCreatedCohortsInput = {
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
@@ -713,6 +791,9 @@ export type PlatformAdminUncheckedCreateWithoutCreatedCohortsInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
@@ -747,6 +828,9 @@ export type PlatformAdminUpdateWithoutCreatedCohortsInput = {
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
@@ -765,6 +849,9 @@ export type PlatformAdminUncheckedUpdateWithoutCreatedCohortsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -783,6 +870,9 @@ export type PlatformAdminCreateWithoutCreatedInvitationsInput = {
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
@@ -801,6 +891,9 @@ export type PlatformAdminUncheckedCreateWithoutCreatedInvitationsInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
@@ -824,6 +917,9 @@ export type PlatformAdminCreateWithoutRevokedInvitationsInput = {
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
@@ -842,6 +938,9 @@ export type PlatformAdminUncheckedCreateWithoutRevokedInvitationsInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
@@ -876,6 +975,9 @@ export type PlatformAdminUpdateWithoutCreatedInvitationsInput = {
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
@@ -894,6 +996,9 @@ export type PlatformAdminUncheckedUpdateWithoutCreatedInvitationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -923,6 +1028,9 @@ export type PlatformAdminUpdateWithoutRevokedInvitationsInput = {
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
@@ -941,6 +1049,9 @@ export type PlatformAdminUncheckedUpdateWithoutRevokedInvitationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -959,6 +1070,9 @@ export type PlatformAdminCreateWithoutResearchInterviewsInput = {
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
@@ -977,6 +1091,9 @@ export type PlatformAdminUncheckedCreateWithoutResearchInterviewsInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1011,6 +1128,9 @@ export type PlatformAdminUpdateWithoutResearchInterviewsInput = {
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
@@ -1029,6 +1149,9 @@ export type PlatformAdminUncheckedUpdateWithoutResearchInterviewsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1046,6 +1169,9 @@ export type PlatformAdminCreateWithoutUserInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
@@ -1064,6 +1190,9 @@ export type PlatformAdminUncheckedCreateWithoutUserInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1098,6 +1227,9 @@ export type PlatformAdminUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
@@ -1116,6 +1248,9 @@ export type PlatformAdminUncheckedUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1134,6 +1269,9 @@ export type PlatformAdminCreateWithoutSessionsInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
@@ -1152,6 +1290,9 @@ export type PlatformAdminUncheckedCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1186,6 +1327,9 @@ export type PlatformAdminUpdateWithoutSessionsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
@@ -1204,6 +1348,309 @@ export type PlatformAdminUncheckedUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type PlatformAdminCreateWithoutPasskeysInput = {
+  id?: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
+  sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+}
+
+export type PlatformAdminUncheckedCreateWithoutPasskeysInput = {
+  id?: string
+  userId: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type PlatformAdminCreateOrConnectWithoutPasskeysInput = {
+  where: Prisma.PlatformAdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutPasskeysInput, Prisma.PlatformAdminUncheckedCreateWithoutPasskeysInput>
+}
+
+export type PlatformAdminUpsertWithoutPasskeysInput = {
+  update: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutPasskeysInput, Prisma.PlatformAdminUncheckedUpdateWithoutPasskeysInput>
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutPasskeysInput, Prisma.PlatformAdminUncheckedCreateWithoutPasskeysInput>
+  where?: Prisma.PlatformAdminWhereInput
+}
+
+export type PlatformAdminUpdateToOneWithWhereWithoutPasskeysInput = {
+  where?: Prisma.PlatformAdminWhereInput
+  data: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutPasskeysInput, Prisma.PlatformAdminUncheckedUpdateWithoutPasskeysInput>
+}
+
+export type PlatformAdminUpdateWithoutPasskeysInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
+  sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+}
+
+export type PlatformAdminUncheckedUpdateWithoutPasskeysInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type PlatformAdminCreateWithoutPasskeyChallengesInput = {
+  id?: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
+  sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+}
+
+export type PlatformAdminUncheckedCreateWithoutPasskeyChallengesInput = {
+  id?: string
+  userId: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type PlatformAdminCreateOrConnectWithoutPasskeyChallengesInput = {
+  where: Prisma.PlatformAdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutPasskeyChallengesInput, Prisma.PlatformAdminUncheckedCreateWithoutPasskeyChallengesInput>
+}
+
+export type PlatformAdminUpsertWithoutPasskeyChallengesInput = {
+  update: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutPasskeyChallengesInput, Prisma.PlatformAdminUncheckedUpdateWithoutPasskeyChallengesInput>
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutPasskeyChallengesInput, Prisma.PlatformAdminUncheckedCreateWithoutPasskeyChallengesInput>
+  where?: Prisma.PlatformAdminWhereInput
+}
+
+export type PlatformAdminUpdateToOneWithWhereWithoutPasskeyChallengesInput = {
+  where?: Prisma.PlatformAdminWhereInput
+  data: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutPasskeyChallengesInput, Prisma.PlatformAdminUncheckedUpdateWithoutPasskeyChallengesInput>
+}
+
+export type PlatformAdminUpdateWithoutPasskeyChallengesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
+  sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+}
+
+export type PlatformAdminUncheckedUpdateWithoutPasskeyChallengesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type PlatformAdminCreateWithoutRecoveryCodesInput = {
+  id?: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
+  sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+}
+
+export type PlatformAdminUncheckedCreateWithoutRecoveryCodesInput = {
+  id?: string
+  userId: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type PlatformAdminCreateOrConnectWithoutRecoveryCodesInput = {
+  where: Prisma.PlatformAdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutRecoveryCodesInput, Prisma.PlatformAdminUncheckedCreateWithoutRecoveryCodesInput>
+}
+
+export type PlatformAdminUpsertWithoutRecoveryCodesInput = {
+  update: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutRecoveryCodesInput, Prisma.PlatformAdminUncheckedUpdateWithoutRecoveryCodesInput>
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutRecoveryCodesInput, Prisma.PlatformAdminUncheckedCreateWithoutRecoveryCodesInput>
+  where?: Prisma.PlatformAdminWhereInput
+}
+
+export type PlatformAdminUpdateToOneWithWhereWithoutRecoveryCodesInput = {
+  where?: Prisma.PlatformAdminWhereInput
+  data: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutRecoveryCodesInput, Prisma.PlatformAdminUncheckedUpdateWithoutRecoveryCodesInput>
+}
+
+export type PlatformAdminUpdateWithoutRecoveryCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
+  sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+}
+
+export type PlatformAdminUncheckedUpdateWithoutRecoveryCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1223,6 +1670,9 @@ export type PlatformAdminCreateWithoutAuditLogsInput = {
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
   createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
@@ -1241,6 +1691,9 @@ export type PlatformAdminUncheckedCreateWithoutAuditLogsInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
   createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1275,6 +1728,9 @@ export type PlatformAdminUpdateWithoutAuditLogsInput = {
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
   createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
@@ -1293,6 +1749,9 @@ export type PlatformAdminUncheckedUpdateWithoutAuditLogsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
   createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1311,6 +1770,9 @@ export type PlatformAdminCreateWithoutSuspendedBusinessesInput = {
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
@@ -1329,6 +1791,9 @@ export type PlatformAdminUncheckedCreateWithoutSuspendedBusinessesInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1363,6 +1828,9 @@ export type PlatformAdminUpdateWithoutSuspendedBusinessesInput = {
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
@@ -1381,6 +1849,9 @@ export type PlatformAdminUncheckedUpdateWithoutSuspendedBusinessesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1399,6 +1870,9 @@ export type PlatformAdminCreateWithoutReviewedReportsInput = {
   lastReviewedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
   sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
@@ -1417,6 +1891,9 @@ export type PlatformAdminUncheckedCreateWithoutReviewedReportsInput = {
   updatedAt?: Date | string
   lastReviewedAt?: Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
   createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1451,6 +1928,9 @@ export type PlatformAdminUpdateWithoutReviewedReportsInput = {
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
   sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
@@ -1469,6 +1949,9 @@ export type PlatformAdminUncheckedUpdateWithoutReviewedReportsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
   auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
   reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
   createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1485,6 +1968,9 @@ export type PlatformAdminUncheckedUpdateWithoutReviewedReportsInput = {
 
 export type PlatformAdminCountOutputType = {
   sessions: number
+  passkeys: number
+  passkeyChallenges: number
+  recoveryCodes: number
   auditLogs: number
   reviewedApplications: number
   createdCohorts: number
@@ -1497,6 +1983,9 @@ export type PlatformAdminCountOutputType = {
 
 export type PlatformAdminCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | PlatformAdminCountOutputTypeCountSessionsArgs
+  passkeys?: boolean | PlatformAdminCountOutputTypeCountPasskeysArgs
+  passkeyChallenges?: boolean | PlatformAdminCountOutputTypeCountPasskeyChallengesArgs
+  recoveryCodes?: boolean | PlatformAdminCountOutputTypeCountRecoveryCodesArgs
   auditLogs?: boolean | PlatformAdminCountOutputTypeCountAuditLogsArgs
   reviewedApplications?: boolean | PlatformAdminCountOutputTypeCountReviewedApplicationsArgs
   createdCohorts?: boolean | PlatformAdminCountOutputTypeCountCreatedCohortsArgs
@@ -1522,6 +2011,27 @@ export type PlatformAdminCountOutputTypeDefaultArgs<ExtArgs extends runtime.Type
  */
 export type PlatformAdminCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PlatformAdminSessionWhereInput
+}
+
+/**
+ * PlatformAdminCountOutputType without action
+ */
+export type PlatformAdminCountOutputTypeCountPasskeysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlatformAdminPasskeyWhereInput
+}
+
+/**
+ * PlatformAdminCountOutputType without action
+ */
+export type PlatformAdminCountOutputTypeCountPasskeyChallengesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlatformAdminPasskeyChallengeWhereInput
+}
+
+/**
+ * PlatformAdminCountOutputType without action
+ */
+export type PlatformAdminCountOutputTypeCountRecoveryCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlatformAdminRecoveryCodeWhereInput
 }
 
 /**
@@ -1591,6 +2101,9 @@ export type PlatformAdminSelect<ExtArgs extends runtime.Types.Extensions.Interna
   lastReviewedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   sessions?: boolean | Prisma.PlatformAdmin$sessionsArgs<ExtArgs>
+  passkeys?: boolean | Prisma.PlatformAdmin$passkeysArgs<ExtArgs>
+  passkeyChallenges?: boolean | Prisma.PlatformAdmin$passkeyChallengesArgs<ExtArgs>
+  recoveryCodes?: boolean | Prisma.PlatformAdmin$recoveryCodesArgs<ExtArgs>
   auditLogs?: boolean | Prisma.PlatformAdmin$auditLogsArgs<ExtArgs>
   reviewedApplications?: boolean | Prisma.PlatformAdmin$reviewedApplicationsArgs<ExtArgs>
   createdCohorts?: boolean | Prisma.PlatformAdmin$createdCohortsArgs<ExtArgs>
@@ -1638,6 +2151,9 @@ export type PlatformAdminOmit<ExtArgs extends runtime.Types.Extensions.InternalA
 export type PlatformAdminInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   sessions?: boolean | Prisma.PlatformAdmin$sessionsArgs<ExtArgs>
+  passkeys?: boolean | Prisma.PlatformAdmin$passkeysArgs<ExtArgs>
+  passkeyChallenges?: boolean | Prisma.PlatformAdmin$passkeyChallengesArgs<ExtArgs>
+  recoveryCodes?: boolean | Prisma.PlatformAdmin$recoveryCodesArgs<ExtArgs>
   auditLogs?: boolean | Prisma.PlatformAdmin$auditLogsArgs<ExtArgs>
   reviewedApplications?: boolean | Prisma.PlatformAdmin$reviewedApplicationsArgs<ExtArgs>
   createdCohorts?: boolean | Prisma.PlatformAdmin$createdCohortsArgs<ExtArgs>
@@ -1660,6 +2176,9 @@ export type $PlatformAdminPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     sessions: Prisma.$PlatformAdminSessionPayload<ExtArgs>[]
+    passkeys: Prisma.$PlatformAdminPasskeyPayload<ExtArgs>[]
+    passkeyChallenges: Prisma.$PlatformAdminPasskeyChallengePayload<ExtArgs>[]
+    recoveryCodes: Prisma.$PlatformAdminRecoveryCodePayload<ExtArgs>[]
     auditLogs: Prisma.$PlatformAdminAuditLogPayload<ExtArgs>[]
     reviewedApplications: Prisma.$FoundingAccessApplicationPayload<ExtArgs>[]
     createdCohorts: Prisma.$FoundingCohortPayload<ExtArgs>[]
@@ -2073,6 +2592,9 @@ export interface Prisma__PlatformAdminClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   sessions<T extends Prisma.PlatformAdmin$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAdminSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passkeys<T extends Prisma.PlatformAdmin$passkeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$passkeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAdminPasskeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passkeyChallenges<T extends Prisma.PlatformAdmin$passkeyChallengesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$passkeyChallengesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAdminPasskeyChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  recoveryCodes<T extends Prisma.PlatformAdmin$recoveryCodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$recoveryCodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAdminRecoveryCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.PlatformAdmin$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAdminAuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewedApplications<T extends Prisma.PlatformAdmin$reviewedApplicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$reviewedApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoundingAccessApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdCohorts<T extends Prisma.PlatformAdmin$createdCohortsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$createdCohortsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoundingCohortPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2539,6 +3061,78 @@ export type PlatformAdmin$sessionsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.PlatformAdminSessionScalarFieldEnum | Prisma.PlatformAdminSessionScalarFieldEnum[]
+}
+
+/**
+ * PlatformAdmin.passkeys
+ */
+export type PlatformAdmin$passkeysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlatformAdminPasskey
+   */
+  select?: Prisma.PlatformAdminPasskeySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlatformAdminPasskey
+   */
+  omit?: Prisma.PlatformAdminPasskeyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformAdminPasskeyInclude<ExtArgs> | null
+  where?: Prisma.PlatformAdminPasskeyWhereInput
+  orderBy?: Prisma.PlatformAdminPasskeyOrderByWithRelationInput | Prisma.PlatformAdminPasskeyOrderByWithRelationInput[]
+  cursor?: Prisma.PlatformAdminPasskeyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlatformAdminPasskeyScalarFieldEnum | Prisma.PlatformAdminPasskeyScalarFieldEnum[]
+}
+
+/**
+ * PlatformAdmin.passkeyChallenges
+ */
+export type PlatformAdmin$passkeyChallengesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlatformAdminPasskeyChallenge
+   */
+  select?: Prisma.PlatformAdminPasskeyChallengeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlatformAdminPasskeyChallenge
+   */
+  omit?: Prisma.PlatformAdminPasskeyChallengeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformAdminPasskeyChallengeInclude<ExtArgs> | null
+  where?: Prisma.PlatformAdminPasskeyChallengeWhereInput
+  orderBy?: Prisma.PlatformAdminPasskeyChallengeOrderByWithRelationInput | Prisma.PlatformAdminPasskeyChallengeOrderByWithRelationInput[]
+  cursor?: Prisma.PlatformAdminPasskeyChallengeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlatformAdminPasskeyChallengeScalarFieldEnum | Prisma.PlatformAdminPasskeyChallengeScalarFieldEnum[]
+}
+
+/**
+ * PlatformAdmin.recoveryCodes
+ */
+export type PlatformAdmin$recoveryCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlatformAdminRecoveryCode
+   */
+  select?: Prisma.PlatformAdminRecoveryCodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlatformAdminRecoveryCode
+   */
+  omit?: Prisma.PlatformAdminRecoveryCodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformAdminRecoveryCodeInclude<ExtArgs> | null
+  where?: Prisma.PlatformAdminRecoveryCodeWhereInput
+  orderBy?: Prisma.PlatformAdminRecoveryCodeOrderByWithRelationInput | Prisma.PlatformAdminRecoveryCodeOrderByWithRelationInput[]
+  cursor?: Prisma.PlatformAdminRecoveryCodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlatformAdminRecoveryCodeScalarFieldEnum | Prisma.PlatformAdminRecoveryCodeScalarFieldEnum[]
 }
 
 /**

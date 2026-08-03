@@ -3,7 +3,7 @@ import { AuthService } from "./auth.service";
 
 function createService() {
   const prisma = {
-    $transaction: vi.fn(async (operations: unknown[]) => Promise.all(operations)),
+    $transaction: vi.fn(),
     user: {
       findUnique: vi.fn(),
       update: vi.fn(),
@@ -15,7 +15,7 @@ function createService() {
       create: vi.fn(),
       findUnique: vi.fn(),
       update: vi.fn(),
-      updateMany: vi.fn(),
+      updateMany: vi.fn().mockResolvedValue({ count: 1 }),
     },
     ownerSession: {
       create: vi.fn(),
@@ -34,6 +34,11 @@ function createService() {
   const mail = {
     sendPasswordResetEmail: vi.fn(),
   };
+  prisma.$transaction.mockImplementation(async (work: unknown) =>
+    Array.isArray(work)
+      ? Promise.all(work)
+      : (work as (tx: typeof prisma) => Promise<unknown>)(prisma),
+  );
   const otpProvider = {
     start: vi.fn(),
     verify: vi.fn(),
@@ -154,8 +159,13 @@ describe("AuthService WhatsApp owner sign-in", () => {
     );
 
     expect(result.challengeId).toBe("onboarding-otp-1");
-    expect(prisma.ownerOtpChallenge.update).toHaveBeenLastCalledWith({
-      where: { id: "onboarding-otp-1" },
+    expect(prisma.ownerOtpChallenge.updateMany).toHaveBeenLastCalledWith({
+      where: {
+        id: "onboarding-otp-1",
+        userId: null,
+        verifiedAt: null,
+        expiresAt: { gt: expect.any(Date) },
+      },
       data: {
         verifiedAt: expect.any(Date),
         expiresAt: expect.any(Date),
@@ -184,6 +194,9 @@ describe("AuthService WhatsApp owner sign-in", () => {
       challengeId: "otp-1",
     });
     expect(result).not.toHaveProperty("developmentCode");
+    expect(prisma.ownerOtpChallenge.updateMany).toHaveBeenCalledWith(expect.objectContaining({
+      where: expect.objectContaining({ purpose: "LOGIN", userId: "user-1" }),
+    }));
   });
 
   it("creates an owner session after a valid WhatsApp code", async () => {

@@ -393,6 +393,9 @@ export const ModelName = {
   User: 'User',
   PlatformAdmin: 'PlatformAdmin',
   PlatformAdminSession: 'PlatformAdminSession',
+  PlatformAdminPasskey: 'PlatformAdminPasskey',
+  PlatformAdminPasskeyChallenge: 'PlatformAdminPasskeyChallenge',
+  PlatformAdminRecoveryCode: 'PlatformAdminRecoveryCode',
   PlatformAdminAuditLog: 'PlatformAdminAuditLog',
   OwnerSession: 'OwnerSession',
   OwnerOtpChallenge: 'OwnerOtpChallenge',
@@ -463,6 +466,8 @@ export const ModelName = {
   MessagingConsent: 'MessagingConsent',
   MessagingSuppression: 'MessagingSuppression',
   MessageOutbox: 'MessageOutbox',
+  OwnerAttentionReceipt: 'OwnerAttentionReceipt',
+  OwnerPushSubscription: 'OwnerPushSubscription',
   MessageAttempt: 'MessageAttempt',
   MessagingWebhookEvent: 'MessagingWebhookEvent'
 } as const
@@ -480,7 +485,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerReport" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "messageAttempt" | "messagingWebhookEvent"
+    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminPasskey" | "platformAdminPasskeyChallenge" | "platformAdminRecoveryCode" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerReport" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "ownerAttentionReceipt" | "ownerPushSubscription" | "messageAttempt" | "messagingWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1147,6 +1152,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PlatformAdminSessionCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PlatformAdminSessionCountAggregateOutputType> | number
+        }
+      }
+    }
+    PlatformAdminPasskey: {
+      payload: Prisma.$PlatformAdminPasskeyPayload<ExtArgs>
+      fields: Prisma.PlatformAdminPasskeyFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlatformAdminPasskeyFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlatformAdminPasskeyFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload>
+        }
+        findFirst: {
+          args: Prisma.PlatformAdminPasskeyFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlatformAdminPasskeyFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload>
+        }
+        findMany: {
+          args: Prisma.PlatformAdminPasskeyFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload>[]
+        }
+        create: {
+          args: Prisma.PlatformAdminPasskeyCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload>
+        }
+        createMany: {
+          args: Prisma.PlatformAdminPasskeyCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlatformAdminPasskeyCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload>[]
+        }
+        delete: {
+          args: Prisma.PlatformAdminPasskeyDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload>
+        }
+        update: {
+          args: Prisma.PlatformAdminPasskeyUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload>
+        }
+        deleteMany: {
+          args: Prisma.PlatformAdminPasskeyDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlatformAdminPasskeyUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlatformAdminPasskeyUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload>[]
+        }
+        upsert: {
+          args: Prisma.PlatformAdminPasskeyUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyPayload>
+        }
+        aggregate: {
+          args: Prisma.PlatformAdminPasskeyAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlatformAdminPasskey>
+        }
+        groupBy: {
+          args: Prisma.PlatformAdminPasskeyGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformAdminPasskeyGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlatformAdminPasskeyCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformAdminPasskeyCountAggregateOutputType> | number
+        }
+      }
+    }
+    PlatformAdminPasskeyChallenge: {
+      payload: Prisma.$PlatformAdminPasskeyChallengePayload<ExtArgs>
+      fields: Prisma.PlatformAdminPasskeyChallengeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlatformAdminPasskeyChallengeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlatformAdminPasskeyChallengeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload>
+        }
+        findFirst: {
+          args: Prisma.PlatformAdminPasskeyChallengeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlatformAdminPasskeyChallengeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload>
+        }
+        findMany: {
+          args: Prisma.PlatformAdminPasskeyChallengeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload>[]
+        }
+        create: {
+          args: Prisma.PlatformAdminPasskeyChallengeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload>
+        }
+        createMany: {
+          args: Prisma.PlatformAdminPasskeyChallengeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlatformAdminPasskeyChallengeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload>[]
+        }
+        delete: {
+          args: Prisma.PlatformAdminPasskeyChallengeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload>
+        }
+        update: {
+          args: Prisma.PlatformAdminPasskeyChallengeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload>
+        }
+        deleteMany: {
+          args: Prisma.PlatformAdminPasskeyChallengeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlatformAdminPasskeyChallengeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlatformAdminPasskeyChallengeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload>[]
+        }
+        upsert: {
+          args: Prisma.PlatformAdminPasskeyChallengeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminPasskeyChallengePayload>
+        }
+        aggregate: {
+          args: Prisma.PlatformAdminPasskeyChallengeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlatformAdminPasskeyChallenge>
+        }
+        groupBy: {
+          args: Prisma.PlatformAdminPasskeyChallengeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformAdminPasskeyChallengeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlatformAdminPasskeyChallengeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformAdminPasskeyChallengeCountAggregateOutputType> | number
+        }
+      }
+    }
+    PlatformAdminRecoveryCode: {
+      payload: Prisma.$PlatformAdminRecoveryCodePayload<ExtArgs>
+      fields: Prisma.PlatformAdminRecoveryCodeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlatformAdminRecoveryCodeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlatformAdminRecoveryCodeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload>
+        }
+        findFirst: {
+          args: Prisma.PlatformAdminRecoveryCodeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlatformAdminRecoveryCodeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload>
+        }
+        findMany: {
+          args: Prisma.PlatformAdminRecoveryCodeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload>[]
+        }
+        create: {
+          args: Prisma.PlatformAdminRecoveryCodeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload>
+        }
+        createMany: {
+          args: Prisma.PlatformAdminRecoveryCodeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlatformAdminRecoveryCodeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload>[]
+        }
+        delete: {
+          args: Prisma.PlatformAdminRecoveryCodeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload>
+        }
+        update: {
+          args: Prisma.PlatformAdminRecoveryCodeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload>
+        }
+        deleteMany: {
+          args: Prisma.PlatformAdminRecoveryCodeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlatformAdminRecoveryCodeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlatformAdminRecoveryCodeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload>[]
+        }
+        upsert: {
+          args: Prisma.PlatformAdminRecoveryCodeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAdminRecoveryCodePayload>
+        }
+        aggregate: {
+          args: Prisma.PlatformAdminRecoveryCodeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlatformAdminRecoveryCode>
+        }
+        groupBy: {
+          args: Prisma.PlatformAdminRecoveryCodeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformAdminRecoveryCodeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlatformAdminRecoveryCodeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformAdminRecoveryCodeCountAggregateOutputType> | number
         }
       }
     }
@@ -6330,6 +6557,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OwnerAttentionReceipt: {
+      payload: Prisma.$OwnerAttentionReceiptPayload<ExtArgs>
+      fields: Prisma.OwnerAttentionReceiptFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OwnerAttentionReceiptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OwnerAttentionReceiptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload>
+        }
+        findFirst: {
+          args: Prisma.OwnerAttentionReceiptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OwnerAttentionReceiptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload>
+        }
+        findMany: {
+          args: Prisma.OwnerAttentionReceiptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload>[]
+        }
+        create: {
+          args: Prisma.OwnerAttentionReceiptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload>
+        }
+        createMany: {
+          args: Prisma.OwnerAttentionReceiptCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OwnerAttentionReceiptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload>[]
+        }
+        delete: {
+          args: Prisma.OwnerAttentionReceiptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload>
+        }
+        update: {
+          args: Prisma.OwnerAttentionReceiptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload>
+        }
+        deleteMany: {
+          args: Prisma.OwnerAttentionReceiptDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OwnerAttentionReceiptUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OwnerAttentionReceiptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload>[]
+        }
+        upsert: {
+          args: Prisma.OwnerAttentionReceiptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerAttentionReceiptPayload>
+        }
+        aggregate: {
+          args: Prisma.OwnerAttentionReceiptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOwnerAttentionReceipt>
+        }
+        groupBy: {
+          args: Prisma.OwnerAttentionReceiptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OwnerAttentionReceiptGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OwnerAttentionReceiptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OwnerAttentionReceiptCountAggregateOutputType> | number
+        }
+      }
+    }
+    OwnerPushSubscription: {
+      payload: Prisma.$OwnerPushSubscriptionPayload<ExtArgs>
+      fields: Prisma.OwnerPushSubscriptionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OwnerPushSubscriptionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OwnerPushSubscriptionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload>
+        }
+        findFirst: {
+          args: Prisma.OwnerPushSubscriptionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OwnerPushSubscriptionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload>
+        }
+        findMany: {
+          args: Prisma.OwnerPushSubscriptionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload>[]
+        }
+        create: {
+          args: Prisma.OwnerPushSubscriptionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload>
+        }
+        createMany: {
+          args: Prisma.OwnerPushSubscriptionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OwnerPushSubscriptionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload>[]
+        }
+        delete: {
+          args: Prisma.OwnerPushSubscriptionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload>
+        }
+        update: {
+          args: Prisma.OwnerPushSubscriptionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload>
+        }
+        deleteMany: {
+          args: Prisma.OwnerPushSubscriptionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OwnerPushSubscriptionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OwnerPushSubscriptionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload>[]
+        }
+        upsert: {
+          args: Prisma.OwnerPushSubscriptionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OwnerPushSubscriptionPayload>
+        }
+        aggregate: {
+          args: Prisma.OwnerPushSubscriptionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOwnerPushSubscription>
+        }
+        groupBy: {
+          args: Prisma.OwnerPushSubscriptionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OwnerPushSubscriptionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OwnerPushSubscriptionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OwnerPushSubscriptionCountAggregateOutputType> | number
+        }
+      }
+    }
     MessageAttempt: {
       payload: Prisma.$MessageAttemptPayload<ExtArgs>
       fields: Prisma.MessageAttemptFieldRefs
@@ -6674,15 +7049,62 @@ export const PlatformAdminSessionScalarFieldEnum = {
   id: 'id',
   platformAdminId: 'platformAdminId',
   ownerSessionId: 'ownerSessionId',
+  passkeyId: 'passkeyId',
   tokenHash: 'tokenHash',
+  authenticationMethod: 'authenticationMethod',
   verifiedAt: 'verifiedAt',
   expiresAt: 'expiresAt',
   lastUsedAt: 'lastUsedAt',
   revokedAt: 'revokedAt',
+  userAgent: 'userAgent',
+  ipHash: 'ipHash',
   createdAt: 'createdAt'
 } as const
 
 export type PlatformAdminSessionScalarFieldEnum = (typeof PlatformAdminSessionScalarFieldEnum)[keyof typeof PlatformAdminSessionScalarFieldEnum]
+
+
+export const PlatformAdminPasskeyScalarFieldEnum = {
+  id: 'id',
+  platformAdminId: 'platformAdminId',
+  credentialId: 'credentialId',
+  publicKey: 'publicKey',
+  counter: 'counter',
+  transports: 'transports',
+  deviceType: 'deviceType',
+  backedUp: 'backedUp',
+  name: 'name',
+  lastUsedAt: 'lastUsedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlatformAdminPasskeyScalarFieldEnum = (typeof PlatformAdminPasskeyScalarFieldEnum)[keyof typeof PlatformAdminPasskeyScalarFieldEnum]
+
+
+export const PlatformAdminPasskeyChallengeScalarFieldEnum = {
+  id: 'id',
+  platformAdminId: 'platformAdminId',
+  ownerSessionId: 'ownerSessionId',
+  purpose: 'purpose',
+  challenge: 'challenge',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PlatformAdminPasskeyChallengeScalarFieldEnum = (typeof PlatformAdminPasskeyChallengeScalarFieldEnum)[keyof typeof PlatformAdminPasskeyChallengeScalarFieldEnum]
+
+
+export const PlatformAdminRecoveryCodeScalarFieldEnum = {
+  id: 'id',
+  platformAdminId: 'platformAdminId',
+  codeHash: 'codeHash',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PlatformAdminRecoveryCodeScalarFieldEnum = (typeof PlatformAdminRecoveryCodeScalarFieldEnum)[keyof typeof PlatformAdminRecoveryCodeScalarFieldEnum]
 
 
 export const PlatformAdminAuditLogScalarFieldEnum = {
@@ -6810,6 +7232,16 @@ export const BusinessPreferencesScalarFieldEnum = {
   notifyFollowUps: 'notifyFollowUps',
   notifyReceiptViews: 'notifyReceiptViews',
   notifyDeliveryUpdates: 'notifyDeliveryUpdates',
+  lowStockThreshold: 'lowStockThreshold',
+  dailyDigestWhatsapp: 'dailyDigestWhatsapp',
+  dailyDigestTime: 'dailyDigestTime',
+  dailyDigestWeekdays: 'dailyDigestWeekdays',
+  dailyDigestPhone: 'dailyDigestPhone',
+  dailyDigestConsentAt: 'dailyDigestConsentAt',
+  dailyDigestConsentVersion: 'dailyDigestConsentVersion',
+  dailyDigestPausedAt: 'dailyDigestPausedAt',
+  lastDailyDigestAt: 'lastDailyDigestAt',
+  pushNotificationsEnabled: 'pushNotificationsEnabled',
   exportAccess: 'exportAccess',
   retentionPolicy: 'retentionPolicy',
   createdAt: 'createdAt',
@@ -7384,6 +7816,7 @@ export const OrderRequestScalarFieldEnum = {
   cancellationReason: 'cancellationReason',
   canceledBy: 'canceledBy',
   status: 'status',
+  ownerReadAt: 'ownerReadAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -7842,6 +8275,7 @@ export type SupportRequestScalarFieldEnum = (typeof SupportRequestScalarFieldEnu
 export const MessagingConsentScalarFieldEnum = {
   id: 'id',
   customerAccountId: 'customerAccountId',
+  userId: 'userId',
   phoneHash: 'phoneHash',
   purpose: 'purpose',
   source: 'source',
@@ -7870,6 +8304,7 @@ export const MessageOutboxScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
   customerAccountId: 'customerAccountId',
+  recipientUserId: 'recipientUserId',
   channel: 'channel',
   purpose: 'purpose',
   toAddress: 'toAddress',
@@ -7888,6 +8323,40 @@ export const MessageOutboxScalarFieldEnum = {
 } as const
 
 export type MessageOutboxScalarFieldEnum = (typeof MessageOutboxScalarFieldEnum)[keyof typeof MessageOutboxScalarFieldEnum]
+
+
+export const OwnerAttentionReceiptScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  userId: 'userId',
+  itemKey: 'itemKey',
+  seenAt: 'seenAt',
+  snoozedUntil: 'snoozedUntil',
+  dismissedAt: 'dismissedAt',
+  pushedAt: 'pushedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OwnerAttentionReceiptScalarFieldEnum = (typeof OwnerAttentionReceiptScalarFieldEnum)[keyof typeof OwnerAttentionReceiptScalarFieldEnum]
+
+
+export const OwnerPushSubscriptionScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  userId: 'userId',
+  endpoint: 'endpoint',
+  endpointHash: 'endpointHash',
+  p256dh: 'p256dh',
+  auth: 'auth',
+  userAgent: 'userAgent',
+  lastUsedAt: 'lastUsedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OwnerPushSubscriptionScalarFieldEnum = (typeof OwnerPushSubscriptionScalarFieldEnum)[keyof typeof OwnerPushSubscriptionScalarFieldEnum]
 
 
 export const MessageAttemptScalarFieldEnum = {
@@ -8153,6 +8622,69 @@ export type ListEnumPlatformAdminStatusFieldRefInput<$PrismaModel> = FieldRefInp
 
 
 /**
+ * Reference to a field of type 'PlatformAdminAuthenticationMethod'
+ */
+export type EnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlatformAdminAuthenticationMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'PlatformAdminAuthenticationMethod[]'
+ */
+export type ListEnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlatformAdminAuthenticationMethod[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Bytes'
+ */
+export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
+    
+
+
+/**
+ * Reference to a field of type 'Bytes[]'
+ */
+export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt[]'
+ */
+export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'PlatformAdminPasskeyChallengePurpose'
+ */
+export type EnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlatformAdminPasskeyChallengePurpose'>
+    
+
+
+/**
+ * Reference to a field of type 'PlatformAdminPasskeyChallengePurpose[]'
+ */
+export type ListEnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlatformAdminPasskeyChallengePurpose[]'>
+    
+
+
+/**
  * Reference to a field of type 'Json'
  */
 export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -8205,13 +8737,6 @@ export type EnumLaunchTemplateFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'LaunchTemplate[]'
  */
 export type ListEnumLaunchTemplateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LaunchTemplate[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -9131,6 +9656,9 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   platformAdmin?: Prisma.PlatformAdminOmit
   platformAdminSession?: Prisma.PlatformAdminSessionOmit
+  platformAdminPasskey?: Prisma.PlatformAdminPasskeyOmit
+  platformAdminPasskeyChallenge?: Prisma.PlatformAdminPasskeyChallengeOmit
+  platformAdminRecoveryCode?: Prisma.PlatformAdminRecoveryCodeOmit
   platformAdminAuditLog?: Prisma.PlatformAdminAuditLogOmit
   ownerSession?: Prisma.OwnerSessionOmit
   ownerOtpChallenge?: Prisma.OwnerOtpChallengeOmit
@@ -9201,6 +9729,8 @@ export type GlobalOmitConfig = {
   messagingConsent?: Prisma.MessagingConsentOmit
   messagingSuppression?: Prisma.MessagingSuppressionOmit
   messageOutbox?: Prisma.MessageOutboxOmit
+  ownerAttentionReceipt?: Prisma.OwnerAttentionReceiptOmit
+  ownerPushSubscription?: Prisma.OwnerPushSubscriptionOmit
   messageAttempt?: Prisma.MessageAttemptOmit
   messagingWebhookEvent?: Prisma.MessagingWebhookEventOmit
 }

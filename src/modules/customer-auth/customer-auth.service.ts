@@ -38,13 +38,23 @@ export class CustomerAuthService {
   async start(phone: string) {
     const normalizedPhone = normalizeE164(phone);
     const started = await this.provider.start(normalizedPhone);
-    const challenge = await this.prisma.customerOtpChallenge.create({
-      data: {
-        phone: normalizedPhone,
-        provider: started.provider,
-        providerReference: started.reference,
-        expiresAt: started.expiresAt,
-      },
+    const challenge = await this.prisma.$transaction(async (tx) => {
+      await tx.customerOtpChallenge.updateMany({
+        where: {
+          phone: normalizedPhone,
+          verifiedAt: null,
+          expiresAt: { gt: new Date() },
+        },
+        data: { expiresAt: new Date() },
+      });
+      return tx.customerOtpChallenge.create({
+        data: {
+          phone: normalizedPhone,
+          provider: started.provider,
+          providerReference: started.reference,
+          expiresAt: started.expiresAt,
+        },
+      });
     });
     return {
       challengeId: challenge.id,
@@ -66,10 +76,18 @@ export class CustomerAuthService {
     if (challenge.attempts >= 5) {
       throw new BadRequestException("Too many verification attempts");
     }
-    await this.prisma.customerOtpChallenge.update({
-      where: { id: challenge.id },
+    const attempt = await this.prisma.customerOtpChallenge.updateMany({
+      where: {
+        id: challenge.id,
+        verifiedAt: null,
+        expiresAt: { gt: new Date() },
+        attempts: { lt: 5 },
+      },
       data: { attempts: { increment: 1 } },
     });
+    if (attempt.count !== 1) {
+      throw new BadRequestException("Verification challenge expired");
+    }
     const approved = await this.provider.verify(
       challenge.providerReference,
       challenge.phone,
@@ -77,14 +95,28 @@ export class CustomerAuthService {
     );
     if (!approved) throw new BadRequestException("Invalid verification code");
 
-    const account = await this.prisma.customerAccount.upsert({
-      where: { phone: challenge.phone },
-      create: { phone: challenge.phone, verifiedAt: new Date() },
-      update: { verifiedAt: new Date() },
-    });
-    await this.prisma.customerOtpChallenge.update({
-      where: { id: challenge.id },
-      data: { verifiedAt: new Date(), customerAccountId: account.id },
+    const account = await this.prisma.$transaction(async (tx) => {
+      const claimed = await tx.customerOtpChallenge.updateMany({
+        where: {
+          id: challenge.id,
+          verifiedAt: null,
+          expiresAt: { gt: new Date() },
+        },
+        data: { verifiedAt: new Date() },
+      });
+      if (claimed.count !== 1) {
+        throw new BadRequestException("Verification challenge already used");
+      }
+      const verifiedAccount = await tx.customerAccount.upsert({
+        where: { phone: challenge.phone },
+        create: { phone: challenge.phone, verifiedAt: new Date() },
+        update: { verifiedAt: new Date() },
+      });
+      await tx.customerOtpChallenge.update({
+        where: { id: challenge.id },
+        data: { customerAccountId: verifiedAccount.id },
+      });
+      return verifiedAccount;
     });
     const session = await this.createSession(account.id);
     return { account, session };

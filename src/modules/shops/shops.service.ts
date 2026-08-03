@@ -415,6 +415,19 @@ export class ShopsService {
     });
   }
 
+  async markRequestRead(auth: OwnerAuthContext, requestId: string) {
+    const result = await this.prisma.orderRequest.updateMany({
+      where: {
+        id: requestId,
+        businessId: auth.businessId,
+        ownerReadAt: null,
+      },
+      data: { ownerReadAt: new Date() },
+    });
+    if (!result.count) await this.assertRequest(auth.businessId, requestId);
+    return { id: requestId, read: true };
+  }
+
   async updateRequest(
     auth: OwnerAuthContext,
     requestId: string,
@@ -435,6 +448,7 @@ export class ShopsService {
         where: { id: requestId },
         data: {
           status: dto.status,
+          ownerReadAt: request.ownerReadAt ?? new Date(),
           ...(dto.status === "CANCELED" ? {
             cancellationReasonCode: dto.cancellationReasonCode,
             cancellationReason: dto.cancellationReason?.trim() || cancellationReasonLabel(dto.cancellationReasonCode!),
@@ -454,6 +468,17 @@ export class ShopsService {
             referenceCode: request.referenceCode,
             updatedAt: updated.updatedAt,
           }),
+        });
+      }
+      if (request.status !== dto.status) {
+        await tx.activityEvent.create({
+          data: {
+            businessId: auth.businessId,
+            actorId: auth.userId,
+            type: "ORDER_REQUEST_REVIEWED",
+            title: `Reviewed order request ${request.referenceCode}`,
+            metadata: { orderRequestId: request.id, previousStatus: request.status, nextStatus: dto.status },
+          },
         });
       }
       return updated;

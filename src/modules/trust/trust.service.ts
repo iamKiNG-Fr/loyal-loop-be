@@ -6,6 +6,19 @@ import { PrismaService } from "../prisma/prisma.service";
 const DISCLAIMER =
   "Trust levels reflect recorded Loyal Loop activity and are not business verification.";
 
+const CARE_ACTIVITY_TYPES = new Set([
+  "SALE_LOGGED",
+  "PAYMENT_UPDATED",
+  "RECEIPT_SENT",
+  "DELIVERY_STATUS_UPDATED",
+  "DELIVERY_CONFIRMED",
+  "ISSUE_RESOLVED",
+  "FOLLOW_UP_SENT",
+  "INVENTORY_CHECKED",
+  "ORDER_REQUEST_REVIEWED",
+  "REQUEST_PAYMENT_UPDATED",
+]);
+
 @Injectable()
 export class TrustService {
   constructor(
@@ -44,15 +57,19 @@ export class TrustService {
 
     const dates = await this.prisma.activityEvent.findMany({
       where: { businessId: auth.businessId },
-      select: { createdAt: true },
+      select: { createdAt: true, type: true },
       orderBy: { createdAt: "asc" },
     });
-    const streak = currentStreak(
+    const workingDays = preferences?.dailyDigestWeekdays?.length
+      ? preferences.dailyDigestWeekdays
+      : [1, 2, 3, 4, 5];
+    const streak = currentWorkingDayStreak(
       uniqueBusinessDays(
-        dates.map((entry) => entry.createdAt),
+        dates.filter((entry) => CARE_ACTIVITY_TYPES.has(entry.type)).map((entry) => entry.createdAt),
         timezone,
       ),
       businessDay(new Date(), timezone),
+      workingDays,
     );
     if (streak >= 7) {
       const existingAward = await this.prisma.activityEvent.findFirst({
@@ -147,11 +164,26 @@ export class TrustService {
       activityDates.map((entry) => entry.createdAt),
       timezone,
     );
-    const streak = currentStreak(activeDays, businessDay(new Date(), timezone));
+    const workingDays = business.preferences?.dailyDigestWeekdays?.length
+      ? business.preferences.dailyDigestWeekdays
+      : [1, 2, 3, 4, 5];
+    const careActivity = activityDates.filter((entry) => CARE_ACTIVITY_TYPES.has(entry.type));
+    const careDays = uniqueBusinessDays(careActivity.map((entry) => entry.createdAt), timezone);
+    const streak = currentWorkingDayStreak(
+      careDays,
+      businessDay(new Date(), timezone),
+      workingDays,
+    );
     const today = businessDay(new Date(), timezone);
     const inventoryCheckedToday = activityDates.some(
       (entry) =>
         entry.type === "INVENTORY_CHECKED" &&
+        businessDay(entry.createdAt, timezone) === today,
+    );
+    const customerCareCompletedToday = activityDates.some(
+      (entry) =>
+        entry.type !== "INVENTORY_CHECKED" &&
+        CARE_ACTIVITY_TYPES.has(entry.type) &&
         businessDay(entry.createdAt, timezone) === today,
     );
     const feedbackCount = feedbackAggregate._count.rating;
@@ -192,6 +224,12 @@ export class TrustService {
       ][level],
       streakDays: streak,
       inventoryCheckedToday,
+      careProgress: {
+        workingDays,
+        inventoryCheckedToday,
+        customerCareCompletedToday,
+        todayQualifies: inventoryCheckedToday || customerCareCompletedToday,
+      },
       feedbackAverage: feedbackAggregate._avg.rating,
       feedbackCount,
       loyaltyHealth,
@@ -238,6 +276,48 @@ export function currentStreak(
     streak += 1;
   }
   return streak;
+}
+
+export function currentWorkingDayStreak(
+  days: string[],
+  today: string,
+  workingDays: number[],
+) {
+  const qualified = new Set(days);
+  const schedule = new Set(workingDays.length ? workingDays : [1, 2, 3, 4, 5]);
+  let cursor = parseDay(today);
+  let streak = 0;
+  let firstWorkingDay = true;
+
+  for (let checked = 0; checked < 370; checked += 1) {
+    const key = cursor.toISOString().slice(0, 10);
+    const weekday = cursor.getUTCDay();
+    if (!schedule.has(weekday)) {
+      cursor = previousDay(cursor);
+      continue;
+    }
+    if (qualified.has(key)) {
+      streak += 1;
+      firstWorkingDay = false;
+      cursor = previousDay(cursor);
+      continue;
+    }
+    if (firstWorkingDay) {
+      firstWorkingDay = false;
+      cursor = previousDay(cursor);
+      continue;
+    }
+    break;
+  }
+  return streak;
+}
+
+function parseDay(value: string) {
+  return new Date(`${value}T00:00:00.000Z`);
+}
+
+function previousDay(value: Date) {
+  return new Date(value.getTime() - 24 * 60 * 60 * 1000);
 }
 
 function businessDay(date: Date, timezone: string) {

@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import type { OwnerAuthContext } from "../../common/request-context";
+import { AttentionService } from "../attention/attention.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { discoverySource } from "../shops/discovery-attribution";
 
@@ -7,9 +8,16 @@ import { discoverySource } from "../shops/discovery-attribution";
 export class DashboardService {
   private readonly logger = new Logger(DashboardService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly attention: AttentionService,
+  ) {}
 
   async get(auth: OwnerAuthContext) {
+    const lowStockThreshold = await this.prisma.businessPreferences.findUnique({
+      where: { businessId: auth.businessId },
+      select: { lowStockThreshold: true },
+    }).then((preferences) => Math.max(1, preferences?.lowStockThreshold || 5));
     const [
       customers,
       products,
@@ -24,6 +32,7 @@ export class DashboardService {
       pendingRequests,
       unreadOrderRequests,
       discoveryEvents,
+      attention,
     ] = await Promise.all([
       this.prisma.customer.count({ where: { businessId: auth.businessId } }),
       this.prisma.product.count({
@@ -33,7 +42,7 @@ export class DashboardService {
         where: {
           businessId: auth.businessId,
           status: "ACTIVE",
-          stockCount: { lte: 5, not: null },
+          stockCount: { lte: lowStockThreshold, not: null },
         },
         select: { id: true, name: true, stockCount: true, updatedAt: true },
         orderBy: [{ stockCount: "asc" }, { updatedAt: "desc" }],
@@ -57,6 +66,7 @@ export class DashboardService {
         where: {
           businessId: auth.businessId,
           status: { in: ["SUGGESTED", "APPROVED"] },
+          dueAt: { not: null, lte: new Date() },
         },
         include: { customer: true, template: true },
         orderBy: [{ dueAt: "asc" }, { createdAt: "desc" }],
@@ -90,6 +100,7 @@ export class DashboardService {
         where: {
           businessId: auth.businessId,
           status: "SENT",
+          ownerReadAt: null,
         },
       }),
       this.prisma.commerceEvent.findMany({
@@ -103,6 +114,7 @@ export class DashboardService {
         this.logger.warn("Dashboard discovery analytics are unavailable; returning core dashboard data.");
         return [];
       }),
+      this.attention.get(auth),
     ]);
 
     const sourceCounts = new Map<string, number>();
@@ -164,6 +176,7 @@ export class DashboardService {
       },
       followUps,
       lowStockProducts,
+      attention,
       recentSales,
       recentActivity: recentActivity.map((entry) => ({
         ...entry,

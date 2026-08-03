@@ -162,6 +162,21 @@ export class TwilioWhatsAppProvider
     return this.sendProductionTemplate(phone, "founding_access", variables);
   }
 
+  sendOwnerDigest(phone: string, variables: Record<string, string>) {
+    if (this.mode() === "sandbox") {
+      return this.sendSandboxMessage(
+        phone,
+        [
+          "[LOYAL LOOP DEVELOPMENT SANDBOX]",
+          `Good morning, ${variables["1"] || "there"}.`,
+          variables["3"] || "Your business checklist is ready.",
+          variables["4"] || "Open Loyal Loop to review today's work.",
+        ].join("\n"),
+      );
+    }
+    return this.sendProductionTemplate(phone, "owner_digest", variables);
+  }
+
   async sendOtp(phone: string): Promise<WhatsAppOtpStartResult> {
     const normalized = normalizeE164(phone);
     this.assertOtpEnabled();
@@ -273,7 +288,7 @@ export class TwilioWhatsAppProvider
 
   private sendProductionTemplate(
     phone: string,
-    template: "receipt" | "delivery" | "reminder" | "founding_access",
+    template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest",
     variables: Record<string, string>,
   ) {
     this.assertMessagingEnabled();
@@ -565,7 +580,7 @@ export class TwilioWhatsAppProvider
     return problems;
   }
 
-  private contentSid(template: "receipt" | "delivery" | "reminder" | "founding_access") {
+  private contentSid(template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest") {
     const value = this.optionalContentSid(template);
     if (!value) {
       throw new ServiceUnavailableException(
@@ -576,7 +591,7 @@ export class TwilioWhatsAppProvider
   }
 
   private optionalContentSid(
-    template: "receipt" | "delivery" | "reminder" | "founding_access",
+    template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest",
   ) {
     return (
       this.config.get<string>(contentSidEnvironmentName(template)) ||
@@ -643,7 +658,7 @@ function channelAddress(value: string) {
 }
 
 function contentSidEnvironmentName(
-  template: "receipt" | "delivery" | "reminder" | "founding_access",
+  template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest",
 ) {
   return `TWILIO_${template.toUpperCase()}_CONTENT_SID`;
 }

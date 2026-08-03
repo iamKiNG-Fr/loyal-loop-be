@@ -24,7 +24,8 @@ export function setSessionCookie(
   response.cookie(name, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: name === PLATFORM_ADMIN_SESSION_COOKIE ? "strict" : "lax",
+    priority: "high",
     expires: expiresAt,
     path: SESSION_COOKIE_PATH,
   });
@@ -34,7 +35,8 @@ export function clearSessionCookie(response: Response, name: string) {
   response.clearCookie(name, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: name === PLATFORM_ADMIN_SESSION_COOKIE ? "strict" : "lax",
+    priority: "high",
     path: SESSION_COOKIE_PATH,
   });
 }

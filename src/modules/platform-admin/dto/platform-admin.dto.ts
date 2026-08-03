@@ -6,10 +6,15 @@ import {
   IsOptional,
   IsString,
   Length,
+  Matches,
   Max,
   Min,
 } from "class-validator";
-import { CustomerReportStatus } from "../../../generated/prisma/client";
+import {
+  CustomerReportStatus,
+  PlatformAdminStatus,
+  PlatformRole,
+} from "../../../generated/prisma/client";
 
 const trim = ({ value }: { value: unknown }) =>
   typeof value === "string" ? value.trim() : value;
@@ -37,6 +42,7 @@ export class AdminListQueryDto {
   @Transform(trim)
   @IsOptional()
   @IsString()
+  @Matches(/^[A-Z][A-Z_]{1,39}$/)
   status?: string;
 
   @IsOptional()
@@ -78,4 +84,72 @@ export class ReviewCustomerReportDto {
   @IsString()
   @Length(3, 1200)
   notes?: string;
+}
+
+export class ApproveFoundingApplicationDto {
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  cohortId?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(90)
+  expiresInDays?: number;
+
+  @IsOptional()
+  @IsBoolean()
+  sendWhatsapp?: boolean;
+}
+
+export class ReplaceInvitationDto {
+  @IsOptional()
+  @IsBoolean()
+  sendWhatsapp?: boolean;
+}
+
+export class GrantPlatformAdminDto {
+  @Transform(trim)
+  @IsString()
+  @Length(3, 254)
+  email!: string;
+
+  @IsEnum(PlatformRole)
+  role!: PlatformRole;
+}
+
+export class UpdatePlatformAdminDto {
+  @IsOptional()
+  @IsEnum(PlatformRole)
+  role?: PlatformRole;
+
+  @IsOptional()
+  @IsEnum(PlatformAdminStatus)
+  status?: PlatformAdminStatus;
+
+  @Transform(trim)
+  @IsString()
+  @Length(4, 500)
+  reason!: string;
+
+  @Transform(trim)
+  @IsString()
+  @Length(3, 254)
+  confirmation!: string;
+}
+
+export class ReviewPlatformAdminDto {
+  @Transform(trim)
+  @IsOptional()
+  @IsString()
+  @Length(4, 500)
+  notes?: string;
+}
+
+export class RevokePlatformSessionDto {
+  @Transform(trim)
+  @IsString()
+  @Length(4, 500)
+  reason!: string;
 }

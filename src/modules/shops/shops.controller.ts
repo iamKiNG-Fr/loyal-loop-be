@@ -220,6 +220,14 @@ export class OrderRequestsController {
       .then((data) => ok(data, "Request converted"));
   }
 
+  @Patch(":id/read")
+  @Roles("OWNER", "MANAGER", "SALES")
+  markRead(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
+    return this.shops
+      .markRequestRead(auth, id)
+      .then((data) => ok(data, "Request marked as read"));
+  }
+
   @Post(":id/request-terms-change")
   @Roles("OWNER", "MANAGER", "SALES")
   requestTermsChange(

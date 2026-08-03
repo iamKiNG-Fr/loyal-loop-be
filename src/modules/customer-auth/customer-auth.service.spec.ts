@@ -10,6 +10,7 @@ describe("CustomerAuthService dual-role identity", () => {
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
     const ownerLookup = vi.fn();
     const prisma = {
+      $transaction: vi.fn(),
       user: { findUnique: ownerLookup },
       customerOtpChallenge: {
         findUnique: vi.fn().mockResolvedValue({
@@ -21,6 +22,7 @@ describe("CustomerAuthService dual-role identity", () => {
           attempts: 0,
         }),
         update: vi.fn().mockResolvedValue({}),
+        updateMany: vi.fn().mockResolvedValue({ count: 1 }),
       },
       customerAccount: {
         upsert: vi.fn().mockResolvedValue({
@@ -34,6 +36,11 @@ describe("CustomerAuthService dual-role identity", () => {
         create: vi.fn().mockResolvedValue({ id: "customer-session-1" }),
       },
     };
+    prisma.$transaction.mockImplementation(async (work: unknown) =>
+      Array.isArray(work)
+        ? Promise.all(work)
+        : (work as (tx: typeof prisma) => Promise<unknown>)(prisma),
+    );
     const provider = {
       start: vi.fn(),
       verify: vi.fn().mockResolvedValue(true),

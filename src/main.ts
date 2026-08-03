@@ -23,7 +23,9 @@ async function bootstrap() {
   const corsOrigins = configService
     .get<string>(
       "CORS_ORIGINS",
-      "https://useloyalloop.com,https://www.useloyalloop.com,http://localhost:3000",
+      configService.get("NODE_ENV") === "production"
+        ? "https://useloyalloop.com,https://www.useloyalloop.com"
+        : "https://useloyalloop.com,https://www.useloyalloop.com,http://localhost:3000",
     )
     .split(",")
     .map((origin) => origin.trim())
@@ -49,7 +51,9 @@ async function bootstrap() {
       "X-Business-Id",
       "X-Cart-Device",
       "X-Request-Id",
+      "X-CSRF-Token",
       "X-Messaging-Worker-Secret",
+      "X-Reminder-Scheduler-Secret",
     ],
     exposedHeaders: ["X-Request-Id"],
     credentials: true,
@@ -63,7 +67,7 @@ async function bootstrap() {
   );
 
   const port = configService.get<number>("PORT", 5000);
-  await app.listen(port);
+  await app.listen(port, "::");
 }
 
 void bootstrap();

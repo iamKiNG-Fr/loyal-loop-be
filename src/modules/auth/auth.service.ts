@@ -12,7 +12,12 @@ import {
   createPublicCardId,
   hashToken,
 } from "../../common/crypto.util";
-import { hashPassword, verifyPassword } from "../../common/password.util";
+import {
+  hashPassword,
+  needsPasswordRehash,
+  verifyPassword,
+  verifyPasswordOrDummy,
+} from "../../common/password.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import type {
@@ -213,8 +218,18 @@ export class AuthService {
         },
       },
     });
-    if (!user || !(await verifyPassword(password, user.passwordHash))) {
+    const passwordValid = await verifyPasswordOrDummy(
+      password,
+      user?.passwordHash,
+    );
+    if (!user || !passwordValid) {
       throw new UnauthorizedException("Invalid email or password");
+    }
+    if (needsPasswordRehash(user.passwordHash)) {
+      await this.prisma.user.update({
+        where: { id: user.id },
+        data: { passwordHash: await hashPassword(password) },
+      });
     }
     const membership = user.memberships[0];
     if (!membership) throw new UnauthorizedException("No active business");
@@ -238,7 +253,17 @@ export class AuthService {
     }
 
     const started = await this.otpProvider.start(normalizedPhone);
-    const challenge = await this.prisma.ownerOtpChallenge.create({
+    const challenge = await this.prisma.$transaction(async (tx) => {
+      await tx.ownerOtpChallenge.updateMany({
+        where: {
+          userId: user.id,
+          purpose: "LOGIN",
+          verifiedAt: null,
+          expiresAt: { gt: new Date() },
+        },
+        data: { expiresAt: new Date() },
+      });
+      return tx.ownerOtpChallenge.create({
         data: {
           userId: user.id,
           phone: normalizedPhone,
@@ -247,6 +272,7 @@ export class AuthService {
           expiresAt: started.expiresAt,
           purpose: "LOGIN",
         },
+      });
     });
     return {
       challengeId: challenge.id,
@@ -316,10 +342,19 @@ export class AuthService {
     if (challenge.attempts >= 5) {
       throw new UnauthorizedException("Too many verification attempts");
     }
-    await this.prisma.ownerOtpChallenge.update({
-      where: { id: challenge.id },
+    const attempt = await this.prisma.ownerOtpChallenge.updateMany({
+      where: {
+        id: challenge.id,
+        userId: null,
+        verifiedAt: null,
+        expiresAt: { gt: new Date() },
+        attempts: { lt: 5 },
+      },
       data: { attempts: { increment: 1 } },
     });
+    if (attempt.count !== 1) {
+      throw new UnauthorizedException("Verification challenge expired");
+    }
     const approved = await this.otpProvider.verify(
       challenge.providerReference,
       challenge.phone,
@@ -331,10 +366,18 @@ export class AuthService {
     const expiresAt = new Date(
       verifiedAt.getTime() + this.onboardingProofMinutes() * 60_000,
     );
-    await this.prisma.ownerOtpChallenge.update({
-      where: { id: challenge.id },
+    const claimed = await this.prisma.ownerOtpChallenge.updateMany({
+      where: {
+        id: challenge.id,
+        userId: null,
+        verifiedAt: null,
+        expiresAt: { gt: new Date() },
+      },
       data: { verifiedAt, expiresAt },
     });
+    if (claimed.count !== 1) {
+      throw new UnauthorizedException("Verification challenge already used");
+    }
     return { challengeId: challenge.id, expiresAt, verifiedAt };
   }
 
@@ -358,16 +401,38 @@ export class AuthService {
       throw new UnauthorizedException("Too many verification attempts");
     }
 
-    await this.prisma.ownerOtpChallenge.update({
-      where: { id: challenge.id },
+    const attempt = await this.prisma.ownerOtpChallenge.updateMany({
+      where: {
+        id: challenge.id,
+        userId: challenge.userId,
+        verifiedAt: null,
+        expiresAt: { gt: new Date() },
+        attempts: { lt: 5 },
+      },
       data: { attempts: { increment: 1 } },
     });
+    if (attempt.count !== 1) {
+      throw new UnauthorizedException("Verification challenge expired");
+    }
     const approved = await this.otpProvider.verify(
       challenge.providerReference,
       challenge.phone,
       code,
     );
     if (!approved) throw new UnauthorizedException("Invalid verification code");
+
+    const claimed = await this.prisma.ownerOtpChallenge.updateMany({
+      where: {
+        id: challenge.id,
+        userId: challenge.userId,
+        verifiedAt: null,
+        expiresAt: { gt: new Date() },
+      },
+      data: { verifiedAt: new Date() },
+    });
+    if (claimed.count !== 1) {
+      throw new UnauthorizedException("Verification challenge already used");
+    }
 
     const user = await this.prisma.user.findUnique({
       where: { id: challenge.userId },
@@ -395,10 +460,6 @@ export class AuthService {
       throw new UnauthorizedException("No active business");
     }
 
-    await this.prisma.ownerOtpChallenge.update({
-      where: { id: challenge.id },
-      data: { verifiedAt: new Date() },
-    });
     const session = await this.createSession(user.id, meta);
     return {
       ...this.safeIdentity(user, membership.business, membership),

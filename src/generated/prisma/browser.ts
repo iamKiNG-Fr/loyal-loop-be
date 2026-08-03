@@ -63,6 +63,21 @@ export type PlatformAdmin = Prisma.PlatformAdminModel
  */
 export type PlatformAdminSession = Prisma.PlatformAdminSessionModel
 /**
+ * Model PlatformAdminPasskey
+ * 
+ */
+export type PlatformAdminPasskey = Prisma.PlatformAdminPasskeyModel
+/**
+ * Model PlatformAdminPasskeyChallenge
+ * 
+ */
+export type PlatformAdminPasskeyChallenge = Prisma.PlatformAdminPasskeyChallengeModel
+/**
+ * Model PlatformAdminRecoveryCode
+ * 
+ */
+export type PlatformAdminRecoveryCode = Prisma.PlatformAdminRecoveryCodeModel
+/**
  * Model PlatformAdminAuditLog
  * 
  */
@@ -412,6 +427,16 @@ export type MessagingSuppression = Prisma.MessagingSuppressionModel
  * 
  */
 export type MessageOutbox = Prisma.MessageOutboxModel
+/**
+ * Model OwnerAttentionReceipt
+ * 
+ */
+export type OwnerAttentionReceipt = Prisma.OwnerAttentionReceiptModel
+/**
+ * Model OwnerPushSubscription
+ * 
+ */
+export type OwnerPushSubscription = Prisma.OwnerPushSubscriptionModel
 /**
  * Model MessageAttempt
  * 

@@ -1,4 +1,4 @@
-import { createHash, randomBytes } from "node:crypto";
+import { createHash, createHmac, randomBytes } from "node:crypto";
 
 const PUBLIC_CARD_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const SHORT_LINK_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
@@ -30,6 +30,11 @@ export function hashToken(token: string) {
 
 export function hashPrivateValue(value: string, secret = "") {
   return createHash("sha256").update(`${secret}:${value}`).digest("hex");
+}
+
+export function hmacPrivateValue(value: string, secret: string) {
+  if (!secret) throw new Error("A private-value HMAC secret is required");
+  return createHmac("sha256", secret).update(value).digest("hex");
 }
 
 export function createReference(prefix: string) {

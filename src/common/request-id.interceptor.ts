@@ -15,7 +15,7 @@ export class RequestIdInterceptor implements NestInterceptor {
     const request = context.switchToHttp().getRequest<LoyalLoopRequest>();
     const response = context.switchToHttp().getResponse<Response>();
     const incoming = request.header("x-request-id");
-    request.requestId = incoming?.slice(0, 100) || randomUUID();
+    request.requestId ||= incoming?.slice(0, 100) || randomUUID();
     response.setHeader("x-request-id", request.requestId);
     return next.handle();
   }

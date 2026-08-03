@@ -21,7 +21,8 @@
     "start:dev:isolated": "npm run check:isolated && node --env-file=.env.isolated.local ./node_modules/ts-node/dist/bin.js src/main.ts",
     "build": "prisma generate && tsc -p tsconfig.json",
     "start": "node ./dist/main.js",
-    "start:dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts"
+    "start:dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
+    "reminders:cron": "node scripts/run-reminder-cron.mjs"
   },
   "author": "",
   "license": "ISC",
@@ -32,8 +33,10 @@
     "@nestjs/core": "^11.1.24",
     "@nestjs/platform-express": "^11.1.24",
     "@nestjs/throttler": "^6.5.0",
+    "@node-rs/argon2": "^2.0.2",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "@simplewebauthn/server": "^13.3.2",
     "@types/express": "^5.0.6",
     "@types/node": "^25.9.2",
     "class-transformer": "^0.5.1",
@@ -42,6 +45,7 @@
     "helmet": "^8.0.0",
     "nanoid": "^3.3.8",
     "pg": "^8.21.0",
+    "redis": "^6.2.0",
     "reflect-metadata": "^0.2.2",
     "resend": "^6.12.4",
     "rxjs": "^7.8.2"

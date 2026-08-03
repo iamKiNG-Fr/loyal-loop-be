@@ -342,6 +342,97 @@ export type EnumPlatformAdminStatusWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumPlatformAdminStatusFilter<$PrismaModel>
 }
 
+export type EnumPlatformAdminAuthenticationMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.PlatformAdminAuthenticationMethod | Prisma.EnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.PlatformAdminAuthenticationMethod[] | Prisma.ListEnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PlatformAdminAuthenticationMethod[] | Prisma.ListEnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPlatformAdminAuthenticationMethodFilter<$PrismaModel> | $Enums.PlatformAdminAuthenticationMethod
+}
+
+export type EnumPlatformAdminAuthenticationMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PlatformAdminAuthenticationMethod | Prisma.EnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.PlatformAdminAuthenticationMethod[] | Prisma.ListEnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PlatformAdminAuthenticationMethod[] | Prisma.ListEnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPlatformAdminAuthenticationMethodWithAggregatesFilter<$PrismaModel> | $Enums.PlatformAdminAuthenticationMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPlatformAdminAuthenticationMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPlatformAdminAuthenticationMethodFilter<$PrismaModel>
+}
+
+export type BytesFilter<$PrismaModel = never> = {
+  equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel>
+  in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
+  notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBytesFilter<$PrismaModel> | runtime.Bytes
+}
+
+export type BigIntFilter<$PrismaModel = never> = {
+  equals?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  in?: bigint[] | number[] | Prisma.ListBigIntFieldRefInput<$PrismaModel>
+  notIn?: bigint[] | number[] | Prisma.ListBigIntFieldRefInput<$PrismaModel>
+  lt?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  lte?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  gt?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  gte?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBigIntFilter<$PrismaModel> | bigint | number
+}
+
+export type BoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
+export type BytesWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel>
+  in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
+  notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBytesWithAggregatesFilter<$PrismaModel> | runtime.Bytes
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBytesFilter<$PrismaModel>
+  _max?: Prisma.NestedBytesFilter<$PrismaModel>
+}
+
+export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  in?: bigint[] | number[] | Prisma.ListBigIntFieldRefInput<$PrismaModel>
+  notIn?: bigint[] | number[] | Prisma.ListBigIntFieldRefInput<$PrismaModel>
+  lt?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  lte?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  gt?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  gte?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _avg?: Prisma.NestedFloatFilter<$PrismaModel>
+  _sum?: Prisma.NestedBigIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBigIntFilter<$PrismaModel>
+  _max?: Prisma.NestedBigIntFilter<$PrismaModel>
+}
+
+export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type EnumPlatformAdminPasskeyChallengePurposeFilter<$PrismaModel = never> = {
+  equals?: $Enums.PlatformAdminPasskeyChallengePurpose | Prisma.EnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.PlatformAdminPasskeyChallengePurpose[] | Prisma.ListEnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PlatformAdminPasskeyChallengePurpose[] | Prisma.ListEnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPlatformAdminPasskeyChallengePurposeFilter<$PrismaModel> | $Enums.PlatformAdminPasskeyChallengePurpose
+}
+
+export type EnumPlatformAdminPasskeyChallengePurposeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PlatformAdminPasskeyChallengePurpose | Prisma.EnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.PlatformAdminPasskeyChallengePurpose[] | Prisma.ListEnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PlatformAdminPasskeyChallengePurpose[] | Prisma.ListEnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPlatformAdminPasskeyChallengePurposeWithAggregatesFilter<$PrismaModel> | $Enums.PlatformAdminPasskeyChallengePurpose
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPlatformAdminPasskeyChallengePurposeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPlatformAdminPasskeyChallengePurposeFilter<$PrismaModel>
+}
+
 export type JsonNullableFilter<$PrismaModel = never> =
 | Prisma.PatchUndefined<
     Prisma.Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -424,11 +515,6 @@ export type EnumLaunchTemplateFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel> | $Enums.LaunchTemplate
 }
 
-export type BoolFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
-}
-
 export type EnumBusinessPlanFilter<$PrismaModel = never> = {
   equals?: $Enums.BusinessPlan | Prisma.EnumBusinessPlanFieldRefInput<$PrismaModel>
   in?: $Enums.BusinessPlan[] | Prisma.ListEnumBusinessPlanFieldRefInput<$PrismaModel>
@@ -479,14 +565,6 @@ export type EnumLaunchTemplateWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel>
-}
-
-export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedBoolFilter<$PrismaModel>
-  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type EnumBusinessPlanWithAggregatesFilter<$PrismaModel = never> = {
@@ -1943,6 +2021,97 @@ export type NestedEnumPlatformAdminStatusWithAggregatesFilter<$PrismaModel = nev
   _max?: Prisma.NestedEnumPlatformAdminStatusFilter<$PrismaModel>
 }
 
+export type NestedEnumPlatformAdminAuthenticationMethodFilter<$PrismaModel = never> = {
+  equals?: $Enums.PlatformAdminAuthenticationMethod | Prisma.EnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.PlatformAdminAuthenticationMethod[] | Prisma.ListEnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PlatformAdminAuthenticationMethod[] | Prisma.ListEnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPlatformAdminAuthenticationMethodFilter<$PrismaModel> | $Enums.PlatformAdminAuthenticationMethod
+}
+
+export type NestedEnumPlatformAdminAuthenticationMethodWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PlatformAdminAuthenticationMethod | Prisma.EnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  in?: $Enums.PlatformAdminAuthenticationMethod[] | Prisma.ListEnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PlatformAdminAuthenticationMethod[] | Prisma.ListEnumPlatformAdminAuthenticationMethodFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPlatformAdminAuthenticationMethodWithAggregatesFilter<$PrismaModel> | $Enums.PlatformAdminAuthenticationMethod
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPlatformAdminAuthenticationMethodFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPlatformAdminAuthenticationMethodFilter<$PrismaModel>
+}
+
+export type NestedBytesFilter<$PrismaModel = never> = {
+  equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel>
+  in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
+  notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBytesFilter<$PrismaModel> | runtime.Bytes
+}
+
+export type NestedBigIntFilter<$PrismaModel = never> = {
+  equals?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  in?: bigint[] | number[] | Prisma.ListBigIntFieldRefInput<$PrismaModel>
+  notIn?: bigint[] | number[] | Prisma.ListBigIntFieldRefInput<$PrismaModel>
+  lt?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  lte?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  gt?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  gte?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBigIntFilter<$PrismaModel> | bigint | number
+}
+
+export type NestedBoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
+export type NestedBytesWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: runtime.Bytes | Prisma.BytesFieldRefInput<$PrismaModel>
+  in?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
+  notIn?: runtime.Bytes[] | Prisma.ListBytesFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBytesWithAggregatesFilter<$PrismaModel> | runtime.Bytes
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBytesFilter<$PrismaModel>
+  _max?: Prisma.NestedBytesFilter<$PrismaModel>
+}
+
+export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  in?: bigint[] | number[] | Prisma.ListBigIntFieldRefInput<$PrismaModel>
+  notIn?: bigint[] | number[] | Prisma.ListBigIntFieldRefInput<$PrismaModel>
+  lt?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  lte?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  gt?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  gte?: bigint | number | Prisma.BigIntFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _avg?: Prisma.NestedFloatFilter<$PrismaModel>
+  _sum?: Prisma.NestedBigIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBigIntFilter<$PrismaModel>
+  _max?: Prisma.NestedBigIntFilter<$PrismaModel>
+}
+
+export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumPlatformAdminPasskeyChallengePurposeFilter<$PrismaModel = never> = {
+  equals?: $Enums.PlatformAdminPasskeyChallengePurpose | Prisma.EnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.PlatformAdminPasskeyChallengePurpose[] | Prisma.ListEnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PlatformAdminPasskeyChallengePurpose[] | Prisma.ListEnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPlatformAdminPasskeyChallengePurposeFilter<$PrismaModel> | $Enums.PlatformAdminPasskeyChallengePurpose
+}
+
+export type NestedEnumPlatformAdminPasskeyChallengePurposeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PlatformAdminPasskeyChallengePurpose | Prisma.EnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.PlatformAdminPasskeyChallengePurpose[] | Prisma.ListEnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PlatformAdminPasskeyChallengePurpose[] | Prisma.ListEnumPlatformAdminPasskeyChallengePurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPlatformAdminPasskeyChallengePurposeWithAggregatesFilter<$PrismaModel> | $Enums.PlatformAdminPasskeyChallengePurpose
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPlatformAdminPasskeyChallengePurposeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPlatformAdminPasskeyChallengePurposeFilter<$PrismaModel>
+}
+
 export type NestedJsonNullableFilter<$PrismaModel = never> =
 | Prisma.PatchUndefined<
     Prisma.Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
@@ -1998,11 +2167,6 @@ export type NestedEnumLaunchTemplateFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel> | $Enums.LaunchTemplate
 }
 
-export type NestedBoolFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
-}
-
 export type NestedEnumBusinessPlanFilter<$PrismaModel = never> = {
   equals?: $Enums.BusinessPlan | Prisma.EnumBusinessPlanFieldRefInput<$PrismaModel>
   in?: $Enums.BusinessPlan[] | Prisma.ListEnumBusinessPlanFieldRefInput<$PrismaModel>
@@ -2042,14 +2206,6 @@ export type NestedEnumLaunchTemplateWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLaunchTemplateFilter<$PrismaModel>
-}
-
-export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedBoolFilter<$PrismaModel>
-  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type NestedEnumBusinessPlanWithAggregatesFilter<$PrismaModel = never> = {

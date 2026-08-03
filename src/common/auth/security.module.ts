@@ -5,10 +5,14 @@ import { RolesGuard } from "./roles.guard";
 import { CapabilitiesGuard } from "./capabilities.guard";
 import { PlatformAdminGuard } from "./platform-admin.guard";
 import { PlatformRolesGuard } from "./platform-roles.guard";
+import { CsrfGuard } from "./csrf.guard";
+import { CsrfService } from "./csrf.service";
+import { SecurityController } from "./security.controller";
 
 @Global()
 @Module({
-  providers: [OwnerAuthGuard, CustomerAuthGuard, RolesGuard, CapabilitiesGuard, PlatformAdminGuard, PlatformRolesGuard],
-  exports: [OwnerAuthGuard, CustomerAuthGuard, RolesGuard, CapabilitiesGuard, PlatformAdminGuard, PlatformRolesGuard],
+  controllers: [SecurityController],
+  providers: [CsrfService, CsrfGuard, OwnerAuthGuard, CustomerAuthGuard, RolesGuard, CapabilitiesGuard, PlatformAdminGuard, PlatformRolesGuard],
+  exports: [CsrfService, CsrfGuard, OwnerAuthGuard, CustomerAuthGuard, RolesGuard, CapabilitiesGuard, PlatformAdminGuard, PlatformRolesGuard],
 })
 export class SecurityModule {}

@@ -3,8 +3,10 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
-import { createHash } from "node:crypto";
+import { ConfigService } from "@nestjs/config";
+import { randomBytes, timingSafeEqual } from "node:crypto";
 import type { Request } from "express";
+import { hmacPrivateValue } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
@@ -69,6 +71,7 @@ export class DiscoveryService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly intelligence: IntelligenceService,
+    private readonly config: ConfigService,
   ) {}
 
   async explore(query: ExploreDto, customerAccountId?: string, visitorHash?: string) {
@@ -275,7 +278,15 @@ export class DiscoveryService {
       })),
     ], preference?.preferences, personalSignals);
     const total = productCount + showcaseCount;
-    const items = combined.slice(start, start + query.pageSize).map((entry) => entry.value);
+    const items = combined.slice(start, start + query.pageSize).map((entry) => ({
+      ...entry.value,
+      impressionToken: this.discoveryToken(
+        entry.value.kind,
+        entry.value.id,
+        customerAccountId,
+        visitorHash,
+      ),
+    }));
     void this.recordTelemetry("SEARCH_COMPLETED", {
       customerAccountId,
       visitorHash,
@@ -295,7 +306,15 @@ export class DiscoveryService {
       items,
       shops: orderDiscoveryShops(shops, preference?.preferences, personalSignals)
         .slice(0, 12)
-        .map((shop) => shopCard(shop)),
+        .map((shop) => ({
+          ...shopCard(shop),
+          impressionToken: this.discoveryToken(
+            "shop",
+            shop.id,
+            customerAccountId,
+            visitorHash,
+          ),
+        })),
       page,
       pageSize: query.pageSize,
       nextCursor: start + query.pageSize < total ? encodeDiscoveryCursor(start + query.pageSize) : null,
@@ -312,9 +331,10 @@ export class DiscoveryService {
   }
 
   visitorHash(request: Request) {
-    return createHash("sha256")
-      .update(`${new Date().toISOString().slice(0, 10)}:${request.ip}:${request.header("user-agent") ?? ""}`)
-      .digest("hex");
+    return hmacPrivateValue(
+      `${new Date().toISOString().slice(0, 10)}:${request.ip}:${request.header("user-agent") ?? ""}`,
+      this.analyticsSecret(),
+    );
   }
 
   async savePreference(
@@ -343,6 +363,20 @@ export class DiscoveryService {
   ) {
     const targetCount = [dto.businessId, dto.productId, dto.showcaseId].filter(Boolean).length;
     if (targetCount !== 1) throw new BadRequestException("Choose one shop, product, or Showcase event target");
+    const targetKind = dto.productId ? "product" : dto.showcaseId ? "showcase" : "shop";
+    const targetId = dto.productId ?? dto.showcaseId ?? dto.businessId!;
+    const signedResult = dto.impressionToken
+      ? this.verifyDiscoveryToken(
+          dto.impressionToken,
+          targetKind,
+          targetId,
+          customerAccountId,
+          visitorHash,
+        )
+      : null;
+    if (this.signedEventsRequired() && !signedResult) {
+      throw new BadRequestException("A valid discovery result token is required");
+    }
     const target = dto.productId
       ? await this.prisma.product.findFirst({ where: { id: dto.productId, status: "ACTIVE", visibility: "PUBLIC" }, select: { id: true, businessId: true } })
       : dto.showcaseId
@@ -352,8 +386,14 @@ export class DiscoveryService {
     if (dto.businessId && !dto.type.startsWith("SHOP_")) throw new BadRequestException("Shop targets require a shop event");
     if (dto.productId && !dto.type.startsWith("PRODUCT_")) throw new BadRequestException("Product targets require a product event");
     if (dto.showcaseId && !dto.type.startsWith("SHOWCASE_")) throw new BadRequestException("Showcase targets require a Showcase event");
-    const dedupeKey = dto.dedupeKey
-      ? createHash("sha256").update(`${customerAccountId ?? visitorHash}:${dto.dedupeKey}`).digest("hex")
+    const dedupeInput = signedResult
+      ? `${signedResult.n}:${dto.type}`
+      : dto.dedupeKey;
+    const dedupeKey = dedupeInput
+      ? hmacPrivateValue(
+          `${customerAccountId ?? visitorHash}:${dedupeInput}`,
+          this.analyticsSecret(),
+        )
       : undefined;
     try {
       return await this.prisma.commerceEvent.create({
@@ -373,6 +413,7 @@ export class DiscoveryService {
               query: dto.searchQuery?.trim().toLowerCase(),
               surface: dto.surface ?? "explore",
             },
+            trustedResult: Boolean(signedResult),
           },
         },
       });
@@ -411,6 +452,76 @@ export class DiscoveryService {
         metadata: input.metadata,
       },
     }).catch(() => null);
+  }
+
+  private discoveryToken(
+    kind: "product" | "showcase" | "shop",
+    id: string,
+    customerAccountId?: string,
+    visitorHash?: string,
+  ) {
+    const audience = customerAccountId
+      ? `customer:${customerAccountId}`
+      : `visitor:${visitorHash ?? "unknown"}`;
+    const encoded = Buffer.from(JSON.stringify({
+      a: audience,
+      exp: Date.now() + 30 * 60 * 1000,
+      id,
+      k: kind,
+      n: randomBytes(12).toString("base64url"),
+      v: 1,
+    }), "utf8").toString("base64url");
+    return `${encoded}.${hmacPrivateValue(encoded, this.analyticsSecret())}`;
+  }
+
+  private verifyDiscoveryToken(
+    token: string,
+    kind: "product" | "showcase" | "shop",
+    id: string,
+    customerAccountId?: string,
+    visitorHash?: string,
+  ) {
+    try {
+      const [encoded, signature, extra] = token.split(".");
+      if (!encoded || !signature || extra) return null;
+      const expected = hmacPrivateValue(encoded, this.analyticsSecret());
+      const providedBuffer = Buffer.from(signature, "hex");
+      const expectedBuffer = Buffer.from(expected, "hex");
+      if (
+        providedBuffer.length !== expectedBuffer.length ||
+        !timingSafeEqual(providedBuffer, expectedBuffer)
+      ) return null;
+      const value = JSON.parse(
+        Buffer.from(encoded, "base64url").toString("utf8"),
+      ) as { a?: unknown; exp?: unknown; id?: unknown; k?: unknown; n?: unknown; v?: unknown };
+      const audience = customerAccountId
+        ? `customer:${customerAccountId}`
+        : `visitor:${visitorHash ?? "unknown"}`;
+      if (
+        value.v !== 1 ||
+        value.k !== kind ||
+        value.id !== id ||
+        value.a !== audience ||
+        typeof value.n !== "string" ||
+        typeof value.exp !== "number" ||
+        value.exp <= Date.now()
+      ) return null;
+      return value as { a: string; exp: number; id: string; k: string; n: string; v: 1 };
+    } catch {
+      return null;
+    }
+  }
+
+  private signedEventsRequired() {
+    const configured = this.config.get<string>("DISCOVERY_SIGNED_EVENTS_REQUIRED");
+    return configured === "true" ||
+      (configured === undefined && this.config.get("NODE_ENV") === "production");
+  }
+
+  private analyticsSecret() {
+    return this.config.get<string>("ANALYTICS_HMAC_SECRET") ||
+      this.config.get<string>("SESSION_HASH_SECRET") ||
+      "development-analytics-secret";
   }
 
   async publicShowcase(id: string) {

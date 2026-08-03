@@ -64,6 +64,7 @@ export class AuthController {
   }
 
   @Post("login")
+  @Throttle({ default: { limit: 5, ttl: minutes(15) } })
   async login(
     @Body() dto: LoginDto,
     @Req() request: Request,

@@ -70,6 +70,7 @@ export type OrderRequestMinAggregateOutputType = {
   cancellationReason: string | null
   canceledBy: string | null
   status: $Enums.OrderRequestStatus | null
+  ownerReadAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -108,6 +109,7 @@ export type OrderRequestMaxAggregateOutputType = {
   cancellationReason: string | null
   canceledBy: string | null
   status: $Enums.OrderRequestStatus | null
+  ownerReadAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -146,6 +148,7 @@ export type OrderRequestCountAggregateOutputType = {
   cancellationReason: number
   canceledBy: number
   status: number
+  ownerReadAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -196,6 +199,7 @@ export type OrderRequestMinAggregateInputType = {
   cancellationReason?: true
   canceledBy?: true
   status?: true
+  ownerReadAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -234,6 +238,7 @@ export type OrderRequestMaxAggregateInputType = {
   cancellationReason?: true
   canceledBy?: true
   status?: true
+  ownerReadAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -272,6 +277,7 @@ export type OrderRequestCountAggregateInputType = {
   cancellationReason?: true
   canceledBy?: true
   status?: true
+  ownerReadAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -397,6 +403,7 @@ export type OrderRequestGroupByOutputType = {
   cancellationReason: string | null
   canceledBy: string | null
   status: $Enums.OrderRequestStatus
+  ownerReadAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: OrderRequestCountAggregateOutputType | null
@@ -458,6 +465,7 @@ export type OrderRequestWhereInput = {
   cancellationReason?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   canceledBy?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   status?: Prisma.EnumOrderRequestStatusFilter<"OrderRequest"> | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.DateTimeNullableFilter<"OrderRequest"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"OrderRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"OrderRequest"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -510,6 +518,7 @@ export type OrderRequestOrderByWithRelationInput = {
   cancellationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   canceledBy?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  ownerReadAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
@@ -566,6 +575,7 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   cancellationReason?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   canceledBy?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   status?: Prisma.EnumOrderRequestStatusFilter<"OrderRequest"> | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.DateTimeNullableFilter<"OrderRequest"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"OrderRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"OrderRequest"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -618,6 +628,7 @@ export type OrderRequestOrderByWithAggregationInput = {
   cancellationReason?: Prisma.SortOrderInput | Prisma.SortOrder
   canceledBy?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  ownerReadAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.OrderRequestCountOrderByAggregateInput
@@ -664,6 +675,7 @@ export type OrderRequestScalarWhereWithAggregatesInput = {
   cancellationReason?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   canceledBy?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   status?: Prisma.EnumOrderRequestStatusWithAggregatesFilter<"OrderRequest"> | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.DateTimeNullableWithAggregatesFilter<"OrderRequest"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"OrderRequest"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"OrderRequest"> | Date | string
 }
@@ -697,6 +709,7 @@ export type OrderRequestCreateInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -749,6 +762,7 @@ export type OrderRequestUncheckedCreateInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -791,6 +805,7 @@ export type OrderRequestUpdateInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -843,6 +858,7 @@ export type OrderRequestUncheckedUpdateInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -890,6 +906,7 @@ export type OrderRequestCreateManyInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -923,6 +940,7 @@ export type OrderRequestUpdateManyMutationInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -961,6 +979,7 @@ export type OrderRequestUncheckedUpdateManyInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1019,6 +1038,7 @@ export type OrderRequestCountOrderByAggregateInput = {
   cancellationReason?: Prisma.SortOrder
   canceledBy?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  ownerReadAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1062,6 +1082,7 @@ export type OrderRequestMaxOrderByAggregateInput = {
   cancellationReason?: Prisma.SortOrder
   canceledBy?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  ownerReadAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1100,6 +1121,7 @@ export type OrderRequestMinOrderByAggregateInput = {
   cancellationReason?: Prisma.SortOrder
   canceledBy?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  ownerReadAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1501,6 +1523,7 @@ export type OrderRequestCreateWithoutBusinessInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutRequestsInput
@@ -1551,6 +1574,7 @@ export type OrderRequestUncheckedCreateWithoutBusinessInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -1627,6 +1651,7 @@ export type OrderRequestScalarWhereInput = {
   cancellationReason?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   canceledBy?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   status?: Prisma.EnumOrderRequestStatusFilter<"OrderRequest"> | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.DateTimeNullableFilter<"OrderRequest"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"OrderRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"OrderRequest"> | Date | string
 }
@@ -1660,6 +1685,7 @@ export type OrderRequestCreateWithoutCustomerAccountInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -1710,6 +1736,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -1778,6 +1805,7 @@ export type OrderRequestCreateWithoutCustomerInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -1828,6 +1856,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -1896,6 +1925,7 @@ export type OrderRequestCreateWithoutCustomerAddressInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -1946,6 +1976,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -2014,6 +2045,7 @@ export type OrderRequestCreateWithoutSourceShowcaseInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -2064,6 +2096,7 @@ export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -2132,6 +2165,7 @@ export type OrderRequestCreateWithoutPromotionReservationsInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -2183,6 +2217,7 @@ export type OrderRequestUncheckedCreateWithoutPromotionReservationsInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -2240,6 +2275,7 @@ export type OrderRequestUpdateWithoutPromotionReservationsInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -2291,6 +2327,7 @@ export type OrderRequestUncheckedUpdateWithoutPromotionReservationsInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -2332,6 +2369,7 @@ export type OrderRequestCreateWithoutReportsInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -2383,6 +2421,7 @@ export type OrderRequestUncheckedCreateWithoutReportsInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -2440,6 +2479,7 @@ export type OrderRequestUpdateWithoutReportsInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -2491,6 +2531,7 @@ export type OrderRequestUncheckedUpdateWithoutReportsInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -2532,6 +2573,7 @@ export type OrderRequestCreateWithoutTermChangesInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -2583,6 +2625,7 @@ export type OrderRequestUncheckedCreateWithoutTermChangesInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -2640,6 +2683,7 @@ export type OrderRequestUpdateWithoutTermChangesInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -2691,6 +2735,7 @@ export type OrderRequestUncheckedUpdateWithoutTermChangesInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -2732,6 +2777,7 @@ export type OrderRequestCreateWithoutCustomerNoticesInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -2783,6 +2829,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerNoticesInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -2840,6 +2887,7 @@ export type OrderRequestUpdateWithoutCustomerNoticesInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -2891,6 +2939,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerNoticesInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -2932,6 +2981,7 @@ export type OrderRequestCreateWithoutShareTokensInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -2983,6 +3033,7 @@ export type OrderRequestUncheckedCreateWithoutShareTokensInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -3040,6 +3091,7 @@ export type OrderRequestUpdateWithoutShareTokensInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -3091,6 +3143,7 @@ export type OrderRequestUncheckedUpdateWithoutShareTokensInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -3132,6 +3185,7 @@ export type OrderRequestCreateWithoutItemsInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -3183,6 +3237,7 @@ export type OrderRequestUncheckedCreateWithoutItemsInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   convertedSale?: Prisma.SaleUncheckedCreateNestedOneWithoutSourceRequestInput
@@ -3240,6 +3295,7 @@ export type OrderRequestUpdateWithoutItemsInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -3291,6 +3347,7 @@ export type OrderRequestUncheckedUpdateWithoutItemsInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   convertedSale?: Prisma.SaleUncheckedUpdateOneWithoutSourceRequestNestedInput
@@ -3332,6 +3389,7 @@ export type OrderRequestCreateWithoutPaymentChangesInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -3383,6 +3441,7 @@ export type OrderRequestUncheckedCreateWithoutPaymentChangesInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -3440,6 +3499,7 @@ export type OrderRequestUpdateWithoutPaymentChangesInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -3491,6 +3551,7 @@ export type OrderRequestUncheckedUpdateWithoutPaymentChangesInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -3532,6 +3593,7 @@ export type OrderRequestCreateWithoutEventsInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -3583,6 +3645,7 @@ export type OrderRequestUncheckedCreateWithoutEventsInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -3640,6 +3703,7 @@ export type OrderRequestUpdateWithoutEventsInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -3691,6 +3755,7 @@ export type OrderRequestUncheckedUpdateWithoutEventsInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -3732,6 +3797,7 @@ export type OrderRequestCreateWithoutConvertedSaleInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutOrderRequestsInput
@@ -3783,6 +3849,7 @@ export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.OrderRequestItemUncheckedCreateNestedManyWithoutOrderRequestInput
@@ -3840,6 +3907,7 @@ export type OrderRequestUpdateWithoutConvertedSaleInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -3891,6 +3959,7 @@ export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -3936,6 +4005,7 @@ export type OrderRequestCreateManyBusinessInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3969,6 +4039,7 @@ export type OrderRequestUpdateWithoutBusinessInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutRequestsNestedInput
@@ -4019,6 +4090,7 @@ export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -4065,6 +4137,7 @@ export type OrderRequestUncheckedUpdateManyWithoutBusinessInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -4102,6 +4175,7 @@ export type OrderRequestCreateManyCustomerAccountInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -4135,6 +4209,7 @@ export type OrderRequestUpdateWithoutCustomerAccountInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -4185,6 +4260,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -4231,6 +4307,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAccountInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -4268,6 +4345,7 @@ export type OrderRequestCreateManyCustomerInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -4301,6 +4379,7 @@ export type OrderRequestUpdateWithoutCustomerInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -4351,6 +4430,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -4397,6 +4477,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -4434,6 +4515,7 @@ export type OrderRequestCreateManyCustomerAddressInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -4467,6 +4549,7 @@ export type OrderRequestUpdateWithoutCustomerAddressInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -4517,6 +4600,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -4563,6 +4647,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -4600,6 +4685,7 @@ export type OrderRequestCreateManySourceShowcaseInput = {
   cancellationReason?: string | null
   canceledBy?: string | null
   status?: $Enums.OrderRequestStatus
+  ownerReadAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -4633,6 +4719,7 @@ export type OrderRequestUpdateWithoutSourceShowcaseInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutOrderRequestsNestedInput
@@ -4683,6 +4770,7 @@ export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.OrderRequestItemUncheckedUpdateManyWithoutOrderRequestNestedInput
@@ -4729,6 +4817,7 @@ export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput = {
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   canceledBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumOrderRequestStatusFieldUpdateOperationsInput | $Enums.OrderRequestStatus
+  ownerReadAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -4861,6 +4950,7 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   cancellationReason?: boolean
   canceledBy?: boolean
   status?: boolean
+  ownerReadAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -4914,6 +5004,7 @@ export type OrderRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   cancellationReason?: boolean
   canceledBy?: boolean
   status?: boolean
+  ownerReadAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -4957,6 +5048,7 @@ export type OrderRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   cancellationReason?: boolean
   canceledBy?: boolean
   status?: boolean
+  ownerReadAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -5000,11 +5092,12 @@ export type OrderRequestSelectScalar = {
   cancellationReason?: boolean
   canceledBy?: boolean
   status?: boolean
+  ownerReadAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "agreedFulfillment" | "customerAddressId" | "sourceShowcaseId" | "requestedPaymentMethod" | "agreedPaymentMethod" | "clientIdempotencyKey" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryCountryCode" | "deliveryAdministrativeArea1" | "deliveryLocality" | "deliveryEligibility" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "cancellationReasonCode" | "cancellationReason" | "canceledBy" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
+export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "agreedFulfillment" | "customerAddressId" | "sourceShowcaseId" | "requestedPaymentMethod" | "agreedPaymentMethod" | "clientIdempotencyKey" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryCountryCode" | "deliveryAdministrativeArea1" | "deliveryLocality" | "deliveryEligibility" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "cancellationReasonCode" | "cancellationReason" | "canceledBy" | "status" | "ownerReadAt" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
 export type OrderRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
@@ -5089,6 +5182,7 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     cancellationReason: string | null
     canceledBy: string | null
     status: $Enums.OrderRequestStatus
+    ownerReadAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["orderRequest"]>
@@ -5561,6 +5655,7 @@ export interface OrderRequestFieldRefs {
   readonly cancellationReason: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly canceledBy: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly status: Prisma.FieldRef<"OrderRequest", 'OrderRequestStatus'>
+  readonly ownerReadAt: Prisma.FieldRef<"OrderRequest", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"OrderRequest", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"OrderRequest", 'DateTime'>
 }

@@ -16,10 +16,14 @@ import type {
 import { PrismaService } from "../prisma/prisma.service";
 import { normalizeE164 } from "../messaging/twilio-whatsapp.provider";
 import type {
+  GrantPlatformAdminDto,
   AdminListQueryDto,
   ReactivateBusinessDto,
+  ReviewPlatformAdminDto,
   ReviewCustomerReportDto,
+  RevokePlatformSessionDto,
   SuspendBusinessDto,
+  UpdatePlatformAdminDto,
 } from "./dto/platform-admin.dto";
 import { discoverySource } from "../shops/discovery-attribution";
 
@@ -312,34 +316,26 @@ export class PlatformAdminService {
     reportId: string,
     dto: ReviewCustomerReportDto,
   ) {
-    const before = await this.prisma.customerReport.findUnique({
-      where: { id: reportId },
+    return this.prisma.$transaction(async (tx) => {
+      const before = await tx.customerReport.findUnique({ where: { id: reportId } });
+      if (!before) throw new NotFoundException("Customer report not found");
+      const report = await tx.customerReport.update({
+        where: { id: reportId },
+        data: {
+          status: dto.status,
+          reviewNotes: dto.notes?.trim(),
+          reviewedAt: dto.status === "OPEN" ? null : new Date(),
+          reviewedByAdminId: dto.status === "OPEN" ? null : auth.platformAdminId,
+        },
+        include: {
+          business: { select: { id: true, name: true, slug: true, platformStatus: true } },
+          reporter: { select: { id: true, name: true, phone: true } },
+          reviewedBy: { select: { id: true, user: { select: { name: true } } } },
+        },
+      });
+      await this.audit(auth, "CUSTOMER_REPORT_REVIEWED", "CustomerReport", report.id, dto.notes, before, report, tx);
+      return report;
     });
-    if (!before) throw new NotFoundException("Customer report not found");
-    const report = await this.prisma.customerReport.update({
-      where: { id: reportId },
-      data: {
-        status: dto.status,
-        reviewNotes: dto.notes?.trim(),
-        reviewedAt: dto.status === "OPEN" ? null : new Date(),
-        reviewedByAdminId: dto.status === "OPEN" ? null : auth.platformAdminId,
-      },
-      include: {
-        business: { select: { id: true, name: true, slug: true, platformStatus: true } },
-        reporter: { select: { id: true, name: true, phone: true } },
-        reviewedBy: { select: { id: true, user: { select: { name: true } } } },
-      },
-    });
-    await this.audit(
-      auth,
-      "CUSTOMER_REPORT_REVIEWED",
-      "CustomerReport",
-      report.id,
-      dto.notes,
-      before,
-      report,
-    );
-    return report;
   }
 
   async applications(query: AdminListQueryDto) {
@@ -673,43 +669,47 @@ export class PlatformAdminService {
   async suspendBusiness(auth: PlatformAuthContext, id: string, dto: SuspendBusinessDto) {
     this.requireSuperadmin(auth);
     this.requireRecentStepUp(auth);
-    const business = await this.prisma.business.findUnique({ where: { id } });
-    if (!business) throw new NotFoundException("Business not found");
-    if (dto.confirmation.trim().toLowerCase() !== business.name.trim().toLowerCase()) {
-      throw new BadRequestException("Enter the business name exactly to confirm suspension");
-    }
-    const updated = await this.prisma.business.update({
-      where: { id },
-      data: {
-        platformStatus: "SUSPENDED",
-        platformSuspendedAt: new Date(),
-        platformSuspensionReason: dto.reason,
-        platformSuspendedByAdminId: auth.platformAdminId,
-      },
+    return this.prisma.$transaction(async (tx) => {
+      const business = await tx.business.findUnique({ where: { id } });
+      if (!business) throw new NotFoundException("Business not found");
+      if (dto.confirmation.trim().toLowerCase() !== business.name.trim().toLowerCase()) {
+        throw new BadRequestException("Enter the business name exactly to confirm suspension");
+      }
+      const updated = await tx.business.update({
+        where: { id },
+        data: {
+          platformStatus: "SUSPENDED",
+          platformSuspendedAt: new Date(),
+          platformSuspensionReason: dto.reason,
+          platformSuspendedByAdminId: auth.platformAdminId,
+        },
+      });
+      await this.audit(auth, "BUSINESS_SUSPENDED", "Business", id, dto.reason, business, updated, tx);
+      return updated;
     });
-    await this.audit(auth, "BUSINESS_SUSPENDED", "Business", id, dto.reason, business, updated);
-    return updated;
   }
 
   async reactivateBusiness(auth: PlatformAuthContext, id: string, dto: ReactivateBusinessDto) {
     this.requireSuperadmin(auth);
     this.requireRecentStepUp(auth);
-    const business = await this.prisma.business.findUnique({ where: { id } });
-    if (!business) throw new NotFoundException("Business not found");
-    if (dto.confirmation.trim().toLowerCase() !== business.name.trim().toLowerCase()) {
-      throw new BadRequestException("Enter the business name exactly to confirm reactivation");
-    }
-    const updated = await this.prisma.business.update({
-      where: { id },
-      data: {
-        platformStatus: "ACTIVE",
-        platformSuspendedAt: null,
-        platformSuspensionReason: null,
-        platformSuspendedByAdminId: null,
-      },
+    return this.prisma.$transaction(async (tx) => {
+      const business = await tx.business.findUnique({ where: { id } });
+      if (!business) throw new NotFoundException("Business not found");
+      if (dto.confirmation.trim().toLowerCase() !== business.name.trim().toLowerCase()) {
+        throw new BadRequestException("Enter the business name exactly to confirm reactivation");
+      }
+      const updated = await tx.business.update({
+        where: { id },
+        data: {
+          platformStatus: "ACTIVE",
+          platformSuspendedAt: null,
+          platformSuspensionReason: null,
+          platformSuspendedByAdminId: null,
+        },
+      });
+      await this.audit(auth, "BUSINESS_REACTIVATED", "Business", id, dto.reason, business, updated, tx);
+      return updated;
     });
-    await this.audit(auth, "BUSINESS_REACTIVATED", "Business", id, dto.reason, business, updated);
-    return updated;
   }
 
   async auditLogs(query: AdminListQueryDto) {
@@ -724,6 +724,218 @@ export class PlatformAdminService {
       this.prisma.platformAdminAuditLog.count(),
     ]);
     return pageResult(items, total, page, pageSize);
+  }
+
+  async platformAdmins(query: AdminListQueryDto) {
+    const { page, pageSize, skip } = paging(query);
+    const where: Prisma.PlatformAdminWhereInput = {
+      ...(query.status ? { status: query.status as never } : {}),
+      ...(query.search
+        ? {
+            user: {
+              OR: [
+                { name: { contains: query.search, mode: "insensitive" } },
+                { email: { contains: query.search, mode: "insensitive" } },
+              ],
+            },
+          }
+        : {}),
+    };
+    const [items, total] = await this.prisma.$transaction([
+      this.prisma.platformAdmin.findMany({
+        where,
+        include: {
+          user: { select: { id: true, email: true, name: true, phone: true } },
+          _count: { select: { passkeys: true, recoveryCodes: true, sessions: true } },
+          sessions: {
+            where: { revokedAt: null, expiresAt: { gt: new Date() } },
+            select: { id: true },
+          },
+        },
+        orderBy: [{ status: "asc" }, { role: "asc" }, { createdAt: "asc" }],
+        skip,
+        take: pageSize,
+      }),
+      this.prisma.platformAdmin.count({ where }),
+    ]);
+    return pageResult(items, total, page, pageSize);
+  }
+
+  async grantPlatformAdmin(
+    auth: PlatformAuthContext,
+    dto: GrantPlatformAdminDto,
+  ) {
+    this.requireSuperadmin(auth);
+    this.requireRecentStepUp(auth);
+    const user = await this.prisma.user.findUnique({
+      where: { email: dto.email.trim().toLowerCase() },
+      include: { platformAdmin: true },
+    });
+    if (!user) throw new NotFoundException("User account not found");
+    if (user.platformAdmin) {
+      throw new BadRequestException("This user already has platform access");
+    }
+    return this.prisma.$transaction(async (tx) => {
+      const admin = await tx.platformAdmin.create({
+        data: { userId: user.id, role: dto.role, lastReviewedAt: new Date() },
+        include: { user: { select: { id: true, email: true, name: true, phone: true } } },
+      });
+      await this.audit(
+        auth,
+        "PLATFORM_ADMIN_GRANTED",
+        "PlatformAdmin",
+        admin.id,
+        `Granted ${dto.role} access`,
+        undefined,
+        admin,
+        tx,
+      );
+      return admin;
+    });
+  }
+
+  async updatePlatformAdmin(
+    auth: PlatformAuthContext,
+    id: string,
+    dto: UpdatePlatformAdminDto,
+  ) {
+    this.requireSuperadmin(auth);
+    this.requireRecentStepUp(auth);
+    const before = await this.prisma.platformAdmin.findUnique({
+      where: { id },
+      include: { user: { select: { id: true, email: true, name: true, phone: true } } },
+    });
+    if (!before) throw new NotFoundException("Platform administrator not found");
+    if (dto.confirmation.trim().toLowerCase() !== before.user.email.toLowerCase()) {
+      throw new BadRequestException("Enter the administrator email exactly to confirm");
+    }
+    const nextRole = dto.role ?? before.role;
+    const nextStatus = dto.status ?? before.status;
+    if (nextRole === before.role && nextStatus === before.status) {
+      throw new BadRequestException("Choose a role or status change");
+    }
+    if (
+      before.id === auth.platformAdminId &&
+      (nextRole !== "SUPERADMIN" || nextStatus !== "ACTIVE")
+    ) {
+      throw new BadRequestException("You cannot remove your own SUPERADMIN access");
+    }
+    if (
+      before.role === "SUPERADMIN" &&
+      before.status === "ACTIVE" &&
+      (nextRole !== "SUPERADMIN" || nextStatus !== "ACTIVE")
+    ) {
+      const activeSuperadmins = await this.prisma.platformAdmin.count({
+        where: { role: "SUPERADMIN", status: "ACTIVE" },
+      });
+      if (activeSuperadmins <= 1) {
+        throw new BadRequestException("At least one active SUPERADMIN is required");
+      }
+    }
+    return this.prisma.$transaction(async (tx) => {
+      const updated = await tx.platformAdmin.update({
+        where: { id },
+        data: { role: nextRole, status: nextStatus },
+        include: { user: { select: { id: true, email: true, name: true, phone: true } } },
+      });
+      if (nextStatus === "SUSPENDED") {
+        await tx.platformAdminSession.updateMany({
+          where: { platformAdminId: id, revokedAt: null },
+          data: { revokedAt: new Date() },
+        });
+      }
+      await this.audit(
+        auth,
+        "PLATFORM_ADMIN_ACCESS_UPDATED",
+        "PlatformAdmin",
+        id,
+        dto.reason,
+        before,
+        updated,
+        tx,
+      );
+      return updated;
+    });
+  }
+
+  async reviewPlatformAdmin(
+    auth: PlatformAuthContext,
+    id: string,
+    dto: ReviewPlatformAdminDto,
+  ) {
+    this.requireSuperadmin(auth);
+    const before = await this.prisma.platformAdmin.findUnique({ where: { id } });
+    if (!before) throw new NotFoundException("Platform administrator not found");
+    return this.prisma.$transaction(async (tx) => {
+      const updated = await tx.platformAdmin.update({
+        where: { id },
+        data: { lastReviewedAt: new Date() },
+        include: { user: { select: { id: true, email: true, name: true } } },
+      });
+      await this.audit(
+        auth,
+        "PLATFORM_ADMIN_ACCESS_REVIEWED",
+        "PlatformAdmin",
+        id,
+        dto.notes,
+        before,
+        updated,
+        tx,
+      );
+      return updated;
+    });
+  }
+
+  async platformAdminSessions(id: string) {
+    const admin = await this.prisma.platformAdmin.findUnique({ where: { id }, select: { id: true } });
+    if (!admin) throw new NotFoundException("Platform administrator not found");
+    return this.prisma.platformAdminSession.findMany({
+      where: { platformAdminId: id },
+      select: {
+        id: true,
+        authenticationMethod: true,
+        createdAt: true,
+        expiresAt: true,
+        lastUsedAt: true,
+        revokedAt: true,
+        userAgent: true,
+        ipHash: true,
+        passkey: { select: { id: true, name: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 100,
+    });
+  }
+
+  async revokePlatformAdminSession(
+    auth: PlatformAuthContext,
+    adminId: string,
+    sessionId: string,
+    dto: RevokePlatformSessionDto,
+  ) {
+    this.requireSuperadmin(auth);
+    this.requireRecentStepUp(auth);
+    return this.prisma.$transaction(async (tx) => {
+      const existing = await tx.platformAdminSession.findFirst({
+        where: { id: sessionId, platformAdminId: adminId },
+      });
+      if (!existing) throw new NotFoundException("Platform session not found");
+      const updated = await tx.platformAdminSession.update({
+        where: { id: sessionId },
+        data: { revokedAt: existing.revokedAt ?? new Date() },
+      });
+      await this.audit(
+        auth,
+        "PLATFORM_ADMIN_SESSION_REVOKED",
+        "PlatformAdminSession",
+        sessionId,
+        dto.reason,
+        existing,
+        updated,
+        tx,
+      );
+      return updated;
+    });
   }
 
   private async memberJourneys(includeDemo: boolean) {
@@ -810,8 +1022,9 @@ export class PlatformAdminService {
     reason?: string,
     before?: unknown,
     after?: unknown,
+    client: Prisma.TransactionClient | PrismaService = this.prisma,
   ) {
-    return this.prisma.platformAdminAuditLog.create({
+    return client.platformAdminAuditLog.create({
       data: {
         actorAdminId: auth.platformAdminId,
         action,
@@ -820,6 +1033,9 @@ export class PlatformAdminService {
         reason,
         before: redactAudit(before) as Prisma.InputJsonValue | undefined,
         after: redactAudit(after) as Prisma.InputJsonValue | undefined,
+        requestId: auth.requestId,
+        ipHash: auth.ipHash,
+        userAgent: auth.userAgent,
       },
     });
   }
@@ -860,10 +1076,15 @@ function hasEventInWindow(
 }
 
 function redactAudit(value: unknown): unknown {
+  if (typeof value === "bigint") return value.toString();
+  if (value instanceof Date) return value.toISOString();
+  if (Array.isArray(value)) return value.map(redactAudit);
   if (!value || typeof value !== "object") return value;
-  const json = JSON.parse(JSON.stringify(value)) as Record<string, unknown>;
-  for (const key of ["codeHash", "encryptedToken", "passwordHash", "tokenHash"]) {
-    if (key in json) json[key] = "[REDACTED]";
+  const result: Record<string, unknown> = {};
+  for (const [key, child] of Object.entries(value)) {
+    result[key] = /(?:code|credential|encrypted|password|secret|token)hash|privatekey/i.test(key)
+      ? "[REDACTED]"
+      : redactAudit(child);
   }
-  return json;
+  return result;
 }

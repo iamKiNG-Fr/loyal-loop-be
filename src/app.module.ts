@@ -6,6 +6,7 @@ import { ApiExceptionFilter } from "./common/api-exception.filter";
 import { SecurityModule } from "./common/auth/security.module";
 import { RequestIdInterceptor } from "./common/request-id.interceptor";
 import { ActivityModule } from "./modules/activity/activity.module";
+import { AttentionModule } from "./modules/attention/attention.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { BillingModule } from "./modules/billing/billing.module";
 import { BusinessesModule } from "./modules/businesses/businesses.module";
@@ -36,25 +37,88 @@ import { WaitlistModule } from "./modules/waitlist/waitlist.module";
 import { FoundingCircleModule } from "./modules/founding-circle/founding-circle.module";
 import { PlatformAuthModule } from "./modules/platform-auth/platform-auth.module";
 import { PlatformAdminModule } from "./modules/platform-admin/platform-admin.module";
+import { validateEnvironment } from "./config/environment";
+import { CsrfGuard } from "./common/auth/csrf.guard";
+import { RedisThrottlerStorage } from "./common/redis-throttler.storage";
+import { hmacPrivateValue } from "./common/crypto.util";
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true, validate: validateEnvironment }),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => [
-        {
-          ttl: getPositiveNumber(configService, "RATE_LIMIT_TTL_MS", 60000),
-          limit: getPositiveNumber(configService, "RATE_LIMIT_MAX", 100),
-        },
-      ],
+      useFactory: async (configService: ConfigService) => {
+        const storage = configService.get("RATE_LIMIT_REDIS_ENABLED") === "true"
+          ? await RedisThrottlerStorage.connect(configService.getOrThrow<string>("REDIS_URL"))
+          : undefined;
+        const accountSecret =
+          configService.get<string>("SESSION_HASH_SECRET") ||
+          "development-rate-limit";
+        return {
+          storage,
+          throttlers: [
+            {
+              name: "default",
+              ttl: getPositiveNumber(configService, "RATE_LIMIT_TTL_MS", 60000),
+              limit: getPositiveNumber(configService, "RATE_LIMIT_MAX", 100),
+            },
+            {
+              name: "login-account",
+              ttl: 15 * 60 * 1000,
+              limit: 8,
+              blockDuration: 15 * 60 * 1000,
+              skipIf: (context) => !context.switchToHttp().getRequest().originalUrl?.endsWith("/auth/login"),
+              getTracker: (request) => hmacPrivateValue(
+                String(request.body?.email ?? "missing").trim().toLowerCase(),
+                accountSecret,
+              ),
+            },
+            {
+              name: "discovery-events",
+              ttl: 60 * 1000,
+              limit: 30,
+              blockDuration: 5 * 60 * 1000,
+              skipIf: (context) => !/\/(public\/discovery|customer-discovery)\/events(?:\?|$)/.test(
+                context.switchToHttp().getRequest().originalUrl ?? "",
+              ),
+            },
+            {
+              name: "otp-target",
+              ttl: 15 * 60 * 1000,
+              limit: 5,
+              blockDuration: 15 * 60 * 1000,
+              skipIf: (context) => !/\/whatsapp\/start(?:\?|$)/.test(
+                context.switchToHttp().getRequest().originalUrl ?? "",
+              ),
+              getTracker: (request) => hmacPrivateValue(
+                String(request.body?.phone ?? "missing").replace(/\D/g, ""),
+                accountSecret,
+              ),
+            },
+            {
+              name: "otp-challenge",
+              ttl: 15 * 60 * 1000,
+              limit: 10,
+              blockDuration: 15 * 60 * 1000,
+              skipIf: (context) => !/\/(?:whatsapp|step-up)\/verify(?:\?|$)/.test(
+                context.switchToHttp().getRequest().originalUrl ?? "",
+              ),
+              getTracker: (request) => hmacPrivateValue(
+                String(request.body?.challengeId ?? "missing"),
+                accountSecret,
+              ),
+            },
+          ],
+        };
+      },
     }),
     PrismaModule,
     IntelligenceModule,
     SecurityModule,
     MailModule,
     MessagingModule,
+    AttentionModule,
     WaitlistModule,
     FoundingCircleModule,
     PlatformAuthModule,
@@ -87,6 +151,10 @@ import { PlatformAdminModule } from "./modules/platform-admin/platform-admin.mod
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: CsrfGuard,
     },
     {
       provide: APP_INTERCEPTOR,

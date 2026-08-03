@@ -27,6 +27,7 @@ export type AggregateMessagingConsent = {
 export type MessagingConsentMinAggregateOutputType = {
   id: string | null
   customerAccountId: string | null
+  userId: string | null
   phoneHash: string | null
   purpose: $Enums.MessagePurpose | null
   source: string | null
@@ -39,6 +40,7 @@ export type MessagingConsentMinAggregateOutputType = {
 export type MessagingConsentMaxAggregateOutputType = {
   id: string | null
   customerAccountId: string | null
+  userId: string | null
   phoneHash: string | null
   purpose: $Enums.MessagePurpose | null
   source: string | null
@@ -51,6 +53,7 @@ export type MessagingConsentMaxAggregateOutputType = {
 export type MessagingConsentCountAggregateOutputType = {
   id: number
   customerAccountId: number
+  userId: number
   phoneHash: number
   purpose: number
   source: number
@@ -65,6 +68,7 @@ export type MessagingConsentCountAggregateOutputType = {
 export type MessagingConsentMinAggregateInputType = {
   id?: true
   customerAccountId?: true
+  userId?: true
   phoneHash?: true
   purpose?: true
   source?: true
@@ -77,6 +81,7 @@ export type MessagingConsentMinAggregateInputType = {
 export type MessagingConsentMaxAggregateInputType = {
   id?: true
   customerAccountId?: true
+  userId?: true
   phoneHash?: true
   purpose?: true
   source?: true
@@ -89,6 +94,7 @@ export type MessagingConsentMaxAggregateInputType = {
 export type MessagingConsentCountAggregateInputType = {
   id?: true
   customerAccountId?: true
+  userId?: true
   phoneHash?: true
   purpose?: true
   source?: true
@@ -174,6 +180,7 @@ export type MessagingConsentGroupByArgs<ExtArgs extends runtime.Types.Extensions
 export type MessagingConsentGroupByOutputType = {
   id: string
   customerAccountId: string | null
+  userId: string | null
   phoneHash: string
   purpose: $Enums.MessagePurpose
   source: string
@@ -207,6 +214,7 @@ export type MessagingConsentWhereInput = {
   NOT?: Prisma.MessagingConsentWhereInput | Prisma.MessagingConsentWhereInput[]
   id?: Prisma.StringFilter<"MessagingConsent"> | string
   customerAccountId?: Prisma.StringNullableFilter<"MessagingConsent"> | string | null
+  userId?: Prisma.StringNullableFilter<"MessagingConsent"> | string | null
   phoneHash?: Prisma.StringFilter<"MessagingConsent"> | string
   purpose?: Prisma.EnumMessagePurposeFilter<"MessagingConsent"> | $Enums.MessagePurpose
   source?: Prisma.StringFilter<"MessagingConsent"> | string
@@ -215,11 +223,13 @@ export type MessagingConsentWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountNullableScalarRelationFilter, Prisma.CustomerAccountWhereInput> | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type MessagingConsentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneHash?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   source?: Prisma.SortOrder
@@ -228,6 +238,7 @@ export type MessagingConsentOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   customerAccount?: Prisma.CustomerAccountOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type MessagingConsentWhereUniqueInput = Prisma.AtLeast<{
@@ -237,6 +248,7 @@ export type MessagingConsentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.MessagingConsentWhereInput[]
   NOT?: Prisma.MessagingConsentWhereInput | Prisma.MessagingConsentWhereInput[]
   customerAccountId?: Prisma.StringNullableFilter<"MessagingConsent"> | string | null
+  userId?: Prisma.StringNullableFilter<"MessagingConsent"> | string | null
   phoneHash?: Prisma.StringFilter<"MessagingConsent"> | string
   purpose?: Prisma.EnumMessagePurposeFilter<"MessagingConsent"> | $Enums.MessagePurpose
   source?: Prisma.StringFilter<"MessagingConsent"> | string
@@ -245,11 +257,13 @@ export type MessagingConsentWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
   customerAccount?: Prisma.XOR<Prisma.CustomerAccountNullableScalarRelationFilter, Prisma.CustomerAccountWhereInput> | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "phoneHash_purpose">
 
 export type MessagingConsentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   phoneHash?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   source?: Prisma.SortOrder
@@ -268,6 +282,7 @@ export type MessagingConsentScalarWhereWithAggregatesInput = {
   NOT?: Prisma.MessagingConsentScalarWhereWithAggregatesInput | Prisma.MessagingConsentScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"MessagingConsent"> | string
   customerAccountId?: Prisma.StringNullableWithAggregatesFilter<"MessagingConsent"> | string | null
+  userId?: Prisma.StringNullableWithAggregatesFilter<"MessagingConsent"> | string | null
   phoneHash?: Prisma.StringWithAggregatesFilter<"MessagingConsent"> | string
   purpose?: Prisma.EnumMessagePurposeWithAggregatesFilter<"MessagingConsent"> | $Enums.MessagePurpose
   source?: Prisma.StringWithAggregatesFilter<"MessagingConsent"> | string
@@ -287,11 +302,13 @@ export type MessagingConsentCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutMessagingConsentsInput
+  user?: Prisma.UserCreateNestedOneWithoutMessagingConsentsInput
 }
 
 export type MessagingConsentUncheckedCreateInput = {
   id?: string
   customerAccountId?: string | null
+  userId?: string | null
   phoneHash: string
   purpose: $Enums.MessagePurpose
   source: string
@@ -311,11 +328,13 @@ export type MessagingConsentUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customerAccount?: Prisma.CustomerAccountUpdateOneWithoutMessagingConsentsNestedInput
+  user?: Prisma.UserUpdateOneWithoutMessagingConsentsNestedInput
 }
 
 export type MessagingConsentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneHash?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   source?: Prisma.StringFieldUpdateOperationsInput | string
@@ -328,6 +347,7 @@ export type MessagingConsentUncheckedUpdateInput = {
 export type MessagingConsentCreateManyInput = {
   id?: string
   customerAccountId?: string | null
+  userId?: string | null
   phoneHash: string
   purpose: $Enums.MessagePurpose
   source: string
@@ -351,6 +371,7 @@ export type MessagingConsentUpdateManyMutationInput = {
 export type MessagingConsentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneHash?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   source?: Prisma.StringFieldUpdateOperationsInput | string
@@ -378,6 +399,7 @@ export type MessagingConsentPhoneHashPurposeCompoundUniqueInput = {
 export type MessagingConsentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   phoneHash?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   source?: Prisma.SortOrder
@@ -390,6 +412,7 @@ export type MessagingConsentCountOrderByAggregateInput = {
 export type MessagingConsentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   phoneHash?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   source?: Prisma.SortOrder
@@ -402,6 +425,7 @@ export type MessagingConsentMaxOrderByAggregateInput = {
 export type MessagingConsentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   customerAccountId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   phoneHash?: Prisma.SortOrder
   purpose?: Prisma.SortOrder
   source?: Prisma.SortOrder
@@ -409,6 +433,48 @@ export type MessagingConsentMinOrderByAggregateInput = {
   revokedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type MessagingConsentCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.MessagingConsentCreateWithoutUserInput, Prisma.MessagingConsentUncheckedCreateWithoutUserInput> | Prisma.MessagingConsentCreateWithoutUserInput[] | Prisma.MessagingConsentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.MessagingConsentCreateOrConnectWithoutUserInput | Prisma.MessagingConsentCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.MessagingConsentCreateManyUserInputEnvelope
+  connect?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+}
+
+export type MessagingConsentUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.MessagingConsentCreateWithoutUserInput, Prisma.MessagingConsentUncheckedCreateWithoutUserInput> | Prisma.MessagingConsentCreateWithoutUserInput[] | Prisma.MessagingConsentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.MessagingConsentCreateOrConnectWithoutUserInput | Prisma.MessagingConsentCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.MessagingConsentCreateManyUserInputEnvelope
+  connect?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+}
+
+export type MessagingConsentUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.MessagingConsentCreateWithoutUserInput, Prisma.MessagingConsentUncheckedCreateWithoutUserInput> | Prisma.MessagingConsentCreateWithoutUserInput[] | Prisma.MessagingConsentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.MessagingConsentCreateOrConnectWithoutUserInput | Prisma.MessagingConsentCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.MessagingConsentUpsertWithWhereUniqueWithoutUserInput | Prisma.MessagingConsentUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.MessagingConsentCreateManyUserInputEnvelope
+  set?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+  disconnect?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+  delete?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+  connect?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+  update?: Prisma.MessagingConsentUpdateWithWhereUniqueWithoutUserInput | Prisma.MessagingConsentUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.MessagingConsentUpdateManyWithWhereWithoutUserInput | Prisma.MessagingConsentUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.MessagingConsentScalarWhereInput | Prisma.MessagingConsentScalarWhereInput[]
+}
+
+export type MessagingConsentUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.MessagingConsentCreateWithoutUserInput, Prisma.MessagingConsentUncheckedCreateWithoutUserInput> | Prisma.MessagingConsentCreateWithoutUserInput[] | Prisma.MessagingConsentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.MessagingConsentCreateOrConnectWithoutUserInput | Prisma.MessagingConsentCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.MessagingConsentUpsertWithWhereUniqueWithoutUserInput | Prisma.MessagingConsentUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.MessagingConsentCreateManyUserInputEnvelope
+  set?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+  disconnect?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+  delete?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+  connect?: Prisma.MessagingConsentWhereUniqueInput | Prisma.MessagingConsentWhereUniqueInput[]
+  update?: Prisma.MessagingConsentUpdateWithWhereUniqueWithoutUserInput | Prisma.MessagingConsentUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.MessagingConsentUpdateManyWithWhereWithoutUserInput | Prisma.MessagingConsentUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.MessagingConsentScalarWhereInput | Prisma.MessagingConsentScalarWhereInput[]
 }
 
 export type MessagingConsentCreateNestedManyWithoutCustomerAccountInput = {
@@ -457,8 +523,21 @@ export type EnumMessagePurposeFieldUpdateOperationsInput = {
   set?: $Enums.MessagePurpose
 }
 
-export type MessagingConsentCreateWithoutCustomerAccountInput = {
+export type MessagingConsentCreateWithoutUserInput = {
   id?: string
+  phoneHash: string
+  purpose: $Enums.MessagePurpose
+  source: string
+  grantedAt?: Date | string
+  revokedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customerAccount?: Prisma.CustomerAccountCreateNestedOneWithoutMessagingConsentsInput
+}
+
+export type MessagingConsentUncheckedCreateWithoutUserInput = {
+  id?: string
+  customerAccountId?: string | null
   phoneHash: string
   purpose: $Enums.MessagePurpose
   source: string
@@ -468,8 +547,63 @@ export type MessagingConsentCreateWithoutCustomerAccountInput = {
   updatedAt?: Date | string
 }
 
+export type MessagingConsentCreateOrConnectWithoutUserInput = {
+  where: Prisma.MessagingConsentWhereUniqueInput
+  create: Prisma.XOR<Prisma.MessagingConsentCreateWithoutUserInput, Prisma.MessagingConsentUncheckedCreateWithoutUserInput>
+}
+
+export type MessagingConsentCreateManyUserInputEnvelope = {
+  data: Prisma.MessagingConsentCreateManyUserInput | Prisma.MessagingConsentCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type MessagingConsentUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.MessagingConsentWhereUniqueInput
+  update: Prisma.XOR<Prisma.MessagingConsentUpdateWithoutUserInput, Prisma.MessagingConsentUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.MessagingConsentCreateWithoutUserInput, Prisma.MessagingConsentUncheckedCreateWithoutUserInput>
+}
+
+export type MessagingConsentUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.MessagingConsentWhereUniqueInput
+  data: Prisma.XOR<Prisma.MessagingConsentUpdateWithoutUserInput, Prisma.MessagingConsentUncheckedUpdateWithoutUserInput>
+}
+
+export type MessagingConsentUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.MessagingConsentScalarWhereInput
+  data: Prisma.XOR<Prisma.MessagingConsentUpdateManyMutationInput, Prisma.MessagingConsentUncheckedUpdateManyWithoutUserInput>
+}
+
+export type MessagingConsentScalarWhereInput = {
+  AND?: Prisma.MessagingConsentScalarWhereInput | Prisma.MessagingConsentScalarWhereInput[]
+  OR?: Prisma.MessagingConsentScalarWhereInput[]
+  NOT?: Prisma.MessagingConsentScalarWhereInput | Prisma.MessagingConsentScalarWhereInput[]
+  id?: Prisma.StringFilter<"MessagingConsent"> | string
+  customerAccountId?: Prisma.StringNullableFilter<"MessagingConsent"> | string | null
+  userId?: Prisma.StringNullableFilter<"MessagingConsent"> | string | null
+  phoneHash?: Prisma.StringFilter<"MessagingConsent"> | string
+  purpose?: Prisma.EnumMessagePurposeFilter<"MessagingConsent"> | $Enums.MessagePurpose
+  source?: Prisma.StringFilter<"MessagingConsent"> | string
+  grantedAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
+  revokedAt?: Prisma.DateTimeNullableFilter<"MessagingConsent"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
+}
+
+export type MessagingConsentCreateWithoutCustomerAccountInput = {
+  id?: string
+  phoneHash: string
+  purpose: $Enums.MessagePurpose
+  source: string
+  grantedAt?: Date | string
+  revokedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutMessagingConsentsInput
+}
+
 export type MessagingConsentUncheckedCreateWithoutCustomerAccountInput = {
   id?: string
+  userId?: string | null
   phoneHash: string
   purpose: $Enums.MessagePurpose
   source: string
@@ -505,23 +639,57 @@ export type MessagingConsentUpdateManyWithWhereWithoutCustomerAccountInput = {
   data: Prisma.XOR<Prisma.MessagingConsentUpdateManyMutationInput, Prisma.MessagingConsentUncheckedUpdateManyWithoutCustomerAccountInput>
 }
 
-export type MessagingConsentScalarWhereInput = {
-  AND?: Prisma.MessagingConsentScalarWhereInput | Prisma.MessagingConsentScalarWhereInput[]
-  OR?: Prisma.MessagingConsentScalarWhereInput[]
-  NOT?: Prisma.MessagingConsentScalarWhereInput | Prisma.MessagingConsentScalarWhereInput[]
-  id?: Prisma.StringFilter<"MessagingConsent"> | string
-  customerAccountId?: Prisma.StringNullableFilter<"MessagingConsent"> | string | null
-  phoneHash?: Prisma.StringFilter<"MessagingConsent"> | string
-  purpose?: Prisma.EnumMessagePurposeFilter<"MessagingConsent"> | $Enums.MessagePurpose
-  source?: Prisma.StringFilter<"MessagingConsent"> | string
-  grantedAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
-  revokedAt?: Prisma.DateTimeNullableFilter<"MessagingConsent"> | Date | string | null
-  createdAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"MessagingConsent"> | Date | string
+export type MessagingConsentCreateManyUserInput = {
+  id?: string
+  customerAccountId?: string | null
+  phoneHash: string
+  purpose: $Enums.MessagePurpose
+  source: string
+  grantedAt?: Date | string
+  revokedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MessagingConsentUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneHash?: Prisma.StringFieldUpdateOperationsInput | string
+  purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  grantedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customerAccount?: Prisma.CustomerAccountUpdateOneWithoutMessagingConsentsNestedInput
+}
+
+export type MessagingConsentUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.StringFieldUpdateOperationsInput | string
+  purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  grantedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type MessagingConsentUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneHash?: Prisma.StringFieldUpdateOperationsInput | string
+  purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
+  source?: Prisma.StringFieldUpdateOperationsInput | string
+  grantedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MessagingConsentCreateManyCustomerAccountInput = {
   id?: string
+  userId?: string | null
   phoneHash: string
   purpose: $Enums.MessagePurpose
   source: string
@@ -540,10 +708,12 @@ export type MessagingConsentUpdateWithoutCustomerAccountInput = {
   revokedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutMessagingConsentsNestedInput
 }
 
 export type MessagingConsentUncheckedUpdateWithoutCustomerAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneHash?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   source?: Prisma.StringFieldUpdateOperationsInput | string
@@ -555,6 +725,7 @@ export type MessagingConsentUncheckedUpdateWithoutCustomerAccountInput = {
 
 export type MessagingConsentUncheckedUpdateManyWithoutCustomerAccountInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phoneHash?: Prisma.StringFieldUpdateOperationsInput | string
   purpose?: Prisma.EnumMessagePurposeFieldUpdateOperationsInput | $Enums.MessagePurpose
   source?: Prisma.StringFieldUpdateOperationsInput | string
@@ -569,6 +740,7 @@ export type MessagingConsentUncheckedUpdateManyWithoutCustomerAccountInput = {
 export type MessagingConsentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   customerAccountId?: boolean
+  userId?: boolean
   phoneHash?: boolean
   purpose?: boolean
   source?: boolean
@@ -577,11 +749,13 @@ export type MessagingConsentSelect<ExtArgs extends runtime.Types.Extensions.Inte
   createdAt?: boolean
   updatedAt?: boolean
   customerAccount?: boolean | Prisma.MessagingConsent$customerAccountArgs<ExtArgs>
+  user?: boolean | Prisma.MessagingConsent$userArgs<ExtArgs>
 }, ExtArgs["result"]["messagingConsent"]>
 
 export type MessagingConsentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   customerAccountId?: boolean
+  userId?: boolean
   phoneHash?: boolean
   purpose?: boolean
   source?: boolean
@@ -590,11 +764,13 @@ export type MessagingConsentSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   createdAt?: boolean
   updatedAt?: boolean
   customerAccount?: boolean | Prisma.MessagingConsent$customerAccountArgs<ExtArgs>
+  user?: boolean | Prisma.MessagingConsent$userArgs<ExtArgs>
 }, ExtArgs["result"]["messagingConsent"]>
 
 export type MessagingConsentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   customerAccountId?: boolean
+  userId?: boolean
   phoneHash?: boolean
   purpose?: boolean
   source?: boolean
@@ -603,11 +779,13 @@ export type MessagingConsentSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   createdAt?: boolean
   updatedAt?: boolean
   customerAccount?: boolean | Prisma.MessagingConsent$customerAccountArgs<ExtArgs>
+  user?: boolean | Prisma.MessagingConsent$userArgs<ExtArgs>
 }, ExtArgs["result"]["messagingConsent"]>
 
 export type MessagingConsentSelectScalar = {
   id?: boolean
   customerAccountId?: boolean
+  userId?: boolean
   phoneHash?: boolean
   purpose?: boolean
   source?: boolean
@@ -617,25 +795,30 @@ export type MessagingConsentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type MessagingConsentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customerAccountId" | "phoneHash" | "purpose" | "source" | "grantedAt" | "revokedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["messagingConsent"]>
+export type MessagingConsentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customerAccountId" | "userId" | "phoneHash" | "purpose" | "source" | "grantedAt" | "revokedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["messagingConsent"]>
 export type MessagingConsentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customerAccount?: boolean | Prisma.MessagingConsent$customerAccountArgs<ExtArgs>
+  user?: boolean | Prisma.MessagingConsent$userArgs<ExtArgs>
 }
 export type MessagingConsentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customerAccount?: boolean | Prisma.MessagingConsent$customerAccountArgs<ExtArgs>
+  user?: boolean | Prisma.MessagingConsent$userArgs<ExtArgs>
 }
 export type MessagingConsentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customerAccount?: boolean | Prisma.MessagingConsent$customerAccountArgs<ExtArgs>
+  user?: boolean | Prisma.MessagingConsent$userArgs<ExtArgs>
 }
 
 export type $MessagingConsentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "MessagingConsent"
   objects: {
     customerAccount: Prisma.$CustomerAccountPayload<ExtArgs> | null
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     customerAccountId: string | null
+    userId: string | null
     phoneHash: string
     purpose: $Enums.MessagePurpose
     source: string
@@ -1038,6 +1221,7 @@ readonly fields: MessagingConsentFieldRefs;
 export interface Prisma__MessagingConsentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   customerAccount<T extends Prisma.MessagingConsent$customerAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MessagingConsent$customerAccountArgs<ExtArgs>>): Prisma.Prisma__CustomerAccountClient<runtime.Types.Result.GetResult<Prisma.$CustomerAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.MessagingConsent$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MessagingConsent$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1069,6 +1253,7 @@ export interface Prisma__MessagingConsentClient<T, Null = never, ExtArgs extends
 export interface MessagingConsentFieldRefs {
   readonly id: Prisma.FieldRef<"MessagingConsent", 'String'>
   readonly customerAccountId: Prisma.FieldRef<"MessagingConsent", 'String'>
+  readonly userId: Prisma.FieldRef<"MessagingConsent", 'String'>
   readonly phoneHash: Prisma.FieldRef<"MessagingConsent", 'String'>
   readonly purpose: Prisma.FieldRef<"MessagingConsent", 'MessagePurpose'>
   readonly source: Prisma.FieldRef<"MessagingConsent", 'String'>
@@ -1493,6 +1678,25 @@ export type MessagingConsent$customerAccountArgs<ExtArgs extends runtime.Types.E
    */
   include?: Prisma.CustomerAccountInclude<ExtArgs> | null
   where?: Prisma.CustomerAccountWhereInput
+}
+
+/**
+ * MessagingConsent.user
+ */
+export type MessagingConsent$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

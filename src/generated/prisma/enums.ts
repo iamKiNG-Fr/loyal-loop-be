@@ -131,6 +131,23 @@ export const PlatformAdminStatus = {
 export type PlatformAdminStatus = (typeof PlatformAdminStatus)[keyof typeof PlatformAdminStatus]
 
 
+export const PlatformAdminAuthenticationMethod = {
+  WHATSAPP_OTP: 'WHATSAPP_OTP',
+  PASSKEY: 'PASSKEY',
+  RECOVERY_CODE: 'RECOVERY_CODE'
+} as const
+
+export type PlatformAdminAuthenticationMethod = (typeof PlatformAdminAuthenticationMethod)[keyof typeof PlatformAdminAuthenticationMethod]
+
+
+export const PlatformAdminPasskeyChallengePurpose = {
+  REGISTRATION: 'REGISTRATION',
+  AUTHENTICATION: 'AUTHENTICATION'
+} as const
+
+export type PlatformAdminPasskeyChallengePurpose = (typeof PlatformAdminPasskeyChallengePurpose)[keyof typeof PlatformAdminPasskeyChallengePurpose]
+
+
 export const BusinessPlatformStatus = {
   ACTIVE: 'ACTIVE',
   SUSPENDED: 'SUSPENDED'
@@ -424,7 +441,8 @@ export const ActivityEventType = {
   STREAK_COMPLETED: 'STREAK_COMPLETED',
   MEMBER_PERMISSIONS_UPDATED: 'MEMBER_PERMISSIONS_UPDATED',
   REQUEST_PAYMENT_UPDATED: 'REQUEST_PAYMENT_UPDATED',
-  MESSAGE_ENQUEUED: 'MESSAGE_ENQUEUED'
+  MESSAGE_ENQUEUED: 'MESSAGE_ENQUEUED',
+  ORDER_REQUEST_REVIEWED: 'ORDER_REQUEST_REVIEWED'
 } as const
 
 export type ActivityEventType = (typeof ActivityEventType)[keyof typeof ActivityEventType]
@@ -486,7 +504,8 @@ export const MessagePurpose = {
   RECEIPT: 'RECEIPT',
   DELIVERY: 'DELIVERY',
   REMINDER: 'REMINDER',
-  FOUNDING_ACCESS: 'FOUNDING_ACCESS'
+  FOUNDING_ACCESS: 'FOUNDING_ACCESS',
+  OWNER_DIGEST: 'OWNER_DIGEST'
 } as const
 
 export type MessagePurpose = (typeof MessagePurpose)[keyof typeof MessagePurpose]

@@ -134,6 +134,11 @@ export class DiscoveryEventDto {
   @Min(0)
   @Max(500)
   position?: number;
+
+  @IsOptional()
+  @IsString()
+  @Length(40, 512)
+  impressionToken?: string;
 }
 
 export class ShowcaseHotspotDto {

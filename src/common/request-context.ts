@@ -26,6 +26,9 @@ export type PlatformAuthContext = {
   ownerSessionId: string;
   role: PlatformRole;
   verifiedAt: Date;
+  requestId: string;
+  ipHash?: string;
+  userAgent?: string;
 };
 
 export interface LoyalLoopRequest extends Request {

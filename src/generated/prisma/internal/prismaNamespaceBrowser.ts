@@ -60,6 +60,9 @@ export const ModelName = {
   User: 'User',
   PlatformAdmin: 'PlatformAdmin',
   PlatformAdminSession: 'PlatformAdminSession',
+  PlatformAdminPasskey: 'PlatformAdminPasskey',
+  PlatformAdminPasskeyChallenge: 'PlatformAdminPasskeyChallenge',
+  PlatformAdminRecoveryCode: 'PlatformAdminRecoveryCode',
   PlatformAdminAuditLog: 'PlatformAdminAuditLog',
   OwnerSession: 'OwnerSession',
   OwnerOtpChallenge: 'OwnerOtpChallenge',
@@ -130,6 +133,8 @@ export const ModelName = {
   MessagingConsent: 'MessagingConsent',
   MessagingSuppression: 'MessagingSuppression',
   MessageOutbox: 'MessageOutbox',
+  OwnerAttentionReceipt: 'OwnerAttentionReceipt',
+  OwnerPushSubscription: 'OwnerPushSubscription',
   MessageAttempt: 'MessageAttempt',
   MessagingWebhookEvent: 'MessagingWebhookEvent'
 } as const
@@ -307,15 +312,62 @@ export const PlatformAdminSessionScalarFieldEnum = {
   id: 'id',
   platformAdminId: 'platformAdminId',
   ownerSessionId: 'ownerSessionId',
+  passkeyId: 'passkeyId',
   tokenHash: 'tokenHash',
+  authenticationMethod: 'authenticationMethod',
   verifiedAt: 'verifiedAt',
   expiresAt: 'expiresAt',
   lastUsedAt: 'lastUsedAt',
   revokedAt: 'revokedAt',
+  userAgent: 'userAgent',
+  ipHash: 'ipHash',
   createdAt: 'createdAt'
 } as const
 
 export type PlatformAdminSessionScalarFieldEnum = (typeof PlatformAdminSessionScalarFieldEnum)[keyof typeof PlatformAdminSessionScalarFieldEnum]
+
+
+export const PlatformAdminPasskeyScalarFieldEnum = {
+  id: 'id',
+  platformAdminId: 'platformAdminId',
+  credentialId: 'credentialId',
+  publicKey: 'publicKey',
+  counter: 'counter',
+  transports: 'transports',
+  deviceType: 'deviceType',
+  backedUp: 'backedUp',
+  name: 'name',
+  lastUsedAt: 'lastUsedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlatformAdminPasskeyScalarFieldEnum = (typeof PlatformAdminPasskeyScalarFieldEnum)[keyof typeof PlatformAdminPasskeyScalarFieldEnum]
+
+
+export const PlatformAdminPasskeyChallengeScalarFieldEnum = {
+  id: 'id',
+  platformAdminId: 'platformAdminId',
+  ownerSessionId: 'ownerSessionId',
+  purpose: 'purpose',
+  challenge: 'challenge',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PlatformAdminPasskeyChallengeScalarFieldEnum = (typeof PlatformAdminPasskeyChallengeScalarFieldEnum)[keyof typeof PlatformAdminPasskeyChallengeScalarFieldEnum]
+
+
+export const PlatformAdminRecoveryCodeScalarFieldEnum = {
+  id: 'id',
+  platformAdminId: 'platformAdminId',
+  codeHash: 'codeHash',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PlatformAdminRecoveryCodeScalarFieldEnum = (typeof PlatformAdminRecoveryCodeScalarFieldEnum)[keyof typeof PlatformAdminRecoveryCodeScalarFieldEnum]
 
 
 export const PlatformAdminAuditLogScalarFieldEnum = {
@@ -443,6 +495,16 @@ export const BusinessPreferencesScalarFieldEnum = {
   notifyFollowUps: 'notifyFollowUps',
   notifyReceiptViews: 'notifyReceiptViews',
   notifyDeliveryUpdates: 'notifyDeliveryUpdates',
+  lowStockThreshold: 'lowStockThreshold',
+  dailyDigestWhatsapp: 'dailyDigestWhatsapp',
+  dailyDigestTime: 'dailyDigestTime',
+  dailyDigestWeekdays: 'dailyDigestWeekdays',
+  dailyDigestPhone: 'dailyDigestPhone',
+  dailyDigestConsentAt: 'dailyDigestConsentAt',
+  dailyDigestConsentVersion: 'dailyDigestConsentVersion',
+  dailyDigestPausedAt: 'dailyDigestPausedAt',
+  lastDailyDigestAt: 'lastDailyDigestAt',
+  pushNotificationsEnabled: 'pushNotificationsEnabled',
   exportAccess: 'exportAccess',
   retentionPolicy: 'retentionPolicy',
   createdAt: 'createdAt',
@@ -1017,6 +1079,7 @@ export const OrderRequestScalarFieldEnum = {
   cancellationReason: 'cancellationReason',
   canceledBy: 'canceledBy',
   status: 'status',
+  ownerReadAt: 'ownerReadAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1475,6 +1538,7 @@ export type SupportRequestScalarFieldEnum = (typeof SupportRequestScalarFieldEnu
 export const MessagingConsentScalarFieldEnum = {
   id: 'id',
   customerAccountId: 'customerAccountId',
+  userId: 'userId',
   phoneHash: 'phoneHash',
   purpose: 'purpose',
   source: 'source',
@@ -1503,6 +1567,7 @@ export const MessageOutboxScalarFieldEnum = {
   id: 'id',
   businessId: 'businessId',
   customerAccountId: 'customerAccountId',
+  recipientUserId: 'recipientUserId',
   channel: 'channel',
   purpose: 'purpose',
   toAddress: 'toAddress',
@@ -1521,6 +1586,40 @@ export const MessageOutboxScalarFieldEnum = {
 } as const
 
 export type MessageOutboxScalarFieldEnum = (typeof MessageOutboxScalarFieldEnum)[keyof typeof MessageOutboxScalarFieldEnum]
+
+
+export const OwnerAttentionReceiptScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  userId: 'userId',
+  itemKey: 'itemKey',
+  seenAt: 'seenAt',
+  snoozedUntil: 'snoozedUntil',
+  dismissedAt: 'dismissedAt',
+  pushedAt: 'pushedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OwnerAttentionReceiptScalarFieldEnum = (typeof OwnerAttentionReceiptScalarFieldEnum)[keyof typeof OwnerAttentionReceiptScalarFieldEnum]
+
+
+export const OwnerPushSubscriptionScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  userId: 'userId',
+  endpoint: 'endpoint',
+  endpointHash: 'endpointHash',
+  p256dh: 'p256dh',
+  auth: 'auth',
+  userAgent: 'userAgent',
+  lastUsedAt: 'lastUsedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OwnerPushSubscriptionScalarFieldEnum = (typeof OwnerPushSubscriptionScalarFieldEnum)[keyof typeof OwnerPushSubscriptionScalarFieldEnum]
 
 
 export const MessageAttemptScalarFieldEnum = {

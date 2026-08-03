@@ -96,6 +96,17 @@ enum PlatformAdminStatus {
   SUSPENDED
 }
 
+enum PlatformAdminAuthenticationMethod {
+  WHATSAPP_OTP
+  PASSKEY
+  RECOVERY_CODE
+}
+
+enum PlatformAdminPasskeyChallengePurpose {
+  REGISTRATION
+  AUTHENTICATION
+}
+
 enum BusinessPlatformStatus {
   ACTIVE
   SUSPENDED
@@ -312,6 +323,7 @@ enum ActivityEventType {
   MEMBER_PERMISSIONS_UPDATED
   REQUEST_PAYMENT_UPDATED
   MESSAGE_ENQUEUED
+  ORDER_REQUEST_REVIEWED
 }
 
 enum MediaPurpose {
@@ -356,6 +368,7 @@ enum MessagePurpose {
   DELIVERY
   REMINDER
   FOUNDING_ACCESS
+  OWNER_DIGEST
 }
 
 enum MessageStatus {
@@ -704,49 +717,110 @@ model User {
   permissionOverrides MemberPermissionOverride[] @relation("PermissionOverrideActor")
   platformAdmin       PlatformAdmin?
   mediaReviews        MediaModerationReview[]    @relation("MediaReviewActor")
+  attentionReceipts   OwnerAttentionReceipt[]
+  pushSubscriptions   OwnerPushSubscription[]
+  messageOutbox       MessageOutbox[]            @relation("OwnerMessageRecipient")
+  messagingConsents   MessagingConsent[]         @relation("OwnerMessagingConsent")
 
   @@map("users")
 }
 
 model PlatformAdmin {
-  id                   String                      @id @default(cuid())
-  userId               String                      @unique
+  id                   String                          @id @default(cuid())
+  userId               String                          @unique
   role                 PlatformRole
-  status               PlatformAdminStatus         @default(ACTIVE)
-  createdAt            DateTime                    @default(now())
-  updatedAt            DateTime                    @updatedAt
+  status               PlatformAdminStatus             @default(ACTIVE)
+  createdAt            DateTime                        @default(now())
+  updatedAt            DateTime                        @updatedAt
   lastReviewedAt       DateTime?
-  user                 User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                 User                            @relation(fields: [userId], references: [id], onDelete: Cascade)
   sessions             PlatformAdminSession[]
+  passkeys             PlatformAdminPasskey[]
+  passkeyChallenges    PlatformAdminPasskeyChallenge[]
+  recoveryCodes        PlatformAdminRecoveryCode[]
   auditLogs            PlatformAdminAuditLog[]
-  reviewedApplications FoundingAccessApplication[] @relation("ApplicationReviewer")
-  createdCohorts       FoundingCohort[]            @relation("CohortCreator")
-  createdInvitations   OnboardingInvitation[]      @relation("InvitationCreator")
-  revokedInvitations   OnboardingInvitation[]      @relation("InvitationRevoker")
-  researchInterviews   FoundingResearchInterview[] @relation("ResearchInterviewer")
-  suspendedBusinesses  Business[]                  @relation("BusinessSuspensionActor")
-  reviewedReports      CustomerReport[]             @relation("CustomerReportReviewer")
+  reviewedApplications FoundingAccessApplication[]     @relation("ApplicationReviewer")
+  createdCohorts       FoundingCohort[]                @relation("CohortCreator")
+  createdInvitations   OnboardingInvitation[]          @relation("InvitationCreator")
+  revokedInvitations   OnboardingInvitation[]          @relation("InvitationRevoker")
+  researchInterviews   FoundingResearchInterview[]     @relation("ResearchInterviewer")
+  suspendedBusinesses  Business[]                      @relation("BusinessSuspensionActor")
+  reviewedReports      CustomerReport[]                @relation("CustomerReportReviewer")
 
   @@index([role, status])
   @@map("platform_admins")
 }
 
 model PlatformAdminSession {
-  id              String        @id @default(cuid())
-  platformAdminId String
-  ownerSessionId  String
-  tokenHash       String        @unique
-  verifiedAt      DateTime      @default(now())
-  expiresAt       DateTime
-  lastUsedAt      DateTime      @default(now())
-  revokedAt       DateTime?
-  createdAt       DateTime      @default(now())
-  platformAdmin   PlatformAdmin @relation(fields: [platformAdminId], references: [id], onDelete: Cascade)
-  ownerSession    OwnerSession  @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
+  id                   String                            @id @default(cuid())
+  platformAdminId      String
+  ownerSessionId       String
+  passkeyId            String?
+  tokenHash            String                            @unique
+  authenticationMethod PlatformAdminAuthenticationMethod @default(WHATSAPP_OTP)
+  verifiedAt           DateTime                          @default(now())
+  expiresAt            DateTime
+  lastUsedAt           DateTime                          @default(now())
+  revokedAt            DateTime?
+  userAgent            String?
+  ipHash               String?
+  createdAt            DateTime                          @default(now())
+  platformAdmin        PlatformAdmin                     @relation(fields: [platformAdminId], references: [id], onDelete: Cascade)
+  ownerSession         OwnerSession                      @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
+  passkey              PlatformAdminPasskey?             @relation(fields: [passkeyId], references: [id], onDelete: SetNull)
 
   @@index([platformAdminId, expiresAt])
   @@index([ownerSessionId, revokedAt])
   @@map("platform_admin_sessions")
+}
+
+model PlatformAdminPasskey {
+  id              String                 @id @default(cuid())
+  platformAdminId String
+  credentialId    String                 @unique
+  publicKey       Bytes
+  counter         BigInt                 @default(0)
+  transports      String[]               @default([])
+  deviceType      String?
+  backedUp        Boolean                @default(false)
+  name            String?
+  lastUsedAt      DateTime?
+  createdAt       DateTime               @default(now())
+  updatedAt       DateTime               @updatedAt
+  platformAdmin   PlatformAdmin          @relation(fields: [platformAdminId], references: [id], onDelete: Cascade)
+  sessions        PlatformAdminSession[]
+
+  @@index([platformAdminId, createdAt])
+  @@map("platform_admin_passkeys")
+}
+
+model PlatformAdminPasskeyChallenge {
+  id              String                               @id @default(cuid())
+  platformAdminId String
+  ownerSessionId  String
+  purpose         PlatformAdminPasskeyChallengePurpose
+  challenge       String                               @unique
+  expiresAt       DateTime
+  usedAt          DateTime?
+  createdAt       DateTime                             @default(now())
+  platformAdmin   PlatformAdmin                        @relation(fields: [platformAdminId], references: [id], onDelete: Cascade)
+  ownerSession    OwnerSession                         @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
+
+  @@index([platformAdminId, purpose, expiresAt])
+  @@index([ownerSessionId, usedAt])
+  @@map("platform_admin_passkey_challenges")
+}
+
+model PlatformAdminRecoveryCode {
+  id              String        @id @default(cuid())
+  platformAdminId String
+  codeHash        String        @unique
+  usedAt          DateTime?
+  createdAt       DateTime      @default(now())
+  platformAdmin   PlatformAdmin @relation(fields: [platformAdminId], references: [id], onDelete: Cascade)
+
+  @@index([platformAdminId, usedAt])
+  @@map("platform_admin_recovery_codes")
 }
 
 model PlatformAdminAuditLog {
@@ -770,17 +844,18 @@ model PlatformAdminAuditLog {
 }
 
 model OwnerSession {
-  id                    String                 @id @default(cuid())
-  userId                String
-  tokenHash             String                 @unique
-  userAgent             String?
-  ipHash                String?
-  expiresAt             DateTime
-  lastUsedAt            DateTime               @default(now())
-  revokedAt             DateTime?
-  createdAt             DateTime               @default(now())
-  user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  platformAdminSessions PlatformAdminSession[]
+  id                             String                          @id @default(cuid())
+  userId                         String
+  tokenHash                      String                          @unique
+  userAgent                      String?
+  ipHash                         String?
+  expiresAt                      DateTime
+  lastUsedAt                     DateTime                        @default(now())
+  revokedAt                      DateTime?
+  createdAt                      DateTime                        @default(now())
+  user                           User                            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platformAdminSessions          PlatformAdminSession[]
+  platformAdminPasskeyChallenges PlatformAdminPasskeyChallenge[]
 
   @@index([userId, expiresAt])
   @@map("owner_sessions")
@@ -892,6 +967,8 @@ model Business {
   discoveryPreferences       DiscoveryPreference[]
   promotions                 ProductPromotion[]
   messageOutbox              MessageOutbox[]
+  attentionReceipts          OwnerAttentionReceipt[]
+  pushSubscriptions          OwnerPushSubscription[]
   customerReports            CustomerReport[]
   foundingEnrollment         FoundingProgramEnrollment?
 
@@ -902,33 +979,43 @@ model Business {
 }
 
 model BusinessPreferences {
-  businessId              String              @id
-  currency                String              @default("NGN")
-  numberFormat            NumberFormat        @default(COMMA_DECIMAL)
-  timezone                String              @default("Africa/Lagos")
-  theme                   BusinessTheme       @default(LOYAL_PURPLE)
-  shelfMode               String              @default("carousel")
-  showRecommended         Boolean             @default(true)
-  showLatest              Boolean             @default(true)
-  tickerItems             String[]            @default(["New drops", "Trusted receipts", "Delivery updates", "Customer favourites"])
-  defaultPaymentStatus    PaymentStatus       @default(UNPAID)
-  allowedPaymentMethods   PaymentMethod[]     @default([BANK_TRANSFER, PAY_ON_DELIVERY, CASH])
-  defaultPaymentMethod    PaymentMethod?
-  allowedFulfillmentMethods FulfillmentType[] @default([DELIVERY, PICKUP])
-  deliveryAreas           String[]            @default([])
-  deliveryStates          String[]            @default([])
-  protectedPaymentEnabled Boolean             @default(false)
-  receiptDeliveryLine     ReceiptDeliveryLine @default(OPTIONAL)
-  receiptFooter           String?
-  feedbackResponseTime    String              @default("Within one business day")
-  notifyFollowUps         Boolean             @default(true)
-  notifyReceiptViews      Boolean             @default(false)
-  notifyDeliveryUpdates   Boolean             @default(true)
-  exportAccess            ExportAccess        @default(OWNER_ONLY)
-  retentionPolicy         RetentionPolicy     @default(MANUAL)
-  createdAt               DateTime            @default(now())
-  updatedAt               DateTime            @updatedAt
-  business                Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  businessId                String              @id
+  currency                  String              @default("NGN")
+  numberFormat              NumberFormat        @default(COMMA_DECIMAL)
+  timezone                  String              @default("Africa/Lagos")
+  theme                     BusinessTheme       @default(LOYAL_PURPLE)
+  shelfMode                 String              @default("carousel")
+  showRecommended           Boolean             @default(true)
+  showLatest                Boolean             @default(true)
+  tickerItems               String[]            @default(["New drops", "Trusted receipts", "Delivery updates", "Customer favourites"])
+  defaultPaymentStatus      PaymentStatus       @default(UNPAID)
+  allowedPaymentMethods     PaymentMethod[]     @default([BANK_TRANSFER, PAY_ON_DELIVERY, CASH])
+  defaultPaymentMethod      PaymentMethod?
+  allowedFulfillmentMethods FulfillmentType[]   @default([DELIVERY, PICKUP])
+  deliveryAreas             String[]            @default([])
+  deliveryStates            String[]            @default([])
+  protectedPaymentEnabled   Boolean             @default(false)
+  receiptDeliveryLine       ReceiptDeliveryLine @default(OPTIONAL)
+  receiptFooter             String?
+  feedbackResponseTime      String              @default("Within one business day")
+  notifyFollowUps           Boolean             @default(true)
+  notifyReceiptViews        Boolean             @default(false)
+  notifyDeliveryUpdates     Boolean             @default(true)
+  lowStockThreshold         Int                 @default(5)
+  dailyDigestWhatsapp       Boolean             @default(false)
+  dailyDigestTime           String              @default("08:00")
+  dailyDigestWeekdays       Int[]               @default([1, 2, 3, 4, 5])
+  dailyDigestPhone          String?
+  dailyDigestConsentAt      DateTime?
+  dailyDigestConsentVersion String?
+  dailyDigestPausedAt       DateTime?
+  lastDailyDigestAt         DateTime?
+  pushNotificationsEnabled  Boolean             @default(false)
+  exportAccess              ExportAccess        @default(OWNER_ONLY)
+  retentionPolicy           RetentionPolicy     @default(MANUAL)
+  createdAt                 DateTime            @default(now())
+  updatedAt                 DateTime            @updatedAt
+  business                  Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
 
   @@map("business_preferences")
 }
@@ -1207,27 +1294,27 @@ model CustomerContact {
 }
 
 model CustomerAddress {
-  id                String              @id @default(cuid())
-  customerAccountId String
-  customerId        String?
-  label             String?
-  recipientName     String?
-  phone             String?
-  address           String
-  googlePlaceId     String?
-  latitude          Float?
-  longitude         Float?
-  countryCode       String?
+  id                  String              @id @default(cuid())
+  customerAccountId   String
+  customerId          String?
+  label               String?
+  recipientName       String?
+  phone               String?
+  address             String
+  googlePlaceId       String?
+  latitude            Float?
+  longitude           Float?
+  countryCode         String?
   administrativeArea1 String?
-  locality          String?
-  deliveryNotes     String?
-  isDefault         Boolean             @default(false)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  customerAccount   CustomerAccount     @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
-  customer          Customer?           @relation(fields: [customerId], references: [id], onDelete: SetNull)
-  orderRequests     OrderRequest[]
-  cartGroups        CustomerCartGroup[]
+  locality            String?
+  deliveryNotes       String?
+  isDefault           Boolean             @default(false)
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  customerAccount     CustomerAccount     @relation(fields: [customerAccountId], references: [id], onDelete: Cascade)
+  customer            Customer?           @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  orderRequests       OrderRequest[]
+  cartGroups          CustomerCartGroup[]
 
   @@index([customerAccountId, isDefault])
   @@index([customerId])
@@ -1437,7 +1524,7 @@ model Showcase {
   savedBy         SavedShowcase[]
   requests        OrderRequest[]
   commerceEvents  CommerceEvent[]
-  reports          CustomerReport[]
+  reports         CustomerReport[]
 
   @@index([businessId, status, featured, publishedAt])
   @@map("showcases")
@@ -1632,55 +1719,56 @@ model PromotionReservation {
 }
 
 model OrderRequest {
-  id                     String                      @id @default(cuid())
-  businessId             String
-  customerAccountId      String?
-  customerId             String?
-  referenceCode          String                      @unique
-  tokenHash              String                      @unique
-  customerName           String
-  customerPhone          String
-  channel                SalesChannel
-  fulfillment            FulfillmentType             @default(ARRANGE_LATER)
-  agreedFulfillment      FulfillmentType?
-  customerAddressId      String?
-  sourceShowcaseId       String?
-  requestedPaymentMethod PaymentMethod?
-  agreedPaymentMethod    PaymentMethod?
-  clientIdempotencyKey   String?
-  deliveryAddress        String?
-  deliveryPlaceId        String?
-  deliveryLatitude       Float?
-  deliveryLongitude      Float?
-  deliveryCountryCode    String?
+  id                          String                      @id @default(cuid())
+  businessId                  String
+  customerAccountId           String?
+  customerId                  String?
+  referenceCode               String                      @unique
+  tokenHash                   String                      @unique
+  customerName                String
+  customerPhone               String
+  channel                     SalesChannel
+  fulfillment                 FulfillmentType             @default(ARRANGE_LATER)
+  agreedFulfillment           FulfillmentType?
+  customerAddressId           String?
+  sourceShowcaseId            String?
+  requestedPaymentMethod      PaymentMethod?
+  agreedPaymentMethod         PaymentMethod?
+  clientIdempotencyKey        String?
+  deliveryAddress             String?
+  deliveryPlaceId             String?
+  deliveryLatitude            Float?
+  deliveryLongitude           Float?
+  deliveryCountryCode         String?
   deliveryAdministrativeArea1 String?
-  deliveryLocality       String?
-  deliveryEligibility    DeliveryEligibilityStatus   @default(NOT_APPLICABLE)
-  deliveryNotes          String?
-  isGift                 Boolean                     @default(false)
-  recipientName          String?
-  recipientPhone         String?
-  note                   String?
-  cancellationReasonCode String?
-  cancellationReason     String?
-  canceledBy             String?
-  status                 OrderRequestStatus          @default(SENT)
-  createdAt              DateTime                    @default(now())
-  updatedAt              DateTime                    @updatedAt
-  business               Business                    @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customerAccount        CustomerAccount?            @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
-  customer               Customer?                   @relation(fields: [customerId], references: [id], onDelete: SetNull)
-  customerAddress        CustomerAddress?            @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
-  sourceShowcase         Showcase?                   @relation(fields: [sourceShowcaseId], references: [id], onDelete: SetNull)
-  items                  OrderRequestItem[]
-  convertedSale          Sale?                       @relation("RequestConversion")
-  events                 CommerceEvent[]
-  paymentChanges         OrderRequestPaymentChange[]
-  termChanges            OrderRequestTermChange[]
-  promotionReservations  PromotionReservation[]
-  shareTokens            OrderRequestShareToken[]
-  customerNotices        CustomerOrderNotice[]
-  reports                CustomerReport[]
+  deliveryLocality            String?
+  deliveryEligibility         DeliveryEligibilityStatus   @default(NOT_APPLICABLE)
+  deliveryNotes               String?
+  isGift                      Boolean                     @default(false)
+  recipientName               String?
+  recipientPhone              String?
+  note                        String?
+  cancellationReasonCode      String?
+  cancellationReason          String?
+  canceledBy                  String?
+  status                      OrderRequestStatus          @default(SENT)
+  ownerReadAt                 DateTime?
+  createdAt                   DateTime                    @default(now())
+  updatedAt                   DateTime                    @updatedAt
+  business                    Business                    @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customerAccount             CustomerAccount?            @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+  customer                    Customer?                   @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerAddress             CustomerAddress?            @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
+  sourceShowcase              Showcase?                   @relation(fields: [sourceShowcaseId], references: [id], onDelete: SetNull)
+  items                       OrderRequestItem[]
+  convertedSale               Sale?                       @relation("RequestConversion")
+  events                      CommerceEvent[]
+  paymentChanges              OrderRequestPaymentChange[]
+  termChanges                 OrderRequestTermChange[]
+  promotionReservations       PromotionReservation[]
+  shareTokens                 OrderRequestShareToken[]
+  customerNotices             CustomerOrderNotice[]
+  reports                     CustomerReport[]
 
   @@unique([customerAccountId, clientIdempotencyKey])
   @@index([businessId, status, createdAt])
@@ -1726,21 +1814,21 @@ model CustomerReport {
 }
 
 model OrderRequestTermChange {
-  id                      String                @id @default(cuid())
-  orderRequestId          String
-  requestedByUserId       String?
-  customerAccountId       String?
-  previousFulfillment     FulfillmentType
-  previousPaymentMethod   PaymentMethod?
-  proposedFulfillment     FulfillmentType?
-  proposedPaymentMethod   PaymentMethod?
-  resolvedFulfillment     FulfillmentType?
-  resolvedPaymentMethod   PaymentMethod?
-  reason                  String
-  status                  OrderTermChangeStatus @default(PENDING)
-  createdAt               DateTime              @default(now())
-  resolvedAt              DateTime?
-  orderRequest            OrderRequest          @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
+  id                    String                @id @default(cuid())
+  orderRequestId        String
+  requestedByUserId     String?
+  customerAccountId     String?
+  previousFulfillment   FulfillmentType
+  previousPaymentMethod PaymentMethod?
+  proposedFulfillment   FulfillmentType?
+  proposedPaymentMethod PaymentMethod?
+  resolvedFulfillment   FulfillmentType?
+  resolvedPaymentMethod PaymentMethod?
+  reason                String
+  status                OrderTermChangeStatus @default(PENDING)
+  createdAt             DateTime              @default(now())
+  resolvedAt            DateTime?
+  orderRequest          OrderRequest          @relation(fields: [orderRequestId], references: [id], onDelete: Cascade)
 
   @@index([orderRequestId, status, createdAt])
   @@map("order_request_term_changes")
@@ -2264,6 +2352,7 @@ model SupportRequest {
 model MessagingConsent {
   id                String           @id @default(cuid())
   customerAccountId String?
+  userId            String?
   phoneHash         String
   purpose           MessagePurpose
   source            String
@@ -2272,9 +2361,11 @@ model MessagingConsent {
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   customerAccount   CustomerAccount? @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+  user              User?            @relation("OwnerMessagingConsent", fields: [userId], references: [id], onDelete: SetNull)
 
   @@unique([phoneHash, purpose])
   @@index([customerAccountId, purpose])
+  @@index([userId, purpose])
   @@map("messaging_consents")
 }
 
@@ -2293,6 +2384,7 @@ model MessageOutbox {
   id                 String                @id @default(cuid())
   businessId         String?
   customerAccountId  String?
+  recipientUserId    String?
   channel            MessageChannel        @default(WHATSAPP)
   purpose            MessagePurpose
   toAddress          String
@@ -2310,12 +2402,54 @@ model MessageOutbox {
   updatedAt          DateTime              @updatedAt
   business           Business?             @relation(fields: [businessId], references: [id], onDelete: Cascade)
   customerAccount    CustomerAccount?      @relation(fields: [customerAccountId], references: [id], onDelete: SetNull)
+  recipientUser      User?                 @relation("OwnerMessageRecipient", fields: [recipientUserId], references: [id], onDelete: SetNull)
   attempts           MessageAttempt[]
   foundingInvitation OnboardingInvitation?
 
   @@index([status, nextAttemptAt])
   @@index([businessId, createdAt])
+  @@index([recipientUserId, createdAt])
   @@map("message_outbox")
+}
+
+model OwnerAttentionReceipt {
+  id           String    @id @default(cuid())
+  businessId   String
+  userId       String
+  itemKey      String
+  seenAt       DateTime?
+  snoozedUntil DateTime?
+  dismissedAt  DateTime?
+  pushedAt     DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  business     Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([businessId, userId, itemKey])
+  @@index([userId, seenAt])
+  @@index([businessId, snoozedUntil])
+  @@map("owner_attention_receipts")
+}
+
+model OwnerPushSubscription {
+  id           String    @id @default(cuid())
+  businessId   String
+  userId       String
+  endpoint     String
+  endpointHash String    @unique
+  p256dh       String
+  auth         String
+  userAgent    String?
+  lastUsedAt   DateTime  @default(now())
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  business     Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, userId])
+  @@map("owner_push_subscriptions")
 }
 
 model MessageAttempt {

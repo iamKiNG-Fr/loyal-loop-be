@@ -22,7 +22,7 @@ import {
   type WhatsAppProvider,
 } from "./whatsapp-provider";
 
-type UtilityPurpose = "RECEIPT" | "DELIVERY" | "REMINDER" | "FOUNDING_ACCESS";
+type UtilityPurpose = "RECEIPT" | "DELIVERY" | "REMINDER" | "FOUNDING_ACCESS" | "OWNER_DIGEST";
 type WebhookValues = Record<string, string | undefined>;
 
 @Injectable()
@@ -76,6 +76,7 @@ export class MessagingService {
     purpose: UtilityPurpose,
     source: string,
     customerAccountId?: string,
+    userId?: string,
   ) {
     const normalizedPhone = normalizePhone(phone);
     const phoneHash = this.phoneHash(normalizedPhone);
@@ -83,16 +84,30 @@ export class MessagingService {
       where: { phoneHash_purpose: { phoneHash, purpose } },
       create: {
         customerAccountId,
+        userId,
         phoneHash,
         purpose,
         source,
       },
       update: {
         customerAccountId,
+        userId,
         source,
         grantedAt: new Date(),
         revokedAt: null,
       },
+    });
+  }
+
+  async revokePhoneConsent(phone: string, purpose: UtilityPurpose, source: string) {
+    const normalizedPhone = normalizePhone(phone);
+    await this.prisma.messagingConsent.updateMany({
+      where: {
+        phoneHash: this.phoneHash(normalizedPhone),
+        purpose,
+        revokedAt: null,
+      },
+      data: { revokedAt: new Date(), source },
     });
   }
 
@@ -114,6 +129,7 @@ export class MessagingService {
 
   async enqueueUtility(input: {
     customerAccountId?: string;
+    recipientUserId?: string;
     businessId?: string;
     phone: string;
     purpose: UtilityPurpose;
@@ -135,6 +151,7 @@ export class MessagingService {
       where: { idempotencyKey: input.idempotencyKey },
       create: {
         customerAccountId: input.customerAccountId,
+        recipientUserId: input.recipientUserId,
         businessId: input.businessId,
         toAddress: phone,
         purpose: input.purpose,
@@ -303,6 +320,32 @@ export class MessagingService {
         "3": reminder,
       },
       idempotencyKey: `reminder:${suggestion.id}:${suggestion.updatedAt.getTime()}`,
+    });
+  }
+
+  async enqueueOwnerDigest(input: {
+    businessId: string;
+    userId: string;
+    phone: string;
+    ownerName: string;
+    businessName: string;
+    summary: string;
+    url: string;
+    businessDate: string;
+  }) {
+    return this.enqueueUtility({
+      businessId: input.businessId,
+      recipientUserId: input.userId,
+      phone: input.phone,
+      purpose: "OWNER_DIGEST",
+      templateKey: "owner_digest",
+      variables: {
+        "1": input.ownerName,
+        "2": input.businessName,
+        "3": input.summary,
+        "4": input.url,
+      },
+      idempotencyKey: `owner-digest:${input.businessId}:${input.userId}:${input.businessDate}`,
     });
   }
 
@@ -519,6 +562,9 @@ export class MessagingService {
     }
     if (templateKey === "founding_access") {
       return this.whatsapp.sendFoundingAccess(to, variables);
+    }
+    if (templateKey === "owner_digest") {
+      return this.whatsapp.sendOwnerDigest(to, variables);
     }
     throw new ServiceUnavailableException(
       `Unsupported WhatsApp message template: ${templateKey}`,

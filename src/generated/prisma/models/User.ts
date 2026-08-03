@@ -230,6 +230,10 @@ export type UserWhereInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideListRelationFilter
   platformAdmin?: Prisma.XOR<Prisma.PlatformAdminNullableScalarRelationFilter, Prisma.PlatformAdminWhereInput> | null
   mediaReviews?: Prisma.MediaModerationReviewListRelationFilter
+  attentionReceipts?: Prisma.OwnerAttentionReceiptListRelationFilter
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionListRelationFilter
+  messageOutbox?: Prisma.MessageOutboxListRelationFilter
+  messagingConsents?: Prisma.MessagingConsentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -258,6 +262,10 @@ export type UserOrderByWithRelationInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideOrderByRelationAggregateInput
   platformAdmin?: Prisma.PlatformAdminOrderByWithRelationInput
   mediaReviews?: Prisma.MediaModerationReviewOrderByRelationAggregateInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptOrderByRelationAggregateInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionOrderByRelationAggregateInput
+  messageOutbox?: Prisma.MessageOutboxOrderByRelationAggregateInput
+  messagingConsents?: Prisma.MessagingConsentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -289,6 +297,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   permissionOverrides?: Prisma.MemberPermissionOverrideListRelationFilter
   platformAdmin?: Prisma.XOR<Prisma.PlatformAdminNullableScalarRelationFilter, Prisma.PlatformAdminWhereInput> | null
   mediaReviews?: Prisma.MediaModerationReviewListRelationFilter
+  attentionReceipts?: Prisma.OwnerAttentionReceiptListRelationFilter
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionListRelationFilter
+  messageOutbox?: Prisma.MessageOutboxListRelationFilter
+  messagingConsents?: Prisma.MessagingConsentListRelationFilter
 }, "id" | "avatarAssetId" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -346,6 +358,10 @@ export type UserCreateInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -373,6 +389,10 @@ export type UserUncheckedCreateInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -400,6 +420,10 @@ export type UserUpdateInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -427,6 +451,10 @@ export type UserUncheckedUpdateInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -772,6 +800,66 @@ export type UserUpdateOneWithoutActivityEventsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutActivityEventsInput, Prisma.UserUpdateWithoutActivityEventsInput>, Prisma.UserUncheckedUpdateWithoutActivityEventsInput>
 }
 
+export type UserCreateNestedOneWithoutMessagingConsentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagingConsentsInput, Prisma.UserUncheckedCreateWithoutMessagingConsentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagingConsentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutMessagingConsentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessagingConsentsInput, Prisma.UserUncheckedCreateWithoutMessagingConsentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagingConsentsInput
+  upsert?: Prisma.UserUpsertWithoutMessagingConsentsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagingConsentsInput, Prisma.UserUpdateWithoutMessagingConsentsInput>, Prisma.UserUncheckedUpdateWithoutMessagingConsentsInput>
+}
+
+export type UserCreateNestedOneWithoutMessageOutboxInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessageOutboxInput, Prisma.UserUncheckedCreateWithoutMessageOutboxInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageOutboxInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutMessageOutboxNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMessageOutboxInput, Prisma.UserUncheckedCreateWithoutMessageOutboxInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageOutboxInput
+  upsert?: Prisma.UserUpsertWithoutMessageOutboxInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessageOutboxInput, Prisma.UserUpdateWithoutMessageOutboxInput>, Prisma.UserUncheckedUpdateWithoutMessageOutboxInput>
+}
+
+export type UserCreateNestedOneWithoutAttentionReceiptsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAttentionReceiptsInput, Prisma.UserUncheckedCreateWithoutAttentionReceiptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAttentionReceiptsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAttentionReceiptsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAttentionReceiptsInput, Prisma.UserUncheckedCreateWithoutAttentionReceiptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAttentionReceiptsInput
+  upsert?: Prisma.UserUpsertWithoutAttentionReceiptsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAttentionReceiptsInput, Prisma.UserUpdateWithoutAttentionReceiptsInput>, Prisma.UserUncheckedUpdateWithoutAttentionReceiptsInput>
+}
+
+export type UserCreateNestedOneWithoutPushSubscriptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutPushSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPushSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPushSubscriptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutPushSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPushSubscriptionsInput
+  upsert?: Prisma.UserUpsertWithoutPushSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPushSubscriptionsInput, Prisma.UserUpdateWithoutPushSubscriptionsInput>, Prisma.UserUncheckedUpdateWithoutPushSubscriptionsInput>
+}
+
 export type UserCreateWithoutPlatformAdminInput = {
   id?: string
   name: string
@@ -796,6 +884,10 @@ export type UserCreateWithoutPlatformAdminInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPlatformAdminInput = {
@@ -822,6 +914,10 @@ export type UserUncheckedCreateWithoutPlatformAdminInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPlatformAdminInput = {
@@ -864,6 +960,10 @@ export type UserUpdateWithoutPlatformAdminInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlatformAdminInput = {
@@ -890,6 +990,10 @@ export type UserUncheckedUpdateWithoutPlatformAdminInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -916,6 +1020,10 @@ export type UserCreateWithoutSessionsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -942,6 +1050,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -984,6 +1096,10 @@ export type UserUpdateWithoutSessionsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1010,6 +1126,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOtpChallengesInput = {
@@ -1036,6 +1156,10 @@ export type UserCreateWithoutOtpChallengesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOtpChallengesInput = {
@@ -1062,6 +1186,10 @@ export type UserUncheckedCreateWithoutOtpChallengesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOtpChallengesInput = {
@@ -1104,6 +1232,10 @@ export type UserUpdateWithoutOtpChallengesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOtpChallengesInput = {
@@ -1130,6 +1262,10 @@ export type UserUncheckedUpdateWithoutOtpChallengesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRecoveryTokensInput = {
@@ -1156,6 +1292,10 @@ export type UserCreateWithoutRecoveryTokensInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRecoveryTokensInput = {
@@ -1182,6 +1322,10 @@ export type UserUncheckedCreateWithoutRecoveryTokensInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRecoveryTokensInput = {
@@ -1224,6 +1368,10 @@ export type UserUpdateWithoutRecoveryTokensInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecoveryTokensInput = {
@@ -1250,6 +1398,10 @@ export type UserUncheckedUpdateWithoutRecoveryTokensInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOwnedBusinessesInput = {
@@ -1276,6 +1428,10 @@ export type UserCreateWithoutOwnedBusinessesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
@@ -1302,6 +1458,10 @@ export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedBusinessesInput = {
@@ -1344,6 +1504,10 @@ export type UserUpdateWithoutOwnedBusinessesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
@@ -1370,6 +1534,10 @@ export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMembershipsInput = {
@@ -1396,6 +1564,10 @@ export type UserCreateWithoutMembershipsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -1422,6 +1594,10 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1464,6 +1640,10 @@ export type UserUpdateWithoutMembershipsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1490,6 +1670,10 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPermissionOverridesInput = {
@@ -1516,6 +1700,10 @@ export type UserCreateWithoutPermissionOverridesInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPermissionOverridesInput = {
@@ -1542,6 +1730,10 @@ export type UserUncheckedCreateWithoutPermissionOverridesInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPermissionOverridesInput = {
@@ -1584,6 +1776,10 @@ export type UserUpdateWithoutPermissionOverridesInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionOverridesInput = {
@@ -1610,6 +1806,10 @@ export type UserUncheckedUpdateWithoutPermissionOverridesInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutInvitationsSentInput = {
@@ -1636,6 +1836,10 @@ export type UserCreateWithoutInvitationsSentInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutInvitationsSentInput = {
@@ -1662,6 +1866,10 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutInvitationsSentInput = {
@@ -1704,6 +1912,10 @@ export type UserUpdateWithoutInvitationsSentInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitationsSentInput = {
@@ -1730,6 +1942,10 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutUploadedAssetsInput = {
@@ -1756,6 +1972,10 @@ export type UserCreateWithoutUploadedAssetsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUploadedAssetsInput = {
@@ -1782,6 +2002,10 @@ export type UserUncheckedCreateWithoutUploadedAssetsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUploadedAssetsInput = {
@@ -1813,6 +2037,10 @@ export type UserCreateWithoutAvatarAssetInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAvatarAssetInput = {
@@ -1839,6 +2067,10 @@ export type UserUncheckedCreateWithoutAvatarAssetInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAvatarAssetInput = {
@@ -1881,6 +2113,10 @@ export type UserUpdateWithoutUploadedAssetsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedAssetsInput = {
@@ -1907,6 +2143,10 @@ export type UserUncheckedUpdateWithoutUploadedAssetsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutAvatarAssetInput = {
@@ -1944,6 +2184,10 @@ export type UserUpdateWithoutAvatarAssetInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAvatarAssetInput = {
@@ -1970,6 +2214,10 @@ export type UserUncheckedUpdateWithoutAvatarAssetInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMediaReviewsInput = {
@@ -1996,6 +2244,10 @@ export type UserCreateWithoutMediaReviewsInput = {
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMediaReviewsInput = {
@@ -2022,6 +2274,10 @@ export type UserUncheckedCreateWithoutMediaReviewsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMediaReviewsInput = {
@@ -2064,6 +2320,10 @@ export type UserUpdateWithoutMediaReviewsInput = {
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMediaReviewsInput = {
@@ -2090,6 +2350,10 @@ export type UserUncheckedUpdateWithoutMediaReviewsInput = {
   activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuthoredNotesInput = {
@@ -2116,6 +2380,10 @@ export type UserCreateWithoutAuthoredNotesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuthoredNotesInput = {
@@ -2142,6 +2410,10 @@ export type UserUncheckedCreateWithoutAuthoredNotesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuthoredNotesInput = {
@@ -2184,6 +2456,10 @@ export type UserUpdateWithoutAuthoredNotesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuthoredNotesInput = {
@@ -2210,6 +2486,10 @@ export type UserUncheckedUpdateWithoutAuthoredNotesInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsRecordedInput = {
@@ -2236,6 +2516,10 @@ export type UserCreateWithoutPaymentsRecordedInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsRecordedInput = {
@@ -2262,6 +2546,10 @@ export type UserUncheckedCreateWithoutPaymentsRecordedInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsRecordedInput = {
@@ -2304,6 +2592,10 @@ export type UserUpdateWithoutPaymentsRecordedInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsRecordedInput = {
@@ -2330,6 +2622,10 @@ export type UserUncheckedUpdateWithoutPaymentsRecordedInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentProofReviewsInput = {
@@ -2356,6 +2652,10 @@ export type UserCreateWithoutPaymentProofReviewsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentProofReviewsInput = {
@@ -2382,6 +2682,10 @@ export type UserUncheckedCreateWithoutPaymentProofReviewsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentProofReviewsInput = {
@@ -2424,6 +2728,10 @@ export type UserUpdateWithoutPaymentProofReviewsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentProofReviewsInput = {
@@ -2450,6 +2758,10 @@ export type UserUncheckedUpdateWithoutPaymentProofReviewsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDeliveryEventsInput = {
@@ -2476,6 +2788,10 @@ export type UserCreateWithoutDeliveryEventsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDeliveryEventsInput = {
@@ -2502,6 +2818,10 @@ export type UserUncheckedCreateWithoutDeliveryEventsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDeliveryEventsInput = {
@@ -2544,6 +2864,10 @@ export type UserUpdateWithoutDeliveryEventsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeliveryEventsInput = {
@@ -2570,6 +2894,10 @@ export type UserUncheckedUpdateWithoutDeliveryEventsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutActivityEventsInput = {
@@ -2596,6 +2924,10 @@ export type UserCreateWithoutActivityEventsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityEventsInput = {
@@ -2622,6 +2954,10 @@ export type UserUncheckedCreateWithoutActivityEventsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
   platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityEventsInput = {
@@ -2664,6 +3000,10 @@ export type UserUpdateWithoutActivityEventsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityEventsInput = {
@@ -2690,6 +3030,554 @@ export type UserUncheckedUpdateWithoutActivityEventsInput = {
   permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
   platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
   mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMessagingConsentsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
+  authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+}
+
+export type UserUncheckedCreateWithoutMessagingConsentsInput = {
+  id?: string
+  avatarAssetId?: string | null
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+}
+
+export type UserCreateOrConnectWithoutMessagingConsentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagingConsentsInput, Prisma.UserUncheckedCreateWithoutMessagingConsentsInput>
+}
+
+export type UserUpsertWithoutMessagingConsentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessagingConsentsInput, Prisma.UserUncheckedUpdateWithoutMessagingConsentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessagingConsentsInput, Prisma.UserUncheckedCreateWithoutMessagingConsentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessagingConsentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessagingConsentsInput, Prisma.UserUncheckedUpdateWithoutMessagingConsentsInput>
+}
+
+export type UserUpdateWithoutMessagingConsentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
+  authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessagingConsentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+}
+
+export type UserCreateWithoutMessageOutboxInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
+  authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutMessageOutboxInput = {
+  id?: string
+  avatarAssetId?: string | null
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutMessageOutboxInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessageOutboxInput, Prisma.UserUncheckedCreateWithoutMessageOutboxInput>
+}
+
+export type UserUpsertWithoutMessageOutboxInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMessageOutboxInput, Prisma.UserUncheckedUpdateWithoutMessageOutboxInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMessageOutboxInput, Prisma.UserUncheckedCreateWithoutMessageOutboxInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMessageOutboxInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMessageOutboxInput, Prisma.UserUncheckedUpdateWithoutMessageOutboxInput>
+}
+
+export type UserUpdateWithoutMessageOutboxInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
+  authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMessageOutboxInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAttentionReceiptsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
+  authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAttentionReceiptsInput = {
+  id?: string
+  avatarAssetId?: string | null
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAttentionReceiptsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAttentionReceiptsInput, Prisma.UserUncheckedCreateWithoutAttentionReceiptsInput>
+}
+
+export type UserUpsertWithoutAttentionReceiptsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAttentionReceiptsInput, Prisma.UserUncheckedUpdateWithoutAttentionReceiptsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAttentionReceiptsInput, Prisma.UserUncheckedCreateWithoutAttentionReceiptsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAttentionReceiptsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAttentionReceiptsInput, Prisma.UserUncheckedUpdateWithoutAttentionReceiptsInput>
+}
+
+export type UserUpdateWithoutAttentionReceiptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
+  authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAttentionReceiptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPushSubscriptionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
+  authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
+  id?: string
+  avatarAssetId?: string | null
+  name: string
+  email: string
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutPushSubscriptionsInput>
+}
+
+export type UserUpsertWithoutPushSubscriptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPushSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutPushSubscriptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPushSubscriptionsInput, Prisma.UserUncheckedCreateWithoutPushSubscriptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPushSubscriptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPushSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutPushSubscriptionsInput>
+}
+
+export type UserUpdateWithoutPushSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
+  authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -2712,6 +3600,10 @@ export type UserCountOutputType = {
   activityEvents: number
   permissionOverrides: number
   mediaReviews: number
+  attentionReceipts: number
+  pushSubscriptions: number
+  messageOutbox: number
+  messagingConsents: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2729,6 +3621,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   activityEvents?: boolean | UserCountOutputTypeCountActivityEventsArgs
   permissionOverrides?: boolean | UserCountOutputTypeCountPermissionOverridesArgs
   mediaReviews?: boolean | UserCountOutputTypeCountMediaReviewsArgs
+  attentionReceipts?: boolean | UserCountOutputTypeCountAttentionReceiptsArgs
+  pushSubscriptions?: boolean | UserCountOutputTypeCountPushSubscriptionsArgs
+  messageOutbox?: boolean | UserCountOutputTypeCountMessageOutboxArgs
+  messagingConsents?: boolean | UserCountOutputTypeCountMessagingConsentsArgs
 }
 
 /**
@@ -2839,6 +3735,34 @@ export type UserCountOutputTypeCountMediaReviewsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.MediaModerationReviewWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAttentionReceiptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OwnerAttentionReceiptWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OwnerPushSubscriptionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessageOutboxArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessageOutboxWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessagingConsentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MessagingConsentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2866,6 +3790,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   permissionOverrides?: boolean | Prisma.User$permissionOverridesArgs<ExtArgs>
   platformAdmin?: boolean | Prisma.User$platformAdminArgs<ExtArgs>
   mediaReviews?: boolean | Prisma.User$mediaReviewsArgs<ExtArgs>
+  attentionReceipts?: boolean | Prisma.User$attentionReceiptsArgs<ExtArgs>
+  pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
+  messageOutbox?: boolean | Prisma.User$messageOutboxArgs<ExtArgs>
+  messagingConsents?: boolean | Prisma.User$messagingConsentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2925,6 +3853,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   permissionOverrides?: boolean | Prisma.User$permissionOverridesArgs<ExtArgs>
   platformAdmin?: boolean | Prisma.User$platformAdminArgs<ExtArgs>
   mediaReviews?: boolean | Prisma.User$mediaReviewsArgs<ExtArgs>
+  attentionReceipts?: boolean | Prisma.User$attentionReceiptsArgs<ExtArgs>
+  pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
+  messageOutbox?: boolean | Prisma.User$messageOutboxArgs<ExtArgs>
+  messagingConsents?: boolean | Prisma.User$messagingConsentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2953,6 +3885,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     permissionOverrides: Prisma.$MemberPermissionOverridePayload<ExtArgs>[]
     platformAdmin: Prisma.$PlatformAdminPayload<ExtArgs> | null
     mediaReviews: Prisma.$MediaModerationReviewPayload<ExtArgs>[]
+    attentionReceipts: Prisma.$OwnerAttentionReceiptPayload<ExtArgs>[]
+    pushSubscriptions: Prisma.$OwnerPushSubscriptionPayload<ExtArgs>[]
+    messageOutbox: Prisma.$MessageOutboxPayload<ExtArgs>[]
+    messagingConsents: Prisma.$MessagingConsentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3374,6 +4310,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   permissionOverrides<T extends Prisma.User$permissionOverridesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$permissionOverridesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MemberPermissionOverridePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   platformAdmin<T extends Prisma.User$platformAdminArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$platformAdminArgs<ExtArgs>>): Prisma.Prisma__PlatformAdminClient<runtime.Types.Result.GetResult<Prisma.$PlatformAdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   mediaReviews<T extends Prisma.User$mediaReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mediaReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaModerationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attentionReceipts<T extends Prisma.User$attentionReceiptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$attentionReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OwnerAttentionReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pushSubscriptions<T extends Prisma.User$pushSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OwnerPushSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messageOutbox<T extends Prisma.User$messageOutboxArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messageOutboxArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageOutboxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  messagingConsents<T extends Prisma.User$messagingConsentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagingConsentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagingConsentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4184,6 +5124,102 @@ export type User$mediaReviewsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.MediaModerationReviewScalarFieldEnum | Prisma.MediaModerationReviewScalarFieldEnum[]
+}
+
+/**
+ * User.attentionReceipts
+ */
+export type User$attentionReceiptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OwnerAttentionReceipt
+   */
+  select?: Prisma.OwnerAttentionReceiptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OwnerAttentionReceipt
+   */
+  omit?: Prisma.OwnerAttentionReceiptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OwnerAttentionReceiptInclude<ExtArgs> | null
+  where?: Prisma.OwnerAttentionReceiptWhereInput
+  orderBy?: Prisma.OwnerAttentionReceiptOrderByWithRelationInput | Prisma.OwnerAttentionReceiptOrderByWithRelationInput[]
+  cursor?: Prisma.OwnerAttentionReceiptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OwnerAttentionReceiptScalarFieldEnum | Prisma.OwnerAttentionReceiptScalarFieldEnum[]
+}
+
+/**
+ * User.pushSubscriptions
+ */
+export type User$pushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OwnerPushSubscription
+   */
+  select?: Prisma.OwnerPushSubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OwnerPushSubscription
+   */
+  omit?: Prisma.OwnerPushSubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OwnerPushSubscriptionInclude<ExtArgs> | null
+  where?: Prisma.OwnerPushSubscriptionWhereInput
+  orderBy?: Prisma.OwnerPushSubscriptionOrderByWithRelationInput | Prisma.OwnerPushSubscriptionOrderByWithRelationInput[]
+  cursor?: Prisma.OwnerPushSubscriptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OwnerPushSubscriptionScalarFieldEnum | Prisma.OwnerPushSubscriptionScalarFieldEnum[]
+}
+
+/**
+ * User.messageOutbox
+ */
+export type User$messageOutboxArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessageOutbox
+   */
+  select?: Prisma.MessageOutboxSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessageOutbox
+   */
+  omit?: Prisma.MessageOutboxOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessageOutboxInclude<ExtArgs> | null
+  where?: Prisma.MessageOutboxWhereInput
+  orderBy?: Prisma.MessageOutboxOrderByWithRelationInput | Prisma.MessageOutboxOrderByWithRelationInput[]
+  cursor?: Prisma.MessageOutboxWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessageOutboxScalarFieldEnum | Prisma.MessageOutboxScalarFieldEnum[]
+}
+
+/**
+ * User.messagingConsents
+ */
+export type User$messagingConsentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MessagingConsent
+   */
+  select?: Prisma.MessagingConsentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MessagingConsent
+   */
+  omit?: Prisma.MessagingConsentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MessagingConsentInclude<ExtArgs> | null
+  where?: Prisma.MessagingConsentWhereInput
+  orderBy?: Prisma.MessagingConsentOrderByWithRelationInput | Prisma.MessagingConsentOrderByWithRelationInput[]
+  cursor?: Prisma.MessagingConsentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MessagingConsentScalarFieldEnum | Prisma.MessagingConsentScalarFieldEnum[]
 }
 
 /**

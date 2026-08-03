@@ -34,10 +34,12 @@ export class RegisterOwnerDto {
   ownerName!: string;
 
   @IsEmail()
+  @Length(3, 254)
   email!: string;
 
   @IsString()
   @MinLength(8)
+  @Length(8, 128)
   password!: string;
 
   @IsString()
