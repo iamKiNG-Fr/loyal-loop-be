@@ -23,7 +23,7 @@ export type PlatformAuthContext = {
   platformAdminId: string;
   platformSessionId: string;
   userId: string;
-  ownerSessionId: string;
+  ownerSessionId?: string;
   role: PlatformRole;
   verifiedAt: Date;
   requestId: string;

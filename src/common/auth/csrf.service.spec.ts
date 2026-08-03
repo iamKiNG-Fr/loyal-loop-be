@@ -26,4 +26,13 @@ describe("CsrfService", () => {
     expect(service.issue(request())).toBeNull();
     expect(service.verify(request(), undefined)).toBe(true);
   });
+
+  it("binds administrator writes to the standalone platform session", () => {
+    const admin = request("ll_platform_admin_session=admin-one");
+    const other = request("ll_platform_admin_session=admin-two");
+    const token = service.issue(admin);
+
+    expect(service.verify(admin, token!)).toBe(true);
+    expect(service.verify(other, token!)).toBe(false);
+  });
 });

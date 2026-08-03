@@ -71,6 +71,8 @@ export class PlatformAdminService {
       discoveryEvents,
       retentionBusinesses,
       trustLedgerEntries,
+      pwaSummaryRows,
+      pwaSegmentRows,
     ] = await Promise.all([
       this.prisma.business.count({ where: businessWhere }),
       this.prisma.business.count({
@@ -154,6 +156,72 @@ export class PlatformAdminService {
         orderBy: { createdAt: "desc" },
         take: 10000,
       }),
+      this.prisma.$queryRaw<Array<{
+        activeInstallations7d: bigint;
+        activeInstallations30d: bigint;
+        knownInstallations: bigint;
+        newInstallations30d: bigint;
+        promptedDevices30d: bigint;
+      }>>`
+        WITH installation_signals AS (
+          SELECT visitor_hash, MIN(created_at) AS first_known_at
+          FROM discovery_telemetry
+          WHERE visitor_hash IS NOT NULL
+            AND type IN ('PWA_INSTALLED', 'PWA_STANDALONE_LAUNCH')
+          GROUP BY visitor_hash
+        )
+        SELECT
+          COUNT(*)::bigint AS "knownInstallations",
+          COUNT(*) FILTER (
+            WHERE first_known_at >= NOW() - INTERVAL '30 days'
+          )::bigint AS "newInstallations30d",
+          (
+            SELECT COUNT(DISTINCT visitor_hash)
+            FROM discovery_telemetry
+            WHERE visitor_hash IS NOT NULL
+              AND type = 'PWA_STANDALONE_LAUNCH'
+              AND created_at >= NOW() - INTERVAL '7 days'
+          )::bigint AS "activeInstallations7d",
+          (
+            SELECT COUNT(DISTINCT visitor_hash)
+            FROM discovery_telemetry
+            WHERE visitor_hash IS NOT NULL
+              AND type = 'PWA_STANDALONE_LAUNCH'
+              AND created_at >= NOW() - INTERVAL '30 days'
+          )::bigint AS "activeInstallations30d",
+          (
+            SELECT COUNT(DISTINCT visitor_hash)
+            FROM discovery_telemetry
+            WHERE visitor_hash IS NOT NULL
+              AND type = 'PWA_PROMPT_SHOWN'
+              AND created_at >= NOW() - INTERVAL '30 days'
+          )::bigint AS "promptedDevices30d"
+        FROM installation_signals
+      `,
+      this.prisma.$queryRaw<Array<{
+        audience: string;
+        count: bigint;
+        platform: string;
+      }>>`
+        WITH latest_install_signal AS (
+          SELECT
+            visitor_hash,
+            COALESCE(metadata ->> 'platform', 'OTHER') AS platform,
+            COALESCE(metadata ->> 'audience', 'PUBLIC') AS audience,
+            ROW_NUMBER() OVER (
+              PARTITION BY visitor_hash
+              ORDER BY created_at DESC
+            ) AS position
+          FROM discovery_telemetry
+          WHERE visitor_hash IS NOT NULL
+            AND type IN ('PWA_INSTALLED', 'PWA_STANDALONE_LAUNCH')
+        )
+        SELECT platform, audience, COUNT(*)::bigint AS count
+        FROM latest_install_signal
+        WHERE position = 1
+        GROUP BY platform, audience
+        ORDER BY count DESC
+      `,
     ]);
     const activated = enrollments.filter((item) => item.activation.activated).length;
     const weekOneRetained = enrollments.filter((item) => item.retention.weekOne).length;
@@ -207,6 +275,14 @@ export class PlatformAdminService {
     const activeThisWeek = retentionRows.filter((item) => item.currentWeek).length;
     const previousWeekActive = retentionRows.filter((item) => item.previousWeek).length;
     const retainedThisWeek = retentionRows.filter((item) => item.currentWeek && item.previousWeek).length;
+    const pwaSummary = pwaSummaryRows[0];
+    const platformCounts = new Map<string, number>();
+    const audienceCounts = new Map<string, number>();
+    for (const row of pwaSegmentRows) {
+      const count = Number(row.count);
+      platformCounts.set(row.platform, (platformCounts.get(row.platform) ?? 0) + count);
+      audienceCounts.set(row.audience, (audienceCounts.get(row.audience) ?? 0) + count);
+    }
     return {
       totals: {
         businesses,
@@ -269,6 +345,19 @@ export class PlatformAdminService {
         previousWeekActive,
         retainedThisWeek,
         weeklyRetentionRate: percentage(retainedThisWeek, previousWeekActive),
+      },
+      pwa: {
+        knownInstallations: Number(pwaSummary?.knownInstallations ?? 0),
+        newInstallations30d: Number(pwaSummary?.newInstallations30d ?? 0),
+        activeInstallations7d: Number(pwaSummary?.activeInstallations7d ?? 0),
+        activeInstallations30d: Number(pwaSummary?.activeInstallations30d ?? 0),
+        promptedDevices30d: Number(pwaSummary?.promptedDevices30d ?? 0),
+        platformBreakdown: [...platformCounts.entries()]
+          .map(([platform, installations]) => ({ platform, installations }))
+          .sort((left, right) => right.installations - left.installations),
+        audienceBreakdown: [...audienceCounts.entries()]
+          .map(([audience, installations]) => ({ audience, installations }))
+          .sort((left, right) => right.installations - left.installations),
       },
       memberJourneys: enrollments,
     };

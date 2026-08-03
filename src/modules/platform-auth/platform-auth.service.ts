@@ -14,6 +14,7 @@ import {
 } from "@simplewebauthn/server";
 import type { AuthenticatorTransportFuture } from "@simplewebauthn/server";
 import { randomBytes, randomUUID } from "node:crypto";
+import type { PlatformAdmin, User } from "../../generated/prisma/client";
 import {
   createOpaqueToken,
   hashToken,
@@ -28,6 +29,7 @@ import type {
 } from "./dto/platform-auth.dto";
 
 type PlatformSessionMeta = { ip?: string; userAgent?: string };
+type AdminContext = { admin: PlatformAdmin; user: User };
 
 @Injectable()
 export class PlatformAuthService {
@@ -37,27 +39,43 @@ export class PlatformAuthService {
     @Inject(OTP_PROVIDER) private readonly otpProvider: OtpProvider,
   ) {}
 
-  async current(rawOwnerToken?: string, rawPlatformToken?: string) {
+  methods() {
     this.assertEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
-    if (!rawPlatformToken) return this.publicAdmin(context, true);
+    return {
+      passkeysEnabled:
+        this.config.get<string>("ADMIN_PASSKEY_ENABLED", "false") === "true",
+      whatsappEnabled:
+        this.config.get<string>("ADMIN_WHATSAPP_FALLBACK_ENABLED", "true") ===
+        "true",
+      recoveryCodesEnabled:
+        this.config.get<string>("ADMIN_PASSKEY_ENABLED", "false") === "true",
+    };
+  }
+
+  async current(rawPlatformToken?: string) {
+    this.assertEnabled();
+    if (!rawPlatformToken) return null;
     const platformSession = await this.prisma.platformAdminSession.findUnique({
       where: { tokenHash: hashToken(rawPlatformToken) },
+      include: { platformAdmin: { include: { user: true } } },
     });
     const valid = Boolean(
       platformSession &&
-        platformSession.platformAdminId === context.admin.id &&
-        platformSession.ownerSessionId === context.ownerSession.id &&
+        platformSession.platformAdmin.status === "ACTIVE" &&
         !platformSession.revokedAt &&
         platformSession.expiresAt.getTime() > Date.now() &&
         Date.now() - platformSession.lastUsedAt.getTime() <= 30 * 60 * 1000,
     );
-    return this.publicAdmin(context, !valid);
+    if (!valid || !platformSession) return null;
+    return this.publicAdmin({
+      admin: platformSession.platformAdmin,
+      user: platformSession.platformAdmin.user,
+    }, false);
   }
 
-  async start(rawOwnerToken?: string, meta: PlatformSessionMeta = {}) {
+  async start(identifier: string, meta: PlatformSessionMeta = {}) {
     this.assertEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
+    const context = await this.adminByIdentifier(identifier);
     await this.assertWhatsappPermitted(context.admin.id);
     if (!context.user.phone) {
       throw new ForbiddenException("Connect a verified WhatsApp number before using platform admin");
@@ -100,29 +118,32 @@ export class PlatformAuthService {
   }
 
   async verify(
-    rawOwnerToken: string | undefined,
     challengeId: string,
     code: string,
     meta: PlatformSessionMeta = {},
   ) {
     this.assertEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
-    await this.assertWhatsappPermitted(context.admin.id);
     const challenge = await this.prisma.ownerOtpChallenge.findFirst({
       where: {
         id: challengeId,
-        userId: context.user.id,
         purpose: "PLATFORM_ADMIN_STEP_UP",
       },
+      include: { user: { include: { platformAdmin: true } } },
     });
+    const platformAdmin = challenge?.user?.platformAdmin;
     if (
       !challenge ||
+      !challenge.user ||
+      !platformAdmin ||
+      platformAdmin.status !== "ACTIVE" ||
       challenge.verifiedAt ||
       challenge.expiresAt.getTime() <= Date.now() ||
       challenge.attempts >= 5
     ) {
       throw new UnauthorizedException("Platform verification expired");
     }
+    const context: AdminContext = { admin: platformAdmin, user: challenge.user };
+    await this.assertWhatsappPermitted(context.admin.id);
     const attempt = await this.prisma.ownerOtpChallenge.updateMany({
       where: {
         id: challenge.id,
@@ -173,7 +194,6 @@ export class PlatformAuthService {
       const session = await tx.platformAdminSession.create({
         data: {
           platformAdminId: context.admin.id,
-          ownerSessionId: context.ownerSession.id,
           tokenHash: generated.tokenHash,
           authenticationMethod: "WHATSAPP_OTP",
           verifiedAt: now,
@@ -201,10 +221,9 @@ export class PlatformAuthService {
     };
   }
 
-  async passkeys(rawOwnerToken?: string, rawPlatformToken?: string) {
+  async passkeys(rawPlatformToken?: string) {
     this.assertPasskeysEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
-    await this.assertPlatformSession(context, rawPlatformToken, false);
+    const context = await this.platformAdminSession(rawPlatformToken, false);
     const [passkeys, remainingRecoveryCodes] = await Promise.all([
       this.prisma.platformAdminPasskey.findMany({
         where: { platformAdminId: context.admin.id },
@@ -227,12 +246,10 @@ export class PlatformAuthService {
   }
 
   async passkeyRegistrationOptions(
-    rawOwnerToken?: string,
     rawPlatformToken?: string,
   ) {
     this.assertPasskeysEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
-    await this.assertPlatformSession(context, rawPlatformToken, true);
+    const context = await this.platformAdminSession(rawPlatformToken, true);
     const existing = await this.prisma.platformAdminPasskey.findMany({
       where: { platformAdminId: context.admin.id },
       select: { credentialId: true, transports: true },
@@ -256,7 +273,7 @@ export class PlatformAuthService {
     const challenge = await this.prisma.$transaction(async (tx) => {
       await tx.platformAdminPasskeyChallenge.updateMany({
         where: {
-          ownerSessionId: context.ownerSession.id,
+          platformAdminId: context.admin.id,
           purpose: "REGISTRATION",
           usedAt: null,
         },
@@ -265,7 +282,6 @@ export class PlatformAuthService {
       return tx.platformAdminPasskeyChallenge.create({
         data: {
           platformAdminId: context.admin.id,
-          ownerSessionId: context.ownerSession.id,
           purpose: "REGISTRATION",
           challenge: options.challenge,
           expiresAt: new Date(Date.now() + 5 * 60 * 1000),
@@ -276,18 +292,15 @@ export class PlatformAuthService {
   }
 
   async verifyPasskeyRegistration(
-    rawOwnerToken: string | undefined,
     rawPlatformToken: string | undefined,
     dto: VerifyPasskeyRegistrationDto,
   ) {
     this.assertPasskeysEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
-    await this.assertPlatformSession(context, rawPlatformToken, true);
+    const context = await this.platformAdminSession(rawPlatformToken, true);
     const challenge = await this.prisma.platformAdminPasskeyChallenge.findFirst({
       where: {
         id: dto.challengeId,
         platformAdminId: context.admin.id,
-        ownerSessionId: context.ownerSession.id,
         purpose: "REGISTRATION",
         usedAt: null,
         expiresAt: { gt: new Date() },
@@ -358,9 +371,9 @@ export class PlatformAuthService {
     });
   }
 
-  async passkeyAuthenticationOptions(rawOwnerToken?: string) {
+  async passkeyAuthenticationOptions(identifier: string) {
     this.assertPasskeysEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
+    const context = await this.adminByIdentifier(identifier);
     const passkeys = await this.prisma.platformAdminPasskey.findMany({
       where: { platformAdminId: context.admin.id },
       select: { credentialId: true, transports: true },
@@ -377,7 +390,7 @@ export class PlatformAuthService {
     const challenge = await this.prisma.$transaction(async (tx) => {
       await tx.platformAdminPasskeyChallenge.updateMany({
         where: {
-          ownerSessionId: context.ownerSession.id,
+          platformAdminId: context.admin.id,
           purpose: "AUTHENTICATION",
           usedAt: null,
         },
@@ -386,7 +399,6 @@ export class PlatformAuthService {
       return tx.platformAdminPasskeyChallenge.create({
         data: {
           platformAdminId: context.admin.id,
-          ownerSessionId: context.ownerSession.id,
           purpose: "AUTHENTICATION",
           challenge: options.challenge,
           expiresAt: new Date(Date.now() + 5 * 60 * 1000),
@@ -397,31 +409,33 @@ export class PlatformAuthService {
   }
 
   async verifyPasskeyAuthentication(
-    rawOwnerToken: string | undefined,
     dto: VerifyPasskeyAuthenticationDto,
     meta: PlatformSessionMeta = {},
   ) {
     this.assertPasskeysEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
-    const [challenge, passkey] = await Promise.all([
-      this.prisma.platformAdminPasskeyChallenge.findFirst({
-        where: {
-          id: dto.challengeId,
-          platformAdminId: context.admin.id,
-          ownerSessionId: context.ownerSession.id,
-          purpose: "AUTHENTICATION",
-          usedAt: null,
-          expiresAt: { gt: new Date() },
-        },
-      }),
-      this.prisma.platformAdminPasskey.findFirst({
-        where: {
-          platformAdminId: context.admin.id,
-          credentialId: dto.response.id,
-        },
-      }),
-    ]);
-    if (!challenge || !passkey) throw new UnauthorizedException("Passkey verification expired");
+    const challenge = await this.prisma.platformAdminPasskeyChallenge.findFirst({
+      where: {
+        id: dto.challengeId,
+        purpose: "AUTHENTICATION",
+        usedAt: null,
+        expiresAt: { gt: new Date() },
+      },
+      include: { platformAdmin: { include: { user: true } } },
+    });
+    if (!challenge || challenge.platformAdmin.status !== "ACTIVE") {
+      throw new UnauthorizedException("Passkey verification expired");
+    }
+    const context: AdminContext = {
+      admin: challenge.platformAdmin,
+      user: challenge.platformAdmin.user,
+    };
+    const passkey = await this.prisma.platformAdminPasskey.findFirst({
+      where: {
+        platformAdminId: context.admin.id,
+        credentialId: dto.response.id,
+      },
+    });
+    if (!passkey) throw new UnauthorizedException("Passkey verification expired");
     const verification = await verifyAuthenticationResponse({
       response: dto.response,
       expectedChallenge: challenge.challenge,
@@ -457,7 +471,6 @@ export class PlatformAuthService {
       const session = await tx.platformAdminSession.create({
         data: {
           platformAdminId: context.admin.id,
-          ownerSessionId: context.ownerSession.id,
           passkeyId: passkey.id,
           tokenHash: generated.tokenHash,
           authenticationMethod: "PASSKEY",
@@ -487,21 +500,25 @@ export class PlatformAuthService {
   }
 
   async verifyRecoveryCode(
-    rawOwnerToken: string | undefined,
     rawCode: string,
     meta: PlatformSessionMeta = {},
   ) {
     this.assertPasskeysEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
     const code = rawCode.trim().toUpperCase();
     const recovery = await this.prisma.platformAdminRecoveryCode.findFirst({
       where: {
-        platformAdminId: context.admin.id,
         codeHash: hashToken(code),
         usedAt: null,
       },
+      include: { platformAdmin: { include: { user: true } } },
     });
-    if (!recovery) throw new UnauthorizedException("Recovery code is invalid or already used");
+    if (!recovery || recovery.platformAdmin.status !== "ACTIVE") {
+      throw new UnauthorizedException("Recovery code is invalid or already used");
+    }
+    const context: AdminContext = {
+      admin: recovery.platformAdmin,
+      user: recovery.platformAdmin.user,
+    };
     const generated = createOpaqueToken();
     const expiresAt = new Date(Date.now() + 8 * 60 * 60 * 1000);
     const now = new Date();
@@ -514,7 +531,6 @@ export class PlatformAuthService {
       const created = await tx.platformAdminSession.create({
         data: {
           platformAdminId: context.admin.id,
-          ownerSessionId: context.ownerSession.id,
           tokenHash: generated.tokenHash,
           authenticationMethod: "RECOVERY_CODE",
           verifiedAt: now,
@@ -542,10 +558,9 @@ export class PlatformAuthService {
     };
   }
 
-  async regenerateRecoveryCodes(rawOwnerToken?: string, rawPlatformToken?: string) {
+  async regenerateRecoveryCodes(rawPlatformToken?: string) {
     this.assertPasskeysEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
-    await this.assertPlatformSession(context, rawPlatformToken, true);
+    const context = await this.platformAdminSession(rawPlatformToken, true);
     const codes = this.newRecoveryCodes();
     await this.prisma.$transaction(async (tx) => {
       await tx.platformAdminRecoveryCode.deleteMany({ where: { platformAdminId: context.admin.id } });
@@ -565,14 +580,12 @@ export class PlatformAuthService {
   }
 
   async renamePasskey(
-    rawOwnerToken: string | undefined,
     rawPlatformToken: string | undefined,
     id: string,
     name: string,
   ) {
     this.assertPasskeysEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
-    await this.assertPlatformSession(context, rawPlatformToken, false);
+    const context = await this.platformAdminSession(rawPlatformToken, false);
     const updated = await this.prisma.platformAdminPasskey.updateMany({
       where: { id, platformAdminId: context.admin.id },
       data: { name: name.trim() },
@@ -582,13 +595,11 @@ export class PlatformAuthService {
   }
 
   async removePasskey(
-    rawOwnerToken: string | undefined,
     rawPlatformToken: string | undefined,
     id: string,
   ) {
     this.assertPasskeysEnabled();
-    const context = await this.ownerAdmin(rawOwnerToken);
-    await this.assertPlatformSession(context, rawPlatformToken, true);
+    const context = await this.platformAdminSession(rawPlatformToken, true);
     return this.prisma.$transaction(async (tx) => {
       const passkey = await tx.platformAdminPasskey.findFirst({ where: { id, platformAdminId: context.admin.id } });
       if (!passkey) throw new NotFoundException("Passkey not found");
@@ -618,40 +629,44 @@ export class PlatformAuthService {
     });
   }
 
-  private async ownerAdmin(rawOwnerToken?: string) {
-    if (!rawOwnerToken) throw new UnauthorizedException("Owner sign in required");
-    const ownerSession = await this.prisma.ownerSession.findUnique({
-      where: { tokenHash: hashToken(rawOwnerToken) },
-      include: { user: { include: { platformAdmin: true } } },
-    });
-    if (
-      !ownerSession ||
-      ownerSession.revokedAt ||
-      ownerSession.expiresAt.getTime() <= Date.now() ||
-      ownerSession.user.platformAdmin?.status !== "ACTIVE"
-    ) {
-      throw new UnauthorizedException("Active platform administrator access required");
+  private async adminByIdentifier(identifier: string): Promise<AdminContext> {
+    const value = identifier.trim();
+    let where: { email?: string; phone?: string };
+    if (value.includes("@")) {
+      where = { email: value.toLowerCase() };
+    } else {
+      const digits = value.replace(/\D/g, "");
+      const candidate = digits.length === 11 && digits.startsWith("0")
+        ? `+234${digits.slice(1)}`
+        : value;
+      try {
+        where = { phone: normalizeE164(candidate) };
+      } catch {
+        throw new UnauthorizedException("Admin sign-in could not be started");
+      }
     }
-    return {
-      ownerSession,
-      user: ownerSession.user,
-      admin: ownerSession.user.platformAdmin,
-    };
+    const user = await this.prisma.user.findFirst({
+      where,
+      include: { platformAdmin: true },
+    });
+    if (!user || user.platformAdmin?.status !== "ACTIVE") {
+      throw new UnauthorizedException("Admin sign-in could not be started");
+    }
+    return { admin: user.platformAdmin, user };
   }
 
-  private async assertPlatformSession(
-    context: Awaited<ReturnType<PlatformAuthService["ownerAdmin"]>>,
+  private async platformAdminSession(
     rawPlatformToken?: string,
     recent = false,
   ) {
     if (!rawPlatformToken) throw new UnauthorizedException("Platform step-up verification required");
     const session = await this.prisma.platformAdminSession.findUnique({
       where: { tokenHash: hashToken(rawPlatformToken) },
+      include: { platformAdmin: { include: { user: true } } },
     });
     if (
       !session ||
-      session.platformAdminId !== context.admin.id ||
-      session.ownerSessionId !== context.ownerSession.id ||
+      session.platformAdmin.status !== "ACTIVE" ||
       session.revokedAt ||
       session.expiresAt.getTime() <= Date.now() ||
       Date.now() - session.lastUsedAt.getTime() > 30 * 60 * 1000 ||
@@ -659,7 +674,11 @@ export class PlatformAuthService {
     ) {
       throw new UnauthorizedException("Recent platform step-up verification required");
     }
-    return session;
+    return {
+      platformSession: session,
+      admin: session.platformAdmin,
+      user: session.platformAdmin.user,
+    };
   }
 
   private assertEnabled() {
@@ -727,7 +746,7 @@ export class PlatformAuthService {
   }
 
   private publicAdmin(
-    context: Awaited<ReturnType<PlatformAuthService["ownerAdmin"]>>,
+    context: AdminContext,
     stepUpRequired: boolean,
   ) {
     return {

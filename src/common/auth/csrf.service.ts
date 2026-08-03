@@ -6,6 +6,7 @@ import {
   CUSTOMER_SESSION_COOKIE,
   ONBOARDING_GRANT_COOKIE,
   OWNER_SESSION_COOKIE,
+  PLATFORM_ADMIN_SESSION_COOKIE,
   readCookie,
 } from "../http.util";
 
@@ -33,6 +34,8 @@ export class CsrfService {
 
   private sessionBinding(request: Request) {
     const cookie = request.headers.cookie;
+    const platformAdmin = readCookie(cookie, PLATFORM_ADMIN_SESSION_COOKIE);
+    if (platformAdmin) return `${PLATFORM_ADMIN_SESSION_COOKIE}:${platformAdmin}`;
     const owner = readCookie(cookie, OWNER_SESSION_COOKIE);
     if (owner) return `${OWNER_SESSION_COOKIE}:${owner}`;
     const customer = readCookie(cookie, CUSTOMER_SESSION_COOKIE);

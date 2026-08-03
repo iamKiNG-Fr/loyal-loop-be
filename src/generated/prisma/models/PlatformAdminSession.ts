@@ -198,7 +198,7 @@ export type PlatformAdminSessionGroupByArgs<ExtArgs extends runtime.Types.Extens
 export type PlatformAdminSessionGroupByOutputType = {
   id: string
   platformAdminId: string
-  ownerSessionId: string
+  ownerSessionId: string | null
   passkeyId: string | null
   tokenHash: string
   authenticationMethod: $Enums.PlatformAdminAuthenticationMethod
@@ -235,7 +235,7 @@ export type PlatformAdminSessionWhereInput = {
   NOT?: Prisma.PlatformAdminSessionWhereInput | Prisma.PlatformAdminSessionWhereInput[]
   id?: Prisma.StringFilter<"PlatformAdminSession"> | string
   platformAdminId?: Prisma.StringFilter<"PlatformAdminSession"> | string
-  ownerSessionId?: Prisma.StringFilter<"PlatformAdminSession"> | string
+  ownerSessionId?: Prisma.StringNullableFilter<"PlatformAdminSession"> | string | null
   passkeyId?: Prisma.StringNullableFilter<"PlatformAdminSession"> | string | null
   tokenHash?: Prisma.StringFilter<"PlatformAdminSession"> | string
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodFilter<"PlatformAdminSession"> | $Enums.PlatformAdminAuthenticationMethod
@@ -247,14 +247,14 @@ export type PlatformAdminSessionWhereInput = {
   ipHash?: Prisma.StringNullableFilter<"PlatformAdminSession"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PlatformAdminSession"> | Date | string
   platformAdmin?: Prisma.XOR<Prisma.PlatformAdminScalarRelationFilter, Prisma.PlatformAdminWhereInput>
-  ownerSession?: Prisma.XOR<Prisma.OwnerSessionScalarRelationFilter, Prisma.OwnerSessionWhereInput>
+  ownerSession?: Prisma.XOR<Prisma.OwnerSessionNullableScalarRelationFilter, Prisma.OwnerSessionWhereInput> | null
   passkey?: Prisma.XOR<Prisma.PlatformAdminPasskeyNullableScalarRelationFilter, Prisma.PlatformAdminPasskeyWhereInput> | null
 }
 
 export type PlatformAdminSessionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   platformAdminId?: Prisma.SortOrder
-  ownerSessionId?: Prisma.SortOrder
+  ownerSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
   passkeyId?: Prisma.SortOrderInput | Prisma.SortOrder
   tokenHash?: Prisma.SortOrder
   authenticationMethod?: Prisma.SortOrder
@@ -277,7 +277,7 @@ export type PlatformAdminSessionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PlatformAdminSessionWhereInput[]
   NOT?: Prisma.PlatformAdminSessionWhereInput | Prisma.PlatformAdminSessionWhereInput[]
   platformAdminId?: Prisma.StringFilter<"PlatformAdminSession"> | string
-  ownerSessionId?: Prisma.StringFilter<"PlatformAdminSession"> | string
+  ownerSessionId?: Prisma.StringNullableFilter<"PlatformAdminSession"> | string | null
   passkeyId?: Prisma.StringNullableFilter<"PlatformAdminSession"> | string | null
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodFilter<"PlatformAdminSession"> | $Enums.PlatformAdminAuthenticationMethod
   verifiedAt?: Prisma.DateTimeFilter<"PlatformAdminSession"> | Date | string
@@ -288,14 +288,14 @@ export type PlatformAdminSessionWhereUniqueInput = Prisma.AtLeast<{
   ipHash?: Prisma.StringNullableFilter<"PlatformAdminSession"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PlatformAdminSession"> | Date | string
   platformAdmin?: Prisma.XOR<Prisma.PlatformAdminScalarRelationFilter, Prisma.PlatformAdminWhereInput>
-  ownerSession?: Prisma.XOR<Prisma.OwnerSessionScalarRelationFilter, Prisma.OwnerSessionWhereInput>
+  ownerSession?: Prisma.XOR<Prisma.OwnerSessionNullableScalarRelationFilter, Prisma.OwnerSessionWhereInput> | null
   passkey?: Prisma.XOR<Prisma.PlatformAdminPasskeyNullableScalarRelationFilter, Prisma.PlatformAdminPasskeyWhereInput> | null
 }, "id" | "tokenHash">
 
 export type PlatformAdminSessionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   platformAdminId?: Prisma.SortOrder
-  ownerSessionId?: Prisma.SortOrder
+  ownerSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
   passkeyId?: Prisma.SortOrderInput | Prisma.SortOrder
   tokenHash?: Prisma.SortOrder
   authenticationMethod?: Prisma.SortOrder
@@ -317,7 +317,7 @@ export type PlatformAdminSessionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PlatformAdminSessionScalarWhereWithAggregatesInput | Prisma.PlatformAdminSessionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PlatformAdminSession"> | string
   platformAdminId?: Prisma.StringWithAggregatesFilter<"PlatformAdminSession"> | string
-  ownerSessionId?: Prisma.StringWithAggregatesFilter<"PlatformAdminSession"> | string
+  ownerSessionId?: Prisma.StringNullableWithAggregatesFilter<"PlatformAdminSession"> | string | null
   passkeyId?: Prisma.StringNullableWithAggregatesFilter<"PlatformAdminSession"> | string | null
   tokenHash?: Prisma.StringWithAggregatesFilter<"PlatformAdminSession"> | string
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodWithAggregatesFilter<"PlatformAdminSession"> | $Enums.PlatformAdminAuthenticationMethod
@@ -342,14 +342,14 @@ export type PlatformAdminSessionCreateInput = {
   ipHash?: string | null
   createdAt?: Date | string
   platformAdmin: Prisma.PlatformAdminCreateNestedOneWithoutSessionsInput
-  ownerSession: Prisma.OwnerSessionCreateNestedOneWithoutPlatformAdminSessionsInput
+  ownerSession?: Prisma.OwnerSessionCreateNestedOneWithoutPlatformAdminSessionsInput
   passkey?: Prisma.PlatformAdminPasskeyCreateNestedOneWithoutSessionsInput
 }
 
 export type PlatformAdminSessionUncheckedCreateInput = {
   id?: string
   platformAdminId: string
-  ownerSessionId: string
+  ownerSessionId?: string | null
   passkeyId?: string | null
   tokenHash: string
   authenticationMethod?: $Enums.PlatformAdminAuthenticationMethod
@@ -374,14 +374,14 @@ export type PlatformAdminSessionUpdateInput = {
   ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   platformAdmin?: Prisma.PlatformAdminUpdateOneRequiredWithoutSessionsNestedInput
-  ownerSession?: Prisma.OwnerSessionUpdateOneRequiredWithoutPlatformAdminSessionsNestedInput
+  ownerSession?: Prisma.OwnerSessionUpdateOneWithoutPlatformAdminSessionsNestedInput
   passkey?: Prisma.PlatformAdminPasskeyUpdateOneWithoutSessionsNestedInput
 }
 
 export type PlatformAdminSessionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platformAdminId?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passkeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodFieldUpdateOperationsInput | $Enums.PlatformAdminAuthenticationMethod
@@ -397,7 +397,7 @@ export type PlatformAdminSessionUncheckedUpdateInput = {
 export type PlatformAdminSessionCreateManyInput = {
   id?: string
   platformAdminId: string
-  ownerSessionId: string
+  ownerSessionId?: string | null
   passkeyId?: string | null
   tokenHash: string
   authenticationMethod?: $Enums.PlatformAdminAuthenticationMethod
@@ -426,7 +426,7 @@ export type PlatformAdminSessionUpdateManyMutationInput = {
 export type PlatformAdminSessionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platformAdminId?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passkeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodFieldUpdateOperationsInput | $Enums.PlatformAdminAuthenticationMethod
@@ -638,13 +638,13 @@ export type PlatformAdminSessionCreateWithoutPlatformAdminInput = {
   userAgent?: string | null
   ipHash?: string | null
   createdAt?: Date | string
-  ownerSession: Prisma.OwnerSessionCreateNestedOneWithoutPlatformAdminSessionsInput
+  ownerSession?: Prisma.OwnerSessionCreateNestedOneWithoutPlatformAdminSessionsInput
   passkey?: Prisma.PlatformAdminPasskeyCreateNestedOneWithoutSessionsInput
 }
 
 export type PlatformAdminSessionUncheckedCreateWithoutPlatformAdminInput = {
   id?: string
-  ownerSessionId: string
+  ownerSessionId?: string | null
   passkeyId?: string | null
   tokenHash: string
   authenticationMethod?: $Enums.PlatformAdminAuthenticationMethod
@@ -689,7 +689,7 @@ export type PlatformAdminSessionScalarWhereInput = {
   NOT?: Prisma.PlatformAdminSessionScalarWhereInput | Prisma.PlatformAdminSessionScalarWhereInput[]
   id?: Prisma.StringFilter<"PlatformAdminSession"> | string
   platformAdminId?: Prisma.StringFilter<"PlatformAdminSession"> | string
-  ownerSessionId?: Prisma.StringFilter<"PlatformAdminSession"> | string
+  ownerSessionId?: Prisma.StringNullableFilter<"PlatformAdminSession"> | string | null
   passkeyId?: Prisma.StringNullableFilter<"PlatformAdminSession"> | string | null
   tokenHash?: Prisma.StringFilter<"PlatformAdminSession"> | string
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodFilter<"PlatformAdminSession"> | $Enums.PlatformAdminAuthenticationMethod
@@ -714,13 +714,13 @@ export type PlatformAdminSessionCreateWithoutPasskeyInput = {
   ipHash?: string | null
   createdAt?: Date | string
   platformAdmin: Prisma.PlatformAdminCreateNestedOneWithoutSessionsInput
-  ownerSession: Prisma.OwnerSessionCreateNestedOneWithoutPlatformAdminSessionsInput
+  ownerSession?: Prisma.OwnerSessionCreateNestedOneWithoutPlatformAdminSessionsInput
 }
 
 export type PlatformAdminSessionUncheckedCreateWithoutPasskeyInput = {
   id?: string
   platformAdminId: string
-  ownerSessionId: string
+  ownerSessionId?: string | null
   tokenHash: string
   authenticationMethod?: $Enums.PlatformAdminAuthenticationMethod
   verifiedAt?: Date | string
@@ -816,7 +816,7 @@ export type PlatformAdminSessionUpdateManyWithWhereWithoutOwnerSessionInput = {
 
 export type PlatformAdminSessionCreateManyPlatformAdminInput = {
   id?: string
-  ownerSessionId: string
+  ownerSessionId?: string | null
   passkeyId?: string | null
   tokenHash: string
   authenticationMethod?: $Enums.PlatformAdminAuthenticationMethod
@@ -840,13 +840,13 @@ export type PlatformAdminSessionUpdateWithoutPlatformAdminInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownerSession?: Prisma.OwnerSessionUpdateOneRequiredWithoutPlatformAdminSessionsNestedInput
+  ownerSession?: Prisma.OwnerSessionUpdateOneWithoutPlatformAdminSessionsNestedInput
   passkey?: Prisma.PlatformAdminPasskeyUpdateOneWithoutSessionsNestedInput
 }
 
 export type PlatformAdminSessionUncheckedUpdateWithoutPlatformAdminInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passkeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodFieldUpdateOperationsInput | $Enums.PlatformAdminAuthenticationMethod
@@ -861,7 +861,7 @@ export type PlatformAdminSessionUncheckedUpdateWithoutPlatformAdminInput = {
 
 export type PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passkeyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodFieldUpdateOperationsInput | $Enums.PlatformAdminAuthenticationMethod
@@ -877,7 +877,7 @@ export type PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminInput = {
 export type PlatformAdminSessionCreateManyPasskeyInput = {
   id?: string
   platformAdminId: string
-  ownerSessionId: string
+  ownerSessionId?: string | null
   tokenHash: string
   authenticationMethod?: $Enums.PlatformAdminAuthenticationMethod
   verifiedAt?: Date | string
@@ -901,13 +901,13 @@ export type PlatformAdminSessionUpdateWithoutPasskeyInput = {
   ipHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   platformAdmin?: Prisma.PlatformAdminUpdateOneRequiredWithoutSessionsNestedInput
-  ownerSession?: Prisma.OwnerSessionUpdateOneRequiredWithoutPlatformAdminSessionsNestedInput
+  ownerSession?: Prisma.OwnerSessionUpdateOneWithoutPlatformAdminSessionsNestedInput
 }
 
 export type PlatformAdminSessionUncheckedUpdateWithoutPasskeyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platformAdminId?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodFieldUpdateOperationsInput | $Enums.PlatformAdminAuthenticationMethod
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -922,7 +922,7 @@ export type PlatformAdminSessionUncheckedUpdateWithoutPasskeyInput = {
 export type PlatformAdminSessionUncheckedUpdateManyWithoutPasskeyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   platformAdminId?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerSessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   authenticationMethod?: Prisma.EnumPlatformAdminAuthenticationMethodFieldUpdateOperationsInput | $Enums.PlatformAdminAuthenticationMethod
   verifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1011,7 +1011,7 @@ export type PlatformAdminSessionSelect<ExtArgs extends runtime.Types.Extensions.
   ipHash?: boolean
   createdAt?: boolean
   platformAdmin?: boolean | Prisma.PlatformAdminDefaultArgs<ExtArgs>
-  ownerSession?: boolean | Prisma.OwnerSessionDefaultArgs<ExtArgs>
+  ownerSession?: boolean | Prisma.PlatformAdminSession$ownerSessionArgs<ExtArgs>
   passkey?: boolean | Prisma.PlatformAdminSession$passkeyArgs<ExtArgs>
 }, ExtArgs["result"]["platformAdminSession"]>
 
@@ -1030,7 +1030,7 @@ export type PlatformAdminSessionSelectCreateManyAndReturn<ExtArgs extends runtim
   ipHash?: boolean
   createdAt?: boolean
   platformAdmin?: boolean | Prisma.PlatformAdminDefaultArgs<ExtArgs>
-  ownerSession?: boolean | Prisma.OwnerSessionDefaultArgs<ExtArgs>
+  ownerSession?: boolean | Prisma.PlatformAdminSession$ownerSessionArgs<ExtArgs>
   passkey?: boolean | Prisma.PlatformAdminSession$passkeyArgs<ExtArgs>
 }, ExtArgs["result"]["platformAdminSession"]>
 
@@ -1049,7 +1049,7 @@ export type PlatformAdminSessionSelectUpdateManyAndReturn<ExtArgs extends runtim
   ipHash?: boolean
   createdAt?: boolean
   platformAdmin?: boolean | Prisma.PlatformAdminDefaultArgs<ExtArgs>
-  ownerSession?: boolean | Prisma.OwnerSessionDefaultArgs<ExtArgs>
+  ownerSession?: boolean | Prisma.PlatformAdminSession$ownerSessionArgs<ExtArgs>
   passkey?: boolean | Prisma.PlatformAdminSession$passkeyArgs<ExtArgs>
 }, ExtArgs["result"]["platformAdminSession"]>
 
@@ -1072,17 +1072,17 @@ export type PlatformAdminSessionSelectScalar = {
 export type PlatformAdminSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "platformAdminId" | "ownerSessionId" | "passkeyId" | "tokenHash" | "authenticationMethod" | "verifiedAt" | "expiresAt" | "lastUsedAt" | "revokedAt" | "userAgent" | "ipHash" | "createdAt", ExtArgs["result"]["platformAdminSession"]>
 export type PlatformAdminSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   platformAdmin?: boolean | Prisma.PlatformAdminDefaultArgs<ExtArgs>
-  ownerSession?: boolean | Prisma.OwnerSessionDefaultArgs<ExtArgs>
+  ownerSession?: boolean | Prisma.PlatformAdminSession$ownerSessionArgs<ExtArgs>
   passkey?: boolean | Prisma.PlatformAdminSession$passkeyArgs<ExtArgs>
 }
 export type PlatformAdminSessionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   platformAdmin?: boolean | Prisma.PlatformAdminDefaultArgs<ExtArgs>
-  ownerSession?: boolean | Prisma.OwnerSessionDefaultArgs<ExtArgs>
+  ownerSession?: boolean | Prisma.PlatformAdminSession$ownerSessionArgs<ExtArgs>
   passkey?: boolean | Prisma.PlatformAdminSession$passkeyArgs<ExtArgs>
 }
 export type PlatformAdminSessionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   platformAdmin?: boolean | Prisma.PlatformAdminDefaultArgs<ExtArgs>
-  ownerSession?: boolean | Prisma.OwnerSessionDefaultArgs<ExtArgs>
+  ownerSession?: boolean | Prisma.PlatformAdminSession$ownerSessionArgs<ExtArgs>
   passkey?: boolean | Prisma.PlatformAdminSession$passkeyArgs<ExtArgs>
 }
 
@@ -1090,13 +1090,13 @@ export type $PlatformAdminSessionPayload<ExtArgs extends runtime.Types.Extension
   name: "PlatformAdminSession"
   objects: {
     platformAdmin: Prisma.$PlatformAdminPayload<ExtArgs>
-    ownerSession: Prisma.$OwnerSessionPayload<ExtArgs>
+    ownerSession: Prisma.$OwnerSessionPayload<ExtArgs> | null
     passkey: Prisma.$PlatformAdminPasskeyPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     platformAdminId: string
-    ownerSessionId: string
+    ownerSessionId: string | null
     passkeyId: string | null
     tokenHash: string
     authenticationMethod: $Enums.PlatformAdminAuthenticationMethod
@@ -1502,7 +1502,7 @@ readonly fields: PlatformAdminSessionFieldRefs;
 export interface Prisma__PlatformAdminSessionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   platformAdmin<T extends Prisma.PlatformAdminDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdminDefaultArgs<ExtArgs>>): Prisma.Prisma__PlatformAdminClient<runtime.Types.Result.GetResult<Prisma.$PlatformAdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  ownerSession<T extends Prisma.OwnerSessionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OwnerSessionDefaultArgs<ExtArgs>>): Prisma.Prisma__OwnerSessionClient<runtime.Types.Result.GetResult<Prisma.$OwnerSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  ownerSession<T extends Prisma.PlatformAdminSession$ownerSessionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdminSession$ownerSessionArgs<ExtArgs>>): Prisma.Prisma__OwnerSessionClient<runtime.Types.Result.GetResult<Prisma.$OwnerSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   passkey<T extends Prisma.PlatformAdminSession$passkeyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdminSession$passkeyArgs<ExtArgs>>): Prisma.Prisma__PlatformAdminPasskeyClient<runtime.Types.Result.GetResult<Prisma.$PlatformAdminPasskeyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1944,6 +1944,25 @@ export type PlatformAdminSessionDeleteManyArgs<ExtArgs extends runtime.Types.Ext
    * Limit how many PlatformAdminSessions to delete.
    */
   limit?: number
+}
+
+/**
+ * PlatformAdminSession.ownerSession
+ */
+export type PlatformAdminSession$ownerSessionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OwnerSession
+   */
+  select?: Prisma.OwnerSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OwnerSession
+   */
+  omit?: Prisma.OwnerSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OwnerSessionInclude<ExtArgs> | null
+  where?: Prisma.OwnerSessionWhereInput
 }
 
 /**

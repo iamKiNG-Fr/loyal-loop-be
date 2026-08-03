@@ -37,6 +37,7 @@ import { WaitlistModule } from "./modules/waitlist/waitlist.module";
 import { FoundingCircleModule } from "./modules/founding-circle/founding-circle.module";
 import { PlatformAuthModule } from "./modules/platform-auth/platform-auth.module";
 import { PlatformAdminModule } from "./modules/platform-admin/platform-admin.module";
+import { PwaTelemetryModule } from "./modules/pwa-telemetry/pwa-telemetry.module";
 import { validateEnvironment } from "./config/environment";
 import { CsrfGuard } from "./common/auth/csrf.guard";
 import { RedisThrottlerStorage } from "./common/redis-throttler.storage";
@@ -71,6 +72,19 @@ import { hmacPrivateValue } from "./common/crypto.util";
               skipIf: (context) => !context.switchToHttp().getRequest().originalUrl?.endsWith("/auth/login"),
               getTracker: (request) => hmacPrivateValue(
                 String(request.body?.email ?? "missing").trim().toLowerCase(),
+                accountSecret,
+              ),
+            },
+            {
+              name: "admin-login-identity",
+              ttl: 15 * 60 * 1000,
+              limit: 8,
+              blockDuration: 15 * 60 * 1000,
+              skipIf: (context) => !/\/platform-auth\/(?:step-up\/start|passkeys\/authentication\/options)(?:\?|$)/.test(
+                context.switchToHttp().getRequest().originalUrl ?? "",
+              ),
+              getTracker: (request) => hmacPrivateValue(
+                String(request.body?.identifier ?? "missing").trim().toLowerCase(),
                 accountSecret,
               ),
             },
@@ -123,6 +137,7 @@ import { hmacPrivateValue } from "./common/crypto.util";
     FoundingCircleModule,
     PlatformAuthModule,
     PlatformAdminModule,
+    PwaTelemetryModule,
     AuthModule,
     CustomerAuthModule,
     CustomerReportsModule,

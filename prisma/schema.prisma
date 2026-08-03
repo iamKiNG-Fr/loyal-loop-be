@@ -754,7 +754,7 @@ model PlatformAdmin {
 model PlatformAdminSession {
   id                   String                            @id @default(cuid())
   platformAdminId      String
-  ownerSessionId       String
+  ownerSessionId       String?
   passkeyId            String?
   tokenHash            String                            @unique
   authenticationMethod PlatformAdminAuthenticationMethod @default(WHATSAPP_OTP)
@@ -766,7 +766,7 @@ model PlatformAdminSession {
   ipHash               String?
   createdAt            DateTime                          @default(now())
   platformAdmin        PlatformAdmin                     @relation(fields: [platformAdminId], references: [id], onDelete: Cascade)
-  ownerSession         OwnerSession                      @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
+  ownerSession         OwnerSession?                     @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
   passkey              PlatformAdminPasskey?             @relation(fields: [passkeyId], references: [id], onDelete: SetNull)
 
   @@index([platformAdminId, expiresAt])
@@ -797,14 +797,14 @@ model PlatformAdminPasskey {
 model PlatformAdminPasskeyChallenge {
   id              String                               @id @default(cuid())
   platformAdminId String
-  ownerSessionId  String
+  ownerSessionId  String?
   purpose         PlatformAdminPasskeyChallengePurpose
   challenge       String                               @unique
   expiresAt       DateTime
   usedAt          DateTime?
   createdAt       DateTime                             @default(now())
   platformAdmin   PlatformAdmin                        @relation(fields: [platformAdminId], references: [id], onDelete: Cascade)
-  ownerSession    OwnerSession                         @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
+  ownerSession    OwnerSession?                        @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
 
   @@index([platformAdminId, purpose, expiresAt])
   @@index([ownerSessionId, usedAt])

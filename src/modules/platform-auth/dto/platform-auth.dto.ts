@@ -4,6 +4,13 @@ import type {
   RegistrationResponseJSON,
 } from "@simplewebauthn/server";
 
+export class PlatformAdminIdentifierDto {
+  @IsString()
+  @Length(3, 254)
+  @Matches(/^(?:[^\s@]+@[^\s@]+\.[^\s@]+|\+?[0-9][0-9\s()-]{7,20})$/)
+  identifier!: string;
+}
+
 export class VerifyPlatformStepUpDto {
   @IsString()
   @Length(1, 120)

@@ -383,9 +383,9 @@ export type OwnerSessionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type OwnerSessionScalarRelationFilter = {
-  is?: Prisma.OwnerSessionWhereInput
-  isNot?: Prisma.OwnerSessionWhereInput
+export type OwnerSessionNullableScalarRelationFilter = {
+  is?: Prisma.OwnerSessionWhereInput | null
+  isNot?: Prisma.OwnerSessionWhereInput | null
 }
 
 export type OwnerSessionCountOrderByAggregateInput = {
@@ -472,10 +472,12 @@ export type OwnerSessionCreateNestedOneWithoutPlatformAdminSessionsInput = {
   connect?: Prisma.OwnerSessionWhereUniqueInput
 }
 
-export type OwnerSessionUpdateOneRequiredWithoutPlatformAdminSessionsNestedInput = {
+export type OwnerSessionUpdateOneWithoutPlatformAdminSessionsNestedInput = {
   create?: Prisma.XOR<Prisma.OwnerSessionCreateWithoutPlatformAdminSessionsInput, Prisma.OwnerSessionUncheckedCreateWithoutPlatformAdminSessionsInput>
   connectOrCreate?: Prisma.OwnerSessionCreateOrConnectWithoutPlatformAdminSessionsInput
   upsert?: Prisma.OwnerSessionUpsertWithoutPlatformAdminSessionsInput
+  disconnect?: Prisma.OwnerSessionWhereInput | boolean
+  delete?: Prisma.OwnerSessionWhereInput | boolean
   connect?: Prisma.OwnerSessionWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.OwnerSessionUpdateToOneWithWhereWithoutPlatformAdminSessionsInput, Prisma.OwnerSessionUpdateWithoutPlatformAdminSessionsInput>, Prisma.OwnerSessionUncheckedUpdateWithoutPlatformAdminSessionsInput>
 }
@@ -486,10 +488,12 @@ export type OwnerSessionCreateNestedOneWithoutPlatformAdminPasskeyChallengesInpu
   connect?: Prisma.OwnerSessionWhereUniqueInput
 }
 
-export type OwnerSessionUpdateOneRequiredWithoutPlatformAdminPasskeyChallengesNestedInput = {
+export type OwnerSessionUpdateOneWithoutPlatformAdminPasskeyChallengesNestedInput = {
   create?: Prisma.XOR<Prisma.OwnerSessionCreateWithoutPlatformAdminPasskeyChallengesInput, Prisma.OwnerSessionUncheckedCreateWithoutPlatformAdminPasskeyChallengesInput>
   connectOrCreate?: Prisma.OwnerSessionCreateOrConnectWithoutPlatformAdminPasskeyChallengesInput
   upsert?: Prisma.OwnerSessionUpsertWithoutPlatformAdminPasskeyChallengesInput
+  disconnect?: Prisma.OwnerSessionWhereInput | boolean
+  delete?: Prisma.OwnerSessionWhereInput | boolean
   connect?: Prisma.OwnerSessionWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.OwnerSessionUpdateToOneWithWhereWithoutPlatformAdminPasskeyChallengesInput, Prisma.OwnerSessionUpdateWithoutPlatformAdminPasskeyChallengesInput>, Prisma.OwnerSessionUncheckedUpdateWithoutPlatformAdminPasskeyChallengesInput>
 }

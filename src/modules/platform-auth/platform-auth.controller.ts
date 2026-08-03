@@ -4,13 +4,13 @@ import type { Request, Response } from "express";
 import { ok } from "../../common/api-response";
 import { AdminOriginGuard } from "../../common/auth/admin-origin.guard";
 import {
-  OWNER_SESSION_COOKIE,
   PLATFORM_ADMIN_SESSION_COOKIE,
   clearSessionCookie,
   readCookie,
   setSessionCookie,
 } from "../../common/http.util";
 import {
+  PlatformAdminIdentifierDto,
   RenamePasskeyDto,
   VerifyPasskeyAuthenticationDto,
   VerifyPasskeyRegistrationDto,
@@ -28,18 +28,25 @@ export class PlatformAuthController {
   async me(@Req() request: Request) {
     return ok(
       await this.auth.current(
-        readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
         readCookie(request.headers.cookie, PLATFORM_ADMIN_SESSION_COOKIE),
       ),
     );
   }
 
+  @Get("methods")
+  methods() {
+    return ok(this.auth.methods());
+  }
+
   @Post("step-up/start")
   @Throttle({ default: { limit: 3, ttl: minutes(10) } })
-  async start(@Req() request: Request) {
+  async start(
+    @Req() request: Request,
+    @Body() dto: PlatformAdminIdentifierDto,
+  ) {
     return ok(
       await this.auth.start(
-        readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
+        dto.identifier,
         requestMeta(request),
       ),
       "Platform verification sent",
@@ -54,7 +61,6 @@ export class PlatformAuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const result = await this.auth.verify(
-      readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
       dto.challengeId,
       dto.code,
       requestMeta(request),
@@ -71,7 +77,6 @@ export class PlatformAuthController {
   @Get("passkeys")
   async passkeys(@Req() request: Request) {
     return ok(await this.auth.passkeys(
-      readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
       readCookie(request.headers.cookie, PLATFORM_ADMIN_SESSION_COOKIE),
     ));
   }
@@ -79,7 +84,6 @@ export class PlatformAuthController {
   @Post("passkeys/registration/options")
   async passkeyRegistrationOptions(@Req() request: Request) {
     return ok(await this.auth.passkeyRegistrationOptions(
-      readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
       readCookie(request.headers.cookie, PLATFORM_ADMIN_SESSION_COOKIE),
     ));
   }
@@ -91,7 +95,6 @@ export class PlatformAuthController {
   ) {
     return ok(
       await this.auth.verifyPasskeyRegistration(
-        readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
         readCookie(request.headers.cookie, PLATFORM_ADMIN_SESSION_COOKIE),
         dto,
       ),
@@ -101,9 +104,11 @@ export class PlatformAuthController {
 
   @Post("passkeys/authentication/options")
   @Throttle({ default: { limit: 8, ttl: minutes(10) } })
-  async passkeyAuthenticationOptions(@Req() request: Request) {
+  async passkeyAuthenticationOptions(
+    @Body() dto: PlatformAdminIdentifierDto,
+  ) {
     return ok(await this.auth.passkeyAuthenticationOptions(
-      readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
+      dto.identifier,
     ));
   }
 
@@ -115,7 +120,6 @@ export class PlatformAuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const result = await this.auth.verifyPasskeyAuthentication(
-      readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
       dto,
       requestMeta(request),
     );
@@ -131,7 +135,6 @@ export class PlatformAuthController {
     @Res({ passthrough: true }) response: Response,
   ) {
     const result = await this.auth.verifyRecoveryCode(
-      readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
       dto.code,
       requestMeta(request),
     );
@@ -143,7 +146,6 @@ export class PlatformAuthController {
   async regenerateRecoveryCodes(@Req() request: Request) {
     return ok(
       await this.auth.regenerateRecoveryCodes(
-        readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
         readCookie(request.headers.cookie, PLATFORM_ADMIN_SESSION_COOKIE),
       ),
       "New recovery codes generated",
@@ -157,7 +159,6 @@ export class PlatformAuthController {
     @Body() dto: RenamePasskeyDto,
   ) {
     return ok(await this.auth.renamePasskey(
-      readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
       readCookie(request.headers.cookie, PLATFORM_ADMIN_SESSION_COOKIE),
       id,
       dto.name,
@@ -167,7 +168,6 @@ export class PlatformAuthController {
   @Delete("passkeys/:id")
   async removePasskey(@Req() request: Request, @Param("id") id: string) {
     return ok(await this.auth.removePasskey(
-      readCookie(request.headers.cookie, OWNER_SESSION_COOKIE),
       readCookie(request.headers.cookie, PLATFORM_ADMIN_SESSION_COOKIE),
       id,
     ), "Passkey removed");

@@ -9,7 +9,6 @@ import { ConfigService } from "@nestjs/config";
 import { randomUUID } from "node:crypto";
 import { hashToken, hmacPrivateValue } from "../crypto.util";
 import {
-  OWNER_SESSION_COOKIE,
   PLATFORM_ADMIN_SESSION_COOKIE,
   readCookie,
 } from "../http.util";
@@ -29,35 +28,23 @@ export class PlatformAdminGuard implements CanActivate {
     }
     const request = context.switchToHttp().getRequest<LoyalLoopRequest>();
     request.requestId ||= randomUUID();
-    const rawToken = readCookie(request.headers.cookie, OWNER_SESSION_COOKIE);
     const rawPlatformToken = readCookie(
       request.headers.cookie,
       PLATFORM_ADMIN_SESSION_COOKIE,
     );
-    if (!rawToken || !rawPlatformToken) {
+    if (!rawPlatformToken) {
       throw new UnauthorizedException("Platform step-up verification required");
-    }
-
-    const session = await this.prisma.ownerSession.findUnique({
-      where: { tokenHash: hashToken(rawToken) },
-      include: { user: { include: { platformAdmin: true } } },
-    });
-    if (
-      !session ||
-      session.revokedAt ||
-      session.expiresAt.getTime() <= Date.now() ||
-      session.user.platformAdmin?.status !== "ACTIVE"
-    ) {
-      throw new UnauthorizedException("Active platform administrator access required");
     }
 
     const platformSession = await this.prisma.platformAdminSession.findUnique({
       where: { tokenHash: hashToken(rawPlatformToken) },
+      include: {
+        platformAdmin: { include: { user: true } },
+      },
     });
     if (
       !platformSession ||
-      platformSession.platformAdminId !== session.user.platformAdmin.id ||
-      platformSession.ownerSessionId !== session.id ||
+      platformSession.platformAdmin.status !== "ACTIVE" ||
       platformSession.revokedAt ||
       platformSession.expiresAt.getTime() <= Date.now() ||
       Date.now() - platformSession.lastUsedAt.getTime() > 30 * 60 * 1000
@@ -66,11 +53,11 @@ export class PlatformAdminGuard implements CanActivate {
     }
 
     request.platformAuth = {
-      platformAdminId: session.user.platformAdmin.id,
+      platformAdminId: platformSession.platformAdmin.id,
       platformSessionId: platformSession.id,
-      userId: session.userId,
-      ownerSessionId: session.id,
-      role: session.user.platformAdmin.role,
+      userId: platformSession.platformAdmin.userId,
+      ownerSessionId: platformSession.ownerSessionId ?? undefined,
+      role: platformSession.platformAdmin.role,
       verifiedAt: platformSession.verifiedAt,
       requestId: request.requestId,
       ipHash: hmacPrivateValue(
