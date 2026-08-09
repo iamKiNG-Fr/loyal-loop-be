@@ -43,6 +43,10 @@ export class PublicRequestItemDto {
   @IsString()
   productId!: string;
 
+  @IsOptional()
+  @IsString()
+  variantId?: string;
+
   @Type(() => Number)
   @IsInt()
   @Min(1)
@@ -173,6 +177,10 @@ export class RequestOrderTermsChangeDto {
 }
 
 export class RespondOrderTermsChangeDto {
+  @IsOptional()
+  @IsIn(["ACCEPTED", "DECLINED"])
+  decision?: "ACCEPTED" | "DECLINED";
+
   @IsOptional()
   @IsEnum(FulfillmentType)
   fulfillment?: FulfillmentType;

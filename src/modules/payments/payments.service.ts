@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { hashToken } from "../../common/crypto.util";
+import { customerOrderRequestTokenWhere } from "../../common/customer-order-request-token";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
@@ -356,7 +357,7 @@ export class PaymentsService {
       });
       if (shared) return shared.delivery.sale;
       const convertedRequest = await this.prisma.orderRequest.findFirst({
-        where: { tokenHash, customerAccountId },
+        where: customerOrderRequestTokenWhere(customerAccountId, tokenHash),
         include: {
           convertedSale: {
             include: { paymentInstruction: true, paymentProofs: true },

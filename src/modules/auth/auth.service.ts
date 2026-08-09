@@ -1,9 +1,11 @@
+import { randomInt, randomUUID, timingSafeEqual } from "node:crypto";
 import {
   BadRequestException,
   ConflictException,
   Inject,
   Injectable,
   Logger,
+  ServiceUnavailableException,
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
@@ -11,6 +13,7 @@ import {
   createOpaqueToken,
   createPublicCardId,
   hashToken,
+  hmacPrivateValue,
 } from "../../common/crypto.util";
 import {
   hashPassword,
@@ -82,10 +85,41 @@ export class AuthService {
     const foundingGrant = this.founding.resolveRegistrationGrant(rawGrant);
     try {
       const result = await this.prisma.$transaction(async (tx) => {
+        const emailVerification = await tx.onboardingEmailChallenge.findUnique({
+          where: { id: dto.emailVerificationChallengeId },
+        });
+        if (
+          !emailVerification ||
+          emailVerification.email !== normalizedEmail ||
+          !emailVerification.verifiedAt ||
+          emailVerification.consumedAt ||
+          emailVerification.expiresAt.getTime() <= Date.now()
+        ) {
+          throw new BadRequestException(
+            "Verify this email address again before creating the business",
+          );
+        }
+        const claimedEmailVerification =
+          await tx.onboardingEmailChallenge.updateMany({
+            where: {
+              id: emailVerification.id,
+              email: normalizedEmail,
+              verifiedAt: { not: null },
+              consumedAt: null,
+              expiresAt: { gt: new Date() },
+            },
+            data: { consumedAt: new Date() },
+          });
+        if (claimedEmailVerification.count !== 1) {
+          throw new BadRequestException(
+            "Verify this email address again before creating the business",
+          );
+        }
         const user = await tx.user.create({
           data: {
             name: dto.ownerName.trim(),
             email: normalizedEmail,
+            emailVerifiedAt: emailVerification.verifiedAt,
             passwordHash,
             phone: ownerPhone,
           },
@@ -325,6 +359,119 @@ export class AuthService {
         })
       : null;
     return { emailAvailable: !existing };
+  }
+
+  async startOnboardingEmail(email: string) {
+    const normalizedEmail = email.trim().toLowerCase();
+    const existing = await this.prisma.user.findUnique({
+      where: { email: normalizedEmail },
+      select: { id: true },
+    });
+    if (existing) {
+      throw new ConflictException(
+        "This email already has a Loyal Loop account. Sign in instead.",
+      );
+    }
+
+    const challengeId = randomUUID();
+    const code = randomInt(0, 1_000_000).toString().padStart(6, "0");
+    const expiresInMinutes = this.onboardingEmailCodeMinutes();
+    const expiresAt = new Date(Date.now() + expiresInMinutes * 60_000);
+    const codeHash = this.hashOnboardingEmailCode(challengeId, code);
+    const challenge = await this.prisma.$transaction(async (tx) => {
+      await tx.onboardingEmailChallenge.updateMany({
+        where: {
+          email: normalizedEmail,
+          consumedAt: null,
+          expiresAt: { gt: new Date() },
+        },
+        data: { expiresAt: new Date() },
+      });
+      return tx.onboardingEmailChallenge.create({
+        data: {
+          id: challengeId,
+          email: normalizedEmail,
+          codeHash,
+          expiresAt,
+        },
+      });
+    });
+
+    try {
+      await this.mail.sendOnboardingEmailVerification({
+        code,
+        expiresInMinutes,
+        to: normalizedEmail,
+      });
+    } catch (error) {
+      await this.prisma.onboardingEmailChallenge.updateMany({
+        where: { id: challenge.id, verifiedAt: null, consumedAt: null },
+        data: { expiresAt: new Date() },
+      });
+      this.logger.error(
+        "Onboarding email verification delivery failed",
+        error instanceof Error ? error.stack : undefined,
+      );
+      throw new ServiceUnavailableException(
+        "We could not send the verification email. Check the address and try again.",
+      );
+    }
+
+    return { challengeId: challenge.id, expiresAt: challenge.expiresAt };
+  }
+
+  async verifyOnboardingEmail(challengeId: string, code: string) {
+    const challenge = await this.prisma.onboardingEmailChallenge.findUnique({
+      where: { id: challengeId },
+    });
+    if (
+      !challenge ||
+      challenge.verifiedAt ||
+      challenge.consumedAt ||
+      challenge.expiresAt.getTime() <= Date.now()
+    ) {
+      throw new UnauthorizedException("Verification challenge expired");
+    }
+    if (challenge.attempts >= 5) {
+      throw new UnauthorizedException("Too many verification attempts");
+    }
+
+    const attempt = await this.prisma.onboardingEmailChallenge.updateMany({
+      where: {
+        id: challenge.id,
+        verifiedAt: null,
+        consumedAt: null,
+        expiresAt: { gt: new Date() },
+        attempts: { lt: 5 },
+      },
+      data: { attempts: { increment: 1 } },
+    });
+    if (attempt.count !== 1) {
+      throw new UnauthorizedException("Verification challenge expired");
+    }
+
+    const submittedHash = this.hashOnboardingEmailCode(challenge.id, code);
+    if (!equalHexHashes(challenge.codeHash, submittedHash)) {
+      throw new UnauthorizedException("Invalid verification code");
+    }
+
+    const verifiedAt = new Date();
+    const expiresAt = new Date(
+      verifiedAt.getTime() + this.onboardingEmailProofMinutes() * 60_000,
+    );
+    const verified = await this.prisma.onboardingEmailChallenge.updateMany({
+      where: {
+        id: challenge.id,
+        verifiedAt: null,
+        consumedAt: null,
+        expiresAt: { gt: new Date() },
+      },
+      data: { verifiedAt, expiresAt },
+    });
+    if (verified.count !== 1) {
+      throw new UnauthorizedException("Verification challenge already used");
+    }
+    return { challengeId: challenge.id, expiresAt, verifiedAt };
   }
 
   async verifyOnboardingWhatsapp(challengeId: string, code: string) {
@@ -648,11 +795,45 @@ export class AuthService {
     );
   }
 
+  private onboardingEmailCodeMinutes() {
+    return Math.min(
+      Math.max(
+        Number(this.config.get("OWNER_ONBOARDING_EMAIL_CODE_MINUTES") || 10),
+        5,
+      ),
+      20,
+    );
+  }
+
+  private onboardingEmailProofMinutes() {
+    return Math.min(
+      Math.max(
+        Number(this.config.get("OWNER_ONBOARDING_EMAIL_PROOF_MINUTES") || 30),
+        10,
+      ),
+      60,
+    );
+  }
+
+  private hashOnboardingEmailCode(challengeId: string, code: string) {
+    const secret = this.config.get<string>("SESSION_HASH_SECRET", "");
+    if (!secret) {
+      throw new ServiceUnavailableException(
+        "Email verification is not configured",
+      );
+    }
+    return hmacPrivateValue(
+      `onboarding-email:${challengeId}:${code}`,
+      secret,
+    );
+  }
+
   private safeIdentity(
     user: {
       id: string;
       name: string;
       email: string;
+      emailVerifiedAt?: Date | null;
       phone: string | null;
       avatarAsset?: { id: string; secureUrl: string } | null;
     },
@@ -675,6 +856,7 @@ export class AuthService {
         id: user.id,
         name: user.name,
         email: user.email,
+        emailVerifiedAt: user.emailVerifiedAt ?? null,
         phone: user.phone,
         avatarAsset: user.avatarAsset ?? null,
       },
@@ -686,6 +868,16 @@ export class AuthService {
       },
     };
   }
+}
+
+function equalHexHashes(left: string, right: string) {
+  const leftBuffer = Buffer.from(left, "hex");
+  const rightBuffer = Buffer.from(right, "hex");
+  return (
+    leftBuffer.length === rightBuffer.length &&
+    leftBuffer.length > 0 &&
+    timingSafeEqual(leftBuffer, rightBuffer)
+  );
 }
 
 function primaryWhatsappPhone(

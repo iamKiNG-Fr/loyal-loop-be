@@ -1,5 +1,29 @@
 import { describe, expect, it } from "vitest";
-import { buildPasswordResetEmail, buildPasswordResetText } from "./mail.service";
+import {
+  buildOnboardingEmailVerificationEmail,
+  buildOnboardingEmailVerificationText,
+  buildPasswordResetEmail,
+  buildPasswordResetText,
+} from "./mail.service";
+
+describe("onboarding email verification", () => {
+  it("renders the exact code, expiry, and never-share guidance", () => {
+    const html = buildOnboardingEmailVerificationEmail({
+      code: "123456",
+      expiresInMinutes: 10,
+    });
+    const text = buildOnboardingEmailVerificationText({
+      code: "123456",
+      expiresInMinutes: 10,
+    });
+
+    expect(html).toContain("123456");
+    expect(html).toContain("expires in 10 minutes");
+    expect(html).toContain("Keep it private");
+    expect(text).toContain("six-digit verification code is: 123456");
+    expect(text).toContain("Never share this code");
+  });
+});
 
 describe("password reset email", () => {
   it("uses Loyal Loop's social-first recovery copy and a one-time fragment link", () => {

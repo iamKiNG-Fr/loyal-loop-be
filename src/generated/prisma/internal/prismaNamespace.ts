@@ -399,6 +399,7 @@ export const ModelName = {
   PlatformAdminAuditLog: 'PlatformAdminAuditLog',
   OwnerSession: 'OwnerSession',
   OwnerOtpChallenge: 'OwnerOtpChallenge',
+  OnboardingEmailChallenge: 'OnboardingEmailChallenge',
   PasswordRecoveryToken: 'PasswordRecoveryToken',
   Business: 'Business',
   BusinessPreferences: 'BusinessPreferences',
@@ -485,7 +486,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminPasskey" | "platformAdminPasskeyChallenge" | "platformAdminRecoveryCode" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerReport" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "ownerAttentionReceipt" | "ownerPushSubscription" | "messageAttempt" | "messagingWebhookEvent"
+    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminPasskey" | "platformAdminPasskeyChallenge" | "platformAdminRecoveryCode" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "onboardingEmailChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerReport" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "ownerAttentionReceipt" | "ownerPushSubscription" | "messageAttempt" | "messagingWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1596,6 +1597,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.OwnerOtpChallengeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.OwnerOtpChallengeCountAggregateOutputType> | number
+        }
+      }
+    }
+    OnboardingEmailChallenge: {
+      payload: Prisma.$OnboardingEmailChallengePayload<ExtArgs>
+      fields: Prisma.OnboardingEmailChallengeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OnboardingEmailChallengeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OnboardingEmailChallengeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload>
+        }
+        findFirst: {
+          args: Prisma.OnboardingEmailChallengeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OnboardingEmailChallengeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload>
+        }
+        findMany: {
+          args: Prisma.OnboardingEmailChallengeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload>[]
+        }
+        create: {
+          args: Prisma.OnboardingEmailChallengeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload>
+        }
+        createMany: {
+          args: Prisma.OnboardingEmailChallengeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OnboardingEmailChallengeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload>[]
+        }
+        delete: {
+          args: Prisma.OnboardingEmailChallengeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload>
+        }
+        update: {
+          args: Prisma.OnboardingEmailChallengeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload>
+        }
+        deleteMany: {
+          args: Prisma.OnboardingEmailChallengeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OnboardingEmailChallengeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OnboardingEmailChallengeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload>[]
+        }
+        upsert: {
+          args: Prisma.OnboardingEmailChallengeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OnboardingEmailChallengePayload>
+        }
+        aggregate: {
+          args: Prisma.OnboardingEmailChallengeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOnboardingEmailChallenge>
+        }
+        groupBy: {
+          args: Prisma.OnboardingEmailChallengeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OnboardingEmailChallengeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OnboardingEmailChallengeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OnboardingEmailChallengeCountAggregateOutputType> | number
         }
       }
     }
@@ -7022,6 +7097,7 @@ export const UserScalarFieldEnum = {
   avatarAssetId: 'avatarAssetId',
   name: 'name',
   email: 'email',
+  emailVerifiedAt: 'emailVerifiedAt',
   passwordHash: 'passwordHash',
   phone: 'phone',
   workspaceAppearance: 'workspaceAppearance',
@@ -7154,6 +7230,20 @@ export const OwnerOtpChallengeScalarFieldEnum = {
 } as const
 
 export type OwnerOtpChallengeScalarFieldEnum = (typeof OwnerOtpChallengeScalarFieldEnum)[keyof typeof OwnerOtpChallengeScalarFieldEnum]
+
+
+export const OnboardingEmailChallengeScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  codeHash: 'codeHash',
+  expiresAt: 'expiresAt',
+  verifiedAt: 'verifiedAt',
+  consumedAt: 'consumedAt',
+  attempts: 'attempts',
+  createdAt: 'createdAt'
+} as const
+
+export type OnboardingEmailChallengeScalarFieldEnum = (typeof OnboardingEmailChallengeScalarFieldEnum)[keyof typeof OnboardingEmailChallengeScalarFieldEnum]
 
 
 export const PasswordRecoveryTokenScalarFieldEnum = {
@@ -7989,6 +8079,7 @@ export const SaleScalarFieldEnum = {
   total: 'total',
   amountPaid: 'amountPaid',
   notes: 'notes',
+  inventoryRestoredAt: 'inventoryRestoredAt',
   soldAt: 'soldAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -8016,6 +8107,10 @@ export const SaleItemScalarFieldEnum = {
   id: 'id',
   saleId: 'saleId',
   productId: 'productId',
+  variantId: 'variantId',
+  variantName: 'variantName',
+  variantSnapshot: 'variantSnapshot',
+  inventorySource: 'inventorySource',
   name: 'name',
   imageUrl: 'imageUrl',
   quantity: 'quantity',
@@ -9357,6 +9452,20 @@ export type ListEnumSaleStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
 
 
 /**
+ * Reference to a field of type 'SaleItemInventorySource'
+ */
+export type EnumSaleItemInventorySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SaleItemInventorySource'>
+
+
+
+/**
+ * Reference to a field of type 'SaleItemInventorySource[]'
+ */
+export type ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SaleItemInventorySource[]'>
+
+
+
+/**
  * Reference to a field of type 'PaymentEntryType'
  */
 export type EnumPaymentEntryTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentEntryType'>
@@ -9662,6 +9771,7 @@ export type GlobalOmitConfig = {
   platformAdminAuditLog?: Prisma.PlatformAdminAuditLogOmit
   ownerSession?: Prisma.OwnerSessionOmit
   ownerOtpChallenge?: Prisma.OwnerOtpChallengeOmit
+  onboardingEmailChallenge?: Prisma.OnboardingEmailChallengeOmit
   passwordRecoveryToken?: Prisma.PasswordRecoveryTokenOmit
   business?: Prisma.BusinessOmit
   businessPreferences?: Prisma.BusinessPreferencesOmit
@@ -9795,4 +9905,3 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
-

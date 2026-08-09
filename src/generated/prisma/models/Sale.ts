@@ -61,6 +61,7 @@ export type SaleMinAggregateOutputType = {
   total: runtime.Decimal | null
   amountPaid: runtime.Decimal | null
   notes: string | null
+  inventoryRestoredAt: Date | null
   soldAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -85,6 +86,7 @@ export type SaleMaxAggregateOutputType = {
   total: runtime.Decimal | null
   amountPaid: runtime.Decimal | null
   notes: string | null
+  inventoryRestoredAt: Date | null
   soldAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -109,6 +111,7 @@ export type SaleCountAggregateOutputType = {
   total: number
   amountPaid: number
   notes: number
+  inventoryRestoredAt: number
   soldAt: number
   createdAt: number
   updatedAt: number
@@ -151,6 +154,7 @@ export type SaleMinAggregateInputType = {
   total?: true
   amountPaid?: true
   notes?: true
+  inventoryRestoredAt?: true
   soldAt?: true
   createdAt?: true
   updatedAt?: true
@@ -175,6 +179,7 @@ export type SaleMaxAggregateInputType = {
   total?: true
   amountPaid?: true
   notes?: true
+  inventoryRestoredAt?: true
   soldAt?: true
   createdAt?: true
   updatedAt?: true
@@ -199,6 +204,7 @@ export type SaleCountAggregateInputType = {
   total?: true
   amountPaid?: true
   notes?: true
+  inventoryRestoredAt?: true
   soldAt?: true
   createdAt?: true
   updatedAt?: true
@@ -310,6 +316,7 @@ export type SaleGroupByOutputType = {
   total: runtime.Decimal
   amountPaid: runtime.Decimal
   notes: string | null
+  inventoryRestoredAt: Date | null
   soldAt: Date
   createdAt: Date
   updatedAt: Date
@@ -357,6 +364,7 @@ export type SaleWhereInput = {
   total?: Prisma.DecimalFilter<"Sale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFilter<"Sale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableFilter<"Sale"> | string | null
+  inventoryRestoredAt?: Prisma.DateTimeNullableFilter<"Sale"> | Date | string | null
   soldAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
@@ -394,6 +402,7 @@ export type SaleOrderByWithRelationInput = {
   total?: Prisma.SortOrder
   amountPaid?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  inventoryRestoredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   soldAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -435,6 +444,7 @@ export type SaleWhereUniqueInput = Prisma.AtLeast<{
   total?: Prisma.DecimalFilter<"Sale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFilter<"Sale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableFilter<"Sale"> | string | null
+  inventoryRestoredAt?: Prisma.DateTimeNullableFilter<"Sale"> | Date | string | null
   soldAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
@@ -472,6 +482,7 @@ export type SaleOrderByWithAggregationInput = {
   total?: Prisma.SortOrder
   amountPaid?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  inventoryRestoredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   soldAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -504,6 +515,7 @@ export type SaleScalarWhereWithAggregatesInput = {
   total?: Prisma.DecimalWithAggregatesFilter<"Sale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalWithAggregatesFilter<"Sale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"Sale"> | string | null
+  inventoryRestoredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Sale"> | Date | string | null
   soldAt?: Prisma.DateTimeWithAggregatesFilter<"Sale"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Sale"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Sale"> | Date | string
@@ -525,6 +537,7 @@ export type SaleCreateInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -562,6 +575,7 @@ export type SaleUncheckedCreateInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -593,6 +607,7 @@ export type SaleUpdateInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -630,6 +645,7 @@ export type SaleUncheckedUpdateInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -664,6 +680,7 @@ export type SaleCreateManyInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -685,6 +702,7 @@ export type SaleUpdateManyMutationInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -709,6 +727,7 @@ export type SaleUncheckedUpdateManyInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -753,6 +772,7 @@ export type SaleCountOrderByAggregateInput = {
   total?: Prisma.SortOrder
   amountPaid?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  inventoryRestoredAt?: Prisma.SortOrder
   soldAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -785,6 +805,7 @@ export type SaleMaxOrderByAggregateInput = {
   total?: Prisma.SortOrder
   amountPaid?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  inventoryRestoredAt?: Prisma.SortOrder
   soldAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -809,6 +830,7 @@ export type SaleMinOrderByAggregateInput = {
   total?: Prisma.SortOrder
   amountPaid?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  inventoryRestoredAt?: Prisma.SortOrder
   soldAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -1107,6 +1129,7 @@ export type SaleCreateWithoutBusinessInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1142,6 +1165,7 @@ export type SaleUncheckedCreateWithoutBusinessInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1205,6 +1229,7 @@ export type SaleScalarWhereInput = {
   total?: Prisma.DecimalFilter<"Sale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFilter<"Sale"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.StringNullableFilter<"Sale"> | string | null
+  inventoryRestoredAt?: Prisma.DateTimeNullableFilter<"Sale"> | Date | string | null
   soldAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Sale"> | Date | string
@@ -1226,6 +1251,7 @@ export type SaleCreateWithoutCustomerInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1261,6 +1287,7 @@ export type SaleUncheckedCreateWithoutCustomerInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1318,6 +1345,7 @@ export type SaleCreateWithoutSourceRequestInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1353,6 +1381,7 @@ export type SaleUncheckedCreateWithoutSourceRequestInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1400,6 +1429,7 @@ export type SaleUpdateWithoutSourceRequestInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1435,6 +1465,7 @@ export type SaleUncheckedUpdateWithoutSourceRequestInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1466,6 +1497,7 @@ export type SaleCreateWithoutReportsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1502,6 +1534,7 @@ export type SaleUncheckedCreateWithoutReportsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1548,6 +1581,7 @@ export type SaleUpdateWithoutReportsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1584,6 +1618,7 @@ export type SaleUncheckedUpdateWithoutReportsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1614,6 +1649,7 @@ export type SaleCreateWithoutPaymentInstructionInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1650,6 +1686,7 @@ export type SaleUncheckedCreateWithoutPaymentInstructionInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1696,6 +1733,7 @@ export type SaleUpdateWithoutPaymentInstructionInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1732,6 +1770,7 @@ export type SaleUncheckedUpdateWithoutPaymentInstructionInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1762,6 +1801,7 @@ export type SaleCreateWithoutItemsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1798,6 +1838,7 @@ export type SaleUncheckedCreateWithoutItemsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1844,6 +1885,7 @@ export type SaleUpdateWithoutItemsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1880,6 +1922,7 @@ export type SaleUncheckedUpdateWithoutItemsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1910,6 +1953,7 @@ export type SaleCreateWithoutPaymentsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1946,6 +1990,7 @@ export type SaleUncheckedCreateWithoutPaymentsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1992,6 +2037,7 @@ export type SaleUpdateWithoutPaymentsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2028,6 +2074,7 @@ export type SaleUncheckedUpdateWithoutPaymentsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2058,6 +2105,7 @@ export type SaleCreateWithoutPaymentProofsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2094,6 +2142,7 @@ export type SaleUncheckedCreateWithoutPaymentProofsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2140,6 +2189,7 @@ export type SaleUpdateWithoutPaymentProofsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2176,6 +2226,7 @@ export type SaleUncheckedUpdateWithoutPaymentProofsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2206,6 +2257,7 @@ export type SaleCreateWithoutReceiptInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2242,6 +2294,7 @@ export type SaleUncheckedCreateWithoutReceiptInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2288,6 +2341,7 @@ export type SaleUpdateWithoutReceiptInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2324,6 +2378,7 @@ export type SaleUncheckedUpdateWithoutReceiptInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2354,6 +2409,7 @@ export type SaleCreateWithoutDeliveryInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2390,6 +2446,7 @@ export type SaleUncheckedCreateWithoutDeliveryInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2436,6 +2493,7 @@ export type SaleUpdateWithoutDeliveryInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2472,6 +2530,7 @@ export type SaleUncheckedUpdateWithoutDeliveryInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2502,6 +2561,7 @@ export type SaleCreateWithoutActivityEventsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2538,6 +2598,7 @@ export type SaleUncheckedCreateWithoutActivityEventsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2584,6 +2645,7 @@ export type SaleUpdateWithoutActivityEventsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2620,6 +2682,7 @@ export type SaleUncheckedUpdateWithoutActivityEventsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2650,6 +2713,7 @@ export type SaleCreateWithoutFeedbackInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2686,6 +2750,7 @@ export type SaleUncheckedCreateWithoutFeedbackInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2732,6 +2797,7 @@ export type SaleUpdateWithoutFeedbackInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2768,6 +2834,7 @@ export type SaleUncheckedUpdateWithoutFeedbackInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2798,6 +2865,7 @@ export type SaleCreateWithoutIssuesInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2834,6 +2902,7 @@ export type SaleUncheckedCreateWithoutIssuesInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2880,6 +2949,7 @@ export type SaleUpdateWithoutIssuesInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2916,6 +2986,7 @@ export type SaleUncheckedUpdateWithoutIssuesInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2948,6 +3019,7 @@ export type SaleCreateManyBusinessInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2969,6 +3041,7 @@ export type SaleUpdateWithoutBusinessInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3004,6 +3077,7 @@ export type SaleUncheckedUpdateWithoutBusinessInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3037,6 +3111,7 @@ export type SaleUncheckedUpdateManyWithoutBusinessInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3060,6 +3135,7 @@ export type SaleCreateManyCustomerInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: string | null
+  inventoryRestoredAt?: Date | string | null
   soldAt?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3081,6 +3157,7 @@ export type SaleUpdateWithoutCustomerInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3116,6 +3193,7 @@ export type SaleUncheckedUpdateWithoutCustomerInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3149,6 +3227,7 @@ export type SaleUncheckedUpdateManyWithoutCustomerInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   amountPaid?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inventoryRestoredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   soldAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3258,6 +3337,7 @@ export type SaleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   total?: boolean
   amountPaid?: boolean
   notes?: boolean
+  inventoryRestoredAt?: boolean
   soldAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3296,6 +3376,7 @@ export type SaleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   total?: boolean
   amountPaid?: boolean
   notes?: boolean
+  inventoryRestoredAt?: boolean
   soldAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3323,6 +3404,7 @@ export type SaleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   total?: boolean
   amountPaid?: boolean
   notes?: boolean
+  inventoryRestoredAt?: boolean
   soldAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3350,12 +3432,13 @@ export type SaleSelectScalar = {
   total?: boolean
   amountPaid?: boolean
   notes?: boolean
+  inventoryRestoredAt?: boolean
   soldAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "sourceRequestId" | "idempotencyKey" | "referenceCode" | "status" | "paymentStatus" | "protectedPayment" | "channel" | "fulfillment" | "currency" | "subtotal" | "discount" | "deliveryFee" | "total" | "amountPaid" | "notes" | "soldAt" | "createdAt" | "updatedAt", ExtArgs["result"]["sale"]>
+export type SaleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "sourceRequestId" | "idempotencyKey" | "referenceCode" | "status" | "paymentStatus" | "protectedPayment" | "channel" | "fulfillment" | "currency" | "subtotal" | "discount" | "deliveryFee" | "total" | "amountPaid" | "notes" | "inventoryRestoredAt" | "soldAt" | "createdAt" | "updatedAt", ExtArgs["result"]["sale"]>
 export type SaleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -3419,6 +3502,7 @@ export type $SalePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     total: runtime.Decimal
     amountPaid: runtime.Decimal
     notes: string | null
+    inventoryRestoredAt: Date | null
     soldAt: Date
     createdAt: Date
     updatedAt: Date
@@ -3876,6 +3960,7 @@ export interface SaleFieldRefs {
   readonly total: Prisma.FieldRef<"Sale", 'Decimal'>
   readonly amountPaid: Prisma.FieldRef<"Sale", 'Decimal'>
   readonly notes: Prisma.FieldRef<"Sale", 'String'>
+  readonly inventoryRestoredAt: Prisma.FieldRef<"Sale", 'DateTime'>
   readonly soldAt: Prisma.FieldRef<"Sale", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Sale", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Sale", 'DateTime'>

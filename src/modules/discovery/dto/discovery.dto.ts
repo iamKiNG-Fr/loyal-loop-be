@@ -54,6 +54,11 @@ export class ExploreDto extends PaginationDto {
   inStock?: boolean;
 
   @IsOptional()
+  @Transform(({ value }) => value === true || value === "true")
+  @IsBoolean()
+  personalized?: boolean;
+
+  @IsOptional()
   @IsString()
   @Length(1, 50)
   color?: string;

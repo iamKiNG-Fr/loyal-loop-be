@@ -43,6 +43,11 @@ export class RegisterOwnerDto {
   password!: string;
 
   @IsString()
+  @IsNotEmpty({ message: "Verify your email address before creating the business" })
+  @Length(1, 120, { message: "Verify your email address before creating the business" })
+  emailVerificationChallengeId!: string;
+
+  @IsString()
   @IsNotEmpty({ message: "Verify your WhatsApp number before creating the business" })
   @Length(1, 120, { message: "Verify your WhatsApp number before creating the business" })
   phoneVerificationChallengeId!: string;

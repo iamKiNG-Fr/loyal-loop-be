@@ -1,6 +1,59 @@
-# Gemini and Twilio provider setup
+# Email, Gemini, and Twilio provider setup
 
 The provider integrations are scaffolded and disabled by default. Keep every key in the backend environment only; none belongs in Nuxt public runtime configuration.
+
+## Resend email
+
+Email is a secondary owner channel during the Founding Circle pilot. The verified
+WhatsApp number remains the primary owner contact and WhatsApp sign-in proof.
+Resend delivers onboarding email-verification codes, waitlist welcome messages,
+and password-recovery links. New business accounts cannot leave onboarding step
+one or complete registration until the exact email address has a valid proof.
+
+Use these non-secret production inputs exactly unless the founder deliberately
+changes the public identity:
+
+```env
+APP_URL=https://www.useloyalloop.com
+FOUNDER_NAME=Francis King
+EMAIL_FROM=Francis King <francis@mail.useloyalloop.com>
+EMAIL_REPLY_TO=support@useloyalloop.com
+EMAIL_FOUNDER_IMAGE_URL=https://www.useloyalloop.com/path-to-approved-founder-image
+EMAIL_LOGO_URL=https://www.useloyalloop.com/loyal-loop-logo.png
+RESEND_API_KEY=
+OWNER_ONBOARDING_EMAIL_CODE_MINUTES=10
+OWNER_ONBOARDING_EMAIL_PROOF_MINUTES=30
+```
+
+`EMAIL_FOUNDER_IMAGE_URL` and `EMAIL_LOGO_URL` must be public HTTPS assets; leave
+either empty rather than supplying a temporary, signed, or unrelated stock
+image. `RESEND_API_KEY` is the only secret in this block.
+
+Provider handoff and activation:
+
+1. Add and verify `mail.useloyalloop.com` in the company-controlled Resend
+   account. Copy the current SPF/DKIM records from Resend into DNS; do not copy
+   example values from documentation because provider values are account-specific.
+2. Confirm that `francis@mail.useloyalloop.com`, `support@useloyalloop.com`,
+   `privacy@useloyalloop.com`, `legal@useloyalloop.com`, and
+   `security@useloyalloop.com` route to monitored inboxes or aliases.
+3. Store the production API key only in the backend secret store. Keep the
+   sender domain, From identity, Reply-To, and asset URLs as ordinary deployment
+   configuration.
+4. Complete a fresh business signup with an allow-listed test inbox. Verify the
+   six-digit email code, ten-minute code expiry, five-attempt ceiling, resend
+   invalidation, step-one gate, and single-use registration proof.
+5. Send a waitlist welcome email and a password reset to the same test inbox.
+   Verify From, Reply-To, branded images, plain-text fallback, reset-link host,
+   expiry, one-time use, and provider delivery events.
+6. Treat `emailVerifiedAt` as the durable ownership claim. Existing accounts are
+   not retroactively marked verified, and changing an account email clears that
+   timestamp until a future authenticated email-change verification journey is
+   completed.
+
+If `RESEND_API_KEY` is absent, waitlist mail is skipped while onboarding email
+verification and password recovery fail explicitly. Provider activation is
+therefore a launch gate, not an application fallback.
 
 ## Gemini
 

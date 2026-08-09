@@ -66,8 +66,17 @@ type DiscoveryShowcase = Prisma.ShowcaseGetPayload<{
   include: typeof discoveryShowcaseInclude;
 }>;
 
+type GlobalDiscoveryData = {
+  categories: Array<{ category: string | null }>;
+  productSignals: Array<{ _count: number; productId: string | null; type: string }>;
+  showcaseSignals: Array<{ _count: number; showcaseId: string | null; type: string }>;
+};
+
 @Injectable()
 export class DiscoveryService {
+  private globalDiscoveryCache: { expiresAt: number; value: GlobalDiscoveryData } | null = null;
+  private globalDiscoveryRequest: Promise<GlobalDiscoveryData> | null = null;
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly intelligence: IntelligenceService,
@@ -93,7 +102,7 @@ export class DiscoveryService {
     const take = Math.min(start + query.pageSize + 12, 100);
     const productWhere: Prisma.ProductWhereInput = {
       ...discoverableProductWhere,
-      business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
+      business: { storeStatus: "OPEN", platformStatus: "ACTIVE", isDemo: false },
       AND: [
         ...(terms.length
           ? [{
@@ -122,7 +131,7 @@ export class DiscoveryService {
     };
     const showcaseWhere: Prisma.ShowcaseWhereInput = {
       ...discoverableShowcaseWhere,
-      business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
+      business: { storeStatus: "OPEN", platformStatus: "ACTIVE", isDemo: false },
       ...(category && category.toLowerCase() !== "all"
         ? {
             hotspots: {
@@ -148,6 +157,7 @@ export class DiscoveryService {
     const shopWhere: Prisma.BusinessWhereInput = {
       storeStatus: "OPEN",
       platformStatus: "ACTIVE",
+      isDemo: false,
       ...(category && category.toLowerCase() !== "all"
         ? { category: { equals: category, mode: "insensitive" } }
         : {}),
@@ -176,10 +186,10 @@ export class DiscoveryService {
     };
     const recommendationIdentity = customerAccountId
       ? { customerAccountId }
-      : visitorHash
+      : query.personalized && visitorHash
         ? { visitorHash }
         : null;
-    const [products, showcases, productCount, showcaseCount, categories, preference, productSignals, showcaseSignals, personalSignals, shops] =
+    const [products, showcases, productCount, showcaseCount, preference, personalSignals, shops, globalDiscovery] =
       await Promise.all([
         query.mode === "showcases" ? Promise.resolve([]) : this.prisma.product.findMany({
           where: productWhere,
@@ -195,30 +205,9 @@ export class DiscoveryService {
         }),
         query.mode === "showcases" ? Promise.resolve(0) : this.prisma.product.count({ where: productWhere }),
         query.mode === "products" ? Promise.resolve(0) : this.prisma.showcase.count({ where: showcaseWhere }),
-        this.prisma.product.findMany({
-          where: {
-            ...discoverableProductWhere,
-            category: { not: null },
-            business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
-          },
-          distinct: ["category"],
-          select: { category: true },
-          orderBy: { category: "asc" },
-          take: 24,
-        }),
         recommendationIdentity
           ? this.prisma.discoveryPreference.findFirst({ where: { ...recommendationIdentity, businessId: null } })
           : Promise.resolve(null),
-        this.prisma.commerceEvent.groupBy({
-          by: ["productId", "type"],
-          where: { productId: { not: null }, createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } },
-          _count: true,
-        }),
-        this.prisma.commerceEvent.groupBy({
-          by: ["showcaseId", "type"],
-          where: { showcaseId: { not: null }, createdAt: { gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) } },
-          _count: true,
-        }),
         recommendationIdentity
           ? this.prisma.commerceEvent.findMany({
               where: {
@@ -247,7 +236,10 @@ export class DiscoveryService {
           orderBy: [{ updatedAt: "desc" }],
           take: 24,
         }),
+        this.globalDiscoveryData(),
       ]);
+
+    const { categories, productSignals, showcaseSignals } = globalDiscovery;
 
     const [savedProducts, savedShowcases] = customerAccountId
       ? await Promise.all([
@@ -322,12 +314,83 @@ export class DiscoveryService {
       expandedTerms: plan.expandedTerms,
       queryMode: normalized ? plan.mode : "standard",
       fallback: normalized ? plan.mode === "fallback" : false,
+      personalized: Boolean(recommendationIdentity),
       total,
     };
   }
 
+  private globalDiscoveryData() {
+    const now = Date.now();
+    if (this.globalDiscoveryCache && this.globalDiscoveryCache.expiresAt > now) {
+      return Promise.resolve(this.globalDiscoveryCache.value);
+    }
+    if (this.globalDiscoveryRequest) return this.globalDiscoveryRequest;
+
+    const since = new Date(now - 30 * 24 * 60 * 60 * 1000);
+    this.globalDiscoveryRequest = Promise.all([
+      this.prisma.product.findMany({
+        where: {
+          ...discoverableProductWhere,
+          category: { not: null },
+          business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
+        },
+        distinct: ["category"],
+        select: { category: true },
+        orderBy: { category: "asc" },
+        take: 24,
+      }),
+      this.prisma.commerceEvent.groupBy({
+        by: ["productId", "type"],
+        where: { productId: { not: null }, createdAt: { gte: since } },
+        _count: true,
+      }),
+      this.prisma.commerceEvent.groupBy({
+        by: ["showcaseId", "type"],
+        where: { showcaseId: { not: null }, createdAt: { gte: since } },
+        _count: true,
+      }),
+    ]).then(([categories, productSignals, showcaseSignals]) => ({
+      categories,
+      productSignals,
+      showcaseSignals,
+    })).then((value) => {
+      this.globalDiscoveryCache = { expiresAt: Date.now() + 30_000, value };
+      return value;
+    }).finally(() => {
+      this.globalDiscoveryRequest = null;
+    });
+
+    return this.globalDiscoveryRequest;
+  }
+
   parseQuery(query: string) {
     return this.intelligence.parseDiscoveryQuery(query);
+  }
+
+  async sitemapEntries() {
+    const [shops, products] = await Promise.all([
+      this.prisma.business.findMany({
+        where: {
+          isDemo: false,
+          platformStatus: "ACTIVE",
+          storeStatus: "OPEN",
+          products: { some: discoverableProductWhere },
+        },
+        orderBy: { updatedAt: "desc" },
+        select: { slug: true, updatedAt: true },
+        take: 5_000,
+      }),
+      this.prisma.product.findMany({
+        where: {
+          ...discoverableProductWhere,
+          business: { isDemo: false, platformStatus: "ACTIVE", storeStatus: "OPEN" },
+        },
+        orderBy: { updatedAt: "desc" },
+        select: { business: { select: { slug: true } }, slug: true, updatedAt: true },
+        take: 10_000,
+      }),
+    ]);
+    return { products, shops };
   }
 
   visitorHash(request: Request) {
@@ -529,7 +592,7 @@ export class DiscoveryService {
       where: {
         id,
         status: "PUBLISHED",
-        business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
+          business: { storeStatus: "OPEN", platformStatus: "ACTIVE", isDemo: false },
       },
       include: discoveryShowcaseInclude,
     });

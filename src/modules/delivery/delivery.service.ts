@@ -4,7 +4,9 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { createOpaqueToken, hashToken } from "../../common/crypto.util";
+import { customerOrderRequestTokenWhere } from "../../common/customer-order-request-token";
 import type { OwnerAuthContext } from "../../common/request-context";
+import { cancelSaleAndRestoreInventory } from "../../common/sale-inventory";
 import type { DeliveryStatus } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { MessagingService } from "../messaging/messaging.service";
@@ -138,6 +140,9 @@ export class DeliveryService {
         },
         include: deliveryInclude,
       });
+      if (dto.status === "CANCELED") {
+        await cancelSaleAndRestoreInventory(tx, delivery.saleId);
+      }
       await this.activity.record(
         {
           businessId: auth.businessId,
@@ -147,7 +152,9 @@ export class DeliveryService {
           deliveryId,
           type: "DELIVERY_STATUS_UPDATED",
           title: `Delivery moved to ${dto.status.toLowerCase().replaceAll("_", " ")}`,
-          description: dto.note?.trim(),
+          description: dto.status === "CANCELED" && delivery.sale.amountPaid.greaterThan(0)
+            ? `${dto.note?.trim() ? `${dto.note.trim()} ` : ""}A recorded payment exists; any refund must be handled through the original payment method.`
+            : dto.note?.trim(),
           awardTrust: false,
         },
         tx,
@@ -374,10 +381,7 @@ export class DeliveryService {
     if (shared) return shared.delivery;
 
     const convertedRequest = await this.prisma.orderRequest.findFirst({
-      where: {
-        customerAccountId,
-        OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }],
-      },
+      where: customerOrderRequestTokenWhere(customerAccountId, tokenHash),
       include: { convertedSale: { include: { delivery: true } } },
     });
     if (convertedRequest?.convertedSale?.delivery) {

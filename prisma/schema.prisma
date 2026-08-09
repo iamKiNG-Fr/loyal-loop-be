@@ -238,6 +238,11 @@ enum SaleStatus {
   CANCELED
 }
 
+enum SaleItemInventorySource {
+  PRODUCT
+  VARIANT
+}
+
 enum SalesChannel {
   WHATSAPP
   INSTAGRAM
@@ -696,6 +701,7 @@ model User {
   avatarAssetId       String?                    @unique
   name                String
   email               String                     @unique
+  emailVerifiedAt     DateTime?
   passwordHash        String
   phone               String?                    @unique
   workspaceAppearance WorkspaceAppearance        @default(LIGHT)
@@ -876,6 +882,21 @@ model OwnerOtpChallenge {
 
   @@index([phone, createdAt])
   @@map("owner_otp_challenges")
+}
+
+model OnboardingEmailChallenge {
+  id         String    @id @default(cuid())
+  email      String
+  codeHash   String
+  expiresAt  DateTime
+  verifiedAt DateTime?
+  consumedAt DateTime?
+  attempts   Int       @default(0)
+  createdAt  DateTime  @default(now())
+
+  @@index([email, createdAt])
+  @@index([expiresAt])
+  @@map("onboarding_email_challenges")
 }
 
 model PasswordRecoveryToken {
@@ -1472,6 +1493,7 @@ model ProductVariant {
   updatedAt     DateTime           @updatedAt
   product       Product            @relation(fields: [productId], references: [id], onDelete: Cascade)
   requestItems  OrderRequestItem[]
+  saleItems     SaleItem[]
   cartItems     CustomerCartItem[]
   promotions    ProductPromotion[]
 
@@ -1964,40 +1986,41 @@ model DiscoveryTelemetry {
 }
 
 model Sale {
-  id                 String                  @id @default(cuid())
-  businessId         String
-  customerId         String
-  sourceRequestId    String?                 @unique
-  idempotencyKey     String?
-  referenceCode      String                  @unique
-  status             SaleStatus              @default(COMPLETED)
-  paymentStatus      PaymentStatus           @default(UNPAID)
-  protectedPayment   Boolean                 @default(false)
-  channel            SalesChannel            @default(OTHER)
-  fulfillment        FulfillmentType         @default(NOT_REQUIRED)
-  currency           String                  @default("NGN")
-  subtotal           Decimal                 @default(0) @db.Decimal(12, 2)
-  discount           Decimal                 @default(0) @db.Decimal(12, 2)
-  deliveryFee        Decimal                 @default(0) @db.Decimal(12, 2)
-  total              Decimal                 @default(0) @db.Decimal(12, 2)
-  amountPaid         Decimal                 @default(0) @db.Decimal(12, 2)
-  notes              String?
-  soldAt             DateTime                @default(now())
-  createdAt          DateTime                @default(now())
-  updatedAt          DateTime                @updatedAt
-  business           Business                @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customer           Customer                @relation(fields: [customerId], references: [id])
-  sourceRequest      OrderRequest?           @relation("RequestConversion", fields: [sourceRequestId], references: [id], onDelete: SetNull)
-  items              SaleItem[]
-  payments           PaymentEntry[]
-  paymentInstruction SalePaymentInstruction?
-  paymentProofs      PaymentProof[]
-  receipt            Receipt?
-  delivery           Delivery?
-  activityEvents     ActivityEvent[]
-  feedback           CustomerFeedback[]
-  issues             CustomerIssue[]
-  reports            CustomerReport[]
+  id                  String                  @id @default(cuid())
+  businessId          String
+  customerId          String
+  sourceRequestId     String?                 @unique
+  idempotencyKey      String?
+  referenceCode       String                  @unique
+  status              SaleStatus              @default(COMPLETED)
+  paymentStatus       PaymentStatus           @default(UNPAID)
+  protectedPayment    Boolean                 @default(false)
+  channel             SalesChannel            @default(OTHER)
+  fulfillment         FulfillmentType         @default(NOT_REQUIRED)
+  currency            String                  @default("NGN")
+  subtotal            Decimal                 @default(0) @db.Decimal(12, 2)
+  discount            Decimal                 @default(0) @db.Decimal(12, 2)
+  deliveryFee         Decimal                 @default(0) @db.Decimal(12, 2)
+  total               Decimal                 @default(0) @db.Decimal(12, 2)
+  amountPaid          Decimal                 @default(0) @db.Decimal(12, 2)
+  notes               String?
+  inventoryRestoredAt DateTime?
+  soldAt              DateTime                @default(now())
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @updatedAt
+  business            Business                @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer            Customer                @relation(fields: [customerId], references: [id])
+  sourceRequest       OrderRequest?           @relation("RequestConversion", fields: [sourceRequestId], references: [id], onDelete: SetNull)
+  items               SaleItem[]
+  payments            PaymentEntry[]
+  paymentInstruction  SalePaymentInstruction?
+  paymentProofs       PaymentProof[]
+  receipt             Receipt?
+  delivery            Delivery?
+  activityEvents      ActivityEvent[]
+  feedback            CustomerFeedback[]
+  issues              CustomerIssue[]
+  reports             CustomerReport[]
 
   @@unique([businessId, idempotencyKey])
   @@index([businessId, soldAt])
@@ -2021,21 +2044,27 @@ model SalePaymentInstruction {
 }
 
 model SaleItem {
-  id                    String   @id @default(cuid())
+  id                    String                   @id @default(cuid())
   saleId                String
   productId             String?
+  variantId             String?
+  variantName           String?
+  variantSnapshot       Json?
+  inventorySource       SaleItemInventorySource?
   name                  String
   imageUrl              String?
-  quantity              Int      @default(1)
-  catalogUnitPrice      Decimal? @db.Decimal(12, 2)
-  unitPrice             Decimal  @db.Decimal(12, 2)
+  quantity              Int                      @default(1)
+  catalogUnitPrice      Decimal?                 @db.Decimal(12, 2)
+  unitPrice             Decimal                  @db.Decimal(12, 2)
   priceAdjustmentReason String?
-  total                 Decimal  @db.Decimal(12, 2)
-  sale                  Sale     @relation(fields: [saleId], references: [id], onDelete: Cascade)
-  product               Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  total                 Decimal                  @db.Decimal(12, 2)
+  sale                  Sale                     @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product               Product?                 @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variant               ProductVariant?          @relation(fields: [variantId], references: [id], onDelete: SetNull)
 
   @@index([saleId])
   @@index([productId])
+  @@index([variantId])
   @@map("sale_items")
 }
 

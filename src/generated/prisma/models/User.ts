@@ -29,6 +29,7 @@ export type UserMinAggregateOutputType = {
   avatarAssetId: string | null
   name: string | null
   email: string | null
+  emailVerifiedAt: Date | null
   passwordHash: string | null
   phone: string | null
   workspaceAppearance: $Enums.WorkspaceAppearance | null
@@ -41,6 +42,7 @@ export type UserMaxAggregateOutputType = {
   avatarAssetId: string | null
   name: string | null
   email: string | null
+  emailVerifiedAt: Date | null
   passwordHash: string | null
   phone: string | null
   workspaceAppearance: $Enums.WorkspaceAppearance | null
@@ -53,6 +55,7 @@ export type UserCountAggregateOutputType = {
   avatarAssetId: number
   name: number
   email: number
+  emailVerifiedAt: number
   passwordHash: number
   phone: number
   workspaceAppearance: number
@@ -67,6 +70,7 @@ export type UserMinAggregateInputType = {
   avatarAssetId?: true
   name?: true
   email?: true
+  emailVerifiedAt?: true
   passwordHash?: true
   phone?: true
   workspaceAppearance?: true
@@ -79,6 +83,7 @@ export type UserMaxAggregateInputType = {
   avatarAssetId?: true
   name?: true
   email?: true
+  emailVerifiedAt?: true
   passwordHash?: true
   phone?: true
   workspaceAppearance?: true
@@ -91,6 +96,7 @@ export type UserCountAggregateInputType = {
   avatarAssetId?: true
   name?: true
   email?: true
+  emailVerifiedAt?: true
   passwordHash?: true
   phone?: true
   workspaceAppearance?: true
@@ -176,6 +182,7 @@ export type UserGroupByOutputType = {
   avatarAssetId: string | null
   name: string
   email: string
+  emailVerifiedAt: Date | null
   passwordHash: string
   phone: string | null
   workspaceAppearance: $Enums.WorkspaceAppearance
@@ -209,6 +216,7 @@ export type UserWhereInput = {
   avatarAssetId?: Prisma.StringNullableFilter<"User"> | string | null
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
+  emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFilter<"User"> | $Enums.WorkspaceAppearance
@@ -241,6 +249,7 @@ export type UserOrderByWithRelationInput = {
   avatarAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   workspaceAppearance?: Prisma.SortOrder
@@ -277,6 +286,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
+  emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFilter<"User"> | $Enums.WorkspaceAppearance
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -308,6 +318,7 @@ export type UserOrderByWithAggregationInput = {
   avatarAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   workspaceAppearance?: Prisma.SortOrder
@@ -326,6 +337,7 @@ export type UserScalarWhereWithAggregatesInput = {
   avatarAssetId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
+  emailVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceWithAggregatesFilter<"User"> | $Enums.WorkspaceAppearance
@@ -337,6 +349,7 @@ export type UserCreateInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -369,6 +382,7 @@ export type UserUncheckedCreateInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -399,6 +413,7 @@ export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -431,6 +446,7 @@ export type UserUncheckedUpdateInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -462,6 +478,7 @@ export type UserCreateManyInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -473,6 +490,7 @@ export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -485,6 +503,7 @@ export type UserUncheckedUpdateManyInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -497,6 +516,7 @@ export type UserCountOrderByAggregateInput = {
   avatarAssetId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   workspaceAppearance?: Prisma.SortOrder
@@ -509,6 +529,7 @@ export type UserMaxOrderByAggregateInput = {
   avatarAssetId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   workspaceAppearance?: Prisma.SortOrder
@@ -521,6 +542,7 @@ export type UserMinOrderByAggregateInput = {
   avatarAssetId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   workspaceAppearance?: Prisma.SortOrder
@@ -864,6 +886,7 @@ export type UserCreateWithoutPlatformAdminInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -895,6 +918,7 @@ export type UserUncheckedCreateWithoutPlatformAdminInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -940,6 +964,7 @@ export type UserUpdateWithoutPlatformAdminInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -971,6 +996,7 @@ export type UserUncheckedUpdateWithoutPlatformAdminInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1000,6 +1026,7 @@ export type UserCreateWithoutSessionsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1031,6 +1058,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1076,6 +1104,7 @@ export type UserUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1107,6 +1136,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1136,6 +1166,7 @@ export type UserCreateWithoutOtpChallengesInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1167,6 +1198,7 @@ export type UserUncheckedCreateWithoutOtpChallengesInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1212,6 +1244,7 @@ export type UserUpdateWithoutOtpChallengesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1243,6 +1276,7 @@ export type UserUncheckedUpdateWithoutOtpChallengesInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1272,6 +1306,7 @@ export type UserCreateWithoutRecoveryTokensInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1303,6 +1338,7 @@ export type UserUncheckedCreateWithoutRecoveryTokensInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1348,6 +1384,7 @@ export type UserUpdateWithoutRecoveryTokensInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1379,6 +1416,7 @@ export type UserUncheckedUpdateWithoutRecoveryTokensInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1408,6 +1446,7 @@ export type UserCreateWithoutOwnedBusinessesInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1439,6 +1478,7 @@ export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1484,6 +1524,7 @@ export type UserUpdateWithoutOwnedBusinessesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1515,6 +1556,7 @@ export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1544,6 +1586,7 @@ export type UserCreateWithoutMembershipsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1575,6 +1618,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1620,6 +1664,7 @@ export type UserUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1651,6 +1696,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1680,6 +1726,7 @@ export type UserCreateWithoutPermissionOverridesInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1711,6 +1758,7 @@ export type UserUncheckedCreateWithoutPermissionOverridesInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1756,6 +1804,7 @@ export type UserUpdateWithoutPermissionOverridesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1787,6 +1836,7 @@ export type UserUncheckedUpdateWithoutPermissionOverridesInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1816,6 +1866,7 @@ export type UserCreateWithoutInvitationsSentInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1847,6 +1898,7 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1892,6 +1944,7 @@ export type UserUpdateWithoutInvitationsSentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1923,6 +1976,7 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -1952,6 +2006,7 @@ export type UserCreateWithoutUploadedAssetsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -1983,6 +2038,7 @@ export type UserUncheckedCreateWithoutUploadedAssetsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2017,6 +2073,7 @@ export type UserCreateWithoutAvatarAssetInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2047,6 +2104,7 @@ export type UserUncheckedCreateWithoutAvatarAssetInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2093,6 +2151,7 @@ export type UserUpdateWithoutUploadedAssetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2124,6 +2183,7 @@ export type UserUncheckedUpdateWithoutUploadedAssetsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2164,6 +2224,7 @@ export type UserUpdateWithoutAvatarAssetInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2194,6 +2255,7 @@ export type UserUncheckedUpdateWithoutAvatarAssetInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2224,6 +2286,7 @@ export type UserCreateWithoutMediaReviewsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2255,6 +2318,7 @@ export type UserUncheckedCreateWithoutMediaReviewsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2300,6 +2364,7 @@ export type UserUpdateWithoutMediaReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2331,6 +2396,7 @@ export type UserUncheckedUpdateWithoutMediaReviewsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2360,6 +2426,7 @@ export type UserCreateWithoutAuthoredNotesInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2391,6 +2458,7 @@ export type UserUncheckedCreateWithoutAuthoredNotesInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2436,6 +2504,7 @@ export type UserUpdateWithoutAuthoredNotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2467,6 +2536,7 @@ export type UserUncheckedUpdateWithoutAuthoredNotesInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2496,6 +2566,7 @@ export type UserCreateWithoutPaymentsRecordedInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2527,6 +2598,7 @@ export type UserUncheckedCreateWithoutPaymentsRecordedInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2572,6 +2644,7 @@ export type UserUpdateWithoutPaymentsRecordedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2603,6 +2676,7 @@ export type UserUncheckedUpdateWithoutPaymentsRecordedInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2632,6 +2706,7 @@ export type UserCreateWithoutPaymentProofReviewsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2663,6 +2738,7 @@ export type UserUncheckedCreateWithoutPaymentProofReviewsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2708,6 +2784,7 @@ export type UserUpdateWithoutPaymentProofReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2739,6 +2816,7 @@ export type UserUncheckedUpdateWithoutPaymentProofReviewsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2768,6 +2846,7 @@ export type UserCreateWithoutDeliveryEventsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2799,6 +2878,7 @@ export type UserUncheckedCreateWithoutDeliveryEventsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2844,6 +2924,7 @@ export type UserUpdateWithoutDeliveryEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2875,6 +2956,7 @@ export type UserUncheckedUpdateWithoutDeliveryEventsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -2904,6 +2986,7 @@ export type UserCreateWithoutActivityEventsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2935,6 +3018,7 @@ export type UserUncheckedCreateWithoutActivityEventsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -2980,6 +3064,7 @@ export type UserUpdateWithoutActivityEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3011,6 +3096,7 @@ export type UserUncheckedUpdateWithoutActivityEventsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3040,6 +3126,7 @@ export type UserCreateWithoutMessagingConsentsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -3071,6 +3158,7 @@ export type UserUncheckedCreateWithoutMessagingConsentsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -3116,6 +3204,7 @@ export type UserUpdateWithoutMessagingConsentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3147,6 +3236,7 @@ export type UserUncheckedUpdateWithoutMessagingConsentsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3176,6 +3266,7 @@ export type UserCreateWithoutMessageOutboxInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -3207,6 +3298,7 @@ export type UserUncheckedCreateWithoutMessageOutboxInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -3252,6 +3344,7 @@ export type UserUpdateWithoutMessageOutboxInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3283,6 +3376,7 @@ export type UserUncheckedUpdateWithoutMessageOutboxInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3312,6 +3406,7 @@ export type UserCreateWithoutAttentionReceiptsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -3343,6 +3438,7 @@ export type UserUncheckedCreateWithoutAttentionReceiptsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -3388,6 +3484,7 @@ export type UserUpdateWithoutAttentionReceiptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3419,6 +3516,7 @@ export type UserUncheckedUpdateWithoutAttentionReceiptsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3448,6 +3546,7 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   id?: string
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -3479,6 +3578,7 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   avatarAssetId?: string | null
   name: string
   email: string
+  emailVerifiedAt?: Date | string | null
   passwordHash: string
   phone?: string | null
   workspaceAppearance?: $Enums.WorkspaceAppearance
@@ -3524,6 +3624,7 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3555,6 +3656,7 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
@@ -3769,6 +3871,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   avatarAssetId?: boolean
   name?: boolean
   email?: boolean
+  emailVerifiedAt?: boolean
   passwordHash?: boolean
   phone?: boolean
   workspaceAppearance?: boolean
@@ -3802,6 +3905,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarAssetId?: boolean
   name?: boolean
   email?: boolean
+  emailVerifiedAt?: boolean
   passwordHash?: boolean
   phone?: boolean
   workspaceAppearance?: boolean
@@ -3815,6 +3919,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarAssetId?: boolean
   name?: boolean
   email?: boolean
+  emailVerifiedAt?: boolean
   passwordHash?: boolean
   phone?: boolean
   workspaceAppearance?: boolean
@@ -3828,6 +3933,7 @@ export type UserSelectScalar = {
   avatarAssetId?: boolean
   name?: boolean
   email?: boolean
+  emailVerifiedAt?: boolean
   passwordHash?: boolean
   phone?: boolean
   workspaceAppearance?: boolean
@@ -3835,7 +3941,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "avatarAssetId" | "name" | "email" | "passwordHash" | "phone" | "workspaceAppearance" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "avatarAssetId" | "name" | "email" | "emailVerifiedAt" | "passwordHash" | "phone" | "workspaceAppearance" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   ownedBusinesses?: boolean | Prisma.User$ownedBusinessesArgs<ExtArgs>
@@ -3895,6 +4001,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     avatarAssetId: string | null
     name: string
     email: string
+    emailVerifiedAt: Date | null
     passwordHash: string
     phone: string | null
     workspaceAppearance: $Enums.WorkspaceAppearance
@@ -4347,6 +4454,7 @@ export interface UserFieldRefs {
   readonly avatarAssetId: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
+  readonly emailVerifiedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly workspaceAppearance: Prisma.FieldRef<"User", 'WorkspaceAppearance'>

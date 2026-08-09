@@ -11,6 +11,7 @@ import {
   hashPrivateValue,
   hashToken,
 } from "../../common/crypto.util";
+import { customerOrderRequestTokenWhere } from "../../common/customer-order-request-token";
 import { assessDeliveryCoverage, customerFulfillmentMethods } from "../../common/delivery-eligibility";
 import type { OwnerAuthContext } from "../../common/request-context";
 import {
@@ -175,6 +176,7 @@ export class ShopsService {
           include: { asset: true },
           take: 1,
         },
+        variants: { where: { active: true } },
       },
     });
     if (products.length !== productIds.length) {
@@ -259,8 +261,25 @@ export class ShopsService {
       const quotedItems = [];
       for (const item of dto.items) {
         const product = products.find((entry) => entry.id === item.productId)!;
-        const quote = await this.promotions.quote(tx, { businessId: business.id, customerKey, productId: product.id, quantity: item.quantity });
-        quotedItems.push({ item, product, quote });
+        const variant = item.variantId
+          ? product.variants.find((entry) => entry.id === item.variantId)
+          : product.variants.length === 1
+            ? product.variants[0]
+            : undefined;
+        if (item.variantId && !variant) {
+          throw new BadRequestException("Product variant is unavailable");
+        }
+        if (!item.variantId && product.variants.length > 1) {
+          throw new BadRequestException("Choose a product variant");
+        }
+        const quote = await this.promotions.quote(tx, {
+          businessId: business.id,
+          customerKey,
+          productId: product.id,
+          quantity: item.quantity,
+          variantId: variant?.id,
+        });
+        quotedItems.push({ item, product, quote, variant });
       }
       const created = await tx.orderRequest.create({
         data: {
@@ -289,8 +308,17 @@ export class ShopsService {
           recipientPhone: dto.isGift ? dto.recipientPhone?.trim() : undefined,
           note: dto.note?.trim(),
           items: {
-            create: quotedItems.map(({ item, product, quote }) => ({
+            create: quotedItems.map(({ item, product, quote, variant }) => ({
               productId: product.id,
+              variantId: variant?.id,
+              variantName: variant?.name,
+              variantSnapshot: variant
+                ? {
+                    name: variant.name,
+                    optionValues: variant.optionValues,
+                    sku: variant.sku,
+                  }
+                : undefined,
               name: product.name,
               imageUrl: product.images[0]?.asset.secureUrl,
               quantity: item.quantity,
@@ -317,10 +345,7 @@ export class ShopsService {
   async getRequestByToken(customerAccountId: string, token: string) {
     const tokenHash = hashToken(token);
     const request = await this.prisma.orderRequest.findFirst({
-      where: {
-        customerAccountId,
-        OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }],
-      },
+      where: customerOrderRequestTokenWhere(customerAccountId, tokenHash),
       include: {
         business: {
           select: {
@@ -347,10 +372,7 @@ export class ShopsService {
   async cancelRequestByToken(customerAccountId: string, token: string) {
     const tokenHash = hashToken(token);
     const request = await this.prisma.orderRequest.findFirst({
-      where: {
-        customerAccountId,
-        OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }],
-      },
+      where: customerOrderRequestTokenWhere(customerAccountId, tokenHash),
       include: {
         business: { select: { name: true, slug: true } },
         items: true,
@@ -572,10 +594,7 @@ export class ShopsService {
   ) {
     const tokenHash = hashToken(token);
     const request = await this.prisma.orderRequest.findFirst({
-      where: {
-        customerAccountId,
-        OR: [{ tokenHash }, { shareTokens: { some: { tokenHash, revokedAt: null } } }],
-      },
+      where: customerOrderRequestTokenWhere(customerAccountId, tokenHash),
       include: {
         business: { include: { preferences: true } },
         termChanges: { where: { status: "PENDING" }, orderBy: { createdAt: "desc" }, take: 1 },
@@ -610,18 +629,23 @@ export class ShopsService {
     }
     const change = request.termChanges[0];
     if (!change) throw new BadRequestException("There is no pending order change to review");
+    const decision = dto.decision ?? "ACCEPTED";
     const currentFulfillment = request.agreedFulfillment ?? request.fulfillment;
     const currentPaymentMethod = request.agreedPaymentMethod ?? request.requestedPaymentMethod;
-    const fulfillment = dto.fulfillment ?? change.proposedFulfillment ?? currentFulfillment;
-    const paymentMethod = dto.paymentMethod ?? change.proposedPaymentMethod ?? currentPaymentMethod;
+    const fulfillment = decision === "ACCEPTED"
+      ? dto.fulfillment ?? change.proposedFulfillment ?? currentFulfillment
+      : currentFulfillment;
+    const paymentMethod = decision === "ACCEPTED"
+      ? dto.paymentMethod ?? change.proposedPaymentMethod ?? currentPaymentMethod
+      : currentPaymentMethod;
     const preferences = request.business.preferences;
-    if (!customerFulfillmentMethods(preferences?.allowedFulfillmentMethods).includes(fulfillment)) {
+    if (decision === "ACCEPTED" && !customerFulfillmentMethods(preferences?.allowedFulfillmentMethods).includes(fulfillment)) {
       throw new BadRequestException("That collection method is no longer offered by this shop");
     }
-    if (fulfillment === "DELIVERY" && !request.deliveryAddress) {
+    if (decision === "ACCEPTED" && fulfillment === "DELIVERY" && !request.deliveryAddress) {
       throw new BadRequestException("Add a delivery address before choosing delivery");
     }
-    if (!paymentMethod || !preferences?.allowedPaymentMethods.includes(paymentMethod)) {
+    if (decision === "ACCEPTED" && (!paymentMethod || !preferences?.allowedPaymentMethods.includes(paymentMethod))) {
       throw new BadRequestException("Choose a payment method accepted by this shop");
     }
     const updated = await this.prisma.$transaction(async (tx) => {
@@ -630,30 +654,33 @@ export class ShopsService {
         data: {
           resolvedFulfillment: fulfillment,
           resolvedPaymentMethod: paymentMethod,
-          status: "ACCEPTED",
+          status: decision,
           resolvedAt: new Date(),
         },
       });
       if (resolved.count !== 1) {
         throw new BadRequestException("This order change has already been answered");
       }
-      if (paymentMethod !== currentPaymentMethod) {
+      if (decision === "ACCEPTED" && paymentMethod !== currentPaymentMethod) {
         await tx.orderRequestPaymentChange.create({
           data: {
             orderRequestId: request.id,
             customerAccountId: request.customerAccountId,
             previousMethod: currentPaymentMethod,
-            nextMethod: paymentMethod,
+            nextMethod: paymentMethod!,
           },
         });
       }
       const next = await tx.orderRequest.update({
         where: { id: request.id },
-        data: {
-          agreedFulfillment: fulfillment,
-          agreedPaymentMethod: paymentMethod,
-          status: "SENT",
-        },
+        data: decision === "ACCEPTED"
+          ? {
+              agreedFulfillment: fulfillment,
+              agreedPaymentMethod: paymentMethod!,
+              ownerReadAt: null,
+              status: "SENT",
+            }
+          : { ownerReadAt: null, status: "SENT" },
         include: { items: true, termChanges: { orderBy: { createdAt: "desc" }, take: 10 } },
       });
       await tx.customerOrderNotice.updateMany({
@@ -664,13 +691,14 @@ export class ShopsService {
         data: {
           businessId: request.businessId,
           type: "REQUEST_PAYMENT_UPDATED",
-          title: `Order choices updated for ${request.referenceCode}`,
-          metadata: { orderRequestId: request.id, fulfillment, paymentMethod },
+          title: decision === "ACCEPTED"
+            ? `Customer approved updated choices for ${request.referenceCode}`
+            : `Customer kept original choices for ${request.referenceCode}`,
+          metadata: { decision, orderRequestId: request.id, fulfillment, paymentMethod },
         },
       });
       return next;
     });
-    await this.messaging.enqueueOrderRequestStatus(updated.id).catch(() => undefined);
     return updated;
   }
 
@@ -773,6 +801,7 @@ export class ShopsService {
               paymentMethod: confirmedPaymentMethod,
               items: request.items.map((item) => ({
                 productId: item.productId ?? undefined,
+                variantId: item.variantId ?? undefined,
                 name: item.name,
                 imageUrl: item.imageUrl ?? undefined,
                 quantity: item.quantity,

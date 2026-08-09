@@ -115,6 +115,11 @@ export type OwnerSession = Prisma.OwnerSessionModel
  */
 export type OwnerOtpChallenge = Prisma.OwnerOtpChallengeModel
 /**
+ * Model OnboardingEmailChallenge
+ *
+ */
+export type OnboardingEmailChallenge = Prisma.OnboardingEmailChallengeModel
+/**
  * Model PasswordRecoveryToken
  * 
  */

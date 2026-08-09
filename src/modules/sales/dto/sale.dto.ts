@@ -31,6 +31,10 @@ export class CreateSaleItemDto {
   @IsString()
   productId?: string;
 
+  @IsOptional()
+  @IsString()
+  variantId?: string;
+
   @IsString()
   @Length(1, 160)
   name!: string;

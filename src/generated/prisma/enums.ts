@@ -336,6 +336,14 @@ export const SaleStatus = {
 export type SaleStatus = (typeof SaleStatus)[keyof typeof SaleStatus]
 
 
+export const SaleItemInventorySource = {
+  PRODUCT: 'PRODUCT',
+  VARIANT: 'VARIANT'
+} as const
+
+export type SaleItemInventorySource = (typeof SaleItemInventorySource)[keyof typeof SaleItemInventorySource]
+
+
 export const SalesChannel = {
   WHATSAPP: 'WHATSAPP',
   INSTAGRAM: 'INSTAGRAM',

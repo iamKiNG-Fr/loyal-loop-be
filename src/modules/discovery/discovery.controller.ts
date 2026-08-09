@@ -9,9 +9,10 @@ import {
   Put,
   Query,
   Req,
+  Res,
   UseGuards,
 } from "@nestjs/common";
-import type { Request } from "express";
+import type { Request, Response } from "express";
 import {
   CurrentAuth,
   CurrentCustomer,
@@ -40,13 +41,33 @@ export class PublicDiscoveryController {
   constructor(private readonly discovery: DiscoveryService) {}
 
   @Get()
-  explore(@Query() query: ExploreDto, @Req() request: Request) {
-    return this.discovery.explore(query, undefined, this.discovery.visitorHash(request)).then((data) => ok(data));
+  async explore(
+    @Query() query: ExploreDto,
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const startedAt = performance.now();
+    const data = await this.discovery.explore(
+      query,
+      undefined,
+      this.discovery.visitorHash(request),
+    );
+    response.setHeader("Cache-Control", "private, max-age=15, stale-while-revalidate=30");
+    response.vary("Cookie");
+    response.vary("User-Agent");
+    response.setHeader("Server-Timing", `explore;dur=${(performance.now() - startedAt).toFixed(1)}`);
+    response.setHeader("X-Explore-Personalized", query.personalized ? "1" : "0");
+    return ok(data);
   }
 
   @Post("parse-query")
   parseQuery(@Body() dto: ParseDiscoveryQueryDto) {
     return this.discovery.parseQuery(dto.query).then((data) => ok(data));
+  }
+
+  @Get("sitemap")
+  sitemap() {
+    return this.discovery.sitemapEntries().then((data) => ok(data));
   }
 
   @Post("events")

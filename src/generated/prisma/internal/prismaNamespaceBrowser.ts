@@ -66,6 +66,7 @@ export const ModelName = {
   PlatformAdminAuditLog: 'PlatformAdminAuditLog',
   OwnerSession: 'OwnerSession',
   OwnerOtpChallenge: 'OwnerOtpChallenge',
+  OnboardingEmailChallenge: 'OnboardingEmailChallenge',
   PasswordRecoveryToken: 'PasswordRecoveryToken',
   Business: 'Business',
   BusinessPreferences: 'BusinessPreferences',
@@ -285,6 +286,7 @@ export const UserScalarFieldEnum = {
   avatarAssetId: 'avatarAssetId',
   name: 'name',
   email: 'email',
+  emailVerifiedAt: 'emailVerifiedAt',
   passwordHash: 'passwordHash',
   phone: 'phone',
   workspaceAppearance: 'workspaceAppearance',
@@ -417,6 +419,20 @@ export const OwnerOtpChallengeScalarFieldEnum = {
 } as const
 
 export type OwnerOtpChallengeScalarFieldEnum = (typeof OwnerOtpChallengeScalarFieldEnum)[keyof typeof OwnerOtpChallengeScalarFieldEnum]
+
+
+export const OnboardingEmailChallengeScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  codeHash: 'codeHash',
+  expiresAt: 'expiresAt',
+  verifiedAt: 'verifiedAt',
+  consumedAt: 'consumedAt',
+  attempts: 'attempts',
+  createdAt: 'createdAt'
+} as const
+
+export type OnboardingEmailChallengeScalarFieldEnum = (typeof OnboardingEmailChallengeScalarFieldEnum)[keyof typeof OnboardingEmailChallengeScalarFieldEnum]
 
 
 export const PasswordRecoveryTokenScalarFieldEnum = {
@@ -1252,6 +1268,7 @@ export const SaleScalarFieldEnum = {
   total: 'total',
   amountPaid: 'amountPaid',
   notes: 'notes',
+  inventoryRestoredAt: 'inventoryRestoredAt',
   soldAt: 'soldAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1279,6 +1296,10 @@ export const SaleItemScalarFieldEnum = {
   id: 'id',
   saleId: 'saleId',
   productId: 'productId',
+  variantId: 'variantId',
+  variantName: 'variantName',
+  variantSnapshot: 'variantSnapshot',
+  inventorySource: 'inventorySource',
   name: 'name',
   imageUrl: 'imageUrl',
   quantity: 'quantity',

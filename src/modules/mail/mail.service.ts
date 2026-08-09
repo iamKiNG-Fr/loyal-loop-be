@@ -86,6 +86,45 @@ export class MailService {
     });
   }
 
+  async sendOnboardingEmailVerification(params: {
+    to: string;
+    code: string;
+    expiresInMinutes: number;
+  }) {
+    if (!this.resend) {
+      throw new Error("Onboarding email verification provider is not configured");
+    }
+
+    const from = this.configService.get<string>(
+      "EMAIL_FROM",
+      "Francis King <francis@mail.useloyalloop.com>",
+    );
+    const logoUrl = getEmailImageUrl(
+      this.configService.get<string>("EMAIL_LOGO_URL"),
+    );
+    const result = await this.resend.emails.send({
+      from,
+      to: params.to,
+      replyTo: this.configService.get<string>(
+        "EMAIL_REPLY_TO",
+        "support@useloyalloop.com",
+      ),
+      subject: `${params.code} is your Loyal Loop verification code`,
+      text: buildOnboardingEmailVerificationText(params),
+      html: buildOnboardingEmailVerificationEmail({
+        code: params.code,
+        expiresInMinutes: params.expiresInMinutes,
+        logoUrl: logoUrl ? escapeHtml(logoUrl) : undefined,
+      }),
+    });
+    if (result.error) {
+      this.logger.error(
+        `Resend rejected onboarding email verification: ${result.error.message}`,
+      );
+      throw new Error("Onboarding email verification could not be sent");
+    }
+  }
+
   async sendPasswordResetEmail(params: {
     to: string;
     name: string;
@@ -130,6 +169,66 @@ export class MailService {
       throw new Error("Password reset email could not be sent");
     }
   }
+}
+
+export function buildOnboardingEmailVerificationText(params: {
+  code: string;
+  expiresInMinutes: number;
+}) {
+  return [
+    "Verify your Loyal Loop email address",
+    "",
+    `Your six-digit verification code is: ${params.code}`,
+    "",
+    `This code expires in ${params.expiresInMinutes} minutes and can only be used for this signup.`,
+    "Never share this code. Loyal Loop will not ask for it in a message or phone call.",
+    "",
+    "If you did not start a Loyal Loop business signup, you can ignore this email.",
+  ].join("\n");
+}
+
+export function buildOnboardingEmailVerificationEmail(params: {
+  code: string;
+  expiresInMinutes: number;
+  logoUrl?: string;
+}) {
+  const brand = params.logoUrl
+    ? `<img src="${params.logoUrl}" width="116" alt="Loyal Loop" style="display:block; width:116px; max-width:116px; height:auto; border:0;">`
+    : `<span style="font-family:'Space Grotesk','DM Sans',Arial,sans-serif; font-size:18px; font-weight:800; color:#ffffff;">Loyal Loop</span>`;
+
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Verify your Loyal Loop email address</title>
+  </head>
+  <body style="margin:0; padding:0; background:#f5f2f6; color:#241b2b; font-family:'DM Sans',Arial,sans-serif;">
+    <div style="display:none; max-height:0; overflow:hidden; opacity:0;">Use ${params.code} to continue setting up your Loyal Loop business.</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f5f2f6;">
+      <tr>
+        <td align="center" style="padding:28px 14px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:560px; width:100%; overflow:hidden; border:1px solid #dfd7e2; border-radius:20px; background:#ffffff;">
+            <tr><td style="padding:20px 28px; background:#201925;">${brand}</td></tr>
+            <tr>
+              <td style="padding:30px 28px;">
+                <p style="margin:0; font-size:12px; line-height:1.4; font-weight:800; letter-spacing:.10em; text-transform:uppercase; color:#5d13e7;">Email verification</p>
+                <h1 style="margin:10px 0 0; font-family:'Space Grotesk','DM Sans',Arial,sans-serif; font-size:30px; line-height:1.14; color:#201925;">Confirm it is really you.</h1>
+                <p style="margin:12px 0 0; font-size:15px; line-height:1.65; color:#665b6b;">Enter this code on the first signup step before continuing to your business details.</p>
+                <div style="margin:24px 0; padding:18px; border:1px solid #d9ccef; border-radius:14px; background:#f3effb; text-align:center; font-family:'Space Grotesk','DM Sans',Arial,sans-serif; font-size:34px; line-height:1; font-weight:800; letter-spacing:.18em; color:#40108f;">${params.code}</div>
+                <p style="margin:0; font-size:13px; line-height:1.65; color:#665b6b;">The code expires in ${params.expiresInMinutes} minutes and only works for this signup.</p>
+                <p style="margin:14px 0 0; padding:14px 16px; border-radius:12px; background:#edf7f3; font-size:13px; line-height:1.6; color:#365b4b;"><strong>Keep it private.</strong> Loyal Loop will never ask you to send this code in a message or share it on a call.</p>
+                <p style="margin:18px 0 0; font-size:12px; line-height:1.6; color:#8a808f;">If you did not start a Loyal Loop business signup, ignore this email.</p>
+              </td>
+            </tr>
+            <tr><td style="padding:18px 28px; border-top:1px solid #eee8f0; background:#faf8fb; font-size:12px; line-height:1.6; color:#817788;">Loyal Loop &middot; Keep customers close</td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
 }
 
 export function buildPasswordResetText(params: { name: string; resetUrl: string }) {

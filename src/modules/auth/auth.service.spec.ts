@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { hmacPrivateValue } from "../../common/crypto.util";
 import { AuthService } from "./auth.service";
 
 function createService() {
@@ -17,6 +18,11 @@ function createService() {
       update: vi.fn(),
       updateMany: vi.fn().mockResolvedValue({ count: 1 }),
     },
+    onboardingEmailChallenge: {
+      create: vi.fn(),
+      findUnique: vi.fn(),
+      updateMany: vi.fn().mockResolvedValue({ count: 1 }),
+    },
     ownerSession: {
       create: vi.fn(),
       updateMany: vi.fn(),
@@ -29,9 +35,12 @@ function createService() {
     },
   };
   const config = {
-    get: vi.fn((_key: string, fallback: unknown) => fallback),
+    get: vi.fn((key: string, fallback: unknown) =>
+      key === "SESSION_HASH_SECRET" ? "test-session-secret" : fallback,
+    ),
   };
   const mail = {
+    sendOnboardingEmailVerification: vi.fn(),
     sendPasswordResetEmail: vi.fn(),
   };
   prisma.$transaction.mockImplementation(async (work: unknown) =>
@@ -96,6 +105,95 @@ describe("AuthService password recovery", () => {
       where: { id: "reset-1" },
       data: { usedAt: expect.any(Date) },
     });
+  });
+});
+
+describe("AuthService onboarding email verification", () => {
+  it("sends a six-digit code while persisting only its keyed hash", async () => {
+    const { mail, prisma, service } = createService();
+    prisma.user.findUnique.mockResolvedValue(null);
+    prisma.onboardingEmailChallenge.create.mockImplementation(
+      async ({ data }: { data: Record<string, unknown> }) => data,
+    );
+    mail.sendOnboardingEmailVerification.mockResolvedValue(undefined);
+
+    const result = await service.startOnboardingEmail(" Owner@Example.com ");
+
+    const sent = mail.sendOnboardingEmailVerification.mock.calls[0][0];
+    const created = prisma.onboardingEmailChallenge.create.mock.calls[0][0].data;
+    expect(sent).toMatchObject({
+      code: expect.stringMatching(/^\d{6}$/),
+      expiresInMinutes: 10,
+      to: "owner@example.com",
+    });
+    expect(created.email).toBe("owner@example.com");
+    expect(created.codeHash).not.toBe(sent.code);
+    expect(created.codeHash).toMatch(/^[a-f0-9]{64}$/);
+    expect(result.challengeId).toBe(created.id);
+  });
+
+  it("verifies the matching email code and extends a short registration proof", async () => {
+    const { prisma, service } = createService();
+    const challengeId = "email-challenge-1";
+    prisma.onboardingEmailChallenge.findUnique.mockResolvedValue({
+      id: challengeId,
+      email: "owner@example.com",
+      codeHash: hmacPrivateValue(
+        `onboarding-email:${challengeId}:123456`,
+        "test-session-secret",
+      ),
+      attempts: 0,
+      consumedAt: null,
+      verifiedAt: null,
+      expiresAt: new Date(Date.now() + 60_000),
+    });
+
+    const result = await service.verifyOnboardingEmail(challengeId, "123456");
+
+    expect(result).toMatchObject({
+      challengeId,
+      expiresAt: expect.any(Date),
+      verifiedAt: expect.any(Date),
+    });
+    expect(prisma.onboardingEmailChallenge.updateMany).toHaveBeenLastCalledWith({
+      where: {
+        id: challengeId,
+        verifiedAt: null,
+        consumedAt: null,
+        expiresAt: { gt: expect.any(Date) },
+      },
+      data: {
+        expiresAt: expect.any(Date),
+        verifiedAt: expect.any(Date),
+      },
+    });
+  });
+
+  it("counts an incorrect code without marking the challenge verified", async () => {
+    const { prisma, service } = createService();
+    const challengeId = "email-challenge-2";
+    prisma.onboardingEmailChallenge.findUnique.mockResolvedValue({
+      id: challengeId,
+      email: "owner@example.com",
+      codeHash: hmacPrivateValue(
+        `onboarding-email:${challengeId}:123456`,
+        "test-session-secret",
+      ),
+      attempts: 0,
+      consumedAt: null,
+      verifiedAt: null,
+      expiresAt: new Date(Date.now() + 60_000),
+    });
+
+    await expect(service.verifyOnboardingEmail(challengeId, "654321"))
+      .rejects.toThrow("Invalid verification code");
+
+    expect(prisma.onboardingEmailChallenge.updateMany).toHaveBeenCalledTimes(1);
+    expect(prisma.onboardingEmailChallenge.updateMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: { attempts: { increment: 1 } },
+      }),
+    );
   });
 });
 
@@ -241,10 +339,22 @@ describe("AuthService WhatsApp owner sign-in", () => {
   it("rejects registration when the verified phone proof cannot be claimed", async () => {
     const { prisma, service } = createService();
     const businessCreate = vi.fn();
+    const verifiedAt = new Date();
+    const userCreate = vi.fn().mockResolvedValue({ id: "user-1" });
     prisma.$transaction = vi.fn(async (work) => work({
       business: { create: businessCreate },
+      onboardingEmailChallenge: {
+        findUnique: vi.fn().mockResolvedValue({
+          id: "email-proof",
+          email: "owner@example.test",
+          consumedAt: null,
+          verifiedAt,
+          expiresAt: new Date(Date.now() + 60_000),
+        }),
+        updateMany: vi.fn().mockResolvedValue({ count: 1 }),
+      },
       ownerOtpChallenge: { updateMany: vi.fn().mockResolvedValue({ count: 0 }) },
-      user: { create: vi.fn().mockResolvedValue({ id: "user-1" }) },
+      user: { create: userCreate },
     }));
 
     await expect(service.register({
@@ -252,6 +362,7 @@ describe("AuthService WhatsApp owner sign-in", () => {
       category: "Retail",
       contacts: [{ platform: "WHATSAPP", value: "+2348012345678", isPrimary: true }],
       email: "owner@example.test",
+      emailVerificationChallengeId: "email-proof",
       location: "Lagos",
       ownerName: "Fixture Owner",
       password: "secure-password",
@@ -260,5 +371,38 @@ describe("AuthService WhatsApp owner sign-in", () => {
     }, {})).rejects.toThrow("Verify this WhatsApp number again");
 
     expect(businessCreate).not.toHaveBeenCalled();
+    expect(userCreate).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        email: "owner@example.test",
+        emailVerifiedAt: verifiedAt,
+      }),
+    });
+  });
+
+  it("rejects registration before creating a user when email proof is missing", async () => {
+    const { prisma, service } = createService();
+    const userCreate = vi.fn();
+    prisma.$transaction = vi.fn(async (work) => work({
+      onboardingEmailChallenge: {
+        findUnique: vi.fn().mockResolvedValue(null),
+        updateMany: vi.fn(),
+      },
+      user: { create: userCreate },
+    }));
+
+    await expect(service.register({
+      businessName: "Fixture Shop",
+      category: "Retail",
+      contacts: [{ platform: "WHATSAPP", value: "+2348012345678", isPrimary: true }],
+      email: "owner@example.test",
+      emailVerificationChallengeId: "missing-email-proof",
+      location: "Lagos",
+      ownerName: "Fixture Owner",
+      password: "secure-password",
+      phoneVerificationChallengeId: "phone-proof",
+      slug: "fixture-shop",
+    }, {})).rejects.toThrow("Verify this email address again");
+
+    expect(userCreate).not.toHaveBeenCalled();
   });
 });

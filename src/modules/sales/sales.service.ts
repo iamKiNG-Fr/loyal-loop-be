@@ -9,6 +9,10 @@ import {
   createReference,
 } from "../../common/crypto.util";
 import type { OwnerAuthContext } from "../../common/request-context";
+import {
+  consumeSaleInventory,
+  type InventoryClaim,
+} from "../../common/sale-inventory";
 import { Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
@@ -144,6 +148,7 @@ export class SalesService {
           include: { asset: true },
           take: 1,
         },
+        variants: { where: { active: true } },
       },
     });
     if (products.length !== new Set(productIds).size) {
@@ -196,25 +201,64 @@ export class SalesService {
       const product = item.productId
         ? products.find((entry) => entry.id === item.productId)
         : undefined;
+      if (item.variantId && !product) {
+        throw new BadRequestException("A product variant requires a catalog product");
+      }
+      const variant = item.variantId
+        ? product?.variants.find((entry) => entry.id === item.variantId)
+        : product?.variants.length === 1
+          ? product.variants[0]
+          : undefined;
+      if (item.variantId && !variant) {
+        throw new BadRequestException("Product variant is unavailable");
+      }
       const unitPrice = new Prisma.Decimal(item.unitPrice);
-      const adjusted = product ? !unitPrice.equals(product.price) : false;
-      if (adjusted && !item.priceAdjustmentReason?.trim()) {
+      const catalogUnitPrice = variant?.priceOverride ?? product?.price;
+      const adjusted = catalogUnitPrice
+        ? !unitPrice.equals(catalogUnitPrice)
+        : false;
+      if (adjusted && !dto.sourceRequestId && !item.priceAdjustmentReason?.trim()) {
         throw new BadRequestException(
           `A price adjustment reason is required for ${product!.name}`,
         );
       }
+      const inventorySource = variant?.stockCount !== null && variant?.stockCount !== undefined
+        ? "VARIANT" as const
+        : product?.stockCount !== null && product?.stockCount !== undefined
+          ? "PRODUCT" as const
+          : undefined;
       return {
         productId: product?.id,
+        variantId: variant?.id,
+        variantName: variant?.name,
+        variantSnapshot: variant
+          ? {
+              name: variant.name,
+              optionValues: variant.optionValues,
+              sku: variant.sku,
+            }
+          : undefined,
+        inventorySource,
         name: product?.name ?? (item.name.trim() || "Item"),
         imageUrl: item.imageUrl ?? product?.images[0]?.asset.secureUrl,
         quantity: item.quantity,
-        catalogUnitPrice: product?.price,
+        catalogUnitPrice,
         unitPrice,
         priceAdjustmentReason: adjusted
-          ? item.priceAdjustmentReason!.trim()
+          ? item.priceAdjustmentReason?.trim() || "Customer-approved request pricing"
           : undefined,
         total: unitPrice.mul(item.quantity),
       };
+    });
+    const inventoryClaims = lines.flatMap((line): InventoryClaim[] => {
+      if (!line.productId || !line.inventorySource) return [];
+      return [{
+        label: line.variantName ? `${line.name} (${line.variantName})` : line.name,
+        productId: line.productId,
+        quantity: line.quantity,
+        source: line.inventorySource,
+        variantId: line.variantId,
+      }];
     });
     const subtotal = lines.reduce(
       (sum, item) => sum.add(item.total),
@@ -246,6 +290,7 @@ export class SalesService {
       const preferences = await tx.businessPreferences.findUnique({
         where: { businessId: auth.businessId },
       });
+      await consumeSaleInventory(tx, inventoryClaims);
       const created = await tx.sale.create({
         data: {
           businessId: auth.businessId,

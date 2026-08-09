@@ -62,6 +62,13 @@ export class CustomersService {
                   },
                 },
               },
+              {
+                notes: {
+                  some: {
+                    content: { contains: query.query, mode: "insensitive" as const },
+                  },
+                },
+              },
             ],
           }
         : {}),

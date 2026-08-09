@@ -87,3 +87,92 @@ describe("ShopsService.cancelRequestByToken", () => {
     await expect(service.cancelRequestByToken("customer-1", "unknown-token")).rejects.toBeInstanceOf(NotFoundException);
   });
 });
+
+describe("ShopsService order-choice responses", () => {
+  function termsService() {
+    const source = {
+      agreedFulfillment: null,
+      agreedPaymentMethod: null,
+      businessId: "business-1",
+      business: {
+        preferences: {
+          allowedFulfillmentMethods: ["DELIVERY", "PICKUP"],
+          allowedPaymentMethods: ["BANK_TRANSFER", "CASH"],
+        },
+      },
+      customerAccountId: "account-1",
+      deliveryAddress: "1 Loop Street",
+      fulfillment: "DELIVERY",
+      id: "request-1",
+      referenceCode: "REQ-1",
+      requestedPaymentMethod: "BANK_TRANSFER",
+      status: "NEEDS_CHANGES",
+      termChanges: [{
+        id: "change-1",
+        proposedFulfillment: "PICKUP",
+        proposedPaymentMethod: "CASH",
+      }],
+    };
+    const updateTerms = vi.fn().mockResolvedValue({ count: 1 });
+    const updateRequest = vi.fn().mockResolvedValue({ ...source, status: "SENT" });
+    const tx = {
+      activityEvent: { create: vi.fn() },
+      customerOrderNotice: { updateMany: vi.fn() },
+      orderRequest: { update: updateRequest },
+      orderRequestPaymentChange: { create: vi.fn() },
+      orderRequestTermChange: { updateMany: updateTerms },
+    };
+    const enqueueOrderRequestStatus = vi.fn();
+    const prisma = {
+      $transaction: vi.fn(async (callback: (client: typeof tx) => unknown) => callback(tx)),
+      orderRequest: { findFirst: vi.fn().mockResolvedValue(source) },
+    };
+    const service = new ShopsService(
+      prisma as never,
+      {} as never,
+      {} as never,
+      {} as never,
+      {} as never,
+      {} as never,
+      {} as never,
+      { enqueueOrderRequestStatus } as never,
+    );
+    return { enqueueOrderRequestStatus, service, tx, updateRequest, updateTerms };
+  }
+
+  it("lets the customer decline and retain the original choices", async () => {
+    const { enqueueOrderRequestStatus, service, tx, updateRequest, updateTerms } = termsService();
+
+    await service.respondToTermsChangeByToken("account-1", "token", { decision: "DECLINED" });
+
+    expect(updateTerms).toHaveBeenCalledWith(expect.objectContaining({
+      data: expect.objectContaining({ status: "DECLINED" }),
+    }));
+    expect(updateRequest).toHaveBeenCalledWith(expect.objectContaining({
+      data: { ownerReadAt: null, status: "SENT" },
+    }));
+    expect(tx.orderRequestPaymentChange.create).not.toHaveBeenCalled();
+    expect(enqueueOrderRequestStatus).not.toHaveBeenCalled();
+  });
+
+  it("records accepted choices without sending the acting customer a generic status message", async () => {
+    const { enqueueOrderRequestStatus, service, tx, updateRequest } = termsService();
+
+    await service.respondToTermsChangeByToken("account-1", "token", {
+      decision: "ACCEPTED",
+      fulfillment: "PICKUP",
+      paymentMethod: "CASH",
+    });
+
+    expect(updateRequest).toHaveBeenCalledWith(expect.objectContaining({
+      data: {
+        agreedFulfillment: "PICKUP",
+        agreedPaymentMethod: "CASH",
+        ownerReadAt: null,
+        status: "SENT",
+      },
+    }));
+    expect(tx.orderRequestPaymentChange.create).toHaveBeenCalledOnce();
+    expect(enqueueOrderRequestStatus).not.toHaveBeenCalled();
+  });
+});

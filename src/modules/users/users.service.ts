@@ -24,16 +24,23 @@ export class UsersService {
       });
       if (!asset) throw new BadRequestException("Profile image asset is invalid");
     }
-    if (dto.phone !== undefined) {
+    let emailChanged = false;
+    if (dto.phone !== undefined || dto.email !== undefined) {
       const current = await this.prisma.user.findUniqueOrThrow({
         where: { id: auth.userId },
-        select: { phone: true },
+        select: { email: true, phone: true },
       });
-      if (comparablePhone(dto.phone) !== comparablePhone(current.phone || "")) {
+      if (
+        dto.phone !== undefined &&
+        comparablePhone(dto.phone) !== comparablePhone(current.phone || "")
+      ) {
         throw new BadRequestException(
           "Change and verify the business WhatsApp number under Socials and business number",
         );
       }
+      emailChanged =
+        dto.email !== undefined &&
+        dto.email.trim().toLowerCase() !== current.email;
     }
     try {
       return await this.prisma.user.update({
@@ -42,6 +49,7 @@ export class UsersService {
           avatarAssetId: dto.avatarAssetId,
           name: dto.name?.trim(),
           email: dto.email?.trim().toLowerCase(),
+          emailVerifiedAt: emailChanged ? null : undefined,
           workspaceAppearance: dto.workspaceAppearance,
         },
         select: {

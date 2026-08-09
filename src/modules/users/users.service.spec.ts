@@ -18,4 +18,28 @@ describe("UsersService phone security", () => {
 
     expect(prisma.user.update).not.toHaveBeenCalled();
   });
+
+  it("clears durable verification when an owner changes the email address", async () => {
+    const prisma = {
+      user: {
+        findUniqueOrThrow: vi.fn().mockResolvedValue({
+          email: "owner@example.com",
+          phone: "+2348011111111",
+        }),
+        update: vi.fn().mockResolvedValue({ id: "user-1" }),
+      },
+    };
+    const service = new UsersService(prisma as never);
+
+    await service.update({ userId: "user-1" } as never, {
+      email: " New@Example.com ",
+    });
+
+    expect(prisma.user.update).toHaveBeenCalledWith(expect.objectContaining({
+      data: expect.objectContaining({
+        email: "new@example.com",
+        emailVerifiedAt: null,
+      }),
+    }));
+  });
 });

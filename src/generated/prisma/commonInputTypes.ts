@@ -1459,6 +1459,23 @@ export type EnumSaleStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumSaleStatusFilter<$PrismaModel>
 }
 
+export type EnumSaleItemInventorySourceNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.SaleItemInventorySource | Prisma.EnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  in?: $Enums.SaleItemInventorySource[] | Prisma.ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.SaleItemInventorySource[] | Prisma.ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSaleItemInventorySourceNullableFilter<$PrismaModel> | $Enums.SaleItemInventorySource | null
+}
+
+export type EnumSaleItemInventorySourceNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SaleItemInventorySource | Prisma.EnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  in?: $Enums.SaleItemInventorySource[] | Prisma.ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.SaleItemInventorySource[] | Prisma.ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSaleItemInventorySourceNullableWithAggregatesFilter<$PrismaModel> | $Enums.SaleItemInventorySource | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSaleItemInventorySourceNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSaleItemInventorySourceNullableFilter<$PrismaModel>
+}
+
 export type EnumPaymentEntryTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.PaymentEntryType | Prisma.EnumPaymentEntryTypeFieldRefInput<$PrismaModel>
   in?: $Enums.PaymentEntryType[] | Prisma.ListEnumPaymentEntryTypeFieldRefInput<$PrismaModel>
@@ -3060,6 +3077,23 @@ export type NestedEnumSaleStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumSaleStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumSaleStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumSaleItemInventorySourceNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.SaleItemInventorySource | Prisma.EnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  in?: $Enums.SaleItemInventorySource[] | Prisma.ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.SaleItemInventorySource[] | Prisma.ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSaleItemInventorySourceNullableFilter<$PrismaModel> | $Enums.SaleItemInventorySource | null
+}
+
+export type NestedEnumSaleItemInventorySourceNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SaleItemInventorySource | Prisma.EnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  in?: $Enums.SaleItemInventorySource[] | Prisma.ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.SaleItemInventorySource[] | Prisma.ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSaleItemInventorySourceNullableWithAggregatesFilter<$PrismaModel> | $Enums.SaleItemInventorySource | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSaleItemInventorySourceNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSaleItemInventorySourceNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumPaymentEntryTypeFilter<$PrismaModel = never> = {

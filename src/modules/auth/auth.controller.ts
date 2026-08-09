@@ -24,6 +24,10 @@ import { ok } from "../../common/api-response";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
+import {
+  StartOnboardingEmailDto,
+  VerifyOnboardingEmailDto,
+} from "./dto/onboarding-email.dto";
 import { StartOwnerOtpDto, VerifyOwnerOtpDto } from "./dto/owner-otp.dto";
 import {
   ChangePasswordDto,
@@ -104,6 +108,24 @@ export class AuthController {
   @Throttle({ default: { limit: 12, ttl: minutes(10) } })
   async onboardingAvailability(@Body() dto: CheckOnboardingAvailabilityDto) {
     return ok(await this.auth.checkOnboardingAvailability(dto.email));
+  }
+
+  @Post("onboarding/email/start")
+  @Throttle({ default: { limit: 3, ttl: minutes(10) } })
+  async startOnboardingEmail(@Body() dto: StartOnboardingEmailDto) {
+    return ok(
+      await this.auth.startOnboardingEmail(dto.email),
+      "Email verification sent",
+    );
+  }
+
+  @Post("onboarding/email/verify")
+  @Throttle({ default: { limit: 8, ttl: minutes(10) } })
+  async verifyOnboardingEmail(@Body() dto: VerifyOnboardingEmailDto) {
+    return ok(
+      await this.auth.verifyOnboardingEmail(dto.challengeId, dto.code),
+      "Email address verified",
+    );
   }
 
   @Post("onboarding/whatsapp/verify")
