@@ -164,11 +164,11 @@ export class PlatformAdminService {
         promptedDevices30d: bigint;
       }>>`
         WITH installation_signals AS (
-          SELECT visitor_hash, MIN(created_at) AS first_known_at
+          SELECT "visitorHash", MIN("createdAt") AS first_known_at
           FROM discovery_telemetry
-          WHERE visitor_hash IS NOT NULL
+          WHERE "visitorHash" IS NOT NULL
             AND type IN ('PWA_INSTALLED', 'PWA_STANDALONE_LAUNCH')
-          GROUP BY visitor_hash
+          GROUP BY "visitorHash"
         )
         SELECT
           COUNT(*)::bigint AS "knownInstallations",
@@ -176,25 +176,25 @@ export class PlatformAdminService {
             WHERE first_known_at >= NOW() - INTERVAL '30 days'
           )::bigint AS "newInstallations30d",
           (
-            SELECT COUNT(DISTINCT visitor_hash)
+            SELECT COUNT(DISTINCT "visitorHash")
             FROM discovery_telemetry
-            WHERE visitor_hash IS NOT NULL
+            WHERE "visitorHash" IS NOT NULL
               AND type = 'PWA_STANDALONE_LAUNCH'
-              AND created_at >= NOW() - INTERVAL '7 days'
+              AND "createdAt" >= NOW() - INTERVAL '7 days'
           )::bigint AS "activeInstallations7d",
           (
-            SELECT COUNT(DISTINCT visitor_hash)
+            SELECT COUNT(DISTINCT "visitorHash")
             FROM discovery_telemetry
-            WHERE visitor_hash IS NOT NULL
+            WHERE "visitorHash" IS NOT NULL
               AND type = 'PWA_STANDALONE_LAUNCH'
-              AND created_at >= NOW() - INTERVAL '30 days'
+              AND "createdAt" >= NOW() - INTERVAL '30 days'
           )::bigint AS "activeInstallations30d",
           (
-            SELECT COUNT(DISTINCT visitor_hash)
+            SELECT COUNT(DISTINCT "visitorHash")
             FROM discovery_telemetry
-            WHERE visitor_hash IS NOT NULL
+            WHERE "visitorHash" IS NOT NULL
               AND type = 'PWA_PROMPT_SHOWN'
-              AND created_at >= NOW() - INTERVAL '30 days'
+              AND "createdAt" >= NOW() - INTERVAL '30 days'
           )::bigint AS "promptedDevices30d"
         FROM installation_signals
       `,
@@ -205,15 +205,15 @@ export class PlatformAdminService {
       }>>`
         WITH latest_install_signal AS (
           SELECT
-            visitor_hash,
+            "visitorHash",
             COALESCE(metadata ->> 'platform', 'OTHER') AS platform,
             COALESCE(metadata ->> 'audience', 'PUBLIC') AS audience,
             ROW_NUMBER() OVER (
-              PARTITION BY visitor_hash
-              ORDER BY created_at DESC
+              PARTITION BY "visitorHash"
+              ORDER BY "createdAt" DESC
             ) AS position
           FROM discovery_telemetry
-          WHERE visitor_hash IS NOT NULL
+          WHERE "visitorHash" IS NOT NULL
             AND type IN ('PWA_INSTALLED', 'PWA_STANDALONE_LAUNCH')
         )
         SELECT platform, audience, COUNT(*)::bigint AS count

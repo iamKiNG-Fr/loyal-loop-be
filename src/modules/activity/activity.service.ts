@@ -112,15 +112,37 @@ export class ActivityService {
   }
 }
 
-function activityTarget(entry: {
+export function activityTarget(entry: {
   customerId: string | null;
   saleId: string | null;
   receiptId: string | null;
   deliveryId: string | null;
+  metadata: Prisma.JsonValue | null;
+  type: ActivityEventType;
 }) {
-  if (entry.deliveryId) return `/dashboard/delivery/${entry.deliveryId}`;
-  if (entry.receiptId) return `/dashboard/receipts/${entry.receiptId}`;
-  if (entry.saleId) return `/dashboard/sales/${entry.saleId}`;
-  if (entry.customerId) return `/dashboard/customers?customer=${entry.customerId}`;
-  return "/dashboard/activity";
+  if (entry.deliveryId) {
+    return `/dashboard/deliveries?delivery=${encodeURIComponent(entry.deliveryId)}`;
+  }
+  if (entry.saleId) {
+    return `/dashboard/sales/${encodeURIComponent(entry.saleId)}`;
+  }
+  const productId = metadataString(entry.metadata, "productId");
+  if (productId) {
+    return `/dashboard/products?product=${encodeURIComponent(productId)}`;
+  }
+  if (entry.customerId) {
+    return `/dashboard/customers?customer=${encodeURIComponent(entry.customerId)}`;
+  }
+  if (["INVENTORY_CHECKED", "STREAK_COMPLETED"].includes(entry.type)) {
+    return "/dashboard/trust-rewards";
+  }
+  return "/dashboard";
+}
+
+function metadataString(metadata: Prisma.JsonValue | null, key: string) {
+  if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) {
+    return null;
+  }
+  const value = metadata[key];
+  return typeof value === "string" && value.trim() ? value : null;
 }
