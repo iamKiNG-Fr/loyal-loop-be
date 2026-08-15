@@ -323,6 +323,32 @@ export class MessagingService {
     });
   }
 
+  async enqueueProductLaunch(input: {
+    businessId: string;
+    businessName: string;
+    customerAccountId: string;
+    customerName?: string | null;
+    phone: string;
+    productId: string;
+    productName: string;
+    launchAt: Date;
+    url: string;
+  }) {
+    return this.enqueueUtility({
+      businessId: input.businessId,
+      customerAccountId: input.customerAccountId,
+      phone: input.phone,
+      purpose: "REMINDER",
+      templateKey: "reminder",
+      variables: {
+        "1": input.customerName?.trim() || "there",
+        "2": input.businessName,
+        "3": `${input.productName} just dropped 🎉 Open it here: ${input.url}`,
+      },
+      idempotencyKey: `product-launch:${input.productId}:${input.launchAt.getTime()}:${input.customerAccountId}`,
+    });
+  }
+
   async enqueueOwnerDigest(input: {
     businessId: string;
     userId: string;

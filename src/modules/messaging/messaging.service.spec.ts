@@ -53,4 +53,39 @@ describe("WhatsApp consent", () => {
       }),
     });
   });
+
+  it("queues one consented social launch message per customer and launch moment", async () => {
+    const upsert = vi.fn().mockResolvedValue({ id: "outbox-1", status: "PENDING" });
+    const service = new MessagingService(
+      {
+        messageOutbox: { upsert },
+        messagingConsent: { findUnique: vi.fn().mockResolvedValue({ revokedAt: null }) },
+        messagingSuppression: { findUnique: vi.fn().mockResolvedValue(null) },
+      } as never,
+      { get: vi.fn((key: string) => key === "SESSION_HASH_SECRET" ? "test-session-secret" : undefined) } as never,
+      {} as never,
+    );
+    const launchAt = new Date("2026-08-15T12:00:00.000Z");
+
+    await service.enqueueProductLaunch({
+      businessId: "business-1",
+      businessName: "King's Store",
+      customerAccountId: "customer-1",
+      customerName: "Ada",
+      launchAt,
+      phone: "+2348012345678",
+      productId: "product-1",
+      productName: "Ankara Haven",
+      url: "https://www.useloyalloop.com/shop/kings-store?product=product-1",
+    });
+
+    expect(upsert).toHaveBeenCalledWith(expect.objectContaining({
+      create: expect.objectContaining({
+        idempotencyKey: `product-launch:product-1:${launchAt.getTime()}:customer-1`,
+        payload: expect.objectContaining({ "3": expect.stringContaining("just dropped 🎉") }),
+        purpose: "REMINDER",
+        status: "PENDING",
+      }),
+    }));
+  });
 });

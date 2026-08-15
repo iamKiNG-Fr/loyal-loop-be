@@ -110,6 +110,7 @@ export class DiscoveryService {
                 { name: { contains: term, mode: "insensitive" as const } },
                 { category: { contains: term, mode: "insensitive" as const } },
                 { description: { contains: term, mode: "insensitive" as const } },
+                { attributes: { path: ["searchTags"], string_contains: term.toLowerCase() } },
                 { business: { name: { contains: term, mode: "insensitive" as const } } },
               ]),
             }]
@@ -176,6 +177,7 @@ export class DiscoveryService {
                     OR: [
                       { name: { contains: term, mode: "insensitive" as const } },
                       { category: { contains: term, mode: "insensitive" as const } },
+                      { attributes: { path: ["searchTags"], string_contains: term.toLowerCase() } },
                     ],
                   },
                 },

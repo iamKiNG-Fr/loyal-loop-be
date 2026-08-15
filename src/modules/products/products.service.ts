@@ -21,6 +21,7 @@ import {
 } from "./dto/product.dto";
 
 const productInclude = {
+  _count: { select: { commerceEvents: true, interests: true, requestItems: true, saleItems: true, wishlistItems: true } },
   businessCategory: true,
   images: {
     include: { asset: true },
@@ -33,6 +34,13 @@ const productInclude = {
   variants: { orderBy: { sortOrder: "asc" as const } },
   promotions: { include: { _count: { select: { reservations: true } } }, orderBy: { createdAt: "desc" as const } },
 };
+
+const publicAssetReviewFields = {
+  contentRating: true,
+  moderationStatus: true,
+  qualityStatus: true,
+  status: true,
+} as const;
 
 const categoryTemplates = [
   { key: "fashion", label: "Fashion", attributes: ["size", "color", "material", "measurements"] },
@@ -203,6 +211,7 @@ export class ProductsService {
                   mode: "insensitive" as const,
                 },
               },
+              { attributes: { path: ["searchTags"], string_contains: query.query.toLowerCase() } },
             ],
           }
         : {}),
@@ -234,7 +243,7 @@ export class ProductsService {
       auth.businessId,
       dto.imageAssetIds ?? [],
     );
-    const category = await this.resolveCategory(auth, dto.categoryId, dto.category);
+    const collection = await this.resolveCategory(auth, dto.categoryId);
     const media = dto.media?.length
       ? await this.validateMedia(auth.businessId, dto.media)
       : assets.map((asset, index) => ({
@@ -248,6 +257,8 @@ export class ProductsService {
     const variants = dto.variants?.length
       ? dto.variants
       : [{ name: "Default", optionValues: {}, stockCount: dto.stockCount }];
+    const moderationHold = [...assets, ...media.flatMap((item) => [item.asset, item.posterAsset].filter(Boolean))]
+      .some(asset => mediaAssetNeedsReview(asset));
     return this.prisma.$transaction(async (tx) => {
       const product = await tx.product.create({
         data: {
@@ -257,12 +268,12 @@ export class ProductsService {
           description: dto.description?.trim(),
           price: dto.price,
           currency: dto.currency?.toUpperCase() ?? "NGN",
-          category: category?.name ?? dto.category?.trim(),
-          categoryId: category?.id,
+          category: dto.category?.trim(),
+          categoryId: collection?.id,
           attributes: dto.attributes as Prisma.InputJsonValue | undefined,
-          status: dto.status,
+          status: moderationHold ? "DRAFT" : dto.status,
           placement: dto.placement,
-          visibility: dto.visibility,
+          visibility: moderationHold ? "PRIVATE" : dto.visibility,
           contentRating: dto.contentRating,
           stockCount: dto.stockCount,
           launchAt: dto.launchAt ? new Date(dto.launchAt) : undefined,
@@ -325,10 +336,15 @@ export class ProductsService {
     if (dto.variants || dto.stockCount !== undefined) {
       this.validateVariantStock(dto.stockCount ?? product.stockCount, dto.variants ?? product.variants);
     }
-    const hasCategoryUpdate = dto.categoryId !== undefined || dto.category !== undefined;
-    const category = hasCategoryUpdate
-      ? await this.resolveCategory(auth, dto.categoryId, dto.category)
+    const hasCollectionUpdate = dto.categoryId !== undefined;
+    const collection = hasCollectionUpdate
+      ? await this.resolveCategory(auth, dto.categoryId)
       : undefined;
+    const nextStatus = dto.status ?? product.status;
+    const nextVisibility = dto.visibility ?? product.visibility;
+    if (nextStatus === "ACTIVE" && nextVisibility === "PUBLIC") {
+      await this.assertProductMediaReadyForPublic(auth.businessId, product.id);
+    }
     return this.prisma.$transaction(async (tx) => {
       const updated = await tx.product.update({
         where: { id: product.id },
@@ -339,8 +355,8 @@ export class ProductsService {
             : undefined,
           description: dto.description?.trim(),
           price: dto.price,
-          category: hasCategoryUpdate ? category?.name ?? null : undefined,
-          categoryId: hasCategoryUpdate ? category?.id ?? null : undefined,
+          category: dto.category === undefined ? undefined : dto.category.trim() || null,
+          categoryId: hasCollectionUpdate ? collection?.id ?? null : undefined,
           attributes: dto.attributes as Prisma.InputJsonValue | undefined,
           status: dto.status,
           placement: dto.placement,
@@ -409,6 +425,9 @@ export class ProductsService {
           })),
         });
       }
+      if (assets.some(asset => mediaAssetNeedsReview(asset))) {
+        await tx.product.update({ where: { id: productId }, data: { status: "DRAFT", visibility: "PRIVATE" } });
+      }
     });
     return this.get(auth, productId);
   }
@@ -449,6 +468,9 @@ export class ProductsService {
           });
         }
       }
+      if (media.some(item => mediaAssetNeedsReview(item.asset) || mediaAssetNeedsReview(item.posterAsset))) {
+        await tx.product.update({ where: { id: productId }, data: { status: "DRAFT", visibility: "PRIVATE" } });
+      }
     });
     return this.get(auth, productId);
   }
@@ -468,6 +490,29 @@ export class ProductsService {
     });
     if (!product) throw new NotFoundException("Product not found");
     return product;
+  }
+
+  private async assertProductMediaReadyForPublic(businessId: string, productId: string) {
+    const product = await this.prisma.product.findFirst({
+      where: { businessId, id: productId },
+      select: {
+        images: { select: { asset: { select: publicAssetReviewFields } } },
+        media: {
+          select: {
+            asset: { select: publicAssetReviewFields },
+            posterAsset: { select: publicAssetReviewFields },
+          },
+        },
+      },
+    });
+    if (!product) throw new NotFoundException("Product not found");
+    const assets = [
+      ...product.images.map(item => item.asset),
+      ...product.media.flatMap(item => [item.asset, item.posterAsset].filter(Boolean)),
+    ];
+    if (!assets.length || assets.some(asset => !mediaAssetCanPublish(asset))) {
+      throw new BadRequestException("Product media must pass safety review before this listing can be published");
+    }
   }
 
   private validateVariantStock(
@@ -492,7 +537,7 @@ export class ProductsService {
         purpose: "PRODUCT_IMAGE",
         status: "ACTIVE",
         qualityStatus: { not: "FAIL" },
-        moderationStatus: { in: ["AUTO_APPROVED", "MANUALLY_APPROVED"] },
+        moderationStatus: { not: "REJECTED" },
         contentRating: { not: "PROHIBITED" },
       },
     });
@@ -504,19 +549,16 @@ export class ProductsService {
 
   private async resolveCategory(
     auth: OwnerAuthContext,
-    categoryId?: string,
-    legacyName?: string,
+    categoryId?: string | null,
   ) {
     if (categoryId) {
       const category = await this.prisma.businessCategory.findFirst({
         where: { id: categoryId, businessId: auth.businessId },
       });
-      if (!category) throw new BadRequestException("Category is not available for this business");
+      if (!category) throw new BadRequestException("Collection is not available for this business");
       return category;
     }
-    const name = legacyName?.trim();
-    if (!name) return null;
-    return this.createCategory(auth, { name, templateKey: "generic" });
+    return null;
   }
 
   private async validateMedia(
@@ -532,7 +574,7 @@ export class ProductsService {
         businessId,
         status: "ACTIVE",
         qualityStatus: { not: "FAIL" },
-        moderationStatus: { in: ["AUTO_APPROVED", "MANUALLY_APPROVED"] },
+        moderationStatus: { not: "REJECTED" },
         contentRating: { not: "PROHIBITED" },
       },
     });
@@ -619,6 +661,25 @@ function commerceEventContext(metadata: unknown) {
 
 function percentage(value: number, total: number) {
   return total ? Math.round(value / total * 1000) / 10 : 0;
+}
+
+function mediaAssetNeedsReview(asset?: { contentRating: string; moderationStatus: string } | null) {
+  if (!asset) return false;
+  return !["AUTO_APPROVED", "MANUALLY_APPROVED"].includes(asset.moderationStatus)
+    || asset.contentRating !== "GENERAL";
+}
+
+export function mediaAssetCanPublish(asset?: {
+  contentRating: string;
+  moderationStatus: string;
+  qualityStatus: string;
+  status: string;
+} | null) {
+  return Boolean(asset
+    && asset.status === "ACTIVE"
+    && asset.qualityStatus !== "FAIL"
+    && ["AUTO_APPROVED", "MANUALLY_APPROVED"].includes(asset.moderationStatus)
+    && asset.contentRating === "GENERAL");
 }
 
 function withListingReadiness<T extends {

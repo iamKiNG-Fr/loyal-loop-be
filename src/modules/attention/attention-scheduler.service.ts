@@ -3,6 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { timingSafeEqual } from "node:crypto";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { MessagingService } from "../messaging/messaging.service";
+import { publicMediaAssetWhere } from "../media/public-media";
 import { PrismaService } from "../prisma/prisma.service";
 import { AttentionService, businessDay } from "./attention.service";
 import { WebPushService } from "./web-push.service";
@@ -55,6 +56,8 @@ export class AttentionSchedulerService {
     const result = {
       checked: preferences.length,
       digestsQueued: 0,
+      launchProductsChecked: 0,
+      launchRemindersQueued: 0,
       pushSent: 0,
       skippedEmpty: 0,
       urgentPushSent: 0,
@@ -136,6 +139,16 @@ export class AttentionSchedulerService {
         this.logger.warn(`Reminder schedule failed for business ${preference.businessId}: ${message}`);
       }
     }
+    try {
+      const launches = await this.queueProductLaunchReminders(now);
+      result.launchProductsChecked = launches.productsChecked;
+      result.launchRemindersQueued = launches.remindersQueued;
+      result.failures += launches.failures;
+    } catch (error) {
+      result.failures += 1;
+      const message = error instanceof Error ? error.message : "unknown error";
+      this.logger.warn(`Product launch reminders failed: ${message}`);
+    }
     return result;
   }
 
@@ -146,6 +159,70 @@ export class AttentionSchedulerService {
       url: "/dashboard?today=1",
       tag: "loyal-loop-push-test",
     });
+  }
+
+  private async queueProductLaunchReminders(now: Date) {
+    const launchedSince = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const products = await this.prisma.product.findMany({
+      where: {
+        launchAt: { gt: launchedSince, lte: now },
+        status: "ACTIVE",
+        visibility: "PUBLIC",
+        business: { platformStatus: "ACTIVE", storeStatus: "OPEN" },
+        images: { some: { asset: { is: publicMediaAssetWhere } } },
+        wishlistItems: {
+          some: {
+            customerAccount: {
+              messagingConsents: { some: { purpose: "REMINDER", revokedAt: null } },
+            },
+          },
+        },
+      },
+      select: {
+        id: true,
+        launchAt: true,
+        name: true,
+        business: { select: { id: true, name: true, slug: true } },
+        wishlistItems: {
+          where: {
+            customerAccount: {
+              messagingConsents: { some: { purpose: "REMINDER", revokedAt: null } },
+            },
+          },
+          select: { customerAccount: { select: { id: true, name: true, phone: true } } },
+          take: 500,
+        },
+      },
+      orderBy: { launchAt: "asc" },
+      take: 100,
+    });
+    const appUrl = this.config.get<string>("APP_URL", "https://www.useloyalloop.com").replace(/\/$/, "");
+    let remindersQueued = 0;
+    let failures = 0;
+    for (const product of products) {
+      if (!product.launchAt) continue;
+      for (const item of product.wishlistItems) {
+        try {
+          const queued = await this.messaging.enqueueProductLaunch({
+            businessId: product.business.id,
+            businessName: product.business.name,
+            customerAccountId: item.customerAccount.id,
+            customerName: item.customerAccount.name,
+            phone: item.customerAccount.phone,
+            productId: product.id,
+            productName: product.name,
+            launchAt: product.launchAt,
+            url: `${appUrl}/shop/${encodeURIComponent(product.business.slug)}?product=${encodeURIComponent(product.id)}`,
+          });
+          if (["PENDING", "SENT", "DELIVERED"].includes(queued.status)) remindersQueued += 1;
+        } catch (error) {
+          failures += 1;
+          const message = error instanceof Error ? error.message : "unknown error";
+          this.logger.warn(`Launch reminder failed for product ${product.id}: ${message}`);
+        }
+      }
+    }
+    return { failures, productsChecked: products.length, remindersQueued };
   }
 
   private async unpushed(

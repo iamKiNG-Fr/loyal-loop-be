@@ -40,6 +40,8 @@ import type { DiscoveryQuery } from "./discovery-attribution";
 import { discoverySource, toDiscoveryAttribution } from "./discovery-attribution";
 
 const publicProductInclude = {
+  _count: { select: { commerceEvents: true, interests: true, requestItems: true, saleItems: true, wishlistItems: true } },
+  businessCategory: true,
   images: {
     where: { asset: { is: publicMediaAssetWhere } },
     include: { asset: true },
