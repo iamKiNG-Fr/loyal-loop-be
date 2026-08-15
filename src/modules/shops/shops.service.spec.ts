@@ -1,6 +1,6 @@
 import { BadRequestException, NotFoundException } from "@nestjs/common";
 import { describe, expect, it, vi } from "vitest";
-import { ShopsService } from "./shops.service";
+import { assertProductsLaunched, ShopsService } from "./shops.service";
 
 function request(status: string, convertedSale: object | null = null) {
   return {
@@ -85,6 +85,18 @@ describe("ShopsService.cancelRequestByToken", () => {
     const { service } = serviceFor(null);
 
     await expect(service.cancelRequestByToken("customer-1", "unknown-token")).rejects.toBeInstanceOf(NotFoundException);
+  });
+});
+
+describe("product launch request guards", () => {
+  it("allows launched products and blocks a future drop", () => {
+    const now = new Date("2026-08-15T12:00:00.000Z");
+    expect(() => assertProductsLaunched([
+      { launchAt: new Date("2026-08-15T11:59:00.000Z"), name: "Live product" },
+    ], now)).not.toThrow();
+    expect(() => assertProductsLaunched([
+      { launchAt: new Date("2026-08-16T12:00:00.000Z"), name: "Sunday drop" },
+    ], now)).toThrow("Sunday drop has not launched yet");
   });
 });
 

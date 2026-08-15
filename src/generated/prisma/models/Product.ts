@@ -51,6 +51,7 @@ export type ProductMinAggregateOutputType = {
   visibility: $Enums.ProductVisibility | null
   contentRating: $Enums.MediaContentRating | null
   stockCount: number | null
+  launchAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -70,6 +71,7 @@ export type ProductMaxAggregateOutputType = {
   visibility: $Enums.ProductVisibility | null
   contentRating: $Enums.MediaContentRating | null
   stockCount: number | null
+  launchAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -90,6 +92,7 @@ export type ProductCountAggregateOutputType = {
   visibility: number
   contentRating: number
   stockCount: number
+  launchAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -121,6 +124,7 @@ export type ProductMinAggregateInputType = {
   visibility?: true
   contentRating?: true
   stockCount?: true
+  launchAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -140,6 +144,7 @@ export type ProductMaxAggregateInputType = {
   visibility?: true
   contentRating?: true
   stockCount?: true
+  launchAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -160,6 +165,7 @@ export type ProductCountAggregateInputType = {
   visibility?: true
   contentRating?: true
   stockCount?: true
+  launchAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -267,6 +273,7 @@ export type ProductGroupByOutputType = {
   visibility: $Enums.ProductVisibility
   contentRating: $Enums.MediaContentRating
   stockCount: number | null
+  launchAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ProductCountAggregateOutputType | null
@@ -310,6 +317,7 @@ export type ProductWhereInput = {
   visibility?: Prisma.EnumProductVisibilityFilter<"Product"> | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFilter<"Product"> | $Enums.MediaContentRating
   stockCount?: Prisma.IntNullableFilter<"Product"> | number | null
+  launchAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -346,6 +354,7 @@ export type ProductOrderByWithRelationInput = {
   visibility?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
@@ -386,6 +395,7 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   visibility?: Prisma.EnumProductVisibilityFilter<"Product"> | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFilter<"Product"> | $Enums.MediaContentRating
   stockCount?: Prisma.IntNullableFilter<"Product"> | number | null
+  launchAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -422,6 +432,7 @@ export type ProductOrderByWithAggregationInput = {
   visibility?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrderInput | Prisma.SortOrder
+  launchAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProductCountOrderByAggregateInput
@@ -450,6 +461,7 @@ export type ProductScalarWhereWithAggregatesInput = {
   visibility?: Prisma.EnumProductVisibilityWithAggregatesFilter<"Product"> | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingWithAggregatesFilter<"Product"> | $Enums.MediaContentRating
   stockCount?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
+  launchAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
 }
@@ -468,6 +480,7 @@ export type ProductCreateInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -504,6 +517,7 @@ export type ProductUncheckedCreateInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -536,6 +550,7 @@ export type ProductUpdateInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -572,6 +587,7 @@ export type ProductUncheckedUpdateInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -606,6 +622,7 @@ export type ProductCreateManyInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -624,6 +641,7 @@ export type ProductUpdateManyMutationInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -644,6 +662,7 @@ export type ProductUncheckedUpdateManyInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -684,6 +703,7 @@ export type ProductCountOrderByAggregateInput = {
   visibility?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrder
+  launchAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -708,6 +728,7 @@ export type ProductMaxOrderByAggregateInput = {
   visibility?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrder
+  launchAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -727,6 +748,7 @@ export type ProductMinOrderByAggregateInput = {
   visibility?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrder
+  launchAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1067,6 +1089,7 @@ export type ProductCreateWithoutLaunchBusinessesInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -1102,6 +1125,7 @@ export type ProductUncheckedCreateWithoutLaunchBusinessesInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -1138,6 +1162,7 @@ export type ProductCreateWithoutBusinessInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   businessCategory?: Prisma.BusinessCategoryCreateNestedOneWithoutProductsInput
@@ -1172,6 +1197,7 @@ export type ProductUncheckedCreateWithoutBusinessInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -1225,6 +1251,7 @@ export type ProductUpdateWithoutLaunchBusinessesInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -1260,6 +1287,7 @@ export type ProductUncheckedUpdateWithoutLaunchBusinessesInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -1312,6 +1340,7 @@ export type ProductScalarWhereInput = {
   visibility?: Prisma.EnumProductVisibilityFilter<"Product"> | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFilter<"Product"> | $Enums.MediaContentRating
   stockCount?: Prisma.IntNullableFilter<"Product"> | number | null
+  launchAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
 }
@@ -1330,6 +1359,7 @@ export type ProductCreateWithoutBusinessCategoryInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -1364,6 +1394,7 @@ export type ProductUncheckedCreateWithoutBusinessCategoryInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -1422,6 +1453,7 @@ export type ProductCreateWithoutImagesInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -1457,6 +1489,7 @@ export type ProductUncheckedCreateWithoutImagesInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   media?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutProductInput
@@ -1504,6 +1537,7 @@ export type ProductUpdateWithoutImagesInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -1539,6 +1573,7 @@ export type ProductUncheckedUpdateWithoutImagesInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.ProductMediaUncheckedUpdateManyWithoutProductNestedInput
@@ -1570,6 +1605,7 @@ export type ProductCreateWithoutVariantsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -1605,6 +1641,7 @@ export type ProductUncheckedCreateWithoutVariantsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -1652,6 +1689,7 @@ export type ProductUpdateWithoutVariantsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -1687,6 +1725,7 @@ export type ProductUncheckedUpdateWithoutVariantsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -1718,6 +1757,7 @@ export type ProductCreateWithoutMediaInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -1753,6 +1793,7 @@ export type ProductUncheckedCreateWithoutMediaInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -1800,6 +1841,7 @@ export type ProductUpdateWithoutMediaInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -1835,6 +1877,7 @@ export type ProductUncheckedUpdateWithoutMediaInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -1866,6 +1909,7 @@ export type ProductCreateWithoutShowcaseHotspotsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -1901,6 +1945,7 @@ export type ProductUncheckedCreateWithoutShowcaseHotspotsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -1948,6 +1993,7 @@ export type ProductUpdateWithoutShowcaseHotspotsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -1983,6 +2029,7 @@ export type ProductUncheckedUpdateWithoutShowcaseHotspotsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -2014,6 +2061,7 @@ export type ProductCreateWithoutWishlistItemsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -2049,6 +2097,7 @@ export type ProductUncheckedCreateWithoutWishlistItemsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -2096,6 +2145,7 @@ export type ProductUpdateWithoutWishlistItemsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -2131,6 +2181,7 @@ export type ProductUncheckedUpdateWithoutWishlistItemsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -2162,6 +2213,7 @@ export type ProductCreateWithoutInterestsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -2197,6 +2249,7 @@ export type ProductUncheckedCreateWithoutInterestsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -2244,6 +2297,7 @@ export type ProductUpdateWithoutInterestsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -2279,6 +2333,7 @@ export type ProductUncheckedUpdateWithoutInterestsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -2310,6 +2365,7 @@ export type ProductCreateWithoutCartItemsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -2345,6 +2401,7 @@ export type ProductUncheckedCreateWithoutCartItemsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -2392,6 +2449,7 @@ export type ProductUpdateWithoutCartItemsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -2427,6 +2485,7 @@ export type ProductUncheckedUpdateWithoutCartItemsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -2458,6 +2517,7 @@ export type ProductCreateWithoutPromotionsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -2493,6 +2553,7 @@ export type ProductUncheckedCreateWithoutPromotionsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -2540,6 +2601,7 @@ export type ProductUpdateWithoutPromotionsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -2575,6 +2637,7 @@ export type ProductUncheckedUpdateWithoutPromotionsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -2606,6 +2669,7 @@ export type ProductCreateWithoutReportsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -2641,6 +2705,7 @@ export type ProductUncheckedCreateWithoutReportsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -2688,6 +2753,7 @@ export type ProductUpdateWithoutReportsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -2723,6 +2789,7 @@ export type ProductUncheckedUpdateWithoutReportsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -2754,6 +2821,7 @@ export type ProductCreateWithoutRequestItemsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -2789,6 +2857,7 @@ export type ProductUncheckedCreateWithoutRequestItemsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -2836,6 +2905,7 @@ export type ProductUpdateWithoutRequestItemsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -2871,6 +2941,7 @@ export type ProductUncheckedUpdateWithoutRequestItemsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -2902,6 +2973,7 @@ export type ProductCreateWithoutCommerceEventsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -2937,6 +3009,7 @@ export type ProductUncheckedCreateWithoutCommerceEventsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -2984,6 +3057,7 @@ export type ProductUpdateWithoutCommerceEventsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -3019,6 +3093,7 @@ export type ProductUncheckedUpdateWithoutCommerceEventsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -3050,6 +3125,7 @@ export type ProductCreateWithoutSaleItemsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -3085,6 +3161,7 @@ export type ProductUncheckedCreateWithoutSaleItemsInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -3132,6 +3209,7 @@ export type ProductUpdateWithoutSaleItemsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -3167,6 +3245,7 @@ export type ProductUncheckedUpdateWithoutSaleItemsInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -3198,6 +3277,7 @@ export type ProductCreateWithoutShortLinksInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutProductsInput
@@ -3233,6 +3313,7 @@ export type ProductUncheckedCreateWithoutShortLinksInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   images?: Prisma.ProductImageUncheckedCreateNestedManyWithoutProductInput
@@ -3280,6 +3361,7 @@ export type ProductUpdateWithoutShortLinksInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -3315,6 +3397,7 @@ export type ProductUncheckedUpdateWithoutShortLinksInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -3347,6 +3430,7 @@ export type ProductCreateManyBusinessInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3365,6 +3449,7 @@ export type ProductUpdateWithoutBusinessInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   businessCategory?: Prisma.BusinessCategoryUpdateOneWithoutProductsNestedInput
@@ -3399,6 +3484,7 @@ export type ProductUncheckedUpdateWithoutBusinessInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -3432,6 +3518,7 @@ export type ProductUncheckedUpdateManyWithoutBusinessInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3451,6 +3538,7 @@ export type ProductCreateManyBusinessCategoryInput = {
   visibility?: $Enums.ProductVisibility
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
+  launchAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3469,6 +3557,7 @@ export type ProductUpdateWithoutBusinessCategoryInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutProductsNestedInput
@@ -3503,6 +3592,7 @@ export type ProductUncheckedUpdateWithoutBusinessCategoryInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   images?: Prisma.ProductImageUncheckedUpdateManyWithoutProductNestedInput
@@ -3536,6 +3626,7 @@ export type ProductUncheckedUpdateManyWithoutBusinessCategoryInput = {
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3704,6 +3795,7 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   visibility?: boolean
   contentRating?: boolean
   stockCount?: boolean
+  launchAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -3741,6 +3833,7 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   visibility?: boolean
   contentRating?: boolean
   stockCount?: boolean
+  launchAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -3763,6 +3856,7 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   visibility?: boolean
   contentRating?: boolean
   stockCount?: boolean
+  launchAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -3785,11 +3879,12 @@ export type ProductSelectScalar = {
   visibility?: boolean
   contentRating?: boolean
   stockCount?: boolean
+  launchAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "slug" | "name" | "description" | "price" | "currency" | "category" | "categoryId" | "attributes" | "status" | "placement" | "visibility" | "contentRating" | "stockCount" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "slug" | "name" | "description" | "price" | "currency" | "category" | "categoryId" | "attributes" | "status" | "placement" | "visibility" | "contentRating" | "stockCount" | "launchAt" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   businessCategory?: boolean | Prisma.Product$businessCategoryArgs<ExtArgs>
@@ -3854,6 +3949,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     visibility: $Enums.ProductVisibility
     contentRating: $Enums.MediaContentRating
     stockCount: number | null
+    launchAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["product"]>
@@ -4310,6 +4406,7 @@ export interface ProductFieldRefs {
   readonly visibility: Prisma.FieldRef<"Product", 'ProductVisibility'>
   readonly contentRating: Prisma.FieldRef<"Product", 'MediaContentRating'>
   readonly stockCount: Prisma.FieldRef<"Product", 'Int'>
+  readonly launchAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Product", 'DateTime'>
 }

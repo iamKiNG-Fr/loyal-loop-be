@@ -6,6 +6,17 @@ import { CartsService } from "./carts.service";
 const auth = { customerAccountId: "account-1", sessionId: "session-1" };
 
 describe("CartsService", () => {
+  it("does not add a product before its launch time", async () => {
+    const prisma = basePrisma();
+    prisma.product.findFirst.mockResolvedValue({
+      businessId: "business-1", id: "product-1", launchAt: new Date(Date.now() + 60_000), name: "Tomorrow's drop", price: "1000", stockCount: 10,
+      variants: [],
+    });
+    const service = new CartsService(prisma as unknown as PrismaService, promotions() as never, {} as never);
+    await expect(service.addAccountItem(auth, { productId: "product-1", quantity: 1 }))
+      .rejects.toThrow("Tomorrow's drop has not launched yet");
+  });
+
   it("requires a variant when a product has multiple active choices", async () => {
     const prisma = basePrisma();
     prisma.product.findFirst.mockResolvedValue({

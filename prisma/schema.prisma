@@ -1438,6 +1438,7 @@ model Product {
   visibility       ProductVisibility  @default(PUBLIC)
   contentRating    MediaContentRating @default(GENERAL)
   stockCount       Int?
+  launchAt         DateTime?
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   business         Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
@@ -1459,6 +1460,7 @@ model Product {
 
   @@unique([businessId, slug])
   @@index([businessId, status, visibility])
+  @@index([businessId, launchAt])
   @@index([categoryId])
   @@map("products")
 }

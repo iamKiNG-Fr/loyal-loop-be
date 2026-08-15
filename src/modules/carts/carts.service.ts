@@ -353,6 +353,9 @@ export class CartsService {
       },
     });
     if (!product) throw new NotFoundException("Product is unavailable");
+    if (product.launchAt && product.launchAt.getTime() > Date.now()) {
+      throw new BadRequestException(`${product.name} has not launched yet`);
+    }
     const variant = dto.variantId
       ? product.variants.find((entry) => entry.id === dto.variantId)
       : product.variants.length === 1 ? product.variants[0] : undefined;
@@ -438,6 +441,7 @@ function cartPayload(cart: CartWithItems) {
       && item.product.visibility === "PUBLIC"
       && item.business.storeStatus === "OPEN"
       && item.business.platformStatus === "ACTIVE"
+      && (!item.product.launchAt || item.product.launchAt.getTime() <= Date.now())
       && (currentStock === null || currentStock >= item.quantity);
     return {
       ...item,

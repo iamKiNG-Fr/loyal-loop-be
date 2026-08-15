@@ -901,6 +901,7 @@ function productCard(product: DiscoveryProduct, saved = false) {
       width: media.asset.width,
     })),
     kind: "product" as const,
+    launchAt: product.launchAt,
     saved,
     name: product.name,
     placement: product.placement,

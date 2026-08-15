@@ -265,6 +265,7 @@ export class ProductsService {
           visibility: dto.visibility,
           contentRating: dto.contentRating,
           stockCount: dto.stockCount,
+          launchAt: dto.launchAt ? new Date(dto.launchAt) : undefined,
           images: assets.length
             ? {
                 create: assets.map((asset, index) => ({
@@ -346,6 +347,7 @@ export class ProductsService {
           visibility: dto.visibility,
           contentRating: dto.contentRating,
           stockCount: dto.stockCount,
+          launchAt: dto.launchAt === null ? null : dto.launchAt ? new Date(dto.launchAt) : undefined,
           variants: dto.variants
             ? {
                 deleteMany: {},

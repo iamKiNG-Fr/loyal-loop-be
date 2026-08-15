@@ -182,6 +182,7 @@ export class ShopsService {
     if (products.length !== productIds.length) {
       throw new BadRequestException("One or more requested products are unavailable");
     }
+    assertProductsLaunched(products);
     if (dto.sourceShowcaseId) {
       const source = await this.prisma.showcase.findFirst({
         where: {
@@ -1030,6 +1031,17 @@ export class ShopsService {
       },
     });
   }
+}
+
+export function assertProductsLaunched(
+  products: Array<{ launchAt?: Date | null; name: string }>,
+  now = new Date(),
+) {
+  const upcoming = products.find(
+    (product) => product.launchAt && product.launchAt.getTime() > now.getTime(),
+  );
+  if (!upcoming?.launchAt) return;
+  throw new BadRequestException(`${upcoming.name} has not launched yet`);
 }
 
 function sanitizeBusiness(business: Record<string, unknown>) {

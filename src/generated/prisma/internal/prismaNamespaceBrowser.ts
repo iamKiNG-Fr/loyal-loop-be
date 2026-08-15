@@ -841,6 +841,7 @@ export const ProductScalarFieldEnum = {
   visibility: 'visibility',
   contentRating: 'contentRating',
   stockCount: 'stockCount',
+  launchAt: 'launchAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

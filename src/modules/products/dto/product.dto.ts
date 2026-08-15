@@ -6,6 +6,7 @@ import {
   IsEnum,
   IsInt,
   IsIn,
+  IsISO8601,
   IsOptional,
   IsString,
   IsObject,
@@ -85,6 +86,10 @@ export class CreateProductDto {
   @Min(0)
   @Max(1_000_000)
   stockCount?: number;
+
+  @IsOptional()
+  @IsISO8601()
+  launchAt?: string | null;
 
   @IsOptional()
   @IsArray()
@@ -167,6 +172,10 @@ export class UpdateProductDto {
   @Min(0)
   @Max(1_000_000)
   stockCount?: number;
+
+  @IsOptional()
+  @IsISO8601()
+  launchAt?: string | null;
 }
 
 export class ReplaceProductImagesDto {
@@ -205,6 +214,7 @@ export class ProductVariantInputDto {
   @Min(0)
   @Max(1_000_000)
   stockCount?: number;
+
 }
 
 export class ProductMediaInputDto {
