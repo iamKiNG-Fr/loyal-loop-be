@@ -278,7 +278,13 @@ export class PaymentsService {
     const tokenHash = hashToken(token);
     if (access === "receipt") {
       const direct = await this.prisma.receipt.findFirst({
-        where: { tokenHash, customer: { accountId: customerAccountId } },
+        where: {
+          tokenHash,
+          OR: [
+            { customer: { accountId: customerAccountId } },
+            { sale: { sourceRequest: { customerAccountId } } },
+          ],
+        },
         include: {
           sale: {
             include: { paymentInstruction: true, paymentProofs: true },
@@ -290,7 +296,12 @@ export class PaymentsService {
         where: {
           tokenHash,
           revokedAt: null,
-          receipt: { customer: { accountId: customerAccountId } },
+          receipt: {
+            OR: [
+              { customer: { accountId: customerAccountId } },
+              { sale: { sourceRequest: { customerAccountId } } },
+            ],
+          },
         },
         include: {
           receipt: {
@@ -311,7 +322,12 @@ export class PaymentsService {
             code: token,
             kind: "RECEIPT",
             receiptId: { not: null },
-            receipt: { customer: { accountId: customerAccountId } },
+            receipt: {
+              OR: [
+                { customer: { accountId: customerAccountId } },
+                { sale: { sourceRequest: { customerAccountId } } },
+              ],
+            },
             revokedAt: null,
             OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
           },
@@ -331,7 +347,13 @@ export class PaymentsService {
       }
     } else {
       const direct = await this.prisma.delivery.findFirst({
-        where: { tokenHash, customer: { accountId: customerAccountId } },
+        where: {
+          tokenHash,
+          OR: [
+            { customer: { accountId: customerAccountId } },
+            { sale: { sourceRequest: { customerAccountId } } },
+          ],
+        },
         include: {
           sale: {
             include: { paymentInstruction: true, paymentProofs: true },
@@ -343,7 +365,12 @@ export class PaymentsService {
         where: {
           tokenHash,
           revokedAt: null,
-          delivery: { customer: { accountId: customerAccountId } },
+          delivery: {
+            OR: [
+              { customer: { accountId: customerAccountId } },
+              { sale: { sourceRequest: { customerAccountId } } },
+            ],
+          },
         },
         include: {
           delivery: {

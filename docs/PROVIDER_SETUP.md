@@ -260,6 +260,33 @@ RECEIPT_MEDIA_SIGNING_SECRET=
 alias for the receipt media template. `SESSION_HASH_SECRET` is used when a
 dedicated receipt-media signing secret is not set.
 
+## Catalog moderation rollout
+
+Cloudinary moderation is implemented but intentionally disabled by default so
+an unregistered or exhausted paid add-on cannot become an accidental production
+dependency.
+
+```dotenv
+MEDIA_MODERATION_MODE=off
+MEDIA_MODERATION_PROVIDER=aws_rek
+MEDIA_VIDEO_MODERATION_PROVIDER=aws_rek_video
+CLOUDINARY_NOTIFICATION_URL=https://api.useloyalloop.com/api/v1/media/webhooks/cloudinary
+```
+
+Install the image and video moderation add-ons in the same Cloudinary product
+environment before changing the mode. Use `shadow` only to inspect provider
+responses; it does not hold content. Change to `enforce` only after image and
+video uploads both produce signed webhook callbacks and quota alerts are owned.
+If the provider is missing, pending, or unavailable in `enforce` mode, catalog
+media fails closed into human review and remains private.
+
+Product names, descriptions, categories, search tags, variant details, and alt
+text use local no-cost rules on every create or update. Those checks do not use
+Cloudinary quota. Obvious prohibited or controlled-goods edits force the Product
+back to `DRAFT` and `PRIVATE`; price, stock, and launch-time changes do not cause
+another Cloudinary moderation request. The server derives the Product content
+rating and does not trust the business-facing `contentRating` field.
+
 Production behavior:
 
 - receipts use the registered sender, Messaging Service, and approved media

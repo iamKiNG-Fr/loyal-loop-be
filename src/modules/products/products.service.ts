@@ -257,8 +257,16 @@ export class ProductsService {
     const variants = dto.variants?.length
       ? dto.variants
       : [{ name: "Default", optionValues: {}, stockCount: dto.stockCount }];
-    const moderationHold = [...assets, ...media.flatMap((item) => [item.asset, item.posterAsset].filter(Boolean))]
-      .some(asset => mediaAssetNeedsReview(asset));
+    const contentSafety = assessProductTextModeration({
+      attributes: dto.attributes,
+      category: dto.category,
+      description: dto.description,
+      name: dto.name,
+      variants,
+    });
+    const moderationHold = contentSafety.decision !== "approve"
+      || [...assets, ...media.flatMap((item) => [item.asset, item.posterAsset].filter(Boolean))]
+        .some(asset => mediaAssetNeedsReview(asset));
     return this.prisma.$transaction(async (tx) => {
       const product = await tx.product.create({
         data: {
@@ -274,7 +282,7 @@ export class ProductsService {
           status: moderationHold ? "DRAFT" : dto.status,
           placement: dto.placement,
           visibility: moderationHold ? "PRIVATE" : dto.visibility,
-          contentRating: dto.contentRating,
+          contentRating: contentSafety.rating,
           stockCount: dto.stockCount,
           launchAt: dto.launchAt ? new Date(dto.launchAt) : undefined,
           images: assets.length
@@ -319,7 +327,11 @@ export class ProductsService {
           actorId: auth.userId,
           type: "PRODUCT_ADDED",
           title: `Added ${product.name}`,
-          metadata: { productId: product.id },
+          metadata: {
+            contentSafety: contentSafety.decision,
+            productId: product.id,
+            safetyCategories: contentSafety.categories,
+          },
         },
         tx,
       );
@@ -340,8 +352,16 @@ export class ProductsService {
     const collection = hasCollectionUpdate
       ? await this.resolveCategory(auth, dto.categoryId)
       : undefined;
-    const nextStatus = dto.status ?? product.status;
-    const nextVisibility = dto.visibility ?? product.visibility;
+    const contentSafety = assessProductTextModeration({
+      attributes: dto.attributes ?? product.attributes,
+      category: dto.category === undefined ? product.category : dto.category,
+      description: dto.description === undefined ? product.description : dto.description,
+      name: dto.name ?? product.name,
+      variants: dto.variants ?? product.variants,
+    });
+    const safetyHold = contentSafety.decision !== "approve";
+    const nextStatus = safetyHold ? "DRAFT" : dto.status ?? product.status;
+    const nextVisibility = safetyHold ? "PRIVATE" : dto.visibility ?? product.visibility;
     if (nextStatus === "ACTIVE" && nextVisibility === "PUBLIC") {
       await this.assertProductMediaReadyForPublic(auth.businessId, product.id);
     }
@@ -358,10 +378,10 @@ export class ProductsService {
           category: dto.category === undefined ? undefined : dto.category.trim() || null,
           categoryId: hasCollectionUpdate ? collection?.id ?? null : undefined,
           attributes: dto.attributes as Prisma.InputJsonValue | undefined,
-          status: dto.status,
+          status: safetyHold ? "DRAFT" : dto.status,
           placement: dto.placement,
-          visibility: dto.visibility,
-          contentRating: dto.contentRating,
+          visibility: safetyHold ? "PRIVATE" : dto.visibility,
+          contentRating: contentSafety.rating,
           stockCount: dto.stockCount,
           launchAt: dto.launchAt === null ? null : dto.launchAt ? new Date(dto.launchAt) : undefined,
           variants: dto.variants
@@ -387,7 +407,11 @@ export class ProductsService {
           actorId: auth.userId,
           type: "PRODUCT_UPDATED",
           title: `Updated ${updated.name}`,
-          metadata: { productId: updated.id },
+          metadata: {
+            contentSafety: contentSafety.decision,
+            productId: updated.id,
+            safetyCategories: contentSafety.categories,
+          },
           awardTrust: false,
         },
         tx,
@@ -683,13 +707,16 @@ export function mediaAssetCanPublish(asset?: {
 }
 
 function withListingReadiness<T extends {
+  attributes: unknown;
   category: string | null;
+  contentRating: string;
   description: string | null;
   images: Array<{ asset: { qualityStatus: string; moderationStatus: string } }>;
   media: Array<{ altText: string | null; asset: { qualityStatus: string; moderationStatus: string } }>;
   price: unknown;
+  name: string;
   stockCount: number | null;
-  variants: Array<{ active: boolean; stockCount: number | null }>;
+  variants: Array<{ active: boolean; name?: string; optionValues?: unknown; stockCount: number | null }>;
 }>(product: T) {
   const mediaCount = Math.max(product.images.length, product.media.length);
   const descriptionLength = product.description?.trim().length ?? 0;
@@ -713,12 +740,93 @@ function withListingReadiness<T extends {
     },
   ];
   const score = checks.reduce((total, check) => total + (check.passed ? check.weight : 0), 0);
+  const contentSafety = assessProductTextModeration(product);
   return {
     ...product,
+    contentSafety,
     listingReadiness: {
       score,
       status: score >= 80 ? "READY" : score >= 50 ? "NEEDS_WORK" : "INCOMPLETE",
       checks,
     },
   };
+}
+
+type ProductTextModerationInput = {
+  attributes?: unknown;
+  category?: string | null;
+  description?: string | null;
+  name?: string | null;
+  variants?: unknown;
+};
+
+type ProductTextModerationResult = {
+  categories: string[];
+  decision: "approve" | "reject" | "review";
+  rating: "GENERAL" | "PROHIBITED" | "SENSITIVE_18";
+};
+
+const PROHIBITED_PRODUCT_TEXT = [
+  {
+    category: "Explicit sexual content",
+    pattern: /\b(?:child sexual|explicit sexual|porn(?:ography|ographic)?|rape content|sexual services?|xxx)\b/i,
+  },
+] as const;
+
+const REVIEW_PRODUCT_TEXT = [
+  {
+    category: "Adult products or nudity",
+    pattern: /\b(?:adult toys?|explicit nudity|lingerie|nude|nudity|sex toys?)\b/i,
+  },
+  {
+    category: "Controlled substances",
+    pattern: /\b(?:cannabis|cocaine|codeine|controlled substances?|drug paraphernalia|ecstasy|fentanyl|heroin|illegal drugs?|marijuana|mdma|meth(?:amphetamine)?|tramadol)\b/i,
+  },
+  {
+    category: "Tobacco or vaping",
+    pattern: /\b(?:cigarettes?|e-cigarettes?|hookah|tobacco|vapes?|vaping)\b/i,
+  },
+  {
+    category: "Weapons or ammunition",
+    pattern: /\b(?:ammunition|firearms?|guns?|pistols?|rifles?|shotguns?|weapons?)\b/i,
+  },
+] as const;
+
+export function assessProductTextModeration(input: ProductTextModerationInput): ProductTextModerationResult {
+  const text = moderationText(input);
+  const prohibited = PROHIBITED_PRODUCT_TEXT
+    .filter(rule => rule.pattern.test(text))
+    .map(rule => rule.category);
+  if (prohibited.length) {
+    return { categories: prohibited, decision: "reject", rating: "PROHIBITED" };
+  }
+  const review = REVIEW_PRODUCT_TEXT
+    .filter(rule => rule.pattern.test(text))
+    .map(rule => rule.category);
+  if (review.length) {
+    return { categories: review, decision: "review", rating: "SENSITIVE_18" };
+  }
+  return { categories: [], decision: "approve", rating: "GENERAL" };
+}
+
+function moderationText(input: ProductTextModerationInput) {
+  return [
+    input.name,
+    input.description,
+    input.category,
+    safeJsonText(input.attributes),
+    safeJsonText(input.variants),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .normalize("NFKC")
+    .toLowerCase();
+}
+
+function safeJsonText(value: unknown) {
+  try {
+    return value === undefined || value === null ? "" : JSON.stringify(value);
+  } catch {
+    return "";
+  }
 }

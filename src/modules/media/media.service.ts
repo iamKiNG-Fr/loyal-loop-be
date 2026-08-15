@@ -210,7 +210,7 @@ export class MediaService {
     });
     const moderation = assessModeration({
       mode: this.moderationMode(),
-      providerAvailable: providerAsset !== null,
+      providerAvailable: Boolean(providerAsset?.moderation.length),
       providerModeration: providerAsset?.moderation,
     });
     return this.prisma.mediaAsset.create({
@@ -344,6 +344,29 @@ export class MediaService {
         moderationStatus: moderation.status,
       },
     });
+    if (
+      !["AUTO_APPROVED", "MANUALLY_APPROVED"].includes(updated.moderationStatus)
+      || updated.contentRating !== "GENERAL"
+    ) {
+      await this.prisma.product.updateMany({
+        where: {
+          OR: [
+            { images: { some: { assetId: updated.id } } },
+            {
+              media: {
+                some: {
+                  OR: [
+                    { assetId: updated.id },
+                    { posterAssetId: updated.id },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+        data: { status: "DRAFT", visibility: "PRIVATE" },
+      });
+    }
     return { assetId: updated.id, matched: true, repeated: false };
   }
 
@@ -422,7 +445,12 @@ export class MediaService {
     ) {
       parameters.quality_analysis = "true";
     }
-    const provider = this.config.get<string>("MEDIA_MODERATION_PROVIDER")?.trim();
+    const configuredProvider = this.config.get<string>(
+      resourceType === "video" ? "MEDIA_VIDEO_MODERATION_PROVIDER" : "MEDIA_MODERATION_PROVIDER",
+    )?.trim() || this.config.get<string>("MEDIA_MODERATION_PROVIDER")?.trim();
+    const provider = resourceType === "video" && configuredProvider === "aws_rek"
+      ? "aws_rek_video"
+      : configuredProvider;
     if (this.moderationMode() !== "off" && provider) parameters.moderation = provider;
     const notificationUrl = this.config.get<string>("CLOUDINARY_NOTIFICATION_URL")?.trim();
     if (this.moderationMode() !== "off" && notificationUrl) {
@@ -546,7 +574,7 @@ function assessQuality(input: {
   };
 }
 
-function assessModeration(input: {
+export function assessModeration(input: {
   mode: "off" | "shadow" | "enforce";
   providerAvailable: boolean;
   providerModeration?: unknown[];
@@ -605,11 +633,12 @@ function assessModeration(input: {
 
 function parseModeration(items: unknown[]) {
   const text = JSON.stringify(items).toLowerCase();
+  const pending = /"status"\s*:\s*"(?:pending|queued|processing)"/.test(text);
   const rejected = /"status"\s*:\s*"rejected"/.test(text);
-  const explicit = /(porn|explicit nudity|sexual activity|graphic sexual|child sexual)/.test(text);
-  const sensitive = /(nudity|suggestive|adult|sexual|lingerie|swimwear)/.test(text);
+  const explicit = /(porn|"explicit"|explicit nudity|explicit sexual activity|graphic sexual|child sexual)/.test(text);
+  const sensitive = /(nudity|suggestive|adult|sexual|lingerie|swimwear|weapon|firearm|\bgun\b|pistol|rifle|shooting|graphic violence|gore|blood|drugs?\s*&\s*tobacco|drug products?|drug paraphernalia|controlled substance|illegal drug|\bpills?\b|smoking|tobacco|alcohol|gambling|hate symbols?|rude gestures?)/.test(text);
   return {
-    recommendation: rejected || explicit ? "reject" : sensitive ? "review" : "approve",
+    recommendation: rejected || explicit ? "reject" : pending || sensitive ? "review" : "approve",
     provider: findNestedString(items, ["kind", "provider"]),
     version: findNestedString(items, ["version", "model_version"]),
   } as const;

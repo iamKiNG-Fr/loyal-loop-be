@@ -1,9 +1,34 @@
 import { ConfigService } from "@nestjs/config";
 import { createHash } from "node:crypto";
 import { describe, expect, it, vi } from "vitest";
-import { MediaService } from "./media.service";
+import { assessModeration, MediaService } from "./media.service";
 
 describe("MediaService", () => {
+  it("fails closed while provider moderation is unavailable or still processing", () => {
+    expect(assessModeration({ mode: "enforce", providerAvailable: false })).toMatchObject({
+      rating: "SENSITIVE_18",
+      status: "REVIEW_REQUIRED",
+    });
+    expect(assessModeration({
+      mode: "enforce",
+      providerAvailable: true,
+      providerModeration: [{ status: "processing" }],
+    })).toMatchObject({ rating: "SENSITIVE_18", status: "REVIEW_REQUIRED" });
+  });
+
+  it("maps current Rekognition drug and explicit-content labels", () => {
+    expect(assessModeration({
+      mode: "enforce",
+      providerAvailable: true,
+      providerModeration: [{ response: { moderation_labels: [{ Name: "Drugs & Tobacco", ParentName: "" }] }, status: "approved" }],
+    })).toMatchObject({ rating: "SENSITIVE_18", status: "REVIEW_REQUIRED" });
+    expect(assessModeration({
+      mode: "enforce",
+      providerAvailable: true,
+      providerModeration: [{ response: { moderation_labels: [{ Name: "Explicit", ParentName: "" }] }, status: "approved" }],
+    })).toMatchObject({ rating: "PROHIBITED", status: "REJECTED" });
+  });
+
   it("signs a business-owned Cloudinary upload without exposing the secret", () => {
     const config = new ConfigService({
       CLOUDINARY_CLOUD_NAME: "loyal-loop-test",
@@ -48,6 +73,14 @@ describe("MediaService", () => {
       moderation: "aws_rek",
       notification_url: "https://api.example.com/api/v1/media/webhooks/cloudinary",
     });
+    const video = service.createUploadSignature(
+      { businessId: "business-1", capabilities: [], memberId: "member-1", role: "OWNER", sessionId: "session-1", userId: "user-1" },
+      { purpose: "PRODUCT_VIDEO" },
+    );
+    expect(video.uploadParameters).toEqual({
+      moderation: "aws_rek_video",
+      notification_url: "https://api.example.com/api/v1/media/webhooks/cloudinary",
+    });
   });
 
   it("verifies and applies a Cloudinary moderation notification idempotently", async () => {
@@ -62,6 +95,7 @@ describe("MediaService", () => {
       .update(Buffer.concat([rawBody, Buffer.from(timestamp), Buffer.from("private-secret")]))
       .digest("hex");
     const update = vi.fn(async ({ data }) => ({ id: "asset-1", ...data }));
+    const updateMany = vi.fn();
     const prisma = {
       mediaAsset: {
         findUnique: vi.fn(async () => ({
@@ -72,6 +106,7 @@ describe("MediaService", () => {
         })),
         update,
       },
+      product: { updateMany },
     };
     const service = new MediaService(prisma as never, new ConfigService({
       CLOUDINARY_API_SECRET: "private-secret",
@@ -89,6 +124,51 @@ describe("MediaService", () => {
         moderationEventId: "event-1",
         moderationStatus: "REJECTED",
       }),
+    }));
+    expect(updateMany).toHaveBeenCalledWith(expect.objectContaining({
+      data: { status: "DRAFT", visibility: "PRIVATE" },
+    }));
+  });
+
+  it("holds weapon imagery for human review even when the provider approves the upload", async () => {
+    const timestamp = String(Math.floor(Date.now() / 1000));
+    const payload = {
+      moderation: [{ kind: "aws_rek", status: "approved", response: { moderation_labels: ["Weapons", "Firearms"] } }],
+      public_id: "loyal-loop/businesses/business-1/product_image/asset-weapon",
+      request_id: "event-weapon",
+    };
+    const rawBody = Buffer.from(JSON.stringify(payload));
+    const signature = createHash("sha1")
+      .update(Buffer.concat([rawBody, Buffer.from(timestamp), Buffer.from("private-secret")]))
+      .digest("hex");
+    const updateMany = vi.fn();
+    const prisma = {
+      mediaAsset: {
+        findUnique: vi.fn(async () => ({
+          id: "asset-weapon",
+          moderationEventId: null,
+          moderationNotifiedAt: null,
+          purpose: "PRODUCT_IMAGE",
+        })),
+        update: vi.fn(async ({ data }) => ({ id: "asset-weapon", ...data })),
+      },
+      product: { updateMany },
+    };
+    const service = new MediaService(prisma as never, new ConfigService({
+      CLOUDINARY_API_SECRET: "private-secret",
+      MEDIA_MODERATION_MODE: "enforce",
+    }));
+
+    await service.handleCloudinaryNotification(rawBody, timestamp, signature, payload);
+
+    expect(prisma.mediaAsset.update).toHaveBeenCalledWith(expect.objectContaining({
+      data: expect.objectContaining({
+        contentRating: "SENSITIVE_18",
+        moderationStatus: "REVIEW_REQUIRED",
+      }),
+    }));
+    expect(updateMany).toHaveBeenCalledWith(expect.objectContaining({
+      data: { status: "DRAFT", visibility: "PRIVATE" },
     }));
   });
 });
