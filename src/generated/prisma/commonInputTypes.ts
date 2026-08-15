@@ -291,6 +291,74 @@ export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
 }
 
+export type EnumFoundingValueFeedbackStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingValueFeedbackStatus | Prisma.EnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FoundingValueFeedbackStatus[] | Prisma.ListEnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FoundingValueFeedbackStatus[] | Prisma.ListEnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFoundingValueFeedbackStatusFilter<$PrismaModel> | $Enums.FoundingValueFeedbackStatus
+}
+
+export type EnumFoundingValueRatingNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingValueRating | Prisma.EnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingValueRating[] | Prisma.ListEnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingValueRating[] | Prisma.ListEnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingValueRatingNullableFilter<$PrismaModel> | $Enums.FoundingValueRating | null
+}
+
+export type EnumFoundingPaymentInterestNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingPaymentInterest | Prisma.EnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingPaymentInterest[] | Prisma.ListEnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingPaymentInterest[] | Prisma.ListEnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingPaymentInterestNullableFilter<$PrismaModel> | $Enums.FoundingPaymentInterest | null
+}
+
+export type EnumFoundingPaymentBlockerNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingPaymentBlocker | Prisma.EnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingPaymentBlocker[] | Prisma.ListEnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingPaymentBlocker[] | Prisma.ListEnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingPaymentBlockerNullableFilter<$PrismaModel> | $Enums.FoundingPaymentBlocker | null
+}
+
+export type EnumFoundingValueFeedbackStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingValueFeedbackStatus | Prisma.EnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FoundingValueFeedbackStatus[] | Prisma.ListEnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FoundingValueFeedbackStatus[] | Prisma.ListEnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFoundingValueFeedbackStatusWithAggregatesFilter<$PrismaModel> | $Enums.FoundingValueFeedbackStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFoundingValueFeedbackStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFoundingValueFeedbackStatusFilter<$PrismaModel>
+}
+
+export type EnumFoundingValueRatingNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingValueRating | Prisma.EnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingValueRating[] | Prisma.ListEnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingValueRating[] | Prisma.ListEnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingValueRatingNullableWithAggregatesFilter<$PrismaModel> | $Enums.FoundingValueRating | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFoundingValueRatingNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFoundingValueRatingNullableFilter<$PrismaModel>
+}
+
+export type EnumFoundingPaymentInterestNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingPaymentInterest | Prisma.EnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingPaymentInterest[] | Prisma.ListEnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingPaymentInterest[] | Prisma.ListEnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingPaymentInterestNullableWithAggregatesFilter<$PrismaModel> | $Enums.FoundingPaymentInterest | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFoundingPaymentInterestNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFoundingPaymentInterestNullableFilter<$PrismaModel>
+}
+
+export type EnumFoundingPaymentBlockerNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingPaymentBlocker | Prisma.EnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingPaymentBlocker[] | Prisma.ListEnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingPaymentBlocker[] | Prisma.ListEnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingPaymentBlockerNullableWithAggregatesFilter<$PrismaModel> | $Enums.FoundingPaymentBlocker | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFoundingPaymentBlockerNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFoundingPaymentBlockerNullableFilter<$PrismaModel>
+}
+
 export type EnumWorkspaceAppearanceFilter<$PrismaModel = never> = {
   equals?: $Enums.WorkspaceAppearance | Prisma.EnumWorkspaceAppearanceFieldRefInput<$PrismaModel>
   in?: $Enums.WorkspaceAppearance[] | Prisma.ListEnumWorkspaceAppearanceFieldRefInput<$PrismaModel>
@@ -1985,6 +2053,74 @@ export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDecimalNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumFoundingValueFeedbackStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingValueFeedbackStatus | Prisma.EnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FoundingValueFeedbackStatus[] | Prisma.ListEnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FoundingValueFeedbackStatus[] | Prisma.ListEnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFoundingValueFeedbackStatusFilter<$PrismaModel> | $Enums.FoundingValueFeedbackStatus
+}
+
+export type NestedEnumFoundingValueRatingNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingValueRating | Prisma.EnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingValueRating[] | Prisma.ListEnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingValueRating[] | Prisma.ListEnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingValueRatingNullableFilter<$PrismaModel> | $Enums.FoundingValueRating | null
+}
+
+export type NestedEnumFoundingPaymentInterestNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingPaymentInterest | Prisma.EnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingPaymentInterest[] | Prisma.ListEnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingPaymentInterest[] | Prisma.ListEnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingPaymentInterestNullableFilter<$PrismaModel> | $Enums.FoundingPaymentInterest | null
+}
+
+export type NestedEnumFoundingPaymentBlockerNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingPaymentBlocker | Prisma.EnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingPaymentBlocker[] | Prisma.ListEnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingPaymentBlocker[] | Prisma.ListEnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingPaymentBlockerNullableFilter<$PrismaModel> | $Enums.FoundingPaymentBlocker | null
+}
+
+export type NestedEnumFoundingValueFeedbackStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingValueFeedbackStatus | Prisma.EnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.FoundingValueFeedbackStatus[] | Prisma.ListEnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.FoundingValueFeedbackStatus[] | Prisma.ListEnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumFoundingValueFeedbackStatusWithAggregatesFilter<$PrismaModel> | $Enums.FoundingValueFeedbackStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFoundingValueFeedbackStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFoundingValueFeedbackStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumFoundingValueRatingNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingValueRating | Prisma.EnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingValueRating[] | Prisma.ListEnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingValueRating[] | Prisma.ListEnumFoundingValueRatingFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingValueRatingNullableWithAggregatesFilter<$PrismaModel> | $Enums.FoundingValueRating | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFoundingValueRatingNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFoundingValueRatingNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumFoundingPaymentInterestNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingPaymentInterest | Prisma.EnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingPaymentInterest[] | Prisma.ListEnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingPaymentInterest[] | Prisma.ListEnumFoundingPaymentInterestFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingPaymentInterestNullableWithAggregatesFilter<$PrismaModel> | $Enums.FoundingPaymentInterest | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFoundingPaymentInterestNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFoundingPaymentInterestNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumFoundingPaymentBlockerNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FoundingPaymentBlocker | Prisma.EnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FoundingPaymentBlocker[] | Prisma.ListEnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FoundingPaymentBlocker[] | Prisma.ListEnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFoundingPaymentBlockerNullableWithAggregatesFilter<$PrismaModel> | $Enums.FoundingPaymentBlocker | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFoundingPaymentBlockerNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFoundingPaymentBlockerNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumWorkspaceAppearanceFilter<$PrismaModel = never> = {

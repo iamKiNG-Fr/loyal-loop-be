@@ -15,6 +15,7 @@ import {
 } from "../../common/sale-inventory";
 import { Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
+import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { MessagingService } from "../messaging/messaging.service";
 import {
@@ -49,6 +50,7 @@ export class SalesService {
     private readonly prisma: PrismaService,
     private readonly activity: ActivityService,
     private readonly messaging: MessagingService,
+    private readonly valueFeedback: FoundingValueFeedbackService,
   ) {}
 
   async list(auth: OwnerAuthContext, query: SaleListDto) {
@@ -427,6 +429,11 @@ export class SalesService {
         },
         tx,
       );
+      await this.valueFeedback.captureIfQualified(
+        tx,
+        auth.businessId,
+        created.id,
+      );
       return tx.sale.findUniqueOrThrow({
         where: { id: created.id },
         include: saleInclude,
@@ -540,6 +547,7 @@ export class SalesService {
         },
         tx,
       );
+      await this.valueFeedback.captureIfQualified(tx, auth.businessId, saleId);
       return updated;
     });
   }

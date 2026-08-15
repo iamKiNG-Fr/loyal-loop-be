@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { FoundingValueFeedbackModule } from "../founding-value-feedback/founding-value-feedback.module";
 import { MediaModule } from "../media/media.module";
 import {
   PaymentsController,
@@ -8,7 +9,7 @@ import {
 import { PaymentsService } from "./payments.service";
 
 @Module({
-  imports: [MediaModule],
+  imports: [MediaModule, FoundingValueFeedbackModule],
   controllers: [
     PaymentsController,
     PublicReceiptPaymentsController,

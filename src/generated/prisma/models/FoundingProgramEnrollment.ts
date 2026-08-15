@@ -274,6 +274,7 @@ export type FoundingProgramEnrollmentWhereInput = {
   invitation?: Prisma.XOR<Prisma.OnboardingInvitationScalarRelationFilter, Prisma.OnboardingInvitationWhereInput>
   cohort?: Prisma.XOR<Prisma.FoundingCohortNullableScalarRelationFilter, Prisma.FoundingCohortWhereInput> | null
   interviews?: Prisma.FoundingResearchInterviewListRelationFilter
+  valueFeedback?: Prisma.FoundingValueFeedbackListRelationFilter
 }
 
 export type FoundingProgramEnrollmentOrderByWithRelationInput = {
@@ -297,6 +298,7 @@ export type FoundingProgramEnrollmentOrderByWithRelationInput = {
   invitation?: Prisma.OnboardingInvitationOrderByWithRelationInput
   cohort?: Prisma.FoundingCohortOrderByWithRelationInput
   interviews?: Prisma.FoundingResearchInterviewOrderByRelationAggregateInput
+  valueFeedback?: Prisma.FoundingValueFeedbackOrderByRelationAggregateInput
 }
 
 export type FoundingProgramEnrollmentWhereUniqueInput = Prisma.AtLeast<{
@@ -323,6 +325,7 @@ export type FoundingProgramEnrollmentWhereUniqueInput = Prisma.AtLeast<{
   invitation?: Prisma.XOR<Prisma.OnboardingInvitationScalarRelationFilter, Prisma.OnboardingInvitationWhereInput>
   cohort?: Prisma.XOR<Prisma.FoundingCohortNullableScalarRelationFilter, Prisma.FoundingCohortWhereInput> | null
   interviews?: Prisma.FoundingResearchInterviewListRelationFilter
+  valueFeedback?: Prisma.FoundingValueFeedbackListRelationFilter
 }, "id" | "businessId" | "invitationId">
 
 export type FoundingProgramEnrollmentOrderByWithAggregationInput = {
@@ -387,6 +390,7 @@ export type FoundingProgramEnrollmentCreateInput = {
   invitation: Prisma.OnboardingInvitationCreateNestedOneWithoutEnrollmentInput
   cohort?: Prisma.FoundingCohortCreateNestedOneWithoutEnrollmentsInput
   interviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutEnrollmentInput
+  valueFeedback?: Prisma.FoundingValueFeedbackCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentUncheckedCreateInput = {
@@ -407,6 +411,7 @@ export type FoundingProgramEnrollmentUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   interviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutEnrollmentInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentUpdateInput = {
@@ -427,6 +432,7 @@ export type FoundingProgramEnrollmentUpdateInput = {
   invitation?: Prisma.OnboardingInvitationUpdateOneRequiredWithoutEnrollmentNestedInput
   cohort?: Prisma.FoundingCohortUpdateOneWithoutEnrollmentsNestedInput
   interviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutEnrollmentNestedInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentUncheckedUpdateInput = {
@@ -447,6 +453,7 @@ export type FoundingProgramEnrollmentUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   interviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutEnrollmentNestedInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentCreateManyInput = {
@@ -672,6 +679,22 @@ export type FoundingProgramEnrollmentUpdateOneRequiredWithoutInterviewsNestedInp
   update?: Prisma.XOR<Prisma.XOR<Prisma.FoundingProgramEnrollmentUpdateToOneWithWhereWithoutInterviewsInput, Prisma.FoundingProgramEnrollmentUpdateWithoutInterviewsInput>, Prisma.FoundingProgramEnrollmentUncheckedUpdateWithoutInterviewsInput>
 }
 
+export type FoundingProgramEnrollmentCreateNestedOneWithoutValueFeedbackInput = {
+  create?: Prisma.XOR<Prisma.FoundingProgramEnrollmentCreateWithoutValueFeedbackInput, Prisma.FoundingProgramEnrollmentUncheckedCreateWithoutValueFeedbackInput>
+  connectOrCreate?: Prisma.FoundingProgramEnrollmentCreateOrConnectWithoutValueFeedbackInput
+  connect?: Prisma.FoundingProgramEnrollmentWhereUniqueInput
+}
+
+export type FoundingProgramEnrollmentUpdateOneWithoutValueFeedbackNestedInput = {
+  create?: Prisma.XOR<Prisma.FoundingProgramEnrollmentCreateWithoutValueFeedbackInput, Prisma.FoundingProgramEnrollmentUncheckedCreateWithoutValueFeedbackInput>
+  connectOrCreate?: Prisma.FoundingProgramEnrollmentCreateOrConnectWithoutValueFeedbackInput
+  upsert?: Prisma.FoundingProgramEnrollmentUpsertWithoutValueFeedbackInput
+  disconnect?: Prisma.FoundingProgramEnrollmentWhereInput | boolean
+  delete?: Prisma.FoundingProgramEnrollmentWhereInput | boolean
+  connect?: Prisma.FoundingProgramEnrollmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FoundingProgramEnrollmentUpdateToOneWithWhereWithoutValueFeedbackInput, Prisma.FoundingProgramEnrollmentUpdateWithoutValueFeedbackInput>, Prisma.FoundingProgramEnrollmentUncheckedUpdateWithoutValueFeedbackInput>
+}
+
 export type FoundingProgramEnrollmentCreateNestedOneWithoutBusinessInput = {
   create?: Prisma.XOR<Prisma.FoundingProgramEnrollmentCreateWithoutBusinessInput, Prisma.FoundingProgramEnrollmentUncheckedCreateWithoutBusinessInput>
   connectOrCreate?: Prisma.FoundingProgramEnrollmentCreateOrConnectWithoutBusinessInput
@@ -721,6 +744,7 @@ export type FoundingProgramEnrollmentCreateWithoutCohortInput = {
   business: Prisma.BusinessCreateNestedOneWithoutFoundingEnrollmentInput
   invitation: Prisma.OnboardingInvitationCreateNestedOneWithoutEnrollmentInput
   interviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutEnrollmentInput
+  valueFeedback?: Prisma.FoundingValueFeedbackCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentUncheckedCreateWithoutCohortInput = {
@@ -740,6 +764,7 @@ export type FoundingProgramEnrollmentUncheckedCreateWithoutCohortInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   interviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutEnrollmentInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentCreateOrConnectWithoutCohortInput = {
@@ -807,6 +832,7 @@ export type FoundingProgramEnrollmentCreateWithoutInvitationInput = {
   business: Prisma.BusinessCreateNestedOneWithoutFoundingEnrollmentInput
   cohort?: Prisma.FoundingCohortCreateNestedOneWithoutEnrollmentsInput
   interviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutEnrollmentInput
+  valueFeedback?: Prisma.FoundingValueFeedbackCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentUncheckedCreateWithoutInvitationInput = {
@@ -826,6 +852,7 @@ export type FoundingProgramEnrollmentUncheckedCreateWithoutInvitationInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   interviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutEnrollmentInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentCreateOrConnectWithoutInvitationInput = {
@@ -861,6 +888,7 @@ export type FoundingProgramEnrollmentUpdateWithoutInvitationInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutFoundingEnrollmentNestedInput
   cohort?: Prisma.FoundingCohortUpdateOneWithoutEnrollmentsNestedInput
   interviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutEnrollmentNestedInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentUncheckedUpdateWithoutInvitationInput = {
@@ -880,6 +908,7 @@ export type FoundingProgramEnrollmentUncheckedUpdateWithoutInvitationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   interviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutEnrollmentNestedInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentCreateWithoutInterviewsInput = {
@@ -899,6 +928,7 @@ export type FoundingProgramEnrollmentCreateWithoutInterviewsInput = {
   business: Prisma.BusinessCreateNestedOneWithoutFoundingEnrollmentInput
   invitation: Prisma.OnboardingInvitationCreateNestedOneWithoutEnrollmentInput
   cohort?: Prisma.FoundingCohortCreateNestedOneWithoutEnrollmentsInput
+  valueFeedback?: Prisma.FoundingValueFeedbackCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentUncheckedCreateWithoutInterviewsInput = {
@@ -918,6 +948,7 @@ export type FoundingProgramEnrollmentUncheckedCreateWithoutInterviewsInput = {
   exitReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentCreateOrConnectWithoutInterviewsInput = {
@@ -953,6 +984,7 @@ export type FoundingProgramEnrollmentUpdateWithoutInterviewsInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutFoundingEnrollmentNestedInput
   invitation?: Prisma.OnboardingInvitationUpdateOneRequiredWithoutEnrollmentNestedInput
   cohort?: Prisma.FoundingCohortUpdateOneWithoutEnrollmentsNestedInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentUncheckedUpdateWithoutInterviewsInput = {
@@ -972,6 +1004,103 @@ export type FoundingProgramEnrollmentUncheckedUpdateWithoutInterviewsInput = {
   exitReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedUpdateManyWithoutEnrollmentNestedInput
+}
+
+export type FoundingProgramEnrollmentCreateWithoutValueFeedbackInput = {
+  id?: string
+  status?: $Enums.FoundingEnrollmentStatus
+  invitedAt: Date | string
+  onboardedAt?: Date | string
+  activatedAt?: Date | string | null
+  weekOneRetainedAt?: Date | string | null
+  weekFourRetainedAt?: Date | string | null
+  complimentaryNoticeAt?: Date | string | null
+  complimentaryEndsAt?: Date | string | null
+  exitedAt?: Date | string | null
+  exitReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutFoundingEnrollmentInput
+  invitation: Prisma.OnboardingInvitationCreateNestedOneWithoutEnrollmentInput
+  cohort?: Prisma.FoundingCohortCreateNestedOneWithoutEnrollmentsInput
+  interviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutEnrollmentInput
+}
+
+export type FoundingProgramEnrollmentUncheckedCreateWithoutValueFeedbackInput = {
+  id?: string
+  businessId: string
+  invitationId: string
+  cohortId?: string | null
+  status?: $Enums.FoundingEnrollmentStatus
+  invitedAt: Date | string
+  onboardedAt?: Date | string
+  activatedAt?: Date | string | null
+  weekOneRetainedAt?: Date | string | null
+  weekFourRetainedAt?: Date | string | null
+  complimentaryNoticeAt?: Date | string | null
+  complimentaryEndsAt?: Date | string | null
+  exitedAt?: Date | string | null
+  exitReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  interviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutEnrollmentInput
+}
+
+export type FoundingProgramEnrollmentCreateOrConnectWithoutValueFeedbackInput = {
+  where: Prisma.FoundingProgramEnrollmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.FoundingProgramEnrollmentCreateWithoutValueFeedbackInput, Prisma.FoundingProgramEnrollmentUncheckedCreateWithoutValueFeedbackInput>
+}
+
+export type FoundingProgramEnrollmentUpsertWithoutValueFeedbackInput = {
+  update: Prisma.XOR<Prisma.FoundingProgramEnrollmentUpdateWithoutValueFeedbackInput, Prisma.FoundingProgramEnrollmentUncheckedUpdateWithoutValueFeedbackInput>
+  create: Prisma.XOR<Prisma.FoundingProgramEnrollmentCreateWithoutValueFeedbackInput, Prisma.FoundingProgramEnrollmentUncheckedCreateWithoutValueFeedbackInput>
+  where?: Prisma.FoundingProgramEnrollmentWhereInput
+}
+
+export type FoundingProgramEnrollmentUpdateToOneWithWhereWithoutValueFeedbackInput = {
+  where?: Prisma.FoundingProgramEnrollmentWhereInput
+  data: Prisma.XOR<Prisma.FoundingProgramEnrollmentUpdateWithoutValueFeedbackInput, Prisma.FoundingProgramEnrollmentUncheckedUpdateWithoutValueFeedbackInput>
+}
+
+export type FoundingProgramEnrollmentUpdateWithoutValueFeedbackInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumFoundingEnrollmentStatusFieldUpdateOperationsInput | $Enums.FoundingEnrollmentStatus
+  invitedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  weekOneRetainedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  weekFourRetainedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  complimentaryNoticeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  complimentaryEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutFoundingEnrollmentNestedInput
+  invitation?: Prisma.OnboardingInvitationUpdateOneRequiredWithoutEnrollmentNestedInput
+  cohort?: Prisma.FoundingCohortUpdateOneWithoutEnrollmentsNestedInput
+  interviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutEnrollmentNestedInput
+}
+
+export type FoundingProgramEnrollmentUncheckedUpdateWithoutValueFeedbackInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  invitationId?: Prisma.StringFieldUpdateOperationsInput | string
+  cohortId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumFoundingEnrollmentStatusFieldUpdateOperationsInput | $Enums.FoundingEnrollmentStatus
+  invitedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  onboardedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  activatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  weekOneRetainedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  weekFourRetainedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  complimentaryNoticeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  complimentaryEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exitReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  interviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentCreateWithoutBusinessInput = {
@@ -991,6 +1120,7 @@ export type FoundingProgramEnrollmentCreateWithoutBusinessInput = {
   invitation: Prisma.OnboardingInvitationCreateNestedOneWithoutEnrollmentInput
   cohort?: Prisma.FoundingCohortCreateNestedOneWithoutEnrollmentsInput
   interviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutEnrollmentInput
+  valueFeedback?: Prisma.FoundingValueFeedbackCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentUncheckedCreateWithoutBusinessInput = {
@@ -1010,6 +1140,7 @@ export type FoundingProgramEnrollmentUncheckedCreateWithoutBusinessInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   interviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutEnrollmentInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
 export type FoundingProgramEnrollmentCreateOrConnectWithoutBusinessInput = {
@@ -1045,6 +1176,7 @@ export type FoundingProgramEnrollmentUpdateWithoutBusinessInput = {
   invitation?: Prisma.OnboardingInvitationUpdateOneRequiredWithoutEnrollmentNestedInput
   cohort?: Prisma.FoundingCohortUpdateOneWithoutEnrollmentsNestedInput
   interviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutEnrollmentNestedInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentUncheckedUpdateWithoutBusinessInput = {
@@ -1064,6 +1196,7 @@ export type FoundingProgramEnrollmentUncheckedUpdateWithoutBusinessInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   interviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutEnrollmentNestedInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentCreateManyCohortInput = {
@@ -1101,6 +1234,7 @@ export type FoundingProgramEnrollmentUpdateWithoutCohortInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutFoundingEnrollmentNestedInput
   invitation?: Prisma.OnboardingInvitationUpdateOneRequiredWithoutEnrollmentNestedInput
   interviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutEnrollmentNestedInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentUncheckedUpdateWithoutCohortInput = {
@@ -1120,6 +1254,7 @@ export type FoundingProgramEnrollmentUncheckedUpdateWithoutCohortInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   interviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutEnrollmentNestedInput
+  valueFeedback?: Prisma.FoundingValueFeedbackUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type FoundingProgramEnrollmentUncheckedUpdateManyWithoutCohortInput = {
@@ -1147,10 +1282,12 @@ export type FoundingProgramEnrollmentUncheckedUpdateManyWithoutCohortInput = {
 
 export type FoundingProgramEnrollmentCountOutputType = {
   interviews: number
+  valueFeedback: number
 }
 
 export type FoundingProgramEnrollmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   interviews?: boolean | FoundingProgramEnrollmentCountOutputTypeCountInterviewsArgs
+  valueFeedback?: boolean | FoundingProgramEnrollmentCountOutputTypeCountValueFeedbackArgs
 }
 
 /**
@@ -1168,6 +1305,13 @@ export type FoundingProgramEnrollmentCountOutputTypeDefaultArgs<ExtArgs extends 
  */
 export type FoundingProgramEnrollmentCountOutputTypeCountInterviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FoundingResearchInterviewWhereInput
+}
+
+/**
+ * FoundingProgramEnrollmentCountOutputType without action
+ */
+export type FoundingProgramEnrollmentCountOutputTypeCountValueFeedbackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FoundingValueFeedbackWhereInput
 }
 
 
@@ -1192,6 +1336,7 @@ export type FoundingProgramEnrollmentSelect<ExtArgs extends runtime.Types.Extens
   invitation?: boolean | Prisma.OnboardingInvitationDefaultArgs<ExtArgs>
   cohort?: boolean | Prisma.FoundingProgramEnrollment$cohortArgs<ExtArgs>
   interviews?: boolean | Prisma.FoundingProgramEnrollment$interviewsArgs<ExtArgs>
+  valueFeedback?: boolean | Prisma.FoundingProgramEnrollment$valueFeedbackArgs<ExtArgs>
   _count?: boolean | Prisma.FoundingProgramEnrollmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["foundingProgramEnrollment"]>
 
@@ -1264,6 +1409,7 @@ export type FoundingProgramEnrollmentInclude<ExtArgs extends runtime.Types.Exten
   invitation?: boolean | Prisma.OnboardingInvitationDefaultArgs<ExtArgs>
   cohort?: boolean | Prisma.FoundingProgramEnrollment$cohortArgs<ExtArgs>
   interviews?: boolean | Prisma.FoundingProgramEnrollment$interviewsArgs<ExtArgs>
+  valueFeedback?: boolean | Prisma.FoundingProgramEnrollment$valueFeedbackArgs<ExtArgs>
   _count?: boolean | Prisma.FoundingProgramEnrollmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FoundingProgramEnrollmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1284,6 +1430,7 @@ export type $FoundingProgramEnrollmentPayload<ExtArgs extends runtime.Types.Exte
     invitation: Prisma.$OnboardingInvitationPayload<ExtArgs>
     cohort: Prisma.$FoundingCohortPayload<ExtArgs> | null
     interviews: Prisma.$FoundingResearchInterviewPayload<ExtArgs>[]
+    valueFeedback: Prisma.$FoundingValueFeedbackPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1700,6 +1847,7 @@ export interface Prisma__FoundingProgramEnrollmentClient<T, Null = never, ExtArg
   invitation<T extends Prisma.OnboardingInvitationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OnboardingInvitationDefaultArgs<ExtArgs>>): Prisma.Prisma__OnboardingInvitationClient<runtime.Types.Result.GetResult<Prisma.$OnboardingInvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   cohort<T extends Prisma.FoundingProgramEnrollment$cohortArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoundingProgramEnrollment$cohortArgs<ExtArgs>>): Prisma.Prisma__FoundingCohortClient<runtime.Types.Result.GetResult<Prisma.$FoundingCohortPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   interviews<T extends Prisma.FoundingProgramEnrollment$interviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoundingProgramEnrollment$interviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoundingResearchInterviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  valueFeedback<T extends Prisma.FoundingProgramEnrollment$valueFeedbackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoundingProgramEnrollment$valueFeedbackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoundingValueFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2186,6 +2334,30 @@ export type FoundingProgramEnrollment$interviewsArgs<ExtArgs extends runtime.Typ
   take?: number
   skip?: number
   distinct?: Prisma.FoundingResearchInterviewScalarFieldEnum | Prisma.FoundingResearchInterviewScalarFieldEnum[]
+}
+
+/**
+ * FoundingProgramEnrollment.valueFeedback
+ */
+export type FoundingProgramEnrollment$valueFeedbackArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FoundingValueFeedback
+   */
+  select?: Prisma.FoundingValueFeedbackSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FoundingValueFeedback
+   */
+  omit?: Prisma.FoundingValueFeedbackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FoundingValueFeedbackInclude<ExtArgs> | null
+  where?: Prisma.FoundingValueFeedbackWhereInput
+  orderBy?: Prisma.FoundingValueFeedbackOrderByWithRelationInput | Prisma.FoundingValueFeedbackOrderByWithRelationInput[]
+  cursor?: Prisma.FoundingValueFeedbackWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FoundingValueFeedbackScalarFieldEnum | Prisma.FoundingValueFeedbackScalarFieldEnum[]
 }
 
 /**

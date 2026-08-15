@@ -35,6 +35,7 @@ import { TrustModule } from "./modules/trust/trust.module";
 import { UsersModule } from "./modules/users/users.module";
 import { WaitlistModule } from "./modules/waitlist/waitlist.module";
 import { FoundingCircleModule } from "./modules/founding-circle/founding-circle.module";
+import { FoundingValueFeedbackModule } from "./modules/founding-value-feedback/founding-value-feedback.module";
 import { PlatformAuthModule } from "./modules/platform-auth/platform-auth.module";
 import { PlatformAdminModule } from "./modules/platform-admin/platform-admin.module";
 import { PwaTelemetryModule } from "./modules/pwa-telemetry/pwa-telemetry.module";
@@ -135,6 +136,7 @@ import { hmacPrivateValue } from "./common/crypto.util";
     AttentionModule,
     WaitlistModule,
     FoundingCircleModule,
+    FoundingValueFeedbackModule,
     PlatformAuthModule,
     PlatformAdminModule,
     PwaTelemetryModule,

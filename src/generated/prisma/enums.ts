@@ -222,6 +222,45 @@ export const PaidPilotInterest = {
 export type PaidPilotInterest = (typeof PaidPilotInterest)[keyof typeof PaidPilotInterest]
 
 
+export const FoundingValueFeedbackStatus = {
+  PENDING: 'PENDING',
+  DEFERRED: 'DEFERRED',
+  SUBMITTED: 'SUBMITTED'
+} as const
+
+export type FoundingValueFeedbackStatus = (typeof FoundingValueFeedbackStatus)[keyof typeof FoundingValueFeedbackStatus]
+
+
+export const FoundingValueRating = {
+  A_LOT: 'A_LOT',
+  A_LITTLE: 'A_LITTLE',
+  NOT_YET: 'NOT_YET'
+} as const
+
+export type FoundingValueRating = (typeof FoundingValueRating)[keyof typeof FoundingValueRating]
+
+
+export const FoundingPaymentInterest = {
+  YES: 'YES',
+  MAYBE: 'MAYBE',
+  NOT_NOW: 'NOT_NOW'
+} as const
+
+export type FoundingPaymentInterest = (typeof FoundingPaymentInterest)[keyof typeof FoundingPaymentInterest]
+
+
+export const FoundingPaymentBlocker = {
+  TOO_EARLY: 'TOO_EARLY',
+  NOT_ENOUGH_VALUE: 'NOT_ENOUGH_VALUE',
+  PRICE_CONCERN: 'PRICE_CONCERN',
+  MISSING_FEATURE: 'MISSING_FEATURE',
+  BUSINESS_NOT_READY: 'BUSINESS_NOT_READY',
+  OTHER: 'OTHER'
+} as const
+
+export type FoundingPaymentBlocker = (typeof FoundingPaymentBlocker)[keyof typeof FoundingPaymentBlocker]
+
+
 export const ContactPlatform = {
   EMAIL: 'EMAIL',
   FACEBOOK: 'FACEBOOK',

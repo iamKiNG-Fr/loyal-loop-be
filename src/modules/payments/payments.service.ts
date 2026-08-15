@@ -8,6 +8,7 @@ import { customerOrderRequestTokenWhere } from "../../common/customer-order-requ
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
+import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
 import {
   MediaService,
   type RegisteredUpload,
@@ -40,6 +41,7 @@ export class PaymentsService {
     private readonly media: MediaService,
     private readonly activity: ActivityService,
     private readonly messaging: MessagingService,
+    private readonly valueFeedback: FoundingValueFeedbackService,
   ) {}
 
   paymentAccount(auth: OwnerAuthContext) {
@@ -196,6 +198,11 @@ export class PaymentsService {
           paymentStatus: paymentStatus(nextPaid, proof.sale.total),
         },
       });
+      await this.valueFeedback.captureIfQualified(
+        tx,
+        auth.businessId,
+        proof.saleId,
+      );
       const unlocked = await tx.delivery.updateMany({
         where: { saleId: proof.saleId, status: "AWAITING_PAYMENT" },
         data: { status: "PREPARING" },

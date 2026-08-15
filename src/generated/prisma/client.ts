@@ -22,7 +22,7 @@ export * as $Enums from './enums'
 export * from "./enums"
 /**
  * ## Prisma Client
- *
+ * 
  * Type-safe database client for TypeScript
  * @example
  * ```
@@ -70,6 +70,11 @@ export type FoundingProgramEnrollment = Prisma.FoundingProgramEnrollmentModel
  */
 export type FoundingResearchInterview = Prisma.FoundingResearchInterviewModel
 /**
+ * Model FoundingValueFeedback
+ * 
+ */
+export type FoundingValueFeedback = Prisma.FoundingValueFeedbackModel
+/**
  * Model User
  * 
  */
@@ -116,7 +121,7 @@ export type OwnerSession = Prisma.OwnerSessionModel
 export type OwnerOtpChallenge = Prisma.OwnerOtpChallengeModel
 /**
  * Model OnboardingEmailChallenge
- *
+ * 
  */
 export type OnboardingEmailChallenge = Prisma.OnboardingEmailChallengeModel
 /**

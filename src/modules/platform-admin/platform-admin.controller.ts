@@ -203,6 +203,12 @@ export class PlatformAdminController {
     return ok(await this.admin.members(includeDemo === "true"));
   }
 
+  @Get("founding-circle/value-feedback")
+  @PlatformRoles("SUPERADMIN", "ADMIN")
+  async foundingValueFeedback(@Query() query: AdminListQueryDto) {
+    return ok(await this.admin.foundingValueFeedback(query));
+  }
+
   @Post("founding-circle/members/:enrollmentId/interviews")
   @PlatformRoles("SUPERADMIN", "ADMIN")
   async interview(

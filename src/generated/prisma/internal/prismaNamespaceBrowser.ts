@@ -57,6 +57,7 @@ export const ModelName = {
   OnboardingInvitation: 'OnboardingInvitation',
   FoundingProgramEnrollment: 'FoundingProgramEnrollment',
   FoundingResearchInterview: 'FoundingResearchInterview',
+  FoundingValueFeedback: 'FoundingValueFeedback',
   User: 'User',
   PlatformAdmin: 'PlatformAdmin',
   PlatformAdminSession: 'PlatformAdminSession',
@@ -279,6 +280,33 @@ export const FoundingResearchInterviewScalarFieldEnum = {
 } as const
 
 export type FoundingResearchInterviewScalarFieldEnum = (typeof FoundingResearchInterviewScalarFieldEnum)[keyof typeof FoundingResearchInterviewScalarFieldEnum]
+
+
+export const FoundingValueFeedbackScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  enrollmentId: 'enrollmentId',
+  triggerSaleId: 'triggerSaleId',
+  triggerSaleSequence: 'triggerSaleSequence',
+  status: 'status',
+  valueRating: 'valueRating',
+  paymentInterest: 'paymentInterest',
+  paymentBlocker: 'paymentBlocker',
+  paymentBlockerDetail: 'paymentBlockerDetail',
+  valueNeeded: 'valueNeeded',
+  volunteeredPriceAmount: 'volunteeredPriceAmount',
+  volunteeredPriceCurrency: 'volunteeredPriceCurrency',
+  deferralCount: 'deferralCount',
+  promptedAt: 'promptedAt',
+  snoozedUntil: 'snoozedUntil',
+  deferredAt: 'deferredAt',
+  rearmAt: 'rearmAt',
+  submittedAt: 'submittedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FoundingValueFeedbackScalarFieldEnum = (typeof FoundingValueFeedbackScalarFieldEnum)[keyof typeof FoundingValueFeedbackScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

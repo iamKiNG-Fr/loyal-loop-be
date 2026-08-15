@@ -390,6 +390,7 @@ export const ModelName = {
   OnboardingInvitation: 'OnboardingInvitation',
   FoundingProgramEnrollment: 'FoundingProgramEnrollment',
   FoundingResearchInterview: 'FoundingResearchInterview',
+  FoundingValueFeedback: 'FoundingValueFeedback',
   User: 'User',
   PlatformAdmin: 'PlatformAdmin',
   PlatformAdminSession: 'PlatformAdminSession',
@@ -486,7 +487,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminPasskey" | "platformAdminPasskeyChallenge" | "platformAdminRecoveryCode" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "onboardingEmailChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerReport" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "ownerAttentionReceipt" | "ownerPushSubscription" | "messageAttempt" | "messagingWebhookEvent"
+    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "foundingValueFeedback" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminPasskey" | "platformAdminPasskeyChallenge" | "platformAdminRecoveryCode" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "onboardingEmailChallenge" | "passwordRecoveryToken" | "business" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerReport" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "ownerAttentionReceipt" | "ownerPushSubscription" | "messageAttempt" | "messagingWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -931,6 +932,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.FoundingResearchInterviewCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.FoundingResearchInterviewCountAggregateOutputType> | number
+        }
+      }
+    }
+    FoundingValueFeedback: {
+      payload: Prisma.$FoundingValueFeedbackPayload<ExtArgs>
+      fields: Prisma.FoundingValueFeedbackFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FoundingValueFeedbackFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FoundingValueFeedbackFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload>
+        }
+        findFirst: {
+          args: Prisma.FoundingValueFeedbackFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FoundingValueFeedbackFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload>
+        }
+        findMany: {
+          args: Prisma.FoundingValueFeedbackFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload>[]
+        }
+        create: {
+          args: Prisma.FoundingValueFeedbackCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload>
+        }
+        createMany: {
+          args: Prisma.FoundingValueFeedbackCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FoundingValueFeedbackCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload>[]
+        }
+        delete: {
+          args: Prisma.FoundingValueFeedbackDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload>
+        }
+        update: {
+          args: Prisma.FoundingValueFeedbackUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload>
+        }
+        deleteMany: {
+          args: Prisma.FoundingValueFeedbackDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FoundingValueFeedbackUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FoundingValueFeedbackUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload>[]
+        }
+        upsert: {
+          args: Prisma.FoundingValueFeedbackUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FoundingValueFeedbackPayload>
+        }
+        aggregate: {
+          args: Prisma.FoundingValueFeedbackAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFoundingValueFeedback>
+        }
+        groupBy: {
+          args: Prisma.FoundingValueFeedbackGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FoundingValueFeedbackGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FoundingValueFeedbackCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FoundingValueFeedbackCountAggregateOutputType> | number
         }
       }
     }
@@ -7092,6 +7167,33 @@ export const FoundingResearchInterviewScalarFieldEnum = {
 export type FoundingResearchInterviewScalarFieldEnum = (typeof FoundingResearchInterviewScalarFieldEnum)[keyof typeof FoundingResearchInterviewScalarFieldEnum]
 
 
+export const FoundingValueFeedbackScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  enrollmentId: 'enrollmentId',
+  triggerSaleId: 'triggerSaleId',
+  triggerSaleSequence: 'triggerSaleSequence',
+  status: 'status',
+  valueRating: 'valueRating',
+  paymentInterest: 'paymentInterest',
+  paymentBlocker: 'paymentBlocker',
+  paymentBlockerDetail: 'paymentBlockerDetail',
+  valueNeeded: 'valueNeeded',
+  volunteeredPriceAmount: 'volunteeredPriceAmount',
+  volunteeredPriceCurrency: 'volunteeredPriceCurrency',
+  deferralCount: 'deferralCount',
+  promptedAt: 'promptedAt',
+  snoozedUntil: 'snoozedUntil',
+  deferredAt: 'deferredAt',
+  rearmAt: 'rearmAt',
+  submittedAt: 'submittedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FoundingValueFeedbackScalarFieldEnum = (typeof FoundingValueFeedbackScalarFieldEnum)[keyof typeof FoundingValueFeedbackScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
   avatarAssetId: 'avatarAssetId',
@@ -8676,6 +8778,62 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
+ * Reference to a field of type 'FoundingValueFeedbackStatus'
+ */
+export type EnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoundingValueFeedbackStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'FoundingValueFeedbackStatus[]'
+ */
+export type ListEnumFoundingValueFeedbackStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoundingValueFeedbackStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FoundingValueRating'
+ */
+export type EnumFoundingValueRatingFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoundingValueRating'>
+    
+
+
+/**
+ * Reference to a field of type 'FoundingValueRating[]'
+ */
+export type ListEnumFoundingValueRatingFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoundingValueRating[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FoundingPaymentInterest'
+ */
+export type EnumFoundingPaymentInterestFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoundingPaymentInterest'>
+    
+
+
+/**
+ * Reference to a field of type 'FoundingPaymentInterest[]'
+ */
+export type ListEnumFoundingPaymentInterestFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoundingPaymentInterest[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FoundingPaymentBlocker'
+ */
+export type EnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoundingPaymentBlocker'>
+    
+
+
+/**
+ * Reference to a field of type 'FoundingPaymentBlocker[]'
+ */
+export type ListEnumFoundingPaymentBlockerFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FoundingPaymentBlocker[]'>
+    
+
+
+/**
  * Reference to a field of type 'WorkspaceAppearance'
  */
 export type EnumWorkspaceAppearanceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkspaceAppearance'>
@@ -9456,14 +9614,14 @@ export type ListEnumSaleStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'SaleItemInventorySource'
  */
 export type EnumSaleItemInventorySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SaleItemInventorySource'>
-
+    
 
 
 /**
  * Reference to a field of type 'SaleItemInventorySource[]'
  */
 export type ListEnumSaleItemInventorySourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SaleItemInventorySource[]'>
-
+    
 
 
 /**
@@ -9763,6 +9921,7 @@ export type GlobalOmitConfig = {
   onboardingInvitation?: Prisma.OnboardingInvitationOmit
   foundingProgramEnrollment?: Prisma.FoundingProgramEnrollmentOmit
   foundingResearchInterview?: Prisma.FoundingResearchInterviewOmit
+  foundingValueFeedback?: Prisma.FoundingValueFeedbackOmit
   user?: Prisma.UserOmit
   platformAdmin?: Prisma.PlatformAdminOmit
   platformAdminSession?: Prisma.PlatformAdminSessionOmit
@@ -9906,3 +10065,4 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
+

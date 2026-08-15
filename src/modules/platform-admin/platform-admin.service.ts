@@ -7,6 +7,7 @@ import {
 import type { ActivityEventType, Prisma } from "../../generated/prisma/client";
 import type { PlatformAuthContext } from "../../common/request-context";
 import { FoundingCircleService } from "../founding-circle/founding-circle.service";
+import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
 import type {
   CreateFoundingCohortDto,
   CreateFoundingInvitationDto,
@@ -48,6 +49,7 @@ export class PlatformAdminService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly founding: FoundingCircleService,
+    private readonly valueFeedback: FoundingValueFeedbackService,
   ) {}
 
   async overview(includeDemo = false) {
@@ -675,6 +677,10 @@ export class PlatformAdminService {
 
   async members(includeDemo = false) {
     return this.memberJourneys(includeDemo);
+  }
+
+  async foundingValueFeedback(query: AdminListQueryDto) {
+    return this.valueFeedback.adminList(query);
   }
 
   async createInterview(
