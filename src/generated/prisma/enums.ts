@@ -552,7 +552,8 @@ export const MessagePurpose = {
   DELIVERY: 'DELIVERY',
   REMINDER: 'REMINDER',
   FOUNDING_ACCESS: 'FOUNDING_ACCESS',
-  OWNER_DIGEST: 'OWNER_DIGEST'
+  OWNER_DIGEST: 'OWNER_DIGEST',
+  CUSTOMER_MEMORY: 'CUSTOMER_MEMORY'
 } as const
 
 export type MessagePurpose = (typeof MessagePurpose)[keyof typeof MessagePurpose]

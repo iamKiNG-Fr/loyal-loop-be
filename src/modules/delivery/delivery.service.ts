@@ -191,7 +191,7 @@ export class DeliveryService {
     if (delivery.status !== "DELIVERED") {
       throw new BadRequestException("Delivery must be marked delivered first");
     }
-    return this.prisma.$transaction(async (tx) => {
+    const updated = await this.prisma.$transaction(async (tx) => {
       const updated = await tx.delivery.update({
         where: { id: delivery.id },
         data: {
@@ -219,6 +219,8 @@ export class DeliveryService {
       );
       return updated;
     });
+    await this.messaging.enqueueCustomerMemoryPrompt(delivery.id).catch(() => undefined);
+    return updated;
   }
 
   async feedback(customerAccountId: string, token: string, dto: SubmitDeliveryFeedbackDto) {

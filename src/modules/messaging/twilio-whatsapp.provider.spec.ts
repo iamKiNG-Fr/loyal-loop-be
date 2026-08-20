@@ -78,6 +78,40 @@ describe("TwilioWhatsAppProvider modes", () => {
     );
   });
 
+  it("attaches the quote-reply guide to Sandbox customer-memory prompts", async () => {
+    const fetchMock = successfulMessageFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = new TwilioWhatsAppProvider(config(sandboxValues()));
+
+    await provider.sendCustomerMemoryPrompt("+2348012345678", {
+      "1": "Ada",
+      "2": "Amaka",
+    });
+
+    const body = requestBody(fetchMock);
+    expect(body.get("Body")).toContain("Press and hold this message, tap Reply");
+    expect(body.get("MediaUrl")).toBe(
+      "https://www.useloyalloop.com/generated/customer-memory-reply-guide-v1.png",
+    );
+  });
+
+  it("keeps the one-off Sandbox Founding Circle invitation free of recurring-update copy", async () => {
+    const fetchMock = successfulMessageFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = new TwilioWhatsAppProvider(config(sandboxValues()));
+
+    await provider.sendFoundingAccess("+2348012345678", {
+      "1": "Ada",
+      "2": "Ada's Store",
+      "3": "https://www.useloyalloop.com/join#invite=opaque-token",
+      "4": "27 August 2026",
+    });
+
+    const body = requestBody(fetchMock).get("Body") || "";
+    expect(body).toContain("If now isn’t the right time, no action is needed.");
+    expect(body).not.toContain("Reply STOP");
+  });
+
   it("stores only a salted Sandbox OTP digest and validates the delivered code", async () => {
     const fetchMock = successfulMessageFetch();
     vi.stubGlobal("fetch", fetchMock);
@@ -217,7 +251,31 @@ describe("TwilioWhatsAppProvider modes", () => {
     expect(body.get("ContentSid")).toBe(`HX${"d".repeat(32)}`);
     expect(JSON.parse(body.get("ContentVariables") || "{}")).toMatchObject({
       "3": "LL-R-1001",
-      "5": expect.stringContaining("/og/receipt-message/"),
+      "4": "receipt/opaque-token",
+      "5": "og/receipt-message/receipt-id.png?expires=1&signature=signed",
+    });
+    expect(body.has("Body")).toBe(false);
+  });
+
+  it("uses an approved order-journey CTA with a URL suffix", async () => {
+    const fetchMock = successfulMessageFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = new TwilioWhatsAppProvider(config(productionValues()));
+    provider.onModuleInit();
+
+    await provider.sendDeliveryUpdate("+2348012345678", {
+      "1": "Ada",
+      "2": "King's Store",
+      "3": "REQ-1001",
+      "4": "The shop accepted your request and is checking the final details.",
+      "5": "https://www.useloyalloop.com/delivery/opaque-token",
+    });
+
+    const body = requestBody(fetchMock);
+    expect(body.get("ContentSid")).toBe(`HX${"e".repeat(32)}`);
+    expect(JSON.parse(body.get("ContentVariables") || "{}")).toMatchObject({
+      "4": "The shop accepted your request and is checking the final details.",
+      "5": "delivery/opaque-token",
     });
     expect(body.has("Body")).toBe(false);
   });
@@ -237,6 +295,72 @@ describe("TwilioWhatsAppProvider modes", () => {
     const body = requestBody(fetchMock);
     expect(body.get("MessagingServiceSid")).toBe(`MG${"b".repeat(32)}`);
     expect(body.get("ContentSid")).toBe(`HX${"f".repeat(32)}`);
+    expect(body.has("Body")).toBe(false);
+  });
+
+  it("uses an approved Founding Circle CTA with a one-time URL suffix", async () => {
+    const fetchMock = successfulMessageFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = new TwilioWhatsAppProvider(config(productionValues()));
+    provider.onModuleInit();
+
+    await provider.sendFoundingAccess("+2348012345678", {
+      "1": "Ada",
+      "2": "Ada's Store",
+      "3": "https://www.useloyalloop.com/join#invite=opaque-token",
+      "4": "27/08/2026",
+    });
+
+    const body = requestBody(fetchMock);
+    expect(body.get("ContentSid")).toBe(`HX${"1".repeat(32)}`);
+    expect(JSON.parse(body.get("ContentVariables") || "{}")).toMatchObject({
+      "2": "Ada's Store",
+      "3": "join#invite=opaque-token",
+      "4": "27/08/2026",
+    });
+    expect(body.has("Body")).toBe(false);
+  });
+
+  it("uses an approved owner digest CTA with a Today URL suffix", async () => {
+    const fetchMock = successfulMessageFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = new TwilioWhatsAppProvider(config(productionValues()));
+    provider.onModuleInit();
+
+    await provider.sendOwnerDigest("+2348012345678", {
+      "1": "Ada",
+      "2": "Ada's Store",
+      "3": "2 orders need a reply and 1 payment needs review.",
+      "4": "https://www.useloyalloop.com/dashboard?today=1",
+    });
+
+    const body = requestBody(fetchMock);
+    expect(body.get("ContentSid")).toBe(`HX${"2".repeat(32)}`);
+    expect(JSON.parse(body.get("ContentVariables") || "{}")).toMatchObject({
+      "3": "2 orders need a reply and 1 payment needs review.",
+      "4": "dashboard?today=1",
+    });
+    expect(body.has("Body")).toBe(false);
+  });
+
+  it("uses an approved customer-memory media template without an app URL", async () => {
+    const fetchMock = successfulMessageFetch();
+    vi.stubGlobal("fetch", fetchMock);
+    const provider = new TwilioWhatsAppProvider(config(productionValues()));
+    provider.onModuleInit();
+
+    await provider.sendCustomerMemoryPrompt("+2348012345678", {
+      "1": "Ada",
+      "2": "Amaka",
+    });
+
+    const body = requestBody(fetchMock);
+    expect(body.get("ContentSid")).toBe(`HX${"3".repeat(32)}`);
+    expect(JSON.parse(body.get("ContentVariables") || "{}")).toMatchObject({
+      "1": "Ada",
+      "2": "Amaka",
+    });
+    expect(JSON.parse(body.get("ContentVariables") || "{}")).not.toHaveProperty("3");
     expect(body.has("Body")).toBe(false);
   });
 
@@ -298,6 +422,8 @@ function productionValues() {
     TWILIO_DELIVERY_CONTENT_SID: `HX${"e".repeat(32)}`,
     TWILIO_REMINDER_CONTENT_SID: `HX${"f".repeat(32)}`,
     TWILIO_FOUNDING_ACCESS_CONTENT_SID: `HX${"1".repeat(32)}`,
+    TWILIO_OWNER_DIGEST_CONTENT_SID: `HX${"2".repeat(32)}`,
+    TWILIO_CUSTOMER_MEMORY_CONTENT_SID: `HX${"3".repeat(32)}`,
     TWILIO_WHATSAPP_WEBHOOK_URL:
       "https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio",
     TWILIO_WHATSAPP_PILOT_ALLOWLIST: "+2348012345678",

@@ -243,6 +243,9 @@ TWILIO_VERIFY_SERVICE_SID=VA...
 TWILIO_RECEIPT_MEDIA_CONTENT_SID=HX...
 TWILIO_DELIVERY_CONTENT_SID=HX...
 TWILIO_REMINDER_CONTENT_SID=HX...
+TWILIO_OWNER_DIGEST_CONTENT_SID=HX...
+TWILIO_CUSTOMER_MEMORY_CONTENT_SID=HX...
+TWILIO_CUSTOMER_MEMORY_GUIDE_URL=https://www.useloyalloop.com/generated/customer-memory-reply-guide-v1.png
 
 TWILIO_WHATSAPP_PILOT_ALLOWLIST=+234...
 TWILIO_WHATSAPP_WEBHOOK_URL=https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio
@@ -259,6 +262,78 @@ RECEIPT_MEDIA_SIGNING_SECRET=
 `TWILIO_WHATSAPP_RECEIPT_MEDIA_CONTENT_SID` remains accepted as a compatibility
 alias for the receipt media template. `SESSION_HASH_SECRET` is used when a
 dedicated receipt-media signing secret is not set.
+
+The approved receipt template contract is a WhatsApp Card named
+`loyal_loop_receipt_ready_v1`:
+
+- body: `Hi {{1}}, your payment with {{2}} is confirmed. Receipt {{3}} is ready.`
+- image URL: `https://www.useloyalloop.com/{{5}}`
+- footer: `Powered by Loyal Loop`
+- URL button label: `View receipt`
+- URL button: `https://www.useloyalloop.com/{{4}}`
+- category: `Utility`
+
+Variables 1 through 3 are the customer name, business name, and receipt code.
+The outbox retains complete opaque receipt and signed image URLs for Sandbox
+copy and diagnostics. Production sending removes the fixed public origin and
+passes only `receipt/...` as variable 4 and `og/receipt-message/...` as variable
+5, matching the approved Card fields without exposing a predictable receipt
+identifier.
+
+The shared order and delivery template is a Call to Action named
+`loyal_loop_order_journey_update_v1`:
+
+- body: `Hi {{1}}, {{2}} has an update for order {{3}}: {{4}} Open the order journey for the latest details.`
+- URL button label: `View order journey`
+- URL button: `https://www.useloyalloop.com/{{5}}`
+- category: `Utility`
+
+Variables 1 through 4 are the customer name, business name, order reference,
+and plain-language update. The outbox retains the complete opaque request or
+delivery URL; production sending passes only its `request/...` or `delivery/...`
+suffix as variable 5 so one approved template can serve both journey types.
+
+The optional owner customer-memory template is a Media template named
+`loyal_loop_customer_memory_prompt_v1`:
+
+- body: `Hi {{1}}, {{2}}'s delivery is confirmed. Press and hold this message, tap Reply, then type one useful customer note. Reply SKIP if there is nothing to save.`
+- media URL: `https://www.useloyalloop.com/generated/customer-memory-reply-guide-v1.png`
+- category: `Utility`
+
+Variables 1 and 2 are the owner's first name and customer name. The message is
+queued once per confirmed delivery only when the business owner has explicitly
+enabled and consented to WhatsApp customer-note prompts. A note is saved only
+when the owner uses WhatsApp's Reply action on that exact prompt. The signed
+inbound webhook uses `OriginalRepliedMessageSid` to match the prompt to its
+customer and delivery, stores the text as a private customer note, and sends a
+short confirmation. An ordinary unquoted chat message is ignored. `SKIP`
+acknowledges the prompt without creating a note.
+
+The owner digest is a Marketing Call to Action template named
+`loyal_loop_owner_daily_digest_v2`:
+
+- body: `Good morning {{1}}. Here is your Loyal Loop update for {{2}}. Today’s summary: {{3}}. Open your workspace to review the details and decide what to handle next.\n\nReply STOP to stop these updates.`
+- URL button label: `Open today's tasks`
+- URL button: `https://www.useloyalloop.com/{{4}}`
+- category: `Marketing`
+
+Variables 1 through 3 are the owner name, business name, and a concrete task
+summary. Variable 4 is the `dashboard?view=today` URL suffix. This is a recurring
+opt-in update, so its copy keeps the STOP instruction.
+
+The one-time Founding Circle invitation is a Marketing Call to Action template
+named `loyal_loop_founding_circle_invite_v2`:
+
+- body: `Hi {{1}}, your Loyal Loop Founding Circle invitation for {{2}} is ready. Complete your business setup before {{4}}. If now isn’t the right time, no action is needed.`
+- URL button label: `Complete setup`
+- URL button: `https://www.useloyalloop.com/{{3}}`
+- category: `Marketing`
+
+Variables 1 and 2 are the owner and business names, variable 3 is the opaque
+invitation URL suffix, and variable 4 is the readable expiry date. It is a
+single invitation rather than a subscription, so its copy does not include a
+STOP instruction. The webhook still honours a standalone STOP for every
+business-initiated WhatsApp stream.
 
 ## Catalog moderation rollout
 
@@ -297,6 +372,8 @@ Production behavior:
   an opted-in request is confirmed and on later delivery status changes;
 - approved follow-up reminders use the registered sender, Messaging Service,
   and approved reminder Content SID;
+- confirmed deliveries can send opted-in owners the customer-memory media
+  prompt; quote-replies are captured by the signed incoming-message webhook;
 - owner and customer OTP use the existing Twilio Verify WhatsApp Service;
 - recipients remain restricted by the private-pilot allow-list;
 - consent, STOP suppression, outbox idempotency, retries, daily cap, signed
@@ -311,8 +388,8 @@ Production sequence:
    WhatsApp Verify configuration.
 4. Approve receipt-media, delivery, and reminder utility templates and store their
    `HX...` SIDs in the deployment secret store.
-5. Configure the exact signed webhook and test inbound, delivery status, STOP,
-   invalid signatures, retries, and failure alerts.
+5. Configure the exact signed webhook and test inbound quote-replies, delivery
+   status, STOP/START, invalid signatures, retries, and failure alerts.
 6. Add only pilot recipients, review pricing and spend controls, then set the
    enable/readiness flags and remove the kill switch as the final approval.
 

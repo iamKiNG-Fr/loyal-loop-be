@@ -20,6 +20,7 @@ import type {
 import type { AttentionItem, AttentionKind, AttentionPriority } from "./attention.types";
 
 const DIGEST_CONSENT_VERSION = "owner-daily-digest-v1";
+const CUSTOMER_MEMORY_CONSENT_VERSION = "customer-memory-prompt-v1";
 const MEANINGFUL_CARE_TYPES = [
   "SALE_LOGGED",
   "PAYMENT_UPDATED",
@@ -360,6 +361,13 @@ export class AttentionService {
       paused: Boolean(preferences.dailyDigestPausedAt),
       phone: currentPhone,
       digestPhone: preferences.dailyDigestPhone,
+      customerMemoryWhatsappEnabled: preferences.customerMemoryWhatsapp,
+      customerMemoryConsentGranted: Boolean(
+        preferences.customerMemoryConsentAt
+        && preferences.customerMemoryPhone
+        && preferences.customerMemoryPhone === currentPhone,
+      ),
+      customerMemoryPhone: preferences.customerMemoryPhone,
       pushEnabled: preferences.pushNotificationsEnabled,
       pushSubscriptionCount: subscriptionCount,
       vapidPublicKey: this.webPushConfigured()
@@ -385,11 +393,17 @@ export class AttentionService {
       throw new ForbiddenException("Only the business owner can change owner reminder delivery");
     }
     const enablingWhatsapp = dto.whatsappDigestEnabled === true;
+    const enablingCustomerMemory = dto.customerMemoryWhatsappEnabled === true;
     const phone = business.owner.phone ? normalizeE164(business.owner.phone) : null;
     const digestPhoneChanged = Boolean(
       enablingWhatsapp
       && current.dailyDigestPhone
       && current.dailyDigestPhone !== phone,
+    );
+    const customerMemoryPhoneChanged = Boolean(
+      enablingCustomerMemory
+      && current.customerMemoryPhone
+      && current.customerMemoryPhone !== phone,
     );
     if (enablingWhatsapp && !phone) {
       throw new BadRequestException("Verify the owner WhatsApp number before enabling the digest");
@@ -401,6 +415,16 @@ export class AttentionService {
     ) {
       throw new BadRequestException("Accept the WhatsApp digest notice before enabling reminders");
     }
+    if (enablingCustomerMemory && !phone) {
+      throw new BadRequestException("Verify the owner WhatsApp number before enabling customer note prompts");
+    }
+    if (
+      enablingCustomerMemory
+      && (!current.customerMemoryConsentAt || customerMemoryPhoneChanged)
+      && dto.customerMemoryConsentAccepted !== true
+    ) {
+      throw new BadRequestException("Accept the WhatsApp customer note notice before enabling prompts");
+    }
 
     const weekdays = dto.weekdays
       ? [...new Set(dto.weekdays)].sort((left, right) => left - right)
@@ -408,6 +432,11 @@ export class AttentionService {
     const consentAt = enablingWhatsapp
       ? digestPhoneChanged ? new Date() : current.dailyDigestConsentAt || new Date()
       : dto.whatsappDigestEnabled === false
+        ? null
+        : undefined;
+    const customerMemoryConsentAt = enablingCustomerMemory
+      ? customerMemoryPhoneChanged ? new Date() : current.customerMemoryConsentAt || new Date()
+      : dto.customerMemoryWhatsappEnabled === false
         ? null
         : undefined;
     const saved = await this.prisma.businessPreferences.update({
@@ -420,6 +449,14 @@ export class AttentionService {
         dailyDigestConsentAt: consentAt,
         dailyDigestConsentVersion: enablingWhatsapp ? DIGEST_CONSENT_VERSION : dto.whatsappDigestEnabled === false ? null : undefined,
         dailyDigestPausedAt: dto.paused === undefined ? undefined : dto.paused ? new Date() : null,
+        customerMemoryWhatsapp: dto.customerMemoryWhatsappEnabled,
+        customerMemoryPhone: dto.customerMemoryWhatsappEnabled === false
+          ? null
+          : enablingCustomerMemory ? phone : undefined,
+        customerMemoryConsentAt,
+        customerMemoryConsentVersion: enablingCustomerMemory
+          ? CUSTOMER_MEMORY_CONSENT_VERSION
+          : dto.customerMemoryWhatsappEnabled === false ? null : undefined,
         pushNotificationsEnabled: dto.pushEnabled,
         lowStockThreshold: dto.lowStockThreshold,
         notifyFollowUps: dto.followUpNotifications,
@@ -449,6 +486,29 @@ export class AttentionService {
         current.dailyDigestPhone,
         "OWNER_DIGEST",
         "owner-notification-settings",
+      );
+    }
+    if (dto.customerMemoryWhatsappEnabled === true && phone) {
+      if (customerMemoryPhoneChanged && current.customerMemoryPhone) {
+        await this.messaging.revokePhoneConsent(
+          current.customerMemoryPhone,
+          "CUSTOMER_MEMORY",
+          "owner-customer-memory-settings-phone-change",
+        );
+      }
+      await this.messaging.grantPhoneConsent(
+        phone,
+        "CUSTOMER_MEMORY",
+        "owner-customer-memory-settings",
+        undefined,
+        auth.userId,
+      );
+    }
+    if (dto.customerMemoryWhatsappEnabled === false && current.customerMemoryPhone) {
+      await this.messaging.revokePhoneConsent(
+        current.customerMemoryPhone,
+        "CUSTOMER_MEMORY",
+        "owner-customer-memory-settings",
       );
     }
     return this.preferences(auth);

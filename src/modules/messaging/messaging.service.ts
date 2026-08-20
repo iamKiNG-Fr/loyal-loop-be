@@ -15,6 +15,7 @@ import {
 import { createOpaqueToken, hashPrivateValue } from "../../common/crypto.util";
 import { receiptMediaSignature } from "../../common/receipt-media.util";
 import type { OwnerAuthContext } from "../../common/request-context";
+import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { normalizeE164 } from "./twilio-whatsapp.provider";
 import {
@@ -22,8 +23,19 @@ import {
   type WhatsAppProvider,
 } from "./whatsapp-provider";
 
-type UtilityPurpose = "RECEIPT" | "DELIVERY" | "REMINDER" | "FOUNDING_ACCESS" | "OWNER_DIGEST";
+type UtilityPurpose = "RECEIPT" | "DELIVERY" | "REMINDER" | "FOUNDING_ACCESS" | "OWNER_DIGEST" | "CUSTOMER_MEMORY";
 type WebhookValues = Record<string, string | undefined>;
+type MessageContext = Record<string, string>;
+
+const OPT_OUT_COMMANDS = new Set([
+  "STOP",
+  "STOPALL",
+  "UNSUBSCRIBE",
+  "CANCEL",
+  "END",
+  "QUIT",
+]);
+const OPT_IN_COMMANDS = new Set(["START", "UNSTOP"]);
 
 @Injectable()
 export class MessagingService {
@@ -32,6 +44,7 @@ export class MessagingService {
     private readonly config: ConfigService,
     @Inject(WHATSAPP_PROVIDER)
     private readonly whatsapp: WhatsAppProvider,
+    private readonly activity: ActivityService,
   ) {}
 
   status() {
@@ -135,6 +148,7 @@ export class MessagingService {
     purpose: UtilityPurpose;
     templateKey: string;
     variables: Record<string, string>;
+    context?: MessageContext;
     idempotencyKey: string;
     awaitDelivery?: boolean;
   }) {
@@ -156,7 +170,10 @@ export class MessagingService {
         toAddress: phone,
         purpose: input.purpose,
         templateKey: input.templateKey,
-        payload: input.variables,
+        payload: {
+          ...input.variables,
+          ...(input.context ? { _context: input.context } : {}),
+        },
         idempotencyKey: input.idempotencyKey,
         status: permitted ? "PENDING" : "SUPPRESSED",
         lastError: permitted ? null : "Consent missing, revoked, or recipient suppressed",
@@ -375,6 +392,51 @@ export class MessagingService {
     });
   }
 
+  async enqueueCustomerMemoryPrompt(deliveryId: string) {
+    const delivery = await this.prisma.delivery.findUnique({
+      where: { id: deliveryId },
+      select: {
+        id: true,
+        status: true,
+        businessId: true,
+        customerId: true,
+        customer: { select: { name: true } },
+        business: {
+          select: {
+            ownerId: true,
+            owner: { select: { name: true } },
+            preferences: {
+              select: {
+                customerMemoryWhatsapp: true,
+                customerMemoryPhone: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    if (!delivery || delivery.status !== "CONFIRMED") return null;
+    const preferences = delivery.business.preferences;
+    if (!preferences?.customerMemoryWhatsapp || !preferences.customerMemoryPhone) return null;
+
+    return this.enqueueUtility({
+      businessId: delivery.businessId,
+      recipientUserId: delivery.business.ownerId,
+      phone: preferences.customerMemoryPhone,
+      purpose: "CUSTOMER_MEMORY",
+      templateKey: "customer_memory",
+      variables: {
+        "1": delivery.business.owner.name.trim().split(/\s+/)[0] || "there",
+        "2": delivery.customer.name,
+      },
+      context: {
+        customerId: delivery.customerId,
+        deliveryId: delivery.id,
+      },
+      idempotencyKey: `customer-memory:${delivery.id}`,
+    });
+  }
+
   async processDue(limit = 25) {
     this.assertWorkerEnabled();
     const due = await this.prisma.messageOutbox.findMany({
@@ -534,17 +596,8 @@ export class MessagingService {
     }
 
     const sid = values.MessageSid || values.SmsSid;
-    const inboundBody = values.Body?.trim().toUpperCase();
-    if (values.From && inboundBody && ["STOP", "STOPALL", "UNSUBSCRIBE", "CANCEL", "END", "QUIT"].includes(inboundBody)) {
-      const phoneHash = this.phoneHash(values.From);
-      await this.prisma.messagingSuppression.upsert({
-        where: { phoneHash },
-        create: { phoneHash, reason: "Recipient opt-out", source: "twilio-inbound" },
-        update: { reason: "Recipient opt-out", source: "twilio-inbound" },
-      });
-    }
-
-    const providerEventId = `${sid || values.From || "unknown"}:${values.MessageStatus || inboundBody || "event"}:${values.ErrorCode || "ok"}`;
+    const inboundCommand = twilioConsentCommand(values);
+    const providerEventId = `${sid || values.From || "unknown"}:${values.MessageStatus || inboundCommand || "event"}:${values.ErrorCode || "ok"}`;
     const event = await this.prisma.messagingWebhookEvent.upsert({
       where: { providerEventId },
       create: { providerEventId, eventType: values.MessageStatus || "inbound", payload: cleanValues(values) },
@@ -552,21 +605,141 @@ export class MessagingService {
     });
     if (event.processedAt) return { accepted: true, duplicate: true };
 
-    if (sid && values.MessageStatus) {
-      const mapped = mapTwilioStatus(values.MessageStatus);
-      if (mapped) {
-        await this.prisma.messageOutbox.updateMany({
-          where: { providerReference: sid },
-          data: {
-            status: mapped,
-            deliveredAt: mapped === "DELIVERED" ? new Date() : undefined,
-            lastError: webhookErrorMessage(values),
-          },
+    const claimedAt = new Date();
+    const claim = await this.prisma.messagingWebhookEvent.updateMany({
+      where: { id: event.id, processedAt: null },
+      data: { processedAt: claimedAt },
+    });
+    if (!claim.count) return { accepted: true, duplicate: true };
+
+    try {
+      if (values.From && OPT_OUT_COMMANDS.has(inboundCommand)) {
+        const phoneHash = this.phoneHash(values.From);
+        await this.prisma.messagingSuppression.upsert({
+          where: { phoneHash },
+          create: { phoneHash, reason: "Recipient opt-out", source: "twilio-inbound" },
+          update: { reason: "Recipient opt-out", source: "twilio-inbound" },
         });
+      } else if (values.From && OPT_IN_COMMANDS.has(inboundCommand)) {
+        await this.prisma.messagingSuppression.deleteMany({
+          where: { phoneHash: this.phoneHash(values.From) },
+        });
+      } else {
+        await this.captureCustomerMemoryReply(values);
       }
+
+      if (sid && values.MessageStatus) {
+        const mapped = mapTwilioStatus(values.MessageStatus);
+        if (mapped) {
+          await this.prisma.messageOutbox.updateMany({
+            where: { providerReference: sid },
+            data: {
+              status: mapped,
+              deliveredAt: mapped === "DELIVERED" ? new Date() : undefined,
+              lastError: webhookErrorMessage(values),
+            },
+          });
+        }
+      }
+      return { accepted: true, duplicate: false };
+    } catch (error) {
+      await this.prisma.messagingWebhookEvent.updateMany({
+        where: { id: event.id, processedAt: claimedAt },
+        data: { processedAt: null },
+      });
+      throw error;
     }
-    await this.prisma.messagingWebhookEvent.update({ where: { id: event.id }, data: { processedAt: new Date() } });
-    return { accepted: true, duplicate: false };
+  }
+
+  private async captureCustomerMemoryReply(values: WebhookValues) {
+    const originalMessageSid = values.OriginalRepliedMessageSid?.trim();
+    const from = values.From?.trim();
+    const content = values.Body?.trim();
+    if (!originalMessageSid || !from || !content) return;
+
+    const prompt = await this.prisma.messageOutbox.findFirst({
+      where: {
+        providerReference: originalMessageSid,
+        templateKey: "customer_memory",
+      },
+      select: {
+        businessId: true,
+        recipientUserId: true,
+        toAddress: true,
+        payload: true,
+      },
+    });
+    if (
+      !prompt?.businessId ||
+      !prompt.recipientUserId ||
+      this.phoneHash(prompt.toAddress) !== this.phoneHash(from)
+    ) {
+      return;
+    }
+    const businessId = prompt.businessId;
+    const recipientUserId = prompt.recipientUserId;
+
+    const context = messageContext(prompt.payload);
+    if (!context?.customerId) return;
+    const customer = await this.prisma.customer.findFirst({
+      where: {
+        id: context.customerId,
+        businessId: prompt.businessId,
+      },
+      select: { id: true, name: true },
+    });
+    if (!customer) return;
+
+    if (content.toUpperCase() === "SKIP") {
+      await this.sendInboundAcknowledgement(
+        from,
+        `Okay — no note was saved for ${customer.name}.`,
+      );
+      return;
+    }
+    if (content.length > 1000) {
+      await this.sendInboundAcknowledgement(
+        from,
+        "That note is over 1,000 characters. Please shorten it, then reply to the original customer-note prompt again.",
+      );
+      return;
+    }
+
+    await this.prisma.$transaction(async (tx) => {
+      await tx.customerNote.create({
+        data: {
+          customerId: customer.id,
+          authorId: recipientUserId,
+          content,
+        },
+      });
+      await this.activity.record(
+        {
+          businessId,
+          actorId: recipientUserId,
+          customerId: customer.id,
+          deliveryId: context.deliveryId,
+          type: "CUSTOMER_NOTE_ADDED",
+          title: `Added a note for ${customer.name} from WhatsApp`,
+          metadata: { source: "whatsapp-reply" },
+          awardTrust: false,
+        },
+        tx,
+      );
+    });
+    await this.sendInboundAcknowledgement(
+      from,
+      `Saved to ${customer.name}'s customer memory.`,
+    );
+  }
+
+  private async sendInboundAcknowledgement(phone: string, body: string) {
+    try {
+      await this.whatsapp.sendMessage(phone, body);
+    } catch {
+      // The note or opt-out has already been handled. An acknowledgement
+      // outage must not make Twilio replay that mutation.
+    }
   }
 
   private sendWithProvider(
@@ -592,6 +765,9 @@ export class MessagingService {
     if (templateKey === "owner_digest") {
       return this.whatsapp.sendOwnerDigest(to, variables);
     }
+    if (templateKey === "customer_memory") {
+      return this.whatsapp.sendCustomerMemoryPrompt(to, variables);
+    }
     throw new ServiceUnavailableException(
       `Unsupported WhatsApp message template: ${templateKey}`,
     );
@@ -602,7 +778,7 @@ export class MessagingService {
     templateKey: string;
     payload: unknown;
   }) {
-    const variables = { ...(outbox.payload as Record<string, string>) };
+    const variables = messageVariables(outbox.payload);
     if (outbox.templateKey !== "founding_access") return variables;
     const invitation = await this.prisma.onboardingInvitation.findFirst({
       where: { messageOutboxId: outbox.id },
@@ -616,7 +792,6 @@ export class MessagingService {
       .get<string>("APP_URL", "https://www.useloyalloop.com")
       .replace(/\/$/, "");
     variables["3"] = `${appUrl}/join#invite=${encodeURIComponent(code)}`;
-    delete variables.invitationId;
     return variables;
   }
 
@@ -674,6 +849,42 @@ export class MessagingService {
 
 export function normalizePhone(value: string) {
   return normalizeE164(value);
+}
+
+function twilioConsentCommand(values: WebhookValues) {
+  const raw = values.OptOutType || values.Body || "";
+  return raw
+    .trim()
+    .replace(/^["'“”‘’]+|["'“”‘’.,!?]+$/g, "")
+    .toUpperCase();
+}
+
+function messageVariables(payload: unknown) {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return {};
+  }
+  return Object.fromEntries(
+    Object.entries(payload)
+      .filter(
+        ([key, value]) => /^\d+$/.test(key) && typeof value === "string",
+      )
+      .map(([key, value]) => [key, value as string]),
+  );
+}
+
+function messageContext(payload: unknown): MessageContext | null {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return null;
+  }
+  const context = (payload as Record<string, unknown>)._context;
+  if (!context || typeof context !== "object" || Array.isArray(context)) {
+    return null;
+  }
+  return Object.fromEntries(
+    Object.entries(context)
+      .filter(([, value]) => typeof value === "string")
+      .map(([key, value]) => [key, value as string]),
+  );
 }
 
 export function verifyTwilioSignature(authToken: string, url: string, values: WebhookValues, signature: string) {

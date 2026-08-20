@@ -23,6 +23,8 @@ import type {
 const DEFAULT_SANDBOX_FROM = "whatsapp:+14155238886";
 const DEFAULT_WEBHOOK_URL =
   "https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio";
+const DEFAULT_CUSTOMER_MEMORY_GUIDE_URL =
+  "https://www.useloyalloop.com/generated/customer-memory-reply-guide-v1.png";
 const E164 = /^\+[1-9]\d{7,14}$/;
 
 type TwilioResponse = {
@@ -153,9 +155,9 @@ export class TwilioWhatsAppProvider
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          `Hi ${variables["1"] || "there"} 👋`,
-          `${variables["2"] || "Your business"} has been invited to the Loyal Loop Founding Circle.`,
-          `Start before ${variables["4"] || "the invitation expires"}: ${variables["3"] || ""}`,
+          `Hi ${variables["1"] || "there"}, your Loyal Loop Founding Circle invitation for ${variables["2"] || "your business"} is ready.`,
+          `Complete your business setup before ${variables["4"] || "the invitation expires"}: ${variables["3"] || ""}`,
+          "If now isn’t the right time, no action is needed.",
         ].join("\n"),
       );
     }
@@ -168,13 +170,30 @@ export class TwilioWhatsAppProvider
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          `Good morning, ${variables["1"] || "there"}.`,
-          variables["3"] || "Your business checklist is ready.",
+          `Good morning ${variables["1"] || "there"}. Here is your Loyal Loop update for ${variables["2"] || "your business"}.`,
+          `Today's summary: ${variables["3"] || "Your business checklist is ready."}`,
+          "Open your workspace to review the details and decide what to handle next.",
           variables["4"] || "Open Loyal Loop to review today's work.",
+          "Reply STOP to stop these updates.",
         ].join("\n"),
       );
     }
     return this.sendProductionTemplate(phone, "owner_digest", variables);
+  }
+
+  sendCustomerMemoryPrompt(phone: string, variables: Record<string, string>) {
+    if (this.mode() === "sandbox") {
+      return this.sendSandboxMessage(
+        phone,
+        [
+          "[LOYAL LOOP DEVELOPMENT SANDBOX]",
+          `Hi ${variables["1"] || "there"}, ${variables["2"] || "your customer"}'s delivery is confirmed ✅`,
+          "Press and hold this message, tap Reply, then type one useful customer note. Reply SKIP if there is nothing to save.",
+        ].join("\n"),
+        this.customerMemoryGuideUrl(),
+      );
+    }
+    return this.sendProductionTemplate(phone, "customer_memory", variables);
   }
 
   async sendOtp(phone: string): Promise<WhatsAppOtpStartResult> {
@@ -288,11 +307,18 @@ export class TwilioWhatsAppProvider
 
   private sendProductionTemplate(
     phone: string,
-    template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest",
+    template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest" | "customer_memory",
     variables: Record<string, string>,
   ) {
     this.assertMessagingEnabled();
     this.assertRecipientEligible(phone);
+    const contentVariables = template === "delivery"
+      ? { ...variables, "5": this.templateUrlSuffix(variables["5"]) }
+      : template === "founding_access"
+        ? { ...variables, "3": this.templateUrlSuffix(variables["3"]) }
+        : template === "owner_digest"
+          ? { ...variables, "4": this.templateUrlSuffix(variables["4"]) }
+          : variables;
     return this.sendTwilioMessage({
       From: channelAddress(
         this.config.getOrThrow<string>("TWILIO_WHATSAPP_SENDER"),
@@ -302,7 +328,7 @@ export class TwilioWhatsAppProvider
       ),
       To: channelAddress(phone),
       ContentSid: this.contentSid(template),
-      ContentVariables: JSON.stringify(variables),
+      ContentVariables: JSON.stringify(contentVariables),
       StatusCallback: this.webhookUrl(),
     });
   }
@@ -312,14 +338,31 @@ export class TwilioWhatsAppProvider
     this.assertRecipientEligible(phone);
     const contentSid = this.config.get<string>("TWILIO_RECEIPT_MEDIA_CONTENT_SID") || this.config.get<string>("TWILIO_WHATSAPP_RECEIPT_MEDIA_CONTENT_SID");
     if (!contentSid) throw new ServiceUnavailableException("Approved receipt media WhatsApp Content Template is not configured");
+    const contentVariables = {
+      ...variables,
+      // The approved WhatsApp card keeps the public Loyal Loop origin fixed in
+      // its media and CTA fields. Twilio therefore expects only URL suffixes
+      // for these two variables, while Sandbox copy still uses full URLs.
+      "4": this.templateUrlSuffix(variables["4"]),
+      "5": this.templateUrlSuffix(variables["5"]),
+    };
     return this.sendTwilioMessage({
       From: channelAddress(this.config.getOrThrow<string>("TWILIO_WHATSAPP_SENDER")),
       MessagingServiceSid: this.config.getOrThrow<string>("TWILIO_MESSAGING_SERVICE_SID"),
       To: channelAddress(phone),
       ContentSid: contentSid,
-      ContentVariables: JSON.stringify(variables),
+      ContentVariables: JSON.stringify(contentVariables),
       StatusCallback: this.webhookUrl(),
     });
+  }
+
+  private templateUrlSuffix(value = "") {
+    try {
+      const parsed = new URL(value);
+      return `${parsed.pathname.replace(/^\/+/, "")}${parsed.search}${parsed.hash}`;
+    } catch {
+      return value.replace(/^\/+/, "");
+    }
   }
 
   private async sendTwilioMessage(values: Record<string, string>) {
@@ -580,7 +623,7 @@ export class TwilioWhatsAppProvider
     return problems;
   }
 
-  private contentSid(template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest") {
+  private contentSid(template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest" | "customer_memory") {
     const value = this.optionalContentSid(template);
     if (!value) {
       throw new ServiceUnavailableException(
@@ -591,7 +634,7 @@ export class TwilioWhatsAppProvider
   }
 
   private optionalContentSid(
-    template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest",
+    template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest" | "customer_memory",
   ) {
     return (
       this.config.get<string>(contentSidEnvironmentName(template)) ||
@@ -605,6 +648,13 @@ export class TwilioWhatsAppProvider
     return this.config.get<string>(
       "TWILIO_WHATSAPP_WEBHOOK_URL",
       DEFAULT_WEBHOOK_URL,
+    );
+  }
+
+  private customerMemoryGuideUrl() {
+    return this.config.get<string>(
+      "TWILIO_CUSTOMER_MEMORY_GUIDE_URL",
+      DEFAULT_CUSTOMER_MEMORY_GUIDE_URL,
     );
   }
 
@@ -658,7 +708,7 @@ function channelAddress(value: string) {
 }
 
 function contentSidEnvironmentName(
-  template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest",
+  template: "receipt" | "delivery" | "reminder" | "founding_access" | "owner_digest" | "customer_memory",
 ) {
   return `TWILIO_${template.toUpperCase()}_CONTENT_SID`;
 }
