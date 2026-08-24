@@ -157,23 +157,95 @@ export class PaymentsService {
   ) {
     const proof = await this.prisma.paymentProof.findFirst({
       where: { id: proofId, businessId: auth.businessId },
-      include: { sale: true },
+      include: {
+        sale: {
+          include: {
+            sourceRequest: {
+              select: {
+                customerAccountId: true,
+                id: true,
+                referenceCode: true,
+              },
+            },
+          },
+        },
+      },
     });
     if (!proof) throw new NotFoundException("Payment proof not found");
     if (proof.status !== "SUBMITTED") {
       throw new BadRequestException("Payment proof was already reviewed");
     }
     if (dto.decision === "REJECTED") {
-      return this.prisma.paymentProof.update({
-        where: { id: proof.id },
-        data: {
-          reviewNote: dto.note?.trim(),
-          reviewedAt: new Date(),
-          reviewedById: auth.userId,
-          status: "REJECTED",
-        },
-        include: ownerProofInclude,
+      const rejectionReason = dto.note?.trim();
+      if (!rejectionReason) {
+        throw new BadRequestException(
+          "Tell the customer what needs to be corrected before rejecting this proof",
+        );
+      }
+      const updated = await this.prisma.$transaction(async (tx) => {
+        const updated = await tx.paymentProof.update({
+          where: { id: proof.id },
+          data: {
+            reviewNote: rejectionReason,
+            reviewedAt: new Date(),
+            reviewedById: auth.userId,
+            status: "REJECTED",
+          },
+          include: ownerProofInclude,
+        });
+        await this.activity.record(
+          {
+            businessId: auth.businessId,
+            actorId: auth.userId,
+            customerId: proof.sale.customerId,
+            saleId: proof.saleId,
+            type: "PAYMENT_UPDATED",
+            title: `Rejected transfer proof for ${proof.sale.referenceCode}`,
+            description: rejectionReason,
+            metadata: {
+              paymentProofId: proof.id,
+              paymentProofStatus: "REJECTED",
+            },
+            awardTrust: false,
+          },
+          tx,
+        );
+        const request = proof.sale.sourceRequest;
+        if (request?.customerAccountId) {
+          await tx.customerOrderNotice.create({
+            data: {
+              customerAccountId: request.customerAccountId,
+              orderRequestId: request.id,
+              type: "PAYMENT_UPDATED",
+              message: `${request.referenceCode}: your transfer proof was not accepted. ${rejectionReason}`,
+              dedupeKey: `${request.id}:payment-proof:${proof.id}:rejected`,
+              actionRequired: true,
+            },
+          });
+        }
+        return updated;
       });
+      const requestId = proof.sale.sourceRequest?.id;
+      if (!requestId) return { ...updated, rejectionDelivery: null };
+      try {
+        const rejectionDelivery = await this.messaging.enqueuePaymentProofRejected(
+          requestId,
+          proof.id,
+          rejectionReason,
+        );
+        return { ...updated, rejectionDelivery };
+      } catch (error) {
+        return {
+          ...updated,
+          rejectionDelivery: {
+            error:
+              error instanceof Error
+                ? error.message
+                : "The customer update could not be sent",
+            status: "FAILED",
+          },
+        };
+      }
     }
     const nextPaid = proof.sale.amountPaid.add(proof.amount);
     if (nextPaid.greaterThan(proof.sale.total)) {

@@ -41,6 +41,7 @@ const deliveryInclude = {
           amount: true,
           id: true,
           reference: true,
+          reviewNote: true,
           status: true,
           submittedAt: true,
         },
@@ -111,17 +112,32 @@ export class DeliveryService {
         `Delivery cannot move from ${delivery.status} to ${dto.status}`,
       );
     }
+    const courierService = updatedOptionalText(dto.courierService, delivery.courierService);
+    const courierName = updatedOptionalText(dto.courierName, delivery.courierName);
+    const courierPhone = updatedOptionalText(dto.courierPhone, delivery.courierPhone);
+    if (dto.status === "IN_TRANSIT") {
+      const missing = [
+        !courierService && "delivery service",
+        !courierName && "rider name",
+        !courierPhone && "rider phone",
+      ].filter(Boolean);
+      if (missing.length) {
+        throw new BadRequestException(
+          `Add the ${missing.join(", ")} before marking this order in transit`,
+        );
+      }
+    }
     const updated = await this.prisma.$transaction(async (tx) => {
       const updated = await tx.delivery.update({
         where: { id: deliveryId },
         data: {
           status: dto.status,
-          trackingUrl: dto.trackingUrl,
-          trackingCode: dto.trackingCode?.trim(),
-          courier: dto.courier?.trim(),
-          courierService: dto.courierService?.trim(),
-          courierName: dto.courierName?.trim(),
-          courierPhone: dto.courierPhone?.trim(),
+          trackingUrl: optionalText(dto.trackingUrl),
+          trackingCode: optionalText(dto.trackingCode),
+          courier: optionalText(dto.courier),
+          courierService: optionalText(dto.courierService),
+          courierName: optionalText(dto.courierName),
+          courierPhone: optionalText(dto.courierPhone),
           address: dto.address?.trim(),
           googlePlaceId: dto.googlePlaceId?.trim(),
           latitude: dto.latitude,
@@ -452,6 +468,7 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
         amount: unknown;
         id: string;
         reference: string | null;
+        reviewNote: string | null;
         status: string;
         submittedAt: Date;
       }>;
@@ -533,6 +550,7 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
         amount: proof.amount,
         id: proof.id,
         reference: proof.reference,
+        rejectionReason: proof.status === "REJECTED" ? proof.reviewNote : null,
         status: proof.status,
         submittedAt: proof.submittedAt,
       })),
@@ -548,4 +566,16 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
     trackingCode: value.trackingCode,
     trackingUrl: value.trackingUrl,
   };
+}
+
+function optionalText(value: string | undefined) {
+  if (value === undefined) return undefined;
+  return value.trim() || null;
+}
+
+function updatedOptionalText(
+  next: string | undefined,
+  current: string | null,
+) {
+  return next === undefined ? current?.trim() || null : next.trim() || null;
 }

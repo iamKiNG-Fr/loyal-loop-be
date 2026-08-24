@@ -94,3 +94,109 @@ describe("PaymentsService converted-request access", () => {
     );
   });
 });
+
+describe("PaymentsService payment-proof rejection", () => {
+  const auth = { businessId: "business-1", userId: "owner-1" };
+
+  it("requires a customer-safe reason before rejecting a proof", async () => {
+    const prisma = {
+      paymentProof: {
+        findFirst: vi.fn().mockResolvedValue({
+          id: "proof-1",
+          status: "SUBMITTED",
+          sale: { sourceRequest: null },
+        }),
+      },
+      $transaction: vi.fn(),
+    };
+    const service = new PaymentsService(
+      prisma as unknown as PrismaService,
+      {} as MediaService,
+      {} as ActivityService,
+      {} as MessagingService,
+      {} as never,
+    );
+
+    await expect(
+      service.reviewProof(auth, "proof-1", { decision: "REJECTED", note: "   " }),
+    ).rejects.toThrow("Tell the customer what needs to be corrected");
+    expect(prisma.$transaction).not.toHaveBeenCalled();
+  });
+
+  it("records the reason, creates a customer notice, and queues a WhatsApp update", async () => {
+    const proof = {
+      amount: new Prisma.Decimal(45_000),
+      id: "proof-1",
+      reference: "BANK-REF",
+      saleId: "sale-1",
+      status: "SUBMITTED",
+      sale: {
+        amountPaid: new Prisma.Decimal(0),
+        customerId: "customer-1",
+        referenceCode: "LL-ORDER-1",
+        total: new Prisma.Decimal(45_000),
+        sourceRequest: {
+          customerAccountId: "account-1",
+          id: "request-1",
+          referenceCode: "REQ-ORDER-1",
+        },
+      },
+    };
+    const updated = { ...proof, reviewNote: "The amount does not match", status: "REJECTED" };
+    const tx = {
+      customerOrderNotice: { create: vi.fn().mockResolvedValue({ id: "notice-1" }) },
+      paymentProof: { update: vi.fn().mockResolvedValue(updated) },
+    };
+    const prisma = {
+      paymentProof: { findFirst: vi.fn().mockResolvedValue(proof) },
+      $transaction: vi.fn((callback: (client: typeof tx) => unknown) => callback(tx)),
+    };
+    const activity = { record: vi.fn().mockResolvedValue(undefined) };
+    const messaging = {
+      enqueuePaymentProofRejected: vi.fn().mockResolvedValue({ status: "PENDING" }),
+    };
+    const service = new PaymentsService(
+      prisma as unknown as PrismaService,
+      {} as MediaService,
+      activity as unknown as ActivityService,
+      messaging as unknown as MessagingService,
+      {} as never,
+    );
+
+    await expect(
+      service.reviewProof(auth, "proof-1", {
+        decision: "REJECTED",
+        note: "  The amount does not match  ",
+      }),
+    ).resolves.toMatchObject({
+      rejectionDelivery: { status: "PENDING" },
+      reviewNote: "The amount does not match",
+      status: "REJECTED",
+    });
+    expect(tx.paymentProof.update).toHaveBeenCalledWith(expect.objectContaining({
+      data: expect.objectContaining({ reviewNote: "The amount does not match", status: "REJECTED" }),
+    }));
+    expect(tx.customerOrderNotice.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        actionRequired: true,
+        customerAccountId: "account-1",
+        message: expect.stringContaining("The amount does not match"),
+        orderRequestId: "request-1",
+        type: "PAYMENT_UPDATED",
+      }),
+    });
+    expect(activity.record).toHaveBeenCalledWith(
+      expect.objectContaining({
+        customerId: "customer-1",
+        description: "The amount does not match",
+        type: "PAYMENT_UPDATED",
+      }),
+      tx,
+    );
+    expect(messaging.enqueuePaymentProofRejected).toHaveBeenCalledWith(
+      "request-1",
+      "proof-1",
+      "The amount does not match",
+    );
+  });
+});

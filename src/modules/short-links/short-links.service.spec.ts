@@ -29,7 +29,7 @@ describe("ShortLinksService", () => {
       code: "AbCd2345",
       expiresAt: null,
       kind: "PRODUCT",
-      product: { id: "product-1" },
+      product: { id: "product-1", status: "ACTIVE", visibility: "PUBLIC" },
       receiptId: null,
       revokedAt: null,
       source: "pinterest",
@@ -40,6 +40,27 @@ describe("ShortLinksService", () => {
       path: "/shop/demo?product=product-1",
     });
     await expect(service.resolve("not-valid")).rejects.toBeInstanceOf(NotFoundException);
+  });
+
+  it.each([
+    { status: "ARCHIVED", visibility: "PRIVATE" },
+    { status: "ACTIVE", visibility: "PRIVATE" },
+  ])("stops an existing product link once the listing is no longer public", async (product) => {
+    const prisma = fixturePrisma();
+    prisma.shortLink.findUnique.mockResolvedValue({
+      business: { publicCardId: "LL-DEMO22", slug: "demo" },
+      campaign: "product_share",
+      code: "AbCd2345",
+      expiresAt: null,
+      kind: "PRODUCT",
+      product: { id: "product-1", ...product },
+      receiptId: null,
+      revokedAt: null,
+      source: "copy",
+    });
+    const service = new ShortLinksService(prisma as never);
+
+    await expect(service.resolve("AbCd2345")).rejects.toThrow("Short link target not found");
   });
 });
 

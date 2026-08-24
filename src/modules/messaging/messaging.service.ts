@@ -271,7 +271,13 @@ export class MessagingService {
       phone: delivery.customer.phone,
       purpose: "DELIVERY",
       templateKey: "delivery",
-      variables: { "1": delivery.customer.name, "2": delivery.business.name, "3": delivery.sale.referenceCode, "4": delivery.status.replace(/_/g, " ").toLowerCase(), "5": `${appUrl}/delivery/${generated.token}` },
+      variables: {
+        "1": delivery.customer.name,
+        "2": delivery.business.name,
+        "3": delivery.sale.referenceCode,
+        "4": deliveryStatusMessage(delivery),
+        "5": `${appUrl}/delivery/${generated.token}`,
+      },
       idempotencyKey: `delivery:${delivery.id}:${delivery.updatedAt.getTime()}`,
     });
   }
@@ -304,6 +310,40 @@ export class MessagingService {
         "5": `${appUrl}/request/${token}`,
       },
       idempotencyKey: `order-request:${request.id}:${request.updatedAt.getTime()}`,
+    });
+  }
+
+  async enqueuePaymentProofRejected(
+    orderRequestId: string,
+    paymentProofId: string,
+    rejectionReason: string,
+  ) {
+    const request = await this.prisma.orderRequest.findUnique({
+      where: { id: orderRequestId },
+      include: { business: true },
+    });
+    if (!request) throw new BadRequestException("Order request is not available");
+    const generated = createOpaqueToken();
+    await this.prisma.orderRequestShareToken.create({
+      data: { orderRequestId: request.id, tokenHash: generated.tokenHash },
+    });
+    const appUrl = this.config
+      .get<string>("APP_URL", "https://www.useloyalloop.com")
+      .replace(/\/$/, "");
+    return this.enqueueUtility({
+      businessId: request.businessId,
+      customerAccountId: request.customerAccountId ?? undefined,
+      phone: request.customerPhone,
+      purpose: "DELIVERY",
+      templateKey: "order_request",
+      variables: {
+        "1": request.customerName,
+        "2": request.business.name,
+        "3": request.referenceCode,
+        "4": asSentence(`Your transfer proof was not accepted: ${rejectionReason}`),
+        "5": `${appUrl}/request/${generated.token}`,
+      },
+      idempotencyKey: `payment-proof-rejected:${paymentProofId}`,
     });
   }
 
@@ -911,11 +951,41 @@ function mapTwilioStatus(status: string) {
 }
 
 function orderRequestMessage(status: string, cancellationReason: string | null) {
-  if (status === "CANCELED") return cancellationReason || "This request could not go ahead this time";
-  if (status === "NEEDS_CHANGES") return "One quick thing: the shop needs a detail from you before confirming";
-  if (status === "ACCEPTED") return "Good news—the shop accepted your request and is checking the final details";
+  if (status === "CANCELED") return asSentence(cancellationReason || "This request could not go ahead this time");
+  if (status === "NEEDS_CHANGES") return "One quick thing: the shop needs a detail from you before confirming.";
+  if (status === "ACCEPTED") return "Good news—the shop accepted your request and is checking the final details.";
   if (status === "CONVERTED") return "You’re all set—your confirmed order journey is ready ✨";
-  return "Request received. The shop is taking a look and will confirm the details before you pay";
+  return "Request received. The shop is taking a look and will confirm the details before you pay.";
+}
+
+function deliveryStatusMessage(delivery: {
+  courierName: string | null;
+  courierPhone: string | null;
+  courierService: string | null;
+  status: string;
+}) {
+  if (delivery.status === "IN_TRANSIT") {
+    const service = delivery.courierService || "the shop's delivery team";
+    const rider = [delivery.courierName, delivery.courierPhone]
+      .filter(Boolean)
+      .join(", ");
+    return `In transit with ${service}${rider ? `. Rider: ${rider}` : ""}.`;
+  }
+  if (delivery.status === "DELIVERED") {
+    return "Delivered. Please confirm when it reaches you.";
+  }
+  if (delivery.status === "CONFIRMED") return "Received and confirmed—thank you.";
+  if (delivery.status === "READY_FOR_PICKUP") return "Ready for pickup.";
+  if (delivery.status === "PREPARING") return "Being prepared.";
+  if (delivery.status === "AWAITING_PAYMENT") return "Waiting for payment.";
+  if (delivery.status === "ISSUE") return "Paused because it needs attention.";
+  if (delivery.status === "CANCELED") return "Canceled.";
+  return asSentence(delivery.status.replace(/_/g, " ").toLowerCase());
+}
+
+function asSentence(value: string) {
+  const clean = value.trim();
+  return /[.!?…]$/.test(clean) ? clean : `${clean}.`;
 }
 
 function webhookErrorMessage(values: WebhookValues) {

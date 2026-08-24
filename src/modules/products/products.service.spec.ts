@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { assessProductTextModeration, mediaAssetCanPublish } from "./products.service";
+import { describe, expect, it, vi } from "vitest";
+import { assessProductTextModeration, mediaAssetCanPublish, ProductsService } from "./products.service";
 
 const approvedGeneralAsset = {
   contentRating: "GENERAL",
@@ -51,6 +51,25 @@ describe("product text publishing safety", () => {
       categories: ["Explicit sexual content"],
       decision: "reject",
       rating: "PROHIBITED",
+    });
+  });
+});
+
+describe("product removal", () => {
+  it("archives and makes the listing private instead of deleting historical relations", async () => {
+    const prisma = {
+      product: {
+        findFirst: vi.fn().mockResolvedValue({ businessId: "business-1", id: "product-1", variants: [] }),
+        update: vi.fn().mockResolvedValue({ id: "product-1", status: "ARCHIVED", visibility: "PRIVATE" }),
+      },
+    };
+    const service = new ProductsService(prisma as never, {} as never);
+
+    await service.archive({ businessId: "business-1" } as never, "product-1");
+
+    expect(prisma.product.update).toHaveBeenCalledWith({
+      where: { id: "product-1" },
+      data: { status: "ARCHIVED", visibility: "PRIVATE" },
     });
   });
 });

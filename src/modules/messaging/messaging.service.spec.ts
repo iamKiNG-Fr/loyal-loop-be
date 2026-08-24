@@ -92,6 +92,90 @@ describe("WhatsApp consent", () => {
   });
 });
 
+describe("Commerce journey WhatsApp payloads", () => {
+  it("uses an opaque request journey link and the customer-facing rejection reason", async () => {
+    const outboxUpsert = vi.fn().mockResolvedValue({ id: "outbox-1", status: "SUPPRESSED" });
+    const shareTokenCreate = vi.fn().mockResolvedValue({ id: "token-1" });
+    const service = new MessagingService(
+      {
+        messageOutbox: { upsert: outboxUpsert },
+        messagingConsent: { findUnique: vi.fn().mockResolvedValue(null) },
+        messagingSuppression: { findUnique: vi.fn().mockResolvedValue(null) },
+        orderRequest: {
+          findUnique: vi.fn().mockResolvedValue({
+            business: { name: "King's Store" },
+            businessId: "business-1",
+            customerAccountId: "account-1",
+            customerName: "Ada",
+            customerPhone: "+2348012345678",
+            id: "request-1",
+            referenceCode: "REQ-PUBLIC-CODE",
+          }),
+        },
+        orderRequestShareToken: { create: shareTokenCreate },
+      } as never,
+      utilityConfig() as never,
+      {} as never,
+      {} as never,
+    );
+
+    await service.enqueuePaymentProofRejected(
+      "request-1",
+      "proof-1",
+      "The amount does not match the receipt",
+    );
+
+    expect(shareTokenCreate).toHaveBeenCalledWith({
+      data: { orderRequestId: "request-1", tokenHash: expect.any(String) },
+    });
+    const create = outboxUpsert.mock.calls[0]?.[0]?.create;
+    expect(create.payload["4"]).toContain("The amount does not match the receipt");
+    expect(create.payload["5"]).toMatch(/^https:\/\/www\.useloyalloop\.com\/request\/[A-Za-z0-9_-]+$/);
+    expect(create.payload["5"]).not.toContain("REQ-PUBLIC-CODE");
+    expect(create.idempotencyKey).toBe("payment-proof-rejected:proof-1");
+  });
+
+  it("includes the delivery service and rider details in an in-transit update", async () => {
+    const outboxUpsert = vi.fn().mockResolvedValue({ id: "outbox-2", status: "SUPPRESSED" });
+    const service = new MessagingService(
+      {
+        delivery: {
+          findFirst: vi.fn().mockResolvedValue({
+            business: { name: "King's Store" },
+            businessId: "business-1",
+            courierName: "Tobi",
+            courierPhone: "+2348012345678",
+            courierService: "Shop delivery",
+            customer: { accountId: "account-1", name: "Ada", phone: "+2348099999999" },
+            id: "delivery-1",
+            sale: { referenceCode: "LL-ORDER-1" },
+            status: "IN_TRANSIT",
+            updatedAt: new Date("2026-08-24T08:00:00.000Z"),
+          }),
+        },
+        deliveryShareToken: { create: vi.fn().mockResolvedValue({ id: "token-2" }) },
+        messageOutbox: { upsert: outboxUpsert },
+        messagingConsent: { findUnique: vi.fn().mockResolvedValue(null) },
+        messagingSuppression: { findUnique: vi.fn().mockResolvedValue(null) },
+      } as never,
+      utilityConfig() as never,
+      {} as never,
+      {} as never,
+    );
+
+    await service.enqueueDelivery(
+      { businessId: "business-1", userId: "owner-1" },
+      "delivery-1",
+    );
+
+    const create = outboxUpsert.mock.calls[0]?.[0]?.create;
+    expect(create.payload["4"]).toBe(
+      "In transit with Shop delivery. Rider: Tobi, +2348012345678.",
+    );
+    expect(create.payload["5"]).toMatch(/^https:\/\/www\.useloyalloop\.com\/delivery\/[A-Za-z0-9_-]+$/);
+  });
+});
+
 describe("WhatsApp inbound replies", () => {
   it("saves a quoted customer-memory reply against the matching customer", async () => {
     const customerNoteCreate = vi.fn().mockResolvedValue({ id: "note-1" });
@@ -235,6 +319,16 @@ function webhookConfig() {
         return "https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio";
       }
       if (key === "TWILIO_AUTH_TOKEN") return "private-test-token";
+      if (key === "SESSION_HASH_SECRET") return "test-session-secret";
+      return fallback;
+    },
+  };
+}
+
+function utilityConfig() {
+  return {
+    get(key: string, fallback?: string) {
+      if (key === "APP_URL") return "https://www.useloyalloop.com";
       if (key === "SESSION_HASH_SECRET") return "test-session-secret";
       return fallback;
     },

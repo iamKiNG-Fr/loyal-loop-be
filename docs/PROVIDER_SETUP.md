@@ -293,6 +293,12 @@ and plain-language update. The outbox retains the complete opaque request or
 delivery URL; production sending passes only its `request/...` or `delivery/...`
 suffix as variable 5 so one approved template can serve both journey types.
 
+The application can change the values inserted into `{{1}}` through `{{5}}`,
+but it cannot change this template's line breaks, emphasis, punctuation, or
+button label. Any visual copy or formatting revision must be created or edited
+in Twilio Content Template Builder and approved by WhatsApp before its new
+Content SID is activated.
+
 The optional owner customer-memory template is a Media template named
 `loyal_loop_customer_memory_prompt_v1`:
 
@@ -397,7 +403,8 @@ Official references: https://www.twilio.com/docs/verify/whatsapp,
 https://www.twilio.com/docs/whatsapp/self-sign-up, and
 https://www.twilio.com/docs/content/content-api-resources
 
-Recommended production copy:
+Possible copy for a future provider-approved template revision (not the copy
+currently sent by the configured Content SIDs):
 
 - Receipt media template: `Hey {{1}} 👋 Payment confirmed with {{2}}. Your receipt {{3}} is ready. Open the live details: {{4}}` with `{{5}}` as the media URL.
 - Delivery/order template: `Quick order update 📦 {{3}} is now {{4}} with {{2}}. Follow it here: {{5}}`.

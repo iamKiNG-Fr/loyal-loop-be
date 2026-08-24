@@ -66,7 +66,7 @@ export class ShortLinksService {
       where: { code },
       include: {
         business: { select: { publicCardId: true, slug: true } },
-        product: { select: { id: true } },
+        product: { select: { id: true, status: true, visibility: true } },
       },
     });
     if (!link || link.revokedAt || (link.expiresAt && link.expiresAt <= new Date())) {
@@ -74,7 +74,9 @@ export class ShortLinksService {
     }
     const path = link.kind === "SHOP"
       ? `/shop/${encodeURIComponent(link.business.slug)}`
-      : link.kind === "PRODUCT" && link.product
+      : link.kind === "PRODUCT"
+        && link.product?.status === "ACTIVE"
+        && link.product.visibility === "PUBLIC"
         ? `/shop/${encodeURIComponent(link.business.slug)}?product=${encodeURIComponent(link.product.id)}`
         : link.kind === "RECEIPT" && link.receiptId
           ? `/receipt/${encodeURIComponent(link.code)}`
