@@ -146,6 +146,15 @@ export class ProductsController {
       .then((data) => ok(data, "Product media updated"));
   }
 
+  @Post(":id/restore")
+  @Capabilities(BusinessCapability.CATALOG_WRITE)
+  @Roles("OWNER", "MANAGER")
+  restore(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
+    return this.products
+      .restore(auth, id)
+      .then((data) => ok(data, "Product restored"));
+  }
+
   @Delete(":id")
   @Capabilities(BusinessCapability.CATALOG_WRITE)
   @Roles("OWNER", "MANAGER")

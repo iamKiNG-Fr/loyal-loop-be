@@ -345,6 +345,9 @@ export class ProductsService {
     dto: UpdateProductDto,
   ) {
     const product = await this.assertOwned(auth.businessId, productId);
+    if (product.status === "ARCHIVED" && dto.status && dto.status !== "ARCHIVED") {
+      return this.restore(auth, productId);
+    }
     if (dto.variants || dto.stockCount !== undefined) {
       this.validateVariantStock(dto.stockCount ?? product.stockCount, dto.variants ?? product.variants);
     }
@@ -360,8 +363,10 @@ export class ProductsService {
       variants: dto.variants ?? product.variants,
     });
     const safetyHold = contentSafety.decision !== "approve";
-    const nextStatus = safetyHold ? "DRAFT" : dto.status ?? product.status;
-    const nextVisibility = safetyHold ? "PRIVATE" : dto.visibility ?? product.visibility;
+    const archiving = product.status !== "ARCHIVED" && dto.status === "ARCHIVED";
+    const remainsArchived = product.status === "ARCHIVED" || archiving;
+    const nextStatus = remainsArchived ? "ARCHIVED" : safetyHold ? "DRAFT" : dto.status ?? product.status;
+    const nextVisibility = remainsArchived ? "PRIVATE" : safetyHold ? "PRIVATE" : dto.visibility ?? product.visibility;
     if (nextStatus === "ACTIVE" && nextVisibility === "PUBLIC") {
       await this.assertProductMediaReadyForPublic(auth.businessId, product.id);
     }
@@ -378,9 +383,19 @@ export class ProductsService {
           category: dto.category === undefined ? undefined : dto.category.trim() || null,
           categoryId: hasCollectionUpdate ? collection?.id ?? null : undefined,
           attributes: dto.attributes as Prisma.InputJsonValue | undefined,
-          status: safetyHold ? "DRAFT" : dto.status,
+          status: remainsArchived ? "ARCHIVED" : safetyHold ? "DRAFT" : dto.status,
           placement: dto.placement,
-          visibility: safetyHold ? "PRIVATE" : dto.visibility,
+          visibility: remainsArchived ? "PRIVATE" : safetyHold ? "PRIVATE" : dto.visibility,
+          archivedFromStatus: archiving
+            ? safetyHold ? "DRAFT" : product.status
+            : product.status === "ARCHIVED" && safetyHold
+              ? "DRAFT"
+              : undefined,
+          archivedFromVisibility: archiving
+            ? safetyHold ? "PRIVATE" : product.visibility
+            : product.status === "ARCHIVED" && safetyHold
+              ? "PRIVATE"
+              : undefined,
           contentRating: contentSafety.rating,
           stockCount: dto.stockCount,
           launchAt: dto.launchAt === null ? null : dto.launchAt ? new Date(dto.launchAt) : undefined,
@@ -425,7 +440,7 @@ export class ProductsService {
     productId: string,
     dto: ReplaceProductImagesDto,
   ) {
-    await this.assertOwned(auth.businessId, productId);
+    const product = await this.assertOwned(auth.businessId, productId);
     const assets = await this.validateAssets(auth.businessId, dto.assetIds);
     await this.prisma.$transaction(async (tx) => {
       await tx.productImage.deleteMany({ where: { productId } });
@@ -450,7 +465,12 @@ export class ProductsService {
         });
       }
       if (assets.some(asset => mediaAssetNeedsReview(asset))) {
-        await tx.product.update({ where: { id: productId }, data: { status: "DRAFT", visibility: "PRIVATE" } });
+        await tx.product.update({
+          where: { id: productId },
+          data: product.status === "ARCHIVED"
+            ? { archivedFromStatus: "DRAFT", archivedFromVisibility: "PRIVATE" }
+            : { status: "DRAFT", visibility: "PRIVATE" },
+        });
       }
     });
     return this.get(auth, productId);
@@ -461,7 +481,7 @@ export class ProductsService {
     productId: string,
     dto: ReplaceProductMediaDto,
   ) {
-    await this.assertOwned(auth.businessId, productId);
+    const product = await this.assertOwned(auth.businessId, productId);
     const media = await this.validateMedia(auth.businessId, dto.media);
     await this.prisma.$transaction(async (tx) => {
       await tx.productMedia.deleteMany({ where: { productId } });
@@ -493,17 +513,54 @@ export class ProductsService {
         }
       }
       if (media.some(item => mediaAssetNeedsReview(item.asset) || mediaAssetNeedsReview(item.posterAsset))) {
-        await tx.product.update({ where: { id: productId }, data: { status: "DRAFT", visibility: "PRIVATE" } });
+        await tx.product.update({
+          where: { id: productId },
+          data: product.status === "ARCHIVED"
+            ? { archivedFromStatus: "DRAFT", archivedFromVisibility: "PRIVATE" }
+            : { status: "DRAFT", visibility: "PRIVATE" },
+        });
       }
     });
     return this.get(auth, productId);
   }
 
   async archive(auth: OwnerAuthContext, productId: string) {
-    await this.assertOwned(auth.businessId, productId);
+    const product = await this.assertOwned(auth.businessId, productId);
     return this.prisma.product.update({
       where: { id: productId },
-      data: { status: "ARCHIVED", visibility: "PRIVATE" },
+      data: product.status === "ARCHIVED"
+        ? { status: "ARCHIVED", visibility: "PRIVATE" }
+        : {
+            archivedFromStatus: product.status,
+            archivedFromVisibility: product.visibility,
+            status: "ARCHIVED",
+            visibility: "PRIVATE",
+          },
+    });
+  }
+
+  async restore(auth: OwnerAuthContext, productId: string) {
+    const product = await this.assertOwned(auth.businessId, productId);
+    if (product.status !== "ARCHIVED") {
+      throw new BadRequestException("Product is not archived");
+    }
+
+    const restoredStatus = product.archivedFromStatus && product.archivedFromStatus !== "ARCHIVED"
+      ? product.archivedFromStatus
+      : "DRAFT";
+    const restoredVisibility = product.archivedFromVisibility ?? "PRIVATE";
+    if (restoredStatus === "ACTIVE" && restoredVisibility === "PUBLIC") {
+      await this.assertProductMediaReadyForPublic(auth.businessId, product.id);
+    }
+
+    return this.prisma.product.update({
+      where: { id: product.id },
+      data: {
+        archivedFromStatus: null,
+        archivedFromVisibility: null,
+        status: restoredStatus,
+        visibility: restoredVisibility,
+      },
     });
   }
 

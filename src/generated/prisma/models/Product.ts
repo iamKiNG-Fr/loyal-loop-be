@@ -49,6 +49,8 @@ export type ProductMinAggregateOutputType = {
   status: $Enums.ProductStatus | null
   placement: $Enums.ProductPlacement | null
   visibility: $Enums.ProductVisibility | null
+  archivedFromStatus: $Enums.ProductStatus | null
+  archivedFromVisibility: $Enums.ProductVisibility | null
   contentRating: $Enums.MediaContentRating | null
   stockCount: number | null
   launchAt: Date | null
@@ -69,6 +71,8 @@ export type ProductMaxAggregateOutputType = {
   status: $Enums.ProductStatus | null
   placement: $Enums.ProductPlacement | null
   visibility: $Enums.ProductVisibility | null
+  archivedFromStatus: $Enums.ProductStatus | null
+  archivedFromVisibility: $Enums.ProductVisibility | null
   contentRating: $Enums.MediaContentRating | null
   stockCount: number | null
   launchAt: Date | null
@@ -90,6 +94,8 @@ export type ProductCountAggregateOutputType = {
   status: number
   placement: number
   visibility: number
+  archivedFromStatus: number
+  archivedFromVisibility: number
   contentRating: number
   stockCount: number
   launchAt: number
@@ -122,6 +128,8 @@ export type ProductMinAggregateInputType = {
   status?: true
   placement?: true
   visibility?: true
+  archivedFromStatus?: true
+  archivedFromVisibility?: true
   contentRating?: true
   stockCount?: true
   launchAt?: true
@@ -142,6 +150,8 @@ export type ProductMaxAggregateInputType = {
   status?: true
   placement?: true
   visibility?: true
+  archivedFromStatus?: true
+  archivedFromVisibility?: true
   contentRating?: true
   stockCount?: true
   launchAt?: true
@@ -163,6 +173,8 @@ export type ProductCountAggregateInputType = {
   status?: true
   placement?: true
   visibility?: true
+  archivedFromStatus?: true
+  archivedFromVisibility?: true
   contentRating?: true
   stockCount?: true
   launchAt?: true
@@ -271,6 +283,8 @@ export type ProductGroupByOutputType = {
   status: $Enums.ProductStatus
   placement: $Enums.ProductPlacement
   visibility: $Enums.ProductVisibility
+  archivedFromStatus: $Enums.ProductStatus | null
+  archivedFromVisibility: $Enums.ProductVisibility | null
   contentRating: $Enums.MediaContentRating
   stockCount: number | null
   launchAt: Date | null
@@ -315,6 +329,8 @@ export type ProductWhereInput = {
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFilter<"Product"> | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFilter<"Product"> | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.EnumProductStatusNullableFilter<"Product"> | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.EnumProductVisibilityNullableFilter<"Product"> | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFilter<"Product"> | $Enums.MediaContentRating
   stockCount?: Prisma.IntNullableFilter<"Product"> | number | null
   launchAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
@@ -352,6 +368,8 @@ export type ProductOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   placement?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  archivedFromStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivedFromVisibility?: Prisma.SortOrderInput | Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrderInput | Prisma.SortOrder
   launchAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -393,6 +411,8 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFilter<"Product"> | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFilter<"Product"> | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.EnumProductStatusNullableFilter<"Product"> | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.EnumProductVisibilityNullableFilter<"Product"> | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFilter<"Product"> | $Enums.MediaContentRating
   stockCount?: Prisma.IntNullableFilter<"Product"> | number | null
   launchAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
@@ -430,6 +450,8 @@ export type ProductOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   placement?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  archivedFromStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  archivedFromVisibility?: Prisma.SortOrderInput | Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrderInput | Prisma.SortOrder
   launchAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -459,6 +481,8 @@ export type ProductScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumProductStatusWithAggregatesFilter<"Product"> | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementWithAggregatesFilter<"Product"> | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityWithAggregatesFilter<"Product"> | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.EnumProductStatusNullableWithAggregatesFilter<"Product"> | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.EnumProductVisibilityNullableWithAggregatesFilter<"Product"> | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingWithAggregatesFilter<"Product"> | $Enums.MediaContentRating
   stockCount?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
   launchAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
@@ -478,6 +502,8 @@ export type ProductCreateInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -515,6 +541,8 @@ export type ProductUncheckedCreateInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -548,6 +576,8 @@ export type ProductUpdateInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -585,6 +615,8 @@ export type ProductUncheckedUpdateInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -620,6 +652,8 @@ export type ProductCreateManyInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -639,6 +673,8 @@ export type ProductUpdateManyMutationInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -660,6 +696,8 @@ export type ProductUncheckedUpdateManyInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -701,6 +739,8 @@ export type ProductCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   placement?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  archivedFromStatus?: Prisma.SortOrder
+  archivedFromVisibility?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrder
   launchAt?: Prisma.SortOrder
@@ -726,6 +766,8 @@ export type ProductMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   placement?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  archivedFromStatus?: Prisma.SortOrder
+  archivedFromVisibility?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrder
   launchAt?: Prisma.SortOrder
@@ -746,6 +788,8 @@ export type ProductMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   placement?: Prisma.SortOrder
   visibility?: Prisma.SortOrder
+  archivedFromStatus?: Prisma.SortOrder
+  archivedFromVisibility?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   stockCount?: Prisma.SortOrder
   launchAt?: Prisma.SortOrder
@@ -881,6 +925,14 @@ export type EnumProductPlacementFieldUpdateOperationsInput = {
 
 export type EnumProductVisibilityFieldUpdateOperationsInput = {
   set?: $Enums.ProductVisibility
+}
+
+export type NullableEnumProductStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ProductStatus | null
+}
+
+export type NullableEnumProductVisibilityFieldUpdateOperationsInput = {
+  set?: $Enums.ProductVisibility | null
 }
 
 export type ProductCreateNestedOneWithoutImagesInput = {
@@ -1087,6 +1139,8 @@ export type ProductCreateWithoutLaunchBusinessesInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1123,6 +1177,8 @@ export type ProductUncheckedCreateWithoutLaunchBusinessesInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1160,6 +1216,8 @@ export type ProductCreateWithoutBusinessInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1195,6 +1253,8 @@ export type ProductUncheckedCreateWithoutBusinessInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1249,6 +1309,8 @@ export type ProductUpdateWithoutLaunchBusinessesInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1285,6 +1347,8 @@ export type ProductUncheckedUpdateWithoutLaunchBusinessesInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1338,6 +1402,8 @@ export type ProductScalarWhereInput = {
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFilter<"Product"> | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFilter<"Product"> | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.EnumProductStatusNullableFilter<"Product"> | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.EnumProductVisibilityNullableFilter<"Product"> | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFilter<"Product"> | $Enums.MediaContentRating
   stockCount?: Prisma.IntNullableFilter<"Product"> | number | null
   launchAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
@@ -1357,6 +1423,8 @@ export type ProductCreateWithoutBusinessCategoryInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1392,6 +1460,8 @@ export type ProductUncheckedCreateWithoutBusinessCategoryInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1451,6 +1521,8 @@ export type ProductCreateWithoutImagesInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1487,6 +1559,8 @@ export type ProductUncheckedCreateWithoutImagesInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1535,6 +1609,8 @@ export type ProductUpdateWithoutImagesInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1571,6 +1647,8 @@ export type ProductUncheckedUpdateWithoutImagesInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1603,6 +1681,8 @@ export type ProductCreateWithoutVariantsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1639,6 +1719,8 @@ export type ProductUncheckedCreateWithoutVariantsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1687,6 +1769,8 @@ export type ProductUpdateWithoutVariantsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1723,6 +1807,8 @@ export type ProductUncheckedUpdateWithoutVariantsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1755,6 +1841,8 @@ export type ProductCreateWithoutMediaInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1791,6 +1879,8 @@ export type ProductUncheckedCreateWithoutMediaInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1839,6 +1929,8 @@ export type ProductUpdateWithoutMediaInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1875,6 +1967,8 @@ export type ProductUncheckedUpdateWithoutMediaInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1907,6 +2001,8 @@ export type ProductCreateWithoutShowcaseHotspotsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1943,6 +2039,8 @@ export type ProductUncheckedCreateWithoutShowcaseHotspotsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -1991,6 +2089,8 @@ export type ProductUpdateWithoutShowcaseHotspotsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2027,6 +2127,8 @@ export type ProductUncheckedUpdateWithoutShowcaseHotspotsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2059,6 +2161,8 @@ export type ProductCreateWithoutWishlistItemsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2095,6 +2199,8 @@ export type ProductUncheckedCreateWithoutWishlistItemsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2143,6 +2249,8 @@ export type ProductUpdateWithoutWishlistItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2179,6 +2287,8 @@ export type ProductUncheckedUpdateWithoutWishlistItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2211,6 +2321,8 @@ export type ProductCreateWithoutInterestsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2247,6 +2359,8 @@ export type ProductUncheckedCreateWithoutInterestsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2295,6 +2409,8 @@ export type ProductUpdateWithoutInterestsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2331,6 +2447,8 @@ export type ProductUncheckedUpdateWithoutInterestsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2363,6 +2481,8 @@ export type ProductCreateWithoutCartItemsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2399,6 +2519,8 @@ export type ProductUncheckedCreateWithoutCartItemsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2447,6 +2569,8 @@ export type ProductUpdateWithoutCartItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2483,6 +2607,8 @@ export type ProductUncheckedUpdateWithoutCartItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2515,6 +2641,8 @@ export type ProductCreateWithoutPromotionsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2551,6 +2679,8 @@ export type ProductUncheckedCreateWithoutPromotionsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2599,6 +2729,8 @@ export type ProductUpdateWithoutPromotionsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2635,6 +2767,8 @@ export type ProductUncheckedUpdateWithoutPromotionsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2667,6 +2801,8 @@ export type ProductCreateWithoutReportsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2703,6 +2839,8 @@ export type ProductUncheckedCreateWithoutReportsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2751,6 +2889,8 @@ export type ProductUpdateWithoutReportsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2787,6 +2927,8 @@ export type ProductUncheckedUpdateWithoutReportsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2819,6 +2961,8 @@ export type ProductCreateWithoutRequestItemsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2855,6 +2999,8 @@ export type ProductUncheckedCreateWithoutRequestItemsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -2903,6 +3049,8 @@ export type ProductUpdateWithoutRequestItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2939,6 +3087,8 @@ export type ProductUncheckedUpdateWithoutRequestItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2971,6 +3121,8 @@ export type ProductCreateWithoutCommerceEventsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -3007,6 +3159,8 @@ export type ProductUncheckedCreateWithoutCommerceEventsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -3055,6 +3209,8 @@ export type ProductUpdateWithoutCommerceEventsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3091,6 +3247,8 @@ export type ProductUncheckedUpdateWithoutCommerceEventsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3123,6 +3281,8 @@ export type ProductCreateWithoutSaleItemsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -3159,6 +3319,8 @@ export type ProductUncheckedCreateWithoutSaleItemsInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -3207,6 +3369,8 @@ export type ProductUpdateWithoutSaleItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3243,6 +3407,8 @@ export type ProductUncheckedUpdateWithoutSaleItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3275,6 +3441,8 @@ export type ProductCreateWithoutShortLinksInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -3311,6 +3479,8 @@ export type ProductUncheckedCreateWithoutShortLinksInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -3359,6 +3529,8 @@ export type ProductUpdateWithoutShortLinksInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3395,6 +3567,8 @@ export type ProductUncheckedUpdateWithoutShortLinksInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3428,6 +3602,8 @@ export type ProductCreateManyBusinessInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -3447,6 +3623,8 @@ export type ProductUpdateWithoutBusinessInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3482,6 +3660,8 @@ export type ProductUncheckedUpdateWithoutBusinessInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3516,6 +3696,8 @@ export type ProductUncheckedUpdateManyWithoutBusinessInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3536,6 +3718,8 @@ export type ProductCreateManyBusinessCategoryInput = {
   status?: $Enums.ProductStatus
   placement?: $Enums.ProductPlacement
   visibility?: $Enums.ProductVisibility
+  archivedFromStatus?: $Enums.ProductStatus | null
+  archivedFromVisibility?: $Enums.ProductVisibility | null
   contentRating?: $Enums.MediaContentRating
   stockCount?: number | null
   launchAt?: Date | string | null
@@ -3555,6 +3739,8 @@ export type ProductUpdateWithoutBusinessCategoryInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3590,6 +3776,8 @@ export type ProductUncheckedUpdateWithoutBusinessCategoryInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3624,6 +3812,8 @@ export type ProductUncheckedUpdateManyWithoutBusinessCategoryInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   placement?: Prisma.EnumProductPlacementFieldUpdateOperationsInput | $Enums.ProductPlacement
   visibility?: Prisma.EnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility
+  archivedFromStatus?: Prisma.NullableEnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus | null
+  archivedFromVisibility?: Prisma.NullableEnumProductVisibilityFieldUpdateOperationsInput | $Enums.ProductVisibility | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   stockCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3793,6 +3983,8 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   status?: boolean
   placement?: boolean
   visibility?: boolean
+  archivedFromStatus?: boolean
+  archivedFromVisibility?: boolean
   contentRating?: boolean
   stockCount?: boolean
   launchAt?: boolean
@@ -3831,6 +4023,8 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   placement?: boolean
   visibility?: boolean
+  archivedFromStatus?: boolean
+  archivedFromVisibility?: boolean
   contentRating?: boolean
   stockCount?: boolean
   launchAt?: boolean
@@ -3854,6 +4048,8 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   placement?: boolean
   visibility?: boolean
+  archivedFromStatus?: boolean
+  archivedFromVisibility?: boolean
   contentRating?: boolean
   stockCount?: boolean
   launchAt?: boolean
@@ -3877,6 +4073,8 @@ export type ProductSelectScalar = {
   status?: boolean
   placement?: boolean
   visibility?: boolean
+  archivedFromStatus?: boolean
+  archivedFromVisibility?: boolean
   contentRating?: boolean
   stockCount?: boolean
   launchAt?: boolean
@@ -3884,7 +4082,7 @@ export type ProductSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "slug" | "name" | "description" | "price" | "currency" | "category" | "categoryId" | "attributes" | "status" | "placement" | "visibility" | "contentRating" | "stockCount" | "launchAt" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "slug" | "name" | "description" | "price" | "currency" | "category" | "categoryId" | "attributes" | "status" | "placement" | "visibility" | "archivedFromStatus" | "archivedFromVisibility" | "contentRating" | "stockCount" | "launchAt" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   businessCategory?: boolean | Prisma.Product$businessCategoryArgs<ExtArgs>
@@ -3947,6 +4145,8 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     status: $Enums.ProductStatus
     placement: $Enums.ProductPlacement
     visibility: $Enums.ProductVisibility
+    archivedFromStatus: $Enums.ProductStatus | null
+    archivedFromVisibility: $Enums.ProductVisibility | null
     contentRating: $Enums.MediaContentRating
     stockCount: number | null
     launchAt: Date | null
@@ -4404,6 +4604,8 @@ export interface ProductFieldRefs {
   readonly status: Prisma.FieldRef<"Product", 'ProductStatus'>
   readonly placement: Prisma.FieldRef<"Product", 'ProductPlacement'>
   readonly visibility: Prisma.FieldRef<"Product", 'ProductVisibility'>
+  readonly archivedFromStatus: Prisma.FieldRef<"Product", 'ProductStatus'>
+  readonly archivedFromVisibility: Prisma.FieldRef<"Product", 'ProductVisibility'>
   readonly contentRating: Prisma.FieldRef<"Product", 'MediaContentRating'>
   readonly stockCount: Prisma.FieldRef<"Product", 'Int'>
   readonly launchAt: Prisma.FieldRef<"Product", 'DateTime'>

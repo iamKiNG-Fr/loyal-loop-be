@@ -1114,6 +1114,20 @@ export type EnumProductVisibilityFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumProductVisibilityFilter<$PrismaModel> | $Enums.ProductVisibility
 }
 
+export type EnumProductStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductStatus | Prisma.EnumProductStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ProductStatus[] | Prisma.ListEnumProductStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ProductStatus[] | Prisma.ListEnumProductStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumProductStatusNullableFilter<$PrismaModel> | $Enums.ProductStatus | null
+}
+
+export type EnumProductVisibilityNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductVisibility | Prisma.EnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ProductVisibility[] | Prisma.ListEnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ProductVisibility[] | Prisma.ListEnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumProductVisibilityNullableFilter<$PrismaModel> | $Enums.ProductVisibility | null
+}
+
 export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
   equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>
   in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>
@@ -1158,6 +1172,26 @@ export type EnumProductVisibilityWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumProductVisibilityFilter<$PrismaModel>
   _max?: Prisma.NestedEnumProductVisibilityFilter<$PrismaModel>
+}
+
+export type EnumProductStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductStatus | Prisma.EnumProductStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ProductStatus[] | Prisma.ListEnumProductStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ProductStatus[] | Prisma.ListEnumProductStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumProductStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProductStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductStatusNullableFilter<$PrismaModel>
+}
+
+export type EnumProductVisibilityNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductVisibility | Prisma.EnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ProductVisibility[] | Prisma.ListEnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ProductVisibility[] | Prisma.ListEnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumProductVisibilityNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProductVisibility | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductVisibilityNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductVisibilityNullableFilter<$PrismaModel>
 }
 
 export type EnumProductMediaKindFilter<$PrismaModel = never> = {
@@ -2813,6 +2847,20 @@ export type NestedEnumProductVisibilityFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumProductVisibilityFilter<$PrismaModel> | $Enums.ProductVisibility
 }
 
+export type NestedEnumProductStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductStatus | Prisma.EnumProductStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ProductStatus[] | Prisma.ListEnumProductStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ProductStatus[] | Prisma.ListEnumProductStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumProductStatusNullableFilter<$PrismaModel> | $Enums.ProductStatus | null
+}
+
+export type NestedEnumProductVisibilityNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductVisibility | Prisma.EnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ProductVisibility[] | Prisma.ListEnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ProductVisibility[] | Prisma.ListEnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumProductVisibilityNullableFilter<$PrismaModel> | $Enums.ProductVisibility | null
+}
+
 export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
   equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>
   in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>
@@ -2857,6 +2905,26 @@ export type NestedEnumProductVisibilityWithAggregatesFilter<$PrismaModel = never
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumProductVisibilityFilter<$PrismaModel>
   _max?: Prisma.NestedEnumProductVisibilityFilter<$PrismaModel>
+}
+
+export type NestedEnumProductStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductStatus | Prisma.EnumProductStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ProductStatus[] | Prisma.ListEnumProductStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ProductStatus[] | Prisma.ListEnumProductStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumProductStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProductStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductStatusNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumProductVisibilityNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ProductVisibility | Prisma.EnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  in?: $Enums.ProductVisibility[] | Prisma.ListEnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.ProductVisibility[] | Prisma.ListEnumProductVisibilityFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumProductVisibilityNullableWithAggregatesFilter<$PrismaModel> | $Enums.ProductVisibility | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumProductVisibilityNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumProductVisibilityNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumProductMediaKindFilter<$PrismaModel = never> = {

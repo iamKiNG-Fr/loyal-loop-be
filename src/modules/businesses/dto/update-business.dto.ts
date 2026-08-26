@@ -203,6 +203,13 @@ export class UpdateBusinessPreferencesDto {
 
   @IsOptional()
   @IsArray()
+  @ArrayMaxSize(8)
+  @IsString({ each: true })
+  @Length(1, 80, { each: true })
+  featuredCollectionIds?: string[];
+
+  @IsOptional()
+  @IsArray()
   @ArrayMinSize(1)
   @ArrayMaxSize(8)
   @IsString({ each: true })

@@ -449,6 +449,9 @@ export class BusinessesService {
       deliveryStates: deliveryStates
         ? [...new Set(deliveryStates.filter((state): state is NonNullable<typeof state> => Boolean(state)))]
         : undefined,
+      featuredCollectionIds: dto.featuredCollectionIds
+        ? [...new Set(dto.featuredCollectionIds.map((item) => item.trim()).filter(Boolean))].slice(0, 8)
+        : undefined,
       tickerItems: dto.tickerItems
         ? [...new Set(dto.tickerItems.map((item) => item.trim()).filter(Boolean))]
         : undefined,

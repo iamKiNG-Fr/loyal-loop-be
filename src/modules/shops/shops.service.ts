@@ -1076,6 +1076,7 @@ function sanitizeBusiness(business: Record<string, unknown>) {
       shelfMode?: string;
       showRecommended?: boolean;
       showLatest?: boolean;
+      featuredCollectionIds?: string[];
       tickerItems?: string[];
       feedbackResponseTime?: string;
       allowedPaymentMethods?: string[];
@@ -1135,6 +1136,7 @@ function sanitizeBusiness(business: Record<string, unknown>) {
           shelfMode: source.preferences.shelfMode,
           showRecommended: source.preferences.showRecommended,
           showLatest: source.preferences.showLatest,
+          featuredCollectionIds: source.preferences.featuredCollectionIds,
           tickerItems: source.preferences.tickerItems,
           feedbackResponseTime: source.preferences.feedbackResponseTime,
           allowedPaymentMethods: source.preferences.allowedPaymentMethods,
