@@ -37,6 +37,7 @@ import {
   VerifyBusinessWhatsappVerificationDto,
 } from "./dto/update-business.dto";
 import { UpdateMemberPermissionsDto } from "./dto/member-permission.dto";
+import { SavePickupLocationDto } from "./dto/pickup-location.dto";
 
 @Controller("public/trust-cards")
 export class PublicTrustCardsController {
@@ -174,6 +175,32 @@ export class BusinessesController {
     @Body() dto: CreateBusinessInvitationDto,
   ) {
     return this.businesses.invite(auth, dto).then((data) => ok(data, "Invitation created"));
+  }
+
+  @Get("pickup-locations")
+  pickupLocations(@CurrentAuth() auth: OwnerAuthContext) {
+    return this.businesses.pickupLocations(auth).then((data) => ok(data));
+  }
+
+  @Post("pickup-locations")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
+  @Roles("OWNER", "MANAGER")
+  createPickupLocation(@CurrentAuth() auth: OwnerAuthContext, @Body() dto: SavePickupLocationDto) {
+    return this.businesses.savePickupLocation(auth, null, dto).then((data) => ok(data, "Pickup location saved"));
+  }
+
+  @Patch("pickup-locations/:id")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
+  @Roles("OWNER", "MANAGER")
+  updatePickupLocation(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string, @Body() dto: SavePickupLocationDto) {
+    return this.businesses.savePickupLocation(auth, id, dto).then((data) => ok(data, "Pickup location updated"));
+  }
+
+  @Delete("pickup-locations/:id")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
+  @Roles("OWNER", "MANAGER")
+  removePickupLocation(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
+    return this.businesses.removePickupLocation(auth, id).then((data) => ok(data, "Pickup location removed"));
   }
 
   @Patch("members/:id/permissions")

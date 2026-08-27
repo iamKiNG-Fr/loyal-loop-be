@@ -211,6 +211,8 @@ export type PlatformAdminWhereInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewListRelationFilter
   suspendedBusinesses?: Prisma.BusinessListRelationFilter
   reviewedReports?: Prisma.CustomerReportListRelationFilter
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportListRelationFilter
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryListRelationFilter
 }
 
 export type PlatformAdminOrderByWithRelationInput = {
@@ -234,6 +236,8 @@ export type PlatformAdminOrderByWithRelationInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewOrderByRelationAggregateInput
   suspendedBusinesses?: Prisma.BusinessOrderByRelationAggregateInput
   reviewedReports?: Prisma.CustomerReportOrderByRelationAggregateInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportOrderByRelationAggregateInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryOrderByRelationAggregateInput
 }
 
 export type PlatformAdminWhereUniqueInput = Prisma.AtLeast<{
@@ -260,6 +264,8 @@ export type PlatformAdminWhereUniqueInput = Prisma.AtLeast<{
   researchInterviews?: Prisma.FoundingResearchInterviewListRelationFilter
   suspendedBusinesses?: Prisma.BusinessListRelationFilter
   reviewedReports?: Prisma.CustomerReportListRelationFilter
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportListRelationFilter
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryListRelationFilter
 }, "id" | "userId">
 
 export type PlatformAdminOrderByWithAggregationInput = {
@@ -308,6 +314,8 @@ export type PlatformAdminCreateInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateInput = {
@@ -330,6 +338,8 @@ export type PlatformAdminUncheckedCreateInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUpdateInput = {
@@ -352,6 +362,8 @@ export type PlatformAdminUpdateInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateInput = {
@@ -374,6 +386,8 @@ export type PlatformAdminUncheckedUpdateInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateManyInput = {
@@ -645,6 +659,38 @@ export type PlatformAdminUpdateOneWithoutSuspendedBusinessesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PlatformAdminUpdateToOneWithWhereWithoutSuspendedBusinessesInput, Prisma.PlatformAdminUpdateWithoutSuspendedBusinessesInput>, Prisma.PlatformAdminUncheckedUpdateWithoutSuspendedBusinessesInput>
 }
 
+export type PlatformAdminCreateNestedOneWithoutShopSlugOverridesInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutShopSlugOverridesInput, Prisma.PlatformAdminUncheckedCreateWithoutShopSlugOverridesInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutShopSlugOverridesInput
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+}
+
+export type PlatformAdminUpdateOneWithoutShopSlugOverridesNestedInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutShopSlugOverridesInput, Prisma.PlatformAdminUncheckedCreateWithoutShopSlugOverridesInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutShopSlugOverridesInput
+  upsert?: Prisma.PlatformAdminUpsertWithoutShopSlugOverridesInput
+  disconnect?: Prisma.PlatformAdminWhereInput | boolean
+  delete?: Prisma.PlatformAdminWhereInput | boolean
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlatformAdminUpdateToOneWithWhereWithoutShopSlugOverridesInput, Prisma.PlatformAdminUpdateWithoutShopSlugOverridesInput>, Prisma.PlatformAdminUncheckedUpdateWithoutShopSlugOverridesInput>
+}
+
+export type PlatformAdminCreateNestedOneWithoutReviewedBusinessCustomerReportsInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutReviewedBusinessCustomerReportsInput, Prisma.PlatformAdminUncheckedCreateWithoutReviewedBusinessCustomerReportsInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutReviewedBusinessCustomerReportsInput
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+}
+
+export type PlatformAdminUpdateOneWithoutReviewedBusinessCustomerReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutReviewedBusinessCustomerReportsInput, Prisma.PlatformAdminUncheckedCreateWithoutReviewedBusinessCustomerReportsInput>
+  connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutReviewedBusinessCustomerReportsInput
+  upsert?: Prisma.PlatformAdminUpsertWithoutReviewedBusinessCustomerReportsInput
+  disconnect?: Prisma.PlatformAdminWhereInput | boolean
+  delete?: Prisma.PlatformAdminWhereInput | boolean
+  connect?: Prisma.PlatformAdminWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlatformAdminUpdateToOneWithWhereWithoutReviewedBusinessCustomerReportsInput, Prisma.PlatformAdminUpdateWithoutReviewedBusinessCustomerReportsInput>, Prisma.PlatformAdminUncheckedUpdateWithoutReviewedBusinessCustomerReportsInput>
+}
+
 export type PlatformAdminCreateNestedOneWithoutReviewedReportsInput = {
   create?: Prisma.XOR<Prisma.PlatformAdminCreateWithoutReviewedReportsInput, Prisma.PlatformAdminUncheckedCreateWithoutReviewedReportsInput>
   connectOrCreate?: Prisma.PlatformAdminCreateOrConnectWithoutReviewedReportsInput
@@ -680,6 +726,8 @@ export type PlatformAdminCreateWithoutReviewedApplicationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutReviewedApplicationsInput = {
@@ -701,6 +749,8 @@ export type PlatformAdminUncheckedCreateWithoutReviewedApplicationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutReviewedApplicationsInput = {
@@ -738,6 +788,8 @@ export type PlatformAdminUpdateWithoutReviewedApplicationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutReviewedApplicationsInput = {
@@ -759,6 +811,8 @@ export type PlatformAdminUncheckedUpdateWithoutReviewedApplicationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutCreatedCohortsInput = {
@@ -780,6 +834,8 @@ export type PlatformAdminCreateWithoutCreatedCohortsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutCreatedCohortsInput = {
@@ -801,6 +857,8 @@ export type PlatformAdminUncheckedCreateWithoutCreatedCohortsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutCreatedCohortsInput = {
@@ -838,6 +896,8 @@ export type PlatformAdminUpdateWithoutCreatedCohortsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutCreatedCohortsInput = {
@@ -859,6 +919,8 @@ export type PlatformAdminUncheckedUpdateWithoutCreatedCohortsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutCreatedInvitationsInput = {
@@ -880,6 +942,8 @@ export type PlatformAdminCreateWithoutCreatedInvitationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutCreatedInvitationsInput = {
@@ -901,6 +965,8 @@ export type PlatformAdminUncheckedCreateWithoutCreatedInvitationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutCreatedInvitationsInput = {
@@ -927,6 +993,8 @@ export type PlatformAdminCreateWithoutRevokedInvitationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutRevokedInvitationsInput = {
@@ -948,6 +1016,8 @@ export type PlatformAdminUncheckedCreateWithoutRevokedInvitationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutRevokedInvitationsInput = {
@@ -985,6 +1055,8 @@ export type PlatformAdminUpdateWithoutCreatedInvitationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutCreatedInvitationsInput = {
@@ -1006,6 +1078,8 @@ export type PlatformAdminUncheckedUpdateWithoutCreatedInvitationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUpsertWithoutRevokedInvitationsInput = {
@@ -1038,6 +1112,8 @@ export type PlatformAdminUpdateWithoutRevokedInvitationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutRevokedInvitationsInput = {
@@ -1059,6 +1135,8 @@ export type PlatformAdminUncheckedUpdateWithoutRevokedInvitationsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutResearchInterviewsInput = {
@@ -1080,6 +1158,8 @@ export type PlatformAdminCreateWithoutResearchInterviewsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutResearchInterviewsInput = {
@@ -1101,6 +1181,8 @@ export type PlatformAdminUncheckedCreateWithoutResearchInterviewsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutResearchInterviewsInput = {
@@ -1138,6 +1220,8 @@ export type PlatformAdminUpdateWithoutResearchInterviewsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutResearchInterviewsInput = {
@@ -1159,6 +1243,8 @@ export type PlatformAdminUncheckedUpdateWithoutResearchInterviewsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutUserInput = {
@@ -1180,6 +1266,8 @@ export type PlatformAdminCreateWithoutUserInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutUserInput = {
@@ -1201,6 +1289,8 @@ export type PlatformAdminUncheckedCreateWithoutUserInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutUserInput = {
@@ -1238,6 +1328,8 @@ export type PlatformAdminUpdateWithoutUserInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutUserInput = {
@@ -1259,6 +1351,8 @@ export type PlatformAdminUncheckedUpdateWithoutUserInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutSessionsInput = {
@@ -1280,6 +1374,8 @@ export type PlatformAdminCreateWithoutSessionsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutSessionsInput = {
@@ -1301,6 +1397,8 @@ export type PlatformAdminUncheckedCreateWithoutSessionsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutSessionsInput = {
@@ -1338,6 +1436,8 @@ export type PlatformAdminUpdateWithoutSessionsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutSessionsInput = {
@@ -1359,6 +1459,8 @@ export type PlatformAdminUncheckedUpdateWithoutSessionsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutPasskeysInput = {
@@ -1380,6 +1482,8 @@ export type PlatformAdminCreateWithoutPasskeysInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutPasskeysInput = {
@@ -1401,6 +1505,8 @@ export type PlatformAdminUncheckedCreateWithoutPasskeysInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutPasskeysInput = {
@@ -1438,6 +1544,8 @@ export type PlatformAdminUpdateWithoutPasskeysInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutPasskeysInput = {
@@ -1459,6 +1567,8 @@ export type PlatformAdminUncheckedUpdateWithoutPasskeysInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutPasskeyChallengesInput = {
@@ -1480,6 +1590,8 @@ export type PlatformAdminCreateWithoutPasskeyChallengesInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutPasskeyChallengesInput = {
@@ -1501,6 +1613,8 @@ export type PlatformAdminUncheckedCreateWithoutPasskeyChallengesInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutPasskeyChallengesInput = {
@@ -1538,6 +1652,8 @@ export type PlatformAdminUpdateWithoutPasskeyChallengesInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutPasskeyChallengesInput = {
@@ -1559,6 +1675,8 @@ export type PlatformAdminUncheckedUpdateWithoutPasskeyChallengesInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutRecoveryCodesInput = {
@@ -1580,6 +1698,8 @@ export type PlatformAdminCreateWithoutRecoveryCodesInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutRecoveryCodesInput = {
@@ -1601,6 +1721,8 @@ export type PlatformAdminUncheckedCreateWithoutRecoveryCodesInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutRecoveryCodesInput = {
@@ -1638,6 +1760,8 @@ export type PlatformAdminUpdateWithoutRecoveryCodesInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutRecoveryCodesInput = {
@@ -1659,6 +1783,8 @@ export type PlatformAdminUncheckedUpdateWithoutRecoveryCodesInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutAuditLogsInput = {
@@ -1680,6 +1806,8 @@ export type PlatformAdminCreateWithoutAuditLogsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutAuditLogsInput = {
@@ -1701,6 +1829,8 @@ export type PlatformAdminUncheckedCreateWithoutAuditLogsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutAuditLogsInput = {
@@ -1738,6 +1868,8 @@ export type PlatformAdminUpdateWithoutAuditLogsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutAuditLogsInput = {
@@ -1759,6 +1891,8 @@ export type PlatformAdminUncheckedUpdateWithoutAuditLogsInput = {
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutSuspendedBusinessesInput = {
@@ -1780,6 +1914,8 @@ export type PlatformAdminCreateWithoutSuspendedBusinessesInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutSuspendedBusinessesInput = {
@@ -1801,6 +1937,8 @@ export type PlatformAdminUncheckedCreateWithoutSuspendedBusinessesInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutSuspendedBusinessesInput = {
@@ -1838,6 +1976,8 @@ export type PlatformAdminUpdateWithoutSuspendedBusinessesInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutSuspendedBusinessesInput = {
@@ -1859,6 +1999,224 @@ export type PlatformAdminUncheckedUpdateWithoutSuspendedBusinessesInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
+}
+
+export type PlatformAdminCreateWithoutShopSlugOverridesInput = {
+  id?: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
+  sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+}
+
+export type PlatformAdminUncheckedCreateWithoutShopSlugOverridesInput = {
+  id?: string
+  userId: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type PlatformAdminCreateOrConnectWithoutShopSlugOverridesInput = {
+  where: Prisma.PlatformAdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutShopSlugOverridesInput, Prisma.PlatformAdminUncheckedCreateWithoutShopSlugOverridesInput>
+}
+
+export type PlatformAdminUpsertWithoutShopSlugOverridesInput = {
+  update: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutShopSlugOverridesInput, Prisma.PlatformAdminUncheckedUpdateWithoutShopSlugOverridesInput>
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutShopSlugOverridesInput, Prisma.PlatformAdminUncheckedCreateWithoutShopSlugOverridesInput>
+  where?: Prisma.PlatformAdminWhereInput
+}
+
+export type PlatformAdminUpdateToOneWithWhereWithoutShopSlugOverridesInput = {
+  where?: Prisma.PlatformAdminWhereInput
+  data: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutShopSlugOverridesInput, Prisma.PlatformAdminUncheckedUpdateWithoutShopSlugOverridesInput>
+}
+
+export type PlatformAdminUpdateWithoutShopSlugOverridesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
+  sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+}
+
+export type PlatformAdminUncheckedUpdateWithoutShopSlugOverridesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type PlatformAdminCreateWithoutReviewedBusinessCustomerReportsInput = {
+  id?: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutPlatformAdminInput
+  sessions?: Prisma.PlatformAdminSessionCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
+}
+
+export type PlatformAdminUncheckedCreateWithoutReviewedBusinessCustomerReportsInput = {
+  id?: string
+  userId: string
+  role: $Enums.PlatformRole
+  status?: $Enums.PlatformAdminStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedCreateNestedManyWithoutPlatformAdminInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedCreateNestedManyWithoutPlatformAdminInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedCreateNestedManyWithoutActorInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedCreateNestedManyWithoutReviewedByInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedCreateNestedManyWithoutCreatedByInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutCreatedByInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
+}
+
+export type PlatformAdminCreateOrConnectWithoutReviewedBusinessCustomerReportsInput = {
+  where: Prisma.PlatformAdminWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutReviewedBusinessCustomerReportsInput, Prisma.PlatformAdminUncheckedCreateWithoutReviewedBusinessCustomerReportsInput>
+}
+
+export type PlatformAdminUpsertWithoutReviewedBusinessCustomerReportsInput = {
+  update: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutReviewedBusinessCustomerReportsInput, Prisma.PlatformAdminUncheckedUpdateWithoutReviewedBusinessCustomerReportsInput>
+  create: Prisma.XOR<Prisma.PlatformAdminCreateWithoutReviewedBusinessCustomerReportsInput, Prisma.PlatformAdminUncheckedCreateWithoutReviewedBusinessCustomerReportsInput>
+  where?: Prisma.PlatformAdminWhereInput
+}
+
+export type PlatformAdminUpdateToOneWithWhereWithoutReviewedBusinessCustomerReportsInput = {
+  where?: Prisma.PlatformAdminWhereInput
+  data: Prisma.XOR<Prisma.PlatformAdminUpdateWithoutReviewedBusinessCustomerReportsInput, Prisma.PlatformAdminUncheckedUpdateWithoutReviewedBusinessCustomerReportsInput>
+}
+
+export type PlatformAdminUpdateWithoutReviewedBusinessCustomerReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutPlatformAdminNestedInput
+  sessions?: Prisma.PlatformAdminSessionUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
+}
+
+export type PlatformAdminUncheckedUpdateWithoutReviewedBusinessCustomerReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumPlatformRoleFieldUpdateOperationsInput | $Enums.PlatformRole
+  status?: Prisma.EnumPlatformAdminStatusFieldUpdateOperationsInput | $Enums.PlatformAdminStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.PlatformAdminSessionUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeys?: Prisma.PlatformAdminPasskeyUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  passkeyChallenges?: Prisma.PlatformAdminPasskeyChallengeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  recoveryCodes?: Prisma.PlatformAdminRecoveryCodeUncheckedUpdateManyWithoutPlatformAdminNestedInput
+  auditLogs?: Prisma.PlatformAdminAuditLogUncheckedUpdateManyWithoutActorNestedInput
+  reviewedApplications?: Prisma.FoundingAccessApplicationUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdCohorts?: Prisma.FoundingCohortUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutCreatedByNestedInput
+  revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
+  researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
+  suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminCreateWithoutReviewedReportsInput = {
@@ -1880,6 +2238,8 @@ export type PlatformAdminCreateWithoutReviewedReportsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminUncheckedCreateWithoutReviewedReportsInput = {
@@ -1901,6 +2261,8 @@ export type PlatformAdminUncheckedCreateWithoutReviewedReportsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedCreateNestedManyWithoutRevokedByInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedCreateNestedManyWithoutInterviewerInput
   suspendedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutPlatformSuspendedByInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReviewedByInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByAdminInput
 }
 
 export type PlatformAdminCreateOrConnectWithoutReviewedReportsInput = {
@@ -1938,6 +2300,8 @@ export type PlatformAdminUpdateWithoutReviewedReportsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByAdminNestedInput
 }
 
 export type PlatformAdminUncheckedUpdateWithoutReviewedReportsInput = {
@@ -1959,6 +2323,8 @@ export type PlatformAdminUncheckedUpdateWithoutReviewedReportsInput = {
   revokedInvitations?: Prisma.OnboardingInvitationUncheckedUpdateManyWithoutRevokedByNestedInput
   researchInterviews?: Prisma.FoundingResearchInterviewUncheckedUpdateManyWithoutInterviewerNestedInput
   suspendedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutPlatformSuspendedByNestedInput
+  reviewedBusinessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  shopSlugOverrides?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByAdminNestedInput
 }
 
 
@@ -1979,6 +2345,8 @@ export type PlatformAdminCountOutputType = {
   researchInterviews: number
   suspendedBusinesses: number
   reviewedReports: number
+  reviewedBusinessCustomerReports: number
+  shopSlugOverrides: number
 }
 
 export type PlatformAdminCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1994,6 +2362,8 @@ export type PlatformAdminCountOutputTypeSelect<ExtArgs extends runtime.Types.Ext
   researchInterviews?: boolean | PlatformAdminCountOutputTypeCountResearchInterviewsArgs
   suspendedBusinesses?: boolean | PlatformAdminCountOutputTypeCountSuspendedBusinessesArgs
   reviewedReports?: boolean | PlatformAdminCountOutputTypeCountReviewedReportsArgs
+  reviewedBusinessCustomerReports?: boolean | PlatformAdminCountOutputTypeCountReviewedBusinessCustomerReportsArgs
+  shopSlugOverrides?: boolean | PlatformAdminCountOutputTypeCountShopSlugOverridesArgs
 }
 
 /**
@@ -2090,6 +2460,20 @@ export type PlatformAdminCountOutputTypeCountReviewedReportsArgs<ExtArgs extends
   where?: Prisma.CustomerReportWhereInput
 }
 
+/**
+ * PlatformAdminCountOutputType without action
+ */
+export type PlatformAdminCountOutputTypeCountReviewedBusinessCustomerReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BusinessCustomerReportWhereInput
+}
+
+/**
+ * PlatformAdminCountOutputType without action
+ */
+export type PlatformAdminCountOutputTypeCountShopSlugOverridesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BusinessSlugHistoryWhereInput
+}
+
 
 export type PlatformAdminSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2112,6 +2496,8 @@ export type PlatformAdminSelect<ExtArgs extends runtime.Types.Extensions.Interna
   researchInterviews?: boolean | Prisma.PlatformAdmin$researchInterviewsArgs<ExtArgs>
   suspendedBusinesses?: boolean | Prisma.PlatformAdmin$suspendedBusinessesArgs<ExtArgs>
   reviewedReports?: boolean | Prisma.PlatformAdmin$reviewedReportsArgs<ExtArgs>
+  reviewedBusinessCustomerReports?: boolean | Prisma.PlatformAdmin$reviewedBusinessCustomerReportsArgs<ExtArgs>
+  shopSlugOverrides?: boolean | Prisma.PlatformAdmin$shopSlugOverridesArgs<ExtArgs>
   _count?: boolean | Prisma.PlatformAdminCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["platformAdmin"]>
 
@@ -2162,6 +2548,8 @@ export type PlatformAdminInclude<ExtArgs extends runtime.Types.Extensions.Intern
   researchInterviews?: boolean | Prisma.PlatformAdmin$researchInterviewsArgs<ExtArgs>
   suspendedBusinesses?: boolean | Prisma.PlatformAdmin$suspendedBusinessesArgs<ExtArgs>
   reviewedReports?: boolean | Prisma.PlatformAdmin$reviewedReportsArgs<ExtArgs>
+  reviewedBusinessCustomerReports?: boolean | Prisma.PlatformAdmin$reviewedBusinessCustomerReportsArgs<ExtArgs>
+  shopSlugOverrides?: boolean | Prisma.PlatformAdmin$shopSlugOverridesArgs<ExtArgs>
   _count?: boolean | Prisma.PlatformAdminCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlatformAdminIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2187,6 +2575,8 @@ export type $PlatformAdminPayload<ExtArgs extends runtime.Types.Extensions.Inter
     researchInterviews: Prisma.$FoundingResearchInterviewPayload<ExtArgs>[]
     suspendedBusinesses: Prisma.$BusinessPayload<ExtArgs>[]
     reviewedReports: Prisma.$CustomerReportPayload<ExtArgs>[]
+    reviewedBusinessCustomerReports: Prisma.$BusinessCustomerReportPayload<ExtArgs>[]
+    shopSlugOverrides: Prisma.$BusinessSlugHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2603,6 +2993,8 @@ export interface Prisma__PlatformAdminClient<T, Null = never, ExtArgs extends ru
   researchInterviews<T extends Prisma.PlatformAdmin$researchInterviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$researchInterviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FoundingResearchInterviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suspendedBusinesses<T extends Prisma.PlatformAdmin$suspendedBusinessesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$suspendedBusinessesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewedReports<T extends Prisma.PlatformAdmin$reviewedReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$reviewedReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedBusinessCustomerReports<T extends Prisma.PlatformAdmin$reviewedBusinessCustomerReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$reviewedBusinessCustomerReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessCustomerReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shopSlugOverrides<T extends Prisma.PlatformAdmin$shopSlugOverridesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlatformAdmin$shopSlugOverridesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessSlugHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3325,6 +3717,54 @@ export type PlatformAdmin$reviewedReportsArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.CustomerReportScalarFieldEnum | Prisma.CustomerReportScalarFieldEnum[]
+}
+
+/**
+ * PlatformAdmin.reviewedBusinessCustomerReports
+ */
+export type PlatformAdmin$reviewedBusinessCustomerReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BusinessCustomerReport
+   */
+  select?: Prisma.BusinessCustomerReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BusinessCustomerReport
+   */
+  omit?: Prisma.BusinessCustomerReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BusinessCustomerReportInclude<ExtArgs> | null
+  where?: Prisma.BusinessCustomerReportWhereInput
+  orderBy?: Prisma.BusinessCustomerReportOrderByWithRelationInput | Prisma.BusinessCustomerReportOrderByWithRelationInput[]
+  cursor?: Prisma.BusinessCustomerReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BusinessCustomerReportScalarFieldEnum | Prisma.BusinessCustomerReportScalarFieldEnum[]
+}
+
+/**
+ * PlatformAdmin.shopSlugOverrides
+ */
+export type PlatformAdmin$shopSlugOverridesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BusinessSlugHistory
+   */
+  select?: Prisma.BusinessSlugHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BusinessSlugHistory
+   */
+  omit?: Prisma.BusinessSlugHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BusinessSlugHistoryInclude<ExtArgs> | null
+  where?: Prisma.BusinessSlugHistoryWhereInput
+  orderBy?: Prisma.BusinessSlugHistoryOrderByWithRelationInput | Prisma.BusinessSlugHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.BusinessSlugHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BusinessSlugHistoryScalarFieldEnum | Prisma.BusinessSlugHistoryScalarFieldEnum[]
 }
 
 /**

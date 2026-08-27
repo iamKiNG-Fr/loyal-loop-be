@@ -198,7 +198,16 @@ export class CustomerAuthService {
     return this.prisma.orderRequest.findMany({
       where: { customerAccountId },
       include: {
-        business: { select: { name: true, slug: true } },
+        business: {
+          select: {
+            name: true,
+            slug: true,
+            contacts: {
+              select: { isPrimary: true, platform: true, value: true },
+              orderBy: [{ isPrimary: "desc" }, { sortOrder: "asc" }],
+            },
+          },
+        },
         items: true,
         termChanges: { orderBy: { createdAt: "desc" }, take: 5 },
         sourceShowcase: {

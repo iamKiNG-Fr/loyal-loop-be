@@ -80,9 +80,11 @@ export class ShopsService {
   ) {}
 
   async getPublicShop(slug: string, visitor?: string, query?: DiscoveryQuery) {
-    await this.businesses.reconcileScheduledLaunchBySlug(slug);
+    const resolved = await this.businesses.resolveShopSlug(slug);
+    if (!resolved) throw new NotFoundException("Shop not found");
+    await this.businesses.reconcileScheduledLaunch(resolved.id);
     const business = await this.prisma.business.findFirst({
-      where: { slug, storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" },
+      where: { id: resolved.id, storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" },
       include: {
         coverAsset: true,
         logoAsset: true,
@@ -110,6 +112,8 @@ export class ShopsService {
     const open = business.storeStatus === "OPEN";
     return {
       business: sanitizeBusiness(business),
+      canonicalSlug: business.slug,
+      redirectedFrom: resolved.redirectedFrom,
       canRequest: open,
       products: open ? business.products : [],
       showcases: open ? business.showcases : [],
@@ -118,13 +122,15 @@ export class ShopsService {
   }
 
   async getPublicProduct(slug: string, productSlug: string, visitor?: string, query?: DiscoveryQuery) {
-    await this.businesses.reconcileScheduledLaunchBySlug(slug);
+    const resolved = await this.businesses.resolveShopSlug(slug);
+    if (!resolved) throw new NotFoundException("Product not found");
+    await this.businesses.reconcileScheduledLaunch(resolved.id);
     const product = await this.prisma.product.findFirst({
       where: {
         slug: productSlug,
         status: "ACTIVE",
         visibility: "PUBLIC",
-        business: { slug, storeStatus: "OPEN", platformStatus: "ACTIVE" },
+        business: { id: resolved.id, storeStatus: "OPEN", platformStatus: "ACTIVE" },
         images: { some: { asset: { is: publicMediaAssetWhere } } },
       },
       include: {
@@ -354,6 +360,10 @@ export class ShopsService {
           select: {
             name: true,
             slug: true,
+            contacts: {
+              select: { isPrimary: true, platform: true, value: true },
+              orderBy: [{ isPrimary: "desc" }, { sortOrder: "asc" }],
+            },
             preferences: {
               select: {
                 allowedFulfillmentMethods: true,

@@ -70,6 +70,8 @@ export const ModelName = {
   OnboardingEmailChallenge: 'OnboardingEmailChallenge',
   PasswordRecoveryToken: 'PasswordRecoveryToken',
   Business: 'Business',
+  BusinessSlugHistory: 'BusinessSlugHistory',
+  BusinessPickupLocation: 'BusinessPickupLocation',
   BusinessPreferences: 'BusinessPreferences',
   BusinessContact: 'BusinessContact',
   BusinessPaymentAccount: 'BusinessPaymentAccount',
@@ -82,6 +84,7 @@ export const ModelName = {
   CustomerAccountSession: 'CustomerAccountSession',
   CustomerOtpChallenge: 'CustomerOtpChallenge',
   Customer: 'Customer',
+  BusinessCustomerReport: 'BusinessCustomerReport',
   CustomerContact: 'CustomerContact',
   CustomerAddress: 'CustomerAddress',
   CustomerNote: 'CustomerNote',
@@ -482,6 +485,7 @@ export const BusinessScalarFieldEnum = {
   coverAssetId: 'coverAssetId',
   name: 'name',
   slug: 'slug',
+  slugChangedAt: 'slugChangedAt',
   publicCardId: 'publicCardId',
   category: 'category',
   categoryDetail: 'categoryDetail',
@@ -514,6 +518,36 @@ export const BusinessScalarFieldEnum = {
 } as const
 
 export type BusinessScalarFieldEnum = (typeof BusinessScalarFieldEnum)[keyof typeof BusinessScalarFieldEnum]
+
+
+export const BusinessSlugHistoryScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  slug: 'slug',
+  changedByUserId: 'changedByUserId',
+  changedByAdminId: 'changedByAdminId',
+  reason: 'reason',
+  replacedAt: 'replacedAt'
+} as const
+
+export type BusinessSlugHistoryScalarFieldEnum = (typeof BusinessSlugHistoryScalarFieldEnum)[keyof typeof BusinessSlugHistoryScalarFieldEnum]
+
+
+export const BusinessPickupLocationScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  label: 'label',
+  address: 'address',
+  googlePlaceId: 'googlePlaceId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  isDefault: 'isDefault',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BusinessPickupLocationScalarFieldEnum = (typeof BusinessPickupLocationScalarFieldEnum)[keyof typeof BusinessPickupLocationScalarFieldEnum]
 
 
 export const BusinessPreferencesScalarFieldEnum = {
@@ -754,6 +788,25 @@ export const CustomerScalarFieldEnum = {
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+export const BusinessCustomerReportScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  customerId: 'customerId',
+  reportedByUserId: 'reportedByUserId',
+  saleId: 'saleId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  reviewedByAdminId: 'reviewedByAdminId',
+  reviewNotes: 'reviewNotes',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BusinessCustomerReportScalarFieldEnum = (typeof BusinessCustomerReportScalarFieldEnum)[keyof typeof BusinessCustomerReportScalarFieldEnum]
 
 
 export const CustomerContactScalarFieldEnum = {
@@ -1109,6 +1162,7 @@ export const OrderRequestScalarFieldEnum = {
   channel: 'channel',
   fulfillment: 'fulfillment',
   agreedFulfillment: 'agreedFulfillment',
+  pickupMethod: 'pickupMethod',
   customerAddressId: 'customerAddressId',
   sourceShowcaseId: 'sourceShowcaseId',
   requestedPaymentMethod: 'requestedPaymentMethod',
@@ -1439,6 +1493,14 @@ export const DeliveryScalarFieldEnum = {
   saleId: 'saleId',
   tokenHash: 'tokenHash',
   status: 'status',
+  journeyMethod: 'journeyMethod',
+  pickupLocationId: 'pickupLocationId',
+  pickupLabel: 'pickupLabel',
+  pickupAddress: 'pickupAddress',
+  pickupGooglePlaceId: 'pickupGooglePlaceId',
+  pickupLatitude: 'pickupLatitude',
+  pickupLongitude: 'pickupLongitude',
+  handoffAssetId: 'handoffAssetId',
   address: 'address',
   googlePlaceId: 'googlePlaceId',
   latitude: 'latitude',
@@ -1452,6 +1514,9 @@ export const DeliveryScalarFieldEnum = {
   courierPhone: 'courierPhone',
   trackingCode: 'trackingCode',
   trackingUrl: 'trackingUrl',
+  riderDetailsAddedAt: 'riderDetailsAddedAt',
+  handedOffAt: 'handedOffAt',
+  handoffCodeIssuedAt: 'handoffCodeIssuedAt',
   deliveredAt: 'deliveredAt',
   confirmedAt: 'confirmedAt',
   createdAt: 'createdAt',

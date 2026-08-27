@@ -3,6 +3,8 @@ import {
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { createHmac, timingSafeEqual } from "node:crypto";
 import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import { customerOrderRequestTokenWhere } from "../../common/customer-order-request-token";
 import type { OwnerAuthContext } from "../../common/request-context";
@@ -10,10 +12,13 @@ import { cancelSaleAndRestoreInventory } from "../../common/sale-inventory";
 import type { DeliveryStatus } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { MessagingService } from "../messaging/messaging.service";
+import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   CreateDeliveryIssueDto,
+  ConfirmDeliveryHandoffDto,
   SubmitDeliveryFeedbackDto,
+  SwitchPickupMethodDto,
   UpdateDeliveryDto,
 } from "./dto/delivery.dto";
 
@@ -29,6 +34,8 @@ const transitions: Record<DeliveryStatus, DeliveryStatus[]> = {
 };
 
 const deliveryInclude = {
+  handoffAsset: { select: { id: true, secureUrl: true } },
+  pickupLocation: true,
   customer: { include: { contacts: true } },
   sale: {
     include: {
@@ -63,6 +70,8 @@ export class DeliveryService {
     private readonly prisma: PrismaService,
     private readonly activity: ActivityService,
     private readonly messaging: MessagingService,
+    private readonly config: ConfigService,
+    private readonly valueFeedback: FoundingValueFeedbackService,
   ) {}
 
   list(auth: OwnerAuthContext) {
@@ -115,6 +124,39 @@ export class DeliveryService {
     const courierService = updatedOptionalText(dto.courierService, delivery.courierService);
     const courierName = updatedOptionalText(dto.courierName, delivery.courierName);
     const courierPhone = updatedOptionalText(dto.courierPhone, delivery.courierPhone);
+    const method = delivery.journeyMethod;
+    const methodTransitions: Record<string, Partial<Record<DeliveryStatus, DeliveryStatus[]>>> = {
+      SHOP_DELIVERY: {
+        PREPARING: ["READY_FOR_PICKUP"],
+        READY_FOR_PICKUP: ["IN_TRANSIT"],
+        IN_TRANSIT: ["DELIVERED"],
+      },
+      CUSTOMER_PICKUP: {
+        PREPARING: ["READY_FOR_PICKUP"],
+        READY_FOR_PICKUP: [],
+      },
+      CUSTOMER_RIDER: {
+        PREPARING: ["READY_FOR_PICKUP"],
+        READY_FOR_PICKUP: ["IN_TRANSIT"],
+        IN_TRANSIT: [],
+      },
+    };
+    const journeyTransitions = methodTransitions[method]?.[delivery.status];
+    if (
+      dto.status !== delivery.status
+      && journeyTransitions
+      && ![...journeyTransitions, "ISSUE", "CANCELED"].includes(dto.status)
+    ) {
+      throw new BadRequestException(
+        `This ${method.toLowerCase().replaceAll("_", " ")} journey cannot move from ${delivery.status} to ${dto.status}`,
+      );
+    }
+    if (method === "CUSTOMER_PICKUP" && ["IN_TRANSIT", "DELIVERED"].includes(dto.status)) {
+      throw new BadRequestException("Customer pickup moves from ready for pickup to code-confirmed handoff");
+    }
+    if (method === "CUSTOMER_RIDER" && dto.status === "DELIVERED") {
+      throw new BadRequestException("A customer-rider order is confirmed by the customer after merchant handoff");
+    }
     if (dto.status === "IN_TRANSIT") {
       const missing = [
         !courierService && "delivery service",
@@ -127,6 +169,13 @@ export class DeliveryService {
         );
       }
     }
+    if (dto.handoffAssetId) {
+      const asset = await this.prisma.mediaAsset.findFirst({
+        where: { id: dto.handoffAssetId, businessId: auth.businessId, purpose: "DELIVERY_HANDOFF", status: "ACTIVE" },
+        select: { id: true },
+      });
+      if (!asset) throw new BadRequestException("Handoff photo is invalid");
+    }
     const updated = await this.prisma.$transaction(async (tx) => {
       const updated = await tx.delivery.update({
         where: { id: deliveryId },
@@ -138,12 +187,25 @@ export class DeliveryService {
           courierService: optionalText(dto.courierService),
           courierName: optionalText(dto.courierName),
           courierPhone: optionalText(dto.courierPhone),
+          handoffAssetId: dto.handoffAssetId,
           address: dto.address?.trim(),
           googlePlaceId: dto.googlePlaceId?.trim(),
           latitude: dto.latitude,
           longitude: dto.longitude,
           deliveredAt:
             dto.status === "DELIVERED" && !delivery.deliveredAt
+              ? new Date()
+              : undefined,
+          handoffCodeIssuedAt:
+            dto.status === "READY_FOR_PICKUP" && method !== "CUSTOMER_RIDER" && !delivery.handoffCodeIssuedAt
+              ? new Date()
+              : undefined,
+          riderDetailsAddedAt:
+            method === "CUSTOMER_RIDER" && courierName && courierPhone && !delivery.riderDetailsAddedAt
+              ? new Date()
+              : undefined,
+          handedOffAt:
+            method === "CUSTOMER_RIDER" && dto.status === "IN_TRANSIT" && !delivery.handedOffAt
               ? new Date()
               : undefined,
           events: {
@@ -181,10 +243,56 @@ export class DeliveryService {
     return updated;
   }
 
+  async switchPickupMethod(
+    customerAccountId: string,
+    token: string,
+    dto: SwitchPickupMethodDto,
+  ) {
+    const delivery = await this.findByToken(customerAccountId, token);
+    if (!["CUSTOMER_PICKUP", "CUSTOMER_RIDER"].includes(dto.method)) {
+      throw new BadRequestException("Pickup can only switch between personal pickup and customer rider");
+    }
+    if (!["PREPARING", "READY_FOR_PICKUP"].includes(delivery.status) || delivery.handedOffAt) {
+      throw new BadRequestException("Pickup method can no longer be changed after handoff");
+    }
+    const riderDetails = dto.method === "CUSTOMER_RIDER"
+      && Boolean(dto.riderName?.trim() && dto.riderPhone?.trim());
+    return this.prisma.delivery.update({
+      where: { id: delivery.id },
+      data: {
+        journeyMethod: dto.method,
+        courierService: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.riderService) : null,
+        courierName: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.riderName) : null,
+        courierPhone: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.riderPhone) : null,
+        trackingUrl: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.trackingUrl) : null,
+        riderDetailsAddedAt: riderDetails ? new Date() : null,
+        handoffCodeIssuedAt: dto.method === "CUSTOMER_PICKUP" && delivery.status === "READY_FOR_PICKUP" ? new Date() : null,
+        events: { create: { status: delivery.status, note: dto.method === "CUSTOMER_RIDER" ? "Customer will send a rider" : "Customer will collect personally" } },
+      },
+      include: deliveryInclude,
+    });
+  }
+
+  async confirmHandoff(auth: OwnerAuthContext, deliveryId: string, dto: ConfirmDeliveryHandoffDto) {
+    const delivery = await this.assertOwned(auth.businessId, deliveryId);
+    const allowed = delivery.journeyMethod === "CUSTOMER_PICKUP"
+      ? delivery.status === "READY_FOR_PICKUP"
+      : delivery.journeyMethod === "SHOP_DELIVERY" && delivery.status === "DELIVERED";
+    if (!allowed || !delivery.handoffCodeIssuedAt) {
+      throw new BadRequestException("A handoff code is not expected at this step");
+    }
+    if (!safeCodeEqual(this.handoffCode(delivery.id), dto.code)) {
+      throw new BadRequestException("Handoff code is incorrect");
+    }
+    const updated = await this.completeDelivery(delivery, auth.userId, "Handoff code confirmed");
+    await this.messaging.enqueueCustomerMemoryPrompt(delivery.id).catch(() => undefined);
+    await this.valueFeedback.captureIfQualified(this.prisma, delivery.businessId, delivery.saleId).catch(() => undefined);
+    return updated;
+  }
+
   async getPublic(customerAccountId: string, token: string) {
     const delivery = await this.findByToken(customerAccountId, token);
-    return sanitizePublicDelivery(
-      await this.prisma.delivery.findUniqueOrThrow({
+    const record = await this.prisma.delivery.findUniqueOrThrow({
         where: { id: delivery.id },
         include: {
           ...deliveryInclude,
@@ -192,8 +300,13 @@ export class DeliveryService {
             include: { logoAsset: true, contacts: true, preferences: true },
           },
         },
-      }),
-    );
+      });
+    return {
+      ...sanitizePublicDelivery(record),
+      handoffCode: record.handoffCodeIssuedAt && record.journeyMethod !== "CUSTOMER_RIDER"
+        ? this.handoffCode(record.id)
+        : null,
+    };
   }
 
   async confirm(customerAccountId: string, token: string) {
@@ -204,8 +317,11 @@ export class DeliveryService {
         include: deliveryInclude,
       });
     }
-    if (delivery.status !== "DELIVERED") {
-      throw new BadRequestException("Delivery must be marked delivered first");
+    const canConfirm = delivery.journeyMethod === "CUSTOMER_RIDER"
+      ? delivery.status === "IN_TRANSIT"
+      : delivery.status === "DELIVERED";
+    if (!canConfirm) {
+      throw new BadRequestException("The merchant must complete the handoff step first");
     }
     const updated = await this.prisma.$transaction(async (tx) => {
       const updated = await tx.delivery.update({
@@ -236,6 +352,7 @@ export class DeliveryService {
       return updated;
     });
     await this.messaging.enqueueCustomerMemoryPrompt(delivery.id).catch(() => undefined);
+    await this.valueFeedback.captureIfQualified(this.prisma, delivery.businessId, delivery.saleId).catch(() => undefined);
     return updated;
   }
 
@@ -407,6 +524,48 @@ export class DeliveryService {
     }
     throw new NotFoundException("Delivery not found");
   }
+
+  private handoffCode(deliveryId: string) {
+    const secret = this.config.get<string>("SESSION_HASH_SECRET", "");
+    if (!secret) throw new BadRequestException("Handoff codes are not configured");
+    const digest = createHmac("sha256", secret).update(`delivery-handoff:${deliveryId}`).digest();
+    return (digest.readUInt32BE(0) % 1_000_000).toString().padStart(6, "0");
+  }
+
+  private async completeDelivery(
+    delivery: { id: string; businessId: string; customerId: string; saleId: string },
+    actorId: string | undefined,
+    note: string,
+  ) {
+    return this.prisma.$transaction(async (tx) => {
+      const updated = await tx.delivery.update({
+        where: { id: delivery.id },
+        data: {
+          status: "CONFIRMED",
+          confirmedAt: new Date(),
+          handedOffAt: new Date(),
+          events: { create: { actorId, status: "CONFIRMED", note } },
+        },
+        include: deliveryInclude,
+      });
+      await this.activity.record({
+        businessId: delivery.businessId,
+        actorId,
+        customerId: delivery.customerId,
+        saleId: delivery.saleId,
+        deliveryId: delivery.id,
+        type: "DELIVERY_CONFIRMED",
+        title: note,
+      }, tx);
+      return updated;
+    });
+  }
+}
+
+function safeCodeEqual(expected: string, actual: string) {
+  const left = Buffer.from(expected);
+  const right = Buffer.from(actual.trim());
+  return left.length === right.length && timingSafeEqual(left, right);
 }
 
 function sanitizePublicDelivery(delivery: Record<string, unknown>) {
@@ -424,6 +583,13 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
       name: string;
     };
     confirmedAt: Date | null;
+    journeyMethod: string;
+    pickupLabel: string | null;
+    pickupAddress: string | null;
+    pickupGooglePlaceId: string | null;
+    handoffAsset: { id: string; secureUrl: string } | null;
+    handedOffAt: Date | null;
+    riderDetailsAddedAt: Date | null;
     events: Array<{
       createdAt: Date;
       id: string;
@@ -501,6 +667,13 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
         : null,
     },
     confirmedAt: value.confirmedAt,
+    journeyMethod: value.journeyMethod,
+    pickupLabel: value.pickupLabel,
+    pickupAddress: value.pickupAddress,
+    pickupGooglePlaceId: value.pickupGooglePlaceId,
+    handedOffAt: value.handedOffAt,
+    riderDetailsAddedAt: value.riderDetailsAddedAt,
+    handoffAsset: value.handoffAsset,
     events: value.events
       .filter((event) => event.isPublic)
       .map((event) => ({

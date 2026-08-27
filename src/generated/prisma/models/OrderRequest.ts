@@ -48,6 +48,7 @@ export type OrderRequestMinAggregateOutputType = {
   channel: $Enums.SalesChannel | null
   fulfillment: $Enums.FulfillmentType | null
   agreedFulfillment: $Enums.FulfillmentType | null
+  pickupMethod: $Enums.FulfillmentJourneyMethod | null
   customerAddressId: string | null
   sourceShowcaseId: string | null
   requestedPaymentMethod: $Enums.PaymentMethod | null
@@ -87,6 +88,7 @@ export type OrderRequestMaxAggregateOutputType = {
   channel: $Enums.SalesChannel | null
   fulfillment: $Enums.FulfillmentType | null
   agreedFulfillment: $Enums.FulfillmentType | null
+  pickupMethod: $Enums.FulfillmentJourneyMethod | null
   customerAddressId: string | null
   sourceShowcaseId: string | null
   requestedPaymentMethod: $Enums.PaymentMethod | null
@@ -126,6 +128,7 @@ export type OrderRequestCountAggregateOutputType = {
   channel: number
   fulfillment: number
   agreedFulfillment: number
+  pickupMethod: number
   customerAddressId: number
   sourceShowcaseId: number
   requestedPaymentMethod: number
@@ -177,6 +180,7 @@ export type OrderRequestMinAggregateInputType = {
   channel?: true
   fulfillment?: true
   agreedFulfillment?: true
+  pickupMethod?: true
   customerAddressId?: true
   sourceShowcaseId?: true
   requestedPaymentMethod?: true
@@ -216,6 +220,7 @@ export type OrderRequestMaxAggregateInputType = {
   channel?: true
   fulfillment?: true
   agreedFulfillment?: true
+  pickupMethod?: true
   customerAddressId?: true
   sourceShowcaseId?: true
   requestedPaymentMethod?: true
@@ -255,6 +260,7 @@ export type OrderRequestCountAggregateInputType = {
   channel?: true
   fulfillment?: true
   agreedFulfillment?: true
+  pickupMethod?: true
   customerAddressId?: true
   sourceShowcaseId?: true
   requestedPaymentMethod?: true
@@ -381,6 +387,7 @@ export type OrderRequestGroupByOutputType = {
   channel: $Enums.SalesChannel
   fulfillment: $Enums.FulfillmentType
   agreedFulfillment: $Enums.FulfillmentType | null
+  pickupMethod: $Enums.FulfillmentJourneyMethod | null
   customerAddressId: string | null
   sourceShowcaseId: string | null
   requestedPaymentMethod: $Enums.PaymentMethod | null
@@ -443,6 +450,7 @@ export type OrderRequestWhereInput = {
   channel?: Prisma.EnumSalesChannelFilter<"OrderRequest"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"OrderRequest"> | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.EnumFulfillmentTypeNullableFilter<"OrderRequest"> | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.EnumFulfillmentJourneyMethodNullableFilter<"OrderRequest"> | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   sourceShowcaseId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   requestedPaymentMethod?: Prisma.EnumPaymentMethodNullableFilter<"OrderRequest"> | $Enums.PaymentMethod | null
@@ -496,6 +504,7 @@ export type OrderRequestOrderByWithRelationInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   agreedFulfillment?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrderInput | Prisma.SortOrder
   customerAddressId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   requestedPaymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -553,6 +562,7 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   channel?: Prisma.EnumSalesChannelFilter<"OrderRequest"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"OrderRequest"> | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.EnumFulfillmentTypeNullableFilter<"OrderRequest"> | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.EnumFulfillmentJourneyMethodNullableFilter<"OrderRequest"> | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   sourceShowcaseId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   requestedPaymentMethod?: Prisma.EnumPaymentMethodNullableFilter<"OrderRequest"> | $Enums.PaymentMethod | null
@@ -606,6 +616,7 @@ export type OrderRequestOrderByWithAggregationInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   agreedFulfillment?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrderInput | Prisma.SortOrder
   customerAddressId?: Prisma.SortOrderInput | Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   requestedPaymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -653,6 +664,7 @@ export type OrderRequestScalarWhereWithAggregatesInput = {
   channel?: Prisma.EnumSalesChannelWithAggregatesFilter<"OrderRequest"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeWithAggregatesFilter<"OrderRequest"> | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.EnumFulfillmentTypeNullableWithAggregatesFilter<"OrderRequest"> | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.EnumFulfillmentJourneyMethodNullableWithAggregatesFilter<"OrderRequest"> | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   sourceShowcaseId?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   requestedPaymentMethod?: Prisma.EnumPaymentMethodNullableWithAggregatesFilter<"OrderRequest"> | $Enums.PaymentMethod | null
@@ -689,6 +701,7 @@ export type OrderRequestCreateInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -740,6 +753,7 @@ export type OrderRequestUncheckedCreateInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -785,6 +799,7 @@ export type OrderRequestUpdateInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -836,6 +851,7 @@ export type OrderRequestUncheckedUpdateInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -884,6 +900,7 @@ export type OrderRequestCreateManyInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -920,6 +937,7 @@ export type OrderRequestUpdateManyMutationInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -957,6 +975,7 @@ export type OrderRequestUncheckedUpdateManyInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -1016,6 +1035,7 @@ export type OrderRequestCountOrderByAggregateInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   agreedFulfillment?: Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrder
   requestedPaymentMethod?: Prisma.SortOrder
@@ -1060,6 +1080,7 @@ export type OrderRequestMaxOrderByAggregateInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   agreedFulfillment?: Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrder
   requestedPaymentMethod?: Prisma.SortOrder
@@ -1099,6 +1120,7 @@ export type OrderRequestMinOrderByAggregateInput = {
   channel?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
   agreedFulfillment?: Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrder
   requestedPaymentMethod?: Prisma.SortOrder
@@ -1368,6 +1390,10 @@ export type NullableEnumFulfillmentTypeFieldUpdateOperationsInput = {
   set?: $Enums.FulfillmentType | null
 }
 
+export type NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput = {
+  set?: $Enums.FulfillmentJourneyMethod | null
+}
+
 export type EnumDeliveryEligibilityStatusFieldUpdateOperationsInput = {
   set?: $Enums.DeliveryEligibilityStatus
 }
@@ -1503,6 +1529,7 @@ export type OrderRequestCreateWithoutBusinessInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -1552,6 +1579,7 @@ export type OrderRequestUncheckedCreateWithoutBusinessInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -1629,6 +1657,7 @@ export type OrderRequestScalarWhereInput = {
   channel?: Prisma.EnumSalesChannelFilter<"OrderRequest"> | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"OrderRequest"> | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.EnumFulfillmentTypeNullableFilter<"OrderRequest"> | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.EnumFulfillmentJourneyMethodNullableFilter<"OrderRequest"> | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   sourceShowcaseId?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   requestedPaymentMethod?: Prisma.EnumPaymentMethodNullableFilter<"OrderRequest"> | $Enums.PaymentMethod | null
@@ -1665,6 +1694,7 @@ export type OrderRequestCreateWithoutCustomerAccountInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -1714,6 +1744,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -1785,6 +1816,7 @@ export type OrderRequestCreateWithoutCustomerInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -1834,6 +1866,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -1905,6 +1938,7 @@ export type OrderRequestCreateWithoutCustomerAddressInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -1955,6 +1989,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
@@ -2025,6 +2060,7 @@ export type OrderRequestCreateWithoutSourceShowcaseInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -2075,6 +2111,7 @@ export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
@@ -2145,6 +2182,7 @@ export type OrderRequestCreateWithoutPromotionReservationsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -2195,6 +2233,7 @@ export type OrderRequestUncheckedCreateWithoutPromotionReservationsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -2255,6 +2294,7 @@ export type OrderRequestUpdateWithoutPromotionReservationsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2305,6 +2345,7 @@ export type OrderRequestUncheckedUpdateWithoutPromotionReservationsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -2349,6 +2390,7 @@ export type OrderRequestCreateWithoutReportsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -2399,6 +2441,7 @@ export type OrderRequestUncheckedCreateWithoutReportsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -2459,6 +2502,7 @@ export type OrderRequestUpdateWithoutReportsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2509,6 +2553,7 @@ export type OrderRequestUncheckedUpdateWithoutReportsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -2553,6 +2598,7 @@ export type OrderRequestCreateWithoutTermChangesInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -2603,6 +2649,7 @@ export type OrderRequestUncheckedCreateWithoutTermChangesInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -2663,6 +2710,7 @@ export type OrderRequestUpdateWithoutTermChangesInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2713,6 +2761,7 @@ export type OrderRequestUncheckedUpdateWithoutTermChangesInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -2757,6 +2806,7 @@ export type OrderRequestCreateWithoutCustomerNoticesInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -2807,6 +2857,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerNoticesInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -2867,6 +2918,7 @@ export type OrderRequestUpdateWithoutCustomerNoticesInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2917,6 +2969,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerNoticesInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -2961,6 +3014,7 @@ export type OrderRequestCreateWithoutShareTokensInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -3011,6 +3065,7 @@ export type OrderRequestUncheckedCreateWithoutShareTokensInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -3071,6 +3126,7 @@ export type OrderRequestUpdateWithoutShareTokensInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3121,6 +3177,7 @@ export type OrderRequestUncheckedUpdateWithoutShareTokensInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -3165,6 +3222,7 @@ export type OrderRequestCreateWithoutItemsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -3215,6 +3273,7 @@ export type OrderRequestUncheckedCreateWithoutItemsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -3275,6 +3334,7 @@ export type OrderRequestUpdateWithoutItemsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3325,6 +3385,7 @@ export type OrderRequestUncheckedUpdateWithoutItemsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -3369,6 +3430,7 @@ export type OrderRequestCreateWithoutPaymentChangesInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -3419,6 +3481,7 @@ export type OrderRequestUncheckedCreateWithoutPaymentChangesInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -3479,6 +3542,7 @@ export type OrderRequestUpdateWithoutPaymentChangesInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3529,6 +3593,7 @@ export type OrderRequestUncheckedUpdateWithoutPaymentChangesInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -3573,6 +3638,7 @@ export type OrderRequestCreateWithoutEventsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -3623,6 +3689,7 @@ export type OrderRequestUncheckedCreateWithoutEventsInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -3683,6 +3750,7 @@ export type OrderRequestUpdateWithoutEventsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3733,6 +3801,7 @@ export type OrderRequestUncheckedUpdateWithoutEventsInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -3777,6 +3846,7 @@ export type OrderRequestCreateWithoutConvertedSaleInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
   clientIdempotencyKey?: string | null
@@ -3827,6 +3897,7 @@ export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -3887,6 +3958,7 @@ export type OrderRequestUpdateWithoutConvertedSaleInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3937,6 +4009,7 @@ export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -3983,6 +4056,7 @@ export type OrderRequestCreateManyBusinessInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -4019,6 +4093,7 @@ export type OrderRequestUpdateWithoutBusinessInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4068,6 +4143,7 @@ export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4115,6 +4191,7 @@ export type OrderRequestUncheckedUpdateManyWithoutBusinessInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4153,6 +4230,7 @@ export type OrderRequestCreateManyCustomerAccountInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -4189,6 +4267,7 @@ export type OrderRequestUpdateWithoutCustomerAccountInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4238,6 +4317,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4285,6 +4365,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAccountInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4323,6 +4404,7 @@ export type OrderRequestCreateManyCustomerInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
@@ -4359,6 +4441,7 @@ export type OrderRequestUpdateWithoutCustomerInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4408,6 +4491,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4455,6 +4539,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4494,6 +4579,7 @@ export type OrderRequestCreateManyCustomerAddressInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   sourceShowcaseId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
@@ -4529,6 +4615,7 @@ export type OrderRequestUpdateWithoutCustomerAddressInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4579,6 +4666,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4626,6 +4714,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4664,6 +4753,7 @@ export type OrderRequestCreateManySourceShowcaseInput = {
   channel: $Enums.SalesChannel
   fulfillment?: $Enums.FulfillmentType
   agreedFulfillment?: $Enums.FulfillmentType | null
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: string | null
   requestedPaymentMethod?: $Enums.PaymentMethod | null
   agreedPaymentMethod?: $Enums.PaymentMethod | null
@@ -4699,6 +4789,7 @@ export type OrderRequestUpdateWithoutSourceShowcaseInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   clientIdempotencyKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4749,6 +4840,7 @@ export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4796,6 +4888,7 @@ export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput = {
   channel?: Prisma.EnumSalesChannelFieldUpdateOperationsInput | $Enums.SalesChannel
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   agreedFulfillment?: Prisma.NullableEnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType | null
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   requestedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   agreedPaymentMethod?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
@@ -4928,6 +5021,7 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   channel?: boolean
   fulfillment?: boolean
   agreedFulfillment?: boolean
+  pickupMethod?: boolean
   customerAddressId?: boolean
   sourceShowcaseId?: boolean
   requestedPaymentMethod?: boolean
@@ -4982,6 +5076,7 @@ export type OrderRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   channel?: boolean
   fulfillment?: boolean
   agreedFulfillment?: boolean
+  pickupMethod?: boolean
   customerAddressId?: boolean
   sourceShowcaseId?: boolean
   requestedPaymentMethod?: boolean
@@ -5026,6 +5121,7 @@ export type OrderRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   channel?: boolean
   fulfillment?: boolean
   agreedFulfillment?: boolean
+  pickupMethod?: boolean
   customerAddressId?: boolean
   sourceShowcaseId?: boolean
   requestedPaymentMethod?: boolean
@@ -5070,6 +5166,7 @@ export type OrderRequestSelectScalar = {
   channel?: boolean
   fulfillment?: boolean
   agreedFulfillment?: boolean
+  pickupMethod?: boolean
   customerAddressId?: boolean
   sourceShowcaseId?: boolean
   requestedPaymentMethod?: boolean
@@ -5097,7 +5194,7 @@ export type OrderRequestSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "agreedFulfillment" | "customerAddressId" | "sourceShowcaseId" | "requestedPaymentMethod" | "agreedPaymentMethod" | "clientIdempotencyKey" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryCountryCode" | "deliveryAdministrativeArea1" | "deliveryLocality" | "deliveryEligibility" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "cancellationReasonCode" | "cancellationReason" | "canceledBy" | "status" | "ownerReadAt" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
+export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "agreedFulfillment" | "pickupMethod" | "customerAddressId" | "sourceShowcaseId" | "requestedPaymentMethod" | "agreedPaymentMethod" | "clientIdempotencyKey" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryCountryCode" | "deliveryAdministrativeArea1" | "deliveryLocality" | "deliveryEligibility" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "cancellationReasonCode" | "cancellationReason" | "canceledBy" | "status" | "ownerReadAt" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
 export type OrderRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
@@ -5160,6 +5257,7 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     channel: $Enums.SalesChannel
     fulfillment: $Enums.FulfillmentType
     agreedFulfillment: $Enums.FulfillmentType | null
+    pickupMethod: $Enums.FulfillmentJourneyMethod | null
     customerAddressId: string | null
     sourceShowcaseId: string | null
     requestedPaymentMethod: $Enums.PaymentMethod | null
@@ -5633,6 +5731,7 @@ export interface OrderRequestFieldRefs {
   readonly channel: Prisma.FieldRef<"OrderRequest", 'SalesChannel'>
   readonly fulfillment: Prisma.FieldRef<"OrderRequest", 'FulfillmentType'>
   readonly agreedFulfillment: Prisma.FieldRef<"OrderRequest", 'FulfillmentType'>
+  readonly pickupMethod: Prisma.FieldRef<"OrderRequest", 'FulfillmentJourneyMethod'>
   readonly customerAddressId: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly sourceShowcaseId: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly requestedPaymentMethod: Prisma.FieldRef<"OrderRequest", 'PaymentMethod'>

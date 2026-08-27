@@ -75,6 +75,19 @@ export class ReactivateBusinessDto {
   confirmation!: string;
 }
 
+export class OverrideShopLinkDto {
+  @Transform(trim)
+  @IsString()
+  @Matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+  @Length(2, 80)
+  slug!: string;
+
+  @Transform(trim)
+  @IsString()
+  @Length(4, 500)
+  reason!: string;
+}
+
 export class ReviewCustomerReportDto {
   @IsEnum(CustomerReportStatus)
   status!: CustomerReportStatus;

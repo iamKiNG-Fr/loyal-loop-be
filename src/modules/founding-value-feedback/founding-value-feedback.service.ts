@@ -78,6 +78,10 @@ export class FoundingValueFeedbackService {
         status: "COMPLETED",
         paymentStatus: "PAID",
         items: { some: { productId: { not: null } } },
+        OR: [
+          { fulfillment: "NOT_REQUIRED" },
+          { delivery: { is: { status: "CONFIRMED" } } },
+        ],
       },
       select: { id: true },
     });
@@ -99,6 +103,10 @@ export class FoundingValueFeedbackService {
         status: "COMPLETED",
         paymentStatus: "PAID",
         items: { some: { productId: { not: null } } },
+        OR: [
+          { fulfillment: "NOT_REQUIRED" },
+          { delivery: { is: { status: "CONFIRMED" } } },
+        ],
       },
     });
 
@@ -132,6 +140,10 @@ export class FoundingValueFeedbackService {
         status: "COMPLETED",
         paymentStatus: "PAID",
         items: { some: { productId: { not: null } } },
+        OR: [
+          { fulfillment: "NOT_REQUIRED" },
+          { delivery: { is: { status: "CONFIRMED" } } },
+        ],
       },
       select: { id: true },
       orderBy: [{ soldAt: "desc" }, { createdAt: "desc" }],

@@ -10,7 +10,11 @@ import {
   ValidateIf,
   ValidateNested,
 } from "class-validator";
-import { ContactPlatform, CustomerChannel } from "../../../generated/prisma/client";
+import {
+  BusinessCustomerReportReason,
+  ContactPlatform,
+  CustomerChannel,
+} from "../../../generated/prisma/client";
 import { PaginationDto } from "../../../common/pagination.dto";
 
 export class CustomerContactInputDto {
@@ -107,6 +111,20 @@ export class AddCustomerNoteDto {
   @IsString()
   @Length(1, 1000)
   content!: string;
+}
+
+export class ReportCustomerDto {
+  @IsEnum(BusinessCustomerReportReason)
+  reason!: BusinessCustomerReportReason;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 1000)
+  details?: string;
+
+  @IsOptional()
+  @IsString()
+  saleId?: string;
 }
 
 export class CreateCustomerTagDto {

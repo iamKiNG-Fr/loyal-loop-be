@@ -10,7 +10,10 @@ import {
   Max,
   Min,
 } from "class-validator";
-import { DeliveryStatus } from "../../../generated/prisma/client";
+import {
+  DeliveryStatus,
+  FulfillmentJourneyMethod,
+} from "../../../generated/prisma/client";
 
 export class UpdateDeliveryDto {
   @IsEnum(DeliveryStatus)
@@ -73,6 +76,40 @@ export class UpdateDeliveryDto {
   @Min(-180)
   @Max(180)
   longitude?: number;
+
+  @IsOptional()
+  @IsString()
+  handoffAssetId?: string;
+}
+
+export class ConfirmDeliveryHandoffDto {
+  @IsString()
+  @Length(6, 6)
+  code!: string;
+}
+
+export class SwitchPickupMethodDto {
+  @IsEnum(FulfillmentJourneyMethod)
+  method!: FulfillmentJourneyMethod;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  riderService?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  riderName?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 40)
+  riderPhone?: string;
+
+  @IsOptional()
+  @IsUrl({ protocols: ["https"], require_protocol: true })
+  trackingUrl?: string;
 }
 
 export class SubmitDeliveryFeedbackDto {

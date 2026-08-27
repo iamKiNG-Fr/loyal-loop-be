@@ -19,6 +19,8 @@ import type { CustomerAuthContext, OwnerAuthContext } from "../../common/request
 import { BusinessCapability } from "../../generated/prisma/client";
 import {
   CreateDeliveryIssueDto,
+  ConfirmDeliveryHandoffDto,
+  SwitchPickupMethodDto,
   SubmitDeliveryFeedbackDto,
   UpdateDeliveryDto,
 } from "./dto/delivery.dto";
@@ -78,6 +80,13 @@ export class DeliveryController {
       .then((data) => ok(data, "Issue resolved"));
   }
 
+  @Post(":id/confirm-handoff")
+  @Capabilities(BusinessCapability.DELIVERY_WRITE)
+  @Roles("OWNER", "MANAGER", "SALES", "DELIVERY")
+  confirmHandoff(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string, @Body() dto: ConfirmDeliveryHandoffDto) {
+    return this.deliveries.confirmHandoff(auth, id, dto).then((data) => ok(data, "Handoff confirmed"));
+  }
+
   @Post(":id/issues/:issueId/escalate")
   @Capabilities(BusinessCapability.ISSUE_WRITE)
   @Roles("OWNER", "MANAGER", "DELIVERY")
@@ -107,6 +116,15 @@ export class PublicDeliveryController {
     return this.deliveries
       .confirm(customer.customerAccountId, token)
       .then((data) => ok(data, "Delivery confirmed"));
+  }
+
+  @Patch(":token/pickup-method")
+  switchPickupMethod(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Param("token") token: string,
+    @Body() dto: SwitchPickupMethodDto,
+  ) {
+    return this.deliveries.switchPickupMethod(customer.customerAccountId, token, dto).then((data) => ok(data, "Pickup method updated"));
   }
 
   @Post(":token/feedback")

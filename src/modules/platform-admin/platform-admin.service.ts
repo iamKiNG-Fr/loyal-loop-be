@@ -24,6 +24,7 @@ import type {
   ReviewCustomerReportDto,
   RevokePlatformSessionDto,
   SuspendBusinessDto,
+  OverrideShopLinkDto,
   UpdatePlatformAdminDto,
 } from "./dto/platform-admin.dto";
 import { discoverySource } from "../shops/discovery-attribution";
@@ -803,6 +804,38 @@ export class PlatformAdminService {
         },
       });
       await this.audit(auth, "BUSINESS_REACTIVATED", "Business", id, dto.reason, business, updated, tx);
+      return updated;
+    });
+  }
+
+  async overrideShopLink(auth: PlatformAuthContext, id: string, dto: OverrideShopLinkDto) {
+    this.requireSuperadmin(auth);
+    this.requireRecentStepUp(auth);
+    return this.prisma.$transaction(async (tx) => {
+      const business = await tx.business.findUnique({ where: { id } });
+      if (!business) throw new NotFoundException("Business not found");
+      const nextSlug = dto.slug.trim().toLowerCase();
+      if (nextSlug === business.slug) return business;
+      const currentOwner = await tx.business.findUnique({ where: { slug: nextSlug }, select: { id: true } });
+      if (currentOwner) throw new BadRequestException("That shop link is already active");
+      const historical = await tx.businessSlugHistory.findUnique({ where: { slug: nextSlug } });
+      if (historical && historical.businessId !== id) {
+        throw new BadRequestException("That shop link is reserved by another business");
+      }
+      if (historical) await tx.businessSlugHistory.delete({ where: { id: historical.id } });
+      await tx.businessSlugHistory.create({
+        data: {
+          businessId: id,
+          slug: business.slug,
+          changedByAdminId: auth.platformAdminId,
+          reason: dto.reason,
+        },
+      });
+      const updated = await tx.business.update({
+        where: { id },
+        data: { slug: nextSlug, slugChangedAt: new Date() },
+      });
+      await this.audit(auth, "BUSINESS_SHOP_LINK_OVERRIDDEN", "Business", id, dto.reason, business, updated, tx);
       return updated;
     });
   }

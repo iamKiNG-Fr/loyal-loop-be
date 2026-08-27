@@ -19,6 +19,7 @@ import {
 } from "class-validator";
 import {
   FulfillmentType,
+  FulfillmentJourneyMethod,
   PaymentMethod,
   PaymentStatus,
   PaymentEntryType,
@@ -77,6 +78,14 @@ export class CreateSaleDto {
   @IsOptional()
   @IsEnum(FulfillmentType)
   fulfillment?: FulfillmentType;
+
+  @IsOptional()
+  @IsEnum(FulfillmentJourneyMethod)
+  journeyMethod?: FulfillmentJourneyMethod;
+
+  @IsOptional()
+  @IsString()
+  pickupLocationId?: string;
 
   @IsOptional()
   @IsString()

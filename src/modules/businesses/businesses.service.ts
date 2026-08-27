@@ -31,6 +31,7 @@ import {
   UpdateBusinessPreferencesDto,
 } from "./dto/update-business.dto";
 import { UpdateMemberPermissionsDto } from "./dto/member-permission.dto";
+import { SavePickupLocationDto } from "./dto/pickup-location.dto";
 
 @Injectable()
 export class BusinessesService {
@@ -57,6 +58,7 @@ export class BusinessesService {
         },
         preferences: true,
         contacts: { orderBy: { sortOrder: "asc" } },
+        pickupLocations: { where: { isActive: true }, orderBy: [{ isDefault: "desc" }, { createdAt: "asc" }] },
         members: {
           include: {
             permissionOverrides: true,
@@ -81,6 +83,9 @@ export class BusinessesService {
     });
     return {
       ...business,
+      slugNextChangeAt: business.slugChangedAt
+        ? new Date(business.slugChangedAt.getTime() + 30 * 24 * 60 * 60 * 1000)
+        : null,
       members: business.members.map((member) => ({
         ...member,
         capabilities: resolveCapabilities(member.role, member.permissionOverrides),
@@ -144,14 +149,44 @@ export class BusinessesService {
       if (!asset) throw new BadRequestException("Shop cover asset is invalid");
     }
     try {
-      return await this.prisma.business.update({
+      const current = await this.prisma.business.findUniqueOrThrow({
         where: { id: auth.businessId },
-        data: {
-          ...dto,
-          name: dto.name?.trim(),
-          description: dto.description?.trim(),
-          location: dto.location?.trim(),
-        },
+        select: { slug: true, slugChangedAt: true },
+      });
+      const nextSlug = dto.slug?.trim().toLowerCase();
+      const slugChanged = Boolean(nextSlug && nextSlug !== current.slug);
+      if (slugChanged && current.slugChangedAt) {
+        const nextAllowedAt = new Date(current.slugChangedAt.getTime() + 30 * 24 * 60 * 60 * 1000);
+        if (nextAllowedAt.getTime() > Date.now()) {
+          throw new BadRequestException(
+            `This shop link can be changed again after ${nextAllowedAt.toLocaleDateString("en-NG")}`,
+          );
+        }
+      }
+      if (slugChanged) {
+        const unavailable = await this.prisma.businessSlugHistory.findUnique({
+          where: { slug: nextSlug! },
+          select: { id: true },
+        });
+        if (unavailable) throw new ConflictException("Business link is already in use");
+      }
+      return await this.prisma.$transaction(async (tx) => {
+        if (slugChanged) {
+          await tx.businessSlugHistory.create({
+            data: { businessId: auth.businessId, slug: current.slug, changedByUserId: auth.userId, reason: "Owner changed shop link" },
+          });
+        }
+        return tx.business.update({
+          where: { id: auth.businessId },
+          data: {
+            ...dto,
+            slug: nextSlug,
+            slugChangedAt: slugChanged ? new Date() : undefined,
+            name: dto.name?.trim(),
+            description: dto.description?.trim(),
+            location: dto.location?.trim(),
+          },
+        });
       });
     } catch (error) {
       if (
@@ -162,6 +197,60 @@ export class BusinessesService {
       }
       throw error;
     }
+  }
+
+  pickupLocations(auth: OwnerAuthContext) {
+    return this.prisma.businessPickupLocation.findMany({
+      where: { businessId: auth.businessId, isActive: true },
+      orderBy: [{ isDefault: "desc" }, { createdAt: "asc" }],
+    });
+  }
+
+  async savePickupLocation(auth: OwnerAuthContext, id: string | null, dto: SavePickupLocationDto) {
+    const existing = id
+      ? await this.prisma.businessPickupLocation.findFirst({ where: { id, businessId: auth.businessId, isActive: true } })
+      : null;
+    if (id && !existing) throw new NotFoundException("Pickup location not found");
+    const shouldDefault = dto.isDefault
+      ?? (!existing && await this.prisma.businessPickupLocation.count({ where: { businessId: auth.businessId, isActive: true } }) === 0);
+    return this.prisma.$transaction(async (tx) => {
+      if (shouldDefault) {
+        await tx.businessPickupLocation.updateMany({
+          where: { businessId: auth.businessId },
+          data: { isDefault: false },
+        });
+      }
+      const data = {
+        label: dto.label.trim(),
+        address: dto.address.trim(),
+        googlePlaceId: dto.googlePlaceId?.trim() || null,
+        latitude: dto.latitude,
+        longitude: dto.longitude,
+        isDefault: Boolean(shouldDefault),
+      };
+      return existing
+        ? tx.businessPickupLocation.update({ where: { id: existing.id }, data })
+        : tx.businessPickupLocation.create({ data: { businessId: auth.businessId, ...data } });
+    });
+  }
+
+  async removePickupLocation(auth: OwnerAuthContext, id: string) {
+    const location = await this.prisma.businessPickupLocation.findFirst({ where: { id, businessId: auth.businessId, isActive: true } });
+    if (!location) throw new NotFoundException("Pickup location not found");
+    await this.prisma.businessPickupLocation.update({ where: { id }, data: { isActive: false, isDefault: false } });
+    const next = await this.prisma.businessPickupLocation.findFirst({ where: { businessId: auth.businessId, isActive: true }, orderBy: { createdAt: "asc" } });
+    if (location.isDefault && next) await this.prisma.businessPickupLocation.update({ where: { id: next.id }, data: { isDefault: true } });
+    return { removed: true };
+  }
+
+  async resolveShopSlug(slug: string) {
+    const current = await this.prisma.business.findUnique({ where: { slug }, select: { id: true, slug: true } });
+    if (current) return { ...current, redirectedFrom: null as string | null };
+    const historical = await this.prisma.businessSlugHistory.findUnique({
+      where: { slug },
+      select: { business: { select: { id: true, slug: true } } },
+    });
+    return historical?.business ? { ...historical.business, redirectedFrom: slug } : null;
   }
 
   async scheduleLaunch(
@@ -342,10 +431,7 @@ export class BusinessesService {
   }
 
   async reconcileScheduledLaunchBySlug(slug: string) {
-    const business = await this.prisma.business.findUnique({
-      where: { slug },
-      select: { id: true },
-    });
+    const business = await this.resolveShopSlug(slug);
     if (business) await this.reconcileScheduledLaunch(business.id);
   }
 

@@ -36,6 +36,14 @@ describe("Founding value feedback", () => {
     await expect(
       service.captureIfQualified(prisma as never, "business-1", "sale-1"),
     ).resolves.toMatchObject({ id: "feedback-1", status: "PENDING" });
+    expect(prisma.sale.findFirst).toHaveBeenCalledWith(expect.objectContaining({
+      where: expect.objectContaining({
+        OR: [
+          { fulfillment: "NOT_REQUIRED" },
+          { delivery: { is: { status: "CONFIRMED" } } },
+        ],
+      }),
+    }));
     expect(prisma.foundingValueFeedback.create).toHaveBeenCalledWith({
       data: {
         businessId: "business-1",

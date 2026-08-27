@@ -53,6 +53,93 @@ export class AuthService {
     @Inject(OTP_PROVIDER) private readonly otpProvider: OtpProvider,
   ) {}
 
+  async inspectTeamInvitation(token: string) {
+    const invitation = await this.prisma.businessInvitation.findUnique({
+      where: { tokenHash: hashToken(token) },
+      include: { business: { select: { name: true, slug: true } } },
+    });
+    if (
+      !invitation ||
+      invitation.acceptedAt ||
+      invitation.revokedAt ||
+      invitation.expiresAt.getTime() <= Date.now()
+    ) {
+      throw new UnauthorizedException("Invitation is invalid or expired");
+    }
+    const existingAccount = Boolean(await this.prisma.user.findUnique({
+      where: { email: invitation.email },
+      select: { id: true },
+    }));
+    return {
+      business: invitation.business,
+      email: invitation.email,
+      existingAccount,
+      expiresAt: invitation.expiresAt,
+      name: invitation.name,
+      role: invitation.role,
+    };
+  }
+
+  async registerTeamInvitation(token: string, password: string, meta: SessionMeta) {
+    const invitation = await this.prisma.businessInvitation.findUnique({
+      where: { tokenHash: hashToken(token) },
+      include: { business: true },
+    });
+    if (
+      !invitation ||
+      invitation.acceptedAt ||
+      invitation.revokedAt ||
+      invitation.expiresAt.getTime() <= Date.now()
+    ) {
+      throw new UnauthorizedException("Invitation is invalid or expired");
+    }
+    const existing = await this.prisma.user.findUnique({ where: { email: invitation.email } });
+    if (existing) {
+      throw new ConflictException("An account already uses this email. Sign in to accept the invitation.");
+    }
+    const passwordHash = await hashPassword(password);
+    const result = await this.prisma.$transaction(async (tx) => {
+      const user = await tx.user.create({
+        data: {
+          name: invitation.name.trim(),
+          email: invitation.email,
+          emailVerifiedAt: new Date(),
+          passwordHash,
+        },
+      });
+      const membership = await tx.businessMember.create({
+        data: {
+          businessId: invitation.businessId,
+          userId: user.id,
+          role: invitation.role,
+          status: "ACTIVE",
+          invitedAt: invitation.createdAt,
+          joinedAt: new Date(),
+        },
+      });
+      const claimed = await tx.businessInvitation.updateMany({
+        where: {
+          id: invitation.id,
+          acceptedAt: null,
+          revokedAt: null,
+          expiresAt: { gt: new Date() },
+        },
+        data: { acceptedAt: new Date() },
+      });
+      if (claimed.count !== 1) throw new UnauthorizedException("Invitation was already used");
+      return { user, membership };
+    });
+    const business = await this.prisma.business.findUniqueOrThrow({
+      where: { id: invitation.businessId },
+      include: { preferences: true, contacts: true, logoAsset: true, coverAsset: true },
+    });
+    const session = await this.createSession(result.user.id, meta);
+    return {
+      ...this.safeIdentity(result.user, business, result.membership),
+      session,
+    };
+  }
+
   async register(dto: RegisterOwnerDto, meta: SessionMeta, rawGrant?: string) {
     if (dto.allowedPaymentMethods?.length === 0) {
       throw new BadRequestException("Choose at least one accepted payment method");
@@ -68,10 +155,11 @@ export class AuthService {
       );
     }
     const normalizedEmail = dto.email.trim().toLowerCase();
-    const [emailOwner, phoneOwner, slugOwner] = await Promise.all([
+    const [emailOwner, phoneOwner, slugOwner, historicalSlug] = await Promise.all([
       this.prisma.user.findUnique({ where: { email: normalizedEmail }, select: { id: true } }),
       this.prisma.user.findUnique({ where: { phone: ownerPhone }, select: { id: true } }),
       this.prisma.business.findFirst({ where: { slug: dto.slug }, select: { id: true } }),
+      this.prisma.businessSlugHistory.findUnique({ where: { slug: dto.slug }, select: { id: true } }),
     ]);
     if (emailOwner) {
       throw new ConflictException("This email already has a Loyal Loop account. Sign in instead.");
@@ -79,7 +167,7 @@ export class AuthService {
     if (phoneOwner) {
       throw new ConflictException("This WhatsApp number already belongs to a Loyal Loop business. Sign in instead.");
     }
-    if (slugOwner) {
+    if (slugOwner || historicalSlug) {
       throw new ConflictException("That shop link is already taken. Choose another one.");
     }
     const foundingGrant = this.founding.resolveRegistrationGrant(rawGrant);

@@ -853,10 +853,6 @@ export type EnumCustomerReportReasonFieldUpdateOperationsInput = {
   set?: $Enums.CustomerReportReason
 }
 
-export type EnumCustomerReportStatusFieldUpdateOperationsInput = {
-  set?: $Enums.CustomerReportStatus
-}
-
 export type CustomerReportCreateNestedManyWithoutSaleInput = {
   create?: Prisma.XOR<Prisma.CustomerReportCreateWithoutSaleInput, Prisma.CustomerReportUncheckedCreateWithoutSaleInput> | Prisma.CustomerReportCreateWithoutSaleInput[] | Prisma.CustomerReportUncheckedCreateWithoutSaleInput[]
   connectOrCreate?: Prisma.CustomerReportCreateOrConnectWithoutSaleInput | Prisma.CustomerReportCreateOrConnectWithoutSaleInput[]

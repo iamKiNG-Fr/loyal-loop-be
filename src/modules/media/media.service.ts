@@ -403,10 +403,10 @@ export class MediaService {
   async remove(auth: OwnerAuthContext, assetId: string) {
     const asset = await this.prisma.mediaAsset.findFirst({
       where: { id: assetId, businessId: auth.businessId, status: "ACTIVE" },
-      include: { productImages: true, productMedia: true, productPosters: true, showcaseImages: true, showcasePosters: true, logoFor: true, coverFor: true, avatarFor: true },
+      include: { productImages: true, productMedia: true, productPosters: true, showcaseImages: true, showcasePosters: true, logoFor: true, coverFor: true, avatarFor: true, deliveryHandoffs: true },
     });
     if (!asset) throw new NotFoundException("Asset not found");
-    if (asset.productImages.length || asset.productMedia.length || asset.productPosters.length || asset.showcaseImages.length || asset.showcasePosters.length || asset.logoFor || asset.coverFor || asset.avatarFor) {
+    if (asset.productImages.length || asset.productMedia.length || asset.productPosters.length || asset.showcaseImages.length || asset.showcasePosters.length || asset.deliveryHandoffs.length || asset.logoFor || asset.coverFor || asset.avatarFor) {
       throw new BadRequestException("Asset is still in use");
     }
     await this.destroyAtProvider(asset.publicId, asset.resourceType);

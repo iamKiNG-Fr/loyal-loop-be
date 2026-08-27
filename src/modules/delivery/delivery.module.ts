@@ -4,8 +4,10 @@ import {
   PublicDeliveryController,
 } from "./delivery.controller";
 import { DeliveryService } from "./delivery.service";
+import { FoundingValueFeedbackModule } from "../founding-value-feedback/founding-value-feedback.module";
 
 @Module({
+  imports: [FoundingValueFeedbackModule],
   controllers: [DeliveryController, PublicDeliveryController],
   providers: [DeliveryService],
   exports: [DeliveryService],

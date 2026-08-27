@@ -17,6 +17,7 @@ import {
   CreateCustomerDto,
   CreateCustomerTagDto,
   CustomerListDto,
+  ReportCustomerDto,
   UpdateCustomerDto,
 } from "./dto/customer.dto";
 
@@ -41,6 +42,41 @@ export class CustomersService {
     private readonly activity: ActivityService,
     private readonly intelligence: IntelligenceService,
   ) {}
+
+  async report(auth: OwnerAuthContext, customerId: string, dto: ReportCustomerDto) {
+    const customer = await this.prisma.customer.findFirst({
+      where: { id: customerId, businessId: auth.businessId },
+      select: { id: true },
+    });
+    if (!customer) throw new NotFoundException("Customer not found");
+    if (dto.saleId) {
+      const sale = await this.prisma.sale.findFirst({
+        where: { id: dto.saleId, businessId: auth.businessId, customerId },
+        select: { id: true },
+      });
+      if (!sale) throw new BadRequestException("The selected sale does not belong to this customer");
+    }
+    const recentDuplicate = await this.prisma.businessCustomerReport.findFirst({
+      where: {
+        businessId: auth.businessId,
+        customerId,
+        reason: dto.reason,
+        status: { in: ["OPEN", "IN_REVIEW"] },
+        createdAt: { gte: new Date(Date.now() - 24 * 60 * 60 * 1000) },
+      },
+    });
+    if (recentDuplicate) return recentDuplicate;
+    return this.prisma.businessCustomerReport.create({
+      data: {
+        businessId: auth.businessId,
+        customerId,
+        reportedByUserId: auth.userId,
+        saleId: dto.saleId,
+        reason: dto.reason,
+        details: dto.details?.trim() || null,
+      },
+    });
+  }
 
   async list(auth: OwnerAuthContext, query: CustomerListDto) {
     const where = {

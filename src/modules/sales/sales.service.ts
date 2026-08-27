@@ -188,15 +188,17 @@ export class SalesService {
         "Add active bank details before choosing bank transfer",
       );
     }
-    if (dto.sourceRequestId) {
-      const request = await db.orderRequest.findFirst({
+    const sourceRequest = dto.sourceRequestId
+      ? await db.orderRequest.findFirst({
         where: {
           id: dto.sourceRequestId,
           businessId: auth.businessId,
           status: { notIn: ["CONVERTED", "CANCELED"] },
         },
-      });
-      if (!request) throw new BadRequestException("Order request cannot be converted");
+      })
+      : null;
+    if (dto.sourceRequestId && !sourceRequest) {
+      throw new BadRequestException("Order request cannot be converted");
     }
 
     const lines = dto.items.map((item) => {
@@ -281,6 +283,12 @@ export class SalesService {
     const receiptCode = createReference("RCP");
     const fulfillment = dto.fulfillment ?? "NOT_REQUIRED";
     const createsDeliveryJourney = fulfillment === "DELIVERY" || fulfillment === "PICKUP";
+    const journeyMethod = fulfillment === "DELIVERY"
+      ? "SHOP_DELIVERY" as const
+      : dto.journeyMethod ?? sourceRequest?.pickupMethod ?? "CUSTOMER_PICKUP" as const;
+    if (fulfillment === "PICKUP" && journeyMethod === "SHOP_DELIVERY") {
+      throw new BadRequestException("Pickup orders must use customer pickup or customer rider");
+    }
     const openingDeliveryStatus =
       paymentMethod === "BANK_TRANSFER" && amountPaid.equals(0)
         ? "AWAITING_PAYMENT"
@@ -354,6 +362,17 @@ export class SalesService {
         | { id: string; status: string }
         | undefined;
       if (createsDeliveryJourney) {
+        const pickupLocation = fulfillment === "PICKUP"
+          ? await tx.businessPickupLocation.findFirst({
+              where: dto.pickupLocationId
+                ? { id: dto.pickupLocationId, businessId: auth.businessId, isActive: true }
+                : { businessId: auth.businessId, isActive: true },
+              orderBy: [{ isDefault: "desc" }, { createdAt: "asc" }],
+            })
+          : null;
+        if (fulfillment === "PICKUP" && !pickupLocation) {
+          throw new BadRequestException("Add a pickup location before starting a pickup journey");
+        }
         delivery = await tx.delivery.create({
           data: {
             businessId: auth.businessId,
@@ -361,6 +380,13 @@ export class SalesService {
             saleId: created.id,
             tokenHash: deliveryToken.tokenHash,
             status: openingDeliveryStatus,
+            journeyMethod,
+            pickupLocationId: pickupLocation?.id,
+            pickupLabel: pickupLocation?.label,
+            pickupAddress: pickupLocation?.address,
+            pickupGooglePlaceId: pickupLocation?.googlePlaceId,
+            pickupLatitude: pickupLocation?.latitude,
+            pickupLongitude: pickupLocation?.longitude,
             address: dto.deliveryAddress?.trim(),
             googlePlaceId: dto.deliveryPlaceId?.trim(),
             latitude: dto.deliveryLatitude,

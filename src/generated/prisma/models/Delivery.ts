@@ -27,11 +27,15 @@ export type AggregateDelivery = {
 }
 
 export type DeliveryAvgAggregateOutputType = {
+  pickupLatitude: number | null
+  pickupLongitude: number | null
   latitude: number | null
   longitude: number | null
 }
 
 export type DeliverySumAggregateOutputType = {
+  pickupLatitude: number | null
+  pickupLongitude: number | null
   latitude: number | null
   longitude: number | null
 }
@@ -43,6 +47,14 @@ export type DeliveryMinAggregateOutputType = {
   saleId: string | null
   tokenHash: string | null
   status: $Enums.DeliveryStatus | null
+  journeyMethod: $Enums.FulfillmentJourneyMethod | null
+  pickupLocationId: string | null
+  pickupLabel: string | null
+  pickupAddress: string | null
+  pickupGooglePlaceId: string | null
+  pickupLatitude: number | null
+  pickupLongitude: number | null
+  handoffAssetId: string | null
   address: string | null
   googlePlaceId: string | null
   latitude: number | null
@@ -56,6 +68,9 @@ export type DeliveryMinAggregateOutputType = {
   courierPhone: string | null
   trackingCode: string | null
   trackingUrl: string | null
+  riderDetailsAddedAt: Date | null
+  handedOffAt: Date | null
+  handoffCodeIssuedAt: Date | null
   deliveredAt: Date | null
   confirmedAt: Date | null
   createdAt: Date | null
@@ -69,6 +84,14 @@ export type DeliveryMaxAggregateOutputType = {
   saleId: string | null
   tokenHash: string | null
   status: $Enums.DeliveryStatus | null
+  journeyMethod: $Enums.FulfillmentJourneyMethod | null
+  pickupLocationId: string | null
+  pickupLabel: string | null
+  pickupAddress: string | null
+  pickupGooglePlaceId: string | null
+  pickupLatitude: number | null
+  pickupLongitude: number | null
+  handoffAssetId: string | null
   address: string | null
   googlePlaceId: string | null
   latitude: number | null
@@ -82,6 +105,9 @@ export type DeliveryMaxAggregateOutputType = {
   courierPhone: string | null
   trackingCode: string | null
   trackingUrl: string | null
+  riderDetailsAddedAt: Date | null
+  handedOffAt: Date | null
+  handoffCodeIssuedAt: Date | null
   deliveredAt: Date | null
   confirmedAt: Date | null
   createdAt: Date | null
@@ -95,6 +121,14 @@ export type DeliveryCountAggregateOutputType = {
   saleId: number
   tokenHash: number
   status: number
+  journeyMethod: number
+  pickupLocationId: number
+  pickupLabel: number
+  pickupAddress: number
+  pickupGooglePlaceId: number
+  pickupLatitude: number
+  pickupLongitude: number
+  handoffAssetId: number
   address: number
   googlePlaceId: number
   latitude: number
@@ -108,6 +142,9 @@ export type DeliveryCountAggregateOutputType = {
   courierPhone: number
   trackingCode: number
   trackingUrl: number
+  riderDetailsAddedAt: number
+  handedOffAt: number
+  handoffCodeIssuedAt: number
   deliveredAt: number
   confirmedAt: number
   createdAt: number
@@ -117,11 +154,15 @@ export type DeliveryCountAggregateOutputType = {
 
 
 export type DeliveryAvgAggregateInputType = {
+  pickupLatitude?: true
+  pickupLongitude?: true
   latitude?: true
   longitude?: true
 }
 
 export type DeliverySumAggregateInputType = {
+  pickupLatitude?: true
+  pickupLongitude?: true
   latitude?: true
   longitude?: true
 }
@@ -133,6 +174,14 @@ export type DeliveryMinAggregateInputType = {
   saleId?: true
   tokenHash?: true
   status?: true
+  journeyMethod?: true
+  pickupLocationId?: true
+  pickupLabel?: true
+  pickupAddress?: true
+  pickupGooglePlaceId?: true
+  pickupLatitude?: true
+  pickupLongitude?: true
+  handoffAssetId?: true
   address?: true
   googlePlaceId?: true
   latitude?: true
@@ -146,6 +195,9 @@ export type DeliveryMinAggregateInputType = {
   courierPhone?: true
   trackingCode?: true
   trackingUrl?: true
+  riderDetailsAddedAt?: true
+  handedOffAt?: true
+  handoffCodeIssuedAt?: true
   deliveredAt?: true
   confirmedAt?: true
   createdAt?: true
@@ -159,6 +211,14 @@ export type DeliveryMaxAggregateInputType = {
   saleId?: true
   tokenHash?: true
   status?: true
+  journeyMethod?: true
+  pickupLocationId?: true
+  pickupLabel?: true
+  pickupAddress?: true
+  pickupGooglePlaceId?: true
+  pickupLatitude?: true
+  pickupLongitude?: true
+  handoffAssetId?: true
   address?: true
   googlePlaceId?: true
   latitude?: true
@@ -172,6 +232,9 @@ export type DeliveryMaxAggregateInputType = {
   courierPhone?: true
   trackingCode?: true
   trackingUrl?: true
+  riderDetailsAddedAt?: true
+  handedOffAt?: true
+  handoffCodeIssuedAt?: true
   deliveredAt?: true
   confirmedAt?: true
   createdAt?: true
@@ -185,6 +248,14 @@ export type DeliveryCountAggregateInputType = {
   saleId?: true
   tokenHash?: true
   status?: true
+  journeyMethod?: true
+  pickupLocationId?: true
+  pickupLabel?: true
+  pickupAddress?: true
+  pickupGooglePlaceId?: true
+  pickupLatitude?: true
+  pickupLongitude?: true
+  handoffAssetId?: true
   address?: true
   googlePlaceId?: true
   latitude?: true
@@ -198,6 +269,9 @@ export type DeliveryCountAggregateInputType = {
   courierPhone?: true
   trackingCode?: true
   trackingUrl?: true
+  riderDetailsAddedAt?: true
+  handedOffAt?: true
+  handoffCodeIssuedAt?: true
   deliveredAt?: true
   confirmedAt?: true
   createdAt?: true
@@ -298,6 +372,14 @@ export type DeliveryGroupByOutputType = {
   saleId: string
   tokenHash: string
   status: $Enums.DeliveryStatus
+  journeyMethod: $Enums.FulfillmentJourneyMethod
+  pickupLocationId: string | null
+  pickupLabel: string | null
+  pickupAddress: string | null
+  pickupGooglePlaceId: string | null
+  pickupLatitude: number | null
+  pickupLongitude: number | null
+  handoffAssetId: string | null
   address: string | null
   googlePlaceId: string | null
   latitude: number | null
@@ -311,6 +393,9 @@ export type DeliveryGroupByOutputType = {
   courierPhone: string | null
   trackingCode: string | null
   trackingUrl: string | null
+  riderDetailsAddedAt: Date | null
+  handedOffAt: Date | null
+  handoffCodeIssuedAt: Date | null
   deliveredAt: Date | null
   confirmedAt: Date | null
   createdAt: Date
@@ -347,6 +432,14 @@ export type DeliveryWhereInput = {
   saleId?: Prisma.StringFilter<"Delivery"> | string
   tokenHash?: Prisma.StringFilter<"Delivery"> | string
   status?: Prisma.EnumDeliveryStatusFilter<"Delivery"> | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFilter<"Delivery"> | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupLabel?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupAddress?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupGooglePlaceId?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupLatitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  pickupLongitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  handoffAssetId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   address?: Prisma.StringNullableFilter<"Delivery"> | string | null
   googlePlaceId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
@@ -360,6 +453,9 @@ export type DeliveryWhereInput = {
   courierPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  riderDetailsAddedAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
+  handedOffAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
+  handoffCodeIssuedAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
   deliveredAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
   confirmedAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
@@ -367,6 +463,8 @@ export type DeliveryWhereInput = {
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
+  pickupLocation?: Prisma.XOR<Prisma.BusinessPickupLocationNullableScalarRelationFilter, Prisma.BusinessPickupLocationWhereInput> | null
+  handoffAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   events?: Prisma.DeliveryEventListRelationFilter
   activityEvents?: Prisma.ActivityEventListRelationFilter
   feedback?: Prisma.CustomerFeedbackListRelationFilter
@@ -381,6 +479,14 @@ export type DeliveryOrderByWithRelationInput = {
   saleId?: Prisma.SortOrder
   tokenHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  journeyMethod?: Prisma.SortOrder
+  pickupLocationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupGooglePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupLongitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  handoffAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -394,6 +500,9 @@ export type DeliveryOrderByWithRelationInput = {
   courierPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingCode?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  riderDetailsAddedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  handedOffAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  handoffCodeIssuedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   confirmedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -401,6 +510,8 @@ export type DeliveryOrderByWithRelationInput = {
   business?: Prisma.BusinessOrderByWithRelationInput
   customer?: Prisma.CustomerOrderByWithRelationInput
   sale?: Prisma.SaleOrderByWithRelationInput
+  pickupLocation?: Prisma.BusinessPickupLocationOrderByWithRelationInput
+  handoffAsset?: Prisma.MediaAssetOrderByWithRelationInput
   events?: Prisma.DeliveryEventOrderByRelationAggregateInput
   activityEvents?: Prisma.ActivityEventOrderByRelationAggregateInput
   feedback?: Prisma.CustomerFeedbackOrderByRelationAggregateInput
@@ -418,6 +529,14 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   businessId?: Prisma.StringFilter<"Delivery"> | string
   customerId?: Prisma.StringFilter<"Delivery"> | string
   status?: Prisma.EnumDeliveryStatusFilter<"Delivery"> | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFilter<"Delivery"> | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupLabel?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupAddress?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupGooglePlaceId?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupLatitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  pickupLongitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  handoffAssetId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   address?: Prisma.StringNullableFilter<"Delivery"> | string | null
   googlePlaceId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
@@ -431,6 +550,9 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   courierPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  riderDetailsAddedAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
+  handedOffAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
+  handoffCodeIssuedAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
   deliveredAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
   confirmedAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
@@ -438,6 +560,8 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   customer?: Prisma.XOR<Prisma.CustomerScalarRelationFilter, Prisma.CustomerWhereInput>
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
+  pickupLocation?: Prisma.XOR<Prisma.BusinessPickupLocationNullableScalarRelationFilter, Prisma.BusinessPickupLocationWhereInput> | null
+  handoffAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   events?: Prisma.DeliveryEventListRelationFilter
   activityEvents?: Prisma.ActivityEventListRelationFilter
   feedback?: Prisma.CustomerFeedbackListRelationFilter
@@ -452,6 +576,14 @@ export type DeliveryOrderByWithAggregationInput = {
   saleId?: Prisma.SortOrder
   tokenHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  journeyMethod?: Prisma.SortOrder
+  pickupLocationId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupLabel?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupGooglePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupLatitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  pickupLongitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  handoffAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -465,6 +597,9 @@ export type DeliveryOrderByWithAggregationInput = {
   courierPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingCode?: Prisma.SortOrderInput | Prisma.SortOrder
   trackingUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  riderDetailsAddedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  handedOffAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  handoffCodeIssuedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   confirmedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -486,6 +621,14 @@ export type DeliveryScalarWhereWithAggregatesInput = {
   saleId?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
   tokenHash?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
   status?: Prisma.EnumDeliveryStatusWithAggregatesFilter<"Delivery"> | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodWithAggregatesFilter<"Delivery"> | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  pickupLabel?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  pickupAddress?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  pickupGooglePlaceId?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  pickupLatitude?: Prisma.FloatNullableWithAggregatesFilter<"Delivery"> | number | null
+  pickupLongitude?: Prisma.FloatNullableWithAggregatesFilter<"Delivery"> | number | null
+  handoffAssetId?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   googlePlaceId?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   latitude?: Prisma.FloatNullableWithAggregatesFilter<"Delivery"> | number | null
@@ -499,6 +642,9 @@ export type DeliveryScalarWhereWithAggregatesInput = {
   courierPhone?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  riderDetailsAddedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Delivery"> | Date | string | null
+  handedOffAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Delivery"> | Date | string | null
+  handoffCodeIssuedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Delivery"> | Date | string | null
   deliveredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Delivery"> | Date | string | null
   confirmedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Delivery"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Delivery"> | Date | string
@@ -509,6 +655,12 @@ export type DeliveryCreateInput = {
   id?: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -522,6 +674,9 @@ export type DeliveryCreateInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -529,6 +684,8 @@ export type DeliveryCreateInput = {
   business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
   customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
   sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
@@ -543,6 +700,14 @@ export type DeliveryUncheckedCreateInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -556,6 +721,9 @@ export type DeliveryUncheckedCreateInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -571,6 +739,12 @@ export type DeliveryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -584,6 +758,9 @@ export type DeliveryUpdateInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -591,6 +768,8 @@ export type DeliveryUpdateInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
@@ -605,6 +784,14 @@ export type DeliveryUncheckedUpdateInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -618,6 +805,9 @@ export type DeliveryUncheckedUpdateInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -636,6 +826,14 @@ export type DeliveryCreateManyInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -649,6 +847,9 @@ export type DeliveryCreateManyInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -659,6 +860,12 @@ export type DeliveryUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -672,6 +879,9 @@ export type DeliveryUpdateManyMutationInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -685,6 +895,14 @@ export type DeliveryUncheckedUpdateManyInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -698,6 +916,9 @@ export type DeliveryUncheckedUpdateManyInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -726,6 +947,14 @@ export type DeliveryCountOrderByAggregateInput = {
   saleId?: Prisma.SortOrder
   tokenHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  journeyMethod?: Prisma.SortOrder
+  pickupLocationId?: Prisma.SortOrder
+  pickupLabel?: Prisma.SortOrder
+  pickupAddress?: Prisma.SortOrder
+  pickupGooglePlaceId?: Prisma.SortOrder
+  pickupLatitude?: Prisma.SortOrder
+  pickupLongitude?: Prisma.SortOrder
+  handoffAssetId?: Prisma.SortOrder
   address?: Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
@@ -739,6 +968,9 @@ export type DeliveryCountOrderByAggregateInput = {
   courierPhone?: Prisma.SortOrder
   trackingCode?: Prisma.SortOrder
   trackingUrl?: Prisma.SortOrder
+  riderDetailsAddedAt?: Prisma.SortOrder
+  handedOffAt?: Prisma.SortOrder
+  handoffCodeIssuedAt?: Prisma.SortOrder
   deliveredAt?: Prisma.SortOrder
   confirmedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -746,6 +978,8 @@ export type DeliveryCountOrderByAggregateInput = {
 }
 
 export type DeliveryAvgOrderByAggregateInput = {
+  pickupLatitude?: Prisma.SortOrder
+  pickupLongitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
 }
@@ -757,6 +991,14 @@ export type DeliveryMaxOrderByAggregateInput = {
   saleId?: Prisma.SortOrder
   tokenHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  journeyMethod?: Prisma.SortOrder
+  pickupLocationId?: Prisma.SortOrder
+  pickupLabel?: Prisma.SortOrder
+  pickupAddress?: Prisma.SortOrder
+  pickupGooglePlaceId?: Prisma.SortOrder
+  pickupLatitude?: Prisma.SortOrder
+  pickupLongitude?: Prisma.SortOrder
+  handoffAssetId?: Prisma.SortOrder
   address?: Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
@@ -770,6 +1012,9 @@ export type DeliveryMaxOrderByAggregateInput = {
   courierPhone?: Prisma.SortOrder
   trackingCode?: Prisma.SortOrder
   trackingUrl?: Prisma.SortOrder
+  riderDetailsAddedAt?: Prisma.SortOrder
+  handedOffAt?: Prisma.SortOrder
+  handoffCodeIssuedAt?: Prisma.SortOrder
   deliveredAt?: Prisma.SortOrder
   confirmedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -783,6 +1028,14 @@ export type DeliveryMinOrderByAggregateInput = {
   saleId?: Prisma.SortOrder
   tokenHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  journeyMethod?: Prisma.SortOrder
+  pickupLocationId?: Prisma.SortOrder
+  pickupLabel?: Prisma.SortOrder
+  pickupAddress?: Prisma.SortOrder
+  pickupGooglePlaceId?: Prisma.SortOrder
+  pickupLatitude?: Prisma.SortOrder
+  pickupLongitude?: Prisma.SortOrder
+  handoffAssetId?: Prisma.SortOrder
   address?: Prisma.SortOrder
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
@@ -796,6 +1049,9 @@ export type DeliveryMinOrderByAggregateInput = {
   courierPhone?: Prisma.SortOrder
   trackingCode?: Prisma.SortOrder
   trackingUrl?: Prisma.SortOrder
+  riderDetailsAddedAt?: Prisma.SortOrder
+  handedOffAt?: Prisma.SortOrder
+  handoffCodeIssuedAt?: Prisma.SortOrder
   deliveredAt?: Prisma.SortOrder
   confirmedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -803,6 +1059,8 @@ export type DeliveryMinOrderByAggregateInput = {
 }
 
 export type DeliverySumOrderByAggregateInput = {
+  pickupLatitude?: Prisma.SortOrder
+  pickupLongitude?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
 }
@@ -851,6 +1109,90 @@ export type DeliveryUncheckedUpdateManyWithoutBusinessNestedInput = {
   connect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
   update?: Prisma.DeliveryUpdateWithWhereUniqueWithoutBusinessInput | Prisma.DeliveryUpdateWithWhereUniqueWithoutBusinessInput[]
   updateMany?: Prisma.DeliveryUpdateManyWithWhereWithoutBusinessInput | Prisma.DeliveryUpdateManyWithWhereWithoutBusinessInput[]
+  deleteMany?: Prisma.DeliveryScalarWhereInput | Prisma.DeliveryScalarWhereInput[]
+}
+
+export type DeliveryCreateNestedManyWithoutPickupLocationInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutPickupLocationInput, Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput> | Prisma.DeliveryCreateWithoutPickupLocationInput[] | Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput[]
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutPickupLocationInput | Prisma.DeliveryCreateOrConnectWithoutPickupLocationInput[]
+  createMany?: Prisma.DeliveryCreateManyPickupLocationInputEnvelope
+  connect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+}
+
+export type DeliveryUncheckedCreateNestedManyWithoutPickupLocationInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutPickupLocationInput, Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput> | Prisma.DeliveryCreateWithoutPickupLocationInput[] | Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput[]
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutPickupLocationInput | Prisma.DeliveryCreateOrConnectWithoutPickupLocationInput[]
+  createMany?: Prisma.DeliveryCreateManyPickupLocationInputEnvelope
+  connect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+}
+
+export type DeliveryUpdateManyWithoutPickupLocationNestedInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutPickupLocationInput, Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput> | Prisma.DeliveryCreateWithoutPickupLocationInput[] | Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput[]
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutPickupLocationInput | Prisma.DeliveryCreateOrConnectWithoutPickupLocationInput[]
+  upsert?: Prisma.DeliveryUpsertWithWhereUniqueWithoutPickupLocationInput | Prisma.DeliveryUpsertWithWhereUniqueWithoutPickupLocationInput[]
+  createMany?: Prisma.DeliveryCreateManyPickupLocationInputEnvelope
+  set?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  disconnect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  delete?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  connect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  update?: Prisma.DeliveryUpdateWithWhereUniqueWithoutPickupLocationInput | Prisma.DeliveryUpdateWithWhereUniqueWithoutPickupLocationInput[]
+  updateMany?: Prisma.DeliveryUpdateManyWithWhereWithoutPickupLocationInput | Prisma.DeliveryUpdateManyWithWhereWithoutPickupLocationInput[]
+  deleteMany?: Prisma.DeliveryScalarWhereInput | Prisma.DeliveryScalarWhereInput[]
+}
+
+export type DeliveryUncheckedUpdateManyWithoutPickupLocationNestedInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutPickupLocationInput, Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput> | Prisma.DeliveryCreateWithoutPickupLocationInput[] | Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput[]
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutPickupLocationInput | Prisma.DeliveryCreateOrConnectWithoutPickupLocationInput[]
+  upsert?: Prisma.DeliveryUpsertWithWhereUniqueWithoutPickupLocationInput | Prisma.DeliveryUpsertWithWhereUniqueWithoutPickupLocationInput[]
+  createMany?: Prisma.DeliveryCreateManyPickupLocationInputEnvelope
+  set?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  disconnect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  delete?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  connect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  update?: Prisma.DeliveryUpdateWithWhereUniqueWithoutPickupLocationInput | Prisma.DeliveryUpdateWithWhereUniqueWithoutPickupLocationInput[]
+  updateMany?: Prisma.DeliveryUpdateManyWithWhereWithoutPickupLocationInput | Prisma.DeliveryUpdateManyWithWhereWithoutPickupLocationInput[]
+  deleteMany?: Prisma.DeliveryScalarWhereInput | Prisma.DeliveryScalarWhereInput[]
+}
+
+export type DeliveryCreateNestedManyWithoutHandoffAssetInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutHandoffAssetInput, Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput> | Prisma.DeliveryCreateWithoutHandoffAssetInput[] | Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput[]
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutHandoffAssetInput | Prisma.DeliveryCreateOrConnectWithoutHandoffAssetInput[]
+  createMany?: Prisma.DeliveryCreateManyHandoffAssetInputEnvelope
+  connect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+}
+
+export type DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutHandoffAssetInput, Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput> | Prisma.DeliveryCreateWithoutHandoffAssetInput[] | Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput[]
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutHandoffAssetInput | Prisma.DeliveryCreateOrConnectWithoutHandoffAssetInput[]
+  createMany?: Prisma.DeliveryCreateManyHandoffAssetInputEnvelope
+  connect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+}
+
+export type DeliveryUpdateManyWithoutHandoffAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutHandoffAssetInput, Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput> | Prisma.DeliveryCreateWithoutHandoffAssetInput[] | Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput[]
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutHandoffAssetInput | Prisma.DeliveryCreateOrConnectWithoutHandoffAssetInput[]
+  upsert?: Prisma.DeliveryUpsertWithWhereUniqueWithoutHandoffAssetInput | Prisma.DeliveryUpsertWithWhereUniqueWithoutHandoffAssetInput[]
+  createMany?: Prisma.DeliveryCreateManyHandoffAssetInputEnvelope
+  set?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  disconnect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  delete?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  connect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  update?: Prisma.DeliveryUpdateWithWhereUniqueWithoutHandoffAssetInput | Prisma.DeliveryUpdateWithWhereUniqueWithoutHandoffAssetInput[]
+  updateMany?: Prisma.DeliveryUpdateManyWithWhereWithoutHandoffAssetInput | Prisma.DeliveryUpdateManyWithWhereWithoutHandoffAssetInput[]
+  deleteMany?: Prisma.DeliveryScalarWhereInput | Prisma.DeliveryScalarWhereInput[]
+}
+
+export type DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutHandoffAssetInput, Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput> | Prisma.DeliveryCreateWithoutHandoffAssetInput[] | Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput[]
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutHandoffAssetInput | Prisma.DeliveryCreateOrConnectWithoutHandoffAssetInput[]
+  upsert?: Prisma.DeliveryUpsertWithWhereUniqueWithoutHandoffAssetInput | Prisma.DeliveryUpsertWithWhereUniqueWithoutHandoffAssetInput[]
+  createMany?: Prisma.DeliveryCreateManyHandoffAssetInputEnvelope
+  set?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  disconnect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  delete?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  connect?: Prisma.DeliveryWhereUniqueInput | Prisma.DeliveryWhereUniqueInput[]
+  update?: Prisma.DeliveryUpdateWithWhereUniqueWithoutHandoffAssetInput | Prisma.DeliveryUpdateWithWhereUniqueWithoutHandoffAssetInput[]
+  updateMany?: Prisma.DeliveryUpdateManyWithWhereWithoutHandoffAssetInput | Prisma.DeliveryUpdateManyWithWhereWithoutHandoffAssetInput[]
   deleteMany?: Prisma.DeliveryScalarWhereInput | Prisma.DeliveryScalarWhereInput[]
 }
 
@@ -930,6 +1272,10 @@ export type DeliveryUncheckedUpdateOneWithoutSaleNestedInput = {
 
 export type EnumDeliveryStatusFieldUpdateOperationsInput = {
   set?: $Enums.DeliveryStatus
+}
+
+export type EnumFulfillmentJourneyMethodFieldUpdateOperationsInput = {
+  set?: $Enums.FulfillmentJourneyMethod
 }
 
 export type DeliveryCreateNestedOneWithoutShareTokensInput = {
@@ -1012,6 +1358,12 @@ export type DeliveryCreateWithoutBusinessInput = {
   id?: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1025,12 +1377,17 @@ export type DeliveryCreateWithoutBusinessInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
   sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
@@ -1044,6 +1401,14 @@ export type DeliveryUncheckedCreateWithoutBusinessInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1057,6 +1422,9 @@ export type DeliveryUncheckedCreateWithoutBusinessInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1104,6 +1472,14 @@ export type DeliveryScalarWhereInput = {
   saleId?: Prisma.StringFilter<"Delivery"> | string
   tokenHash?: Prisma.StringFilter<"Delivery"> | string
   status?: Prisma.EnumDeliveryStatusFilter<"Delivery"> | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFilter<"Delivery"> | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupLabel?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupAddress?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupGooglePlaceId?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  pickupLatitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  pickupLongitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  handoffAssetId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   address?: Prisma.StringNullableFilter<"Delivery"> | string | null
   googlePlaceId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   latitude?: Prisma.FloatNullableFilter<"Delivery"> | number | null
@@ -1117,16 +1493,25 @@ export type DeliveryScalarWhereInput = {
   courierPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingCode?: Prisma.StringNullableFilter<"Delivery"> | string | null
   trackingUrl?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  riderDetailsAddedAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
+  handedOffAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
+  handoffCodeIssuedAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
   deliveredAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
   confirmedAt?: Prisma.DateTimeNullableFilter<"Delivery"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
 }
 
-export type DeliveryCreateWithoutCustomerInput = {
+export type DeliveryCreateWithoutPickupLocationInput = {
   id?: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1140,12 +1525,233 @@ export type DeliveryCreateWithoutCustomerInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  confirmedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
+  customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
+  sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
+  events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
+}
+
+export type DeliveryUncheckedCreateWithoutPickupLocationInput = {
+  id?: string
+  businessId: string
+  customerId: string
+  saleId: string
+  tokenHash: string
+  status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
+  address?: string | null
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
+  trackingCode?: string | null
+  trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  confirmedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutDeliveryInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
+}
+
+export type DeliveryCreateOrConnectWithoutPickupLocationInput = {
+  where: Prisma.DeliveryWhereUniqueInput
+  create: Prisma.XOR<Prisma.DeliveryCreateWithoutPickupLocationInput, Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput>
+}
+
+export type DeliveryCreateManyPickupLocationInputEnvelope = {
+  data: Prisma.DeliveryCreateManyPickupLocationInput | Prisma.DeliveryCreateManyPickupLocationInput[]
+  skipDuplicates?: boolean
+}
+
+export type DeliveryUpsertWithWhereUniqueWithoutPickupLocationInput = {
+  where: Prisma.DeliveryWhereUniqueInput
+  update: Prisma.XOR<Prisma.DeliveryUpdateWithoutPickupLocationInput, Prisma.DeliveryUncheckedUpdateWithoutPickupLocationInput>
+  create: Prisma.XOR<Prisma.DeliveryCreateWithoutPickupLocationInput, Prisma.DeliveryUncheckedCreateWithoutPickupLocationInput>
+}
+
+export type DeliveryUpdateWithWhereUniqueWithoutPickupLocationInput = {
+  where: Prisma.DeliveryWhereUniqueInput
+  data: Prisma.XOR<Prisma.DeliveryUpdateWithoutPickupLocationInput, Prisma.DeliveryUncheckedUpdateWithoutPickupLocationInput>
+}
+
+export type DeliveryUpdateManyWithWhereWithoutPickupLocationInput = {
+  where: Prisma.DeliveryScalarWhereInput
+  data: Prisma.XOR<Prisma.DeliveryUpdateManyMutationInput, Prisma.DeliveryUncheckedUpdateManyWithoutPickupLocationInput>
+}
+
+export type DeliveryCreateWithoutHandoffAssetInput = {
+  id?: string
+  tokenHash: string
+  status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  address?: string | null
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
+  trackingCode?: string | null
+  trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  confirmedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
+  customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
+  sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenCreateNestedManyWithoutDeliveryInput
+}
+
+export type DeliveryUncheckedCreateWithoutHandoffAssetInput = {
+  id?: string
+  businessId: string
+  customerId: string
+  saleId: string
+  tokenHash: string
+  status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  address?: string | null
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
+  trackingCode?: string | null
+  trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  confirmedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  events?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutDeliveryInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutDeliveryInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutDeliveryInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutDeliveryInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedCreateNestedManyWithoutDeliveryInput
+}
+
+export type DeliveryCreateOrConnectWithoutHandoffAssetInput = {
+  where: Prisma.DeliveryWhereUniqueInput
+  create: Prisma.XOR<Prisma.DeliveryCreateWithoutHandoffAssetInput, Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput>
+}
+
+export type DeliveryCreateManyHandoffAssetInputEnvelope = {
+  data: Prisma.DeliveryCreateManyHandoffAssetInput | Prisma.DeliveryCreateManyHandoffAssetInput[]
+  skipDuplicates?: boolean
+}
+
+export type DeliveryUpsertWithWhereUniqueWithoutHandoffAssetInput = {
+  where: Prisma.DeliveryWhereUniqueInput
+  update: Prisma.XOR<Prisma.DeliveryUpdateWithoutHandoffAssetInput, Prisma.DeliveryUncheckedUpdateWithoutHandoffAssetInput>
+  create: Prisma.XOR<Prisma.DeliveryCreateWithoutHandoffAssetInput, Prisma.DeliveryUncheckedCreateWithoutHandoffAssetInput>
+}
+
+export type DeliveryUpdateWithWhereUniqueWithoutHandoffAssetInput = {
+  where: Prisma.DeliveryWhereUniqueInput
+  data: Prisma.XOR<Prisma.DeliveryUpdateWithoutHandoffAssetInput, Prisma.DeliveryUncheckedUpdateWithoutHandoffAssetInput>
+}
+
+export type DeliveryUpdateManyWithWhereWithoutHandoffAssetInput = {
+  where: Prisma.DeliveryScalarWhereInput
+  data: Prisma.XOR<Prisma.DeliveryUpdateManyMutationInput, Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetInput>
+}
+
+export type DeliveryCreateWithoutCustomerInput = {
+  id?: string
+  tokenHash: string
+  status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  address?: string | null
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
+  trackingCode?: string | null
+  trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
   sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
@@ -1159,6 +1765,14 @@ export type DeliveryUncheckedCreateWithoutCustomerInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1172,6 +1786,9 @@ export type DeliveryUncheckedCreateWithoutCustomerInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1213,6 +1830,12 @@ export type DeliveryCreateWithoutSaleInput = {
   id?: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1226,12 +1849,17 @@ export type DeliveryCreateWithoutSaleInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
   customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
@@ -1245,6 +1873,14 @@ export type DeliveryUncheckedCreateWithoutSaleInput = {
   customerId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1258,6 +1894,9 @@ export type DeliveryUncheckedCreateWithoutSaleInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1289,6 +1928,12 @@ export type DeliveryUpdateWithoutSaleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1302,12 +1947,17 @@ export type DeliveryUpdateWithoutSaleInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
@@ -1321,6 +1971,14 @@ export type DeliveryUncheckedUpdateWithoutSaleInput = {
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1334,6 +1992,9 @@ export type DeliveryUncheckedUpdateWithoutSaleInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1349,6 +2010,12 @@ export type DeliveryCreateWithoutShareTokensInput = {
   id?: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1362,6 +2029,9 @@ export type DeliveryCreateWithoutShareTokensInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1369,6 +2039,8 @@ export type DeliveryCreateWithoutShareTokensInput = {
   business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
   customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
   sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
@@ -1382,6 +2054,14 @@ export type DeliveryUncheckedCreateWithoutShareTokensInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1395,6 +2075,9 @@ export type DeliveryUncheckedCreateWithoutShareTokensInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1425,6 +2108,12 @@ export type DeliveryUpdateWithoutShareTokensInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1438,6 +2127,9 @@ export type DeliveryUpdateWithoutShareTokensInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1445,6 +2137,8 @@ export type DeliveryUpdateWithoutShareTokensInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
@@ -1458,6 +2152,14 @@ export type DeliveryUncheckedUpdateWithoutShareTokensInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1471,6 +2173,9 @@ export type DeliveryUncheckedUpdateWithoutShareTokensInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1485,6 +2190,12 @@ export type DeliveryCreateWithoutEventsInput = {
   id?: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1498,6 +2209,9 @@ export type DeliveryCreateWithoutEventsInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1505,6 +2219,8 @@ export type DeliveryCreateWithoutEventsInput = {
   business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
   customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
   sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
@@ -1518,6 +2234,14 @@ export type DeliveryUncheckedCreateWithoutEventsInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1531,6 +2255,9 @@ export type DeliveryUncheckedCreateWithoutEventsInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1561,6 +2288,12 @@ export type DeliveryUpdateWithoutEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1574,6 +2307,9 @@ export type DeliveryUpdateWithoutEventsInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1581,6 +2317,8 @@ export type DeliveryUpdateWithoutEventsInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
@@ -1594,6 +2332,14 @@ export type DeliveryUncheckedUpdateWithoutEventsInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1607,6 +2353,9 @@ export type DeliveryUncheckedUpdateWithoutEventsInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1621,6 +2370,12 @@ export type DeliveryCreateWithoutActivityEventsInput = {
   id?: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1634,6 +2389,9 @@ export type DeliveryCreateWithoutActivityEventsInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1641,6 +2399,8 @@ export type DeliveryCreateWithoutActivityEventsInput = {
   business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
   customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
   sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
@@ -1654,6 +2414,14 @@ export type DeliveryUncheckedCreateWithoutActivityEventsInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1667,6 +2435,9 @@ export type DeliveryUncheckedCreateWithoutActivityEventsInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1697,6 +2468,12 @@ export type DeliveryUpdateWithoutActivityEventsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1710,6 +2487,9 @@ export type DeliveryUpdateWithoutActivityEventsInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1717,6 +2497,8 @@ export type DeliveryUpdateWithoutActivityEventsInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
@@ -1730,6 +2512,14 @@ export type DeliveryUncheckedUpdateWithoutActivityEventsInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1743,6 +2533,9 @@ export type DeliveryUncheckedUpdateWithoutActivityEventsInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1757,6 +2550,12 @@ export type DeliveryCreateWithoutFeedbackInput = {
   id?: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1770,6 +2569,9 @@ export type DeliveryCreateWithoutFeedbackInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1777,6 +2579,8 @@ export type DeliveryCreateWithoutFeedbackInput = {
   business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
   customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
   sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   issues?: Prisma.CustomerIssueCreateNestedManyWithoutDeliveryInput
@@ -1790,6 +2594,14 @@ export type DeliveryUncheckedCreateWithoutFeedbackInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1803,6 +2615,9 @@ export type DeliveryUncheckedCreateWithoutFeedbackInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1833,6 +2648,12 @@ export type DeliveryUpdateWithoutFeedbackInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1846,6 +2667,9 @@ export type DeliveryUpdateWithoutFeedbackInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1853,6 +2677,8 @@ export type DeliveryUpdateWithoutFeedbackInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
@@ -1866,6 +2692,14 @@ export type DeliveryUncheckedUpdateWithoutFeedbackInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1879,6 +2713,9 @@ export type DeliveryUncheckedUpdateWithoutFeedbackInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1893,6 +2730,12 @@ export type DeliveryCreateWithoutIssuesInput = {
   id?: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1906,6 +2749,9 @@ export type DeliveryCreateWithoutIssuesInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1913,6 +2759,8 @@ export type DeliveryCreateWithoutIssuesInput = {
   business: Prisma.BusinessCreateNestedOneWithoutDeliveriesInput
   customer: Prisma.CustomerCreateNestedOneWithoutDeliveriesInput
   sale: Prisma.SaleCreateNestedOneWithoutDeliveryInput
+  pickupLocation?: Prisma.BusinessPickupLocationCreateNestedOneWithoutDeliveriesInput
+  handoffAsset?: Prisma.MediaAssetCreateNestedOneWithoutDeliveryHandoffsInput
   events?: Prisma.DeliveryEventCreateNestedManyWithoutDeliveryInput
   activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutDeliveryInput
   feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutDeliveryInput
@@ -1926,6 +2774,14 @@ export type DeliveryUncheckedCreateWithoutIssuesInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -1939,6 +2795,9 @@ export type DeliveryUncheckedCreateWithoutIssuesInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -1969,6 +2828,12 @@ export type DeliveryUpdateWithoutIssuesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -1982,6 +2847,9 @@ export type DeliveryUpdateWithoutIssuesInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1989,6 +2857,8 @@ export type DeliveryUpdateWithoutIssuesInput = {
   business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
@@ -2002,6 +2872,14 @@ export type DeliveryUncheckedUpdateWithoutIssuesInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2015,6 +2893,9 @@ export type DeliveryUncheckedUpdateWithoutIssuesInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2031,6 +2912,14 @@ export type DeliveryCreateManyBusinessInput = {
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -2044,6 +2933,9 @@ export type DeliveryCreateManyBusinessInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
@@ -2054,6 +2946,12 @@ export type DeliveryUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2067,12 +2965,17 @@ export type DeliveryUpdateWithoutBusinessInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
@@ -2086,6 +2989,14 @@ export type DeliveryUncheckedUpdateWithoutBusinessInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2099,6 +3010,9 @@ export type DeliveryUncheckedUpdateWithoutBusinessInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2116,6 +3030,14 @@ export type DeliveryUncheckedUpdateManyWithoutBusinessInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2129,18 +3051,29 @@ export type DeliveryUncheckedUpdateManyWithoutBusinessInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type DeliveryCreateManyCustomerInput = {
+export type DeliveryCreateManyPickupLocationInput = {
   id?: string
   businessId: string
+  customerId: string
   saleId: string
   tokenHash: string
   status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
   address?: string | null
   googlePlaceId?: string | null
   latitude?: number | null
@@ -2154,16 +3087,25 @@ export type DeliveryCreateManyCustomerInput = {
   courierPhone?: string | null
   trackingCode?: string | null
   trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
   deliveredAt?: Date | string | null
   confirmedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type DeliveryUpdateWithoutCustomerInput = {
+export type DeliveryUpdateWithoutPickupLocationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2177,12 +3119,325 @@ export type DeliveryUpdateWithoutCustomerInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
+  sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
+  events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
+}
+
+export type DeliveryUncheckedUpdateWithoutPickupLocationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.DeliveryEventUncheckedUpdateManyWithoutDeliveryNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutDeliveryNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutDeliveryNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
+}
+
+export type DeliveryUncheckedUpdateManyWithoutPickupLocationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type DeliveryCreateManyHandoffAssetInput = {
+  id?: string
+  businessId: string
+  customerId: string
+  saleId: string
+  tokenHash: string
+  status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  address?: string | null
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
+  trackingCode?: string | null
+  trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  confirmedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type DeliveryUpdateWithoutHandoffAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
+  customer?: Prisma.CustomerUpdateOneRequiredWithoutDeliveriesNestedInput
+  sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUpdateManyWithoutDeliveryNestedInput
+}
+
+export type DeliveryUncheckedUpdateWithoutHandoffAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  events?: Prisma.DeliveryEventUncheckedUpdateManyWithoutDeliveryNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutDeliveryNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutDeliveryNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutDeliveryNestedInput
+  shareTokens?: Prisma.DeliveryShareTokenUncheckedUpdateManyWithoutDeliveryNestedInput
+}
+
+export type DeliveryUncheckedUpdateManyWithoutHandoffAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type DeliveryCreateManyCustomerInput = {
+  id?: string
+  businessId: string
+  saleId: string
+  tokenHash: string
+  status?: $Enums.DeliveryStatus
+  journeyMethod?: $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: string | null
+  pickupLabel?: string | null
+  pickupAddress?: string | null
+  pickupGooglePlaceId?: string | null
+  pickupLatitude?: number | null
+  pickupLongitude?: number | null
+  handoffAssetId?: string | null
+  address?: string | null
+  googlePlaceId?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  courier?: string | null
+  courierService?: string | null
+  courierName?: string | null
+  courierPhone?: string | null
+  trackingCode?: string | null
+  trackingUrl?: string | null
+  riderDetailsAddedAt?: Date | string | null
+  handedOffAt?: Date | string | null
+  handoffCodeIssuedAt?: Date | string | null
+  deliveredAt?: Date | string | null
+  confirmedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type DeliveryUpdateWithoutCustomerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutDeliveriesNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutDeliveryNestedInput
+  pickupLocation?: Prisma.BusinessPickupLocationUpdateOneWithoutDeliveriesNestedInput
+  handoffAsset?: Prisma.MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput
   events?: Prisma.DeliveryEventUpdateManyWithoutDeliveryNestedInput
   activityEvents?: Prisma.ActivityEventUpdateManyWithoutDeliveryNestedInput
   feedback?: Prisma.CustomerFeedbackUpdateManyWithoutDeliveryNestedInput
@@ -2196,6 +3451,14 @@ export type DeliveryUncheckedUpdateWithoutCustomerInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2209,6 +3472,9 @@ export type DeliveryUncheckedUpdateWithoutCustomerInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2226,6 +3492,14 @@ export type DeliveryUncheckedUpdateManyWithoutCustomerInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   tokenHash?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDeliveryStatusFieldUpdateOperationsInput | $Enums.DeliveryStatus
+  journeyMethod?: Prisma.EnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod
+  pickupLocationId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLabel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupGooglePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pickupLatitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  pickupLongitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  handoffAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -2239,6 +3513,9 @@ export type DeliveryUncheckedUpdateManyWithoutCustomerInput = {
   courierPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trackingUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  riderDetailsAddedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handedOffAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  handoffCodeIssuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deliveredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   confirmedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2319,6 +3596,14 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   saleId?: boolean
   tokenHash?: boolean
   status?: boolean
+  journeyMethod?: boolean
+  pickupLocationId?: boolean
+  pickupLabel?: boolean
+  pickupAddress?: boolean
+  pickupGooglePlaceId?: boolean
+  pickupLatitude?: boolean
+  pickupLongitude?: boolean
+  handoffAssetId?: boolean
   address?: boolean
   googlePlaceId?: boolean
   latitude?: boolean
@@ -2332,6 +3617,9 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   courierPhone?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
+  riderDetailsAddedAt?: boolean
+  handedOffAt?: boolean
+  handoffCodeIssuedAt?: boolean
   deliveredAt?: boolean
   confirmedAt?: boolean
   createdAt?: boolean
@@ -2339,6 +3627,8 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
+  pickupLocation?: boolean | Prisma.Delivery$pickupLocationArgs<ExtArgs>
+  handoffAsset?: boolean | Prisma.Delivery$handoffAssetArgs<ExtArgs>
   events?: boolean | Prisma.Delivery$eventsArgs<ExtArgs>
   activityEvents?: boolean | Prisma.Delivery$activityEventsArgs<ExtArgs>
   feedback?: boolean | Prisma.Delivery$feedbackArgs<ExtArgs>
@@ -2354,6 +3644,14 @@ export type DeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   saleId?: boolean
   tokenHash?: boolean
   status?: boolean
+  journeyMethod?: boolean
+  pickupLocationId?: boolean
+  pickupLabel?: boolean
+  pickupAddress?: boolean
+  pickupGooglePlaceId?: boolean
+  pickupLatitude?: boolean
+  pickupLongitude?: boolean
+  handoffAssetId?: boolean
   address?: boolean
   googlePlaceId?: boolean
   latitude?: boolean
@@ -2367,6 +3665,9 @@ export type DeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   courierPhone?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
+  riderDetailsAddedAt?: boolean
+  handedOffAt?: boolean
+  handoffCodeIssuedAt?: boolean
   deliveredAt?: boolean
   confirmedAt?: boolean
   createdAt?: boolean
@@ -2374,6 +3675,8 @@ export type DeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
+  pickupLocation?: boolean | Prisma.Delivery$pickupLocationArgs<ExtArgs>
+  handoffAsset?: boolean | Prisma.Delivery$handoffAssetArgs<ExtArgs>
 }, ExtArgs["result"]["delivery"]>
 
 export type DeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2383,6 +3686,14 @@ export type DeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   saleId?: boolean
   tokenHash?: boolean
   status?: boolean
+  journeyMethod?: boolean
+  pickupLocationId?: boolean
+  pickupLabel?: boolean
+  pickupAddress?: boolean
+  pickupGooglePlaceId?: boolean
+  pickupLatitude?: boolean
+  pickupLongitude?: boolean
+  handoffAssetId?: boolean
   address?: boolean
   googlePlaceId?: boolean
   latitude?: boolean
@@ -2396,6 +3707,9 @@ export type DeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   courierPhone?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
+  riderDetailsAddedAt?: boolean
+  handedOffAt?: boolean
+  handoffCodeIssuedAt?: boolean
   deliveredAt?: boolean
   confirmedAt?: boolean
   createdAt?: boolean
@@ -2403,6 +3717,8 @@ export type DeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
+  pickupLocation?: boolean | Prisma.Delivery$pickupLocationArgs<ExtArgs>
+  handoffAsset?: boolean | Prisma.Delivery$handoffAssetArgs<ExtArgs>
 }, ExtArgs["result"]["delivery"]>
 
 export type DeliverySelectScalar = {
@@ -2412,6 +3728,14 @@ export type DeliverySelectScalar = {
   saleId?: boolean
   tokenHash?: boolean
   status?: boolean
+  journeyMethod?: boolean
+  pickupLocationId?: boolean
+  pickupLabel?: boolean
+  pickupAddress?: boolean
+  pickupGooglePlaceId?: boolean
+  pickupLatitude?: boolean
+  pickupLongitude?: boolean
+  handoffAssetId?: boolean
   address?: boolean
   googlePlaceId?: boolean
   latitude?: boolean
@@ -2425,17 +3749,22 @@ export type DeliverySelectScalar = {
   courierPhone?: boolean
   trackingCode?: boolean
   trackingUrl?: boolean
+  riderDetailsAddedAt?: boolean
+  handedOffAt?: boolean
+  handoffCodeIssuedAt?: boolean
   deliveredAt?: boolean
   confirmedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "saleId" | "tokenHash" | "status" | "address" | "googlePlaceId" | "latitude" | "longitude" | "isGift" | "recipientName" | "recipientPhone" | "courier" | "courierService" | "courierName" | "courierPhone" | "trackingCode" | "trackingUrl" | "deliveredAt" | "confirmedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["delivery"]>
+export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "saleId" | "tokenHash" | "status" | "journeyMethod" | "pickupLocationId" | "pickupLabel" | "pickupAddress" | "pickupGooglePlaceId" | "pickupLatitude" | "pickupLongitude" | "handoffAssetId" | "address" | "googlePlaceId" | "latitude" | "longitude" | "isGift" | "recipientName" | "recipientPhone" | "courier" | "courierService" | "courierName" | "courierPhone" | "trackingCode" | "trackingUrl" | "riderDetailsAddedAt" | "handedOffAt" | "handoffCodeIssuedAt" | "deliveredAt" | "confirmedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["delivery"]>
 export type DeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
+  pickupLocation?: boolean | Prisma.Delivery$pickupLocationArgs<ExtArgs>
+  handoffAsset?: boolean | Prisma.Delivery$handoffAssetArgs<ExtArgs>
   events?: boolean | Prisma.Delivery$eventsArgs<ExtArgs>
   activityEvents?: boolean | Prisma.Delivery$activityEventsArgs<ExtArgs>
   feedback?: boolean | Prisma.Delivery$feedbackArgs<ExtArgs>
@@ -2447,11 +3776,15 @@ export type DeliveryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
+  pickupLocation?: boolean | Prisma.Delivery$pickupLocationArgs<ExtArgs>
+  handoffAsset?: boolean | Prisma.Delivery$handoffAssetArgs<ExtArgs>
 }
 export type DeliveryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
+  pickupLocation?: boolean | Prisma.Delivery$pickupLocationArgs<ExtArgs>
+  handoffAsset?: boolean | Prisma.Delivery$handoffAssetArgs<ExtArgs>
 }
 
 export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2460,6 +3793,8 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     business: Prisma.$BusinessPayload<ExtArgs>
     customer: Prisma.$CustomerPayload<ExtArgs>
     sale: Prisma.$SalePayload<ExtArgs>
+    pickupLocation: Prisma.$BusinessPickupLocationPayload<ExtArgs> | null
+    handoffAsset: Prisma.$MediaAssetPayload<ExtArgs> | null
     events: Prisma.$DeliveryEventPayload<ExtArgs>[]
     activityEvents: Prisma.$ActivityEventPayload<ExtArgs>[]
     feedback: Prisma.$CustomerFeedbackPayload<ExtArgs>[]
@@ -2473,6 +3808,14 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     saleId: string
     tokenHash: string
     status: $Enums.DeliveryStatus
+    journeyMethod: $Enums.FulfillmentJourneyMethod
+    pickupLocationId: string | null
+    pickupLabel: string | null
+    pickupAddress: string | null
+    pickupGooglePlaceId: string | null
+    pickupLatitude: number | null
+    pickupLongitude: number | null
+    handoffAssetId: string | null
     address: string | null
     googlePlaceId: string | null
     latitude: number | null
@@ -2486,6 +3829,9 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     courierPhone: string | null
     trackingCode: string | null
     trackingUrl: string | null
+    riderDetailsAddedAt: Date | null
+    handedOffAt: Date | null
+    handoffCodeIssuedAt: Date | null
     deliveredAt: Date | null
     confirmedAt: Date | null
     createdAt: Date
@@ -2887,6 +4233,8 @@ export interface Prisma__DeliveryClient<T, Null = never, ExtArgs extends runtime
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customer<T extends Prisma.CustomerDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerClient<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   sale<T extends Prisma.SaleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleDefaultArgs<ExtArgs>>): Prisma.Prisma__SaleClient<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  pickupLocation<T extends Prisma.Delivery$pickupLocationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$pickupLocationArgs<ExtArgs>>): Prisma.Prisma__BusinessPickupLocationClient<runtime.Types.Result.GetResult<Prisma.$BusinessPickupLocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  handoffAsset<T extends Prisma.Delivery$handoffAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$handoffAssetArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   events<T extends Prisma.Delivery$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activityEvents<T extends Prisma.Delivery$activityEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$activityEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   feedback<T extends Prisma.Delivery$feedbackArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$feedbackArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2927,6 +4275,14 @@ export interface DeliveryFieldRefs {
   readonly saleId: Prisma.FieldRef<"Delivery", 'String'>
   readonly tokenHash: Prisma.FieldRef<"Delivery", 'String'>
   readonly status: Prisma.FieldRef<"Delivery", 'DeliveryStatus'>
+  readonly journeyMethod: Prisma.FieldRef<"Delivery", 'FulfillmentJourneyMethod'>
+  readonly pickupLocationId: Prisma.FieldRef<"Delivery", 'String'>
+  readonly pickupLabel: Prisma.FieldRef<"Delivery", 'String'>
+  readonly pickupAddress: Prisma.FieldRef<"Delivery", 'String'>
+  readonly pickupGooglePlaceId: Prisma.FieldRef<"Delivery", 'String'>
+  readonly pickupLatitude: Prisma.FieldRef<"Delivery", 'Float'>
+  readonly pickupLongitude: Prisma.FieldRef<"Delivery", 'Float'>
+  readonly handoffAssetId: Prisma.FieldRef<"Delivery", 'String'>
   readonly address: Prisma.FieldRef<"Delivery", 'String'>
   readonly googlePlaceId: Prisma.FieldRef<"Delivery", 'String'>
   readonly latitude: Prisma.FieldRef<"Delivery", 'Float'>
@@ -2940,6 +4296,9 @@ export interface DeliveryFieldRefs {
   readonly courierPhone: Prisma.FieldRef<"Delivery", 'String'>
   readonly trackingCode: Prisma.FieldRef<"Delivery", 'String'>
   readonly trackingUrl: Prisma.FieldRef<"Delivery", 'String'>
+  readonly riderDetailsAddedAt: Prisma.FieldRef<"Delivery", 'DateTime'>
+  readonly handedOffAt: Prisma.FieldRef<"Delivery", 'DateTime'>
+  readonly handoffCodeIssuedAt: Prisma.FieldRef<"Delivery", 'DateTime'>
   readonly deliveredAt: Prisma.FieldRef<"Delivery", 'DateTime'>
   readonly confirmedAt: Prisma.FieldRef<"Delivery", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Delivery", 'DateTime'>
@@ -3342,6 +4701,44 @@ export type DeliveryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Deliveries to delete.
    */
   limit?: number
+}
+
+/**
+ * Delivery.pickupLocation
+ */
+export type Delivery$pickupLocationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BusinessPickupLocation
+   */
+  select?: Prisma.BusinessPickupLocationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BusinessPickupLocation
+   */
+  omit?: Prisma.BusinessPickupLocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BusinessPickupLocationInclude<ExtArgs> | null
+  where?: Prisma.BusinessPickupLocationWhereInput
+}
+
+/**
+ * Delivery.handoffAsset
+ */
+export type Delivery$handoffAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MediaAsset
+   */
+  select?: Prisma.MediaAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MediaAsset
+   */
+  omit?: Prisma.MediaAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MediaAssetInclude<ExtArgs> | null
+  where?: Prisma.MediaAssetWhereInput
 }
 
 /**

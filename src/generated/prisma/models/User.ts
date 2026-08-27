@@ -242,6 +242,8 @@ export type UserWhereInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionListRelationFilter
   messageOutbox?: Prisma.MessageOutboxListRelationFilter
   messagingConsents?: Prisma.MessagingConsentListRelationFilter
+  customerReportsFiled?: Prisma.BusinessCustomerReportListRelationFilter
+  shopSlugChanges?: Prisma.BusinessSlugHistoryListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -275,6 +277,8 @@ export type UserOrderByWithRelationInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionOrderByRelationAggregateInput
   messageOutbox?: Prisma.MessageOutboxOrderByRelationAggregateInput
   messagingConsents?: Prisma.MessagingConsentOrderByRelationAggregateInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportOrderByRelationAggregateInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -311,6 +315,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   pushSubscriptions?: Prisma.OwnerPushSubscriptionListRelationFilter
   messageOutbox?: Prisma.MessageOutboxListRelationFilter
   messagingConsents?: Prisma.MessagingConsentListRelationFilter
+  customerReportsFiled?: Prisma.BusinessCustomerReportListRelationFilter
+  shopSlugChanges?: Prisma.BusinessSlugHistoryListRelationFilter
 }, "id" | "avatarAssetId" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -375,6 +381,8 @@ export type UserCreateInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -407,6 +415,8 @@ export type UserUncheckedCreateInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUpdateInput = {
@@ -439,6 +449,8 @@ export type UserUpdateInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -471,6 +483,8 @@ export type UserUncheckedUpdateInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -636,6 +650,22 @@ export type UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOwnedBusinessesInput, Prisma.UserUpdateWithoutOwnedBusinessesInput>, Prisma.UserUncheckedUpdateWithoutOwnedBusinessesInput>
 }
 
+export type UserCreateNestedOneWithoutShopSlugChangesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShopSlugChangesInput, Prisma.UserUncheckedCreateWithoutShopSlugChangesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShopSlugChangesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutShopSlugChangesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShopSlugChangesInput, Prisma.UserUncheckedCreateWithoutShopSlugChangesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShopSlugChangesInput
+  upsert?: Prisma.UserUpsertWithoutShopSlugChangesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShopSlugChangesInput, Prisma.UserUpdateWithoutShopSlugChangesInput>, Prisma.UserUncheckedUpdateWithoutShopSlugChangesInput>
+}
+
 export type UserCreateNestedOneWithoutMembershipsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutMembershipsInput, Prisma.UserUncheckedCreateWithoutMembershipsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutMembershipsInput
@@ -740,6 +770,20 @@ export type UserUpdateOneRequiredWithoutMediaReviewsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutMediaReviewsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMediaReviewsInput, Prisma.UserUpdateWithoutMediaReviewsInput>, Prisma.UserUncheckedUpdateWithoutMediaReviewsInput>
+}
+
+export type UserCreateNestedOneWithoutCustomerReportsFiledInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCustomerReportsFiledInput, Prisma.UserUncheckedCreateWithoutCustomerReportsFiledInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCustomerReportsFiledInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCustomerReportsFiledNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCustomerReportsFiledInput, Prisma.UserUncheckedCreateWithoutCustomerReportsFiledInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCustomerReportsFiledInput
+  upsert?: Prisma.UserUpsertWithoutCustomerReportsFiledInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCustomerReportsFiledInput, Prisma.UserUpdateWithoutCustomerReportsFiledInput>, Prisma.UserUncheckedUpdateWithoutCustomerReportsFiledInput>
 }
 
 export type UserCreateNestedOneWithoutAuthoredNotesInput = {
@@ -911,6 +955,8 @@ export type UserCreateWithoutPlatformAdminInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutPlatformAdminInput = {
@@ -942,6 +988,8 @@ export type UserUncheckedCreateWithoutPlatformAdminInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutPlatformAdminInput = {
@@ -989,6 +1037,8 @@ export type UserUpdateWithoutPlatformAdminInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlatformAdminInput = {
@@ -1020,6 +1070,8 @@ export type UserUncheckedUpdateWithoutPlatformAdminInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1051,6 +1103,8 @@ export type UserCreateWithoutSessionsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1082,6 +1136,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1129,6 +1185,8 @@ export type UserUpdateWithoutSessionsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1160,6 +1218,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutOtpChallengesInput = {
@@ -1191,6 +1251,8 @@ export type UserCreateWithoutOtpChallengesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutOtpChallengesInput = {
@@ -1222,6 +1284,8 @@ export type UserUncheckedCreateWithoutOtpChallengesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutOtpChallengesInput = {
@@ -1269,6 +1333,8 @@ export type UserUpdateWithoutOtpChallengesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOtpChallengesInput = {
@@ -1300,6 +1366,8 @@ export type UserUncheckedUpdateWithoutOtpChallengesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutRecoveryTokensInput = {
@@ -1331,6 +1399,8 @@ export type UserCreateWithoutRecoveryTokensInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutRecoveryTokensInput = {
@@ -1362,6 +1432,8 @@ export type UserUncheckedCreateWithoutRecoveryTokensInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutRecoveryTokensInput = {
@@ -1409,6 +1481,8 @@ export type UserUpdateWithoutRecoveryTokensInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecoveryTokensInput = {
@@ -1440,6 +1514,8 @@ export type UserUncheckedUpdateWithoutRecoveryTokensInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutOwnedBusinessesInput = {
@@ -1471,6 +1547,8 @@ export type UserCreateWithoutOwnedBusinessesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
@@ -1502,6 +1580,8 @@ export type UserUncheckedCreateWithoutOwnedBusinessesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutOwnedBusinessesInput = {
@@ -1549,6 +1629,8 @@ export type UserUpdateWithoutOwnedBusinessesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
@@ -1580,6 +1662,156 @@ export type UserUncheckedUpdateWithoutOwnedBusinessesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
+}
+
+export type UserCreateWithoutShopSlugChangesInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
+  authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+}
+
+export type UserUncheckedCreateWithoutShopSlugChangesInput = {
+  id?: string
+  avatarAssetId?: string | null
+  name: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+}
+
+export type UserCreateOrConnectWithoutShopSlugChangesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShopSlugChangesInput, Prisma.UserUncheckedCreateWithoutShopSlugChangesInput>
+}
+
+export type UserUpsertWithoutShopSlugChangesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShopSlugChangesInput, Prisma.UserUncheckedUpdateWithoutShopSlugChangesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShopSlugChangesInput, Prisma.UserUncheckedCreateWithoutShopSlugChangesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShopSlugChangesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShopSlugChangesInput, Prisma.UserUncheckedUpdateWithoutShopSlugChangesInput>
+}
+
+export type UserUpdateWithoutShopSlugChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
+  authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShopSlugChangesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
 }
 
 export type UserCreateWithoutMembershipsInput = {
@@ -1611,6 +1843,8 @@ export type UserCreateWithoutMembershipsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -1642,6 +1876,8 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1689,6 +1925,8 @@ export type UserUpdateWithoutMembershipsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1720,6 +1958,8 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutPermissionOverridesInput = {
@@ -1751,6 +1991,8 @@ export type UserCreateWithoutPermissionOverridesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutPermissionOverridesInput = {
@@ -1782,6 +2024,8 @@ export type UserUncheckedCreateWithoutPermissionOverridesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutPermissionOverridesInput = {
@@ -1829,6 +2073,8 @@ export type UserUpdateWithoutPermissionOverridesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPermissionOverridesInput = {
@@ -1860,6 +2106,8 @@ export type UserUncheckedUpdateWithoutPermissionOverridesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutInvitationsSentInput = {
@@ -1891,6 +2139,8 @@ export type UserCreateWithoutInvitationsSentInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutInvitationsSentInput = {
@@ -1922,6 +2172,8 @@ export type UserUncheckedCreateWithoutInvitationsSentInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutInvitationsSentInput = {
@@ -1969,6 +2221,8 @@ export type UserUpdateWithoutInvitationsSentInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvitationsSentInput = {
@@ -2000,6 +2254,8 @@ export type UserUncheckedUpdateWithoutInvitationsSentInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutUploadedAssetsInput = {
@@ -2031,6 +2287,8 @@ export type UserCreateWithoutUploadedAssetsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutUploadedAssetsInput = {
@@ -2062,6 +2320,8 @@ export type UserUncheckedCreateWithoutUploadedAssetsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutUploadedAssetsInput = {
@@ -2098,6 +2358,8 @@ export type UserCreateWithoutAvatarAssetInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutAvatarAssetInput = {
@@ -2129,6 +2391,8 @@ export type UserUncheckedCreateWithoutAvatarAssetInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutAvatarAssetInput = {
@@ -2176,6 +2440,8 @@ export type UserUpdateWithoutUploadedAssetsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedAssetsInput = {
@@ -2207,6 +2473,8 @@ export type UserUncheckedUpdateWithoutUploadedAssetsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUpsertWithoutAvatarAssetInput = {
@@ -2249,6 +2517,8 @@ export type UserUpdateWithoutAvatarAssetInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAvatarAssetInput = {
@@ -2280,6 +2550,8 @@ export type UserUncheckedUpdateWithoutAvatarAssetInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutMediaReviewsInput = {
@@ -2311,6 +2583,8 @@ export type UserCreateWithoutMediaReviewsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutMediaReviewsInput = {
@@ -2342,6 +2616,8 @@ export type UserUncheckedCreateWithoutMediaReviewsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutMediaReviewsInput = {
@@ -2389,6 +2665,8 @@ export type UserUpdateWithoutMediaReviewsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMediaReviewsInput = {
@@ -2420,6 +2698,156 @@ export type UserUncheckedUpdateWithoutMediaReviewsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
+}
+
+export type UserCreateWithoutCustomerReportsFiledInput = {
+  id?: string
+  name: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetCreateNestedManyWithoutUploadedByInput
+  avatarAsset?: Prisma.MediaAssetCreateNestedOneWithoutAvatarForInput
+  authoredNotes?: Prisma.CustomerNoteCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
+}
+
+export type UserUncheckedCreateWithoutCustomerReportsFiledInput = {
+  id?: string
+  avatarAssetId?: string | null
+  name: string
+  email: string
+  emailVerifiedAt?: Date | string | null
+  passwordHash: string
+  phone?: string | null
+  workspaceAppearance?: $Enums.WorkspaceAppearance
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutUserInput
+  ownedBusinesses?: Prisma.BusinessUncheckedCreateNestedManyWithoutOwnerInput
+  sessions?: Prisma.OwnerSessionUncheckedCreateNestedManyWithoutUserInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedCreateNestedManyWithoutUserInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedCreateNestedManyWithoutUserInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutUploadedByInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedCreateNestedManyWithoutAuthorInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutReviewedByInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedCreateNestedManyWithoutActorInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutActorInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedCreateNestedManyWithoutActorInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedCreateNestedOneWithoutUserInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
+}
+
+export type UserCreateOrConnectWithoutCustomerReportsFiledInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCustomerReportsFiledInput, Prisma.UserUncheckedCreateWithoutCustomerReportsFiledInput>
+}
+
+export type UserUpsertWithoutCustomerReportsFiledInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCustomerReportsFiledInput, Prisma.UserUncheckedUpdateWithoutCustomerReportsFiledInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCustomerReportsFiledInput, Prisma.UserUncheckedCreateWithoutCustomerReportsFiledInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCustomerReportsFiledInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCustomerReportsFiledInput, Prisma.UserUncheckedUpdateWithoutCustomerReportsFiledInput>
+}
+
+export type UserUpdateWithoutCustomerReportsFiledInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUpdateManyWithoutUploadedByNestedInput
+  avatarAsset?: Prisma.MediaAssetUpdateOneWithoutAvatarForNestedInput
+  authoredNotes?: Prisma.CustomerNoteUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCustomerReportsFiledInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  workspaceAppearance?: Prisma.EnumWorkspaceAppearanceFieldUpdateOperationsInput | $Enums.WorkspaceAppearance
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.BusinessMemberUncheckedUpdateManyWithoutUserNestedInput
+  ownedBusinesses?: Prisma.BusinessUncheckedUpdateManyWithoutOwnerNestedInput
+  sessions?: Prisma.OwnerSessionUncheckedUpdateManyWithoutUserNestedInput
+  otpChallenges?: Prisma.OwnerOtpChallengeUncheckedUpdateManyWithoutUserNestedInput
+  recoveryTokens?: Prisma.PasswordRecoveryTokenUncheckedUpdateManyWithoutUserNestedInput
+  uploadedAssets?: Prisma.MediaAssetUncheckedUpdateManyWithoutUploadedByNestedInput
+  authoredNotes?: Prisma.CustomerNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  invitationsSent?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  paymentsRecorded?: Prisma.PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  paymentProofReviews?: Prisma.PaymentProofUncheckedUpdateManyWithoutReviewedByNestedInput
+  deliveryEvents?: Prisma.DeliveryEventUncheckedUpdateManyWithoutActorNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutActorNestedInput
+  permissionOverrides?: Prisma.MemberPermissionOverrideUncheckedUpdateManyWithoutActorNestedInput
+  platformAdmin?: Prisma.PlatformAdminUncheckedUpdateOneWithoutUserNestedInput
+  mediaReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutAuthoredNotesInput = {
@@ -2451,6 +2879,8 @@ export type UserCreateWithoutAuthoredNotesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutAuthoredNotesInput = {
@@ -2482,6 +2912,8 @@ export type UserUncheckedCreateWithoutAuthoredNotesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutAuthoredNotesInput = {
@@ -2529,6 +2961,8 @@ export type UserUpdateWithoutAuthoredNotesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuthoredNotesInput = {
@@ -2560,6 +2994,8 @@ export type UserUncheckedUpdateWithoutAuthoredNotesInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsRecordedInput = {
@@ -2591,6 +3027,8 @@ export type UserCreateWithoutPaymentsRecordedInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsRecordedInput = {
@@ -2622,6 +3060,8 @@ export type UserUncheckedCreateWithoutPaymentsRecordedInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsRecordedInput = {
@@ -2669,6 +3109,8 @@ export type UserUpdateWithoutPaymentsRecordedInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsRecordedInput = {
@@ -2700,6 +3142,8 @@ export type UserUncheckedUpdateWithoutPaymentsRecordedInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutPaymentProofReviewsInput = {
@@ -2731,6 +3175,8 @@ export type UserCreateWithoutPaymentProofReviewsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentProofReviewsInput = {
@@ -2762,6 +3208,8 @@ export type UserUncheckedCreateWithoutPaymentProofReviewsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentProofReviewsInput = {
@@ -2809,6 +3257,8 @@ export type UserUpdateWithoutPaymentProofReviewsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentProofReviewsInput = {
@@ -2840,6 +3290,8 @@ export type UserUncheckedUpdateWithoutPaymentProofReviewsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutDeliveryEventsInput = {
@@ -2871,6 +3323,8 @@ export type UserCreateWithoutDeliveryEventsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutDeliveryEventsInput = {
@@ -2902,6 +3356,8 @@ export type UserUncheckedCreateWithoutDeliveryEventsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutDeliveryEventsInput = {
@@ -2949,6 +3405,8 @@ export type UserUpdateWithoutDeliveryEventsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeliveryEventsInput = {
@@ -2980,6 +3438,8 @@ export type UserUncheckedUpdateWithoutDeliveryEventsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutActivityEventsInput = {
@@ -3011,6 +3471,8 @@ export type UserCreateWithoutActivityEventsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutActivityEventsInput = {
@@ -3042,6 +3504,8 @@ export type UserUncheckedCreateWithoutActivityEventsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutActivityEventsInput = {
@@ -3089,6 +3553,8 @@ export type UserUpdateWithoutActivityEventsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutActivityEventsInput = {
@@ -3120,6 +3586,8 @@ export type UserUncheckedUpdateWithoutActivityEventsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutMessagingConsentsInput = {
@@ -3151,6 +3619,8 @@ export type UserCreateWithoutMessagingConsentsInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutMessagingConsentsInput = {
@@ -3182,6 +3652,8 @@ export type UserUncheckedCreateWithoutMessagingConsentsInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutMessagingConsentsInput = {
@@ -3229,6 +3701,8 @@ export type UserUpdateWithoutMessagingConsentsInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagingConsentsInput = {
@@ -3260,6 +3734,8 @@ export type UserUncheckedUpdateWithoutMessagingConsentsInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutMessageOutboxInput = {
@@ -3291,6 +3767,8 @@ export type UserCreateWithoutMessageOutboxInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutMessageOutboxInput = {
@@ -3322,6 +3800,8 @@ export type UserUncheckedCreateWithoutMessageOutboxInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutMessageOutboxInput = {
@@ -3369,6 +3849,8 @@ export type UserUpdateWithoutMessageOutboxInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessageOutboxInput = {
@@ -3400,6 +3882,8 @@ export type UserUncheckedUpdateWithoutMessageOutboxInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutAttentionReceiptsInput = {
@@ -3431,6 +3915,8 @@ export type UserCreateWithoutAttentionReceiptsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutAttentionReceiptsInput = {
@@ -3462,6 +3948,8 @@ export type UserUncheckedCreateWithoutAttentionReceiptsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutAttentionReceiptsInput = {
@@ -3509,6 +3997,8 @@ export type UserUpdateWithoutAttentionReceiptsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAttentionReceiptsInput = {
@@ -3540,6 +4030,8 @@ export type UserUncheckedUpdateWithoutAttentionReceiptsInput = {
   pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserCreateWithoutPushSubscriptionsInput = {
@@ -3571,6 +4063,8 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -3602,6 +4096,8 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutUserInput
   messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutRecipientUserInput
   messagingConsents?: Prisma.MessagingConsentUncheckedCreateNestedManyWithoutUserInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutReportedByInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutChangedByUserInput
 }
 
 export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -3649,6 +4145,8 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUpdateManyWithoutChangedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -3680,6 +4178,8 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutUserNestedInput
   messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutRecipientUserNestedInput
   messagingConsents?: Prisma.MessagingConsentUncheckedUpdateManyWithoutUserNestedInput
+  customerReportsFiled?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutReportedByNestedInput
+  shopSlugChanges?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutChangedByUserNestedInput
 }
 
 
@@ -3706,6 +4206,8 @@ export type UserCountOutputType = {
   pushSubscriptions: number
   messageOutbox: number
   messagingConsents: number
+  customerReportsFiled: number
+  shopSlugChanges: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3727,6 +4229,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   pushSubscriptions?: boolean | UserCountOutputTypeCountPushSubscriptionsArgs
   messageOutbox?: boolean | UserCountOutputTypeCountMessageOutboxArgs
   messagingConsents?: boolean | UserCountOutputTypeCountMessagingConsentsArgs
+  customerReportsFiled?: boolean | UserCountOutputTypeCountCustomerReportsFiledArgs
+  shopSlugChanges?: boolean | UserCountOutputTypeCountShopSlugChangesArgs
 }
 
 /**
@@ -3865,6 +4369,20 @@ export type UserCountOutputTypeCountMessagingConsentsArgs<ExtArgs extends runtim
   where?: Prisma.MessagingConsentWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCustomerReportsFiledArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BusinessCustomerReportWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShopSlugChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BusinessSlugHistoryWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3897,6 +4415,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
   messageOutbox?: boolean | Prisma.User$messageOutboxArgs<ExtArgs>
   messagingConsents?: boolean | Prisma.User$messagingConsentsArgs<ExtArgs>
+  customerReportsFiled?: boolean | Prisma.User$customerReportsFiledArgs<ExtArgs>
+  shopSlugChanges?: boolean | Prisma.User$shopSlugChangesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3963,6 +4483,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
   messageOutbox?: boolean | Prisma.User$messageOutboxArgs<ExtArgs>
   messagingConsents?: boolean | Prisma.User$messagingConsentsArgs<ExtArgs>
+  customerReportsFiled?: boolean | Prisma.User$customerReportsFiledArgs<ExtArgs>
+  shopSlugChanges?: boolean | Prisma.User$shopSlugChangesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3995,6 +4517,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     pushSubscriptions: Prisma.$OwnerPushSubscriptionPayload<ExtArgs>[]
     messageOutbox: Prisma.$MessageOutboxPayload<ExtArgs>[]
     messagingConsents: Prisma.$MessagingConsentPayload<ExtArgs>[]
+    customerReportsFiled: Prisma.$BusinessCustomerReportPayload<ExtArgs>[]
+    shopSlugChanges: Prisma.$BusinessSlugHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4421,6 +4945,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   pushSubscriptions<T extends Prisma.User$pushSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OwnerPushSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messageOutbox<T extends Prisma.User$messageOutboxArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messageOutboxArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageOutboxPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   messagingConsents<T extends Prisma.User$messagingConsentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messagingConsentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagingConsentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  customerReportsFiled<T extends Prisma.User$customerReportsFiledArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$customerReportsFiledArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessCustomerReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shopSlugChanges<T extends Prisma.User$shopSlugChangesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shopSlugChangesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessSlugHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5328,6 +5854,54 @@ export type User$messagingConsentsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.MessagingConsentScalarFieldEnum | Prisma.MessagingConsentScalarFieldEnum[]
+}
+
+/**
+ * User.customerReportsFiled
+ */
+export type User$customerReportsFiledArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BusinessCustomerReport
+   */
+  select?: Prisma.BusinessCustomerReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BusinessCustomerReport
+   */
+  omit?: Prisma.BusinessCustomerReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BusinessCustomerReportInclude<ExtArgs> | null
+  where?: Prisma.BusinessCustomerReportWhereInput
+  orderBy?: Prisma.BusinessCustomerReportOrderByWithRelationInput | Prisma.BusinessCustomerReportOrderByWithRelationInput[]
+  cursor?: Prisma.BusinessCustomerReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BusinessCustomerReportScalarFieldEnum | Prisma.BusinessCustomerReportScalarFieldEnum[]
+}
+
+/**
+ * User.shopSlugChanges
+ */
+export type User$shopSlugChangesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BusinessSlugHistory
+   */
+  select?: Prisma.BusinessSlugHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BusinessSlugHistory
+   */
+  omit?: Prisma.BusinessSlugHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BusinessSlugHistoryInclude<ExtArgs> | null
+  where?: Prisma.BusinessSlugHistoryWhereInput
+  orderBy?: Prisma.BusinessSlugHistoryOrderByWithRelationInput | Prisma.BusinessSlugHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.BusinessSlugHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BusinessSlugHistoryScalarFieldEnum | Prisma.BusinessSlugHistoryScalarFieldEnum[]
 }
 
 /**

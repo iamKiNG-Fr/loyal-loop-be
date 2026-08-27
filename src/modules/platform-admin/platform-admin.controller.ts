@@ -27,6 +27,7 @@ import {
   ApproveFoundingApplicationDto,
   AdminListQueryDto,
   GrantPlatformAdminDto,
+  OverrideShopLinkDto,
   ReactivateBusinessDto,
   ReplaceInvitationDto,
   ReviewPlatformAdminDto,
@@ -97,6 +98,16 @@ export class PlatformAdminController {
     @Body() dto: ReactivateBusinessDto,
   ) {
     return ok(await this.admin.reactivateBusiness(auth, id, dto), "Business reactivated");
+  }
+
+  @Post("businesses/:id/shop-link")
+  @PlatformRoles("SUPERADMIN")
+  async overrideShopLink(
+    @CurrentPlatformAdmin() auth: PlatformAuthContext,
+    @Param("id") id: string,
+    @Body() dto: OverrideShopLinkDto,
+  ) {
+    return ok(await this.admin.overrideShopLink(auth, id, dto), "Shop link changed by support");
   }
 
   @Get("founding-circle/applications")

@@ -326,6 +326,12 @@ enum DeliveryStatus {
   CANCELED
 }
 
+enum FulfillmentJourneyMethod {
+  SHOP_DELIVERY
+  CUSTOMER_PICKUP
+  CUSTOMER_RIDER
+}
+
 enum ActivityEventType {
   BUSINESS_CREATED
   BUSINESS_UPDATED
@@ -369,6 +375,7 @@ enum MediaPurpose {
   SHOWCASE_POSTER
   USER_AVATAR
   PAYMENT_PROOF
+  DELIVERY_HANDOFF
   TRUST_CARD
   RECEIPT_EXPORT
 }
@@ -535,6 +542,15 @@ enum CustomerReportStatus {
   IN_REVIEW
   RESOLVED
   DISMISSED
+}
+
+enum BusinessCustomerReportReason {
+  FAKE_PAYMENT_PROOF
+  FRAUD_OR_SCAM
+  ABUSE_OR_HARASSMENT
+  PRIVACY_OR_SAFETY
+  REPEATED_BROKEN_AGREEMENTS
+  OTHER
 }
 
 enum FollowUpStatus {
@@ -758,61 +774,65 @@ model FoundingValueFeedback {
 }
 
 model User {
-  id                  String                     @id @default(cuid())
-  avatarAssetId       String?                    @unique
-  name                String
-  email               String                     @unique
-  emailVerifiedAt     DateTime?
-  passwordHash        String
-  phone               String?                    @unique
-  workspaceAppearance WorkspaceAppearance        @default(LIGHT)
-  createdAt           DateTime                   @default(now())
-  updatedAt           DateTime                   @updatedAt
-  memberships         BusinessMember[]
-  ownedBusinesses     Business[]                 @relation("BusinessOwner")
-  sessions            OwnerSession[]
-  otpChallenges       OwnerOtpChallenge[]
-  recoveryTokens      PasswordRecoveryToken[]
-  uploadedAssets      MediaAsset[]               @relation("AssetUploader")
-  avatarAsset         MediaAsset?                @relation("UserAvatar", fields: [avatarAssetId], references: [id], onDelete: SetNull)
-  authoredNotes       CustomerNote[]             @relation("NoteAuthor")
-  invitationsSent     BusinessInvitation[]       @relation("InvitationSender")
-  paymentsRecorded    PaymentEntry[]             @relation("PaymentRecorder")
-  paymentProofReviews PaymentProof[]             @relation("PaymentProofReviewer")
-  deliveryEvents      DeliveryEvent[]            @relation("DeliveryEventActor")
-  activityEvents      ActivityEvent[]            @relation("ActivityActor")
-  permissionOverrides MemberPermissionOverride[] @relation("PermissionOverrideActor")
-  platformAdmin       PlatformAdmin?
-  mediaReviews        MediaModerationReview[]    @relation("MediaReviewActor")
-  attentionReceipts   OwnerAttentionReceipt[]
-  pushSubscriptions   OwnerPushSubscription[]
-  messageOutbox       MessageOutbox[]            @relation("OwnerMessageRecipient")
-  messagingConsents   MessagingConsent[]         @relation("OwnerMessagingConsent")
+  id                   String                     @id @default(cuid())
+  avatarAssetId        String?                    @unique
+  name                 String
+  email                String                     @unique
+  emailVerifiedAt      DateTime?
+  passwordHash         String
+  phone                String?                    @unique
+  workspaceAppearance  WorkspaceAppearance        @default(LIGHT)
+  createdAt            DateTime                   @default(now())
+  updatedAt            DateTime                   @updatedAt
+  memberships          BusinessMember[]
+  ownedBusinesses      Business[]                 @relation("BusinessOwner")
+  sessions             OwnerSession[]
+  otpChallenges        OwnerOtpChallenge[]
+  recoveryTokens       PasswordRecoveryToken[]
+  uploadedAssets       MediaAsset[]               @relation("AssetUploader")
+  avatarAsset          MediaAsset?                @relation("UserAvatar", fields: [avatarAssetId], references: [id], onDelete: SetNull)
+  authoredNotes        CustomerNote[]             @relation("NoteAuthor")
+  invitationsSent      BusinessInvitation[]       @relation("InvitationSender")
+  paymentsRecorded     PaymentEntry[]             @relation("PaymentRecorder")
+  paymentProofReviews  PaymentProof[]             @relation("PaymentProofReviewer")
+  deliveryEvents       DeliveryEvent[]            @relation("DeliveryEventActor")
+  activityEvents       ActivityEvent[]            @relation("ActivityActor")
+  permissionOverrides  MemberPermissionOverride[] @relation("PermissionOverrideActor")
+  platformAdmin        PlatformAdmin?
+  mediaReviews         MediaModerationReview[]    @relation("MediaReviewActor")
+  attentionReceipts    OwnerAttentionReceipt[]
+  pushSubscriptions    OwnerPushSubscription[]
+  messageOutbox        MessageOutbox[]            @relation("OwnerMessageRecipient")
+  messagingConsents    MessagingConsent[]         @relation("OwnerMessagingConsent")
+  customerReportsFiled BusinessCustomerReport[]   @relation("BusinessCustomerReportAuthor")
+  shopSlugChanges      BusinessSlugHistory[]      @relation("BusinessSlugChangedByUser")
 
   @@map("users")
 }
 
 model PlatformAdmin {
-  id                   String                          @id @default(cuid())
-  userId               String                          @unique
-  role                 PlatformRole
-  status               PlatformAdminStatus             @default(ACTIVE)
-  createdAt            DateTime                        @default(now())
-  updatedAt            DateTime                        @updatedAt
-  lastReviewedAt       DateTime?
-  user                 User                            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sessions             PlatformAdminSession[]
-  passkeys             PlatformAdminPasskey[]
-  passkeyChallenges    PlatformAdminPasskeyChallenge[]
-  recoveryCodes        PlatformAdminRecoveryCode[]
-  auditLogs            PlatformAdminAuditLog[]
-  reviewedApplications FoundingAccessApplication[]     @relation("ApplicationReviewer")
-  createdCohorts       FoundingCohort[]                @relation("CohortCreator")
-  createdInvitations   OnboardingInvitation[]          @relation("InvitationCreator")
-  revokedInvitations   OnboardingInvitation[]          @relation("InvitationRevoker")
-  researchInterviews   FoundingResearchInterview[]     @relation("ResearchInterviewer")
-  suspendedBusinesses  Business[]                      @relation("BusinessSuspensionActor")
-  reviewedReports      CustomerReport[]                @relation("CustomerReportReviewer")
+  id                              String                          @id @default(cuid())
+  userId                          String                          @unique
+  role                            PlatformRole
+  status                          PlatformAdminStatus             @default(ACTIVE)
+  createdAt                       DateTime                        @default(now())
+  updatedAt                       DateTime                        @updatedAt
+  lastReviewedAt                  DateTime?
+  user                            User                            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessions                        PlatformAdminSession[]
+  passkeys                        PlatformAdminPasskey[]
+  passkeyChallenges               PlatformAdminPasskeyChallenge[]
+  recoveryCodes                   PlatformAdminRecoveryCode[]
+  auditLogs                       PlatformAdminAuditLog[]
+  reviewedApplications            FoundingAccessApplication[]     @relation("ApplicationReviewer")
+  createdCohorts                  FoundingCohort[]                @relation("CohortCreator")
+  createdInvitations              OnboardingInvitation[]          @relation("InvitationCreator")
+  revokedInvitations              OnboardingInvitation[]          @relation("InvitationRevoker")
+  researchInterviews              FoundingResearchInterview[]     @relation("ResearchInterviewer")
+  suspendedBusinesses             Business[]                      @relation("BusinessSuspensionActor")
+  reviewedReports                 CustomerReport[]                @relation("CustomerReportReviewer")
+  reviewedBusinessCustomerReports BusinessCustomerReport[]        @relation("BusinessCustomerReportReviewer")
+  shopSlugOverrides               BusinessSlugHistory[]           @relation("BusinessSlugChangedByAdmin")
 
   @@index([role, status])
   @@map("platform_admins")
@@ -980,6 +1000,7 @@ model Business {
   coverAssetId               String?                    @unique
   name                       String
   slug                       String                     @unique
+  slugChangedAt              DateTime?
   publicCardId               String                     @unique
   category                   String?
   categoryDetail             String?
@@ -1054,11 +1075,49 @@ model Business {
   customerReports            CustomerReport[]
   foundingEnrollment         FoundingProgramEnrollment?
   foundingValueFeedback      FoundingValueFeedback[]
+  slugHistory                BusinessSlugHistory[]
+  pickupLocations            BusinessPickupLocation[]
+  businessCustomerReports    BusinessCustomerReport[]
 
   @@index([ownerId])
   @@index([storeStatus, launchAt])
   @@index([platformStatus, isDemo, createdAt])
   @@map("businesses")
+}
+
+model BusinessSlugHistory {
+  id               String         @id @default(cuid())
+  businessId       String
+  slug             String         @unique
+  changedByUserId  String?
+  changedByAdminId String?
+  reason           String?
+  replacedAt       DateTime       @default(now())
+  business         Business       @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  changedByUser    User?          @relation("BusinessSlugChangedByUser", fields: [changedByUserId], references: [id], onDelete: SetNull)
+  changedByAdmin   PlatformAdmin? @relation("BusinessSlugChangedByAdmin", fields: [changedByAdminId], references: [id], onDelete: SetNull)
+
+  @@index([businessId, replacedAt])
+  @@map("business_slug_history")
+}
+
+model BusinessPickupLocation {
+  id            String     @id @default(cuid())
+  businessId    String
+  label         String
+  address       String
+  googlePlaceId String?
+  latitude      Float?
+  longitude     Float?
+  isDefault     Boolean    @default(false)
+  isActive      Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  business      Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  deliveries    Delivery[]
+
+  @@index([businessId, isActive, isDefault])
+  @@map("business_pickup_locations")
 }
 
 model BusinessPreferences {
@@ -1241,6 +1300,7 @@ model MediaAsset {
   showcaseImages         Showcase[]              @relation("ShowcaseImage")
   showcasePosters        Showcase[]              @relation("ShowcasePoster")
   paymentProof           PaymentProof?
+  deliveryHandoffs       Delivery[]              @relation("DeliveryHandoffAsset")
   moderationReviews      MediaModerationReview[]
 
   @@index([businessId, purpose, status])
@@ -1333,19 +1393,19 @@ model CustomerOtpChallenge {
 }
 
 model Customer {
-  id              String                  @id @default(cuid())
+  id              String                   @id @default(cuid())
   businessId      String
   accountId       String?
   name            String
   phone           String?
   email           String?
-  channel         CustomerChannel         @default(OTHER)
-  publicTokenHash String                  @unique
+  channel         CustomerChannel          @default(OTHER)
+  publicTokenHash String                   @unique
   lastPurchasedAt DateTime?
-  createdAt       DateTime                @default(now())
-  updatedAt       DateTime                @updatedAt
-  business        Business                @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  account         CustomerAccount?        @relation(fields: [accountId], references: [id], onDelete: SetNull)
+  createdAt       DateTime                 @default(now())
+  updatedAt       DateTime                 @updatedAt
+  business        Business                 @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  account         CustomerAccount?         @relation(fields: [accountId], references: [id], onDelete: SetNull)
   contacts        CustomerContact[]
   addresses       CustomerAddress[]
   notes           CustomerNote[]
@@ -1359,11 +1419,38 @@ model Customer {
   feedback        CustomerFeedback[]
   issues          CustomerIssue[]
   insightSummary  CustomerInsightSummary?
+  businessReports BusinessCustomerReport[]
 
   @@unique([businessId, accountId])
   @@index([businessId])
   @@index([businessId, phone])
   @@map("customers")
+}
+
+model BusinessCustomerReport {
+  id                String                       @id @default(cuid())
+  businessId        String
+  customerId        String
+  reportedByUserId  String
+  saleId            String?
+  reason            BusinessCustomerReportReason
+  details           String?
+  status            CustomerReportStatus         @default(OPEN)
+  reviewedByAdminId String?
+  reviewNotes       String?
+  reviewedAt        DateTime?
+  createdAt         DateTime                     @default(now())
+  updatedAt         DateTime                     @updatedAt
+  business          Business                     @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer          Customer                     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  reportedBy        User                         @relation("BusinessCustomerReportAuthor", fields: [reportedByUserId], references: [id], onDelete: Restrict)
+  sale              Sale?                        @relation(fields: [saleId], references: [id], onDelete: SetNull)
+  reviewedBy        PlatformAdmin?               @relation("BusinessCustomerReportReviewer", fields: [reviewedByAdminId], references: [id], onDelete: SetNull)
+
+  @@index([businessId, status, createdAt])
+  @@index([customerId, createdAt])
+  @@index([status, createdAt])
+  @@map("business_customer_reports")
 }
 
 model CustomerContact {
@@ -1823,6 +1910,7 @@ model OrderRequest {
   channel                     SalesChannel
   fulfillment                 FulfillmentType             @default(ARRANGE_LATER)
   agreedFulfillment           FulfillmentType?
+  pickupMethod                FulfillmentJourneyMethod?
   customerAddressId           String?
   sourceShowcaseId            String?
   requestedPaymentMethod      PaymentMethod?
@@ -2057,42 +2145,43 @@ model DiscoveryTelemetry {
 }
 
 model Sale {
-  id                    String                  @id @default(cuid())
-  businessId            String
-  customerId            String
-  sourceRequestId       String?                 @unique
-  idempotencyKey        String?
-  referenceCode         String                  @unique
-  status                SaleStatus              @default(COMPLETED)
-  paymentStatus         PaymentStatus           @default(UNPAID)
-  protectedPayment      Boolean                 @default(false)
-  channel               SalesChannel            @default(OTHER)
-  fulfillment           FulfillmentType         @default(NOT_REQUIRED)
-  currency              String                  @default("NGN")
-  subtotal              Decimal                 @default(0) @db.Decimal(12, 2)
-  discount              Decimal                 @default(0) @db.Decimal(12, 2)
-  deliveryFee           Decimal                 @default(0) @db.Decimal(12, 2)
-  total                 Decimal                 @default(0) @db.Decimal(12, 2)
-  amountPaid            Decimal                 @default(0) @db.Decimal(12, 2)
-  notes                 String?
-  inventoryRestoredAt   DateTime?
-  soldAt                DateTime                @default(now())
-  createdAt             DateTime                @default(now())
-  updatedAt             DateTime                @updatedAt
-  business              Business                @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customer              Customer                @relation(fields: [customerId], references: [id])
-  sourceRequest         OrderRequest?           @relation("RequestConversion", fields: [sourceRequestId], references: [id], onDelete: SetNull)
-  items                 SaleItem[]
-  payments              PaymentEntry[]
-  paymentInstruction    SalePaymentInstruction?
-  paymentProofs         PaymentProof[]
-  receipt               Receipt?
-  delivery              Delivery?
-  activityEvents        ActivityEvent[]
-  feedback              CustomerFeedback[]
-  issues                CustomerIssue[]
-  reports               CustomerReport[]
-  foundingValueFeedback FoundingValueFeedback?
+  id                      String                   @id @default(cuid())
+  businessId              String
+  customerId              String
+  sourceRequestId         String?                  @unique
+  idempotencyKey          String?
+  referenceCode           String                   @unique
+  status                  SaleStatus               @default(COMPLETED)
+  paymentStatus           PaymentStatus            @default(UNPAID)
+  protectedPayment        Boolean                  @default(false)
+  channel                 SalesChannel             @default(OTHER)
+  fulfillment             FulfillmentType          @default(NOT_REQUIRED)
+  currency                String                   @default("NGN")
+  subtotal                Decimal                  @default(0) @db.Decimal(12, 2)
+  discount                Decimal                  @default(0) @db.Decimal(12, 2)
+  deliveryFee             Decimal                  @default(0) @db.Decimal(12, 2)
+  total                   Decimal                  @default(0) @db.Decimal(12, 2)
+  amountPaid              Decimal                  @default(0) @db.Decimal(12, 2)
+  notes                   String?
+  inventoryRestoredAt     DateTime?
+  soldAt                  DateTime                 @default(now())
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  business                Business                 @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer                Customer                 @relation(fields: [customerId], references: [id])
+  sourceRequest           OrderRequest?            @relation("RequestConversion", fields: [sourceRequestId], references: [id], onDelete: SetNull)
+  items                   SaleItem[]
+  payments                PaymentEntry[]
+  paymentInstruction      SalePaymentInstruction?
+  paymentProofs           PaymentProof[]
+  receipt                 Receipt?
+  delivery                Delivery?
+  activityEvents          ActivityEvent[]
+  feedback                CustomerFeedback[]
+  issues                  CustomerIssue[]
+  reports                 CustomerReport[]
+  businessCustomerReports BusinessCustomerReport[]
+  foundingValueFeedback   FoundingValueFeedback?
 
   @@unique([businessId, idempotencyKey])
   @@index([businessId, soldAt])
@@ -2248,40 +2337,54 @@ model ReceiptShareToken {
 }
 
 model Delivery {
-  id             String               @id @default(cuid())
-  businessId     String
-  customerId     String
-  saleId         String               @unique
-  tokenHash      String               @unique
-  status         DeliveryStatus       @default(PREPARING)
-  address        String?
-  googlePlaceId  String?
-  latitude       Float?
-  longitude      Float?
-  isGift         Boolean              @default(false)
-  recipientName  String?
-  recipientPhone String?
-  courier        String?
-  courierService String?
-  courierName    String?
-  courierPhone   String?
-  trackingCode   String?
-  trackingUrl    String?
-  deliveredAt    DateTime?
-  confirmedAt    DateTime?
-  createdAt      DateTime             @default(now())
-  updatedAt      DateTime             @updatedAt
-  business       Business             @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  customer       Customer             @relation(fields: [customerId], references: [id])
-  sale           Sale                 @relation(fields: [saleId], references: [id], onDelete: Cascade)
-  events         DeliveryEvent[]
-  activityEvents ActivityEvent[]
-  feedback       CustomerFeedback[]
-  issues         CustomerIssue[]
-  shareTokens    DeliveryShareToken[]
+  id                  String                   @id @default(cuid())
+  businessId          String
+  customerId          String
+  saleId              String                   @unique
+  tokenHash           String                   @unique
+  status              DeliveryStatus           @default(PREPARING)
+  journeyMethod       FulfillmentJourneyMethod @default(SHOP_DELIVERY)
+  pickupLocationId    String?
+  pickupLabel         String?
+  pickupAddress       String?
+  pickupGooglePlaceId String?
+  pickupLatitude      Float?
+  pickupLongitude     Float?
+  handoffAssetId      String?
+  address             String?
+  googlePlaceId       String?
+  latitude            Float?
+  longitude           Float?
+  isGift              Boolean                  @default(false)
+  recipientName       String?
+  recipientPhone      String?
+  courier             String?
+  courierService      String?
+  courierName         String?
+  courierPhone        String?
+  trackingCode        String?
+  trackingUrl         String?
+  riderDetailsAddedAt DateTime?
+  handedOffAt         DateTime?
+  handoffCodeIssuedAt DateTime?
+  deliveredAt         DateTime?
+  confirmedAt         DateTime?
+  createdAt           DateTime                 @default(now())
+  updatedAt           DateTime                 @updatedAt
+  business            Business                 @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  customer            Customer                 @relation(fields: [customerId], references: [id])
+  sale                Sale                     @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  pickupLocation      BusinessPickupLocation?  @relation(fields: [pickupLocationId], references: [id], onDelete: SetNull)
+  handoffAsset        MediaAsset?              @relation("DeliveryHandoffAsset", fields: [handoffAssetId], references: [id], onDelete: SetNull)
+  events              DeliveryEvent[]
+  activityEvents      ActivityEvent[]
+  feedback            CustomerFeedback[]
+  issues              CustomerIssue[]
+  shareTokens         DeliveryShareToken[]
 
   @@index([businessId, status, createdAt])
   @@index([customerId, createdAt])
+  @@index([pickupLocationId])
   @@map("deliveries")
 }
 

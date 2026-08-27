@@ -25,6 +25,10 @@ import type { OwnerAuthContext } from "../../common/request-context";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
 import {
+  RegisterTeamInvitationDto,
+  TeamInvitationTokenDto,
+} from "./dto/team-invitation.dto";
+import {
   StartOnboardingEmailDto,
   VerifyOnboardingEmailDto,
 } from "./dto/onboarding-email.dto";
@@ -93,6 +97,34 @@ export class AuthController {
   @Throttle({ default: { limit: 3, ttl: minutes(10) } })
   async startWhatsapp(@Body() dto: StartOwnerOtpDto) {
     return ok(await this.auth.startWhatsapp(dto.phone), "Verification sent");
+  }
+
+  @Post("team-invitation/inspect")
+  @Throttle({ default: { limit: 20, ttl: minutes(10) } })
+  async inspectTeamInvitation(@Body() dto: TeamInvitationTokenDto) {
+    return ok(await this.auth.inspectTeamInvitation(dto.token));
+  }
+
+  @Post("team-invitation/register")
+  @Throttle({ default: { limit: 5, ttl: minutes(15) } })
+  async registerTeamInvitation(
+    @Body() dto: RegisterTeamInvitationDto,
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const result = await this.auth.registerTeamInvitation(
+      dto.token,
+      dto.password,
+      this.sessionMeta(request),
+    );
+    setSessionCookie(
+      response,
+      OWNER_SESSION_COOKIE,
+      result.session.token,
+      result.session.expiresAt,
+    );
+    const { session: _session, ...identity } = result;
+    return ok(identity, "Invitation accepted and account created");
   }
 
   @Post("onboarding/whatsapp/start")

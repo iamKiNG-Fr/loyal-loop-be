@@ -26,6 +26,7 @@ import {
   CreateCustomerDto,
   CreateCustomerTagDto,
   CustomerListDto,
+  ReportCustomerDto,
   UpdateCustomerDto,
 } from "./dto/customer.dto";
 
@@ -113,6 +114,19 @@ export class CustomersController {
   @Get(":id/timeline")
   timeline(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
     return this.customers.timeline(auth, id).then((data) => ok(data));
+  }
+
+  @Post(":id/reports")
+  @Capabilities(BusinessCapability.CUSTOMER_WRITE)
+  @Roles("OWNER", "MANAGER", "SALES")
+  report(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Param("id") id: string,
+    @Body() dto: ReportCustomerDto,
+  ) {
+    return this.customers
+      .report(auth, id, dto)
+      .then((data) => ok(data, "Private customer report submitted for review"));
   }
 
   @Get(":id/insight-summary")

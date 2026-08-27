@@ -12,6 +12,9 @@ function createService() {
     business: {
       findFirst: vi.fn(),
     },
+    businessSlugHistory: {
+      findUnique: vi.fn(),
+    },
     ownerOtpChallenge: {
       create: vi.fn(),
       findUnique: vi.fn(),

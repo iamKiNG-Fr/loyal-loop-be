@@ -460,6 +460,15 @@ export const DeliveryStatus = {
 export type DeliveryStatus = (typeof DeliveryStatus)[keyof typeof DeliveryStatus]
 
 
+export const FulfillmentJourneyMethod = {
+  SHOP_DELIVERY: 'SHOP_DELIVERY',
+  CUSTOMER_PICKUP: 'CUSTOMER_PICKUP',
+  CUSTOMER_RIDER: 'CUSTOMER_RIDER'
+} as const
+
+export type FulfillmentJourneyMethod = (typeof FulfillmentJourneyMethod)[keyof typeof FulfillmentJourneyMethod]
+
+
 export const ActivityEventType = {
   BUSINESS_CREATED: 'BUSINESS_CREATED',
   BUSINESS_UPDATED: 'BUSINESS_UPDATED',
@@ -506,6 +515,7 @@ export const MediaPurpose = {
   SHOWCASE_POSTER: 'SHOWCASE_POSTER',
   USER_AVATAR: 'USER_AVATAR',
   PAYMENT_PROOF: 'PAYMENT_PROOF',
+  DELIVERY_HANDOFF: 'DELIVERY_HANDOFF',
   TRUST_CARD: 'TRUST_CARD',
   RECEIPT_EXPORT: 'RECEIPT_EXPORT'
 } as const
@@ -741,6 +751,18 @@ export const CustomerReportStatus = {
 } as const
 
 export type CustomerReportStatus = (typeof CustomerReportStatus)[keyof typeof CustomerReportStatus]
+
+
+export const BusinessCustomerReportReason = {
+  FAKE_PAYMENT_PROOF: 'FAKE_PAYMENT_PROOF',
+  FRAUD_OR_SCAM: 'FRAUD_OR_SCAM',
+  ABUSE_OR_HARASSMENT: 'ABUSE_OR_HARASSMENT',
+  PRIVACY_OR_SAFETY: 'PRIVACY_OR_SAFETY',
+  REPEATED_BROKEN_AGREEMENTS: 'REPEATED_BROKEN_AGREEMENTS',
+  OTHER: 'OTHER'
+} as const
+
+export type BusinessCustomerReportReason = (typeof BusinessCustomerReportReason)[keyof typeof BusinessCustomerReportReason]
 
 
 export const FollowUpStatus = {
