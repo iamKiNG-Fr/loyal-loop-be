@@ -286,6 +286,66 @@ export class PlatformAdminService {
       platformCounts.set(row.platform, (platformCounts.get(row.platform) ?? 0) + count);
       audienceCounts.set(row.audience, (audienceCounts.get(row.audience) ?? 0) + count);
     }
+    const staleJourneyWhere: Prisma.DeliveryWhereInput = {
+      business: businessWhere,
+      createdAt: { lte: daysAgo(7) },
+      status: { notIn: ["CONFIRMED", "CANCELED"] },
+    };
+    const paidCanceledWhere: Prisma.DeliveryWhereInput = {
+      business: businessWhere,
+      sale: { amountPaid: { gt: 0 } },
+      status: "CANCELED",
+    };
+    const [staleJourneyCount, staleJourneys, paidCanceledJourneyCount, paidCanceledJourneys] = await Promise.all([
+      this.prisma.delivery.count({ where: staleJourneyWhere }),
+      this.prisma.delivery.findMany({
+        where: staleJourneyWhere,
+        select: {
+          business: { select: { id: true, name: true, slug: true } },
+          createdAt: true,
+          id: true,
+          journeyMethod: true,
+          sale: {
+            select: {
+              amountPaid: true,
+              customer: { select: { name: true } },
+              id: true,
+              paymentStatus: true,
+              referenceCode: true,
+              total: true,
+            },
+          },
+          status: true,
+          updatedAt: true,
+        },
+        orderBy: { createdAt: "asc" },
+        take: 25,
+      }),
+      this.prisma.delivery.count({ where: paidCanceledWhere }),
+      this.prisma.delivery.findMany({
+        where: paidCanceledWhere,
+        select: {
+          business: { select: { id: true, name: true, slug: true } },
+          createdAt: true,
+          id: true,
+          journeyMethod: true,
+          sale: {
+            select: {
+              amountPaid: true,
+              customer: { select: { name: true } },
+              id: true,
+              paymentStatus: true,
+              referenceCode: true,
+              total: true,
+            },
+          },
+          status: true,
+          updatedAt: true,
+        },
+        orderBy: { updatedAt: "desc" },
+        take: 25,
+      }),
+    ]);
     return {
       totals: {
         businesses,
@@ -322,6 +382,12 @@ export class PlatformAdminService {
             status: { in: ["FAILED", "DEAD_LETTER", "SUPPRESSED"] },
           },
         }),
+        staleJourneys: staleJourneyCount,
+        paidCanceledJourneys: paidCanceledJourneyCount,
+      },
+      operationalRisks: {
+        staleJourneys,
+        paidCanceledJourneys,
       },
       traffic: {
         attributedViews: attributedPublicViews,

@@ -234,6 +234,84 @@ export class CustomerAuthService {
     });
   }
 
+  async listBalances(customerAccountId: string, businessSlug: string) {
+    const slug = businessSlug?.trim().toLowerCase();
+    if (!slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+      throw new BadRequestException("Choose a valid shop to view balances");
+    }
+    const [account, business] = await Promise.all([
+      this.prisma.customerAccount.findUnique({
+        where: { id: customerAccountId },
+        select: { name: true, phone: true },
+      }),
+      this.prisma.business.findUnique({
+        where: { slug },
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          logoAsset: { select: { secureUrl: true } },
+        },
+      }),
+    ]);
+    if (!account) throw new UnauthorizedException("Customer account not found");
+    if (!business) throw new NotFoundException("Shop not found");
+
+    const sales = await this.prisma.sale.findMany({
+      where: {
+        businessId: business.id,
+        status: "COMPLETED",
+        paymentStatus: { in: ["UNPAID", "PARTIAL"] },
+        customer: {
+          OR: [
+            { accountId: customerAccountId },
+            { phone: { in: customerPhoneVariants(account.phone) } },
+          ],
+        },
+      },
+      select: {
+        amountPaid: true,
+        currency: true,
+        referenceCode: true,
+        soldAt: true,
+        total: true,
+        customer: { select: { name: true } },
+        items: {
+          select: {
+            imageUrl: true,
+            name: true,
+            quantity: true,
+          },
+        },
+      },
+      orderBy: { soldAt: "desc" },
+    });
+    const openSales = sales
+      .map((sale) => ({
+        amountPaid: Number(sale.amountPaid),
+        balance: Math.max(0, Number(sale.total) - Number(sale.amountPaid)),
+        currency: sale.currency,
+        items: sale.items,
+        referenceCode: sale.referenceCode,
+        soldAt: sale.soldAt,
+        total: Number(sale.total),
+      }))
+      .filter((sale) => sale.balance > 0);
+
+    return {
+      balance: openSales.reduce((sum, sale) => sum + sale.balance, 0),
+      business: {
+        logoUrl: business.logoAsset?.secureUrl ?? null,
+        name: business.name,
+        slug: business.slug,
+      },
+      currency: openSales[0]?.currency ?? "NGN",
+      customer: { name: account.name || sales[0]?.customer.name || "Customer" },
+      saleCount: openSales.length,
+      sales: openSales,
+    };
+  }
+
   async orderNoticeSummary(customerAccountId: string) {
     const [unreadCount, actionRequiredCount, recent] = await this.prisma.$transaction([
       this.prisma.customerOrderNotice.count({ where: { customerAccountId, readAt: null } }),
@@ -345,6 +423,15 @@ export class CustomerAuthService {
     const days = this.config.get<number>("CUSTOMER_SESSION_DAYS", 90);
     return new Date(Date.now() + days * 24 * 60 * 60 * 1000);
   }
+}
+
+function customerPhoneVariants(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+  const variants = new Set([phone.trim(), digits, `+${digits}`]);
+  if (digits.startsWith("234") && digits.length > 3) {
+    variants.add(`0${digits.slice(3)}`);
+  }
+  return [...variants].filter(Boolean);
 }
 
 function addressData(

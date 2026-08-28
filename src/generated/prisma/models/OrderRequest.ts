@@ -1390,10 +1390,6 @@ export type NullableEnumFulfillmentTypeFieldUpdateOperationsInput = {
   set?: $Enums.FulfillmentType | null
 }
 
-export type NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput = {
-  set?: $Enums.FulfillmentJourneyMethod | null
-}
-
 export type EnumDeliveryEligibilityStatusFieldUpdateOperationsInput = {
   set?: $Enums.DeliveryEligibilityStatus
 }

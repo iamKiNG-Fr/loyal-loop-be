@@ -1098,6 +1098,7 @@ export const CustomerCartGroupScalarFieldEnum = {
   businessId: 'businessId',
   customerAddressId: 'customerAddressId',
   fulfillment: 'fulfillment',
+  pickupMethod: 'pickupMethod',
   note: 'note',
   paymentPreference: 'paymentPreference',
   isGift: 'isGift',

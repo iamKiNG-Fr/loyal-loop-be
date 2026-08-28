@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   Res,
   UseGuards,
@@ -116,6 +117,17 @@ export class CustomerAuthController {
   orders(@CurrentCustomer() customer: CustomerAuthContext) {
     return this.auth
       .listOrders(customer.customerAccountId)
+      .then((data) => ok(data));
+  }
+
+  @Get("me/balances")
+  @UseGuards(CustomerAuthGuard)
+  balances(
+    @CurrentCustomer() customer: CustomerAuthContext,
+    @Query("shop") shop: string,
+  ) {
+    return this.auth
+      .listBalances(customer.customerAccountId, shop)
       .then((data) => ok(data));
   }
 

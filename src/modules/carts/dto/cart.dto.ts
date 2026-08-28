@@ -11,7 +11,11 @@ import {
   Max,
   Min,
 } from "class-validator";
-import { FulfillmentType, PaymentMethod } from "../../../generated/prisma/client";
+import {
+  FulfillmentJourneyMethod,
+  FulfillmentType,
+  PaymentMethod,
+} from "../../../generated/prisma/client";
 
 export class AddCartItemDto {
   @IsString()
@@ -40,6 +44,10 @@ export class UpdateCartGroupDto {
   @IsOptional()
   @IsEnum(FulfillmentType)
   fulfillment?: FulfillmentType;
+
+  @IsOptional()
+  @IsEnum(FulfillmentJourneyMethod)
+  pickupMethod?: FulfillmentJourneyMethod;
 
   @IsOptional()
   @IsString()

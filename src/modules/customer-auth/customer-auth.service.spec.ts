@@ -66,4 +66,71 @@ describe("CustomerAuthService dual-role identity", () => {
     expect(result.account.phone).toBe(phone);
     expect(result.session.id).toBe("customer-session-1");
   });
+
+  it("returns only open balances matched to the verified account and selected shop", async () => {
+    const saleFindMany = vi.fn().mockResolvedValue([
+      {
+        amountPaid: 20000,
+        currency: "NGN",
+        customer: { name: "King" },
+        items: [{ imageUrl: null, name: "Ankara set", quantity: 1 }],
+        referenceCode: "LL-OPEN-1",
+        soldAt: new Date("2026-08-20T12:00:00.000Z"),
+        total: 50000,
+      },
+      {
+        amountPaid: 30000,
+        currency: "NGN",
+        customer: { name: "King" },
+        items: [{ imageUrl: null, name: "Paid item", quantity: 1 }],
+        referenceCode: "LL-CLEAR-1",
+        soldAt: new Date("2026-08-19T12:00:00.000Z"),
+        total: 30000,
+      },
+    ]);
+    const prisma = {
+      business: {
+        findUnique: vi.fn().mockResolvedValue({
+          id: "business-1",
+          logoAsset: null,
+          name: "King's Store",
+          slug: "kings-store",
+        }),
+      },
+      customerAccount: {
+        findUnique: vi.fn().mockResolvedValue({
+          name: null,
+          phone: "+2348012345678",
+        }),
+      },
+      sale: { findMany: saleFindMany },
+    };
+    const service = new CustomerAuthService(
+      prisma as unknown as PrismaService,
+      { get: vi.fn() } as unknown as ConfigService,
+      { start: vi.fn(), verify: vi.fn() } as unknown as OtpProvider,
+    );
+
+    const statement = await service.listBalances("account-1", "kings-store");
+
+    expect(saleFindMany).toHaveBeenCalledWith(expect.objectContaining({
+      where: expect.objectContaining({
+        businessId: "business-1",
+        paymentStatus: { in: ["UNPAID", "PARTIAL"] },
+        status: "COMPLETED",
+        customer: {
+          OR: [
+            { accountId: "account-1" },
+            { phone: { in: ["+2348012345678", "2348012345678", "08012345678"] } },
+          ],
+        },
+      }),
+    }));
+    expect(statement.balance).toBe(30000);
+    expect(statement.saleCount).toBe(1);
+    expect(statement.sales.map((sale) => sale.referenceCode)).toEqual(["LL-OPEN-1"]);
+    expect(statement.customer.name).toBe("King");
+    expect(statement).not.toHaveProperty("phone");
+    expect(statement).not.toHaveProperty("customerId");
+  });
 });

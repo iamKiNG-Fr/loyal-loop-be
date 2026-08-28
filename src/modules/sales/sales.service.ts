@@ -537,7 +537,9 @@ export class SalesService {
         where: { id: saleId },
         data: {
           amountPaid: nextPaid,
-          paymentStatus: statusFromAmounts(nextPaid, sale.total),
+          paymentStatus: dto.type === "REFUND" && nextPaid.equals(0)
+            ? "REFUNDED"
+            : statusFromAmounts(nextPaid, sale.total),
         },
         include: saleInclude,
       });

@@ -1330,6 +1330,13 @@ export type EnumFulfillmentTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumFulfillmentTypeFilter<$PrismaModel> | $Enums.FulfillmentType
 }
 
+export type EnumFulfillmentJourneyMethodNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.FulfillmentJourneyMethod | Prisma.EnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel> | $Enums.FulfillmentJourneyMethod | null
+}
+
 export type EnumFulfillmentTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.FulfillmentType | Prisma.EnumFulfillmentTypeFieldRefInput<$PrismaModel>
   in?: $Enums.FulfillmentType[] | Prisma.ListEnumFulfillmentTypeFieldRefInput<$PrismaModel>
@@ -1338,6 +1345,16 @@ export type EnumFulfillmentTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFulfillmentTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFulfillmentTypeFilter<$PrismaModel>
+}
+
+export type EnumFulfillmentJourneyMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FulfillmentJourneyMethod | Prisma.EnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFulfillmentJourneyMethodNullableWithAggregatesFilter<$PrismaModel> | $Enums.FulfillmentJourneyMethod | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel>
 }
 
 export type EnumPromotionTypeFilter<$PrismaModel = never> = {
@@ -1405,13 +1422,6 @@ export type EnumFulfillmentTypeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumFulfillmentTypeNullableFilter<$PrismaModel> | $Enums.FulfillmentType | null
 }
 
-export type EnumFulfillmentJourneyMethodNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.FulfillmentJourneyMethod | Prisma.EnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  in?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel> | $Enums.FulfillmentJourneyMethod | null
-}
-
 export type EnumDeliveryEligibilityStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.DeliveryEligibilityStatus | Prisma.EnumDeliveryEligibilityStatusFieldRefInput<$PrismaModel>
   in?: $Enums.DeliveryEligibilityStatus[] | Prisma.ListEnumDeliveryEligibilityStatusFieldRefInput<$PrismaModel>
@@ -1444,16 +1454,6 @@ export type EnumFulfillmentTypeNullableWithAggregatesFilter<$PrismaModel = never
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFulfillmentTypeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFulfillmentTypeNullableFilter<$PrismaModel>
-}
-
-export type EnumFulfillmentJourneyMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.FulfillmentJourneyMethod | Prisma.EnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  in?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumFulfillmentJourneyMethodNullableWithAggregatesFilter<$PrismaModel> | $Enums.FulfillmentJourneyMethod | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel>
 }
 
 export type EnumDeliveryEligibilityStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -3103,6 +3103,13 @@ export type NestedEnumFulfillmentTypeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumFulfillmentTypeFilter<$PrismaModel> | $Enums.FulfillmentType
 }
 
+export type NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.FulfillmentJourneyMethod | Prisma.EnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel> | $Enums.FulfillmentJourneyMethod | null
+}
+
 export type NestedEnumFulfillmentTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.FulfillmentType | Prisma.EnumFulfillmentTypeFieldRefInput<$PrismaModel>
   in?: $Enums.FulfillmentType[] | Prisma.ListEnumFulfillmentTypeFieldRefInput<$PrismaModel>
@@ -3111,6 +3118,16 @@ export type NestedEnumFulfillmentTypeWithAggregatesFilter<$PrismaModel = never> 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFulfillmentTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFulfillmentTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumFulfillmentJourneyMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.FulfillmentJourneyMethod | Prisma.EnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  in?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumFulfillmentJourneyMethodNullableWithAggregatesFilter<$PrismaModel> | $Enums.FulfillmentJourneyMethod | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumPromotionTypeFilter<$PrismaModel = never> = {
@@ -3178,13 +3195,6 @@ export type NestedEnumFulfillmentTypeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumFulfillmentTypeNullableFilter<$PrismaModel> | $Enums.FulfillmentType | null
 }
 
-export type NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.FulfillmentJourneyMethod | Prisma.EnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  in?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel> | $Enums.FulfillmentJourneyMethod | null
-}
-
 export type NestedEnumDeliveryEligibilityStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.DeliveryEligibilityStatus | Prisma.EnumDeliveryEligibilityStatusFieldRefInput<$PrismaModel>
   in?: $Enums.DeliveryEligibilityStatus[] | Prisma.ListEnumDeliveryEligibilityStatusFieldRefInput<$PrismaModel>
@@ -3217,16 +3227,6 @@ export type NestedEnumFulfillmentTypeNullableWithAggregatesFilter<$PrismaModel =
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFulfillmentTypeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFulfillmentTypeNullableFilter<$PrismaModel>
-}
-
-export type NestedEnumFulfillmentJourneyMethodNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.FulfillmentJourneyMethod | Prisma.EnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  in?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.FulfillmentJourneyMethod[] | Prisma.ListEnumFulfillmentJourneyMethodFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumFulfillmentJourneyMethodNullableWithAggregatesFilter<$PrismaModel> | $Enums.FulfillmentJourneyMethod | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumFulfillmentJourneyMethodNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumDeliveryEligibilityStatusWithAggregatesFilter<$PrismaModel = never> = {

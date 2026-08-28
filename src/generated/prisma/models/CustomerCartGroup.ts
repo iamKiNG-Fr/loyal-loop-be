@@ -30,6 +30,7 @@ export type CustomerCartGroupMinAggregateOutputType = {
   businessId: string | null
   customerAddressId: string | null
   fulfillment: $Enums.FulfillmentType | null
+  pickupMethod: $Enums.FulfillmentJourneyMethod | null
   note: string | null
   paymentPreference: $Enums.PaymentMethod | null
   isGift: boolean | null
@@ -46,6 +47,7 @@ export type CustomerCartGroupMaxAggregateOutputType = {
   businessId: string | null
   customerAddressId: string | null
   fulfillment: $Enums.FulfillmentType | null
+  pickupMethod: $Enums.FulfillmentJourneyMethod | null
   note: string | null
   paymentPreference: $Enums.PaymentMethod | null
   isGift: boolean | null
@@ -62,6 +64,7 @@ export type CustomerCartGroupCountAggregateOutputType = {
   businessId: number
   customerAddressId: number
   fulfillment: number
+  pickupMethod: number
   note: number
   paymentPreference: number
   isGift: number
@@ -80,6 +83,7 @@ export type CustomerCartGroupMinAggregateInputType = {
   businessId?: true
   customerAddressId?: true
   fulfillment?: true
+  pickupMethod?: true
   note?: true
   paymentPreference?: true
   isGift?: true
@@ -96,6 +100,7 @@ export type CustomerCartGroupMaxAggregateInputType = {
   businessId?: true
   customerAddressId?: true
   fulfillment?: true
+  pickupMethod?: true
   note?: true
   paymentPreference?: true
   isGift?: true
@@ -112,6 +117,7 @@ export type CustomerCartGroupCountAggregateInputType = {
   businessId?: true
   customerAddressId?: true
   fulfillment?: true
+  pickupMethod?: true
   note?: true
   paymentPreference?: true
   isGift?: true
@@ -201,6 +207,7 @@ export type CustomerCartGroupGroupByOutputType = {
   businessId: string
   customerAddressId: string | null
   fulfillment: $Enums.FulfillmentType
+  pickupMethod: $Enums.FulfillmentJourneyMethod | null
   note: string | null
   paymentPreference: $Enums.PaymentMethod | null
   isGift: boolean
@@ -238,6 +245,7 @@ export type CustomerCartGroupWhereInput = {
   businessId?: Prisma.StringFilter<"CustomerCartGroup"> | string
   customerAddressId?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"CustomerCartGroup"> | $Enums.FulfillmentType
+  pickupMethod?: Prisma.EnumFulfillmentJourneyMethodNullableFilter<"CustomerCartGroup"> | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   paymentPreference?: Prisma.EnumPaymentMethodNullableFilter<"CustomerCartGroup"> | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
@@ -257,6 +265,7 @@ export type CustomerCartGroupOrderByWithRelationInput = {
   businessId?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrderInput | Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentPreference?: Prisma.SortOrderInput | Prisma.SortOrder
   isGift?: Prisma.SortOrder
@@ -280,6 +289,7 @@ export type CustomerCartGroupWhereUniqueInput = Prisma.AtLeast<{
   businessId?: Prisma.StringFilter<"CustomerCartGroup"> | string
   customerAddressId?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"CustomerCartGroup"> | $Enums.FulfillmentType
+  pickupMethod?: Prisma.EnumFulfillmentJourneyMethodNullableFilter<"CustomerCartGroup"> | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   paymentPreference?: Prisma.EnumPaymentMethodNullableFilter<"CustomerCartGroup"> | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
@@ -299,6 +309,7 @@ export type CustomerCartGroupOrderByWithAggregationInput = {
   businessId?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrderInput | Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentPreference?: Prisma.SortOrderInput | Prisma.SortOrder
   isGift?: Prisma.SortOrder
@@ -321,6 +332,7 @@ export type CustomerCartGroupScalarWhereWithAggregatesInput = {
   businessId?: Prisma.StringWithAggregatesFilter<"CustomerCartGroup"> | string
   customerAddressId?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeWithAggregatesFilter<"CustomerCartGroup"> | $Enums.FulfillmentType
+  pickupMethod?: Prisma.EnumFulfillmentJourneyMethodNullableWithAggregatesFilter<"CustomerCartGroup"> | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
   paymentPreference?: Prisma.EnumPaymentMethodNullableWithAggregatesFilter<"CustomerCartGroup"> | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolWithAggregatesFilter<"CustomerCartGroup"> | boolean
@@ -334,6 +346,7 @@ export type CustomerCartGroupScalarWhereWithAggregatesInput = {
 export type CustomerCartGroupCreateInput = {
   id?: string
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -353,6 +366,7 @@ export type CustomerCartGroupUncheckedCreateInput = {
   businessId: string
   customerAddressId?: string | null
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -366,6 +380,7 @@ export type CustomerCartGroupUncheckedCreateInput = {
 export type CustomerCartGroupUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -385,6 +400,7 @@ export type CustomerCartGroupUncheckedUpdateInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -401,6 +417,7 @@ export type CustomerCartGroupCreateManyInput = {
   businessId: string
   customerAddressId?: string | null
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -414,6 +431,7 @@ export type CustomerCartGroupCreateManyInput = {
 export type CustomerCartGroupUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -430,6 +448,7 @@ export type CustomerCartGroupUncheckedUpdateManyInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -461,6 +480,7 @@ export type CustomerCartGroupCountOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrder
   note?: Prisma.SortOrder
   paymentPreference?: Prisma.SortOrder
   isGift?: Prisma.SortOrder
@@ -477,6 +497,7 @@ export type CustomerCartGroupMaxOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrder
   note?: Prisma.SortOrder
   paymentPreference?: Prisma.SortOrder
   isGift?: Prisma.SortOrder
@@ -493,6 +514,7 @@ export type CustomerCartGroupMinOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   customerAddressId?: Prisma.SortOrder
   fulfillment?: Prisma.SortOrder
+  pickupMethod?: Prisma.SortOrder
   note?: Prisma.SortOrder
   paymentPreference?: Prisma.SortOrder
   isGift?: Prisma.SortOrder
@@ -633,9 +655,14 @@ export type EnumFulfillmentTypeFieldUpdateOperationsInput = {
   set?: $Enums.FulfillmentType
 }
 
+export type NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput = {
+  set?: $Enums.FulfillmentJourneyMethod | null
+}
+
 export type CustomerCartGroupCreateWithoutBusinessInput = {
   id?: string
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -653,6 +680,7 @@ export type CustomerCartGroupUncheckedCreateWithoutBusinessInput = {
   cartId: string
   customerAddressId?: string | null
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -698,6 +726,7 @@ export type CustomerCartGroupScalarWhereInput = {
   businessId?: Prisma.StringFilter<"CustomerCartGroup"> | string
   customerAddressId?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFilter<"CustomerCartGroup"> | $Enums.FulfillmentType
+  pickupMethod?: Prisma.EnumFulfillmentJourneyMethodNullableFilter<"CustomerCartGroup"> | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   paymentPreference?: Prisma.EnumPaymentMethodNullableFilter<"CustomerCartGroup"> | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
@@ -711,6 +740,7 @@ export type CustomerCartGroupScalarWhereInput = {
 export type CustomerCartGroupCreateWithoutCustomerAddressInput = {
   id?: string
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -728,6 +758,7 @@ export type CustomerCartGroupUncheckedCreateWithoutCustomerAddressInput = {
   cartId: string
   businessId: string
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -767,6 +798,7 @@ export type CustomerCartGroupUpdateManyWithWhereWithoutCustomerAddressInput = {
 export type CustomerCartGroupCreateWithoutCartInput = {
   id?: string
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -784,6 +816,7 @@ export type CustomerCartGroupUncheckedCreateWithoutCartInput = {
   businessId: string
   customerAddressId?: string | null
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -825,6 +858,7 @@ export type CustomerCartGroupCreateManyBusinessInput = {
   cartId: string
   customerAddressId?: string | null
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -838,6 +872,7 @@ export type CustomerCartGroupCreateManyBusinessInput = {
 export type CustomerCartGroupUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -855,6 +890,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutBusinessInput = {
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -870,6 +906,7 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutBusinessInput = {
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -885,6 +922,7 @@ export type CustomerCartGroupCreateManyCustomerAddressInput = {
   cartId: string
   businessId: string
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -898,6 +936,7 @@ export type CustomerCartGroupCreateManyCustomerAddressInput = {
 export type CustomerCartGroupUpdateWithoutCustomerAddressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -915,6 +954,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutCustomerAddressInput = {
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -930,6 +970,7 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressInput = {
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -945,6 +986,7 @@ export type CustomerCartGroupCreateManyCartInput = {
   businessId: string
   customerAddressId?: string | null
   fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
   note?: string | null
   paymentPreference?: $Enums.PaymentMethod | null
   isGift?: boolean
@@ -958,6 +1000,7 @@ export type CustomerCartGroupCreateManyCartInput = {
 export type CustomerCartGroupUpdateWithoutCartInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -975,6 +1018,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutCartInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -990,6 +1034,7 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutCartInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1008,6 +1053,7 @@ export type CustomerCartGroupSelect<ExtArgs extends runtime.Types.Extensions.Int
   businessId?: boolean
   customerAddressId?: boolean
   fulfillment?: boolean
+  pickupMethod?: boolean
   note?: boolean
   paymentPreference?: boolean
   isGift?: boolean
@@ -1027,6 +1073,7 @@ export type CustomerCartGroupSelectCreateManyAndReturn<ExtArgs extends runtime.T
   businessId?: boolean
   customerAddressId?: boolean
   fulfillment?: boolean
+  pickupMethod?: boolean
   note?: boolean
   paymentPreference?: boolean
   isGift?: boolean
@@ -1046,6 +1093,7 @@ export type CustomerCartGroupSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   businessId?: boolean
   customerAddressId?: boolean
   fulfillment?: boolean
+  pickupMethod?: boolean
   note?: boolean
   paymentPreference?: boolean
   isGift?: boolean
@@ -1065,6 +1113,7 @@ export type CustomerCartGroupSelectScalar = {
   businessId?: boolean
   customerAddressId?: boolean
   fulfillment?: boolean
+  pickupMethod?: boolean
   note?: boolean
   paymentPreference?: boolean
   isGift?: boolean
@@ -1075,7 +1124,7 @@ export type CustomerCartGroupSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CustomerCartGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "businessId" | "customerAddressId" | "fulfillment" | "note" | "paymentPreference" | "isGift" | "recipientName" | "recipientPhone" | "whatsappUpdatesConsent" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartGroup"]>
+export type CustomerCartGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "businessId" | "customerAddressId" | "fulfillment" | "pickupMethod" | "note" | "paymentPreference" | "isGift" | "recipientName" | "recipientPhone" | "whatsappUpdatesConsent" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartGroup"]>
 export type CustomerCartGroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -1105,6 +1154,7 @@ export type $CustomerCartGroupPayload<ExtArgs extends runtime.Types.Extensions.I
     businessId: string
     customerAddressId: string | null
     fulfillment: $Enums.FulfillmentType
+    pickupMethod: $Enums.FulfillmentJourneyMethod | null
     note: string | null
     paymentPreference: $Enums.PaymentMethod | null
     isGift: boolean
@@ -1544,6 +1594,7 @@ export interface CustomerCartGroupFieldRefs {
   readonly businessId: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly customerAddressId: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly fulfillment: Prisma.FieldRef<"CustomerCartGroup", 'FulfillmentType'>
+  readonly pickupMethod: Prisma.FieldRef<"CustomerCartGroup", 'FulfillmentJourneyMethod'>
   readonly note: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly paymentPreference: Prisma.FieldRef<"CustomerCartGroup", 'PaymentMethod'>
   readonly isGift: Prisma.FieldRef<"CustomerCartGroup", 'Boolean'>

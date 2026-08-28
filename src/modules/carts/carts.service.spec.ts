@@ -53,6 +53,54 @@ describe("CartsService", () => {
       expect.objectContaining({ businessId: "business-1", ok: true, replayed: true }),
     ]);
   });
+
+  it("removes the empty shop group when its final item leaves the cart", async () => {
+    const prisma = basePrisma();
+    const tx = {
+      customerCartGroup: { deleteMany: vi.fn().mockResolvedValue({ count: 1 }) },
+      customerCartItem: {
+        count: vi.fn().mockResolvedValue(0),
+        delete: vi.fn().mockResolvedValue({ id: "item-1" }),
+        findFirst: vi.fn().mockResolvedValue({ businessId: "business-1" }),
+      },
+    };
+    prisma.$transaction.mockImplementation((callback: (client: typeof tx) => unknown) => callback(tx));
+    prisma.customerCart.findUniqueOrThrow.mockResolvedValue({
+      groups: [], id: "cart-1", items: [], status: "ACTIVE", updatedAt: new Date(),
+    });
+    const service = new CartsService(prisma as unknown as PrismaService, promotions() as never, {} as never);
+
+    await expect(service.removeAccountItem(auth, "item-1")).resolves.toEqual(
+      expect.objectContaining({ groups: [], items: [] }),
+    );
+    expect(tx.customerCartGroup.deleteMany).toHaveBeenCalledWith({
+      where: { businessId: "business-1", cartId: "cart-1" },
+    });
+  });
+
+  it("never serializes a stale shop group without cart items", async () => {
+    const prisma = basePrisma();
+    prisma.customerCart.findUniqueOrThrow.mockResolvedValue({
+      groups: [{
+        business: { id: "business-1", name: "Empty shop", preferences: null, slug: "empty-shop" },
+        businessId: "business-1",
+        cartId: "cart-1",
+        createdAt: new Date(),
+        fulfillment: "PICKUP",
+        id: "group-1",
+        updatedAt: new Date(),
+      }],
+      id: "cart-1",
+      items: [],
+      status: "ACTIVE",
+      updatedAt: new Date(),
+    });
+    const service = new CartsService(prisma as unknown as PrismaService, promotions() as never, {} as never);
+
+    await expect(service.accountCart(auth)).resolves.toEqual(
+      expect.objectContaining({ groups: [], items: [] }),
+    );
+  });
 });
 
 function basePrisma() {

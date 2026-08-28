@@ -78,8 +78,22 @@ export class CartsService {
   }
 
   async removeItem(cartId: string, itemId: string) {
-    const changed = await this.prisma.customerCartItem.deleteMany({ where: { id: itemId, cartId } });
-    if (!changed.count) throw new NotFoundException("Cart item not found");
+    await this.prisma.$transaction(async (tx) => {
+      const item = await tx.customerCartItem.findFirst({
+        where: { id: itemId, cartId },
+        select: { businessId: true },
+      });
+      if (!item) throw new NotFoundException("Cart item not found");
+      await tx.customerCartItem.delete({ where: { id: itemId } });
+      const remaining = await tx.customerCartItem.count({
+        where: { cartId, businessId: item.businessId },
+      });
+      if (!remaining) {
+        await tx.customerCartGroup.deleteMany({
+          where: { cartId, businessId: item.businessId },
+        });
+      }
+    });
   }
 
   async updateAccountItem(auth: CustomerAuthContext, itemId: string, quantity: number) {
@@ -123,10 +137,21 @@ export class CartsService {
     if (dto.fulfillment && preferences && !customerFulfillmentMethods(preferences.allowedFulfillmentMethods).includes(dto.fulfillment)) {
       throw new BadRequestException("That collection method is not offered by this shop");
     }
+    if (dto.pickupMethod === "SHOP_DELIVERY") {
+      throw new BadRequestException("Choose personal pickup or your own rider for a pickup order");
+    }
+    if (dto.pickupMethod && dto.fulfillment && dto.fulfillment !== "PICKUP") {
+      throw new BadRequestException("A pickup collector can only be selected for pickup");
+    }
+    const pickupMethod = dto.fulfillment
+      ? dto.fulfillment === "PICKUP"
+        ? dto.pickupMethod ?? "CUSTOMER_PICKUP"
+        : null
+      : dto.pickupMethod;
     await this.prisma.customerCartGroup.upsert({
       where: { cartId_businessId: { cartId: cart.id, businessId } },
-      create: { cartId: cart.id, businessId, ...dto, note: dto.note?.trim() },
-      update: { ...dto, note: dto.note?.trim() },
+      create: { cartId: cart.id, businessId, ...dto, pickupMethod, note: dto.note?.trim() },
+      update: { ...dto, pickupMethod, note: dto.note?.trim() },
     });
     return this.accountCart(auth);
   }
@@ -172,6 +197,7 @@ export class CartsService {
             cartId: accountCart.id,
             businessId: group.businessId,
             fulfillment: group.fulfillment,
+            pickupMethod: group.pickupMethod,
             note: group.note,
             paymentPreference: group.paymentPreference,
             isGift: group.isGift,
@@ -285,6 +311,9 @@ export class CartsService {
               customerPhone: account.phone,
               channel: "OTHER",
               fulfillment: group.fulfillment,
+              pickupMethod: group.fulfillment === "PICKUP"
+                ? group.pickupMethod ?? "CUSTOMER_PICKUP"
+                : undefined,
               customerAddressId: address?.id,
               deliveryAddress: address?.address,
               deliveryPlaceId: address?.googlePlaceId,
@@ -392,6 +421,9 @@ export class CartsService {
           cartId,
           businessId: product.businessId,
           fulfillment: customerFulfillmentMethods(product.business.preferences?.allowedFulfillmentMethods)[0],
+          pickupMethod: customerFulfillmentMethods(product.business.preferences?.allowedFulfillmentMethods)[0] === "PICKUP"
+            ? "CUSTOMER_PICKUP"
+            : undefined,
           paymentPreference: product.business.preferences?.defaultPaymentMethod
             ?? (product.business.preferences?.allowedPaymentMethods.length === 1
               ? product.business.preferences.allowedPaymentMethods[0]
@@ -454,10 +486,12 @@ function cartPayload(cart: CartWithItems) {
       stockChanged: currentStock !== item.stockSnapshot,
     };
   });
-  const groups = cart.groups.map((group) => ({
-    ...group,
-    items: items.filter((item) => item.businessId === group.businessId),
-  }));
+  const groups = cart.groups
+    .map((group) => ({
+      ...group,
+      items: items.filter((item) => item.businessId === group.businessId),
+    }))
+    .filter((group) => group.items.length > 0);
   return { id: cart.id, items, groups, status: cart.status, updatedAt: cart.updatedAt };
 }
 

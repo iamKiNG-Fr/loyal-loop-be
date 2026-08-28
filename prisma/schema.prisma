@@ -1831,6 +1831,7 @@ model CustomerCartGroup {
   businessId             String
   customerAddressId      String?
   fulfillment            FulfillmentType  @default(ARRANGE_LATER)
+  pickupMethod            FulfillmentJourneyMethod?
   note                   String?
   paymentPreference      PaymentMethod?
   isGift                 Boolean          @default(false)

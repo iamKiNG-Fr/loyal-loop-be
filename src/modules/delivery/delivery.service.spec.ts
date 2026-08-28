@@ -185,4 +185,31 @@ describe("DeliveryService in-transit courier details", () => {
     }));
     expect(messaging.enqueueDelivery).toHaveBeenCalledWith(auth, "delivery-1");
   });
+
+  it("blocks cancellation until every recorded payment has been refunded", async () => {
+    const paidDelivery = {
+      ...delivery,
+      status: "PREPARING",
+      sale: { amountPaid: new Prisma.Decimal(5000) },
+    };
+    const tx = {
+      delivery: { update: vi.fn() },
+      sale: { findUniqueOrThrow: vi.fn().mockResolvedValue({ amountPaid: new Prisma.Decimal(5000) }) },
+    };
+    const prisma = {
+      delivery: { findFirst: vi.fn().mockResolvedValue(paidDelivery) },
+      $transaction: vi.fn((callback: (client: typeof tx) => unknown) => callback(tx)),
+    };
+    const service = new DeliveryService(
+      prisma as unknown as PrismaService,
+      {} as ActivityService,
+      {} as MessagingService,
+      {} as never,
+      { captureIfQualified: vi.fn() } as never,
+    );
+
+    await expect(service.update(auth, "delivery-1", { status: "CANCELED" }))
+      .rejects.toThrow("Record the full refund before canceling this paid order");
+    expect(tx.delivery.update).not.toHaveBeenCalled();
+  });
 });

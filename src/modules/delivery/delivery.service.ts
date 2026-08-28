@@ -177,6 +177,17 @@ export class DeliveryService {
       if (!asset) throw new BadRequestException("Handoff photo is invalid");
     }
     const updated = await this.prisma.$transaction(async (tx) => {
+      if (dto.status === "CANCELED") {
+        const paymentState = await tx.sale.findUniqueOrThrow({
+          where: { id: delivery.saleId },
+          select: { amountPaid: true },
+        });
+        if (paymentState.amountPaid.greaterThan(0)) {
+          throw new BadRequestException(
+            "Record the full refund before canceling this paid order",
+          );
+        }
+      }
       const updated = await tx.delivery.update({
         where: { id: deliveryId },
         data: {
@@ -230,9 +241,7 @@ export class DeliveryService {
           deliveryId,
           type: "DELIVERY_STATUS_UPDATED",
           title: `Delivery moved to ${dto.status.toLowerCase().replaceAll("_", " ")}`,
-          description: dto.status === "CANCELED" && delivery.sale.amountPaid.greaterThan(0)
-            ? `${dto.note?.trim() ? `${dto.note.trim()} ` : ""}A recorded payment exists; any refund must be handled through the original payment method.`
-            : dto.note?.trim(),
+          description: dto.note?.trim(),
           awardTrust: false,
         },
         tx,
