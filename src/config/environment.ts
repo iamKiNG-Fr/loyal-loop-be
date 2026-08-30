@@ -16,6 +16,7 @@ export function validateEnvironment(input: Record<string, unknown>) {
   validateBoolean(config, "CSRF_ENFORCED");
   validateBoolean(config, "DISCOVERY_SIGNED_EVENTS_REQUIRED");
   validateBoolean(config, "RATE_LIMIT_REDIS_ENABLED");
+  validateBoolean(config, "RETENTION_CLEANUP_ENABLED");
 
   if (environment !== "production") return config;
 
@@ -85,6 +86,15 @@ export function validateEnvironment(input: Record<string, unknown>) {
 
   if (stringValue(config.RATE_LIMIT_REDIS_ENABLED) === "true") {
     requireValue(config, "REDIS_URL");
+  }
+
+  if (stringValue(config.RETENTION_CLEANUP_ENABLED) === "true") {
+    requireSecret(config, "RETENTION_SCHEDULER_SECRET");
+  }
+
+  if (stringValue(config.MONITORING_WEBHOOK_URL)) {
+    requireHttpsUrl(config, "MONITORING_WEBHOOK_URL");
+    requireSecret(config, "MONITORING_WEBHOOK_SECRET");
   }
 
   return config;

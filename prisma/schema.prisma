@@ -1260,6 +1260,7 @@ model MediaAsset {
   businessId             String
   uploadedById           String?
   provider               String                  @default("cloudinary")
+  deliveryType           String                  @default("upload")
   publicId               String                  @unique
   secureUrl              String
   resourceType           String                  @default("image")

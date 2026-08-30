@@ -3,11 +3,16 @@ import { createHash, randomUUID } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { Client } from "pg";
+import { secureDatabaseUrl } from "../src/config/database-url";
 
 const MIGRATION_LOCK = 72_707_369;
 
 async function main() {
-  const client = new Client({ connectionString: required("DATABASE_URL") });
+  const client = new Client({
+    connectionString: secureDatabaseUrl(
+      process.env.DATABASE_URL_UNPOOLED || required("DATABASE_URL"),
+    ),
+  });
   await client.connect();
 
   try {

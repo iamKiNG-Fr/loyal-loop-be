@@ -5,9 +5,10 @@ import {
 } from "./delivery.controller";
 import { DeliveryService } from "./delivery.service";
 import { FoundingValueFeedbackModule } from "../founding-value-feedback/founding-value-feedback.module";
+import { MediaModule } from "../media/media.module";
 
 @Module({
-  imports: [FoundingValueFeedbackModule],
+  imports: [FoundingValueFeedbackModule, MediaModule],
   controllers: [DeliveryController, PublicDeliveryController],
   providers: [DeliveryService],
   exports: [DeliveryService],

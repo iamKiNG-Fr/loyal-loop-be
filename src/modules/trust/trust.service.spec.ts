@@ -1,10 +1,11 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   calculateLoyaltyHealth,
   calculateTrustLevel,
   currentStreak,
   currentWorkingDayStreak,
   uniqueBusinessDays,
+  TrustService,
 } from "./trust.service";
 
 describe("deterministic trust rules", () => {
@@ -105,5 +106,37 @@ describe("deterministic trust rules", () => {
         [1, 2, 3, 4, 5],
       ),
     ).toBe(3);
+  });
+});
+
+describe("TrustService activity aggregation", () => {
+  it("keeps exact day semantics while returning one bounded database rollup", async () => {
+    const queryRaw = vi.fn().mockResolvedValue([{
+      activeDays: 92,
+      careDays: ["2026-08-29", "2026-08-28"],
+      customerCareCompletedToday: true,
+      inventoryCheckedToday: false,
+    }]);
+    const service = new TrustService({ $queryRaw: queryRaw } as never, {} as never);
+
+    const rollup = await (service as unknown as {
+      activityRollup: (businessId: string) => Promise<{
+        activeDays: number;
+        careDays: string[];
+        customerCareCompletedToday: boolean;
+        inventoryCheckedToday: boolean;
+      }>;
+    }).activityRollup("business-1");
+
+    expect(rollup).toEqual({
+      activeDays: 92,
+      careDays: ["2026-08-28", "2026-08-29"],
+      customerCareCompletedToday: true,
+      inventoryCheckedToday: false,
+    });
+    const query = queryRaw.mock.calls[0]?.[0] as { strings?: string[] };
+    expect(query.strings?.join(" ")).toContain("COUNT(DISTINCT");
+    expect(query.strings?.join(" ")).toContain("ARRAY_AGG");
+    expect(query.strings?.join(" ")).toContain("INTERVAL '370 days'");
   });
 });

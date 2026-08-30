@@ -22,7 +22,9 @@
     "build": "prisma generate && tsc -p tsconfig.json",
     "start": "node ./dist/main.js",
     "start:dev": "nodemon --watch src --ext ts --exec ts-node src/main.ts",
-    "reminders:cron": "node scripts/run-reminder-cron.mjs"
+    "reminders:cron": "node scripts/run-reminder-cron.mjs",
+    "retention:cron": "node scripts/run-retention-cron.mjs",
+    "media:harden": "node scripts/harden-sensitive-media.mjs"
   },
   "author": "",
   "license": "ISC",

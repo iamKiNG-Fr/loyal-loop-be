@@ -157,7 +157,7 @@ describe("PaymentsService payment-proof rejection", () => {
     };
     const service = new PaymentsService(
       prisma as unknown as PrismaService,
-      {} as MediaService,
+      { protectAsset: vi.fn((asset) => asset) } as unknown as MediaService,
       activity as unknown as ActivityService,
       messaging as unknown as MessagingService,
       {} as never,

@@ -9,10 +9,11 @@ import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import { customerOrderRequestTokenWhere } from "../../common/customer-order-request-token";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { cancelSaleAndRestoreInventory } from "../../common/sale-inventory";
-import type { DeliveryStatus } from "../../generated/prisma/client";
+import type { DeliveryStatus, MediaPurpose } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { MessagingService } from "../messaging/messaging.service";
 import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
+import { MediaService } from "../media/media.service";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   CreateDeliveryIssueDto,
@@ -34,7 +35,18 @@ const transitions: Record<DeliveryStatus, DeliveryStatus[]> = {
 };
 
 const deliveryInclude = {
-  handoffAsset: { select: { id: true, secureUrl: true } },
+  handoffAsset: {
+    select: {
+      deliveryType: true,
+      format: true,
+      id: true,
+      publicId: true,
+      purpose: true,
+      resourceType: true,
+      secureUrl: true,
+      status: true,
+    },
+  },
   pickupLocation: true,
   customer: { include: { contacts: true } },
   sale: {
@@ -72,21 +84,24 @@ export class DeliveryService {
     private readonly messaging: MessagingService,
     private readonly config: ConfigService,
     private readonly valueFeedback: FoundingValueFeedbackService,
+    private readonly media: MediaService,
   ) {}
 
-  list(auth: OwnerAuthContext) {
-    return this.prisma.delivery.findMany({
+  async list(auth: OwnerAuthContext) {
+    const deliveries = await this.prisma.delivery.findMany({
       where: { businessId: auth.businessId },
       include: deliveryInclude,
       orderBy: { updatedAt: "desc" },
     });
+    return deliveries.map((delivery) => this.protectDelivery(delivery));
   }
 
-  get(auth: OwnerAuthContext, id: string) {
-    return this.prisma.delivery.findFirstOrThrow({
+  async get(auth: OwnerAuthContext, id: string) {
+    const delivery = await this.prisma.delivery.findFirstOrThrow({
       where: { id, businessId: auth.businessId },
       include: deliveryInclude,
     });
+    return this.protectDelivery(delivery);
   }
 
   async createShareLink(auth: OwnerAuthContext, id: string) {
@@ -249,7 +264,7 @@ export class DeliveryService {
       return updated;
     });
     await this.messaging.enqueueDelivery(auth, deliveryId).catch(() => undefined);
-    return updated;
+    return this.protectDelivery(updated);
   }
 
   async switchPickupMethod(
@@ -266,7 +281,7 @@ export class DeliveryService {
     }
     const riderDetails = dto.method === "CUSTOMER_RIDER"
       && Boolean(dto.riderName?.trim() && dto.riderPhone?.trim());
-    return this.prisma.delivery.update({
+    const updated = await this.prisma.delivery.update({
       where: { id: delivery.id },
       data: {
         journeyMethod: dto.method,
@@ -280,6 +295,7 @@ export class DeliveryService {
       },
       include: deliveryInclude,
     });
+    return this.protectDelivery(updated);
   }
 
   async confirmHandoff(auth: OwnerAuthContext, deliveryId: string, dto: ConfirmDeliveryHandoffDto) {
@@ -311,7 +327,7 @@ export class DeliveryService {
         },
       });
     return {
-      ...sanitizePublicDelivery(record),
+      ...sanitizePublicDelivery(this.protectDelivery(record)),
       handoffCode: record.handoffCodeIssuedAt && record.journeyMethod !== "CUSTOMER_RIDER"
         ? this.handoffCode(record.id)
         : null,
@@ -321,10 +337,11 @@ export class DeliveryService {
   async confirm(customerAccountId: string, token: string) {
     const delivery = await this.findByToken(customerAccountId, token);
     if (delivery.status === "CONFIRMED") {
-      return this.prisma.delivery.findUniqueOrThrow({
+      const confirmed = await this.prisma.delivery.findUniqueOrThrow({
         where: { id: delivery.id },
         include: deliveryInclude,
       });
+      return this.protectDelivery(confirmed);
     }
     const canConfirm = delivery.journeyMethod === "CUSTOMER_RIDER"
       ? delivery.status === "IN_TRANSIT"
@@ -362,7 +379,7 @@ export class DeliveryService {
     });
     await this.messaging.enqueueCustomerMemoryPrompt(delivery.id).catch(() => undefined);
     await this.valueFeedback.captureIfQualified(this.prisma, delivery.businessId, delivery.saleId).catch(() => undefined);
-    return updated;
+    return this.protectDelivery(updated);
   }
 
   async feedback(customerAccountId: string, token: string, dto: SubmitDeliveryFeedbackDto) {
@@ -546,7 +563,7 @@ export class DeliveryService {
     actorId: string | undefined,
     note: string,
   ) {
-    return this.prisma.$transaction(async (tx) => {
+    const updated = await this.prisma.$transaction(async (tx) => {
       const updated = await tx.delivery.update({
         where: { id: delivery.id },
         data: {
@@ -568,6 +585,27 @@ export class DeliveryService {
       }, tx);
       return updated;
     });
+    return this.protectDelivery(updated);
+  }
+
+  private protectDelivery<T extends {
+    handoffAsset: {
+      deliveryType: string;
+      format: string;
+      publicId: string;
+      purpose: MediaPurpose;
+      resourceType: string;
+      secureUrl: string;
+      status: string;
+    } | null;
+  }>(delivery: T) {
+    if (!("handoffAsset" in delivery)) return delivery;
+    return {
+      ...delivery,
+      handoffAsset: delivery.handoffAsset
+        ? this.media.protectAsset(delivery.handoffAsset)
+        : null,
+    };
   }
 }
 

@@ -10,10 +10,13 @@ import { randomUUID } from "node:crypto";
 import type { Observable } from "rxjs";
 import { tap } from "rxjs";
 import type { LoyalLoopRequest } from "./request-context";
+import { MonitoringService } from "../modules/monitoring/monitoring.service";
 
 @Injectable()
 export class RequestIdInterceptor implements NestInterceptor {
   private readonly logger = new Logger(RequestIdInterceptor.name);
+
+  constructor(private readonly monitoring?: MonitoringService) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
     const request = context.switchToHttp().getRequest<LoyalLoopRequest>();
@@ -21,8 +24,9 @@ export class RequestIdInterceptor implements NestInterceptor {
     const incoming = request.header("x-request-id");
     const startedAt = process.hrtime.bigint();
     let recorded = false;
-    request.requestId ||= incoming?.slice(0, 100) || randomUUID();
-    response.setHeader("x-request-id", request.requestId);
+    const requestId = request.requestId || incoming?.slice(0, 100) || randomUUID();
+    request.requestId = requestId;
+    response.setHeader("x-request-id", requestId);
 
     const recordTiming = (statusCode: number) => {
       if (recorded) return;
@@ -38,11 +42,21 @@ export class RequestIdInterceptor implements NestInterceptor {
           durationMs: Number(durationMs.toFixed(1)),
           method: request.method,
           path: request.path,
-          requestId: request.requestId,
+          requestId,
           statusCode,
         });
         if (statusCode >= 500) this.logger.error(event);
         else this.logger.warn(event);
+        void this.monitoring?.capture({
+          durationMs: Number(durationMs.toFixed(1)),
+          method: request.method,
+          path: request.path,
+          requestId,
+          severity: statusCode >= 500 ? "error" : "warning",
+          statusCode,
+          timestamp: new Date().toISOString(),
+          type: statusCode >= 500 ? "http_error" : "slow_request",
+        });
       }
     };
 

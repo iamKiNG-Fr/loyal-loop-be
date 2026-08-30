@@ -13,11 +13,12 @@ import {
   consumeSaleInventory,
   type InventoryClaim,
 } from "../../common/sale-inventory";
-import { Prisma } from "../../generated/prisma/client";
+import { BusinessCapability, MediaPurpose, Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { MessagingService } from "../messaging/messaging.service";
+import { MediaService } from "../media/media.service";
 import {
   CreateSaleDto,
   RecordPaymentDto,
@@ -32,7 +33,17 @@ const saleInclude = {
   paymentProofs: {
     select: {
       amount: true,
-      asset: { select: { secureUrl: true } },
+      asset: {
+        select: {
+          secureUrl: true,
+          deliveryType: true,
+          format: true,
+          publicId: true,
+          purpose: true,
+          resourceType: true,
+          status: true,
+        },
+      },
       id: true,
       reference: true,
       status: true,
@@ -51,6 +62,7 @@ export class SalesService {
     private readonly activity: ActivityService,
     private readonly messaging: MessagingService,
     private readonly valueFeedback: FoundingValueFeedbackService,
+    private readonly media: MediaService,
   ) {}
 
   async list(auth: OwnerAuthContext, query: SaleListDto) {
@@ -107,17 +119,23 @@ export class SalesService {
       }),
       this.prisma.sale.count({ where }),
     ]);
-    return paginated(items, total, query.page, query.pageSize);
+    return paginated(
+      items.map((sale) => this.protectSale(sale, this.canViewPaymentProofs(auth))),
+      total,
+      query.page,
+      query.pageSize,
+    );
   }
 
-  get(auth: OwnerAuthContext, id: string) {
-    return this.prisma.sale.findFirstOrThrow({
+  async get(auth: OwnerAuthContext, id: string) {
+    const sale = await this.prisma.sale.findFirstOrThrow({
       where: {
         businessId: auth.businessId,
         OR: [{ id }, { referenceCode: id }],
       },
       include: saleInclude,
     });
+    return this.protectSale(sale, this.canViewPaymentProofs(auth));
   }
 
   async create(
@@ -132,7 +150,7 @@ export class SalesService {
         where: { businessId: auth.businessId, idempotencyKey },
         include: saleInclude,
       });
-      if (existing) return { sale: existing };
+      if (existing) return { sale: this.protectSale(existing, this.canViewPaymentProofs(auth)) };
     }
     const customer = await db.customer.findFirst({
       where: { id: dto.customerId, businessId: auth.businessId },
@@ -487,7 +505,7 @@ export class SalesService {
           },
           include: saleInclude,
         });
-        if (existing) return { sale: existing };
+        if (existing) return { sale: this.protectSale(existing, this.canViewPaymentProofs(auth)) };
       }
       throw error;
     }
@@ -497,7 +515,7 @@ export class SalesService {
         .catch(() => undefined);
     }
     return {
-      sale,
+      sale: this.protectSale(sale, this.canViewPaymentProofs(auth)),
       receiptToken: receiptToken.token,
       ...(createsDeliveryJourney
         ? { deliveryToken: deliveryToken.token }
@@ -522,7 +540,7 @@ export class SalesService {
     if (nextPaid.isNegative() || nextPaid.greaterThan(sale.total)) {
       throw new BadRequestException("Payment would produce an invalid balance");
     }
-    return this.prisma.$transaction(async (tx) => {
+    const updated = await this.prisma.$transaction(async (tx) => {
       await tx.paymentEntry.create({
         data: {
           saleId,
@@ -578,6 +596,35 @@ export class SalesService {
       await this.valueFeedback.captureIfQualified(tx, auth.businessId, saleId);
       return updated;
     });
+    return this.protectSale(updated, this.canViewPaymentProofs(auth));
+  }
+
+  private protectSale<T extends {
+    paymentProofs: Array<{
+      asset: {
+        deliveryType: string;
+        format: string;
+        publicId: string;
+        purpose: MediaPurpose;
+        resourceType: string;
+        secureUrl: string;
+        status: string;
+      };
+    }>;
+  }>(sale: T, canViewPaymentProofs: boolean) {
+    return {
+      ...sale,
+      paymentProofs: canViewPaymentProofs
+        ? sale.paymentProofs.map((proof) => ({
+            ...proof,
+            asset: this.media.protectAsset(proof.asset),
+          }))
+        : [],
+    };
+  }
+
+  private canViewPaymentProofs(auth: OwnerAuthContext) {
+    return auth.capabilities?.includes(BusinessCapability.PAYMENT_REVIEW) === true;
   }
 }
 

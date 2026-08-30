@@ -7786,6 +7786,7 @@ export const MediaAssetScalarFieldEnum = {
   businessId: 'businessId',
   uploadedById: 'uploadedById',
   provider: 'provider',
+  deliveryType: 'deliveryType',
   publicId: 'publicId',
   secureUrl: 'secureUrl',
   resourceType: 'resourceType',

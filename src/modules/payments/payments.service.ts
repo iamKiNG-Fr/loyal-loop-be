@@ -77,13 +77,13 @@ export class PaymentsService {
     });
   }
 
-  listProofs(auth: OwnerAuthContext, status?: string) {
+  async listProofs(auth: OwnerAuthContext, status?: string) {
     const normalized = ["REJECTED", "SUBMITTED", "VERIFIED"].includes(
       status ?? "",
     )
       ? (status as "REJECTED" | "SUBMITTED" | "VERIFIED")
       : undefined;
-    return this.prisma.paymentProof.findMany({
+    const proofs = await this.prisma.paymentProof.findMany({
       where: {
         businessId: auth.businessId,
         status: normalized,
@@ -91,6 +91,10 @@ export class PaymentsService {
       include: ownerProofInclude,
       orderBy: { submittedAt: "desc" },
     });
+    return proofs.map((proof) => ({
+      ...proof,
+      asset: this.media.protectAsset(proof.asset),
+    }));
   }
 
   async createUploadSignature(
@@ -226,17 +230,21 @@ export class PaymentsService {
         return updated;
       });
       const requestId = proof.sale.sourceRequest?.id;
-      if (!requestId) return { ...updated, rejectionDelivery: null };
+      const protectedUpdated = {
+        ...updated,
+        asset: this.media.protectAsset(updated.asset),
+      };
+      if (!requestId) return { ...protectedUpdated, rejectionDelivery: null };
       try {
         const rejectionDelivery = await this.messaging.enqueuePaymentProofRejected(
           requestId,
           proof.id,
           rejectionReason,
         );
-        return { ...updated, rejectionDelivery };
+        return { ...protectedUpdated, rejectionDelivery };
       } catch (error) {
         return {
-          ...updated,
+          ...protectedUpdated,
           rejectionDelivery: {
             error:
               error instanceof Error
@@ -317,14 +325,18 @@ export class PaymentsService {
       );
       return updated;
     });
+    const protectedUpdated = {
+      ...updated,
+      asset: this.media.protectAsset(updated.asset),
+    };
     const receiptId = updated.sale.receipt?.id;
-    if (!receiptId) return { ...updated, receiptDelivery: null };
+    if (!receiptId) return { ...protectedUpdated, receiptDelivery: null };
     try {
       const receiptDelivery = await this.messaging.enqueueReceipt(auth, receiptId, { awaitDelivery: true });
-      return { ...updated, receiptDelivery };
+      return { ...protectedUpdated, receiptDelivery };
     } catch (error) {
       return {
-        ...updated,
+        ...protectedUpdated,
         receiptDelivery: {
           error: error instanceof Error ? error.message : "Receipt delivery could not start",
           imageAttached: false,
@@ -342,6 +354,7 @@ export class PaymentsService {
       height: dto.height,
       originalFilename: dto.originalFilename,
       publicId: dto.publicId,
+      deliveryType: dto.deliveryType,
       secureUrl: dto.secureUrl,
       signature: dto.signature,
       version: dto.version,

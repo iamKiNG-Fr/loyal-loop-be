@@ -1,10 +1,11 @@
 import { Module } from "@nestjs/common";
 import { FoundingValueFeedbackModule } from "../founding-value-feedback/founding-value-feedback.module";
+import { MediaModule } from "../media/media.module";
 import { SalesController } from "./sales.controller";
 import { SalesService } from "./sales.service";
 
 @Module({
-  imports: [FoundingValueFeedbackModule],
+  imports: [FoundingValueFeedbackModule, MediaModule],
   controllers: [SalesController],
   providers: [SalesService],
   exports: [SalesService],

@@ -45,6 +45,7 @@ export type MediaAssetMinAggregateOutputType = {
   businessId: string | null
   uploadedById: string | null
   provider: string | null
+  deliveryType: string | null
   publicId: string | null
   secureUrl: string | null
   resourceType: string | null
@@ -79,6 +80,7 @@ export type MediaAssetMaxAggregateOutputType = {
   businessId: string | null
   uploadedById: string | null
   provider: string | null
+  deliveryType: string | null
   publicId: string | null
   secureUrl: string | null
   resourceType: string | null
@@ -113,6 +115,7 @@ export type MediaAssetCountAggregateOutputType = {
   businessId: number
   uploadedById: number
   provider: number
+  deliveryType: number
   publicId: number
   secureUrl: number
   resourceType: number
@@ -165,6 +168,7 @@ export type MediaAssetMinAggregateInputType = {
   businessId?: true
   uploadedById?: true
   provider?: true
+  deliveryType?: true
   publicId?: true
   secureUrl?: true
   resourceType?: true
@@ -199,6 +203,7 @@ export type MediaAssetMaxAggregateInputType = {
   businessId?: true
   uploadedById?: true
   provider?: true
+  deliveryType?: true
   publicId?: true
   secureUrl?: true
   resourceType?: true
@@ -233,6 +238,7 @@ export type MediaAssetCountAggregateInputType = {
   businessId?: true
   uploadedById?: true
   provider?: true
+  deliveryType?: true
   publicId?: true
   secureUrl?: true
   resourceType?: true
@@ -356,6 +362,7 @@ export type MediaAssetGroupByOutputType = {
   businessId: string
   uploadedById: string | null
   provider: string
+  deliveryType: string
   publicId: string
   secureUrl: string
   resourceType: string
@@ -415,6 +422,7 @@ export type MediaAssetWhereInput = {
   businessId?: Prisma.StringFilter<"MediaAsset"> | string
   uploadedById?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   provider?: Prisma.StringFilter<"MediaAsset"> | string
+  deliveryType?: Prisma.StringFilter<"MediaAsset"> | string
   publicId?: Prisma.StringFilter<"MediaAsset"> | string
   secureUrl?: Prisma.StringFilter<"MediaAsset"> | string
   resourceType?: Prisma.StringFilter<"MediaAsset"> | string
@@ -464,6 +472,7 @@ export type MediaAssetOrderByWithRelationInput = {
   businessId?: Prisma.SortOrder
   uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   provider?: Prisma.SortOrder
+  deliveryType?: Prisma.SortOrder
   publicId?: Prisma.SortOrder
   secureUrl?: Prisma.SortOrder
   resourceType?: Prisma.SortOrder
@@ -518,6 +527,7 @@ export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
   businessId?: Prisma.StringFilter<"MediaAsset"> | string
   uploadedById?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   provider?: Prisma.StringFilter<"MediaAsset"> | string
+  deliveryType?: Prisma.StringFilter<"MediaAsset"> | string
   secureUrl?: Prisma.StringFilter<"MediaAsset"> | string
   resourceType?: Prisma.StringFilter<"MediaAsset"> | string
   mimeType?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
@@ -565,6 +575,7 @@ export type MediaAssetOrderByWithAggregationInput = {
   businessId?: Prisma.SortOrder
   uploadedById?: Prisma.SortOrderInput | Prisma.SortOrder
   provider?: Prisma.SortOrder
+  deliveryType?: Prisma.SortOrder
   publicId?: Prisma.SortOrder
   secureUrl?: Prisma.SortOrder
   resourceType?: Prisma.SortOrder
@@ -609,6 +620,7 @@ export type MediaAssetScalarWhereWithAggregatesInput = {
   businessId?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
   uploadedById?: Prisma.StringNullableWithAggregatesFilter<"MediaAsset"> | string | null
   provider?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
+  deliveryType?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
   publicId?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
   secureUrl?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
   resourceType?: Prisma.StringWithAggregatesFilter<"MediaAsset"> | string
@@ -643,6 +655,7 @@ export type MediaAssetScalarWhereWithAggregatesInput = {
 export type MediaAssetCreateInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -692,6 +705,7 @@ export type MediaAssetUncheckedCreateInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -737,6 +751,7 @@ export type MediaAssetUncheckedCreateInput = {
 export type MediaAssetUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -786,6 +801,7 @@ export type MediaAssetUncheckedUpdateInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -833,6 +849,7 @@ export type MediaAssetCreateManyInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -867,6 +884,7 @@ export type MediaAssetCreateManyInput = {
 export type MediaAssetUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -903,6 +921,7 @@ export type MediaAssetUncheckedUpdateManyInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -954,6 +973,7 @@ export type MediaAssetCountOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   uploadedById?: Prisma.SortOrder
   provider?: Prisma.SortOrder
+  deliveryType?: Prisma.SortOrder
   publicId?: Prisma.SortOrder
   secureUrl?: Prisma.SortOrder
   resourceType?: Prisma.SortOrder
@@ -997,6 +1017,7 @@ export type MediaAssetMaxOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   uploadedById?: Prisma.SortOrder
   provider?: Prisma.SortOrder
+  deliveryType?: Prisma.SortOrder
   publicId?: Prisma.SortOrder
   secureUrl?: Prisma.SortOrder
   resourceType?: Prisma.SortOrder
@@ -1031,6 +1052,7 @@ export type MediaAssetMinOrderByAggregateInput = {
   businessId?: Prisma.SortOrder
   uploadedById?: Prisma.SortOrder
   provider?: Prisma.SortOrder
+  deliveryType?: Prisma.SortOrder
   publicId?: Prisma.SortOrder
   secureUrl?: Prisma.SortOrder
   resourceType?: Prisma.SortOrder
@@ -1345,6 +1367,7 @@ export type MediaAssetUpdateOneWithoutDeliveryHandoffsNestedInput = {
 export type MediaAssetCreateWithoutUploadedByInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -1392,6 +1415,7 @@ export type MediaAssetUncheckedCreateWithoutUploadedByInput = {
   id?: string
   businessId: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -1447,6 +1471,7 @@ export type MediaAssetCreateManyUploadedByInputEnvelope = {
 export type MediaAssetCreateWithoutAvatarForInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -1495,6 +1520,7 @@ export type MediaAssetUncheckedCreateWithoutAvatarForInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -1565,6 +1591,7 @@ export type MediaAssetScalarWhereInput = {
   businessId?: Prisma.StringFilter<"MediaAsset"> | string
   uploadedById?: Prisma.StringNullableFilter<"MediaAsset"> | string | null
   provider?: Prisma.StringFilter<"MediaAsset"> | string
+  deliveryType?: Prisma.StringFilter<"MediaAsset"> | string
   publicId?: Prisma.StringFilter<"MediaAsset"> | string
   secureUrl?: Prisma.StringFilter<"MediaAsset"> | string
   resourceType?: Prisma.StringFilter<"MediaAsset"> | string
@@ -1610,6 +1637,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutAvatarForInput = {
 export type MediaAssetUpdateWithoutAvatarForInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1658,6 +1686,7 @@ export type MediaAssetUncheckedUpdateWithoutAvatarForInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1702,6 +1731,7 @@ export type MediaAssetUncheckedUpdateWithoutAvatarForInput = {
 export type MediaAssetCreateWithoutLogoForInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -1750,6 +1780,7 @@ export type MediaAssetUncheckedCreateWithoutLogoForInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -1799,6 +1830,7 @@ export type MediaAssetCreateOrConnectWithoutLogoForInput = {
 export type MediaAssetCreateWithoutCoverForInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -1847,6 +1879,7 @@ export type MediaAssetUncheckedCreateWithoutCoverForInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -1896,6 +1929,7 @@ export type MediaAssetCreateOrConnectWithoutCoverForInput = {
 export type MediaAssetCreateWithoutBusinessInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -1943,6 +1977,7 @@ export type MediaAssetUncheckedCreateWithoutBusinessInput = {
   id?: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -2009,6 +2044,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutLogoForInput = {
 export type MediaAssetUpdateWithoutLogoForInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2057,6 +2093,7 @@ export type MediaAssetUncheckedUpdateWithoutLogoForInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2112,6 +2149,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutCoverForInput = {
 export type MediaAssetUpdateWithoutCoverForInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2160,6 +2198,7 @@ export type MediaAssetUncheckedUpdateWithoutCoverForInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2220,6 +2259,7 @@ export type MediaAssetUpdateManyWithWhereWithoutBusinessInput = {
 export type MediaAssetCreateWithoutModerationReviewsInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -2268,6 +2308,7 @@ export type MediaAssetUncheckedCreateWithoutModerationReviewsInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -2328,6 +2369,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutModerationReviewsInput = {
 export type MediaAssetUpdateWithoutModerationReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2376,6 +2418,7 @@ export type MediaAssetUncheckedUpdateWithoutModerationReviewsInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2420,6 +2463,7 @@ export type MediaAssetUncheckedUpdateWithoutModerationReviewsInput = {
 export type MediaAssetCreateWithoutProductImagesInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -2468,6 +2512,7 @@ export type MediaAssetUncheckedCreateWithoutProductImagesInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -2528,6 +2573,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutProductImagesInput = {
 export type MediaAssetUpdateWithoutProductImagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2576,6 +2622,7 @@ export type MediaAssetUncheckedUpdateWithoutProductImagesInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2620,6 +2667,7 @@ export type MediaAssetUncheckedUpdateWithoutProductImagesInput = {
 export type MediaAssetCreateWithoutProductMediaInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -2668,6 +2716,7 @@ export type MediaAssetUncheckedCreateWithoutProductMediaInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -2717,6 +2766,7 @@ export type MediaAssetCreateOrConnectWithoutProductMediaInput = {
 export type MediaAssetCreateWithoutProductPostersInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -2765,6 +2815,7 @@ export type MediaAssetUncheckedCreateWithoutProductPostersInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -2825,6 +2876,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutProductMediaInput = {
 export type MediaAssetUpdateWithoutProductMediaInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2873,6 +2925,7 @@ export type MediaAssetUncheckedUpdateWithoutProductMediaInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2928,6 +2981,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutProductPostersInput = {
 export type MediaAssetUpdateWithoutProductPostersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2976,6 +3030,7 @@ export type MediaAssetUncheckedUpdateWithoutProductPostersInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3020,6 +3075,7 @@ export type MediaAssetUncheckedUpdateWithoutProductPostersInput = {
 export type MediaAssetCreateWithoutShowcaseImagesInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -3068,6 +3124,7 @@ export type MediaAssetUncheckedCreateWithoutShowcaseImagesInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -3117,6 +3174,7 @@ export type MediaAssetCreateOrConnectWithoutShowcaseImagesInput = {
 export type MediaAssetCreateWithoutShowcasePostersInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -3165,6 +3223,7 @@ export type MediaAssetUncheckedCreateWithoutShowcasePostersInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -3225,6 +3284,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutShowcaseImagesInput = {
 export type MediaAssetUpdateWithoutShowcaseImagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3273,6 +3333,7 @@ export type MediaAssetUncheckedUpdateWithoutShowcaseImagesInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3328,6 +3389,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutShowcasePostersInput = {
 export type MediaAssetUpdateWithoutShowcasePostersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3376,6 +3438,7 @@ export type MediaAssetUncheckedUpdateWithoutShowcasePostersInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3420,6 +3483,7 @@ export type MediaAssetUncheckedUpdateWithoutShowcasePostersInput = {
 export type MediaAssetCreateWithoutPaymentProofInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -3468,6 +3532,7 @@ export type MediaAssetUncheckedCreateWithoutPaymentProofInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -3528,6 +3593,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutPaymentProofInput = {
 export type MediaAssetUpdateWithoutPaymentProofInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3576,6 +3642,7 @@ export type MediaAssetUncheckedUpdateWithoutPaymentProofInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3620,6 +3687,7 @@ export type MediaAssetUncheckedUpdateWithoutPaymentProofInput = {
 export type MediaAssetCreateWithoutDeliveryHandoffsInput = {
   id?: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -3668,6 +3736,7 @@ export type MediaAssetUncheckedCreateWithoutDeliveryHandoffsInput = {
   businessId: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -3728,6 +3797,7 @@ export type MediaAssetUpdateToOneWithWhereWithoutDeliveryHandoffsInput = {
 export type MediaAssetUpdateWithoutDeliveryHandoffsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3776,6 +3846,7 @@ export type MediaAssetUncheckedUpdateWithoutDeliveryHandoffsInput = {
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3821,6 +3892,7 @@ export type MediaAssetCreateManyUploadedByInput = {
   id?: string
   businessId: string
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -3855,6 +3927,7 @@ export type MediaAssetCreateManyUploadedByInput = {
 export type MediaAssetUpdateWithoutUploadedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3902,6 +3975,7 @@ export type MediaAssetUncheckedUpdateWithoutUploadedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3948,6 +4022,7 @@ export type MediaAssetUncheckedUpdateManyWithoutUploadedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3983,6 +4058,7 @@ export type MediaAssetCreateManyBusinessInput = {
   id?: string
   uploadedById?: string | null
   provider?: string
+  deliveryType?: string
   publicId: string
   secureUrl: string
   resourceType?: string
@@ -4017,6 +4093,7 @@ export type MediaAssetCreateManyBusinessInput = {
 export type MediaAssetUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4064,6 +4141,7 @@ export type MediaAssetUncheckedUpdateWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4110,6 +4188,7 @@ export type MediaAssetUncheckedUpdateManyWithoutBusinessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
   publicId?: Prisma.StringFieldUpdateOperationsInput | string
   secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
   resourceType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -4231,6 +4310,7 @@ export type MediaAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   businessId?: boolean
   uploadedById?: boolean
   provider?: boolean
+  deliveryType?: boolean
   publicId?: boolean
   secureUrl?: boolean
   resourceType?: boolean
@@ -4281,6 +4361,7 @@ export type MediaAssetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   businessId?: boolean
   uploadedById?: boolean
   provider?: boolean
+  deliveryType?: boolean
   publicId?: boolean
   secureUrl?: boolean
   resourceType?: boolean
@@ -4319,6 +4400,7 @@ export type MediaAssetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   businessId?: boolean
   uploadedById?: boolean
   provider?: boolean
+  deliveryType?: boolean
   publicId?: boolean
   secureUrl?: boolean
   resourceType?: boolean
@@ -4357,6 +4439,7 @@ export type MediaAssetSelectScalar = {
   businessId?: boolean
   uploadedById?: boolean
   provider?: boolean
+  deliveryType?: boolean
   publicId?: boolean
   secureUrl?: boolean
   resourceType?: boolean
@@ -4388,7 +4471,7 @@ export type MediaAssetSelectScalar = {
   deletedAt?: boolean
 }
 
-export type MediaAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "uploadedById" | "provider" | "publicId" | "secureUrl" | "resourceType" | "mimeType" | "format" | "width" | "height" | "durationSeconds" | "bytes" | "version" | "originalFilename" | "purpose" | "status" | "qualityStatus" | "moderationStatus" | "contentRating" | "qualityMetrics" | "moderationLabels" | "moderationProvider" | "moderationModelVersion" | "moderationEventId" | "moderationNotifiedAt" | "exactHash" | "perceptualHash" | "assessedAt" | "appealedAt" | "appealReason" | "createdAt" | "deletedAt", ExtArgs["result"]["mediaAsset"]>
+export type MediaAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "uploadedById" | "provider" | "deliveryType" | "publicId" | "secureUrl" | "resourceType" | "mimeType" | "format" | "width" | "height" | "durationSeconds" | "bytes" | "version" | "originalFilename" | "purpose" | "status" | "qualityStatus" | "moderationStatus" | "contentRating" | "qualityMetrics" | "moderationLabels" | "moderationProvider" | "moderationModelVersion" | "moderationEventId" | "moderationNotifiedAt" | "exactHash" | "perceptualHash" | "assessedAt" | "appealedAt" | "appealReason" | "createdAt" | "deletedAt", ExtArgs["result"]["mediaAsset"]>
 export type MediaAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   uploadedBy?: boolean | Prisma.MediaAsset$uploadedByArgs<ExtArgs>
@@ -4436,6 +4519,7 @@ export type $MediaAssetPayload<ExtArgs extends runtime.Types.Extensions.Internal
     businessId: string
     uploadedById: string | null
     provider: string
+    deliveryType: string
     publicId: string
     secureUrl: string
     resourceType: string
@@ -4905,6 +4989,7 @@ export interface MediaAssetFieldRefs {
   readonly businessId: Prisma.FieldRef<"MediaAsset", 'String'>
   readonly uploadedById: Prisma.FieldRef<"MediaAsset", 'String'>
   readonly provider: Prisma.FieldRef<"MediaAsset", 'String'>
+  readonly deliveryType: Prisma.FieldRef<"MediaAsset", 'String'>
   readonly publicId: Prisma.FieldRef<"MediaAsset", 'String'>
   readonly secureUrl: Prisma.FieldRef<"MediaAsset", 'String'>
   readonly resourceType: Prisma.FieldRef<"MediaAsset", 'String'>

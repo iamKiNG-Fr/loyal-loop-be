@@ -59,6 +59,16 @@ const publicShowcaseInclude = {
   },
 } satisfies Prisma.ShowcaseInclude;
 
+const publicProductWhere = {
+  status: "ACTIVE" as const,
+  visibility: "PUBLIC" as const,
+  images: { some: { asset: { is: publicMediaAssetWhere } } },
+} satisfies Prisma.ProductWhereInput;
+
+const INITIAL_PUBLIC_PRODUCT_COUNT = 12;
+
+export type PerformanceTimingRecorder = (name: string, durationMs: number) => void;
+
 type TermsResponseRequest = Prisma.OrderRequestGetPayload<{
   include: {
     business: { include: { preferences: true } };
@@ -79,46 +89,105 @@ export class ShopsService {
     private readonly messaging: MessagingService,
   ) {}
 
-  async getPublicShop(slug: string, visitor?: string, query?: DiscoveryQuery) {
-    const resolved = await this.businesses.resolveShopSlug(slug);
+  async getPublicShop(slug: string, timing?: PerformanceTimingRecorder) {
+    const resolved = await timed("slug", () => this.businesses.resolveShopSlug(slug), timing);
     if (!resolved) throw new NotFoundException("Shop not found");
-    await this.businesses.reconcileScheduledLaunch(resolved.id);
-    const business = await this.prisma.business.findFirst({
-      where: { id: resolved.id, storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" },
-      include: {
-        coverAsset: true,
-        logoAsset: true,
-        launchProduct: { include: publicProductInclude },
-        contacts: { orderBy: { sortOrder: "asc" } },
-        preferences: true,
-        products: {
-          where: {
-            status: "ACTIVE",
-            visibility: "PUBLIC",
-            images: { some: { asset: { is: publicMediaAssetWhere } } },
+    await timed("launch", () => this.businesses.reconcileScheduledLaunch(resolved.id), timing);
+    const [business, trust] = await Promise.all([
+      timed("catalog", () => this.prisma.business.findFirst({
+        where: { id: resolved.id, storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" },
+        include: {
+          _count: { select: { products: { where: publicProductWhere } } },
+          coverAsset: true,
+          logoAsset: true,
+          launchProduct: { include: publicProductInclude },
+          contacts: { orderBy: { sortOrder: "asc" } },
+          preferences: true,
+          products: {
+            where: publicProductWhere,
+            include: publicProductInclude,
+            orderBy: [{ placement: "asc" }, { createdAt: "desc" }],
+            take: INITIAL_PUBLIC_PRODUCT_COUNT,
           },
-          include: publicProductInclude,
-          orderBy: [{ placement: "asc" }, { createdAt: "desc" }],
+          showcases: {
+            where: { status: "PUBLISHED", asset: { is: publicMediaAssetWhere } },
+            include: publicShowcaseInclude,
+            orderBy: [{ featured: "desc" }, { publishedAt: "desc" }],
+          },
         },
-        showcases: {
-          where: { status: "PUBLISHED", asset: { is: publicMediaAssetWhere } },
-          include: publicShowcaseInclude,
-          orderBy: [{ featured: "desc" }, { publishedAt: "desc" }],
-        },
-      },
-    });
+      }), timing),
+      timed("trust", () => this.trust.summary(resolved.id, false), timing),
+    ]);
     if (!business) throw new NotFoundException("Shop not found");
-    await this.recordCommerceEvent(business.id, "SHOP_VIEWED", visitor, undefined, query);
     const open = business.storeStatus === "OPEN";
+    const productTotal = open ? business._count.products : 0;
     return {
       business: sanitizeBusiness(business),
+      catalog: {
+        page: 1,
+        pageSize: INITIAL_PUBLIC_PRODUCT_COUNT,
+        total: productTotal,
+        totalPages: Math.ceil(productTotal / INITIAL_PUBLIC_PRODUCT_COUNT),
+      },
       canonicalSlug: business.slug,
       redirectedFrom: resolved.redirectedFrom,
       canRequest: open,
       products: open ? business.products : [],
       showcases: open ? business.showcases : [],
-      trust: await this.trust.summary(business.id, false),
+      trust,
     };
+  }
+
+  async getPublicCatalog(
+    slug: string,
+    page: number,
+    pageSize: number,
+    search?: string,
+    timing?: PerformanceTimingRecorder,
+  ) {
+    const resolved = await timed("slug", () => this.businesses.resolveShopSlug(slug), timing);
+    if (!resolved) throw new NotFoundException("Shop not found");
+    await timed("launch", () => this.businesses.reconcileScheduledLaunch(resolved.id), timing);
+    const term = search?.trim().slice(0, 100);
+    const where: Prisma.ProductWhereInput = {
+      ...publicProductWhere,
+      businessId: resolved.id,
+      ...(term ? {
+        OR: [
+          { name: { contains: term, mode: "insensitive" } },
+          { description: { contains: term, mode: "insensitive" } },
+          { category: { contains: term, mode: "insensitive" } },
+        ],
+      } : {}),
+    };
+    const [business, products, total] = await Promise.all([
+      timed("shop", () => this.prisma.business.findFirst({
+        where: { id: resolved.id, storeStatus: "OPEN", platformStatus: "ACTIVE" },
+        select: { id: true },
+      }), timing),
+      timed("catalog", () => this.prisma.product.findMany({
+        where,
+        include: publicProductInclude,
+        orderBy: [{ placement: "asc" }, { createdAt: "desc" }],
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+      }), timing),
+      timed("catalog_count", () => this.prisma.product.count({
+        where,
+      }), timing),
+    ]);
+    if (!business) throw new NotFoundException("Shop not found");
+    return { products, total };
+  }
+
+  async recordPublicShopView(slug: string, visitor?: string, query?: DiscoveryQuery, timing?: PerformanceTimingRecorder) {
+    const resolved = await timed("slug", () => this.businesses.resolveShopSlug(slug), timing);
+    if (!resolved) throw new NotFoundException("Shop not found");
+    await timed(
+      "analytics",
+      () => this.recordCommerceEvent(resolved.id, "SHOP_VIEWED", visitor, undefined, query),
+      timing,
+    );
   }
 
   async getPublicProduct(slug: string, productSlug: string, visitor?: string, query?: DiscoveryQuery) {
@@ -127,7 +196,11 @@ export class ShopsService {
     await this.businesses.reconcileScheduledLaunch(resolved.id);
     const product = await this.prisma.product.findFirst({
       where: {
-        slug: productSlug,
+        OR: [
+          { id: productSlug },
+          { slug: productSlug },
+          { name: { equals: productSlug, mode: "insensitive" } },
+        ],
         status: "ACTIVE",
         visibility: "PUBLIC",
         business: { id: resolved.id, storeStatus: "OPEN", platformStatus: "ACTIVE" },
@@ -1054,6 +1127,19 @@ export function assertProductsLaunched(
   );
   if (!upcoming?.launchAt) return;
   throw new BadRequestException(`${upcoming.name} has not launched yet`);
+}
+
+async function timed<T>(
+  name: string,
+  work: () => Promise<T>,
+  timing?: PerformanceTimingRecorder,
+) {
+  const startedAt = performance.now();
+  try {
+    return await work();
+  } finally {
+    timing?.(name, performance.now() - startedAt);
+  }
 }
 
 function sanitizeBusiness(business: Record<string, unknown>) {

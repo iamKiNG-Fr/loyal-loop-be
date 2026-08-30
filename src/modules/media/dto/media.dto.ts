@@ -41,6 +41,10 @@ export class RegisterMediaAssetDto {
   @IsUrl({ protocols: ["https"], require_protocol: true })
   secureUrl!: string;
 
+  @IsOptional()
+  @IsIn(["upload", "authenticated"])
+  deliveryType?: "authenticated" | "upload";
+
   @IsString()
   format!: string;
 

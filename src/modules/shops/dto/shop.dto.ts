@@ -13,6 +13,7 @@ import {
   Length,
   Matches,
   Max,
+  MaxLength,
   Min,
   ValidateNested,
 } from "class-validator";
@@ -37,6 +38,26 @@ export class DiscoveryAttributionDto {
   @IsOptional()
   @IsIn(DISCOVERY_CAMPAIGNS)
   utm_campaign?: string;
+}
+
+export class PublicShopCatalogDto {
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  page = 1;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(24)
+  pageSize = 12;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  search?: string;
 }
 
 export class PublicRequestItemDto {

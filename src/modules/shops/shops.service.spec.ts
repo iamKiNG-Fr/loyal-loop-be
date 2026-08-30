@@ -100,6 +100,150 @@ describe("product launch request guards", () => {
   });
 });
 
+describe("ShopsService.getPublicShop", () => {
+  it("loads the catalogue and trust summary concurrently", async () => {
+    let resolveBusiness: ((value: object) => void) | undefined;
+    const businessPromise = new Promise<object>((resolve) => {
+      resolveBusiness = resolve;
+    });
+    const trust = { level: 1 };
+    const trustSummary = vi.fn().mockResolvedValue(trust);
+    const prisma = {
+      business: { findFirst: vi.fn().mockReturnValue(businessPromise) },
+      commerceEvent: { create: vi.fn().mockResolvedValue({ id: "event-1" }) },
+    };
+    const businesses = {
+      reconcileScheduledLaunch: vi.fn().mockResolvedValue(false),
+      resolveShopSlug: vi.fn().mockResolvedValue({ id: "business-1", redirectedFrom: null }),
+    };
+    const service = new ShopsService(
+      prisma as never,
+      {} as never,
+      {} as never,
+      { summary: trustSummary } as never,
+      {} as never,
+      businesses as never,
+      {} as never,
+      {} as never,
+    );
+
+    const resultPromise = service.getPublicShop("fixture-shop");
+    await vi.waitFor(() => expect(trustSummary).toHaveBeenCalledWith("business-1", false));
+    resolveBusiness?.({
+      _count: { products: 0 },
+      contacts: [],
+      coverAsset: null,
+      id: "business-1",
+      launchProduct: null,
+      logoAsset: null,
+      name: "Fixture Shop",
+      preferences: null,
+      products: [],
+      publicCardId: "LL-FIXTURE",
+      showcases: [],
+      slug: "fixture-shop",
+      storeStatus: "OPEN",
+    });
+
+    await expect(resultPromise).resolves.toMatchObject({
+      catalog: { page: 1, pageSize: 12, total: 0, totalPages: 0 },
+      canonicalSlug: "fixture-shop",
+      trust,
+    });
+    expect(prisma.business.findFirst).toHaveBeenCalledWith(expect.objectContaining({
+      include: expect.objectContaining({
+        products: expect.objectContaining({ take: 12 }),
+      }),
+    }));
+  });
+
+  it("emits phase timings without putting view analytics on the read path", async () => {
+    const timing = vi.fn();
+    const commerceCreate = vi.fn();
+    const service = new ShopsService(
+      {
+        business: { findFirst: vi.fn().mockResolvedValue({
+          _count: { products: 0 },
+          contacts: [],
+          coverAsset: null,
+          id: "business-1",
+          launchProduct: null,
+          logoAsset: null,
+          name: "Fixture Shop",
+          preferences: null,
+          products: [],
+          publicCardId: "LL-FIXTURE",
+          showcases: [],
+          slug: "fixture-shop",
+          storeStatus: "OPEN",
+        }) },
+        commerceEvent: { create: commerceCreate },
+      } as never,
+      {} as never,
+      {} as never,
+      { summary: vi.fn().mockResolvedValue({ level: 1 }) } as never,
+      {} as never,
+      {
+        reconcileScheduledLaunch: vi.fn().mockResolvedValue(false),
+        resolveShopSlug: vi.fn().mockResolvedValue({ id: "business-1", redirectedFrom: null }),
+      } as never,
+      {} as never,
+      {} as never,
+    );
+
+    await service.getPublicShop("fixture-shop", timing);
+
+    expect(timing.mock.calls.map(([phase]) => phase)).toEqual(expect.arrayContaining([
+      "slug",
+      "launch",
+      "catalog",
+      "trust",
+    ]));
+    expect(commerceCreate).not.toHaveBeenCalled();
+  });
+});
+
+describe("ShopsService.getPublicProduct", () => {
+  it("resolves shared products by id, slug, or human-readable name", async () => {
+    const findFirst = vi.fn().mockResolvedValue({
+      businessId: "business-1",
+      business: { id: "business-1", name: "Fixture Shop", slug: "fixture-shop" },
+      id: "product-25",
+      images: [],
+      name: "Product Twenty Five",
+      slug: "product-twenty-five",
+    });
+    const service = new ShopsService(
+      {
+        commerceEvent: { create: vi.fn().mockResolvedValue({ id: "event-1" }) },
+        product: { findFirst },
+      } as never,
+      {} as never,
+      {} as never,
+      {} as never,
+      {} as never,
+      {
+        reconcileScheduledLaunch: vi.fn().mockResolvedValue(false),
+        resolveShopSlug: vi.fn().mockResolvedValue({ id: "business-1", redirectedFrom: null }),
+      } as never,
+      {} as never,
+      {} as never,
+    );
+
+    await service.getPublicProduct("fixture-shop", "product-twenty-five");
+
+    expect(findFirst).toHaveBeenCalledWith(expect.objectContaining({
+      where: expect.objectContaining({
+        OR: [
+          { id: "product-twenty-five" },
+          { slug: "product-twenty-five" },
+          { name: { equals: "product-twenty-five", mode: "insensitive" } },
+        ],
+      }),
+    }));
+  });
+});
+
 describe("ShopsService order-choice responses", () => {
   function termsService() {
     const source = {

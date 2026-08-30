@@ -1,12 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import type { OwnerAuthContext } from "../../common/request-context";
+import { Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
 
 const DISCLAIMER =
   "Trust levels reflect recorded Loyal Loop activity and are not business verification.";
 
-const CARE_ACTIVITY_TYPES = new Set([
+const CARE_ACTIVITY_TYPES = [
   "SALE_LOGGED",
   "PAYMENT_UPDATED",
   "RECEIPT_SENT",
@@ -17,7 +18,14 @@ const CARE_ACTIVITY_TYPES = new Set([
   "INVENTORY_CHECKED",
   "ORDER_REQUEST_REVIEWED",
   "REQUEST_PAYMENT_UPDATED",
-]);
+] as const;
+
+type ActivityRollup = {
+  activeDays: number;
+  careDays: string[];
+  customerCareCompletedToday: boolean;
+  inventoryCheckedToday: boolean;
+};
 
 @Injectable()
 export class TrustService {
@@ -31,22 +39,9 @@ export class TrustService {
       where: { businessId: auth.businessId },
     });
     const timezone = preferences?.timezone ?? "Africa/Lagos";
-    const formatter = new Intl.DateTimeFormat("en-CA", {
-      timeZone: timezone,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-    const today = formatter.format(new Date());
-    const recent = await this.prisma.activityEvent.findMany({
-      where: {
-        businessId: auth.businessId,
-        type: "INVENTORY_CHECKED",
-        createdAt: { gte: new Date(Date.now() - 36 * 60 * 60 * 1000) },
-      },
-    });
-    if (recent.some((event) => formatter.format(event.createdAt) === today)) {
-      return this.summary(auth.businessId);
+    const before = await this.activityRollup(auth.businessId);
+    if (before.inventoryCheckedToday) {
+      return this.summary(auth.businessId, true, before);
     }
     await this.activity.record({
       businessId: auth.businessId,
@@ -55,19 +50,12 @@ export class TrustService {
       title: "Completed today's stock check",
     });
 
-    const dates = await this.prisma.activityEvent.findMany({
-      where: { businessId: auth.businessId },
-      select: { createdAt: true, type: true },
-      orderBy: { createdAt: "asc" },
-    });
+    const activity = await this.activityRollup(auth.businessId);
     const workingDays = preferences?.dailyDigestWeekdays?.length
       ? preferences.dailyDigestWeekdays
       : [1, 2, 3, 4, 5];
     const streak = currentWorkingDayStreak(
-      uniqueBusinessDays(
-        dates.filter((entry) => CARE_ACTIVITY_TYPES.has(entry.type)).map((entry) => entry.createdAt),
-        timezone,
-      ),
+      activity.careDays,
       businessDay(new Date(), timezone),
       workingDays,
     );
@@ -88,10 +76,10 @@ export class TrustService {
         });
       }
     }
-    return this.summary(auth.businessId);
+    return this.summary(auth.businessId, true, activity);
   }
 
-  async summary(businessId: string, includePrivate = true) {
+  async summary(businessId: string, includePrivate = true, activityOverride?: ActivityRollup) {
     const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const [
@@ -105,7 +93,7 @@ export class TrustService {
       followUps,
       completedSales,
       customerCount,
-      activityDates,
+      activity,
       notes,
     ] = await Promise.all([
       this.prisma.business.findUniqueOrThrow({
@@ -149,43 +137,23 @@ export class TrustService {
         where: { businessId, status: "COMPLETED" },
       }),
       this.prisma.customer.count({ where: { businessId } }),
-      this.prisma.activityEvent.findMany({
-        where: { businessId },
-        select: { createdAt: true, type: true },
-        orderBy: { createdAt: "asc" },
-      }),
+      activityOverride ?? this.activityRollup(businessId),
       this.prisma.customerNote.count({
         where: { customer: { businessId } },
       }),
     ]);
 
     const timezone = business.preferences?.timezone ?? "Africa/Lagos";
-    const activeDays = uniqueBusinessDays(
-      activityDates.map((entry) => entry.createdAt),
-      timezone,
-    );
     const workingDays = business.preferences?.dailyDigestWeekdays?.length
       ? business.preferences.dailyDigestWeekdays
       : [1, 2, 3, 4, 5];
-    const careActivity = activityDates.filter((entry) => CARE_ACTIVITY_TYPES.has(entry.type));
-    const careDays = uniqueBusinessDays(careActivity.map((entry) => entry.createdAt), timezone);
     const streak = currentWorkingDayStreak(
-      careDays,
+      activity.careDays,
       businessDay(new Date(), timezone),
       workingDays,
     );
-    const today = businessDay(new Date(), timezone);
-    const inventoryCheckedToday = activityDates.some(
-      (entry) =>
-        entry.type === "INVENTORY_CHECKED" &&
-        businessDay(entry.createdAt, timezone) === today,
-    );
-    const customerCareCompletedToday = activityDates.some(
-      (entry) =>
-        entry.type !== "INVENTORY_CHECKED" &&
-        CARE_ACTIVITY_TYPES.has(entry.type) &&
-        businessDay(entry.createdAt, timezone) === today,
-    );
+    const inventoryCheckedToday = activity.inventoryCheckedToday;
+    const customerCareCompletedToday = activity.customerCareCompletedToday;
     const feedbackCount = feedbackAggregate._count.rating;
     const repeatCustomers = repeatCustomerGroups.length;
     const profileComplete = Boolean(
@@ -199,7 +167,7 @@ export class TrustService {
       staleIssues,
       repeatCustomers,
       followUps,
-      activeDays: activeDays.length,
+      activeDays: activity.activeDays,
     });
 
     const repeatRate =
@@ -247,10 +215,57 @@ export class TrustService {
         feedbackCount,
         repeatCustomers,
         completedFollowUps90Days: followUps,
-        activeDays: activeDays.length,
+        activeDays: activity.activeDays,
         staleIssues,
       },
       ...(includePrivate ? { points: points._sum.points ?? 0 } : {}),
+    };
+  }
+
+  private async activityRollup(businessId: string): Promise<ActivityRollup> {
+    const careTypes = Prisma.join(CARE_ACTIVITY_TYPES.map((type) => Prisma.sql`${type}`));
+    const rows = await this.prisma.$queryRaw<Array<{
+      activeDays: number;
+      careDays: string[] | null;
+      customerCareCompletedToday: boolean | null;
+      inventoryCheckedToday: boolean | null;
+    }>>(Prisma.sql`
+      SELECT
+        COUNT(DISTINCT (activity."createdAt" AT TIME ZONE settings.timezone)::date)::int AS "activeDays",
+        COALESCE(
+          ARRAY_AGG(
+            DISTINCT TO_CHAR((activity."createdAt" AT TIME ZONE settings.timezone)::date, 'YYYY-MM-DD')
+          ) FILTER (
+            WHERE activity."type"::text IN (${careTypes})
+            AND (activity."createdAt" AT TIME ZONE settings.timezone)::date
+              >= (CURRENT_TIMESTAMP AT TIME ZONE settings.timezone)::date - INTERVAL '370 days'
+          ),
+          ARRAY[]::text[]
+        ) AS "careDays",
+        COALESCE(BOOL_OR(
+          activity."type"::text = 'INVENTORY_CHECKED'
+          AND (activity."createdAt" AT TIME ZONE settings.timezone)::date = (CURRENT_TIMESTAMP AT TIME ZONE settings.timezone)::date
+        ), false) AS "inventoryCheckedToday",
+        COALESCE(BOOL_OR(
+          activity."type"::text <> 'INVENTORY_CHECKED'
+          AND activity."type"::text IN (${careTypes})
+          AND (activity."createdAt" AT TIME ZONE settings.timezone)::date = (CURRENT_TIMESTAMP AT TIME ZONE settings.timezone)::date
+        ), false) AS "customerCareCompletedToday"
+      FROM "activity_events" AS activity
+      CROSS JOIN (
+        SELECT COALESCE(
+          (SELECT preferences."timezone" FROM "business_preferences" AS preferences WHERE preferences."businessId" = ${businessId}),
+          'Africa/Lagos'
+        ) AS timezone
+      ) AS settings
+      WHERE activity."businessId" = ${businessId}
+    `);
+    const row = rows[0];
+    return {
+      activeDays: row?.activeDays ?? 0,
+      careDays: [...(row?.careDays ?? [])].sort(),
+      customerCareCompletedToday: Boolean(row?.customerCareCompletedToday),
+      inventoryCheckedToday: Boolean(row?.inventoryCheckedToday),
     };
   }
 }

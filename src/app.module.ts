@@ -43,6 +43,8 @@ import { validateEnvironment } from "./config/environment";
 import { CsrfGuard } from "./common/auth/csrf.guard";
 import { RedisThrottlerStorage } from "./common/redis-throttler.storage";
 import { hmacPrivateValue } from "./common/crypto.util";
+import { MonitoringModule } from "./modules/monitoring/monitoring.module";
+import { RetentionModule } from "./modules/retention/retention.module";
 
 @Module({
   imports: [
@@ -129,6 +131,8 @@ import { hmacPrivateValue } from "./common/crypto.util";
       },
     }),
     PrismaModule,
+    MonitoringModule,
+    RetentionModule,
     IntelligenceModule,
     SecurityModule,
     MailModule,

@@ -42,6 +42,7 @@ export type RegisteredUpload = {
   originalFilename?: string;
   publicId: string;
   secureUrl: string;
+  deliveryType?: string;
   signature: string;
   version: string;
   width?: number;
@@ -145,6 +146,15 @@ export class MediaService {
     maxBytes: number,
   ) {
     const constraints = mediaConstraints(purpose);
+    const expectedDeliveryType = isSensitivePurpose(purpose) ? "authenticated" : "upload";
+    const deliveryType = dto.deliveryType ?? "upload";
+    if (deliveryType !== expectedDeliveryType) {
+      throw new BadRequestException(
+        isSensitivePurpose(purpose)
+          ? "Sensitive media must use authenticated delivery"
+          : "Public media must use standard delivery",
+      );
+    }
     const format = dto.format.toLowerCase();
     if (!constraints.formats.includes(format)) {
       throw new BadRequestException(`Unsupported ${constraints.resourceType} format`);
@@ -158,6 +168,9 @@ export class MediaService {
     const url = new URL(dto.secureUrl);
     if (url.protocol !== "https:" || url.hostname !== "res.cloudinary.com") {
       throw new BadRequestException("Invalid Cloudinary asset URL");
+    }
+    if (!url.pathname.includes(`/${constraints.resourceType}/${deliveryType}/`)) {
+      throw new BadRequestException("Cloudinary delivery type does not match the upload purpose");
     }
     const expected = this.sign({
       public_id: dto.publicId,
@@ -173,7 +186,7 @@ export class MediaService {
     if (resourceType === "video" && (dto.durationSeconds ?? 0) > 30) {
       throw new BadRequestException("Video duration exceeds 30 seconds");
     }
-    const providerAsset = await this.readProviderAssessment(dto.publicId, resourceType);
+    const providerAsset = await this.readProviderAssessment(dto.publicId, resourceType, deliveryType);
     if (providerAsset?.secureUrl && providerAsset.secureUrl !== dto.secureUrl) {
       throw new BadRequestException("Cloudinary asset URL does not match the verified upload");
     }
@@ -217,6 +230,7 @@ export class MediaService {
       data: {
         businessId,
         uploadedById,
+        deliveryType,
         publicId: dto.publicId,
         secureUrl: dto.secureUrl,
         format,
@@ -243,11 +257,46 @@ export class MediaService {
     });
   }
 
-  list(auth: OwnerAuthContext) {
-    return this.prisma.mediaAsset.findMany({
-      where: { businessId: auth.businessId, status: "ACTIVE" },
+  async list(auth: OwnerAuthContext) {
+    const assets = await this.prisma.mediaAsset.findMany({
+      where: {
+        businessId: auth.businessId,
+        status: "ACTIVE",
+        purpose: { notIn: ["PAYMENT_PROOF", "DELIVERY_HANDOFF"] },
+      },
       orderBy: { createdAt: "desc" },
     });
+    return assets.map((asset) => this.protectAsset(asset));
+  }
+
+  protectAsset<T extends {
+    deliveryType: string;
+    format: string;
+    publicId: string;
+    purpose: MediaPurpose;
+    resourceType: string;
+    secureUrl: string;
+    status: string;
+  }>(asset: T): Omit<T, "secureUrl"> & { secureUrl: string | null } {
+    if (!isSensitivePurpose(asset.purpose)) return asset;
+    return {
+      ...asset,
+      secureUrl: asset.status === "ACTIVE" ? this.signedDownloadUrl(asset) : null,
+    };
+  }
+
+  async purgeSensitiveAsset(assetId: string) {
+    const asset = await this.prisma.mediaAsset.findUnique({ where: { id: assetId } });
+    if (!asset || asset.status === "DELETED") return false;
+    if (!isSensitivePurpose(asset.purpose)) {
+      throw new BadRequestException("Only sensitive media can be purged by retention");
+    }
+    await this.destroyAtProvider(asset.publicId, asset.resourceType, asset.deliveryType);
+    await this.prisma.mediaAsset.update({
+      where: { id: asset.id },
+      data: { status: "DELETED", deletedAt: new Date() },
+    });
+    return true;
   }
 
   async appeal(auth: OwnerAuthContext, assetId: string, dto: AppealMediaAssetDto) {
@@ -409,7 +458,7 @@ export class MediaService {
     if (asset.productImages.length || asset.productMedia.length || asset.productPosters.length || asset.showcaseImages.length || asset.showcasePosters.length || asset.deliveryHandoffs.length || asset.logoFor || asset.coverFor || asset.avatarFor) {
       throw new BadRequestException("Asset is still in use");
     }
-    await this.destroyAtProvider(asset.publicId, asset.resourceType);
+    await this.destroyAtProvider(asset.publicId, asset.resourceType, asset.deliveryType);
     return this.prisma.mediaAsset.update({
       where: { id: asset.id },
       data: { status: "DELETED", deletedAt: new Date() },
@@ -437,6 +486,7 @@ export class MediaService {
   }
 
   private providerUploadParameters(purpose: MediaPurpose, resourceType: "image" | "video") {
+    if (isSensitivePurpose(purpose)) return { type: "authenticated" };
     if (!isPublicCatalogPurpose(purpose)) return {};
     const parameters: Record<string, string> = {};
     if (
@@ -462,6 +512,7 @@ export class MediaService {
   private async readProviderAssessment(
     publicId: string,
     resourceType: string,
+    deliveryType: string,
   ): Promise<ProviderAsset | null> {
     const wantsQuality = this.config.get<string>("MEDIA_QUALITY_ANALYSIS_ENABLED") === "true";
     if (!wantsQuality && this.moderationMode() === "off") return null;
@@ -472,7 +523,7 @@ export class MediaService {
     try {
       const query = new URLSearchParams({ quality_analysis: "true", moderations: "true" });
       const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/resources/${resourceType === "video" ? "video" : "image"}/upload/${encodeURIComponent(publicId)}?${query}`,
+        `https://api.cloudinary.com/v1_1/${cloudName}/resources/${resourceType === "video" ? "video" : "image"}/${encodeURIComponent(deliveryType)}/${encodeURIComponent(publicId)}?${query}`,
         {
           headers: {
             authorization: `Basic ${Buffer.from(`${apiKey}:${apiSecret}`).toString("base64")}`,
@@ -495,7 +546,7 @@ export class MediaService {
     }
   }
 
-  private async destroyAtProvider(publicId: string, resourceType: string) {
+  private async destroyAtProvider(publicId: string, resourceType: string, deliveryType = "upload") {
     const cloudName = this.config.get<string>("CLOUDINARY_CLOUD_NAME");
     const apiKey = this.config.get<string>("CLOUDINARY_API_KEY");
     const apiSecret = this.config.get<string>("CLOUDINARY_API_SECRET");
@@ -506,7 +557,7 @@ export class MediaService {
       return;
     }
     const timestamp = String(Math.floor(Date.now() / 1000));
-    const signature = this.sign({ public_id: publicId, timestamp });
+    const signature = this.sign({ public_id: publicId, timestamp, type: deliveryType });
     const response = await fetch(
       `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType === "video" ? "video" : "image"}/destroy`,
       {
@@ -515,6 +566,7 @@ export class MediaService {
         body: new URLSearchParams({
           public_id: publicId,
           timestamp,
+          type: deliveryType,
           api_key: apiKey,
           signature,
         }),
@@ -523,6 +575,29 @@ export class MediaService {
     if (!response.ok) {
       throw new ServiceUnavailableException("Cloudinary asset deletion failed");
     }
+  }
+
+  private signedDownloadUrl(asset: {
+    deliveryType: string;
+    format: string;
+    publicId: string;
+    resourceType: string;
+  }) {
+    const cloudName = this.config.getOrThrow<string>("CLOUDINARY_CLOUD_NAME");
+    const apiKey = this.config.getOrThrow<string>("CLOUDINARY_API_KEY");
+    const timestamp = String(Math.floor(Date.now() / 1000));
+    const params = {
+      expires_at: String(Number(timestamp) + 5 * 60),
+      format: asset.format,
+      public_id: asset.publicId,
+      timestamp,
+      type: asset.deliveryType,
+    };
+    return `https://api.cloudinary.com/v1_1/${encodeURIComponent(cloudName)}/${asset.resourceType === "video" ? "video" : "image"}/download?${new URLSearchParams({
+      ...params,
+      api_key: apiKey,
+      signature: this.sign(params),
+    })}`;
   }
 }
 
@@ -664,6 +739,10 @@ function isPublicCatalogPurpose(purpose: MediaPurpose) {
     "SHOWCASE_VIDEO",
     "SHOWCASE_VIDEO_POSTER",
   ].includes(purpose);
+}
+
+function isSensitivePurpose(purpose: MediaPurpose) {
+  return purpose === "PAYMENT_PROOF" || purpose === "DELIVERY_HANDOFF";
 }
 
 function readNumber(value: unknown) {

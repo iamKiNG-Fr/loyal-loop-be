@@ -50,6 +50,9 @@ export class SubmitPaymentProofDto {
   @IsUrl({ protocols: ["https"], require_protocol: true })
   secureUrl!: string;
 
+  @IsIn(["authenticated"])
+  deliveryType!: "authenticated";
+
   @IsString()
   format!: string;
 

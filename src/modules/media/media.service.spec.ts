@@ -54,6 +54,39 @@ describe("MediaService", () => {
     expect(result.signature).toMatch(/^[a-f0-9]{40}$/);
   });
 
+  it("uses authenticated delivery and short-lived URLs for sensitive media", () => {
+    const config = new ConfigService({
+      CLOUDINARY_CLOUD_NAME: "loyal-loop-test",
+      CLOUDINARY_API_KEY: "public-key",
+      CLOUDINARY_API_SECRET: "private-secret",
+    });
+    const service = new MediaService({} as never, config);
+    const signature = service.createUploadSignature(
+      {
+        businessId: "business-1",
+        userId: "user-1",
+        sessionId: "session-1",
+        role: "OWNER",
+      },
+      { purpose: "DELIVERY_HANDOFF" },
+    );
+    expect(signature.uploadParameters).toEqual({ type: "authenticated" });
+
+    const protectedAsset = service.protectAsset({
+      deliveryType: "authenticated",
+      format: "jpg",
+      publicId: "loyal-loop/businesses/business-1/delivery_handoff/asset-1",
+      purpose: "DELIVERY_HANDOFF",
+      resourceType: "image",
+      secureUrl: "https://res.cloudinary.com/loyal-loop-test/image/authenticated/v1/raw.jpg",
+      status: "ACTIVE",
+    });
+    expect(protectedAsset.secureUrl).toContain("/image/download?");
+    expect(protectedAsset.secureUrl).toContain("expires_at=");
+    expect(protectedAsset.secureUrl).toContain("type=authenticated");
+    expect(protectedAsset.secureUrl).not.toContain("raw.jpg");
+  });
+
   it("signs moderation and callback parameters only when moderation is enabled", () => {
     const config = new ConfigService({
       CLOUDINARY_API_KEY: "public-key",

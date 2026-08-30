@@ -3,21 +3,23 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   Headers,
   Param,
   Patch,
   Post,
   Query,
   Req,
+  Res,
   UseGuards,
 } from "@nestjs/common";
-import type { Request } from "express";
+import type { Request, Response } from "express";
 import { CurrentAuth, CurrentCustomer } from "../../common/auth/current-auth.decorator";
 import { CustomerAuthGuard } from "../../common/auth/customer-auth.guard";
 import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
 import { Roles } from "../../common/auth/roles.decorator";
 import { RolesGuard } from "../../common/auth/roles.guard";
-import { ok } from "../../common/api-response";
+import { ok, paginated } from "../../common/api-response";
 import type {
   CustomerAuthContext,
   OwnerAuthContext,
@@ -28,6 +30,7 @@ import {
   ChangeRequestedPaymentMethodDto,
   DiscoveryAttributionDto,
   ProductInterestDto,
+  PublicShopCatalogDto,
   RequestOrderTermsChangeDto,
   RespondOrderTermsChangeDto,
   UpdateOrderRequestStatusDto,
@@ -40,10 +43,42 @@ export class PublicShopsController {
   constructor(private readonly shops: ShopsService) {}
 
   @Get(":slug")
-  getShop(@Param("slug") slug: string, @Query() attribution: DiscoveryAttributionDto, @Req() request: Request) {
+  @Header("Cache-Control", "public, max-age=0, s-maxage=30, stale-while-revalidate=60, stale-if-error=300")
+  @Header("Timing-Allow-Origin", "*")
+  getShop(@Param("slug") slug: string, @Res({ passthrough: true }) response: Response) {
+    const timing = responseTiming(response);
     return this.shops
-      .getPublicShop(slug, this.visitor(request), attribution)
+      .getPublicShop(slug, timing)
       .then((data) => ok(data));
+  }
+
+  @Get(":slug/catalog")
+  @Header("Cache-Control", "public, max-age=0, s-maxage=30, stale-while-revalidate=60, stale-if-error=300")
+  @Header("Timing-Allow-Origin", "*")
+  getCatalog(
+    @Param("slug") slug: string,
+    @Query() query: PublicShopCatalogDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const timing = responseTiming(response);
+    return this.shops
+      .getPublicCatalog(slug, query.page, query.pageSize, query.search, timing)
+      .then(({ products, total }) => paginated(products, total, query.page, query.pageSize));
+  }
+
+  @Post(":slug/view")
+  @Header("Cache-Control", "no-store")
+  @Header("Timing-Allow-Origin", "*")
+  recordShopView(
+    @Param("slug") slug: string,
+    @Body() attribution: DiscoveryAttributionDto,
+    @Req() request: Request,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const timing = responseTiming(response);
+    return this.shops
+      .recordPublicShopView(slug, this.visitor(request), attribution, timing)
+      .then(() => ok(null, "Shop view recorded"));
   }
 
   @Get(":slug/products/:productSlug")
@@ -155,6 +190,14 @@ export class CustomerShopController {
       .interest(customer.customerAccountId, slug, dto)
       .then((data) => ok(data, "Interest recorded"));
   }
+}
+
+function responseTiming(response: Response) {
+  const phases: string[] = [];
+  return (name: string, durationMs: number) => {
+    phases.push(`${name};dur=${durationMs.toFixed(1)}`);
+    if (!response.headersSent) response.setHeader("Server-Timing", phases.join(", "));
+  };
 }
 
 @Controller("customer-requests")
