@@ -36,7 +36,10 @@ export class FoundingCircleService {
   ) {}
 
   accessRequired() {
-    return this.config.get<string>("FOUNDING_ACCESS_REQUIRED", "false") === "true";
+    const productionDefault = this.config.get<string>("NODE_ENV", "development") === "production"
+      ? "true"
+      : "false";
+    return this.config.get<string>("FOUNDING_ACCESS_REQUIRED", productionDefault) === "true";
   }
 
   async createApplication(dto: CreateFoundingApplicationDto) {

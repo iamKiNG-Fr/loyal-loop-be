@@ -46,10 +46,10 @@ describe("MediaService", () => {
       { purpose: "PRODUCT_IMAGE" },
     );
 
-    expect(result.folder).toBe(
-      "loyal-loop/businesses/business-1/product_image",
-    );
+    expect(result.folder).toMatch(/^loyal-loop\/v2\/public\/[a-f0-9]{24}\/product_image$/);
+    expect(result.folder).not.toContain("business-1");
     expect(result.publicId).toMatch(/^[a-f0-9]{24}$/);
+    expect(result.uploadParameters).toEqual({ transformation: "fl_strip_profile" });
     expect(result).not.toHaveProperty("apiSecret");
     expect(result.signature).toMatch(/^[a-f0-9]{40}$/);
   });
@@ -59,6 +59,7 @@ describe("MediaService", () => {
       CLOUDINARY_CLOUD_NAME: "loyal-loop-test",
       CLOUDINARY_API_KEY: "public-key",
       CLOUDINARY_API_SECRET: "private-secret",
+      ANALYTICS_HMAC_SECRET: "media-path-secret",
     });
     const service = new MediaService({} as never, config);
     const signature = service.createUploadSignature(
@@ -70,7 +71,15 @@ describe("MediaService", () => {
       },
       { purpose: "DELIVERY_HANDOFF" },
     );
-    expect(signature.uploadParameters).toEqual({ type: "authenticated" });
+    expect(signature.folder).toMatch(/^loyal-loop\/v2\/private\/[a-f0-9]{24}\/delivery_handoff$/);
+    expect(signature.folder).not.toContain("business-1");
+    expect(signature.uploadParameters).toEqual({ transformation: "fl_strip_profile", type: "authenticated" });
+
+    const paymentSignature = service.createPaymentProofUploadSignature("business-1", "sale-1");
+    expect(paymentSignature.folder).toMatch(/^loyal-loop\/v2\/private\/[a-f0-9]{24}\/payment_proof\/[a-f0-9]{24}$/);
+    expect(paymentSignature.folder).not.toContain("business-1");
+    expect(paymentSignature.folder).not.toContain("sale-1");
+    expect(paymentSignature.uploadParameters).toEqual({ transformation: "fl_strip_profile", type: "authenticated" });
 
     const protectedAsset = service.protectAsset({
       deliveryType: "authenticated",
@@ -92,6 +101,7 @@ describe("MediaService", () => {
       CLOUDINARY_API_KEY: "public-key",
       CLOUDINARY_API_SECRET: "private-secret",
       CLOUDINARY_CLOUD_NAME: "loyal-loop-test",
+      ANALYTICS_HMAC_SECRET: "media-path-secret",
       CLOUDINARY_NOTIFICATION_URL: "https://api.example.com/api/v1/media/webhooks/cloudinary",
       MEDIA_MODERATION_MODE: "enforce",
       MEDIA_MODERATION_PROVIDER: "aws_rek",
@@ -105,6 +115,7 @@ describe("MediaService", () => {
     expect(result.uploadParameters).toEqual({
       moderation: "aws_rek",
       notification_url: "https://api.example.com/api/v1/media/webhooks/cloudinary",
+      transformation: "fl_strip_profile",
     });
     const video = service.createUploadSignature(
       { businessId: "business-1", capabilities: [], memberId: "member-1", role: "OWNER", sessionId: "session-1", userId: "user-1" },

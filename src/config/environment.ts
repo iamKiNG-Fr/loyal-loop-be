@@ -15,6 +15,7 @@ export function validateEnvironment(input: Record<string, unknown>) {
   validateBoolean(config, "ADMIN_WHATSAPP_FALLBACK_ENABLED");
   validateBoolean(config, "CSRF_ENFORCED");
   validateBoolean(config, "DISCOVERY_SIGNED_EVENTS_REQUIRED");
+  validateBoolean(config, "FOUNDING_ACCESS_REQUIRED");
   validateBoolean(config, "RATE_LIMIT_REDIS_ENABLED");
   validateBoolean(config, "RETENTION_CLEANUP_ENABLED");
 
@@ -28,7 +29,19 @@ export function validateEnvironment(input: Record<string, unknown>) {
   if (new Set(secrets).size !== secrets.length) {
     throw new Error("SESSION_HASH_SECRET, CSRF_SECRET, and ANALYTICS_HMAC_SECRET must be independent");
   }
+  if (stringValue(config.FOUNDING_ACCESS_REQUIRED) === "true") {
+    const foundingGrantSecret = requireSecret(config, "FOUNDING_GRANT_SECRET");
+    const foundingInvitationSecret = requireSecret(config, "FOUNDING_INVITATION_HASH_SECRET");
+    if (
+      foundingGrantSecret === foundingInvitationSecret
+      || secrets.includes(foundingGrantSecret)
+      || secrets.includes(foundingInvitationSecret)
+    ) {
+      throw new Error("Founding Circle secrets must be independent from each other and the application security secrets");
+    }
+  }
   requireValue(config, "CSRF_ENFORCED");
+  requireValue(config, "FOUNDING_ACCESS_REQUIRED");
   requireHttpsUrl(config, "APP_URL");
 
   const corsOrigins = parseOrigins(requireValue(config, "CORS_ORIGINS"), "CORS_ORIGINS");

@@ -6,7 +6,7 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import type {
   OwnerAuthContext,
   PlatformAuthContext,
@@ -465,9 +465,23 @@ export class MediaService {
     });
   }
 
-  private folder(businessId: string, purpose: string, suffix?: string) {
-    const base = `loyal-loop/businesses/${businessId}/${purpose.toLowerCase()}`;
-    return suffix ? `${base}/${suffix}` : base;
+  private folder(businessId: string, purpose: MediaPurpose, suffix?: string) {
+    const secret = this.config.get<string>("MEDIA_PATH_HMAC_SECRET")
+      || this.config.get<string>("ANALYTICS_HMAC_SECRET")
+      || this.config.get<string>("SESSION_HASH_SECRET")
+      || this.config.getOrThrow<string>("CLOUDINARY_API_SECRET");
+    const businessReference = createHmac("sha256", secret)
+      .update(`media-business:${businessId}`)
+      .digest("hex")
+      .slice(0, 24);
+    const visibility = isSensitivePurpose(purpose) ? "private" : "public";
+    const base = `loyal-loop/v2/${visibility}/${businessReference}/${purpose.toLowerCase()}`;
+    if (!suffix) return base;
+    const suffixReference = createHmac("sha256", secret)
+      .update(`media-suffix:${businessId}:${suffix}`)
+      .digest("hex")
+      .slice(0, 24);
+    return `${base}/${suffixReference}`;
   }
 
   private sign(params: Record<string, string>) {
@@ -486,9 +500,12 @@ export class MediaService {
   }
 
   private providerUploadParameters(purpose: MediaPurpose, resourceType: "image" | "video") {
-    if (isSensitivePurpose(purpose)) return { type: "authenticated" };
-    if (!isPublicCatalogPurpose(purpose)) return {};
     const parameters: Record<string, string> = {};
+    if (isSensitivePurpose(purpose)) parameters.type = "authenticated";
+    // Incoming transformation: remove EXIF/GPS and embedded profiles from the
+    // stored image itself, not only from the derived storefront rendition.
+    if (resourceType === "image") parameters.transformation = "fl_strip_profile";
+    if (!isPublicCatalogPurpose(purpose)) return parameters;
     if (
       resourceType === "image" &&
       this.config.get<string>("MEDIA_QUALITY_ANALYSIS_ENABLED") === "true"
@@ -734,10 +751,10 @@ function isPublicCatalogPurpose(purpose: MediaPurpose) {
   return [
     "PRODUCT_IMAGE",
     "PRODUCT_VIDEO",
-    "PRODUCT_VIDEO_POSTER",
+    "PRODUCT_POSTER",
     "SHOWCASE_IMAGE",
     "SHOWCASE_VIDEO",
-    "SHOWCASE_VIDEO_POSTER",
+    "SHOWCASE_POSTER",
   ].includes(purpose);
 }
 

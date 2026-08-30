@@ -7,6 +7,9 @@ const production = {
   SESSION_HASH_SECRET: "s".repeat(32),
   CSRF_SECRET: "c".repeat(32),
   ANALYTICS_HMAC_SECRET: "a".repeat(32),
+  FOUNDING_ACCESS_REQUIRED: "true",
+  FOUNDING_GRANT_SECRET: "g".repeat(32),
+  FOUNDING_INVITATION_HASH_SECRET: "i".repeat(32),
   CSRF_ENFORCED: "false",
   APP_URL: "https://www.useloyalloop.com",
   CORS_ORIGINS: "https://www.useloyalloop.com",
@@ -38,6 +41,18 @@ describe("validateEnvironment", () => {
   it("requires an explicit CSRF rollout state in production", () => {
     const { CSRF_ENFORCED: _csrfEnforced, ...withoutCsrfState } = production;
     expect(() => validateEnvironment(withoutCsrfState)).toThrow("CSRF_ENFORCED is required");
+  });
+
+  it("requires an explicit Founding Circle access state in production", () => {
+    const { FOUNDING_ACCESS_REQUIRED: _foundingAccessRequired, ...withoutFoundingState } = production;
+    expect(() => validateEnvironment(withoutFoundingState)).toThrow("FOUNDING_ACCESS_REQUIRED is required");
+  });
+
+  it("requires independent Founding Circle secrets while access is gated", () => {
+    expect(() => validateEnvironment({
+      ...production,
+      FOUNDING_INVITATION_HASH_SECRET: production.FOUNDING_GRANT_SECRET,
+    })).toThrow("Founding Circle secrets must be independent");
   });
 
   it("requires the admin origin to be allowed by CORS", () => {
