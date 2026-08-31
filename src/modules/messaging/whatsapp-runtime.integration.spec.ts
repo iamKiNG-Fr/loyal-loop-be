@@ -112,7 +112,6 @@ function productionValues() {
     TWILIO_FOUNDING_ACCESS_CONTENT_SID: `HX${"1".repeat(32)}`,
     TWILIO_WHATSAPP_WEBHOOK_URL:
       "https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio",
-    TWILIO_WHATSAPP_PILOT_ALLOWLIST: "+2348012345678",
   };
 }
 

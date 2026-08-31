@@ -14,6 +14,7 @@ import {
   CustomerReportStatus,
   PlatformAdminStatus,
   PlatformRole,
+  SupportRequestStatus,
 } from "../../../generated/prisma/client";
 
 const trim = ({ value }: { value: unknown }) =>
@@ -97,6 +98,11 @@ export class ReviewCustomerReportDto {
   @IsString()
   @Length(3, 1200)
   notes?: string;
+}
+
+export class ReviewSupportRequestDto {
+  @IsEnum(SupportRequestStatus)
+  status!: SupportRequestStatus;
 }
 
 export class ApproveFoundingApplicationDto {

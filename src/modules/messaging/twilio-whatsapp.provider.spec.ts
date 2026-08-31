@@ -187,6 +187,14 @@ describe("TwilioWhatsAppProvider modes", () => {
     );
   });
 
+  it("allows any valid E.164 production recipient during the soft launch", () => {
+    const provider = new TwilioWhatsAppProvider(config(productionValues()));
+
+    expect(provider.recipientEligibility("+447700900123")).toEqual({
+      allowed: true,
+    });
+  });
+
   it("rejects Sandbox mode in a production runtime without an explicit staging override", () => {
     const provider = new TwilioWhatsAppProvider(
       config({ ...sandboxValues(), NODE_ENV: "production" }),
@@ -426,7 +434,6 @@ function productionValues() {
     TWILIO_CUSTOMER_MEMORY_CONTENT_SID: `HX${"3".repeat(32)}`,
     TWILIO_WHATSAPP_WEBHOOK_URL:
       "https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio",
-    TWILIO_WHATSAPP_PILOT_ALLOWLIST: "+2348012345678",
     TWILIO_WHATSAPP_ENABLED: "true",
     TWILIO_WHATSAPP_VERIFY_ENABLED: "true",
     TWILIO_WHATSAPP_KILL_SWITCH: "false",

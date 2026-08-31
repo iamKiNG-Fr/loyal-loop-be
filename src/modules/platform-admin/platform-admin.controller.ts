@@ -32,6 +32,7 @@ import {
   ReplaceInvitationDto,
   ReviewPlatformAdminDto,
   ReviewCustomerReportDto,
+  ReviewSupportRequestDto,
   RevokePlatformSessionDto,
   SuspendBusinessDto,
   UpdatePlatformAdminDto,
@@ -98,6 +99,25 @@ export class PlatformAdminController {
     @Body() dto: ReactivateBusinessDto,
   ) {
     return ok(await this.admin.reactivateBusiness(auth, id, dto), "Business reactivated");
+  }
+
+  @Get("support-requests")
+  @PlatformRoles("SUPERADMIN", "ADMIN")
+  async supportRequests(@Query() query: AdminListQueryDto) {
+    return ok(await this.admin.supportRequests(query));
+  }
+
+  @Patch("support-requests/:id")
+  @PlatformRoles("SUPERADMIN", "ADMIN")
+  async reviewSupportRequest(
+    @CurrentPlatformAdmin() auth: PlatformAuthContext,
+    @Param("id") id: string,
+    @Body() dto: ReviewSupportRequestDto,
+  ) {
+    return ok(
+      await this.admin.reviewSupportRequest(auth, id, dto),
+      "Support request updated",
+    );
   }
 
   @Post("businesses/:id/shop-link")

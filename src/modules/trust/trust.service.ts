@@ -1,8 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { PrismaService } from "../prisma/prisma.service";
+import type { CompleteInventoryReviewDto } from "./dto/inventory-review.dto";
 
 const DISCLAIMER =
   "Trust levels reflect recorded Loyal Loop activity and are not business verification.";
@@ -34,7 +35,36 @@ export class TrustService {
     private readonly activity: ActivityService,
   ) {}
 
-  async completeInventoryCheck(auth: OwnerAuthContext) {
+  async inventoryReview(auth: OwnerAuthContext) {
+    const products = await this.prisma.product.findMany({
+      where: {
+        businessId: auth.businessId,
+        status: "ACTIVE",
+        visibility: "PUBLIC",
+      },
+      select: {
+        id: true,
+        name: true,
+        stockCount: true,
+        updatedAt: true,
+        variants: {
+          where: { active: true },
+          orderBy: { sortOrder: "asc" },
+          select: { id: true, name: true, stockCount: true },
+        },
+      },
+      orderBy: [{ updatedAt: "asc" }, { name: "asc" }],
+    });
+    return {
+      products,
+      visibleProductCount: products.length,
+      managedStockCount: products.filter(
+        (product) => product.stockCount !== null || product.variants.some((variant) => variant.stockCount !== null),
+      ).length,
+    };
+  }
+
+  async completeInventoryCheck(auth: OwnerAuthContext, dto: CompleteInventoryReviewDto) {
     const preferences = await this.prisma.businessPreferences.findUnique({
       where: { businessId: auth.businessId },
     });
@@ -43,11 +73,27 @@ export class TrustService {
     if (before.inventoryCheckedToday) {
       return this.summary(auth.businessId, true, before);
     }
+    const review = await this.inventoryReview(auth);
+    const expectedIds = review.products.map((product) => product.id).sort();
+    const reviewedIds = [...dto.reviewedProductIds].sort();
+    if (
+      expectedIds.length !== reviewedIds.length
+      || expectedIds.some((id, index) => id !== reviewedIds[index])
+    ) {
+      throw new BadRequestException(
+        "Visible inventory changed while you were reviewing it. Refresh the review and check the current list.",
+      );
+    }
     await this.activity.record({
       businessId: auth.businessId,
       actorId: auth.userId,
       type: "INVENTORY_CHECKED",
       title: "Completed today's stock check",
+      metadata: {
+        managedStockCount: review.managedStockCount,
+        reviewedProductIds: expectedIds,
+        visibleProductCount: review.visibleProductCount,
+      },
     });
 
     const activity = await this.activityRollup(auth.businessId);

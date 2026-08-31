@@ -188,7 +188,7 @@ export class MessagingService {
     if (
       record.status === "PENDING" &&
       input.templateKey !== "founding_access" &&
-      this.pilotEnabled()
+      this.whatsappEnabled()
     ) {
       if (input.awaitDelivery) status = await this.processOne(record.id);
       else void this.processOne(record.id).catch(() => undefined);
@@ -218,7 +218,7 @@ export class MessagingService {
   }
 
   startFoundingAccessDelivery(outboxId: string) {
-    if (this.pilotEnabled()) {
+    if (this.whatsappEnabled()) {
       void this.processOne(outboxId).catch(() => undefined);
     }
   }
@@ -851,7 +851,7 @@ export class MessagingService {
   }
 
   private assertWorkerEnabled() {
-    if (!this.pilotEnabled()) throw new ServiceUnavailableException("WhatsApp private pilot is disabled");
+    if (!this.whatsappEnabled()) throw new ServiceUnavailableException("WhatsApp messaging is disabled");
     if (this.config.get("TWILIO_WHATSAPP_KILL_SWITCH") !== "false") {
       throw new ServiceUnavailableException("WhatsApp kill switch is active");
     }
@@ -864,7 +864,7 @@ export class MessagingService {
     }
   }
 
-  private pilotEnabled() {
+  private whatsappEnabled() {
     return this.config.get("TWILIO_WHATSAPP_ENABLED") === "true";
   }
 

@@ -69,13 +69,7 @@ export class TwilioWhatsAppProvider
       };
     }
 
-    const allowed = this.phoneList("TWILIO_WHATSAPP_PILOT_ALLOWLIST");
-    return allowed.includes(normalized)
-      ? { allowed: true }
-      : {
-          allowed: false,
-          reason: "Recipient is outside the production WhatsApp pilot allow-list",
-        };
+    return { allowed: true };
   }
 
   sendReceipt(phone: string, variables: Record<string, string>) {
@@ -535,7 +529,6 @@ export class TwilioWhatsAppProvider
       "TWILIO_WHATSAPP_SENDER",
       this.config.get<string>("TWILIO_WHATSAPP_SENDER", ""),
     );
-    this.validatePhoneList("TWILIO_WHATSAPP_PILOT_ALLOWLIST");
   }
 
   private sandboxRuntimeIsAllowed() {

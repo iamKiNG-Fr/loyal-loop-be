@@ -116,7 +116,7 @@ exact configured public URL. The non-sensitive runtime status is available at
 }
 ```
 
-It never returns credentials, phone allow-lists, or SIDs.
+It never returns credentials or SIDs.
 
 The existing consent-aware test/send routes are mode-independent:
 
@@ -126,7 +126,7 @@ The existing consent-aware test/send routes are mode-independent:
 
 The recipient must have the matching `RECEIPT`, `DELIVERY`, or `REMINDER`
 consent, must not be suppressed, and must be eligible for the active Sandbox or
-production allow-list before the outbox attempts delivery.
+registered production sender before the outbox attempts delivery.
 
 ### A. Development with Twilio WhatsApp Sandbox
 
@@ -247,7 +247,6 @@ TWILIO_OWNER_DIGEST_CONTENT_SID=HX...
 TWILIO_CUSTOMER_MEMORY_CONTENT_SID=HX...
 TWILIO_CUSTOMER_MEMORY_GUIDE_URL=https://www.useloyalloop.com/generated/customer-memory-reply-guide-v1.png
 
-TWILIO_WHATSAPP_PILOT_ALLOWLIST=+234...
 TWILIO_WHATSAPP_WEBHOOK_URL=https://api.useloyalloop.com/api/v1/messaging/webhooks/twilio
 TWILIO_WHATSAPP_VERIFY_ENABLED=false
 TWILIO_WHATSAPP_ENABLED=false
@@ -381,7 +380,8 @@ Production behavior:
 - confirmed deliveries can send opted-in owners the customer-memory media
   prompt; quote-replies are captured by the signed incoming-message webhook;
 - owner and customer OTP use the existing Twilio Verify WhatsApp Service;
-- recipients remain restricted by the private-pilot allow-list;
+- production recipients may use any valid E.164 WhatsApp number with the
+  required consent and approved template;
 - consent, STOP suppression, outbox idempotency, retries, daily cap, signed
   callbacks, and the kill switch remain active.
 

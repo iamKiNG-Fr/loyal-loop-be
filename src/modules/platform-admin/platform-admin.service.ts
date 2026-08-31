@@ -22,6 +22,7 @@ import type {
   ReactivateBusinessDto,
   ReviewPlatformAdminDto,
   ReviewCustomerReportDto,
+  ReviewSupportRequestDto,
   RevokePlatformSessionDto,
   SuspendBusinessDto,
   OverrideShopLinkDto,
@@ -872,6 +873,68 @@ export class PlatformAdminService {
       await this.audit(auth, "BUSINESS_REACTIVATED", "Business", id, dto.reason, business, updated, tx);
       return updated;
     });
+  }
+
+  async supportRequests(query: AdminListQueryDto) {
+    const { page, pageSize, skip } = paging(query);
+    const where: Prisma.SupportRequestWhereInput = {
+      ...(query.status ? { status: query.status as never } : {}),
+      ...(query.search
+        ? {
+            OR: [
+              { topic: { contains: query.search, mode: "insensitive" } },
+              { message: { contains: query.search, mode: "insensitive" } },
+              { business: { name: { contains: query.search, mode: "insensitive" } } },
+              { business: { slug: { contains: query.search, mode: "insensitive" } } },
+              { business: { owner: { email: { contains: query.search, mode: "insensitive" } } } },
+            ],
+          }
+        : {}),
+    };
+    const [items, total] = await Promise.all([
+      this.prisma.supportRequest.findMany({
+        where,
+        include: {
+          business: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+              platformStatus: true,
+              owner: { select: { email: true, name: true, phone: true } },
+            },
+          },
+        },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: pageSize,
+      }),
+      this.prisma.supportRequest.count({ where }),
+    ]);
+    return pageResult(items, total, page, pageSize);
+  }
+
+  async reviewSupportRequest(
+    auth: PlatformAuthContext,
+    id: string,
+    dto: ReviewSupportRequestDto,
+  ) {
+    const before = await this.prisma.supportRequest.findUnique({ where: { id } });
+    if (!before) throw new NotFoundException("Support request not found");
+    const updated = await this.prisma.supportRequest.update({
+      where: { id },
+      data: { status: dto.status },
+    });
+    await this.audit(
+      auth,
+      "SUPPORT_REQUEST_UPDATED",
+      "SupportRequest",
+      id,
+      `Status changed to ${dto.status}`,
+      before,
+      updated,
+    );
+    return updated;
   }
 
   async overrideShopLink(auth: PlatformAuthContext, id: string, dto: OverrideShopLinkDto) {
