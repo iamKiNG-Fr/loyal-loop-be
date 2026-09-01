@@ -1,4 +1,4 @@
-import { BadRequestException } from "@nestjs/common";
+import { BadRequestException, ConflictException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { OwnerAuthContext } from "../../common/request-context";
@@ -160,6 +160,73 @@ describe("BusinessesService launch lifecycle", () => {
       data: { phone: "+2348022222222" },
     });
   });
+
+  it("does not invite an existing workspace member again", async () => {
+    prisma.user.findUnique.mockResolvedValue({
+      memberships: [{ id: "member-1", role: "OWNER", status: "ACTIVE" }],
+    });
+    prisma.businessInvitation.findFirst.mockResolvedValue(null);
+
+    await expect(service.invite(auth, {
+      email: " owner@example.com ",
+      name: "Owner",
+      role: "SALES",
+    })).rejects.toBeInstanceOf(ConflictException);
+
+    expect(prisma.businessInvitation.create).not.toHaveBeenCalled();
+  });
+
+  it("never overwrites an existing owner membership while accepting an invitation", async () => {
+    prisma.businessInvitation.findUnique.mockResolvedValue({
+      id: "invite-1",
+      acceptedAt: null,
+      revokedAt: null,
+      expiresAt: new Date(Date.now() + 60_000),
+      email: "owner@example.com",
+      businessId: auth.businessId,
+      business: { id: auth.businessId },
+    });
+    prisma.user.findUniqueOrThrow.mockResolvedValue({ id: auth.userId, email: "owner@example.com" });
+    prisma.businessMember.findUnique.mockResolvedValue({
+      id: "owner-member",
+      role: "OWNER",
+      status: "ACTIVE",
+    });
+
+    await expect(service.accept(auth, { token: "valid-invitation-token-123" }))
+      .rejects.toThrow("owner already has access");
+
+    expect(prisma.businessInvitation.updateMany).not.toHaveBeenCalled();
+    expect(prisma.businessMember.create).not.toHaveBeenCalled();
+  });
+
+  it("claims an invitation before creating a new cross-workspace membership", async () => {
+    prisma.businessInvitation.findUnique.mockResolvedValue({
+      id: "invite-2",
+      acceptedAt: null,
+      revokedAt: null,
+      expiresAt: new Date(Date.now() + 60_000),
+      email: "staff@example.com",
+      businessId: "business-2",
+      createdAt: new Date(),
+      role: "SALES",
+      business: { id: "business-2", name: "Second shop" },
+    });
+    prisma.user.findUniqueOrThrow.mockResolvedValue({ id: auth.userId, email: "staff@example.com" });
+    prisma.businessMember.findUnique.mockResolvedValue(null);
+    prisma.businessInvitation.updateMany.mockResolvedValue({ count: 1 });
+
+    await expect(service.accept(auth, { token: "valid-invitation-token-456" }))
+      .resolves.toMatchObject({ id: "business-2" });
+
+    expect(prisma.businessMember.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        businessId: "business-2",
+        role: "SALES",
+        userId: auth.userId,
+      }),
+    });
+  });
 });
 
 function prismaMock() {
@@ -178,6 +245,16 @@ function prismaMock() {
       deleteMany: vi.fn(),
       findMany: vi.fn(),
     },
+    businessInvitation: {
+      create: vi.fn(),
+      findFirst: vi.fn(),
+      findUnique: vi.fn(),
+      updateMany: vi.fn(),
+    },
+    businessMember: {
+      create: vi.fn(),
+      findUnique: vi.fn(),
+    },
     ownerOtpChallenge: {
       create: vi.fn(),
       findUnique: vi.fn(),
@@ -188,6 +265,8 @@ function prismaMock() {
       findFirst: vi.fn(),
     },
     user: {
+      findUnique: vi.fn(),
+      findUniqueOrThrow: vi.fn(),
       update: vi.fn(),
     },
     $transaction: vi.fn(),

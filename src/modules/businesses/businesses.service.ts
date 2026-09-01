@@ -801,13 +801,42 @@ export class BusinessesService {
     if (dto.role === "OWNER") {
       throw new BadRequestException("Ownership cannot be assigned by invitation");
     }
+    const email = dto.email.trim().toLowerCase();
+    const [existingUser, pendingInvitation] = await Promise.all([
+      this.prisma.user.findUnique({
+        where: { email },
+        select: {
+          memberships: {
+            where: { businessId: auth.businessId },
+            select: { id: true, role: true, status: true },
+            take: 1,
+          },
+        },
+      }),
+      this.prisma.businessInvitation.findFirst({
+        where: {
+          businessId: auth.businessId,
+          email,
+          acceptedAt: null,
+          revokedAt: null,
+          expiresAt: { gt: new Date() },
+        },
+        select: { id: true },
+      }),
+    ]);
+    if (existingUser?.memberships.length) {
+      throw new ConflictException("This person already has access to this workspace");
+    }
+    if (pendingInvitation) {
+      throw new ConflictException("An active invitation already exists for this email");
+    }
     const generated = createOpaqueToken();
     const invitation = await this.prisma.businessInvitation.create({
       data: {
         businessId: auth.businessId,
         invitedById: auth.userId,
         name: dto.name.trim(),
-        email: dto.email.trim().toLowerCase(),
+        email,
         role: dto.role,
         tokenHash: generated.tokenHash,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
@@ -841,15 +870,37 @@ export class BusinessesService {
     if (user.email.toLowerCase() !== invitation.email.toLowerCase()) {
       throw new BadRequestException("Invitation belongs to a different email");
     }
-    await this.prisma.$transaction([
-      this.prisma.businessMember.upsert({
-        where: {
-          businessId_userId: {
-            businessId: invitation.businessId,
-            userId: auth.userId,
-          },
+    const existingMembership = await this.prisma.businessMember.findUnique({
+      where: {
+        businessId_userId: {
+          businessId: invitation.businessId,
+          userId: auth.userId,
         },
-        create: {
+      },
+      select: { id: true, role: true, status: true },
+    });
+    if (existingMembership) {
+      throw new ConflictException(
+        existingMembership.role === "OWNER"
+          ? "The workspace owner already has access"
+          : "This account already has access to the workspace",
+      );
+    }
+    await this.prisma.$transaction(async (tx) => {
+      const claimed = await tx.businessInvitation.updateMany({
+        where: {
+          id: invitation.id,
+          acceptedAt: null,
+          revokedAt: null,
+          expiresAt: { gt: new Date() },
+        },
+        data: { acceptedAt: new Date() },
+      });
+      if (claimed.count !== 1) {
+        throw new NotFoundException("Invitation is invalid or already used");
+      }
+      await tx.businessMember.create({
+        data: {
           businessId: invitation.businessId,
           userId: auth.userId,
           role: invitation.role,
@@ -857,17 +908,8 @@ export class BusinessesService {
           invitedAt: invitation.createdAt,
           joinedAt: new Date(),
         },
-        update: {
-          role: invitation.role,
-          status: "ACTIVE",
-          joinedAt: new Date(),
-        },
-      }),
-      this.prisma.businessInvitation.update({
-        where: { id: invitation.id },
-        data: { acceptedAt: new Date() },
-      }),
-    ]);
+      });
+    });
     return invitation.business;
   }
 }

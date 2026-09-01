@@ -225,6 +225,12 @@ export class AuthController {
     return ok(await this.auth.me(auth));
   }
 
+  @Get("workspaces")
+  @UseGuards(OwnerAuthGuard)
+  async workspaces(@CurrentAuth() auth: OwnerAuthContext) {
+    return ok(await this.auth.workspaces(auth));
+  }
+
   @Post("password/change")
   @UseGuards(OwnerAuthGuard)
   async changePassword(

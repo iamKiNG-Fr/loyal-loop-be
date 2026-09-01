@@ -12,6 +12,9 @@ function createService() {
     business: {
       findFirst: vi.fn(),
     },
+    businessMember: {
+      findMany: vi.fn(),
+    },
     businessSlugHistory: {
       findUnique: vi.fn(),
     },
@@ -74,6 +77,43 @@ function createService() {
     ),
   };
 }
+
+describe("AuthService workspaces", () => {
+  it("returns every active membership with its business and resolved capabilities", async () => {
+    const { prisma, service } = createService();
+    prisma.businessMember.findMany.mockResolvedValue([
+      {
+        id: "member-1",
+        role: "OWNER",
+        permissionOverrides: [],
+        business: { id: "business-1", name: "First shop", slug: "first-shop" },
+      },
+      {
+        id: "member-2",
+        role: "SALES",
+        permissionOverrides: [],
+        business: { id: "business-2", name: "Second shop", slug: "second-shop" },
+      },
+    ]);
+
+    const result = await service.workspaces({
+      businessId: "business-1",
+      role: "OWNER",
+      sessionId: "session-1",
+      userId: "user-1",
+    });
+
+    expect(result).toHaveLength(2);
+    expect(result[1]).toMatchObject({
+      memberId: "member-2",
+      role: "SALES",
+      business: { id: "business-2" },
+    });
+    expect(prisma.businessMember.findMany).toHaveBeenCalledWith(expect.objectContaining({
+      where: { status: "ACTIVE", userId: "user-1" },
+    }));
+  });
+});
 
 describe("AuthService password recovery", () => {
   it("retires older links before sending a one-time reset link", async () => {

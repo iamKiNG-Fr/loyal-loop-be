@@ -766,6 +766,41 @@ export class AuthService {
     return this.safeIdentity(membership.user, membership.business, membership);
   }
 
+  async workspaces(auth: OwnerAuthContext) {
+    const memberships = await this.prisma.businessMember.findMany({
+      where: {
+        userId: auth.userId,
+        status: "ACTIVE",
+      },
+      orderBy: { createdAt: "asc" },
+      include: {
+        permissionOverrides: true,
+        business: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+            category: true,
+            platformStatus: true,
+            logoAsset: {
+              select: { id: true, secureUrl: true },
+            },
+          },
+        },
+      },
+    });
+
+    return memberships.map((membership) => ({
+      memberId: membership.id,
+      role: membership.role,
+      capabilities: resolveCapabilities(
+        membership.role,
+        membership.permissionOverrides,
+      ),
+      business: membership.business,
+    }));
+  }
+
   async changePassword(auth: OwnerAuthContext, dto: ChangePasswordDto) {
     const user = await this.prisma.user.findUniqueOrThrow({
       where: { id: auth.userId },
