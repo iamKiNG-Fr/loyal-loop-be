@@ -120,7 +120,8 @@ export class ShopsService {
     ]);
     if (!business) throw new NotFoundException("Shop not found");
     const open = business.storeStatus === "OPEN";
-    const productTotal = open ? business._count.products : 0;
+    const browseable = ["OPEN", "PAUSED"].includes(business.storeStatus);
+    const productTotal = browseable ? business._count.products : 0;
     return {
       business: sanitizeBusiness(business),
       catalog: {
@@ -132,8 +133,8 @@ export class ShopsService {
       canonicalSlug: business.slug,
       redirectedFrom: resolved.redirectedFrom,
       canRequest: open,
-      products: open ? business.products : [],
-      showcases: open ? business.showcases : [],
+      products: browseable ? business.products : [],
+      showcases: browseable ? business.showcases : [],
       trust,
     };
   }
@@ -162,7 +163,7 @@ export class ShopsService {
     };
     const [business, products, total] = await Promise.all([
       timed("shop", () => this.prisma.business.findFirst({
-        where: { id: resolved.id, storeStatus: "OPEN", platformStatus: "ACTIVE" },
+        where: { id: resolved.id, storeStatus: { in: ["OPEN", "PAUSED"] }, platformStatus: "ACTIVE" },
         select: { id: true },
       }), timing),
       timed("catalog", () => this.prisma.product.findMany({
@@ -203,7 +204,7 @@ export class ShopsService {
         ],
         status: "ACTIVE",
         visibility: "PUBLIC",
-        business: { id: resolved.id, storeStatus: "OPEN", platformStatus: "ACTIVE" },
+        business: { id: resolved.id, storeStatus: { in: ["OPEN", "PAUSED"] }, platformStatus: "ACTIVE" },
         images: { some: { asset: { is: publicMediaAssetWhere } } },
       },
       include: {
@@ -1047,7 +1048,7 @@ export class ShopsService {
     const product = await this.prisma.product.findFirst({
       where: {
         id: productId,
-        business: { slug: businessSlug, storeStatus: "OPEN", platformStatus: "ACTIVE" },
+        business: { slug: businessSlug, storeStatus: { in: ["OPEN", "PAUSED"] }, platformStatus: "ACTIVE" },
         status: "ACTIVE",
         visibility: "PUBLIC",
       },

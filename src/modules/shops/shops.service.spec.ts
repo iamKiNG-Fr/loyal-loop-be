@@ -201,6 +201,45 @@ describe("ShopsService.getPublicShop", () => {
     ]));
     expect(commerceCreate).not.toHaveBeenCalled();
   });
+
+  it("keeps a paused shop browseable while marking new requests unavailable", async () => {
+    const product = { id: "product-1", images: [], name: "Browse me" };
+    const service = new ShopsService(
+      {
+        business: { findFirst: vi.fn().mockResolvedValue({
+          _count: { products: 1 },
+          contacts: [],
+          coverAsset: null,
+          id: "business-1",
+          launchProduct: null,
+          logoAsset: null,
+          name: "Paused Shop",
+          preferences: null,
+          products: [product],
+          publicCardId: "LL-PAUSED",
+          showcases: [],
+          slug: "paused-shop",
+          storeStatus: "PAUSED",
+        }) },
+      } as never,
+      {} as never,
+      {} as never,
+      { summary: vi.fn().mockResolvedValue({ level: 1 }) } as never,
+      {} as never,
+      {
+        reconcileScheduledLaunch: vi.fn().mockResolvedValue(false),
+        resolveShopSlug: vi.fn().mockResolvedValue({ id: "business-1", redirectedFrom: null }),
+      } as never,
+      {} as never,
+      {} as never,
+    );
+
+    await expect(service.getPublicShop("paused-shop")).resolves.toMatchObject({
+      canRequest: false,
+      catalog: { total: 1 },
+      products: [product],
+    });
+  });
 });
 
 describe("ShopsService.getPublicProduct", () => {

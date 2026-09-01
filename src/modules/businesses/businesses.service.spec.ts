@@ -117,6 +117,50 @@ describe("BusinessesService launch lifecycle", () => {
     expect(prisma.business.updateMany).not.toHaveBeenCalled();
   });
 
+  it("locks an open shop without deleting its business data", async () => {
+    prisma.business.findUniqueOrThrow
+      .mockResolvedValueOnce({ storeStatus: "OPEN" })
+      .mockResolvedValueOnce({ members: [], slugChangedAt: null });
+    prisma.business.update.mockResolvedValue({
+      id: auth.businessId,
+      storeStatus: "CLOSED",
+    });
+
+    await service.lockShop(auth);
+
+    expect(prisma.business.update).toHaveBeenCalledWith({
+      where: { id: auth.businessId },
+      data: expect.objectContaining({
+        launchAutoOpen: false,
+        storeStatus: "CLOSED",
+      }),
+    });
+    expect(prisma.activityEvent.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        title: "Shop locked",
+        type: "BUSINESS_UPDATED",
+      }),
+    });
+  });
+
+  it("allows a locked shop to be reopened", async () => {
+    prisma.business.findUniqueOrThrow
+      .mockResolvedValueOnce({
+        launchedAt: new Date("2026-08-01T10:00:00.000Z"),
+        storeStatus: "CLOSED",
+      })
+      .mockResolvedValueOnce({ members: [], slugChangedAt: null });
+    prisma.product.findFirst.mockResolvedValue({ id: "product-1" });
+
+    await service.openShop(auth, { confirmEmpty: false });
+
+    expect(prisma.business.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ storeStatus: "OPEN" }),
+      }),
+    );
+  });
+
   it("refuses to replace the owner WhatsApp number without a verified proof", async () => {
     prisma.business.findUniqueOrThrow.mockResolvedValue({
       ownerId: auth.userId,

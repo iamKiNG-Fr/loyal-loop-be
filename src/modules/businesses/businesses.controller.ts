@@ -159,6 +159,14 @@ export class BusinessesController {
       .then((data) => ok(data, "Shop paused"));
   }
 
+  @Post("lock")
+  @Roles("OWNER", "MANAGER")
+  lockShop(@CurrentAuth() auth: OwnerAuthContext) {
+    return this.businesses
+      .lockShop(auth)
+      .then((data) => ok(data, "Shop locked"));
+  }
+
   @Post("pledge")
   @Roles("OWNER")
   pledge(

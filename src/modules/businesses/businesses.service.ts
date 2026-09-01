@@ -370,9 +370,6 @@ export class BusinessesService {
       where: { id: auth.businessId },
       select: { storeStatus: true, launchedAt: true },
     });
-    if (current.storeStatus === "CLOSED") {
-      throw new BadRequestException("A closed shop cannot be opened");
-    }
     if (current.storeStatus === "OPEN") {
       return this.getCurrent(auth);
     }
@@ -424,6 +421,35 @@ export class BusinessesService {
           actorId: auth.userId,
           type: "SHOP_PAUSED",
           title: "Shop paused",
+        },
+      });
+    });
+    return this.getCurrent(auth);
+  }
+
+  async lockShop(auth: OwnerAuthContext) {
+    const current = await this.prisma.business.findUniqueOrThrow({
+      where: { id: auth.businessId },
+      select: { storeStatus: true },
+    });
+    if (!["OPEN", "PAUSED"].includes(current.storeStatus)) {
+      throw new BadRequestException("Only an open or paused shop can be locked");
+    }
+    await this.prisma.$transaction(async (tx) => {
+      await tx.business.update({
+        where: { id: auth.businessId },
+        data: {
+          storeStatus: "CLOSED",
+          launchAutoOpen: false,
+          launchShareVersion: { increment: 1 },
+        },
+      });
+      await tx.activityEvent.create({
+        data: {
+          businessId: auth.businessId,
+          actorId: auth.userId,
+          type: "BUSINESS_UPDATED",
+          title: "Shop locked",
         },
       });
     });
