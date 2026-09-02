@@ -37,6 +37,7 @@ export type CustomerCartGroupMinAggregateOutputType = {
   recipientName: string | null
   recipientPhone: string | null
   whatsappUpdatesConsent: boolean | null
+  sourceShowcaseId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +55,7 @@ export type CustomerCartGroupMaxAggregateOutputType = {
   recipientName: string | null
   recipientPhone: string | null
   whatsappUpdatesConsent: boolean | null
+  sourceShowcaseId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -71,6 +73,7 @@ export type CustomerCartGroupCountAggregateOutputType = {
   recipientName: number
   recipientPhone: number
   whatsappUpdatesConsent: number
+  sourceShowcaseId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -90,6 +93,7 @@ export type CustomerCartGroupMinAggregateInputType = {
   recipientName?: true
   recipientPhone?: true
   whatsappUpdatesConsent?: true
+  sourceShowcaseId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -107,6 +111,7 @@ export type CustomerCartGroupMaxAggregateInputType = {
   recipientName?: true
   recipientPhone?: true
   whatsappUpdatesConsent?: true
+  sourceShowcaseId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +129,7 @@ export type CustomerCartGroupCountAggregateInputType = {
   recipientName?: true
   recipientPhone?: true
   whatsappUpdatesConsent?: true
+  sourceShowcaseId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -214,6 +220,7 @@ export type CustomerCartGroupGroupByOutputType = {
   recipientName: string | null
   recipientPhone: string | null
   whatsappUpdatesConsent: boolean
+  sourceShowcaseId: string | null
   createdAt: Date
   updatedAt: Date
   _count: CustomerCartGroupCountAggregateOutputType | null
@@ -252,11 +259,13 @@ export type CustomerCartGroupWhereInput = {
   recipientName?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   whatsappUpdatesConsent?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
+  sourceShowcaseId?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   cart?: Prisma.XOR<Prisma.CustomerCartScalarRelationFilter, Prisma.CustomerCartWhereInput>
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   customerAddress?: Prisma.XOR<Prisma.CustomerAddressNullableScalarRelationFilter, Prisma.CustomerAddressWhereInput> | null
+  sourceShowcase?: Prisma.XOR<Prisma.ShowcaseNullableScalarRelationFilter, Prisma.ShowcaseWhereInput> | null
 }
 
 export type CustomerCartGroupOrderByWithRelationInput = {
@@ -272,11 +281,13 @@ export type CustomerCartGroupOrderByWithRelationInput = {
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cart?: Prisma.CustomerCartOrderByWithRelationInput
   business?: Prisma.BusinessOrderByWithRelationInput
   customerAddress?: Prisma.CustomerAddressOrderByWithRelationInput
+  sourceShowcase?: Prisma.ShowcaseOrderByWithRelationInput
 }
 
 export type CustomerCartGroupWhereUniqueInput = Prisma.AtLeast<{
@@ -296,11 +307,13 @@ export type CustomerCartGroupWhereUniqueInput = Prisma.AtLeast<{
   recipientName?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   whatsappUpdatesConsent?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
+  sourceShowcaseId?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   cart?: Prisma.XOR<Prisma.CustomerCartScalarRelationFilter, Prisma.CustomerCartWhereInput>
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   customerAddress?: Prisma.XOR<Prisma.CustomerAddressNullableScalarRelationFilter, Prisma.CustomerAddressWhereInput> | null
+  sourceShowcase?: Prisma.XOR<Prisma.ShowcaseNullableScalarRelationFilter, Prisma.ShowcaseWhereInput> | null
 }, "id" | "cartId_businessId">
 
 export type CustomerCartGroupOrderByWithAggregationInput = {
@@ -316,6 +329,7 @@ export type CustomerCartGroupOrderByWithAggregationInput = {
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CustomerCartGroupCountOrderByAggregateInput
@@ -339,6 +353,7 @@ export type CustomerCartGroupScalarWhereWithAggregatesInput = {
   recipientName?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
   recipientPhone?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
   whatsappUpdatesConsent?: Prisma.BoolWithAggregatesFilter<"CustomerCartGroup"> | boolean
+  sourceShowcaseId?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CustomerCartGroup"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CustomerCartGroup"> | Date | string
 }
@@ -358,6 +373,7 @@ export type CustomerCartGroupCreateInput = {
   cart: Prisma.CustomerCartCreateNestedOneWithoutGroupsInput
   business: Prisma.BusinessCreateNestedOneWithoutCartGroupsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutCartGroupsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutCartGroupsInput
 }
 
 export type CustomerCartGroupUncheckedCreateInput = {
@@ -373,6 +389,7 @@ export type CustomerCartGroupUncheckedCreateInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -392,6 +409,7 @@ export type CustomerCartGroupUpdateInput = {
   cart?: Prisma.CustomerCartUpdateOneRequiredWithoutGroupsNestedInput
   business?: Prisma.BusinessUpdateOneRequiredWithoutCartGroupsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutCartGroupsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutCartGroupsNestedInput
 }
 
 export type CustomerCartGroupUncheckedUpdateInput = {
@@ -407,6 +425,7 @@ export type CustomerCartGroupUncheckedUpdateInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -424,6 +443,7 @@ export type CustomerCartGroupCreateManyInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -455,6 +475,7 @@ export type CustomerCartGroupUncheckedUpdateManyInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -487,6 +508,7 @@ export type CustomerCartGroupCountOrderByAggregateInput = {
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -504,6 +526,7 @@ export type CustomerCartGroupMaxOrderByAggregateInput = {
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -521,6 +544,7 @@ export type CustomerCartGroupMinOrderByAggregateInput = {
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
+  sourceShowcaseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -609,6 +633,48 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressNestedInpu
   deleteMany?: Prisma.CustomerCartGroupScalarWhereInput | Prisma.CustomerCartGroupScalarWhereInput[]
 }
 
+export type CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput = {
+  create?: Prisma.XOR<Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput, Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput> | Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput[] | Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput[]
+  connectOrCreate?: Prisma.CustomerCartGroupCreateOrConnectWithoutSourceShowcaseInput | Prisma.CustomerCartGroupCreateOrConnectWithoutSourceShowcaseInput[]
+  createMany?: Prisma.CustomerCartGroupCreateManySourceShowcaseInputEnvelope
+  connect?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+}
+
+export type CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput = {
+  create?: Prisma.XOR<Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput, Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput> | Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput[] | Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput[]
+  connectOrCreate?: Prisma.CustomerCartGroupCreateOrConnectWithoutSourceShowcaseInput | Prisma.CustomerCartGroupCreateOrConnectWithoutSourceShowcaseInput[]
+  createMany?: Prisma.CustomerCartGroupCreateManySourceShowcaseInputEnvelope
+  connect?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+}
+
+export type CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput, Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput> | Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput[] | Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput[]
+  connectOrCreate?: Prisma.CustomerCartGroupCreateOrConnectWithoutSourceShowcaseInput | Prisma.CustomerCartGroupCreateOrConnectWithoutSourceShowcaseInput[]
+  upsert?: Prisma.CustomerCartGroupUpsertWithWhereUniqueWithoutSourceShowcaseInput | Prisma.CustomerCartGroupUpsertWithWhereUniqueWithoutSourceShowcaseInput[]
+  createMany?: Prisma.CustomerCartGroupCreateManySourceShowcaseInputEnvelope
+  set?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+  disconnect?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+  delete?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+  connect?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+  update?: Prisma.CustomerCartGroupUpdateWithWhereUniqueWithoutSourceShowcaseInput | Prisma.CustomerCartGroupUpdateWithWhereUniqueWithoutSourceShowcaseInput[]
+  updateMany?: Prisma.CustomerCartGroupUpdateManyWithWhereWithoutSourceShowcaseInput | Prisma.CustomerCartGroupUpdateManyWithWhereWithoutSourceShowcaseInput[]
+  deleteMany?: Prisma.CustomerCartGroupScalarWhereInput | Prisma.CustomerCartGroupScalarWhereInput[]
+}
+
+export type CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput = {
+  create?: Prisma.XOR<Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput, Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput> | Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput[] | Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput[]
+  connectOrCreate?: Prisma.CustomerCartGroupCreateOrConnectWithoutSourceShowcaseInput | Prisma.CustomerCartGroupCreateOrConnectWithoutSourceShowcaseInput[]
+  upsert?: Prisma.CustomerCartGroupUpsertWithWhereUniqueWithoutSourceShowcaseInput | Prisma.CustomerCartGroupUpsertWithWhereUniqueWithoutSourceShowcaseInput[]
+  createMany?: Prisma.CustomerCartGroupCreateManySourceShowcaseInputEnvelope
+  set?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+  disconnect?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+  delete?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+  connect?: Prisma.CustomerCartGroupWhereUniqueInput | Prisma.CustomerCartGroupWhereUniqueInput[]
+  update?: Prisma.CustomerCartGroupUpdateWithWhereUniqueWithoutSourceShowcaseInput | Prisma.CustomerCartGroupUpdateWithWhereUniqueWithoutSourceShowcaseInput[]
+  updateMany?: Prisma.CustomerCartGroupUpdateManyWithWhereWithoutSourceShowcaseInput | Prisma.CustomerCartGroupUpdateManyWithWhereWithoutSourceShowcaseInput[]
+  deleteMany?: Prisma.CustomerCartGroupScalarWhereInput | Prisma.CustomerCartGroupScalarWhereInput[]
+}
+
 export type CustomerCartGroupCreateNestedManyWithoutCartInput = {
   create?: Prisma.XOR<Prisma.CustomerCartGroupCreateWithoutCartInput, Prisma.CustomerCartGroupUncheckedCreateWithoutCartInput> | Prisma.CustomerCartGroupCreateWithoutCartInput[] | Prisma.CustomerCartGroupUncheckedCreateWithoutCartInput[]
   connectOrCreate?: Prisma.CustomerCartGroupCreateOrConnectWithoutCartInput | Prisma.CustomerCartGroupCreateOrConnectWithoutCartInput[]
@@ -673,6 +739,7 @@ export type CustomerCartGroupCreateWithoutBusinessInput = {
   updatedAt?: Date | string
   cart: Prisma.CustomerCartCreateNestedOneWithoutGroupsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutCartGroupsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutCartGroupsInput
 }
 
 export type CustomerCartGroupUncheckedCreateWithoutBusinessInput = {
@@ -687,6 +754,7 @@ export type CustomerCartGroupUncheckedCreateWithoutBusinessInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -733,6 +801,7 @@ export type CustomerCartGroupScalarWhereInput = {
   recipientName?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   whatsappUpdatesConsent?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
+  sourceShowcaseId?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
 }
@@ -751,6 +820,7 @@ export type CustomerCartGroupCreateWithoutCustomerAddressInput = {
   updatedAt?: Date | string
   cart: Prisma.CustomerCartCreateNestedOneWithoutGroupsInput
   business: Prisma.BusinessCreateNestedOneWithoutCartGroupsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutCartGroupsInput
 }
 
 export type CustomerCartGroupUncheckedCreateWithoutCustomerAddressInput = {
@@ -765,6 +835,7 @@ export type CustomerCartGroupUncheckedCreateWithoutCustomerAddressInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -795,6 +866,66 @@ export type CustomerCartGroupUpdateManyWithWhereWithoutCustomerAddressInput = {
   data: Prisma.XOR<Prisma.CustomerCartGroupUpdateManyMutationInput, Prisma.CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressInput>
 }
 
+export type CustomerCartGroupCreateWithoutSourceShowcaseInput = {
+  id?: string
+  fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
+  note?: string | null
+  paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  cart: Prisma.CustomerCartCreateNestedOneWithoutGroupsInput
+  business: Prisma.BusinessCreateNestedOneWithoutCartGroupsInput
+  customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutCartGroupsInput
+}
+
+export type CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput = {
+  id?: string
+  cartId: string
+  businessId: string
+  customerAddressId?: string | null
+  fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
+  note?: string | null
+  paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CustomerCartGroupCreateOrConnectWithoutSourceShowcaseInput = {
+  where: Prisma.CustomerCartGroupWhereUniqueInput
+  create: Prisma.XOR<Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput, Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput>
+}
+
+export type CustomerCartGroupCreateManySourceShowcaseInputEnvelope = {
+  data: Prisma.CustomerCartGroupCreateManySourceShowcaseInput | Prisma.CustomerCartGroupCreateManySourceShowcaseInput[]
+  skipDuplicates?: boolean
+}
+
+export type CustomerCartGroupUpsertWithWhereUniqueWithoutSourceShowcaseInput = {
+  where: Prisma.CustomerCartGroupWhereUniqueInput
+  update: Prisma.XOR<Prisma.CustomerCartGroupUpdateWithoutSourceShowcaseInput, Prisma.CustomerCartGroupUncheckedUpdateWithoutSourceShowcaseInput>
+  create: Prisma.XOR<Prisma.CustomerCartGroupCreateWithoutSourceShowcaseInput, Prisma.CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput>
+}
+
+export type CustomerCartGroupUpdateWithWhereUniqueWithoutSourceShowcaseInput = {
+  where: Prisma.CustomerCartGroupWhereUniqueInput
+  data: Prisma.XOR<Prisma.CustomerCartGroupUpdateWithoutSourceShowcaseInput, Prisma.CustomerCartGroupUncheckedUpdateWithoutSourceShowcaseInput>
+}
+
+export type CustomerCartGroupUpdateManyWithWhereWithoutSourceShowcaseInput = {
+  where: Prisma.CustomerCartGroupScalarWhereInput
+  data: Prisma.XOR<Prisma.CustomerCartGroupUpdateManyMutationInput, Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseInput>
+}
+
 export type CustomerCartGroupCreateWithoutCartInput = {
   id?: string
   fulfillment?: $Enums.FulfillmentType
@@ -809,6 +940,7 @@ export type CustomerCartGroupCreateWithoutCartInput = {
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutCartGroupsInput
   customerAddress?: Prisma.CustomerAddressCreateNestedOneWithoutCartGroupsInput
+  sourceShowcase?: Prisma.ShowcaseCreateNestedOneWithoutCartGroupsInput
 }
 
 export type CustomerCartGroupUncheckedCreateWithoutCartInput = {
@@ -823,6 +955,7 @@ export type CustomerCartGroupUncheckedCreateWithoutCartInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -865,6 +998,7 @@ export type CustomerCartGroupCreateManyBusinessInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -883,6 +1017,7 @@ export type CustomerCartGroupUpdateWithoutBusinessInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CustomerCartUpdateOneRequiredWithoutGroupsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutCartGroupsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutCartGroupsNestedInput
 }
 
 export type CustomerCartGroupUncheckedUpdateWithoutBusinessInput = {
@@ -897,6 +1032,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutBusinessInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -913,6 +1049,7 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutBusinessInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -929,6 +1066,7 @@ export type CustomerCartGroupCreateManyCustomerAddressInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -947,6 +1085,7 @@ export type CustomerCartGroupUpdateWithoutCustomerAddressInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CustomerCartUpdateOneRequiredWithoutGroupsNestedInput
   business?: Prisma.BusinessUpdateOneRequiredWithoutCartGroupsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutCartGroupsNestedInput
 }
 
 export type CustomerCartGroupUncheckedUpdateWithoutCustomerAddressInput = {
@@ -961,6 +1100,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutCustomerAddressInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -969,6 +1109,75 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CustomerCartGroupCreateManySourceShowcaseInput = {
+  id?: string
+  cartId: string
+  businessId: string
+  customerAddressId?: string | null
+  fulfillment?: $Enums.FulfillmentType
+  pickupMethod?: $Enums.FulfillmentJourneyMethod | null
+  note?: string | null
+  paymentPreference?: $Enums.PaymentMethod | null
+  isGift?: boolean
+  recipientName?: string | null
+  recipientPhone?: string | null
+  whatsappUpdatesConsent?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type CustomerCartGroupUpdateWithoutSourceShowcaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cart?: Prisma.CustomerCartUpdateOneRequiredWithoutGroupsNestedInput
+  business?: Prisma.BusinessUpdateOneRequiredWithoutCartGroupsNestedInput
+  customerAddress?: Prisma.CustomerAddressUpdateOneWithoutCartGroupsNestedInput
+}
+
+export type CustomerCartGroupUncheckedUpdateWithoutSourceShowcaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  cartId?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
+  pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentPreference?: Prisma.NullableEnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod | null
+  isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  cartId?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  customerAddressId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fulfillment?: Prisma.EnumFulfillmentTypeFieldUpdateOperationsInput | $Enums.FulfillmentType
   pickupMethod?: Prisma.NullableEnumFulfillmentJourneyMethodFieldUpdateOperationsInput | $Enums.FulfillmentJourneyMethod | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -993,6 +1202,7 @@ export type CustomerCartGroupCreateManyCartInput = {
   recipientName?: string | null
   recipientPhone?: string | null
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1011,6 +1221,7 @@ export type CustomerCartGroupUpdateWithoutCartInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutCartGroupsNestedInput
   customerAddress?: Prisma.CustomerAddressUpdateOneWithoutCartGroupsNestedInput
+  sourceShowcase?: Prisma.ShowcaseUpdateOneWithoutCartGroupsNestedInput
 }
 
 export type CustomerCartGroupUncheckedUpdateWithoutCartInput = {
@@ -1025,6 +1236,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutCartInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1041,6 +1253,7 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutCartInput = {
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1060,11 +1273,13 @@ export type CustomerCartGroupSelect<ExtArgs extends runtime.Types.Extensions.Int
   recipientName?: boolean
   recipientPhone?: boolean
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAddress?: boolean | Prisma.CustomerCartGroup$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.CustomerCartGroup$sourceShowcaseArgs<ExtArgs>
 }, ExtArgs["result"]["customerCartGroup"]>
 
 export type CustomerCartGroupSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1080,11 +1295,13 @@ export type CustomerCartGroupSelectCreateManyAndReturn<ExtArgs extends runtime.T
   recipientName?: boolean
   recipientPhone?: boolean
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAddress?: boolean | Prisma.CustomerCartGroup$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.CustomerCartGroup$sourceShowcaseArgs<ExtArgs>
 }, ExtArgs["result"]["customerCartGroup"]>
 
 export type CustomerCartGroupSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1100,11 +1317,13 @@ export type CustomerCartGroupSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   recipientName?: boolean
   recipientPhone?: boolean
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAddress?: boolean | Prisma.CustomerCartGroup$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.CustomerCartGroup$sourceShowcaseArgs<ExtArgs>
 }, ExtArgs["result"]["customerCartGroup"]>
 
 export type CustomerCartGroupSelectScalar = {
@@ -1120,25 +1339,29 @@ export type CustomerCartGroupSelectScalar = {
   recipientName?: boolean
   recipientPhone?: boolean
   whatsappUpdatesConsent?: boolean
+  sourceShowcaseId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CustomerCartGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "businessId" | "customerAddressId" | "fulfillment" | "pickupMethod" | "note" | "paymentPreference" | "isGift" | "recipientName" | "recipientPhone" | "whatsappUpdatesConsent" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartGroup"]>
+export type CustomerCartGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "businessId" | "customerAddressId" | "fulfillment" | "pickupMethod" | "note" | "paymentPreference" | "isGift" | "recipientName" | "recipientPhone" | "whatsappUpdatesConsent" | "sourceShowcaseId" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartGroup"]>
 export type CustomerCartGroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAddress?: boolean | Prisma.CustomerCartGroup$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.CustomerCartGroup$sourceShowcaseArgs<ExtArgs>
 }
 export type CustomerCartGroupIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAddress?: boolean | Prisma.CustomerCartGroup$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.CustomerCartGroup$sourceShowcaseArgs<ExtArgs>
 }
 export type CustomerCartGroupIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAddress?: boolean | Prisma.CustomerCartGroup$customerAddressArgs<ExtArgs>
+  sourceShowcase?: boolean | Prisma.CustomerCartGroup$sourceShowcaseArgs<ExtArgs>
 }
 
 export type $CustomerCartGroupPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1147,6 +1370,7 @@ export type $CustomerCartGroupPayload<ExtArgs extends runtime.Types.Extensions.I
     cart: Prisma.$CustomerCartPayload<ExtArgs>
     business: Prisma.$BusinessPayload<ExtArgs>
     customerAddress: Prisma.$CustomerAddressPayload<ExtArgs> | null
+    sourceShowcase: Prisma.$ShowcasePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1161,6 +1385,7 @@ export type $CustomerCartGroupPayload<ExtArgs extends runtime.Types.Extensions.I
     recipientName: string | null
     recipientPhone: string | null
     whatsappUpdatesConsent: boolean
+    sourceShowcaseId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["customerCartGroup"]>
@@ -1560,6 +1785,7 @@ export interface Prisma__CustomerCartGroupClient<T, Null = never, ExtArgs extend
   cart<T extends Prisma.CustomerCartDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerCartDefaultArgs<ExtArgs>>): Prisma.Prisma__CustomerCartClient<runtime.Types.Result.GetResult<Prisma.$CustomerCartPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   customerAddress<T extends Prisma.CustomerCartGroup$customerAddressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerCartGroup$customerAddressArgs<ExtArgs>>): Prisma.Prisma__CustomerAddressClient<runtime.Types.Result.GetResult<Prisma.$CustomerAddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  sourceShowcase<T extends Prisma.CustomerCartGroup$sourceShowcaseArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CustomerCartGroup$sourceShowcaseArgs<ExtArgs>>): Prisma.Prisma__ShowcaseClient<runtime.Types.Result.GetResult<Prisma.$ShowcasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1601,6 +1827,7 @@ export interface CustomerCartGroupFieldRefs {
   readonly recipientName: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly recipientPhone: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly whatsappUpdatesConsent: Prisma.FieldRef<"CustomerCartGroup", 'Boolean'>
+  readonly sourceShowcaseId: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly createdAt: Prisma.FieldRef<"CustomerCartGroup", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CustomerCartGroup", 'DateTime'>
 }
@@ -2020,6 +2247,25 @@ export type CustomerCartGroup$customerAddressArgs<ExtArgs extends runtime.Types.
    */
   include?: Prisma.CustomerAddressInclude<ExtArgs> | null
   where?: Prisma.CustomerAddressWhereInput
+}
+
+/**
+ * CustomerCartGroup.sourceShowcase
+ */
+export type CustomerCartGroup$sourceShowcaseArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Showcase
+   */
+  select?: Prisma.ShowcaseSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Showcase
+   */
+  omit?: Prisma.ShowcaseOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShowcaseInclude<ExtArgs> | null
+  where?: Prisma.ShowcaseWhereInput
 }
 
 /**

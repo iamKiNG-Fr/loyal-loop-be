@@ -59,6 +59,22 @@ const publicShowcaseInclude = {
   },
 } satisfies Prisma.ShowcaseInclude;
 
+const publicStorefrontStoryInclude = {
+  asset: true,
+  collection: {
+    include: {
+      products: {
+        where: { status: "ACTIVE" as const, visibility: "PUBLIC" as const },
+        include: publicProductInclude,
+        orderBy: { updatedAt: "desc" as const },
+        take: 4,
+      },
+    },
+  },
+  product: { include: publicProductInclude },
+  showcase: { include: publicShowcaseInclude },
+} satisfies Prisma.StorefrontStoryInclude;
+
 const publicProductWhere = {
   status: "ACTIVE" as const,
   visibility: "PUBLIC" as const,
@@ -95,7 +111,7 @@ export class ShopsService {
     await timed("launch", () => this.businesses.reconcileScheduledLaunch(resolved.id), timing);
     const [business, trust] = await Promise.all([
       timed("catalog", () => this.prisma.business.findFirst({
-        where: { id: resolved.id, storeStatus: { not: "CLOSED" }, platformStatus: "ACTIVE" },
+        where: { id: resolved.id, platformStatus: "ACTIVE" },
         include: {
           _count: { select: { products: { where: publicProductWhere } } },
           coverAsset: true,
@@ -113,6 +129,10 @@ export class ShopsService {
             where: { status: "PUBLISHED", asset: { is: publicMediaAssetWhere } },
             include: publicShowcaseInclude,
             orderBy: [{ featured: "desc" }, { publishedAt: "desc" }],
+          },
+          storefrontStories: {
+            include: publicStorefrontStoryInclude,
+            orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
           },
         },
       }), timing),
@@ -135,6 +155,7 @@ export class ShopsService {
       canRequest: open,
       products: browseable ? business.products : [],
       showcases: browseable ? business.showcases : [],
+      featuredStories: browseable ? publicStorefrontStories(business.storefrontStories) : [],
       trust,
     };
   }
@@ -153,6 +174,7 @@ export class ShopsService {
     const where: Prisma.ProductWhereInput = {
       ...publicProductWhere,
       businessId: resolved.id,
+      business: { storeStatus: { in: ["OPEN", "PAUSED"] }, platformStatus: "ACTIVE" },
       ...(term ? {
         OR: [
           { name: { contains: term, mode: "insensitive" } },
@@ -163,8 +185,8 @@ export class ShopsService {
     };
     const [business, products, total] = await Promise.all([
       timed("shop", () => this.prisma.business.findFirst({
-        where: { id: resolved.id, storeStatus: { in: ["OPEN", "PAUSED"] }, platformStatus: "ACTIVE" },
-        select: { id: true },
+        where: { id: resolved.id, platformStatus: "ACTIVE" },
+        select: { id: true, storeStatus: true },
       }), timing),
       timed("catalog", () => this.prisma.product.findMany({
         where,
@@ -178,7 +200,7 @@ export class ShopsService {
       }), timing),
     ]);
     if (!business) throw new NotFoundException("Shop not found");
-    return { products, total };
+    return ["OPEN", "PAUSED"].includes(business.storeStatus) ? { products, total } : { products: [], total: 0 };
   }
 
   async recordPublicShopView(slug: string, visitor?: string, query?: DiscoveryQuery, timing?: PerformanceTimingRecorder) {
@@ -303,6 +325,7 @@ export class ShopsService {
           administrativeArea1: deliveryAdministrativeArea1,
           countryCode: deliveryCountryCode,
           deliveryAreas: business.preferences?.deliveryAreas,
+          deliveryCountries: business.preferences?.deliveryCountries,
           deliveryStates: business.preferences?.deliveryStates,
         })
       : { administrativeArea1: undefined, status: "NOT_APPLICABLE" as const };
@@ -1181,6 +1204,8 @@ function sanitizeBusiness(business: Record<string, unknown>) {
       allowedFulfillmentMethods?: string[];
       deliveryAreas?: string[];
       deliveryStates?: string[];
+      deliveryCountries?: string[];
+      collectionOrder?: string[];
     } | null;
     launchProduct?: {
       id: string;
@@ -1241,6 +1266,8 @@ function sanitizeBusiness(business: Record<string, unknown>) {
           allowedFulfillmentMethods: source.preferences.allowedFulfillmentMethods,
           deliveryAreas: source.preferences.deliveryAreas,
           deliveryStates: source.preferences.deliveryStates,
+          deliveryCountries: source.preferences.deliveryCountries,
+          collectionOrder: source.preferences.collectionOrder,
         }
       : null,
     launchAt: source.launchAt,
@@ -1269,6 +1296,40 @@ function channelToCustomerChannel(channel: string) {
     OTHER: "OTHER",
   };
   return mapping[channel] ?? "OTHER";
+}
+
+function publicStorefrontStories(
+  stories?: Array<Prisma.StorefrontStoryGetPayload<{ include: typeof publicStorefrontStoryInclude }>>,
+) {
+  return (stories ?? []).reduce<Array<Record<string, unknown>>>((result, story) => {
+    const visible = (story.kind === "PRODUCT" && Boolean(story.product?.images.length))
+      || (story.kind === "COLLECTION" && Boolean(story.collection?.products.length))
+      || (story.kind === "SHOWCASE" && Boolean(story.showcase?.asset))
+      || (story.kind === "EVENT" && (!story.asset || publicAsset(story.asset)));
+    if (!visible) return result;
+    result.push({
+      asset: story.asset ? { height: story.asset.height, id: story.asset.id, secureUrl: story.asset.secureUrl, width: story.asset.width } : null,
+      caption: story.caption,
+      collection: story.kind === "COLLECTION" ? story.collection : null,
+      endsAt: story.endsAt,
+      id: story.id,
+      kind: story.kind,
+      linkUrl: story.linkUrl,
+      product: story.kind === "PRODUCT" ? story.product : null,
+      showcase: story.kind === "SHOWCASE" ? story.showcase : null,
+      sortOrder: story.sortOrder,
+      startsAt: story.startsAt,
+      title: story.title,
+    });
+    return result;
+  }, []);
+}
+
+function publicAsset(asset: { contentRating: string; moderationStatus: string; qualityStatus: string; status: string }) {
+  return asset.status === "ACTIVE"
+    && asset.qualityStatus !== "FAIL"
+    && ["AUTO_APPROVED", "MANUALLY_APPROVED"].includes(asset.moderationStatus)
+    && asset.contentRating === "GENERAL";
 }
 
 

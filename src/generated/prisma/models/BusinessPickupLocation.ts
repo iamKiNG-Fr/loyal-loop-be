@@ -44,6 +44,8 @@ export type BusinessPickupLocationMinAggregateOutputType = {
   googlePlaceId: string | null
   latitude: number | null
   longitude: number | null
+  countryCode: string | null
+  regionCode: string | null
   isDefault: boolean | null
   isActive: boolean | null
   createdAt: Date | null
@@ -58,6 +60,8 @@ export type BusinessPickupLocationMaxAggregateOutputType = {
   googlePlaceId: string | null
   latitude: number | null
   longitude: number | null
+  countryCode: string | null
+  regionCode: string | null
   isDefault: boolean | null
   isActive: boolean | null
   createdAt: Date | null
@@ -72,6 +76,8 @@ export type BusinessPickupLocationCountAggregateOutputType = {
   googlePlaceId: number
   latitude: number
   longitude: number
+  countryCode: number
+  regionCode: number
   isDefault: number
   isActive: number
   createdAt: number
@@ -98,6 +104,8 @@ export type BusinessPickupLocationMinAggregateInputType = {
   googlePlaceId?: true
   latitude?: true
   longitude?: true
+  countryCode?: true
+  regionCode?: true
   isDefault?: true
   isActive?: true
   createdAt?: true
@@ -112,6 +120,8 @@ export type BusinessPickupLocationMaxAggregateInputType = {
   googlePlaceId?: true
   latitude?: true
   longitude?: true
+  countryCode?: true
+  regionCode?: true
   isDefault?: true
   isActive?: true
   createdAt?: true
@@ -126,6 +136,8 @@ export type BusinessPickupLocationCountAggregateInputType = {
   googlePlaceId?: true
   latitude?: true
   longitude?: true
+  countryCode?: true
+  regionCode?: true
   isDefault?: true
   isActive?: true
   createdAt?: true
@@ -227,6 +239,8 @@ export type BusinessPickupLocationGroupByOutputType = {
   googlePlaceId: string | null
   latitude: number | null
   longitude: number | null
+  countryCode: string
+  regionCode: string | null
   isDefault: boolean
   isActive: boolean
   createdAt: Date
@@ -264,6 +278,8 @@ export type BusinessPickupLocationWhereInput = {
   googlePlaceId?: Prisma.StringNullableFilter<"BusinessPickupLocation"> | string | null
   latitude?: Prisma.FloatNullableFilter<"BusinessPickupLocation"> | number | null
   longitude?: Prisma.FloatNullableFilter<"BusinessPickupLocation"> | number | null
+  countryCode?: Prisma.StringFilter<"BusinessPickupLocation"> | string
+  regionCode?: Prisma.StringNullableFilter<"BusinessPickupLocation"> | string | null
   isDefault?: Prisma.BoolFilter<"BusinessPickupLocation"> | boolean
   isActive?: Prisma.BoolFilter<"BusinessPickupLocation"> | boolean
   createdAt?: Prisma.DateTimeFilter<"BusinessPickupLocation"> | Date | string
@@ -280,6 +296,8 @@ export type BusinessPickupLocationOrderByWithRelationInput = {
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  countryCode?: Prisma.SortOrder
+  regionCode?: Prisma.SortOrderInput | Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -299,6 +317,8 @@ export type BusinessPickupLocationWhereUniqueInput = Prisma.AtLeast<{
   googlePlaceId?: Prisma.StringNullableFilter<"BusinessPickupLocation"> | string | null
   latitude?: Prisma.FloatNullableFilter<"BusinessPickupLocation"> | number | null
   longitude?: Prisma.FloatNullableFilter<"BusinessPickupLocation"> | number | null
+  countryCode?: Prisma.StringFilter<"BusinessPickupLocation"> | string
+  regionCode?: Prisma.StringNullableFilter<"BusinessPickupLocation"> | string | null
   isDefault?: Prisma.BoolFilter<"BusinessPickupLocation"> | boolean
   isActive?: Prisma.BoolFilter<"BusinessPickupLocation"> | boolean
   createdAt?: Prisma.DateTimeFilter<"BusinessPickupLocation"> | Date | string
@@ -315,6 +335,8 @@ export type BusinessPickupLocationOrderByWithAggregationInput = {
   googlePlaceId?: Prisma.SortOrderInput | Prisma.SortOrder
   latitude?: Prisma.SortOrderInput | Prisma.SortOrder
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  countryCode?: Prisma.SortOrder
+  regionCode?: Prisma.SortOrderInput | Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -337,6 +359,8 @@ export type BusinessPickupLocationScalarWhereWithAggregatesInput = {
   googlePlaceId?: Prisma.StringNullableWithAggregatesFilter<"BusinessPickupLocation"> | string | null
   latitude?: Prisma.FloatNullableWithAggregatesFilter<"BusinessPickupLocation"> | number | null
   longitude?: Prisma.FloatNullableWithAggregatesFilter<"BusinessPickupLocation"> | number | null
+  countryCode?: Prisma.StringWithAggregatesFilter<"BusinessPickupLocation"> | string
+  regionCode?: Prisma.StringNullableWithAggregatesFilter<"BusinessPickupLocation"> | string | null
   isDefault?: Prisma.BoolWithAggregatesFilter<"BusinessPickupLocation"> | boolean
   isActive?: Prisma.BoolWithAggregatesFilter<"BusinessPickupLocation"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"BusinessPickupLocation"> | Date | string
@@ -350,6 +374,8 @@ export type BusinessPickupLocationCreateInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string
+  regionCode?: string | null
   isDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
@@ -366,6 +392,8 @@ export type BusinessPickupLocationUncheckedCreateInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string
+  regionCode?: string | null
   isDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
@@ -380,6 +408,8 @@ export type BusinessPickupLocationUpdateInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  regionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -396,6 +426,8 @@ export type BusinessPickupLocationUncheckedUpdateInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  regionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -411,6 +443,8 @@ export type BusinessPickupLocationCreateManyInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string
+  regionCode?: string | null
   isDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
@@ -424,6 +458,8 @@ export type BusinessPickupLocationUpdateManyMutationInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  regionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -438,6 +474,8 @@ export type BusinessPickupLocationUncheckedUpdateManyInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  regionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -462,6 +500,8 @@ export type BusinessPickupLocationCountOrderByAggregateInput = {
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  countryCode?: Prisma.SortOrder
+  regionCode?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -481,6 +521,8 @@ export type BusinessPickupLocationMaxOrderByAggregateInput = {
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  countryCode?: Prisma.SortOrder
+  regionCode?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -495,6 +537,8 @@ export type BusinessPickupLocationMinOrderByAggregateInput = {
   googlePlaceId?: Prisma.SortOrder
   latitude?: Prisma.SortOrder
   longitude?: Prisma.SortOrder
+  countryCode?: Prisma.SortOrder
+  regionCode?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -584,6 +628,8 @@ export type BusinessPickupLocationCreateWithoutBusinessInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string
+  regionCode?: string | null
   isDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
@@ -598,6 +644,8 @@ export type BusinessPickupLocationUncheckedCreateWithoutBusinessInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string
+  regionCode?: string | null
   isDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
@@ -642,6 +690,8 @@ export type BusinessPickupLocationScalarWhereInput = {
   googlePlaceId?: Prisma.StringNullableFilter<"BusinessPickupLocation"> | string | null
   latitude?: Prisma.FloatNullableFilter<"BusinessPickupLocation"> | number | null
   longitude?: Prisma.FloatNullableFilter<"BusinessPickupLocation"> | number | null
+  countryCode?: Prisma.StringFilter<"BusinessPickupLocation"> | string
+  regionCode?: Prisma.StringNullableFilter<"BusinessPickupLocation"> | string | null
   isDefault?: Prisma.BoolFilter<"BusinessPickupLocation"> | boolean
   isActive?: Prisma.BoolFilter<"BusinessPickupLocation"> | boolean
   createdAt?: Prisma.DateTimeFilter<"BusinessPickupLocation"> | Date | string
@@ -655,6 +705,8 @@ export type BusinessPickupLocationCreateWithoutDeliveriesInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string
+  regionCode?: string | null
   isDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
@@ -670,6 +722,8 @@ export type BusinessPickupLocationUncheckedCreateWithoutDeliveriesInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string
+  regionCode?: string | null
   isDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
@@ -699,6 +753,8 @@ export type BusinessPickupLocationUpdateWithoutDeliveriesInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  regionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -714,6 +770,8 @@ export type BusinessPickupLocationUncheckedUpdateWithoutDeliveriesInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  regionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -727,6 +785,8 @@ export type BusinessPickupLocationCreateManyBusinessInput = {
   googlePlaceId?: string | null
   latitude?: number | null
   longitude?: number | null
+  countryCode?: string
+  regionCode?: string | null
   isDefault?: boolean
   isActive?: boolean
   createdAt?: Date | string
@@ -740,6 +800,8 @@ export type BusinessPickupLocationUpdateWithoutBusinessInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  regionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -754,6 +816,8 @@ export type BusinessPickupLocationUncheckedUpdateWithoutBusinessInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  regionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -768,6 +832,8 @@ export type BusinessPickupLocationUncheckedUpdateManyWithoutBusinessInput = {
   googlePlaceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  countryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  regionCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -813,6 +879,8 @@ export type BusinessPickupLocationSelect<ExtArgs extends runtime.Types.Extension
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  countryCode?: boolean
+  regionCode?: boolean
   isDefault?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -830,6 +898,8 @@ export type BusinessPickupLocationSelectCreateManyAndReturn<ExtArgs extends runt
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  countryCode?: boolean
+  regionCode?: boolean
   isDefault?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -845,6 +915,8 @@ export type BusinessPickupLocationSelectUpdateManyAndReturn<ExtArgs extends runt
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  countryCode?: boolean
+  regionCode?: boolean
   isDefault?: boolean
   isActive?: boolean
   createdAt?: boolean
@@ -860,13 +932,15 @@ export type BusinessPickupLocationSelectScalar = {
   googlePlaceId?: boolean
   latitude?: boolean
   longitude?: boolean
+  countryCode?: boolean
+  regionCode?: boolean
   isDefault?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type BusinessPickupLocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "label" | "address" | "googlePlaceId" | "latitude" | "longitude" | "isDefault" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPickupLocation"]>
+export type BusinessPickupLocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "label" | "address" | "googlePlaceId" | "latitude" | "longitude" | "countryCode" | "regionCode" | "isDefault" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPickupLocation"]>
 export type BusinessPickupLocationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   deliveries?: boolean | Prisma.BusinessPickupLocation$deliveriesArgs<ExtArgs>
@@ -893,6 +967,8 @@ export type $BusinessPickupLocationPayload<ExtArgs extends runtime.Types.Extensi
     googlePlaceId: string | null
     latitude: number | null
     longitude: number | null
+    countryCode: string
+    regionCode: string | null
     isDefault: boolean
     isActive: boolean
     createdAt: Date
@@ -1329,6 +1405,8 @@ export interface BusinessPickupLocationFieldRefs {
   readonly googlePlaceId: Prisma.FieldRef<"BusinessPickupLocation", 'String'>
   readonly latitude: Prisma.FieldRef<"BusinessPickupLocation", 'Float'>
   readonly longitude: Prisma.FieldRef<"BusinessPickupLocation", 'Float'>
+  readonly countryCode: Prisma.FieldRef<"BusinessPickupLocation", 'String'>
+  readonly regionCode: Prisma.FieldRef<"BusinessPickupLocation", 'String'>
   readonly isDefault: Prisma.FieldRef<"BusinessPickupLocation", 'Boolean'>
   readonly isActive: Prisma.FieldRef<"BusinessPickupLocation", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"BusinessPickupLocation", 'DateTime'>

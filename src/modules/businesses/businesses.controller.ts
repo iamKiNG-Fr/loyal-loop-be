@@ -38,6 +38,7 @@ import {
 } from "./dto/update-business.dto";
 import { UpdateMemberPermissionsDto } from "./dto/member-permission.dto";
 import { SavePickupLocationDto } from "./dto/pickup-location.dto";
+import { ReplaceStorefrontStoriesDto } from "./dto/storefront-story.dto";
 
 @Controller("public/trust-cards")
 export class PublicTrustCardsController {
@@ -119,6 +120,23 @@ export class BusinessesController {
     return this.businesses
       .updatePreferences(auth, dto)
       .then((data) => ok(data, "Preferences updated"));
+  }
+
+  @Get("storefront-stories")
+  storefrontStories(@CurrentAuth() auth: OwnerAuthContext) {
+    return this.businesses.storefrontStories(auth).then((data) => ok(data));
+  }
+
+  @Put("storefront-stories")
+  @Capabilities(BusinessCapability.SETTINGS_WRITE)
+  @Roles("OWNER", "MANAGER")
+  replaceStorefrontStories(
+    @CurrentAuth() auth: OwnerAuthContext,
+    @Body() dto: ReplaceStorefrontStoriesDto,
+  ) {
+    return this.businesses
+      .replaceStorefrontStories(auth, dto)
+      .then((data) => ok(data, "Featured stories updated"));
   }
 
   @Put("launch")

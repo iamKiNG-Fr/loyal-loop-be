@@ -16,6 +16,7 @@ import type { CustomerAuthContext } from "../../common/request-context";
 import { CartsService } from "./carts.service";
 import {
   AddCartItemDto,
+  AddShowcaseBundleDto,
   MergeDeviceCartDto,
   SubmitCartDto,
   UpdateCartGroupDto,
@@ -32,6 +33,11 @@ export class DeviceCartController {
   @Post("items")
   add(@Headers("x-cart-device") key: string, @Body() dto: AddCartItemDto) {
     return this.carts.addDeviceItem(key, dto).then((data) => ok(data, "Added to bag"));
+  }
+
+  @Post("bundles")
+  addBundle(@Headers("x-cart-device") key: string, @Body() dto: AddShowcaseBundleDto) {
+    return this.carts.addDeviceBundle(key, dto.showcaseId).then((data) => ok(data, "Set added to bag"));
   }
 
   @Patch("items/:id")
@@ -56,6 +62,11 @@ export class CustomerCartController {
   @Post("items")
   add(@CurrentCustomer() auth: CustomerAuthContext, @Body() dto: AddCartItemDto) {
     return this.carts.addAccountItem(auth, dto).then((data) => ok(data, "Added to bag"));
+  }
+
+  @Post("bundles")
+  addBundle(@CurrentCustomer() auth: CustomerAuthContext, @Body() dto: AddShowcaseBundleDto) {
+    return this.carts.addAccountBundle(auth, dto.showcaseId).then((data) => ok(data, "Set added to bag"));
   }
 
   @Patch("items/:id")

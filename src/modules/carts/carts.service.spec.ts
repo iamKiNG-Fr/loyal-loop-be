@@ -57,11 +57,15 @@ describe("CartsService", () => {
   it("removes the empty shop group when its final item leaves the cart", async () => {
     const prisma = basePrisma();
     const tx = {
-      customerCartGroup: { deleteMany: vi.fn().mockResolvedValue({ count: 1 }) },
+      customerCartGroup: {
+        deleteMany: vi.fn().mockResolvedValue({ count: 1 }),
+        findUnique: vi.fn().mockResolvedValue(null),
+        update: vi.fn(),
+      },
       customerCartItem: {
         count: vi.fn().mockResolvedValue(0),
         delete: vi.fn().mockResolvedValue({ id: "item-1" }),
-        findFirst: vi.fn().mockResolvedValue({ businessId: "business-1" }),
+        findFirst: vi.fn().mockResolvedValue({ businessId: "business-1", productId: "product-1" }),
       },
     };
     prisma.$transaction.mockImplementation((callback: (client: typeof tx) => unknown) => callback(tx));
@@ -111,7 +115,7 @@ function basePrisma() {
       upsert: vi.fn().mockResolvedValue({ id: "cart-1" }),
     },
     customerCartItem: { findUnique: vi.fn(), upsert: vi.fn() },
-    customerCartGroup: { upsert: vi.fn() },
+    customerCartGroup: { findUnique: vi.fn().mockResolvedValue(null), upsert: vi.fn() },
     orderRequest: { findFirst: vi.fn() },
     product: { findFirst: vi.fn() },
     $transaction: vi.fn(),

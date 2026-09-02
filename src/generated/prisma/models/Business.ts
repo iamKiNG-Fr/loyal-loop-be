@@ -520,6 +520,7 @@ export type BusinessWhereInput = {
   slugHistory?: Prisma.BusinessSlugHistoryListRelationFilter
   pickupLocations?: Prisma.BusinessPickupLocationListRelationFilter
   businessCustomerReports?: Prisma.BusinessCustomerReportListRelationFilter
+  storefrontStories?: Prisma.StorefrontStoryListRelationFilter
 }
 
 export type BusinessOrderByWithRelationInput = {
@@ -607,6 +608,7 @@ export type BusinessOrderByWithRelationInput = {
   slugHistory?: Prisma.BusinessSlugHistoryOrderByRelationAggregateInput
   pickupLocations?: Prisma.BusinessPickupLocationOrderByRelationAggregateInput
   businessCustomerReports?: Prisma.BusinessCustomerReportOrderByRelationAggregateInput
+  storefrontStories?: Prisma.StorefrontStoryOrderByRelationAggregateInput
 }
 
 export type BusinessWhereUniqueInput = Prisma.AtLeast<{
@@ -697,6 +699,7 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   slugHistory?: Prisma.BusinessSlugHistoryListRelationFilter
   pickupLocations?: Prisma.BusinessPickupLocationListRelationFilter
   businessCustomerReports?: Prisma.BusinessCustomerReportListRelationFilter
+  storefrontStories?: Prisma.StorefrontStoryListRelationFilter
 }, "id" | "logoAssetId" | "coverAssetId" | "slug" | "publicCardId">
 
 export type BusinessOrderByWithAggregationInput = {
@@ -865,6 +868,7 @@ export type BusinessCreateInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateInput = {
@@ -947,6 +951,7 @@ export type BusinessUncheckedCreateInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUpdateInput = {
@@ -1029,6 +1034,7 @@ export type BusinessUpdateInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateInput = {
@@ -1111,6 +1117,7 @@ export type BusinessUncheckedUpdateInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateManyInput = {
@@ -1830,6 +1837,20 @@ export type BusinessUpdateOneRequiredWithoutShowcasesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutShowcasesInput, Prisma.BusinessUpdateWithoutShowcasesInput>, Prisma.BusinessUncheckedUpdateWithoutShowcasesInput>
 }
 
+export type BusinessCreateNestedOneWithoutStorefrontStoriesInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutStorefrontStoriesInput, Prisma.BusinessUncheckedCreateWithoutStorefrontStoriesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutStorefrontStoriesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutStorefrontStoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutStorefrontStoriesInput, Prisma.BusinessUncheckedCreateWithoutStorefrontStoriesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutStorefrontStoriesInput
+  upsert?: Prisma.BusinessUpsertWithoutStorefrontStoriesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutStorefrontStoriesInput, Prisma.BusinessUpdateWithoutStorefrontStoriesInput>, Prisma.BusinessUncheckedUpdateWithoutStorefrontStoriesInput>
+}
+
 export type BusinessCreateNestedOneWithoutSavedShowcasesInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutSavedShowcasesInput, Prisma.BusinessUncheckedCreateWithoutSavedShowcasesInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutSavedShowcasesInput
@@ -2279,6 +2300,7 @@ export type BusinessCreateWithoutFoundingEnrollmentInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFoundingEnrollmentInput = {
@@ -2360,6 +2382,7 @@ export type BusinessUncheckedCreateWithoutFoundingEnrollmentInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFoundingEnrollmentInput = {
@@ -2457,6 +2480,7 @@ export type BusinessUpdateWithoutFoundingEnrollmentInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFoundingEnrollmentInput = {
@@ -2538,6 +2562,7 @@ export type BusinessUncheckedUpdateWithoutFoundingEnrollmentInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFoundingValueFeedbackInput = {
@@ -2619,6 +2644,7 @@ export type BusinessCreateWithoutFoundingValueFeedbackInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFoundingValueFeedbackInput = {
@@ -2700,6 +2726,7 @@ export type BusinessUncheckedCreateWithoutFoundingValueFeedbackInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFoundingValueFeedbackInput = {
@@ -2797,6 +2824,7 @@ export type BusinessUpdateWithoutFoundingValueFeedbackInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFoundingValueFeedbackInput = {
@@ -2878,6 +2906,7 @@ export type BusinessUncheckedUpdateWithoutFoundingValueFeedbackInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutOwnerInput = {
@@ -2959,6 +2988,7 @@ export type BusinessCreateWithoutOwnerInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutOwnerInput = {
@@ -3040,6 +3070,7 @@ export type BusinessUncheckedCreateWithoutOwnerInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutOwnerInput = {
@@ -3189,6 +3220,7 @@ export type BusinessCreateWithoutPlatformSuspendedByInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPlatformSuspendedByInput = {
@@ -3270,6 +3302,7 @@ export type BusinessUncheckedCreateWithoutPlatformSuspendedByInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPlatformSuspendedByInput = {
@@ -3377,6 +3410,7 @@ export type BusinessCreateWithoutSlugHistoryInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSlugHistoryInput = {
@@ -3458,6 +3492,7 @@ export type BusinessUncheckedCreateWithoutSlugHistoryInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSlugHistoryInput = {
@@ -3555,6 +3590,7 @@ export type BusinessUpdateWithoutSlugHistoryInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSlugHistoryInput = {
@@ -3636,6 +3672,7 @@ export type BusinessUncheckedUpdateWithoutSlugHistoryInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPickupLocationsInput = {
@@ -3717,6 +3754,7 @@ export type BusinessCreateWithoutPickupLocationsInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackCreateNestedManyWithoutBusinessInput
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPickupLocationsInput = {
@@ -3798,6 +3836,7 @@ export type BusinessUncheckedCreateWithoutPickupLocationsInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackUncheckedCreateNestedManyWithoutBusinessInput
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPickupLocationsInput = {
@@ -3895,6 +3934,7 @@ export type BusinessUpdateWithoutPickupLocationsInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackUpdateManyWithoutBusinessNestedInput
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPickupLocationsInput = {
@@ -3976,6 +4016,7 @@ export type BusinessUncheckedUpdateWithoutPickupLocationsInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPreferencesInput = {
@@ -4057,6 +4098,7 @@ export type BusinessCreateWithoutPreferencesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPreferencesInput = {
@@ -4138,6 +4180,7 @@ export type BusinessUncheckedCreateWithoutPreferencesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPreferencesInput = {
@@ -4235,6 +4278,7 @@ export type BusinessUpdateWithoutPreferencesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPreferencesInput = {
@@ -4316,6 +4360,7 @@ export type BusinessUncheckedUpdateWithoutPreferencesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutContactsInput = {
@@ -4397,6 +4442,7 @@ export type BusinessCreateWithoutContactsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutContactsInput = {
@@ -4478,6 +4524,7 @@ export type BusinessUncheckedCreateWithoutContactsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutContactsInput = {
@@ -4575,6 +4622,7 @@ export type BusinessUpdateWithoutContactsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutContactsInput = {
@@ -4656,6 +4704,7 @@ export type BusinessUncheckedUpdateWithoutContactsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPaymentAccountsInput = {
@@ -4737,6 +4786,7 @@ export type BusinessCreateWithoutPaymentAccountsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPaymentAccountsInput = {
@@ -4818,6 +4868,7 @@ export type BusinessUncheckedCreateWithoutPaymentAccountsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPaymentAccountsInput = {
@@ -4915,6 +4966,7 @@ export type BusinessUpdateWithoutPaymentAccountsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPaymentAccountsInput = {
@@ -4996,6 +5048,7 @@ export type BusinessUncheckedUpdateWithoutPaymentAccountsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutMembersInput = {
@@ -5077,6 +5130,7 @@ export type BusinessCreateWithoutMembersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutMembersInput = {
@@ -5158,6 +5212,7 @@ export type BusinessUncheckedCreateWithoutMembersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutMembersInput = {
@@ -5255,6 +5310,7 @@ export type BusinessUpdateWithoutMembersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutMembersInput = {
@@ -5336,6 +5392,7 @@ export type BusinessUncheckedUpdateWithoutMembersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutInvitationsInput = {
@@ -5417,6 +5474,7 @@ export type BusinessCreateWithoutInvitationsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutInvitationsInput = {
@@ -5498,6 +5556,7 @@ export type BusinessUncheckedCreateWithoutInvitationsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutInvitationsInput = {
@@ -5595,6 +5654,7 @@ export type BusinessUpdateWithoutInvitationsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutInvitationsInput = {
@@ -5676,6 +5736,7 @@ export type BusinessUncheckedUpdateWithoutInvitationsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutAssetsInput = {
@@ -5757,6 +5818,7 @@ export type BusinessCreateWithoutAssetsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutAssetsInput = {
@@ -5838,6 +5900,7 @@ export type BusinessUncheckedCreateWithoutAssetsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutAssetsInput = {
@@ -5924,6 +5987,7 @@ export type BusinessCreateWithoutLogoAssetInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutLogoAssetInput = {
@@ -6005,6 +6069,7 @@ export type BusinessUncheckedCreateWithoutLogoAssetInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutLogoAssetInput = {
@@ -6091,6 +6156,7 @@ export type BusinessCreateWithoutCoverAssetInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCoverAssetInput = {
@@ -6172,6 +6238,7 @@ export type BusinessUncheckedCreateWithoutCoverAssetInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCoverAssetInput = {
@@ -6269,6 +6336,7 @@ export type BusinessUpdateWithoutAssetsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutAssetsInput = {
@@ -6350,6 +6418,7 @@ export type BusinessUncheckedUpdateWithoutAssetsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUpsertWithoutLogoAssetInput = {
@@ -6442,6 +6511,7 @@ export type BusinessUpdateWithoutLogoAssetInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
@@ -6523,6 +6593,7 @@ export type BusinessUncheckedUpdateWithoutLogoAssetInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUpsertWithoutCoverAssetInput = {
@@ -6615,6 +6686,7 @@ export type BusinessUpdateWithoutCoverAssetInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCoverAssetInput = {
@@ -6696,6 +6768,7 @@ export type BusinessUncheckedUpdateWithoutCoverAssetInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCustomersInput = {
@@ -6777,6 +6850,7 @@ export type BusinessCreateWithoutCustomersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCustomersInput = {
@@ -6858,6 +6932,7 @@ export type BusinessUncheckedCreateWithoutCustomersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCustomersInput = {
@@ -6955,6 +7030,7 @@ export type BusinessUpdateWithoutCustomersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCustomersInput = {
@@ -7036,6 +7112,7 @@ export type BusinessUncheckedUpdateWithoutCustomersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutBusinessCustomerReportsInput = {
@@ -7117,6 +7194,7 @@ export type BusinessCreateWithoutBusinessCustomerReportsInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackCreateNestedManyWithoutBusinessInput
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutBusinessCustomerReportsInput = {
@@ -7198,6 +7276,7 @@ export type BusinessUncheckedCreateWithoutBusinessCustomerReportsInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackUncheckedCreateNestedManyWithoutBusinessInput
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutBusinessCustomerReportsInput = {
@@ -7295,6 +7374,7 @@ export type BusinessUpdateWithoutBusinessCustomerReportsInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackUpdateManyWithoutBusinessNestedInput
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutBusinessCustomerReportsInput = {
@@ -7376,6 +7456,7 @@ export type BusinessUncheckedUpdateWithoutBusinessCustomerReportsInput = {
   foundingValueFeedback?: Prisma.FoundingValueFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCustomerInsightsInput = {
@@ -7457,6 +7538,7 @@ export type BusinessCreateWithoutCustomerInsightsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCustomerInsightsInput = {
@@ -7538,6 +7620,7 @@ export type BusinessUncheckedCreateWithoutCustomerInsightsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCustomerInsightsInput = {
@@ -7635,6 +7718,7 @@ export type BusinessUpdateWithoutCustomerInsightsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCustomerInsightsInput = {
@@ -7716,6 +7800,7 @@ export type BusinessUncheckedUpdateWithoutCustomerInsightsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCustomerTagsInput = {
@@ -7797,6 +7882,7 @@ export type BusinessCreateWithoutCustomerTagsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
@@ -7878,6 +7964,7 @@ export type BusinessUncheckedCreateWithoutCustomerTagsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCustomerTagsInput = {
@@ -7975,6 +8062,7 @@ export type BusinessUpdateWithoutCustomerTagsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
@@ -8056,6 +8144,7 @@ export type BusinessUncheckedUpdateWithoutCustomerTagsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCategoriesInput = {
@@ -8137,6 +8226,7 @@ export type BusinessCreateWithoutCategoriesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCategoriesInput = {
@@ -8218,6 +8308,7 @@ export type BusinessUncheckedCreateWithoutCategoriesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCategoriesInput = {
@@ -8315,6 +8406,7 @@ export type BusinessUpdateWithoutCategoriesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCategoriesInput = {
@@ -8396,6 +8488,7 @@ export type BusinessUncheckedUpdateWithoutCategoriesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutProductsInput = {
@@ -8477,6 +8570,7 @@ export type BusinessCreateWithoutProductsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutProductsInput = {
@@ -8558,6 +8652,7 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutProductsInput = {
@@ -8644,6 +8739,7 @@ export type BusinessCreateWithoutLaunchProductInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutLaunchProductInput = {
@@ -8725,6 +8821,7 @@ export type BusinessUncheckedCreateWithoutLaunchProductInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutLaunchProductInput = {
@@ -8827,6 +8924,7 @@ export type BusinessUpdateWithoutProductsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutProductsInput = {
@@ -8908,6 +9006,7 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUpsertWithWhereUniqueWithoutLaunchProductInput = {
@@ -9005,6 +9104,7 @@ export type BusinessCreateWithoutShowcasesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutShowcasesInput = {
@@ -9086,6 +9186,7 @@ export type BusinessUncheckedCreateWithoutShowcasesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutShowcasesInput = {
@@ -9183,6 +9284,7 @@ export type BusinessUpdateWithoutShowcasesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutShowcasesInput = {
@@ -9230,6 +9332,351 @@ export type BusinessUncheckedUpdateWithoutShowcasesInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
   customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUncheckedUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUncheckedUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUncheckedUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUncheckedUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUncheckedUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUncheckedUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUncheckedUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedUpdateManyWithoutBusinessNestedInput
+  promotions?: Prisma.ProductPromotionUncheckedUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedUpdateManyWithoutBusinessNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedUpdateManyWithoutBusinessNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedUpdateManyWithoutBusinessNestedInput
+  customerReports?: Prisma.CustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  foundingEnrollment?: Prisma.FoundingProgramEnrollmentUncheckedUpdateOneWithoutBusinessNestedInput
+  foundingValueFeedback?: Prisma.FoundingValueFeedbackUncheckedUpdateManyWithoutBusinessNestedInput
+  slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
+  pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
+  businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutStorefrontStoriesInput = {
+  id?: string
+  name: string
+  slug: string
+  slugChangedAt?: Date | string | null
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  platformStatus?: $Enums.BusinessPlatformStatus
+  platformSuspendedAt?: Date | string | null
+  platformSuspensionReason?: string | null
+  isDemo?: boolean
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOwnedBusinessesInput
+  platformSuspendedBy?: Prisma.PlatformAdminCreateNestedOneWithoutSuspendedBusinessesInput
+  logoAsset?: Prisma.MediaAssetCreateNestedOneWithoutLogoForInput
+  coverAsset?: Prisma.MediaAssetCreateNestedOneWithoutCoverForInput
+  launchProduct?: Prisma.ProductCreateNestedOneWithoutLaunchBusinessesInput
+  preferences?: Prisma.BusinessPreferencesCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceCreateNestedManyWithoutBusinessInput
+  promotions?: Prisma.ProductPromotionCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxCreateNestedManyWithoutBusinessInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptCreateNestedManyWithoutBusinessInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionCreateNestedManyWithoutBusinessInput
+  customerReports?: Prisma.CustomerReportCreateNestedManyWithoutBusinessInput
+  foundingEnrollment?: Prisma.FoundingProgramEnrollmentCreateNestedOneWithoutBusinessInput
+  foundingValueFeedback?: Prisma.FoundingValueFeedbackCreateNestedManyWithoutBusinessInput
+  slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
+  pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
+  businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutStorefrontStoriesInput = {
+  id?: string
+  ownerId: string
+  logoAssetId?: string | null
+  coverAssetId?: string | null
+  name: string
+  slug: string
+  slugChangedAt?: Date | string | null
+  publicCardId: string
+  category?: string | null
+  categoryDetail?: string | null
+  description?: string | null
+  location?: string | null
+  storeStatus?: $Enums.StoreStatus
+  launchAt?: Date | string | null
+  launchTimezone?: string | null
+  launchTemplate?: $Enums.LaunchTemplate
+  launchMessage?: string | null
+  launchProductId?: string | null
+  launchAutoOpen?: boolean
+  launchShareVersion?: number
+  launchedAt?: Date | string | null
+  pledgeSignature?: string | null
+  pledgedAt?: Date | string | null
+  plan?: $Enums.BusinessPlan
+  subscriptionStatus?: $Enums.SubscriptionStatus
+  platformStatus?: $Enums.BusinessPlatformStatus
+  platformSuspendedAt?: Date | string | null
+  platformSuspensionReason?: string | null
+  platformSuspendedByAdminId?: string | null
+  isDemo?: boolean
+  trialStartedAt?: Date | string | null
+  trialEndsAt?: Date | string | null
+  customerLimit?: number | null
+  receiptLimit?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedCreateNestedOneWithoutBusinessInput
+  contacts?: Prisma.BusinessContactUncheckedCreateNestedManyWithoutBusinessInput
+  members?: Prisma.BusinessMemberUncheckedCreateNestedManyWithoutBusinessInput
+  invitations?: Prisma.BusinessInvitationUncheckedCreateNestedManyWithoutBusinessInput
+  assets?: Prisma.MediaAssetUncheckedCreateNestedManyWithoutBusinessInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutBusinessInput
+  customerTags?: Prisma.CustomerTagUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  showcases?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  shopFollowers?: Prisma.ShopFollowUncheckedCreateNestedManyWithoutBusinessInput
+  savedShowcases?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  receipts?: Prisma.ReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutBusinessInput
+  activityEvents?: Prisma.ActivityEventUncheckedCreateNestedManyWithoutBusinessInput
+  followUpTemplates?: Prisma.FollowUpTemplateUncheckedCreateNestedManyWithoutBusinessInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUncheckedCreateNestedManyWithoutBusinessInput
+  orderRequests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutBusinessInput
+  wishlistItems?: Prisma.WishlistItemUncheckedCreateNestedManyWithoutBusinessInput
+  productInterests?: Prisma.ProductInterestUncheckedCreateNestedManyWithoutBusinessInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutBusinessInput
+  feedback?: Prisma.CustomerFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  issues?: Prisma.CustomerIssueUncheckedCreateNestedManyWithoutBusinessInput
+  trustLedger?: Prisma.TrustLedgerEntryUncheckedCreateNestedManyWithoutBusinessInput
+  supportRequests?: Prisma.SupportRequestUncheckedCreateNestedManyWithoutBusinessInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUncheckedCreateNestedManyWithoutBusinessInput
+  paymentProofs?: Prisma.PaymentProofUncheckedCreateNestedManyWithoutBusinessInput
+  shortLinks?: Prisma.ShortLinkUncheckedCreateNestedManyWithoutBusinessInput
+  categories?: Prisma.BusinessCategoryUncheckedCreateNestedManyWithoutBusinessInput
+  customerInsights?: Prisma.CustomerInsightSummaryUncheckedCreateNestedManyWithoutBusinessInput
+  cartItems?: Prisma.CustomerCartItemUncheckedCreateNestedManyWithoutBusinessInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutBusinessInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUncheckedCreateNestedManyWithoutBusinessInput
+  promotions?: Prisma.ProductPromotionUncheckedCreateNestedManyWithoutBusinessInput
+  messageOutbox?: Prisma.MessageOutboxUncheckedCreateNestedManyWithoutBusinessInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUncheckedCreateNestedManyWithoutBusinessInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUncheckedCreateNestedManyWithoutBusinessInput
+  customerReports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  foundingEnrollment?: Prisma.FoundingProgramEnrollmentUncheckedCreateNestedOneWithoutBusinessInput
+  foundingValueFeedback?: Prisma.FoundingValueFeedbackUncheckedCreateNestedManyWithoutBusinessInput
+  slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
+  pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
+  businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutStorefrontStoriesInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutStorefrontStoriesInput, Prisma.BusinessUncheckedCreateWithoutStorefrontStoriesInput>
+}
+
+export type BusinessUpsertWithoutStorefrontStoriesInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutStorefrontStoriesInput, Prisma.BusinessUncheckedUpdateWithoutStorefrontStoriesInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutStorefrontStoriesInput, Prisma.BusinessUncheckedCreateWithoutStorefrontStoriesInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutStorefrontStoriesInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutStorefrontStoriesInput, Prisma.BusinessUncheckedUpdateWithoutStorefrontStoriesInput>
+}
+
+export type BusinessUpdateWithoutStorefrontStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  slugChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  platformStatus?: Prisma.EnumBusinessPlatformStatusFieldUpdateOperationsInput | $Enums.BusinessPlatformStatus
+  platformSuspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  platformSuspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOwnedBusinessesNestedInput
+  platformSuspendedBy?: Prisma.PlatformAdminUpdateOneWithoutSuspendedBusinessesNestedInput
+  logoAsset?: Prisma.MediaAssetUpdateOneWithoutLogoForNestedInput
+  coverAsset?: Prisma.MediaAssetUpdateOneWithoutCoverForNestedInput
+  launchProduct?: Prisma.ProductUpdateOneWithoutLaunchBusinessesNestedInput
+  preferences?: Prisma.BusinessPreferencesUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUpdateManyWithoutBusinessNestedInput
+  shopFollowers?: Prisma.ShopFollowUpdateManyWithoutBusinessNestedInput
+  savedShowcases?: Prisma.SavedShowcaseUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  receipts?: Prisma.ReceiptUpdateManyWithoutBusinessNestedInput
+  deliveries?: Prisma.DeliveryUpdateManyWithoutBusinessNestedInput
+  activityEvents?: Prisma.ActivityEventUpdateManyWithoutBusinessNestedInput
+  followUpTemplates?: Prisma.FollowUpTemplateUpdateManyWithoutBusinessNestedInput
+  followUpSuggestions?: Prisma.FollowUpSuggestionUpdateManyWithoutBusinessNestedInput
+  orderRequests?: Prisma.OrderRequestUpdateManyWithoutBusinessNestedInput
+  wishlistItems?: Prisma.WishlistItemUpdateManyWithoutBusinessNestedInput
+  productInterests?: Prisma.ProductInterestUpdateManyWithoutBusinessNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutBusinessNestedInput
+  feedback?: Prisma.CustomerFeedbackUpdateManyWithoutBusinessNestedInput
+  issues?: Prisma.CustomerIssueUpdateManyWithoutBusinessNestedInput
+  trustLedger?: Prisma.TrustLedgerEntryUpdateManyWithoutBusinessNestedInput
+  supportRequests?: Prisma.SupportRequestUpdateManyWithoutBusinessNestedInput
+  paymentAccounts?: Prisma.BusinessPaymentAccountUpdateManyWithoutBusinessNestedInput
+  paymentProofs?: Prisma.PaymentProofUpdateManyWithoutBusinessNestedInput
+  shortLinks?: Prisma.ShortLinkUpdateManyWithoutBusinessNestedInput
+  categories?: Prisma.BusinessCategoryUpdateManyWithoutBusinessNestedInput
+  customerInsights?: Prisma.CustomerInsightSummaryUpdateManyWithoutBusinessNestedInput
+  cartItems?: Prisma.CustomerCartItemUpdateManyWithoutBusinessNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutBusinessNestedInput
+  discoveryPreferences?: Prisma.DiscoveryPreferenceUpdateManyWithoutBusinessNestedInput
+  promotions?: Prisma.ProductPromotionUpdateManyWithoutBusinessNestedInput
+  messageOutbox?: Prisma.MessageOutboxUpdateManyWithoutBusinessNestedInput
+  attentionReceipts?: Prisma.OwnerAttentionReceiptUpdateManyWithoutBusinessNestedInput
+  pushSubscriptions?: Prisma.OwnerPushSubscriptionUpdateManyWithoutBusinessNestedInput
+  customerReports?: Prisma.CustomerReportUpdateManyWithoutBusinessNestedInput
+  foundingEnrollment?: Prisma.FoundingProgramEnrollmentUpdateOneWithoutBusinessNestedInput
+  foundingValueFeedback?: Prisma.FoundingValueFeedbackUpdateManyWithoutBusinessNestedInput
+  slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
+  pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
+  businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutStorefrontStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  logoAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  slugChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicCardId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryDetail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  storeStatus?: Prisma.EnumStoreStatusFieldUpdateOperationsInput | $Enums.StoreStatus
+  launchAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  launchTimezone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchTemplate?: Prisma.EnumLaunchTemplateFieldUpdateOperationsInput | $Enums.LaunchTemplate
+  launchMessage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchProductId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  launchAutoOpen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  launchShareVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  launchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pledgeSignature?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pledgedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  plan?: Prisma.EnumBusinessPlanFieldUpdateOperationsInput | $Enums.BusinessPlan
+  subscriptionStatus?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
+  platformStatus?: Prisma.EnumBusinessPlatformStatusFieldUpdateOperationsInput | $Enums.BusinessPlatformStatus
+  platformSuspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  platformSuspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  platformSuspendedByAdminId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDemo?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  trialStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trialEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  receiptLimit?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  preferences?: Prisma.BusinessPreferencesUncheckedUpdateOneWithoutBusinessNestedInput
+  contacts?: Prisma.BusinessContactUncheckedUpdateManyWithoutBusinessNestedInput
+  members?: Prisma.BusinessMemberUncheckedUpdateManyWithoutBusinessNestedInput
+  invitations?: Prisma.BusinessInvitationUncheckedUpdateManyWithoutBusinessNestedInput
+  assets?: Prisma.MediaAssetUncheckedUpdateManyWithoutBusinessNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutBusinessNestedInput
+  customerTags?: Prisma.CustomerTagUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  showcases?: Prisma.ShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   shopFollowers?: Prisma.ShopFollowUncheckedUpdateManyWithoutBusinessNestedInput
   savedShowcases?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
@@ -9345,6 +9792,7 @@ export type BusinessCreateWithoutSavedShowcasesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSavedShowcasesInput = {
@@ -9426,6 +9874,7 @@ export type BusinessUncheckedCreateWithoutSavedShowcasesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSavedShowcasesInput = {
@@ -9523,6 +9972,7 @@ export type BusinessUpdateWithoutSavedShowcasesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSavedShowcasesInput = {
@@ -9604,6 +10054,7 @@ export type BusinessUncheckedUpdateWithoutSavedShowcasesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutShopFollowersInput = {
@@ -9685,6 +10136,7 @@ export type BusinessCreateWithoutShopFollowersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutShopFollowersInput = {
@@ -9766,6 +10218,7 @@ export type BusinessUncheckedCreateWithoutShopFollowersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutShopFollowersInput = {
@@ -9863,6 +10316,7 @@ export type BusinessUpdateWithoutShopFollowersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutShopFollowersInput = {
@@ -9944,6 +10398,7 @@ export type BusinessUncheckedUpdateWithoutShopFollowersInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutWishlistItemsInput = {
@@ -10025,6 +10480,7 @@ export type BusinessCreateWithoutWishlistItemsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
@@ -10106,6 +10562,7 @@ export type BusinessUncheckedCreateWithoutWishlistItemsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutWishlistItemsInput = {
@@ -10203,6 +10660,7 @@ export type BusinessUpdateWithoutWishlistItemsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
@@ -10284,6 +10742,7 @@ export type BusinessUncheckedUpdateWithoutWishlistItemsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutProductInterestsInput = {
@@ -10365,6 +10824,7 @@ export type BusinessCreateWithoutProductInterestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutProductInterestsInput = {
@@ -10446,6 +10906,7 @@ export type BusinessUncheckedCreateWithoutProductInterestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutProductInterestsInput = {
@@ -10543,6 +11004,7 @@ export type BusinessUpdateWithoutProductInterestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
@@ -10624,6 +11086,7 @@ export type BusinessUncheckedUpdateWithoutProductInterestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCartItemsInput = {
@@ -10705,6 +11168,7 @@ export type BusinessCreateWithoutCartItemsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCartItemsInput = {
@@ -10786,6 +11250,7 @@ export type BusinessUncheckedCreateWithoutCartItemsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCartItemsInput = {
@@ -10883,6 +11348,7 @@ export type BusinessUpdateWithoutCartItemsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCartItemsInput = {
@@ -10964,6 +11430,7 @@ export type BusinessUncheckedUpdateWithoutCartItemsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCartGroupsInput = {
@@ -11045,6 +11512,7 @@ export type BusinessCreateWithoutCartGroupsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCartGroupsInput = {
@@ -11126,6 +11594,7 @@ export type BusinessUncheckedCreateWithoutCartGroupsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCartGroupsInput = {
@@ -11223,6 +11692,7 @@ export type BusinessUpdateWithoutCartGroupsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCartGroupsInput = {
@@ -11304,6 +11774,7 @@ export type BusinessUncheckedUpdateWithoutCartGroupsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPromotionsInput = {
@@ -11385,6 +11856,7 @@ export type BusinessCreateWithoutPromotionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPromotionsInput = {
@@ -11466,6 +11938,7 @@ export type BusinessUncheckedCreateWithoutPromotionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPromotionsInput = {
@@ -11563,6 +12036,7 @@ export type BusinessUpdateWithoutPromotionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPromotionsInput = {
@@ -11644,6 +12118,7 @@ export type BusinessUncheckedUpdateWithoutPromotionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutOrderRequestsInput = {
@@ -11725,6 +12200,7 @@ export type BusinessCreateWithoutOrderRequestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
@@ -11806,6 +12282,7 @@ export type BusinessUncheckedCreateWithoutOrderRequestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutOrderRequestsInput = {
@@ -11903,6 +12380,7 @@ export type BusinessUpdateWithoutOrderRequestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
@@ -11984,6 +12462,7 @@ export type BusinessUncheckedUpdateWithoutOrderRequestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCustomerReportsInput = {
@@ -12065,6 +12544,7 @@ export type BusinessCreateWithoutCustomerReportsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCustomerReportsInput = {
@@ -12146,6 +12626,7 @@ export type BusinessUncheckedCreateWithoutCustomerReportsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCustomerReportsInput = {
@@ -12243,6 +12724,7 @@ export type BusinessUpdateWithoutCustomerReportsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCustomerReportsInput = {
@@ -12324,6 +12806,7 @@ export type BusinessUncheckedUpdateWithoutCustomerReportsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutCommerceEventsInput = {
@@ -12405,6 +12888,7 @@ export type BusinessCreateWithoutCommerceEventsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
@@ -12486,6 +12970,7 @@ export type BusinessUncheckedCreateWithoutCommerceEventsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutCommerceEventsInput = {
@@ -12583,6 +13068,7 @@ export type BusinessUpdateWithoutCommerceEventsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
@@ -12664,6 +13150,7 @@ export type BusinessUncheckedUpdateWithoutCommerceEventsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutDiscoveryPreferencesInput = {
@@ -12745,6 +13232,7 @@ export type BusinessCreateWithoutDiscoveryPreferencesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutDiscoveryPreferencesInput = {
@@ -12826,6 +13314,7 @@ export type BusinessUncheckedCreateWithoutDiscoveryPreferencesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutDiscoveryPreferencesInput = {
@@ -12923,6 +13412,7 @@ export type BusinessUpdateWithoutDiscoveryPreferencesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutDiscoveryPreferencesInput = {
@@ -13004,6 +13494,7 @@ export type BusinessUncheckedUpdateWithoutDiscoveryPreferencesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutSalesInput = {
@@ -13085,6 +13576,7 @@ export type BusinessCreateWithoutSalesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSalesInput = {
@@ -13166,6 +13658,7 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSalesInput = {
@@ -13263,6 +13756,7 @@ export type BusinessUpdateWithoutSalesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSalesInput = {
@@ -13344,6 +13838,7 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPaymentProofsInput = {
@@ -13425,6 +13920,7 @@ export type BusinessCreateWithoutPaymentProofsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPaymentProofsInput = {
@@ -13506,6 +14002,7 @@ export type BusinessUncheckedCreateWithoutPaymentProofsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPaymentProofsInput = {
@@ -13603,6 +14100,7 @@ export type BusinessUpdateWithoutPaymentProofsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPaymentProofsInput = {
@@ -13684,6 +14182,7 @@ export type BusinessUncheckedUpdateWithoutPaymentProofsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutReceiptsInput = {
@@ -13765,6 +14264,7 @@ export type BusinessCreateWithoutReceiptsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutReceiptsInput = {
@@ -13846,6 +14346,7 @@ export type BusinessUncheckedCreateWithoutReceiptsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutReceiptsInput = {
@@ -13943,6 +14444,7 @@ export type BusinessUpdateWithoutReceiptsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutReceiptsInput = {
@@ -14024,6 +14526,7 @@ export type BusinessUncheckedUpdateWithoutReceiptsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutShortLinksInput = {
@@ -14105,6 +14608,7 @@ export type BusinessCreateWithoutShortLinksInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutShortLinksInput = {
@@ -14186,6 +14690,7 @@ export type BusinessUncheckedCreateWithoutShortLinksInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutShortLinksInput = {
@@ -14283,6 +14788,7 @@ export type BusinessUpdateWithoutShortLinksInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutShortLinksInput = {
@@ -14364,6 +14870,7 @@ export type BusinessUncheckedUpdateWithoutShortLinksInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutDeliveriesInput = {
@@ -14445,6 +14952,7 @@ export type BusinessCreateWithoutDeliveriesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutDeliveriesInput = {
@@ -14526,6 +15034,7 @@ export type BusinessUncheckedCreateWithoutDeliveriesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutDeliveriesInput = {
@@ -14623,6 +15132,7 @@ export type BusinessUpdateWithoutDeliveriesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
@@ -14704,6 +15214,7 @@ export type BusinessUncheckedUpdateWithoutDeliveriesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutActivityEventsInput = {
@@ -14785,6 +15296,7 @@ export type BusinessCreateWithoutActivityEventsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutActivityEventsInput = {
@@ -14866,6 +15378,7 @@ export type BusinessUncheckedCreateWithoutActivityEventsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutActivityEventsInput = {
@@ -14963,6 +15476,7 @@ export type BusinessUpdateWithoutActivityEventsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
@@ -15044,6 +15558,7 @@ export type BusinessUncheckedUpdateWithoutActivityEventsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFollowUpTemplatesInput = {
@@ -15125,6 +15640,7 @@ export type BusinessCreateWithoutFollowUpTemplatesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
@@ -15206,6 +15722,7 @@ export type BusinessUncheckedCreateWithoutFollowUpTemplatesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFollowUpTemplatesInput = {
@@ -15303,6 +15820,7 @@ export type BusinessUpdateWithoutFollowUpTemplatesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
@@ -15384,6 +15902,7 @@ export type BusinessUncheckedUpdateWithoutFollowUpTemplatesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFollowUpSuggestionsInput = {
@@ -15465,6 +15984,7 @@ export type BusinessCreateWithoutFollowUpSuggestionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
@@ -15546,6 +16066,7 @@ export type BusinessUncheckedCreateWithoutFollowUpSuggestionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFollowUpSuggestionsInput = {
@@ -15643,6 +16164,7 @@ export type BusinessUpdateWithoutFollowUpSuggestionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
@@ -15724,6 +16246,7 @@ export type BusinessUncheckedUpdateWithoutFollowUpSuggestionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutFeedbackInput = {
@@ -15805,6 +16328,7 @@ export type BusinessCreateWithoutFeedbackInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutFeedbackInput = {
@@ -15886,6 +16410,7 @@ export type BusinessUncheckedCreateWithoutFeedbackInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutFeedbackInput = {
@@ -15983,6 +16508,7 @@ export type BusinessUpdateWithoutFeedbackInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutFeedbackInput = {
@@ -16064,6 +16590,7 @@ export type BusinessUncheckedUpdateWithoutFeedbackInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutIssuesInput = {
@@ -16145,6 +16672,7 @@ export type BusinessCreateWithoutIssuesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutIssuesInput = {
@@ -16226,6 +16754,7 @@ export type BusinessUncheckedCreateWithoutIssuesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutIssuesInput = {
@@ -16323,6 +16852,7 @@ export type BusinessUpdateWithoutIssuesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutIssuesInput = {
@@ -16404,6 +16934,7 @@ export type BusinessUncheckedUpdateWithoutIssuesInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutTrustLedgerInput = {
@@ -16485,6 +17016,7 @@ export type BusinessCreateWithoutTrustLedgerInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
@@ -16566,6 +17098,7 @@ export type BusinessUncheckedCreateWithoutTrustLedgerInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutTrustLedgerInput = {
@@ -16663,6 +17196,7 @@ export type BusinessUpdateWithoutTrustLedgerInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
@@ -16744,6 +17278,7 @@ export type BusinessUncheckedUpdateWithoutTrustLedgerInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutSupportRequestsInput = {
@@ -16825,6 +17360,7 @@ export type BusinessCreateWithoutSupportRequestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
@@ -16906,6 +17442,7 @@ export type BusinessUncheckedCreateWithoutSupportRequestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSupportRequestsInput = {
@@ -17003,6 +17540,7 @@ export type BusinessUpdateWithoutSupportRequestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
@@ -17084,6 +17622,7 @@ export type BusinessUncheckedUpdateWithoutSupportRequestsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutMessageOutboxInput = {
@@ -17165,6 +17704,7 @@ export type BusinessCreateWithoutMessageOutboxInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutMessageOutboxInput = {
@@ -17246,6 +17786,7 @@ export type BusinessUncheckedCreateWithoutMessageOutboxInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutMessageOutboxInput = {
@@ -17343,6 +17884,7 @@ export type BusinessUpdateWithoutMessageOutboxInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutMessageOutboxInput = {
@@ -17424,6 +17966,7 @@ export type BusinessUncheckedUpdateWithoutMessageOutboxInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutAttentionReceiptsInput = {
@@ -17505,6 +18048,7 @@ export type BusinessCreateWithoutAttentionReceiptsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutAttentionReceiptsInput = {
@@ -17586,6 +18130,7 @@ export type BusinessUncheckedCreateWithoutAttentionReceiptsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutAttentionReceiptsInput = {
@@ -17683,6 +18228,7 @@ export type BusinessUpdateWithoutAttentionReceiptsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutAttentionReceiptsInput = {
@@ -17764,6 +18310,7 @@ export type BusinessUncheckedUpdateWithoutAttentionReceiptsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPushSubscriptionsInput = {
@@ -17845,6 +18392,7 @@ export type BusinessCreateWithoutPushSubscriptionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -17926,6 +18474,7 @@ export type BusinessUncheckedCreateWithoutPushSubscriptionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedCreateNestedManyWithoutBusinessInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedCreateNestedManyWithoutBusinessInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedCreateNestedManyWithoutBusinessInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -18023,6 +18572,7 @@ export type BusinessUpdateWithoutPushSubscriptionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -18104,6 +18654,7 @@ export type BusinessUncheckedUpdateWithoutPushSubscriptionsInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateManyOwnerInput = {
@@ -18223,6 +18774,7 @@ export type BusinessUpdateWithoutOwnerInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutOwnerInput = {
@@ -18304,6 +18856,7 @@ export type BusinessUncheckedUpdateWithoutOwnerInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateManyWithoutOwnerInput = {
@@ -18461,6 +19014,7 @@ export type BusinessUpdateWithoutPlatformSuspendedByInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPlatformSuspendedByInput = {
@@ -18542,6 +19096,7 @@ export type BusinessUncheckedUpdateWithoutPlatformSuspendedByInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateManyWithoutPlatformSuspendedByInput = {
@@ -18699,6 +19254,7 @@ export type BusinessUpdateWithoutLaunchProductInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutLaunchProductInput = {
@@ -18780,6 +19336,7 @@ export type BusinessUncheckedUpdateWithoutLaunchProductInput = {
   slugHistory?: Prisma.BusinessSlugHistoryUncheckedUpdateManyWithoutBusinessNestedInput
   pickupLocations?: Prisma.BusinessPickupLocationUncheckedUpdateManyWithoutBusinessNestedInput
   businessCustomerReports?: Prisma.BusinessCustomerReportUncheckedUpdateManyWithoutBusinessNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateManyWithoutLaunchProductInput = {
@@ -18867,6 +19424,7 @@ export type BusinessCountOutputType = {
   slugHistory: number
   pickupLocations: number
   businessCustomerReports: number
+  storefrontStories: number
 }
 
 export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -18911,6 +19469,7 @@ export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   slugHistory?: boolean | BusinessCountOutputTypeCountSlugHistoryArgs
   pickupLocations?: boolean | BusinessCountOutputTypeCountPickupLocationsArgs
   businessCustomerReports?: boolean | BusinessCountOutputTypeCountBusinessCustomerReportsArgs
+  storefrontStories?: boolean | BusinessCountOutputTypeCountStorefrontStoriesArgs
 }
 
 /**
@@ -19210,6 +19769,13 @@ export type BusinessCountOutputTypeCountBusinessCustomerReportsArgs<ExtArgs exte
   where?: Prisma.BusinessCustomerReportWhereInput
 }
 
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountStorefrontStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StorefrontStoryWhereInput
+}
+
 
 export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -19296,6 +19862,7 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   slugHistory?: boolean | Prisma.Business$slugHistoryArgs<ExtArgs>
   pickupLocations?: boolean | Prisma.Business$pickupLocationsArgs<ExtArgs>
   businessCustomerReports?: boolean | Prisma.Business$businessCustomerReportsArgs<ExtArgs>
+  storefrontStories?: boolean | Prisma.Business$storefrontStoriesArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["business"]>
 
@@ -19476,6 +20043,7 @@ export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   slugHistory?: boolean | Prisma.Business$slugHistoryArgs<ExtArgs>
   pickupLocations?: boolean | Prisma.Business$pickupLocationsArgs<ExtArgs>
   businessCustomerReports?: boolean | Prisma.Business$businessCustomerReportsArgs<ExtArgs>
+  storefrontStories?: boolean | Prisma.Business$storefrontStoriesArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BusinessIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -19544,6 +20112,7 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     slugHistory: Prisma.$BusinessSlugHistoryPayload<ExtArgs>[]
     pickupLocations: Prisma.$BusinessPickupLocationPayload<ExtArgs>[]
     businessCustomerReports: Prisma.$BusinessCustomerReportPayload<ExtArgs>[]
+    storefrontStories: Prisma.$StorefrontStoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -20024,6 +20593,7 @@ export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends runtime
   slugHistory<T extends Prisma.Business$slugHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$slugHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessSlugHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pickupLocations<T extends Prisma.Business$pickupLocationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$pickupLocationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessPickupLocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   businessCustomerReports<T extends Prisma.Business$businessCustomerReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$businessCustomerReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessCustomerReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  storefrontStories<T extends Prisma.Business$storefrontStoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$storefrontStoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorefrontStoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21585,6 +22155,30 @@ export type Business$businessCustomerReportsArgs<ExtArgs extends runtime.Types.E
   take?: number
   skip?: number
   distinct?: Prisma.BusinessCustomerReportScalarFieldEnum | Prisma.BusinessCustomerReportScalarFieldEnum[]
+}
+
+/**
+ * Business.storefrontStories
+ */
+export type Business$storefrontStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StorefrontStory
+   */
+  select?: Prisma.StorefrontStorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StorefrontStory
+   */
+  omit?: Prisma.StorefrontStoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StorefrontStoryInclude<ExtArgs> | null
+  where?: Prisma.StorefrontStoryWhereInput
+  orderBy?: Prisma.StorefrontStoryOrderByWithRelationInput | Prisma.StorefrontStoryOrderByWithRelationInput[]
+  cursor?: Prisma.StorefrontStoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StorefrontStoryScalarFieldEnum | Prisma.StorefrontStoryScalarFieldEnum[]
 }
 
 /**

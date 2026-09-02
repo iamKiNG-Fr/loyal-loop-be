@@ -21,6 +21,7 @@ const cartInclude = {
     include: {
       business: { select: { id: true, name: true, slug: true, platformStatus: true, preferences: true } },
       customerAddress: true,
+      sourceShowcase: { include: { hotspots: { select: { productId: true } } } },
     },
     orderBy: { createdAt: "asc" as const },
   },
@@ -69,7 +70,31 @@ export class CartsService {
     return this.accountCart(auth);
   }
 
+  async addDeviceBundle(deviceKey: string, showcaseId: string) {
+    const cart = await this.getOrCreateDeviceCart(this.validDeviceKey(deviceKey));
+    await this.addBundle(cart.id, showcaseId);
+    return this.deviceCart(deviceKey);
+  }
+
+  async addAccountBundle(auth: CustomerAuthContext, showcaseId: string) {
+    const cart = await this.getOrCreateAccountCart(auth.customerAccountId);
+    await this.addBundle(cart.id, showcaseId);
+    return this.accountCart(auth);
+  }
+
   async updateItem(cartId: string, itemId: string, quantity: number) {
+    const item = await this.prisma.customerCartItem.findFirst({
+      where: { id: itemId, cartId },
+      select: { businessId: true, productId: true },
+    });
+    if (!item) throw new NotFoundException("Cart item not found");
+    const bundleGroup = await this.prisma.customerCartGroup.findUnique({
+      where: { cartId_businessId: { cartId, businessId: item.businessId } },
+      include: { sourceShowcase: { include: { hotspots: { select: { productId: true } } } } },
+    });
+    if (quantity !== 1 && bundleGroup?.sourceShowcase?.hotspots.some((hotspot) => hotspot.productId === item.productId)) {
+      throw new BadRequestException("Products inside a set stay at quantity one. Remove the set before changing them");
+    }
     const changed = await this.prisma.customerCartItem.updateMany({
       where: { id: itemId, cartId },
       data: { quantity },
@@ -81,9 +106,13 @@ export class CartsService {
     await this.prisma.$transaction(async (tx) => {
       const item = await tx.customerCartItem.findFirst({
         where: { id: itemId, cartId },
-        select: { businessId: true },
+        select: { businessId: true, productId: true },
       });
       if (!item) throw new NotFoundException("Cart item not found");
+      const group = await tx.customerCartGroup.findUnique({
+        where: { cartId_businessId: { cartId, businessId: item.businessId } },
+        include: { sourceShowcase: { include: { hotspots: { select: { productId: true } } } } },
+      });
       await tx.customerCartItem.delete({ where: { id: itemId } });
       const remaining = await tx.customerCartItem.count({
         where: { cartId, businessId: item.businessId },
@@ -91,6 +120,12 @@ export class CartsService {
       if (!remaining) {
         await tx.customerCartGroup.deleteMany({
           where: { cartId, businessId: item.businessId },
+        });
+      }
+      else if (group?.sourceShowcase?.hotspots.some((hotspot) => hotspot.productId === item.productId)) {
+        await tx.customerCartGroup.update({
+          where: { cartId_businessId: { cartId, businessId: item.businessId } },
+          data: { sourceShowcaseId: null },
         });
       }
     });
@@ -204,6 +239,7 @@ export class CartsService {
             recipientName: group.recipientName,
             recipientPhone: group.recipientPhone,
             whatsappUpdatesConsent: group.whatsappUpdatesConsent,
+            sourceShowcaseId: group.sourceShowcaseId,
           },
           update: {},
         });
@@ -274,6 +310,7 @@ export class CartsService {
               administrativeArea1: address.administrativeArea1,
               countryCode: address.countryCode,
               deliveryAreas: group.business.preferences?.deliveryAreas,
+              deliveryCountries: group.business.preferences?.deliveryCountries,
               deliveryStates: group.business.preferences?.deliveryStates,
             })
           : { administrativeArea1: undefined, status: "NOT_APPLICABLE" as const };
@@ -300,6 +337,18 @@ export class CartsService {
             const quote = await this.promotions.quote(tx, { businessId: group.business.id, customerKey, productId: item.productId, quantity: item.quantity, variantId: item.variantId });
             quotedItems.push({ item, quote });
           }
+          const bundleProductIds = new Set(group.sourceShowcase?.commerceMode === "BUNDLE"
+            ? group.sourceShowcase.hotspots.map((hotspot) => hotspot.productId)
+            : []);
+          if (bundleProductIds.size) {
+            const bundleItems = quotedItems.filter(({ item }) => bundleProductIds.has(item.productId));
+            if (bundleItems.length !== bundleProductIds.size || bundleItems.some(({ item }) => item.quantity !== 1)) {
+              throw new BadRequestException("This set changed in your bag. Remove it and add the current set again");
+            }
+          }
+          const bundlePrices = group.sourceShowcase?.bundlePrice && bundleProductIds.size
+            ? allocateBundlePrices(group.sourceShowcase.bundlePrice, quotedItems.filter(({ item }) => bundleProductIds.has(item.productId)))
+            : new Map<string, Prisma.Decimal>();
           const created = await tx.orderRequest.create({
             data: {
               businessId: group.business.id,
@@ -309,6 +358,7 @@ export class CartsService {
               tokenHash: token.tokenHash,
               customerName: account.name?.trim() || "Loyal Loop customer",
               customerPhone: account.phone,
+              sourceShowcaseId: group.sourceShowcase?.id,
               channel: "OTHER",
               fulfillment: group.fulfillment,
               pickupMethod: group.fulfillment === "PICKUP"
@@ -330,7 +380,10 @@ export class CartsService {
               recipientName: group.isGift ? group.recipientName?.trim() : undefined,
               recipientPhone: group.isGift ? group.recipientPhone?.trim() : undefined,
               items: {
-                create: quotedItems.map(({ item, quote }) => ({
+                create: quotedItems.map(({ item, quote }) => {
+                  const bundleUnitPrice = bundlePrices.get(item.productId);
+                  const unitPrice = bundleUnitPrice ?? quote.unitPrice;
+                  return ({
                   productId: item.productId,
                   variantId: item.variantId,
                   variantName: item.variant?.name,
@@ -340,18 +393,19 @@ export class CartsService {
                   name: item.product.name,
                   imageUrl: item.product.images[0]?.asset.secureUrl,
                   quantity: item.quantity,
-                  originalUnitPrice: quote.promotionId ? quote.originalUnitPrice : undefined,
-                  promotionId: quote.promotionId,
-                  promotionSnapshot: quote.promotionSnapshot,
-                  unitPrice: quote.unitPrice,
-                  total: quote.unitPrice.mul(item.quantity),
-                })),
+                  originalUnitPrice: bundleUnitPrice ? quote.originalUnitPrice : quote.promotionId ? quote.originalUnitPrice : undefined,
+                  promotionId: bundleUnitPrice ? undefined : quote.promotionId,
+                  promotionSnapshot: bundleUnitPrice ? { type: "SHOWCASE_SET", showcaseId: group.sourceShowcase?.id, title: group.sourceShowcase?.title } : quote.promotionSnapshot,
+                  unitPrice,
+                  total: unitPrice.mul(item.quantity),
+                })}),
               },
               events: { create: { businessId: group.business.id, customerAccountId: auth.customerAccountId, type: "REQUEST_SUBMITTED" } },
             },
             include: { items: true },
           });
           for (const { item, quote } of quotedItems) {
+            if (bundleProductIds.has(item.productId)) continue;
             await this.promotions.reserve(tx, { customerAccountId: auth.customerAccountId, customerKey, orderRequestId: created.id, quantity: item.quantity, quote });
           }
           await tx.customerCartItem.deleteMany({ where: { cartId: cart.id, businessId: group.business.id } });
@@ -394,6 +448,13 @@ export class CartsService {
     const stock = variant?.stockCount ?? product.stockCount;
     if (stock !== null && stock < dto.quantity) throw new BadRequestException("Requested quantity is not in stock");
     const variantKey = variant?.id ?? "default";
+    const group = await this.prisma.customerCartGroup.findUnique({
+      where: { cartId_businessId: { cartId, businessId: product.businessId } },
+      include: { sourceShowcase: { include: { hotspots: { select: { productId: true } } } } },
+    });
+    if (group?.sourceShowcase?.hotspots.some((hotspot) => hotspot.productId === product.id)) {
+      throw new BadRequestException("This product is already part of a set in your bag");
+    }
     const existing = await this.prisma.customerCartItem.findUnique({
       where: { cartId_productId_variantKey: { cartId, productId: product.id, variantKey } },
     });
@@ -432,6 +493,80 @@ export class CartsService {
         update: {},
       }),
     ]);
+  }
+
+  private async addBundle(cartId: string, showcaseId: string) {
+    const showcase = await this.prisma.showcase.findFirst({
+      where: {
+        id: showcaseId,
+        commerceMode: "BUNDLE",
+        status: "PUBLISHED",
+        business: { storeStatus: "OPEN", platformStatus: "ACTIVE" },
+      },
+      include: {
+        business: { select: { preferences: true } },
+        hotspots: {
+          include: {
+            product: {
+              include: {
+                promotions: { where: { status: "ACTIVE" }, orderBy: { createdAt: "desc" } },
+                variants: { where: { active: true } },
+              },
+            },
+          },
+          orderBy: { sortOrder: "asc" },
+        },
+      },
+    });
+    if (!showcase?.bundlePrice || showcase.hotspots.length < 2) throw new NotFoundException("This set is unavailable");
+    if (showcase.hotspots.some(({ product }) => product.status !== "ACTIVE" || product.visibility !== "PUBLIC" || product.stockCount === 0 || product.variants.length > 1 || product.variants[0]?.stockCount === 0)) {
+      throw new BadRequestException("One or more products in this set are currently unavailable");
+    }
+    await this.prisma.$transaction(async (tx) => {
+      const currentGroup = await tx.customerCartGroup.findUnique({
+        where: { cartId_businessId: { cartId, businessId: showcase.businessId } },
+      });
+      if (currentGroup?.sourceShowcaseId && currentGroup.sourceShowcaseId !== showcase.id) {
+        throw new BadRequestException("Your bag already contains another set from this shop");
+      }
+      for (const { product } of showcase.hotspots) {
+        const variant = product.variants[0];
+        const variantKey = variant?.id ?? "default";
+        const existing = await tx.customerCartItem.findUnique({
+          where: { cartId_productId_variantKey: { cartId, productId: product.id, variantKey } },
+        });
+        if (existing && existing.quantity !== 1) throw new BadRequestException(`${product.name} already has a different quantity in your bag`);
+        const price = displayPromotionPrice(product, variant?.id, variant?.priceOverride ?? product.price).price;
+        await tx.customerCartItem.upsert({
+          where: { cartId_productId_variantKey: { cartId, productId: product.id, variantKey } },
+          create: {
+            businessId: showcase.businessId,
+            cartId,
+            priceSnapshot: price,
+            productId: product.id,
+            quantity: 1,
+            stockSnapshot: variant?.stockCount ?? product.stockCount,
+            variantId: variant?.id,
+            variantKey,
+          },
+          update: {},
+        });
+      }
+      const fulfillment = customerFulfillmentMethods(showcase.business.preferences?.allowedFulfillmentMethods)[0];
+      await tx.customerCartGroup.upsert({
+        where: { cartId_businessId: { cartId, businessId: showcase.businessId } },
+        create: {
+          businessId: showcase.businessId,
+          cartId,
+          fulfillment,
+          paymentPreference: showcase.business.preferences?.defaultPaymentMethod
+            ?? (showcase.business.preferences?.allowedPaymentMethods.length === 1 ? showcase.business.preferences.allowedPaymentMethods[0] : undefined),
+          pickupMethod: fulfillment === "PICKUP" ? "CUSTOMER_PICKUP" : undefined,
+          sourceShowcaseId: showcase.id,
+        },
+        update: { sourceShowcaseId: showcase.id },
+      });
+    });
   }
 
   private async read(cart: { id: string }) {
@@ -506,4 +641,24 @@ function displayPromotionPrice(
     ? originalPrice.mul(100 - (promotion.percentage ?? 0)).div(100).toDecimalPlaces(2)
     : promotion.promotionalPrice!;
   return { originalPrice, price, promotion: promotion ? { endsAt: promotion.endsAt, id: promotion.id, name: promotion.name, percentage: promotion.percentage, type: promotion.type } : null };
+}
+
+function allocateBundlePrices(
+  bundlePrice: Prisma.Decimal,
+  entries: Array<{ item: { productId: string }; quote: { unitPrice: Prisma.Decimal } }>,
+) {
+  const prices = new Map<string, Prisma.Decimal>();
+  if (!entries.length) return prices;
+  const totalCents = Math.max(1, Math.round(Number(bundlePrice) * 100));
+  const weights = entries.map(({ quote }) => Math.max(0, Number(quote.unitPrice)));
+  const weightTotal = weights.reduce((total, value) => total + value, 0);
+  let allocated = 0;
+  entries.forEach(({ item }, index) => {
+    const cents = index === entries.length - 1
+      ? totalCents - allocated
+      : Math.max(0, Math.round(totalCents * (weightTotal ? weights[index]! / weightTotal : 1 / entries.length)));
+    allocated += cents;
+    prices.set(item.productId, new Prisma.Decimal(cents).div(100));
+  });
+  return prices;
 }

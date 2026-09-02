@@ -431,6 +431,7 @@ export const ModelName = {
   ProductMedia: 'ProductMedia',
   Showcase: 'Showcase',
   ShowcaseHotspot: 'ShowcaseHotspot',
+  StorefrontStory: 'StorefrontStory',
   SavedShowcase: 'SavedShowcase',
   ShopFollow: 'ShopFollow',
   WishlistItem: 'WishlistItem',
@@ -490,7 +491,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "foundingValueFeedback" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminPasskey" | "platformAdminPasskeyChallenge" | "platformAdminRecoveryCode" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "onboardingEmailChallenge" | "passwordRecoveryToken" | "business" | "businessSlugHistory" | "businessPickupLocation" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "businessCustomerReport" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerReport" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "ownerAttentionReceipt" | "ownerPushSubscription" | "messageAttempt" | "messagingWebhookEvent"
+    modelProps: "waitlistEntry" | "foundingAccessApplication" | "foundingCohort" | "onboardingInvitation" | "foundingProgramEnrollment" | "foundingResearchInterview" | "foundingValueFeedback" | "user" | "platformAdmin" | "platformAdminSession" | "platformAdminPasskey" | "platformAdminPasskeyChallenge" | "platformAdminRecoveryCode" | "platformAdminAuditLog" | "ownerSession" | "ownerOtpChallenge" | "onboardingEmailChallenge" | "passwordRecoveryToken" | "business" | "businessSlugHistory" | "businessPickupLocation" | "businessPreferences" | "businessContact" | "businessPaymentAccount" | "businessMember" | "memberPermissionOverride" | "businessInvitation" | "mediaAsset" | "mediaModerationReview" | "customerAccount" | "customerAccountSession" | "customerOtpChallenge" | "customer" | "businessCustomerReport" | "customerContact" | "customerAddress" | "customerNote" | "customerInsightSummary" | "customerTag" | "customerTagAssignment" | "businessCategory" | "product" | "productImage" | "productVariant" | "productMedia" | "showcase" | "showcaseHotspot" | "storefrontStory" | "savedShowcase" | "shopFollow" | "wishlistItem" | "productInterest" | "customerCart" | "customerCartItem" | "customerCartGroup" | "productPromotion" | "promotionReservation" | "orderRequest" | "customerReport" | "orderRequestTermChange" | "customerOrderNotice" | "orderRequestShareToken" | "orderRequestItem" | "orderRequestPaymentChange" | "commerceEvent" | "discoveryPreference" | "discoveryTelemetry" | "sale" | "salePaymentInstruction" | "saleItem" | "paymentEntry" | "paymentProof" | "receipt" | "shortLink" | "receiptShareToken" | "delivery" | "deliveryShareToken" | "deliveryEvent" | "activityEvent" | "followUpTemplate" | "followUpSuggestion" | "customerFeedback" | "customerIssue" | "trustLedgerEntry" | "supportRequest" | "messagingConsent" | "messagingSuppression" | "messageOutbox" | "ownerAttentionReceipt" | "ownerPushSubscription" | "messageAttempt" | "messagingWebhookEvent"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3969,6 +3970,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ShowcaseHotspotCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ShowcaseHotspotCountAggregateOutputType> | number
+        }
+      }
+    }
+    StorefrontStory: {
+      payload: Prisma.$StorefrontStoryPayload<ExtArgs>
+      fields: Prisma.StorefrontStoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StorefrontStoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StorefrontStoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload>
+        }
+        findFirst: {
+          args: Prisma.StorefrontStoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StorefrontStoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload>
+        }
+        findMany: {
+          args: Prisma.StorefrontStoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload>[]
+        }
+        create: {
+          args: Prisma.StorefrontStoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload>
+        }
+        createMany: {
+          args: Prisma.StorefrontStoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StorefrontStoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload>[]
+        }
+        delete: {
+          args: Prisma.StorefrontStoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload>
+        }
+        update: {
+          args: Prisma.StorefrontStoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.StorefrontStoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StorefrontStoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StorefrontStoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.StorefrontStoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StorefrontStoryPayload>
+        }
+        aggregate: {
+          args: Prisma.StorefrontStoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStorefrontStory>
+        }
+        groupBy: {
+          args: Prisma.StorefrontStoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StorefrontStoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StorefrontStoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StorefrontStoryCountAggregateOutputType> | number
         }
       }
     }
@@ -7648,6 +7723,8 @@ export const BusinessPickupLocationScalarFieldEnum = {
   googlePlaceId: 'googlePlaceId',
   latitude: 'latitude',
   longitude: 'longitude',
+  countryCode: 'countryCode',
+  regionCode: 'regionCode',
   isDefault: 'isDefault',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -7674,6 +7751,8 @@ export const BusinessPreferencesScalarFieldEnum = {
   allowedFulfillmentMethods: 'allowedFulfillmentMethods',
   deliveryAreas: 'deliveryAreas',
   deliveryStates: 'deliveryStates',
+  deliveryCountries: 'deliveryCountries',
+  collectionOrder: 'collectionOrder',
   protectedPaymentEnabled: 'protectedPaymentEnabled',
   receiptDeliveryLine: 'receiptDeliveryLine',
   receiptFooter: 'receiptFooter',
@@ -8104,6 +8183,8 @@ export const ShowcaseScalarFieldEnum = {
   caption: 'caption',
   status: 'status',
   featured: 'featured',
+  commerceMode: 'commerceMode',
+  bundlePrice: 'bundlePrice',
   contentRating: 'contentRating',
   publishedAt: 'publishedAt',
   createdAt: 'createdAt',
@@ -8124,6 +8205,27 @@ export const ShowcaseHotspotScalarFieldEnum = {
 } as const
 
 export type ShowcaseHotspotScalarFieldEnum = (typeof ShowcaseHotspotScalarFieldEnum)[keyof typeof ShowcaseHotspotScalarFieldEnum]
+
+
+export const StorefrontStoryScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  kind: 'kind',
+  sortOrder: 'sortOrder',
+  productId: 'productId',
+  collectionId: 'collectionId',
+  showcaseId: 'showcaseId',
+  assetId: 'assetId',
+  title: 'title',
+  caption: 'caption',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  linkUrl: 'linkUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StorefrontStoryScalarFieldEnum = (typeof StorefrontStoryScalarFieldEnum)[keyof typeof StorefrontStoryScalarFieldEnum]
 
 
 export const SavedShowcaseScalarFieldEnum = {
@@ -8213,6 +8315,7 @@ export const CustomerCartGroupScalarFieldEnum = {
   recipientName: 'recipientName',
   recipientPhone: 'recipientPhone',
   whatsappUpdatesConsent: 'whatsappUpdatesConsent',
+  sourceShowcaseId: 'sourceShowcaseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -9725,6 +9828,34 @@ export type ListEnumShowcaseStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'ShowcaseCommerceMode'
+ */
+export type EnumShowcaseCommerceModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShowcaseCommerceMode'>
+
+
+
+/**
+ * Reference to a field of type 'ShowcaseCommerceMode[]'
+ */
+export type ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShowcaseCommerceMode[]'>
+
+
+
+/**
+ * Reference to a field of type 'StorefrontStoryKind'
+ */
+export type EnumStorefrontStoryKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StorefrontStoryKind'>
+
+
+
+/**
+ * Reference to a field of type 'StorefrontStoryKind[]'
+ */
+export type ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StorefrontStoryKind[]'>
+
+
+
+/**
  * Reference to a field of type 'ProductInterestType'
  */
 export type EnumProductInterestTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductInterestType'>
@@ -10286,6 +10417,7 @@ export type GlobalOmitConfig = {
   productMedia?: Prisma.ProductMediaOmit
   showcase?: Prisma.ShowcaseOmit
   showcaseHotspot?: Prisma.ShowcaseHotspotOmit
+  storefrontStory?: Prisma.StorefrontStoryOmit
   savedShowcase?: Prisma.SavedShowcaseOmit
   shopFollow?: Prisma.ShopFollowOmit
   wishlistItem?: Prisma.WishlistItemOmit
@@ -10392,4 +10524,3 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
-

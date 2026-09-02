@@ -127,6 +127,8 @@ export type BusinessPreferencesCountAggregateOutputType = {
   allowedFulfillmentMethods: number
   deliveryAreas: number
   deliveryStates: number
+  deliveryCountries: number
+  collectionOrder: number
   protectedPaymentEnabled: number
   receiptDeliveryLine: number
   receiptFooter: number
@@ -257,6 +259,8 @@ export type BusinessPreferencesCountAggregateInputType = {
   allowedFulfillmentMethods?: true
   deliveryAreas?: true
   deliveryStates?: true
+  deliveryCountries?: true
+  collectionOrder?: true
   protectedPaymentEnabled?: true
   receiptDeliveryLine?: true
   receiptFooter?: true
@@ -388,6 +392,8 @@ export type BusinessPreferencesGroupByOutputType = {
   allowedFulfillmentMethods: $Enums.FulfillmentType[]
   deliveryAreas: string[]
   deliveryStates: string[]
+  deliveryCountries: string[]
+  collectionOrder: string[]
   protectedPaymentEnabled: boolean
   receiptDeliveryLine: $Enums.ReceiptDeliveryLine
   receiptFooter: string | null
@@ -455,6 +461,8 @@ export type BusinessPreferencesWhereInput = {
   allowedFulfillmentMethods?: Prisma.EnumFulfillmentTypeNullableListFilter<"BusinessPreferences">
   deliveryAreas?: Prisma.StringNullableListFilter<"BusinessPreferences">
   deliveryStates?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  deliveryCountries?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  collectionOrder?: Prisma.StringNullableListFilter<"BusinessPreferences">
   protectedPaymentEnabled?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFilter<"BusinessPreferences"> | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
@@ -500,6 +508,8 @@ export type BusinessPreferencesOrderByWithRelationInput = {
   allowedFulfillmentMethods?: Prisma.SortOrder
   deliveryAreas?: Prisma.SortOrder
   deliveryStates?: Prisma.SortOrder
+  deliveryCountries?: Prisma.SortOrder
+  collectionOrder?: Prisma.SortOrder
   protectedPaymentEnabled?: Prisma.SortOrder
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -548,6 +558,8 @@ export type BusinessPreferencesWhereUniqueInput = Prisma.AtLeast<{
   allowedFulfillmentMethods?: Prisma.EnumFulfillmentTypeNullableListFilter<"BusinessPreferences">
   deliveryAreas?: Prisma.StringNullableListFilter<"BusinessPreferences">
   deliveryStates?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  deliveryCountries?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  collectionOrder?: Prisma.StringNullableListFilter<"BusinessPreferences">
   protectedPaymentEnabled?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFilter<"BusinessPreferences"> | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
@@ -593,6 +605,8 @@ export type BusinessPreferencesOrderByWithAggregationInput = {
   allowedFulfillmentMethods?: Prisma.SortOrder
   deliveryAreas?: Prisma.SortOrder
   deliveryStates?: Prisma.SortOrder
+  deliveryCountries?: Prisma.SortOrder
+  collectionOrder?: Prisma.SortOrder
   protectedPaymentEnabled?: Prisma.SortOrder
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -645,6 +659,8 @@ export type BusinessPreferencesScalarWhereWithAggregatesInput = {
   allowedFulfillmentMethods?: Prisma.EnumFulfillmentTypeNullableListFilter<"BusinessPreferences">
   deliveryAreas?: Prisma.StringNullableListFilter<"BusinessPreferences">
   deliveryStates?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  deliveryCountries?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  collectionOrder?: Prisma.StringNullableListFilter<"BusinessPreferences">
   protectedPaymentEnabled?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineWithAggregatesFilter<"BusinessPreferences"> | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.StringNullableWithAggregatesFilter<"BusinessPreferences"> | string | null
@@ -688,6 +704,8 @@ export type BusinessPreferencesCreateInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesCreateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesCreatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesCreatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesCreatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesCreatecollectionOrderInput | string[]
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -733,6 +751,8 @@ export type BusinessPreferencesUncheckedCreateInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesCreateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesCreatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesCreatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesCreatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesCreatecollectionOrderInput | string[]
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -776,6 +796,8 @@ export type BusinessPreferencesUpdateInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesUpdateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesUpdatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesUpdatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesUpdatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesUpdatecollectionOrderInput | string[]
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -821,6 +843,8 @@ export type BusinessPreferencesUncheckedUpdateInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesUpdateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesUpdatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesUpdatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesUpdatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesUpdatecollectionOrderInput | string[]
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -865,6 +889,8 @@ export type BusinessPreferencesCreateManyInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesCreateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesCreatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesCreatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesCreatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesCreatecollectionOrderInput | string[]
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -908,6 +934,8 @@ export type BusinessPreferencesUpdateManyMutationInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesUpdateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesUpdatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesUpdatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesUpdatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesUpdatecollectionOrderInput | string[]
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -952,6 +980,8 @@ export type BusinessPreferencesUncheckedUpdateManyInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesUpdateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesUpdatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesUpdatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesUpdatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesUpdatecollectionOrderInput | string[]
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1025,6 +1055,8 @@ export type BusinessPreferencesCountOrderByAggregateInput = {
   allowedFulfillmentMethods?: Prisma.SortOrder
   deliveryAreas?: Prisma.SortOrder
   deliveryStates?: Prisma.SortOrder
+  deliveryCountries?: Prisma.SortOrder
+  collectionOrder?: Prisma.SortOrder
   protectedPaymentEnabled?: Prisma.SortOrder
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrder
@@ -1192,6 +1224,14 @@ export type BusinessPreferencesCreatedeliveryStatesInput = {
   set: string[]
 }
 
+export type BusinessPreferencesCreatedeliveryCountriesInput = {
+  set: string[]
+}
+
+export type BusinessPreferencesCreatecollectionOrderInput = {
+  set: string[]
+}
+
 export type BusinessPreferencesCreatedailyDigestWeekdaysInput = {
   set: number[]
 }
@@ -1242,6 +1282,16 @@ export type BusinessPreferencesUpdatedeliveryStatesInput = {
   push?: string | string[]
 }
 
+export type BusinessPreferencesUpdatedeliveryCountriesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type BusinessPreferencesUpdatecollectionOrderInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type EnumReceiptDeliveryLineFieldUpdateOperationsInput = {
   set?: $Enums.ReceiptDeliveryLine
 }
@@ -1275,6 +1325,8 @@ export type BusinessPreferencesCreateWithoutBusinessInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesCreateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesCreatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesCreatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesCreatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesCreatecollectionOrderInput | string[]
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -1318,6 +1370,8 @@ export type BusinessPreferencesUncheckedCreateWithoutBusinessInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesCreateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesCreatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesCreatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesCreatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesCreatecollectionOrderInput | string[]
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
@@ -1377,6 +1431,8 @@ export type BusinessPreferencesUpdateWithoutBusinessInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesUpdateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesUpdatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesUpdatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesUpdatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesUpdatecollectionOrderInput | string[]
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1420,6 +1476,8 @@ export type BusinessPreferencesUncheckedUpdateWithoutBusinessInput = {
   allowedFulfillmentMethods?: Prisma.BusinessPreferencesUpdateallowedFulfillmentMethodsInput | $Enums.FulfillmentType[]
   deliveryAreas?: Prisma.BusinessPreferencesUpdatedeliveryAreasInput | string[]
   deliveryStates?: Prisma.BusinessPreferencesUpdatedeliveryStatesInput | string[]
+  deliveryCountries?: Prisma.BusinessPreferencesUpdatedeliveryCountriesInput | string[]
+  collectionOrder?: Prisma.BusinessPreferencesUpdatecollectionOrderInput | string[]
   protectedPaymentEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1466,6 +1524,8 @@ export type BusinessPreferencesSelect<ExtArgs extends runtime.Types.Extensions.I
   allowedFulfillmentMethods?: boolean
   deliveryAreas?: boolean
   deliveryStates?: boolean
+  deliveryCountries?: boolean
+  collectionOrder?: boolean
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
@@ -1511,6 +1571,8 @@ export type BusinessPreferencesSelectCreateManyAndReturn<ExtArgs extends runtime
   allowedFulfillmentMethods?: boolean
   deliveryAreas?: boolean
   deliveryStates?: boolean
+  deliveryCountries?: boolean
+  collectionOrder?: boolean
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
@@ -1556,6 +1618,8 @@ export type BusinessPreferencesSelectUpdateManyAndReturn<ExtArgs extends runtime
   allowedFulfillmentMethods?: boolean
   deliveryAreas?: boolean
   deliveryStates?: boolean
+  deliveryCountries?: boolean
+  collectionOrder?: boolean
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
@@ -1601,6 +1665,8 @@ export type BusinessPreferencesSelectScalar = {
   allowedFulfillmentMethods?: boolean
   deliveryAreas?: boolean
   deliveryStates?: boolean
+  deliveryCountries?: boolean
+  collectionOrder?: boolean
   protectedPaymentEnabled?: boolean
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
@@ -1628,7 +1694,7 @@ export type BusinessPreferencesSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "featuredCollectionIds" | "tickerItems" | "defaultPaymentStatus" | "allowedPaymentMethods" | "defaultPaymentMethod" | "allowedFulfillmentMethods" | "deliveryAreas" | "deliveryStates" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "lowStockThreshold" | "dailyDigestWhatsapp" | "dailyDigestTime" | "dailyDigestWeekdays" | "dailyDigestPhone" | "dailyDigestConsentAt" | "dailyDigestConsentVersion" | "dailyDigestPausedAt" | "lastDailyDigestAt" | "customerMemoryWhatsapp" | "customerMemoryPhone" | "customerMemoryConsentAt" | "customerMemoryConsentVersion" | "pushNotificationsEnabled" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
+export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "featuredCollectionIds" | "tickerItems" | "defaultPaymentStatus" | "allowedPaymentMethods" | "defaultPaymentMethod" | "allowedFulfillmentMethods" | "deliveryAreas" | "deliveryStates" | "deliveryCountries" | "collectionOrder" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "lowStockThreshold" | "dailyDigestWhatsapp" | "dailyDigestTime" | "dailyDigestWeekdays" | "dailyDigestPhone" | "dailyDigestConsentAt" | "dailyDigestConsentVersion" | "dailyDigestPausedAt" | "lastDailyDigestAt" | "customerMemoryWhatsapp" | "customerMemoryPhone" | "customerMemoryConsentAt" | "customerMemoryConsentVersion" | "pushNotificationsEnabled" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
 export type BusinessPreferencesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
 }
@@ -1661,6 +1727,8 @@ export type $BusinessPreferencesPayload<ExtArgs extends runtime.Types.Extensions
     allowedFulfillmentMethods: $Enums.FulfillmentType[]
     deliveryAreas: string[]
     deliveryStates: string[]
+    deliveryCountries: string[]
+    collectionOrder: string[]
     protectedPaymentEnabled: boolean
     receiptDeliveryLine: $Enums.ReceiptDeliveryLine
     receiptFooter: string | null
@@ -2126,6 +2194,8 @@ export interface BusinessPreferencesFieldRefs {
   readonly allowedFulfillmentMethods: Prisma.FieldRef<"BusinessPreferences", 'FulfillmentType[]'>
   readonly deliveryAreas: Prisma.FieldRef<"BusinessPreferences", 'String[]'>
   readonly deliveryStates: Prisma.FieldRef<"BusinessPreferences", 'String[]'>
+  readonly deliveryCountries: Prisma.FieldRef<"BusinessPreferences", 'String[]'>
+  readonly collectionOrder: Prisma.FieldRef<"BusinessPreferences", 'String[]'>
   readonly protectedPaymentEnabled: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
   readonly receiptDeliveryLine: Prisma.FieldRef<"BusinessPreferences", 'ReceiptDeliveryLine'>
   readonly receiptFooter: Prisma.FieldRef<"BusinessPreferences", 'String'>

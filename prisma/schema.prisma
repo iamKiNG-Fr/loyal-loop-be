@@ -233,6 +233,18 @@ enum ShowcaseStatus {
   ARCHIVED
 }
 
+enum ShowcaseCommerceMode {
+  DISCOVERY
+  BUNDLE
+}
+
+enum StorefrontStoryKind {
+  PRODUCT
+  COLLECTION
+  SHOWCASE
+  EVENT
+}
+
 enum PaymentStatus {
   UNPAID
   PARTIAL
@@ -1078,6 +1090,7 @@ model Business {
   slugHistory                BusinessSlugHistory[]
   pickupLocations            BusinessPickupLocation[]
   businessCustomerReports    BusinessCustomerReport[]
+  storefrontStories          StorefrontStory[]
 
   @@index([ownerId])
   @@index([storeStatus, launchAt])
@@ -1109,6 +1122,8 @@ model BusinessPickupLocation {
   googlePlaceId String?
   latitude      Float?
   longitude     Float?
+  countryCode   String     @default("NG")
+  regionCode    String?
   isDefault     Boolean    @default(false)
   isActive      Boolean    @default(true)
   createdAt     DateTime   @default(now())
@@ -1137,6 +1152,8 @@ model BusinessPreferences {
   allowedFulfillmentMethods    FulfillmentType[]   @default([DELIVERY, PICKUP])
   deliveryAreas                String[]            @default([])
   deliveryStates               String[]            @default([])
+  deliveryCountries            String[]            @default(["NG"])
+  collectionOrder              String[]            @default([])
   protectedPaymentEnabled      Boolean             @default(false)
   receiptDeliveryLine          ReceiptDeliveryLine @default(OPTIONAL)
   receiptFooter                String?
@@ -1300,6 +1317,7 @@ model MediaAsset {
   productPosters         ProductMedia[]          @relation("ProductMediaPoster")
   showcaseImages         Showcase[]              @relation("ShowcaseImage")
   showcasePosters        Showcase[]              @relation("ShowcasePoster")
+  storefrontStoryAssets  StorefrontStory[]       @relation("StorefrontStoryAsset")
   paymentProof           PaymentProof?
   deliveryHandoffs       Delivery[]              @relation("DeliveryHandoffAsset")
   moderationReviews      MediaModerationReview[]
@@ -1570,6 +1588,7 @@ model BusinessCategory {
   updatedAt   DateTime  @updatedAt
   business    Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
   products    Product[]
+  storefrontStories StorefrontStory[]
 
   @@unique([businessId, slug])
   @@unique([businessId, name])
@@ -1614,6 +1633,7 @@ model Product {
   launchBusinesses       Business[]         @relation("BusinessLaunchProduct")
   promotions             ProductPromotion[]
   reports                CustomerReport[]
+  storefrontStories      StorefrontStory[]
 
   @@unique([businessId, slug])
   @@index([businessId, status, visibility])
@@ -1694,6 +1714,8 @@ model Showcase {
   caption         String?
   status          ShowcaseStatus     @default(PUBLISHED)
   featured        Boolean            @default(false)
+  commerceMode    ShowcaseCommerceMode @default(DISCOVERY)
+  bundlePrice     Decimal?           @db.Decimal(12, 2)
   contentRating   MediaContentRating @default(GENERAL)
   publishedAt     DateTime?
   createdAt       DateTime           @default(now())
@@ -1706,6 +1728,8 @@ model Showcase {
   requests        OrderRequest[]
   commerceEvents  CommerceEvent[]
   reports         CustomerReport[]
+  storefrontStories StorefrontStory[]
+  cartGroups      CustomerCartGroup[]
 
   @@index([businessId, status, featured, publishedAt])
   @@map("showcases")
@@ -1725,6 +1749,35 @@ model ShowcaseHotspot {
   @@unique([showcaseId, productId])
   @@index([productId])
   @@map("showcase_hotspots")
+}
+
+model StorefrontStory {
+  id            String              @id @default(cuid())
+  businessId    String
+  kind          StorefrontStoryKind
+  sortOrder     Int                 @default(0)
+  productId     String?
+  collectionId  String?
+  showcaseId    String?
+  assetId       String?
+  title         String?
+  caption       String?
+  startsAt      DateTime?
+  endsAt        DateTime?
+  linkUrl       String?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  business      Business            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  product       Product?            @relation(fields: [productId], references: [id], onDelete: Cascade)
+  collection    BusinessCategory?   @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  showcase      Showcase?           @relation(fields: [showcaseId], references: [id], onDelete: Cascade)
+  asset         MediaAsset?         @relation("StorefrontStoryAsset", fields: [assetId], references: [id], onDelete: SetNull)
+
+  @@index([businessId, sortOrder])
+  @@index([productId])
+  @@index([collectionId])
+  @@index([showcaseId])
+  @@map("storefront_stories")
 }
 
 model SavedShowcase {
@@ -1839,14 +1892,17 @@ model CustomerCartGroup {
   recipientName          String?
   recipientPhone         String?
   whatsappUpdatesConsent Boolean          @default(false)
+  sourceShowcaseId       String?
   createdAt              DateTime         @default(now())
   updatedAt              DateTime         @updatedAt
   cart                   CustomerCart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
   business               Business         @relation(fields: [businessId], references: [id], onDelete: Cascade)
   customerAddress        CustomerAddress? @relation(fields: [customerAddressId], references: [id], onDelete: SetNull)
+  sourceShowcase         Showcase?        @relation(fields: [sourceShowcaseId], references: [id], onDelete: SetNull)
 
   @@unique([cartId, businessId])
   @@index([businessId])
+  @@index([sourceShowcaseId])
   @@map("customer_cart_groups")
 }
 

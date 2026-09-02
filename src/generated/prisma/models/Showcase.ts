@@ -28,10 +28,12 @@ export type AggregateShowcase = {
 
 export type ShowcaseAvgAggregateOutputType = {
   durationSeconds: number | null
+  bundlePrice: runtime.Decimal | null
 }
 
 export type ShowcaseSumAggregateOutputType = {
   durationSeconds: number | null
+  bundlePrice: runtime.Decimal | null
 }
 
 export type ShowcaseMinAggregateOutputType = {
@@ -45,6 +47,8 @@ export type ShowcaseMinAggregateOutputType = {
   caption: string | null
   status: $Enums.ShowcaseStatus | null
   featured: boolean | null
+  commerceMode: $Enums.ShowcaseCommerceMode | null
+  bundlePrice: runtime.Decimal | null
   contentRating: $Enums.MediaContentRating | null
   publishedAt: Date | null
   createdAt: Date | null
@@ -62,6 +66,8 @@ export type ShowcaseMaxAggregateOutputType = {
   caption: string | null
   status: $Enums.ShowcaseStatus | null
   featured: boolean | null
+  commerceMode: $Enums.ShowcaseCommerceMode | null
+  bundlePrice: runtime.Decimal | null
   contentRating: $Enums.MediaContentRating | null
   publishedAt: Date | null
   createdAt: Date | null
@@ -79,6 +85,8 @@ export type ShowcaseCountAggregateOutputType = {
   caption: number
   status: number
   featured: number
+  commerceMode: number
+  bundlePrice: number
   contentRating: number
   publishedAt: number
   createdAt: number
@@ -89,10 +97,12 @@ export type ShowcaseCountAggregateOutputType = {
 
 export type ShowcaseAvgAggregateInputType = {
   durationSeconds?: true
+  bundlePrice?: true
 }
 
 export type ShowcaseSumAggregateInputType = {
   durationSeconds?: true
+  bundlePrice?: true
 }
 
 export type ShowcaseMinAggregateInputType = {
@@ -106,6 +116,8 @@ export type ShowcaseMinAggregateInputType = {
   caption?: true
   status?: true
   featured?: true
+  commerceMode?: true
+  bundlePrice?: true
   contentRating?: true
   publishedAt?: true
   createdAt?: true
@@ -123,6 +135,8 @@ export type ShowcaseMaxAggregateInputType = {
   caption?: true
   status?: true
   featured?: true
+  commerceMode?: true
+  bundlePrice?: true
   contentRating?: true
   publishedAt?: true
   createdAt?: true
@@ -140,6 +154,8 @@ export type ShowcaseCountAggregateInputType = {
   caption?: true
   status?: true
   featured?: true
+  commerceMode?: true
+  bundlePrice?: true
   contentRating?: true
   publishedAt?: true
   createdAt?: true
@@ -244,6 +260,8 @@ export type ShowcaseGroupByOutputType = {
   caption: string | null
   status: $Enums.ShowcaseStatus
   featured: boolean
+  commerceMode: $Enums.ShowcaseCommerceMode
+  bundlePrice: runtime.Decimal | null
   contentRating: $Enums.MediaContentRating
   publishedAt: Date | null
   createdAt: Date
@@ -284,6 +302,8 @@ export type ShowcaseWhereInput = {
   caption?: Prisma.StringNullableFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusFilter<"Showcase"> | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFilter<"Showcase"> | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFilter<"Showcase"> | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.DecimalNullableFilter<"Showcase"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFilter<"Showcase"> | $Enums.MediaContentRating
   publishedAt?: Prisma.DateTimeNullableFilter<"Showcase"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
@@ -296,6 +316,8 @@ export type ShowcaseWhereInput = {
   requests?: Prisma.OrderRequestListRelationFilter
   commerceEvents?: Prisma.CommerceEventListRelationFilter
   reports?: Prisma.CustomerReportListRelationFilter
+  storefrontStories?: Prisma.StorefrontStoryListRelationFilter
+  cartGroups?: Prisma.CustomerCartGroupListRelationFilter
 }
 
 export type ShowcaseOrderByWithRelationInput = {
@@ -309,6 +331,8 @@ export type ShowcaseOrderByWithRelationInput = {
   caption?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  commerceMode?: Prisma.SortOrder
+  bundlePrice?: Prisma.SortOrderInput | Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -321,6 +345,8 @@ export type ShowcaseOrderByWithRelationInput = {
   requests?: Prisma.OrderRequestOrderByRelationAggregateInput
   commerceEvents?: Prisma.CommerceEventOrderByRelationAggregateInput
   reports?: Prisma.CustomerReportOrderByRelationAggregateInput
+  storefrontStories?: Prisma.StorefrontStoryOrderByRelationAggregateInput
+  cartGroups?: Prisma.CustomerCartGroupOrderByRelationAggregateInput
 }
 
 export type ShowcaseWhereUniqueInput = Prisma.AtLeast<{
@@ -337,6 +363,8 @@ export type ShowcaseWhereUniqueInput = Prisma.AtLeast<{
   caption?: Prisma.StringNullableFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusFilter<"Showcase"> | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFilter<"Showcase"> | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFilter<"Showcase"> | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.DecimalNullableFilter<"Showcase"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFilter<"Showcase"> | $Enums.MediaContentRating
   publishedAt?: Prisma.DateTimeNullableFilter<"Showcase"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
@@ -349,6 +377,8 @@ export type ShowcaseWhereUniqueInput = Prisma.AtLeast<{
   requests?: Prisma.OrderRequestListRelationFilter
   commerceEvents?: Prisma.CommerceEventListRelationFilter
   reports?: Prisma.CustomerReportListRelationFilter
+  storefrontStories?: Prisma.StorefrontStoryListRelationFilter
+  cartGroups?: Prisma.CustomerCartGroupListRelationFilter
 }, "id">
 
 export type ShowcaseOrderByWithAggregationInput = {
@@ -362,6 +392,8 @@ export type ShowcaseOrderByWithAggregationInput = {
   caption?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  commerceMode?: Prisma.SortOrder
+  bundlePrice?: Prisma.SortOrderInput | Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -387,6 +419,8 @@ export type ShowcaseScalarWhereWithAggregatesInput = {
   caption?: Prisma.StringNullableWithAggregatesFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusWithAggregatesFilter<"Showcase"> | $Enums.ShowcaseStatus
   featured?: Prisma.BoolWithAggregatesFilter<"Showcase"> | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeWithAggregatesFilter<"Showcase"> | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.DecimalNullableWithAggregatesFilter<"Showcase"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingWithAggregatesFilter<"Showcase"> | $Enums.MediaContentRating
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Showcase"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Showcase"> | Date | string
@@ -401,6 +435,8 @@ export type ShowcaseCreateInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -413,6 +449,8 @@ export type ShowcaseCreateInput = {
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateInput = {
@@ -426,6 +464,8 @@ export type ShowcaseUncheckedCreateInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -435,6 +475,8 @@ export type ShowcaseUncheckedCreateInput = {
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUpdateInput = {
@@ -445,6 +487,8 @@ export type ShowcaseUpdateInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -457,6 +501,8 @@ export type ShowcaseUpdateInput = {
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateInput = {
@@ -470,6 +516,8 @@ export type ShowcaseUncheckedUpdateInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -479,6 +527,8 @@ export type ShowcaseUncheckedUpdateInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseCreateManyInput = {
@@ -492,6 +542,8 @@ export type ShowcaseCreateManyInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -506,6 +558,8 @@ export type ShowcaseUpdateManyMutationInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -523,6 +577,8 @@ export type ShowcaseUncheckedUpdateManyInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -550,6 +606,8 @@ export type ShowcaseCountOrderByAggregateInput = {
   caption?: Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  commerceMode?: Prisma.SortOrder
+  bundlePrice?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -558,6 +616,7 @@ export type ShowcaseCountOrderByAggregateInput = {
 
 export type ShowcaseAvgOrderByAggregateInput = {
   durationSeconds?: Prisma.SortOrder
+  bundlePrice?: Prisma.SortOrder
 }
 
 export type ShowcaseMaxOrderByAggregateInput = {
@@ -571,6 +630,8 @@ export type ShowcaseMaxOrderByAggregateInput = {
   caption?: Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  commerceMode?: Prisma.SortOrder
+  bundlePrice?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -588,6 +649,8 @@ export type ShowcaseMinOrderByAggregateInput = {
   caption?: Prisma.SortOrder
   status?: Prisma.SortOrder
   featured?: Prisma.SortOrder
+  commerceMode?: Prisma.SortOrder
+  bundlePrice?: Prisma.SortOrder
   contentRating?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -596,6 +659,7 @@ export type ShowcaseMinOrderByAggregateInput = {
 
 export type ShowcaseSumOrderByAggregateInput = {
   durationSeconds?: Prisma.SortOrder
+  bundlePrice?: Prisma.SortOrder
 }
 
 export type ShowcaseScalarRelationFilter = {
@@ -738,6 +802,10 @@ export type EnumShowcaseStatusFieldUpdateOperationsInput = {
   set?: $Enums.ShowcaseStatus
 }
 
+export type EnumShowcaseCommerceModeFieldUpdateOperationsInput = {
+  set?: $Enums.ShowcaseCommerceMode
+}
+
 export type ShowcaseCreateNestedOneWithoutHotspotsInput = {
   create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutHotspotsInput, Prisma.ShowcaseUncheckedCreateWithoutHotspotsInput>
   connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutHotspotsInput
@@ -752,6 +820,22 @@ export type ShowcaseUpdateOneRequiredWithoutHotspotsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShowcaseUpdateToOneWithWhereWithoutHotspotsInput, Prisma.ShowcaseUpdateWithoutHotspotsInput>, Prisma.ShowcaseUncheckedUpdateWithoutHotspotsInput>
 }
 
+export type ShowcaseCreateNestedOneWithoutStorefrontStoriesInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutStorefrontStoriesInput, Prisma.ShowcaseUncheckedCreateWithoutStorefrontStoriesInput>
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutStorefrontStoriesInput
+  connect?: Prisma.ShowcaseWhereUniqueInput
+}
+
+export type ShowcaseUpdateOneWithoutStorefrontStoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutStorefrontStoriesInput, Prisma.ShowcaseUncheckedCreateWithoutStorefrontStoriesInput>
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutStorefrontStoriesInput
+  upsert?: Prisma.ShowcaseUpsertWithoutStorefrontStoriesInput
+  disconnect?: Prisma.ShowcaseWhereInput | boolean
+  delete?: Prisma.ShowcaseWhereInput | boolean
+  connect?: Prisma.ShowcaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShowcaseUpdateToOneWithWhereWithoutStorefrontStoriesInput, Prisma.ShowcaseUpdateWithoutStorefrontStoriesInput>, Prisma.ShowcaseUncheckedUpdateWithoutStorefrontStoriesInput>
+}
+
 export type ShowcaseCreateNestedOneWithoutSavedByInput = {
   create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutSavedByInput, Prisma.ShowcaseUncheckedCreateWithoutSavedByInput>
   connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutSavedByInput
@@ -764,6 +848,22 @@ export type ShowcaseUpdateOneRequiredWithoutSavedByNestedInput = {
   upsert?: Prisma.ShowcaseUpsertWithoutSavedByInput
   connect?: Prisma.ShowcaseWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShowcaseUpdateToOneWithWhereWithoutSavedByInput, Prisma.ShowcaseUpdateWithoutSavedByInput>, Prisma.ShowcaseUncheckedUpdateWithoutSavedByInput>
+}
+
+export type ShowcaseCreateNestedOneWithoutCartGroupsInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutCartGroupsInput, Prisma.ShowcaseUncheckedCreateWithoutCartGroupsInput>
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutCartGroupsInput
+  connect?: Prisma.ShowcaseWhereUniqueInput
+}
+
+export type ShowcaseUpdateOneWithoutCartGroupsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShowcaseCreateWithoutCartGroupsInput, Prisma.ShowcaseUncheckedCreateWithoutCartGroupsInput>
+  connectOrCreate?: Prisma.ShowcaseCreateOrConnectWithoutCartGroupsInput
+  upsert?: Prisma.ShowcaseUpsertWithoutCartGroupsInput
+  disconnect?: Prisma.ShowcaseWhereInput | boolean
+  delete?: Prisma.ShowcaseWhereInput | boolean
+  connect?: Prisma.ShowcaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShowcaseUpdateToOneWithWhereWithoutCartGroupsInput, Prisma.ShowcaseUpdateWithoutCartGroupsInput>, Prisma.ShowcaseUncheckedUpdateWithoutCartGroupsInput>
 }
 
 export type ShowcaseCreateNestedOneWithoutRequestsInput = {
@@ -822,6 +922,8 @@ export type ShowcaseCreateWithoutBusinessInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -833,6 +935,8 @@ export type ShowcaseCreateWithoutBusinessInput = {
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutBusinessInput = {
@@ -845,6 +949,8 @@ export type ShowcaseUncheckedCreateWithoutBusinessInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -854,6 +960,8 @@ export type ShowcaseUncheckedCreateWithoutBusinessInput = {
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutBusinessInput = {
@@ -896,6 +1004,8 @@ export type ShowcaseScalarWhereInput = {
   caption?: Prisma.StringNullableFilter<"Showcase"> | string | null
   status?: Prisma.EnumShowcaseStatusFilter<"Showcase"> | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFilter<"Showcase"> | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFilter<"Showcase"> | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.DecimalNullableFilter<"Showcase"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFilter<"Showcase"> | $Enums.MediaContentRating
   publishedAt?: Prisma.DateTimeNullableFilter<"Showcase"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Showcase"> | Date | string
@@ -910,6 +1020,8 @@ export type ShowcaseCreateWithoutAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -921,6 +1033,8 @@ export type ShowcaseCreateWithoutAssetInput = {
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutAssetInput = {
@@ -933,6 +1047,8 @@ export type ShowcaseUncheckedCreateWithoutAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -942,6 +1058,8 @@ export type ShowcaseUncheckedCreateWithoutAssetInput = {
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutAssetInput = {
@@ -962,6 +1080,8 @@ export type ShowcaseCreateWithoutPosterAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -973,6 +1093,8 @@ export type ShowcaseCreateWithoutPosterAssetInput = {
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutPosterAssetInput = {
@@ -985,6 +1107,8 @@ export type ShowcaseUncheckedCreateWithoutPosterAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -994,6 +1118,8 @@ export type ShowcaseUncheckedCreateWithoutPosterAssetInput = {
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutPosterAssetInput = {
@@ -1046,6 +1172,8 @@ export type ShowcaseCreateWithoutHotspotsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1057,6 +1185,8 @@ export type ShowcaseCreateWithoutHotspotsInput = {
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutHotspotsInput = {
@@ -1070,6 +1200,8 @@ export type ShowcaseUncheckedCreateWithoutHotspotsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1078,6 +1210,8 @@ export type ShowcaseUncheckedCreateWithoutHotspotsInput = {
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutHotspotsInput = {
@@ -1104,6 +1238,8 @@ export type ShowcaseUpdateWithoutHotspotsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1115,6 +1251,8 @@ export type ShowcaseUpdateWithoutHotspotsInput = {
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutHotspotsInput = {
@@ -1128,6 +1266,8 @@ export type ShowcaseUncheckedUpdateWithoutHotspotsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1136,6 +1276,124 @@ export type ShowcaseUncheckedUpdateWithoutHotspotsInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+}
+
+export type ShowcaseCreateWithoutStorefrontStoriesInput = {
+  id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contentRating?: $Enums.MediaContentRating
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
+  asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
+  hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
+}
+
+export type ShowcaseUncheckedCreateWithoutStorefrontStoriesInput = {
+  id?: string
+  businessId: string
+  assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contentRating?: $Enums.MediaContentRating
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
+}
+
+export type ShowcaseCreateOrConnectWithoutStorefrontStoriesInput = {
+  where: Prisma.ShowcaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutStorefrontStoriesInput, Prisma.ShowcaseUncheckedCreateWithoutStorefrontStoriesInput>
+}
+
+export type ShowcaseUpsertWithoutStorefrontStoriesInput = {
+  update: Prisma.XOR<Prisma.ShowcaseUpdateWithoutStorefrontStoriesInput, Prisma.ShowcaseUncheckedUpdateWithoutStorefrontStoriesInput>
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutStorefrontStoriesInput, Prisma.ShowcaseUncheckedCreateWithoutStorefrontStoriesInput>
+  where?: Prisma.ShowcaseWhereInput
+}
+
+export type ShowcaseUpdateToOneWithWhereWithoutStorefrontStoriesInput = {
+  where?: Prisma.ShowcaseWhereInput
+  data: Prisma.XOR<Prisma.ShowcaseUpdateWithoutStorefrontStoriesInput, Prisma.ShowcaseUncheckedUpdateWithoutStorefrontStoriesInput>
+}
+
+export type ShowcaseUpdateWithoutStorefrontStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
+  asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
+  hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
+}
+
+export type ShowcaseUncheckedUpdateWithoutStorefrontStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseCreateWithoutSavedByInput = {
@@ -1146,6 +1404,8 @@ export type ShowcaseCreateWithoutSavedByInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1157,6 +1417,8 @@ export type ShowcaseCreateWithoutSavedByInput = {
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutSavedByInput = {
@@ -1170,6 +1432,8 @@ export type ShowcaseUncheckedCreateWithoutSavedByInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1178,6 +1442,8 @@ export type ShowcaseUncheckedCreateWithoutSavedByInput = {
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutSavedByInput = {
@@ -1204,6 +1470,8 @@ export type ShowcaseUpdateWithoutSavedByInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1215,6 +1483,8 @@ export type ShowcaseUpdateWithoutSavedByInput = {
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutSavedByInput = {
@@ -1228,6 +1498,8 @@ export type ShowcaseUncheckedUpdateWithoutSavedByInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1236,6 +1508,124 @@ export type ShowcaseUncheckedUpdateWithoutSavedByInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+}
+
+export type ShowcaseCreateWithoutCartGroupsInput = {
+  id?: string
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contentRating?: $Enums.MediaContentRating
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutShowcasesInput
+  asset: Prisma.MediaAssetCreateNestedOneWithoutShowcaseImagesInput
+  posterAsset?: Prisma.MediaAssetCreateNestedOneWithoutShowcasePostersInput
+  hotspots?: Prisma.ShowcaseHotspotCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+}
+
+export type ShowcaseUncheckedCreateWithoutCartGroupsInput = {
+  id?: string
+  businessId: string
+  assetId: string
+  posterAssetId?: string | null
+  mediaKind?: $Enums.ProductMediaKind
+  durationSeconds?: number | null
+  title: string
+  caption?: string | null
+  status?: $Enums.ShowcaseStatus
+  featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contentRating?: $Enums.MediaContentRating
+  publishedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedCreateNestedManyWithoutShowcaseInput
+  savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
+  requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
+  commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+}
+
+export type ShowcaseCreateOrConnectWithoutCartGroupsInput = {
+  where: Prisma.ShowcaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutCartGroupsInput, Prisma.ShowcaseUncheckedCreateWithoutCartGroupsInput>
+}
+
+export type ShowcaseUpsertWithoutCartGroupsInput = {
+  update: Prisma.XOR<Prisma.ShowcaseUpdateWithoutCartGroupsInput, Prisma.ShowcaseUncheckedUpdateWithoutCartGroupsInput>
+  create: Prisma.XOR<Prisma.ShowcaseCreateWithoutCartGroupsInput, Prisma.ShowcaseUncheckedCreateWithoutCartGroupsInput>
+  where?: Prisma.ShowcaseWhereInput
+}
+
+export type ShowcaseUpdateToOneWithWhereWithoutCartGroupsInput = {
+  where?: Prisma.ShowcaseWhereInput
+  data: Prisma.XOR<Prisma.ShowcaseUpdateWithoutCartGroupsInput, Prisma.ShowcaseUncheckedUpdateWithoutCartGroupsInput>
+}
+
+export type ShowcaseUpdateWithoutCartGroupsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutShowcasesNestedInput
+  asset?: Prisma.MediaAssetUpdateOneRequiredWithoutShowcaseImagesNestedInput
+  posterAsset?: Prisma.MediaAssetUpdateOneWithoutShowcasePostersNestedInput
+  hotspots?: Prisma.ShowcaseHotspotUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+}
+
+export type ShowcaseUncheckedUpdateWithoutCartGroupsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  assetId?: Prisma.StringFieldUpdateOperationsInput | string
+  posterAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaKind?: Prisma.EnumProductMediaKindFieldUpdateOperationsInput | $Enums.ProductMediaKind
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
+  featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  hotspots?: Prisma.ShowcaseHotspotUncheckedUpdateManyWithoutShowcaseNestedInput
+  savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
+  requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
+  commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
 }
 
 export type ShowcaseCreateWithoutRequestsInput = {
@@ -1246,6 +1636,8 @@ export type ShowcaseCreateWithoutRequestsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1257,6 +1649,8 @@ export type ShowcaseCreateWithoutRequestsInput = {
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutRequestsInput = {
@@ -1270,6 +1664,8 @@ export type ShowcaseUncheckedCreateWithoutRequestsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1278,6 +1674,8 @@ export type ShowcaseUncheckedCreateWithoutRequestsInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
   reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutRequestsInput = {
@@ -1304,6 +1702,8 @@ export type ShowcaseUpdateWithoutRequestsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1315,6 +1715,8 @@ export type ShowcaseUpdateWithoutRequestsInput = {
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutRequestsInput = {
@@ -1328,6 +1730,8 @@ export type ShowcaseUncheckedUpdateWithoutRequestsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1336,6 +1740,8 @@ export type ShowcaseUncheckedUpdateWithoutRequestsInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseCreateWithoutReportsInput = {
@@ -1346,6 +1752,8 @@ export type ShowcaseCreateWithoutReportsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1357,6 +1765,8 @@ export type ShowcaseCreateWithoutReportsInput = {
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutReportsInput = {
@@ -1370,6 +1780,8 @@ export type ShowcaseUncheckedCreateWithoutReportsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1378,6 +1790,8 @@ export type ShowcaseUncheckedCreateWithoutReportsInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   commerceEvents?: Prisma.CommerceEventUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutReportsInput = {
@@ -1404,6 +1818,8 @@ export type ShowcaseUpdateWithoutReportsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1415,6 +1831,8 @@ export type ShowcaseUpdateWithoutReportsInput = {
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutReportsInput = {
@@ -1428,6 +1846,8 @@ export type ShowcaseUncheckedUpdateWithoutReportsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1436,6 +1856,8 @@ export type ShowcaseUncheckedUpdateWithoutReportsInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseCreateWithoutCommerceEventsInput = {
@@ -1446,6 +1868,8 @@ export type ShowcaseCreateWithoutCommerceEventsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1457,6 +1881,8 @@ export type ShowcaseCreateWithoutCommerceEventsInput = {
   savedBy?: Prisma.SavedShowcaseCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestCreateNestedManyWithoutSourceShowcaseInput
   reports?: Prisma.CustomerReportCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseUncheckedCreateWithoutCommerceEventsInput = {
@@ -1470,6 +1896,8 @@ export type ShowcaseUncheckedCreateWithoutCommerceEventsInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1478,6 +1906,8 @@ export type ShowcaseUncheckedCreateWithoutCommerceEventsInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedCreateNestedManyWithoutShowcaseInput
   requests?: Prisma.OrderRequestUncheckedCreateNestedManyWithoutSourceShowcaseInput
   reports?: Prisma.CustomerReportUncheckedCreateNestedManyWithoutShowcaseInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutShowcaseInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedCreateNestedManyWithoutSourceShowcaseInput
 }
 
 export type ShowcaseCreateOrConnectWithoutCommerceEventsInput = {
@@ -1504,6 +1934,8 @@ export type ShowcaseUpdateWithoutCommerceEventsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1515,6 +1947,8 @@ export type ShowcaseUpdateWithoutCommerceEventsInput = {
   savedBy?: Prisma.SavedShowcaseUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutCommerceEventsInput = {
@@ -1528,6 +1962,8 @@ export type ShowcaseUncheckedUpdateWithoutCommerceEventsInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1536,6 +1972,8 @@ export type ShowcaseUncheckedUpdateWithoutCommerceEventsInput = {
   savedBy?: Prisma.SavedShowcaseUncheckedUpdateManyWithoutShowcaseNestedInput
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseCreateManyBusinessInput = {
@@ -1548,6 +1986,8 @@ export type ShowcaseCreateManyBusinessInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1562,6 +2002,8 @@ export type ShowcaseUpdateWithoutBusinessInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1573,6 +2015,8 @@ export type ShowcaseUpdateWithoutBusinessInput = {
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutBusinessInput = {
@@ -1585,6 +2029,8 @@ export type ShowcaseUncheckedUpdateWithoutBusinessInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1594,6 +2040,8 @@ export type ShowcaseUncheckedUpdateWithoutBusinessInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateManyWithoutBusinessInput = {
@@ -1606,6 +2054,8 @@ export type ShowcaseUncheckedUpdateManyWithoutBusinessInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1622,6 +2072,8 @@ export type ShowcaseCreateManyAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1638,6 +2090,8 @@ export type ShowcaseCreateManyPosterAssetInput = {
   caption?: string | null
   status?: $Enums.ShowcaseStatus
   featured?: boolean
+  commerceMode?: $Enums.ShowcaseCommerceMode
+  bundlePrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: $Enums.MediaContentRating
   publishedAt?: Date | string | null
   createdAt?: Date | string
@@ -1652,6 +2106,8 @@ export type ShowcaseUpdateWithoutAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1663,6 +2119,8 @@ export type ShowcaseUpdateWithoutAssetInput = {
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutAssetInput = {
@@ -1675,6 +2133,8 @@ export type ShowcaseUncheckedUpdateWithoutAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1684,6 +2144,8 @@ export type ShowcaseUncheckedUpdateWithoutAssetInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateManyWithoutAssetInput = {
@@ -1696,6 +2158,8 @@ export type ShowcaseUncheckedUpdateManyWithoutAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1710,6 +2174,8 @@ export type ShowcaseUpdateWithoutPosterAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1721,6 +2187,8 @@ export type ShowcaseUpdateWithoutPosterAssetInput = {
   requests?: Prisma.OrderRequestUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateWithoutPosterAssetInput = {
@@ -1733,6 +2201,8 @@ export type ShowcaseUncheckedUpdateWithoutPosterAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1742,6 +2212,8 @@ export type ShowcaseUncheckedUpdateWithoutPosterAssetInput = {
   requests?: Prisma.OrderRequestUncheckedUpdateManyWithoutSourceShowcaseNestedInput
   commerceEvents?: Prisma.CommerceEventUncheckedUpdateManyWithoutShowcaseNestedInput
   reports?: Prisma.CustomerReportUncheckedUpdateManyWithoutShowcaseNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutShowcaseNestedInput
+  cartGroups?: Prisma.CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseNestedInput
 }
 
 export type ShowcaseUncheckedUpdateManyWithoutPosterAssetInput = {
@@ -1754,6 +2226,8 @@ export type ShowcaseUncheckedUpdateManyWithoutPosterAssetInput = {
   caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumShowcaseStatusFieldUpdateOperationsInput | $Enums.ShowcaseStatus
   featured?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commerceMode?: Prisma.EnumShowcaseCommerceModeFieldUpdateOperationsInput | $Enums.ShowcaseCommerceMode
+  bundlePrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1771,6 +2245,8 @@ export type ShowcaseCountOutputType = {
   requests: number
   commerceEvents: number
   reports: number
+  storefrontStories: number
+  cartGroups: number
 }
 
 export type ShowcaseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1779,6 +2255,8 @@ export type ShowcaseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   requests?: boolean | ShowcaseCountOutputTypeCountRequestsArgs
   commerceEvents?: boolean | ShowcaseCountOutputTypeCountCommerceEventsArgs
   reports?: boolean | ShowcaseCountOutputTypeCountReportsArgs
+  storefrontStories?: boolean | ShowcaseCountOutputTypeCountStorefrontStoriesArgs
+  cartGroups?: boolean | ShowcaseCountOutputTypeCountCartGroupsArgs
 }
 
 /**
@@ -1826,6 +2304,20 @@ export type ShowcaseCountOutputTypeCountReportsArgs<ExtArgs extends runtime.Type
   where?: Prisma.CustomerReportWhereInput
 }
 
+/**
+ * ShowcaseCountOutputType without action
+ */
+export type ShowcaseCountOutputTypeCountStorefrontStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StorefrontStoryWhereInput
+}
+
+/**
+ * ShowcaseCountOutputType without action
+ */
+export type ShowcaseCountOutputTypeCountCartGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CustomerCartGroupWhereInput
+}
+
 
 export type ShowcaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1838,6 +2330,8 @@ export type ShowcaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   caption?: boolean
   status?: boolean
   featured?: boolean
+  commerceMode?: boolean
+  bundlePrice?: boolean
   contentRating?: boolean
   publishedAt?: boolean
   createdAt?: boolean
@@ -1850,6 +2344,8 @@ export type ShowcaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   requests?: boolean | Prisma.Showcase$requestsArgs<ExtArgs>
   commerceEvents?: boolean | Prisma.Showcase$commerceEventsArgs<ExtArgs>
   reports?: boolean | Prisma.Showcase$reportsArgs<ExtArgs>
+  storefrontStories?: boolean | Prisma.Showcase$storefrontStoriesArgs<ExtArgs>
+  cartGroups?: boolean | Prisma.Showcase$cartGroupsArgs<ExtArgs>
   _count?: boolean | Prisma.ShowcaseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["showcase"]>
 
@@ -1864,6 +2360,8 @@ export type ShowcaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   caption?: boolean
   status?: boolean
   featured?: boolean
+  commerceMode?: boolean
+  bundlePrice?: boolean
   contentRating?: boolean
   publishedAt?: boolean
   createdAt?: boolean
@@ -1884,6 +2382,8 @@ export type ShowcaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   caption?: boolean
   status?: boolean
   featured?: boolean
+  commerceMode?: boolean
+  bundlePrice?: boolean
   contentRating?: boolean
   publishedAt?: boolean
   createdAt?: boolean
@@ -1904,13 +2404,15 @@ export type ShowcaseSelectScalar = {
   caption?: boolean
   status?: boolean
   featured?: boolean
+  commerceMode?: boolean
+  bundlePrice?: boolean
   contentRating?: boolean
   publishedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ShowcaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "assetId" | "posterAssetId" | "mediaKind" | "durationSeconds" | "title" | "caption" | "status" | "featured" | "contentRating" | "publishedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["showcase"]>
+export type ShowcaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "assetId" | "posterAssetId" | "mediaKind" | "durationSeconds" | "title" | "caption" | "status" | "featured" | "commerceMode" | "bundlePrice" | "contentRating" | "publishedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["showcase"]>
 export type ShowcaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   asset?: boolean | Prisma.MediaAssetDefaultArgs<ExtArgs>
@@ -1920,6 +2422,8 @@ export type ShowcaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   requests?: boolean | Prisma.Showcase$requestsArgs<ExtArgs>
   commerceEvents?: boolean | Prisma.Showcase$commerceEventsArgs<ExtArgs>
   reports?: boolean | Prisma.Showcase$reportsArgs<ExtArgs>
+  storefrontStories?: boolean | Prisma.Showcase$storefrontStoriesArgs<ExtArgs>
+  cartGroups?: boolean | Prisma.Showcase$cartGroupsArgs<ExtArgs>
   _count?: boolean | Prisma.ShowcaseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShowcaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1944,6 +2448,8 @@ export type $ShowcasePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     requests: Prisma.$OrderRequestPayload<ExtArgs>[]
     commerceEvents: Prisma.$CommerceEventPayload<ExtArgs>[]
     reports: Prisma.$CustomerReportPayload<ExtArgs>[]
+    storefrontStories: Prisma.$StorefrontStoryPayload<ExtArgs>[]
+    cartGroups: Prisma.$CustomerCartGroupPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1956,6 +2462,8 @@ export type $ShowcasePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     caption: string | null
     status: $Enums.ShowcaseStatus
     featured: boolean
+    commerceMode: $Enums.ShowcaseCommerceMode
+    bundlePrice: runtime.Decimal | null
     contentRating: $Enums.MediaContentRating
     publishedAt: Date | null
     createdAt: Date
@@ -2362,6 +2870,8 @@ export interface Prisma__ShowcaseClient<T, Null = never, ExtArgs extends runtime
   requests<T extends Prisma.Showcase$requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   commerceEvents<T extends Prisma.Showcase$commerceEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$commerceEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommerceEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reports<T extends Prisma.Showcase$reportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  storefrontStories<T extends Prisma.Showcase$storefrontStoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$storefrontStoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorefrontStoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cartGroups<T extends Prisma.Showcase$cartGroupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Showcase$cartGroupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerCartGroupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2401,6 +2911,8 @@ export interface ShowcaseFieldRefs {
   readonly caption: Prisma.FieldRef<"Showcase", 'String'>
   readonly status: Prisma.FieldRef<"Showcase", 'ShowcaseStatus'>
   readonly featured: Prisma.FieldRef<"Showcase", 'Boolean'>
+  readonly commerceMode: Prisma.FieldRef<"Showcase", 'ShowcaseCommerceMode'>
+  readonly bundlePrice: Prisma.FieldRef<"Showcase", 'Decimal'>
   readonly contentRating: Prisma.FieldRef<"Showcase", 'MediaContentRating'>
   readonly publishedAt: Prisma.FieldRef<"Showcase", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Showcase", 'DateTime'>
@@ -2942,6 +3454,54 @@ export type Showcase$reportsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.CustomerReportScalarFieldEnum | Prisma.CustomerReportScalarFieldEnum[]
+}
+
+/**
+ * Showcase.storefrontStories
+ */
+export type Showcase$storefrontStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StorefrontStory
+   */
+  select?: Prisma.StorefrontStorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StorefrontStory
+   */
+  omit?: Prisma.StorefrontStoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StorefrontStoryInclude<ExtArgs> | null
+  where?: Prisma.StorefrontStoryWhereInput
+  orderBy?: Prisma.StorefrontStoryOrderByWithRelationInput | Prisma.StorefrontStoryOrderByWithRelationInput[]
+  cursor?: Prisma.StorefrontStoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StorefrontStoryScalarFieldEnum | Prisma.StorefrontStoryScalarFieldEnum[]
+}
+
+/**
+ * Showcase.cartGroups
+ */
+export type Showcase$cartGroupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CustomerCartGroup
+   */
+  select?: Prisma.CustomerCartGroupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CustomerCartGroup
+   */
+  omit?: Prisma.CustomerCartGroupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CustomerCartGroupInclude<ExtArgs> | null
+  where?: Prisma.CustomerCartGroupWhereInput
+  orderBy?: Prisma.CustomerCartGroupOrderByWithRelationInput | Prisma.CustomerCartGroupOrderByWithRelationInput[]
+  cursor?: Prisma.CustomerCartGroupWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CustomerCartGroupScalarFieldEnum | Prisma.CustomerCartGroupScalarFieldEnum[]
 }
 
 /**

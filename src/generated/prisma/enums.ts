@@ -328,6 +328,24 @@ export const ShowcaseStatus = {
 export type ShowcaseStatus = (typeof ShowcaseStatus)[keyof typeof ShowcaseStatus]
 
 
+export const ShowcaseCommerceMode = {
+  DISCOVERY: 'DISCOVERY',
+  BUNDLE: 'BUNDLE'
+} as const
+
+export type ShowcaseCommerceMode = (typeof ShowcaseCommerceMode)[keyof typeof ShowcaseCommerceMode]
+
+
+export const StorefrontStoryKind = {
+  PRODUCT: 'PRODUCT',
+  COLLECTION: 'COLLECTION',
+  SHOWCASE: 'SHOWCASE',
+  EVENT: 'EVENT'
+} as const
+
+export type StorefrontStoryKind = (typeof StorefrontStoryKind)[keyof typeof StorefrontStoryKind]
+
+
 export const PaymentStatus = {
   UNPAID: 'UNPAID',
   PARTIAL: 'PARTIAL',

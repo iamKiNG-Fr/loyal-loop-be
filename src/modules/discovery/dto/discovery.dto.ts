@@ -14,7 +14,7 @@ import {
   ValidateNested,
 } from "class-validator";
 import { PaginationDto } from "../../../common/pagination.dto";
-import { ProductMediaKind, ShowcaseStatus } from "../../../generated/prisma/client";
+import { ProductMediaKind, ShowcaseCommerceMode, ShowcaseStatus } from "../../../generated/prisma/client";
 
 export class ExploreDto extends PaginationDto {
   @IsOptional()
@@ -199,6 +199,17 @@ export class CreateShowcaseDto {
   @IsBoolean()
   featured?: boolean;
 
+  @IsOptional()
+  @IsEnum(ShowcaseCommerceMode)
+  commerceMode?: ShowcaseCommerceMode;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0.01)
+  @Max(1000000000)
+  bundlePrice?: number;
+
   @IsArray()
   @ArrayMaxSize(20)
   @ValidateNested({ each: true })
@@ -243,6 +254,17 @@ export class UpdateShowcaseDto {
   @IsOptional()
   @IsBoolean()
   featured?: boolean;
+
+  @IsOptional()
+  @IsEnum(ShowcaseCommerceMode)
+  commerceMode?: ShowcaseCommerceMode;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0.01)
+  @Max(1000000000)
+  bundlePrice?: number;
 
   @IsOptional()
   @IsArray()

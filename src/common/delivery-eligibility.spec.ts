@@ -27,6 +27,19 @@ describe("delivery eligibility", () => {
     })).toEqual({ status: "NEEDS_REVIEW" });
   });
 
+  it("honours explicit country coverage before applying Nigeria-specific state rules", () => {
+    expect(assessDeliveryCoverage({
+      countryCode: "GH",
+      deliveryCountries: ["NG", "GH"],
+      deliveryStates: ["Lagos"],
+    })).toEqual({ status: "ELIGIBLE" });
+
+    expect(assessDeliveryCoverage({
+      countryCode: "GB",
+      deliveryCountries: ["NG", "GH"],
+    })).toEqual({ status: "OUTSIDE_AREA" });
+  });
+
   it("normalizes FCT aliases and keeps arrange-later opt-in", () => {
     expect(canonicalNigerianState("FCT Abuja")).toBe("Federal Capital Territory");
     expect(customerFulfillmentMethods(["DELIVERY", "NOT_REQUIRED"])).toEqual(["DELIVERY"]);

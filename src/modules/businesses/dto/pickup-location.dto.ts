@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsBoolean, IsNumber, IsOptional, IsString, Length, Max, Min } from "class-validator";
+import { IsBoolean, IsNumber, IsOptional, IsString, Length, Matches, Max, Min } from "class-validator";
 
 export class SavePickupLocationDto {
   @IsString()
@@ -28,6 +28,16 @@ export class SavePickupLocationDto {
   @Min(-180)
   @Max(180)
   longitude?: number;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^[A-Za-z]{2}$/)
+  countryCode?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 120)
+  regionCode?: string;
 
   @IsOptional()
   @IsBoolean()

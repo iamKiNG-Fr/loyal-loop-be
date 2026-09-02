@@ -102,7 +102,7 @@ export class DiscoveryService {
     const take = Math.min(start + query.pageSize + 12, 100);
     const productWhere: Prisma.ProductWhereInput = {
       ...discoverableProductWhere,
-      business: { storeStatus: "OPEN", platformStatus: "ACTIVE", isDemo: false },
+      business: { storeStatus: { in: ["OPEN", "PAUSED"] }, platformStatus: "ACTIVE", isDemo: false },
       AND: [
         ...(terms.length
           ? [{
@@ -132,7 +132,7 @@ export class DiscoveryService {
     };
     const showcaseWhere: Prisma.ShowcaseWhereInput = {
       ...discoverableShowcaseWhere,
-      business: { storeStatus: "OPEN", platformStatus: "ACTIVE", isDemo: false },
+      business: { storeStatus: { in: ["OPEN", "PAUSED"] }, platformStatus: "ACTIVE", isDemo: false },
       ...(category && category.toLowerCase() !== "all"
         ? {
             hotspots: {
@@ -156,7 +156,7 @@ export class DiscoveryService {
         : {}),
     };
     const shopWhere: Prisma.BusinessWhereInput = {
-      storeStatus: "OPEN",
+      storeStatus: { in: ["OPEN", "PAUSED", "CLOSED"] },
       platformStatus: "ACTIVE",
       isDemo: false,
       ...(category && category.toLowerCase() !== "all"
@@ -613,6 +613,8 @@ export class DiscoveryService {
   async createShowcase(auth: OwnerAuthContext, dto: CreateShowcaseDto) {
     const mediaKind = dto.mediaKind ?? "IMAGE";
     const contentRating = await this.validateShowcaseInput(auth.businessId, dto.assetId, mediaKind, dto.posterAssetId, dto.hotspots);
+    const commerceMode = dto.commerceMode ?? "DISCOVERY";
+    await this.validateShowcaseCommerce(auth.businessId, dto.hotspots, commerceMode, dto.bundlePrice);
     const status = dto.status ?? "PUBLISHED";
     return this.prisma.showcase.create({
       data: {
@@ -622,6 +624,8 @@ export class DiscoveryService {
         durationSeconds: mediaKind === "VIDEO" ? dto.durationSeconds : null,
         businessId: auth.businessId,
         contentRating,
+        commerceMode,
+        bundlePrice: commerceMode === "BUNDLE" ? dto.bundlePrice : null,
         caption: dto.caption?.trim(),
         featured: dto.featured ?? false,
         publishedAt: status === "PUBLISHED" ? new Date() : undefined,
@@ -645,6 +649,7 @@ export class DiscoveryService {
   ) {
     const current = await this.prisma.showcase.findFirst({
       where: { id, businessId: auth.businessId, status: { not: "ARCHIVED" } },
+      include: { hotspots: true },
     });
     if (!current) throw new NotFoundException("Showcase not found");
     const contentRating = await this.validateShowcaseInput(
@@ -654,6 +659,10 @@ export class DiscoveryService {
       dto.posterAssetId ?? current.posterAssetId ?? undefined,
       dto.hotspots,
     );
+    const commerceMode = dto.commerceMode ?? current.commerceMode;
+    const hotspots = dto.hotspots ?? current.hotspots.map((hotspot) => ({ productId: hotspot.productId, x: hotspot.x, y: hotspot.y }));
+    const bundlePrice = dto.bundlePrice ?? (current.bundlePrice ? Number(current.bundlePrice) : undefined);
+    await this.validateShowcaseCommerce(auth.businessId, hotspots, commerceMode, bundlePrice);
     return this.prisma.$transaction(async (tx) => {
       if (dto.hotspots) {
         await tx.showcaseHotspot.deleteMany({ where: { showcaseId: id } });
@@ -667,6 +676,8 @@ export class DiscoveryService {
           durationSeconds: dto.mediaKind === "IMAGE" ? null : dto.durationSeconds,
           caption: dto.caption?.trim(),
           contentRating,
+          commerceMode,
+          bundlePrice: commerceMode === "BUNDLE" ? bundlePrice : null,
           featured: dto.featured,
           publishedAt:
             dto.status === "PUBLISHED" && !current.publishedAt
@@ -695,6 +706,26 @@ export class DiscoveryService {
     });
     if (!changed.count) throw new NotFoundException("Showcase not found");
     return { id };
+  }
+
+  private async validateShowcaseCommerce(
+    businessId: string,
+    hotspots: Array<{ productId: string }>,
+    commerceMode: "DISCOVERY" | "BUNDLE",
+    bundlePrice?: number,
+  ) {
+    if (commerceMode !== "BUNDLE") return;
+    const productIds = [...new Set(hotspots.map((hotspot) => hotspot.productId))];
+    if (productIds.length < 2) throw new BadRequestException("A sellable set needs at least two products");
+    if (!bundlePrice || !Number.isFinite(bundlePrice) || bundlePrice <= 0) throw new BadRequestException("Add a valid set price");
+    const products = await this.prisma.product.findMany({
+      where: { businessId, id: { in: productIds }, status: "ACTIVE", visibility: "PUBLIC" },
+      include: { variants: { where: { active: true }, select: { id: true } } },
+    });
+    if (products.length !== productIds.length) throw new BadRequestException("Every product in a sellable set must be active and public");
+    if (products.some((product) => product.variants.length > 1)) {
+      throw new BadRequestException("Products with multiple variant choices cannot be sold as one set yet");
+    }
   }
 
   async myShops(customerAccountId: string) {
@@ -936,6 +967,8 @@ function showcaseCard(showcase: DiscoveryShowcase, saved = false) {
   return {
     business: shopIdentity(showcase.business),
     caption: showcase.caption,
+    commerceMode: showcase.commerceMode,
+    bundlePrice: showcase.bundlePrice,
     featured: showcase.featured,
     hotspots: showcase.hotspots.map((hotspot) => ({
       id: hotspot.id,
@@ -1092,10 +1125,15 @@ function orderDiscoveryShops(
   return [...shops].sort((left, right) => {
     const leftPreference = left.category && preferences.some((preference) => categoryMatchesInterest(left.category!, preference)) ? 1 : 0;
     const rightPreference = right.category && preferences.some((preference) => categoryMatchesInterest(right.category!, preference)) ? 1 : 0;
-    return rightPreference - leftPreference
+    return discoveryShopStatusScore(right.storeStatus) - discoveryShopStatusScore(left.storeStatus)
+      || rightPreference - leftPreference
       || categorySignalScore(categorySignals, right.category) - categorySignalScore(categorySignals, left.category)
       || right.updatedAt.getTime() - left.updatedAt.getTime();
   });
+}
+
+function discoveryShopStatusScore(status: string) {
+  return status === "OPEN" ? 3 : status === "PAUSED" ? 2 : status === "CLOSED" ? 1 : 0;
 }
 
 function discoveryCategoryScores(events: PersonalDiscoverySignal[]) {

@@ -32,6 +32,7 @@ import {
 } from "./dto/update-business.dto";
 import { UpdateMemberPermissionsDto } from "./dto/member-permission.dto";
 import { SavePickupLocationDto } from "./dto/pickup-location.dto";
+import { ReplaceStorefrontStoriesDto } from "./dto/storefront-story.dto";
 
 @Injectable()
 export class BusinessesService {
@@ -226,6 +227,8 @@ export class BusinessesService {
         googlePlaceId: dto.googlePlaceId?.trim() || null,
         latitude: dto.latitude,
         longitude: dto.longitude,
+        countryCode: dto.countryCode?.trim().toUpperCase() || "NG",
+        regionCode: dto.regionCode?.trim() || null,
         isDefault: Boolean(shouldDefault),
       };
       return existing
@@ -527,7 +530,7 @@ export class BusinessesService {
     return Boolean(product);
   }
 
-  updatePreferences(
+  async updatePreferences(
     auth: OwnerAuthContext,
     dto: UpdateBusinessPreferencesDto,
   ) {
@@ -547,6 +550,21 @@ export class BusinessesService {
     if (deliveryStates?.some((state) => !state)) {
       throw new BadRequestException("Choose delivery states from the supported Nigerian state list");
     }
+    const deliveryCountries = dto.deliveryCountries
+      ? [...new Set(dto.deliveryCountries.map((country) => country.trim().toUpperCase()))]
+      : undefined;
+    const collectionIds = [...new Set([
+      ...(dto.featuredCollectionIds ?? []),
+      ...(dto.collectionOrder ?? []),
+    ].map((item) => item.trim()).filter(Boolean))];
+    if (collectionIds.length) {
+      const availableCollections = await this.prisma.businessCategory.count({
+        where: { businessId: auth.businessId, id: { in: collectionIds } },
+      });
+      if (availableCollections !== collectionIds.length) {
+        throw new BadRequestException("One or more shop collections are unavailable");
+      }
+    }
     const data = {
       ...dto,
       allowedPaymentMethods: dto.allowedPaymentMethods
@@ -561,8 +579,12 @@ export class BusinessesService {
       deliveryStates: deliveryStates
         ? [...new Set(deliveryStates.filter((state): state is NonNullable<typeof state> => Boolean(state)))]
         : undefined,
+      deliveryCountries,
       featuredCollectionIds: dto.featuredCollectionIds
         ? [...new Set(dto.featuredCollectionIds.map((item) => item.trim()).filter(Boolean))].slice(0, 8)
+        : undefined,
+      collectionOrder: dto.collectionOrder
+        ? [...new Set(dto.collectionOrder.map((item) => item.trim()).filter(Boolean))].slice(0, 20)
         : undefined,
       tickerItems: dto.tickerItems
         ? [...new Set(dto.tickerItems.map((item) => item.trim()).filter(Boolean))]
@@ -573,6 +595,69 @@ export class BusinessesService {
       create: { businessId: auth.businessId, ...data },
       update: data,
     });
+  }
+
+  storefrontStories(auth: OwnerAuthContext) {
+    return this.prisma.storefrontStory.findMany({
+      where: { businessId: auth.businessId },
+      include: {
+        asset: true,
+        collection: { include: { _count: { select: { products: true } }, products: { where: { status: "ACTIVE", visibility: "PUBLIC" }, include: { images: { include: { asset: true }, orderBy: { sortOrder: "asc" }, take: 1 } }, orderBy: { createdAt: "desc" }, take: 4 } } },
+        product: { include: { images: { include: { asset: true }, orderBy: { sortOrder: "asc" }, take: 1 } } },
+        showcase: { include: { asset: true, posterAsset: true, hotspots: { include: { product: true }, orderBy: { sortOrder: "asc" } } } },
+      },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+  }
+
+  async replaceStorefrontStories(auth: OwnerAuthContext, dto: ReplaceStorefrontStoriesDto) {
+    const stories = dto.stories.slice(0, 12);
+    const productIds = stories.filter((story) => story.kind === "PRODUCT").map((story) => story.productId).filter(Boolean) as string[];
+    const collectionIds = stories.filter((story) => story.kind === "COLLECTION").map((story) => story.collectionId).filter(Boolean) as string[];
+    const showcaseIds = stories.filter((story) => story.kind === "SHOWCASE").map((story) => story.showcaseId).filter(Boolean) as string[];
+    const assetIds = stories.filter((story) => story.kind === "EVENT").map((story) => story.assetId).filter(Boolean) as string[];
+
+    for (const story of stories) {
+      const referenceCount = [story.productId, story.collectionId, story.showcaseId].filter(Boolean).length;
+      if (story.kind === "PRODUCT" && (!story.productId || referenceCount !== 1)) throw new BadRequestException("Choose one product for each product story");
+      if (story.kind === "COLLECTION" && (!story.collectionId || referenceCount !== 1)) throw new BadRequestException("Choose one collection for each collection story");
+      if (story.kind === "SHOWCASE" && (!story.showcaseId || referenceCount !== 1)) throw new BadRequestException("Choose one Showcase for each Showcase story");
+      if (story.kind === "EVENT" && (!story.title?.trim() || referenceCount)) throw new BadRequestException("Events need a title and cannot reference catalogue content");
+      if (story.startsAt && story.endsAt && new Date(story.endsAt) <= new Date(story.startsAt)) throw new BadRequestException("An event must end after it starts");
+    }
+
+    const [products, collections, showcases, assets] = await Promise.all([
+      productIds.length ? this.prisma.product.count({ where: { businessId: auth.businessId, id: { in: productIds }, status: "ACTIVE", visibility: "PUBLIC" } }) : 0,
+      collectionIds.length ? this.prisma.businessCategory.count({ where: { businessId: auth.businessId, id: { in: collectionIds } } }) : 0,
+      showcaseIds.length ? this.prisma.showcase.count({ where: { businessId: auth.businessId, id: { in: showcaseIds }, status: "PUBLISHED" } }) : 0,
+      assetIds.length ? this.prisma.mediaAsset.count({ where: { businessId: auth.businessId, id: { in: assetIds }, status: "ACTIVE", qualityStatus: "PASS" } }) : 0,
+    ]);
+    if (products !== new Set(productIds).size || collections !== new Set(collectionIds).size || showcases !== new Set(showcaseIds).size || assets !== new Set(assetIds).size) {
+      throw new BadRequestException("One or more featured story items are unavailable");
+    }
+
+    await this.prisma.$transaction(async (tx) => {
+      await tx.storefrontStory.deleteMany({ where: { businessId: auth.businessId } });
+      for (const [sortOrder, story] of stories.entries()) {
+        await tx.storefrontStory.create({
+          data: {
+            assetId: story.kind === "EVENT" ? story.assetId : undefined,
+            businessId: auth.businessId,
+            caption: story.caption?.trim() || null,
+            collectionId: story.kind === "COLLECTION" ? story.collectionId : undefined,
+            endsAt: story.endsAt ? new Date(story.endsAt) : undefined,
+            kind: story.kind,
+            linkUrl: story.linkUrl?.trim() || null,
+            productId: story.kind === "PRODUCT" ? story.productId : undefined,
+            showcaseId: story.kind === "SHOWCASE" ? story.showcaseId : undefined,
+            sortOrder,
+            startsAt: story.startsAt ? new Date(story.startsAt) : undefined,
+            title: story.title?.trim() || null,
+          },
+        });
+      }
+    });
+    return this.storefrontStories(auth);
   }
 
   async updateMemberPermissions(

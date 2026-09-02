@@ -1252,6 +1252,13 @@ export type EnumShowcaseStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumShowcaseStatusFilter<$PrismaModel> | $Enums.ShowcaseStatus
 }
 
+export type EnumShowcaseCommerceModeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShowcaseCommerceMode | Prisma.EnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  in?: $Enums.ShowcaseCommerceMode[] | Prisma.ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShowcaseCommerceMode[] | Prisma.ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShowcaseCommerceModeFilter<$PrismaModel> | $Enums.ShowcaseCommerceMode
+}
+
 export type EnumShowcaseStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.ShowcaseStatus | Prisma.EnumShowcaseStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ShowcaseStatus[] | Prisma.ListEnumShowcaseStatusFieldRefInput<$PrismaModel>
@@ -1260,6 +1267,16 @@ export type EnumShowcaseStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumShowcaseStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumShowcaseStatusFilter<$PrismaModel>
+}
+
+export type EnumShowcaseCommerceModeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShowcaseCommerceMode | Prisma.EnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  in?: $Enums.ShowcaseCommerceMode[] | Prisma.ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShowcaseCommerceMode[] | Prisma.ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShowcaseCommerceModeWithAggregatesFilter<$PrismaModel> | $Enums.ShowcaseCommerceMode
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShowcaseCommerceModeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShowcaseCommerceModeFilter<$PrismaModel>
 }
 
 export type FloatFilter<$PrismaModel = never> = {
@@ -1287,6 +1304,23 @@ export type FloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type EnumStorefrontStoryKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.StorefrontStoryKind | Prisma.EnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  in?: $Enums.StorefrontStoryKind[] | Prisma.ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StorefrontStoryKind[] | Prisma.ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStorefrontStoryKindFilter<$PrismaModel> | $Enums.StorefrontStoryKind
+}
+
+export type EnumStorefrontStoryKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StorefrontStoryKind | Prisma.EnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  in?: $Enums.StorefrontStoryKind[] | Prisma.ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StorefrontStoryKind[] | Prisma.ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStorefrontStoryKindWithAggregatesFilter<$PrismaModel> | $Enums.StorefrontStoryKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStorefrontStoryKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStorefrontStoryKindFilter<$PrismaModel>
 }
 
 export type EnumProductInterestTypeFilter<$PrismaModel = never> = {
@@ -3036,6 +3070,13 @@ export type NestedEnumShowcaseStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumShowcaseStatusFilter<$PrismaModel> | $Enums.ShowcaseStatus
 }
 
+export type NestedEnumShowcaseCommerceModeFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShowcaseCommerceMode | Prisma.EnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  in?: $Enums.ShowcaseCommerceMode[] | Prisma.ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShowcaseCommerceMode[] | Prisma.ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShowcaseCommerceModeFilter<$PrismaModel> | $Enums.ShowcaseCommerceMode
+}
+
 export type NestedEnumShowcaseStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.ShowcaseStatus | Prisma.EnumShowcaseStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ShowcaseStatus[] | Prisma.ListEnumShowcaseStatusFieldRefInput<$PrismaModel>
@@ -3044,6 +3085,16 @@ export type NestedEnumShowcaseStatusWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumShowcaseStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumShowcaseStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumShowcaseCommerceModeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShowcaseCommerceMode | Prisma.EnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  in?: $Enums.ShowcaseCommerceMode[] | Prisma.ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShowcaseCommerceMode[] | Prisma.ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShowcaseCommerceModeWithAggregatesFilter<$PrismaModel> | $Enums.ShowcaseCommerceMode
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShowcaseCommerceModeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShowcaseCommerceModeFilter<$PrismaModel>
 }
 
 export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -3060,6 +3111,23 @@ export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedFloatFilter<$PrismaModel>
   _min?: Prisma.NestedFloatFilter<$PrismaModel>
   _max?: Prisma.NestedFloatFilter<$PrismaModel>
+}
+
+export type NestedEnumStorefrontStoryKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.StorefrontStoryKind | Prisma.EnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  in?: $Enums.StorefrontStoryKind[] | Prisma.ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StorefrontStoryKind[] | Prisma.ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStorefrontStoryKindFilter<$PrismaModel> | $Enums.StorefrontStoryKind
+}
+
+export type NestedEnumStorefrontStoryKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StorefrontStoryKind | Prisma.EnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  in?: $Enums.StorefrontStoryKind[] | Prisma.ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StorefrontStoryKind[] | Prisma.ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStorefrontStoryKindWithAggregatesFilter<$PrismaModel> | $Enums.StorefrontStoryKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStorefrontStoryKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStorefrontStoryKindFilter<$PrismaModel>
 }
 
 export type NestedEnumProductInterestTypeFilter<$PrismaModel = never> = {

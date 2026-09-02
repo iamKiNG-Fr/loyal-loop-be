@@ -204,6 +204,7 @@ export type BusinessCategoryWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"BusinessCategory"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   products?: Prisma.ProductListRelationFilter
+  storefrontStories?: Prisma.StorefrontStoryListRelationFilter
 }
 
 export type BusinessCategoryOrderByWithRelationInput = {
@@ -217,6 +218,7 @@ export type BusinessCategoryOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   products?: Prisma.ProductOrderByRelationAggregateInput
+  storefrontStories?: Prisma.StorefrontStoryOrderByRelationAggregateInput
 }
 
 export type BusinessCategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -235,6 +237,7 @@ export type BusinessCategoryWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"BusinessCategory"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   products?: Prisma.ProductListRelationFilter
+  storefrontStories?: Prisma.StorefrontStoryListRelationFilter
 }, "id" | "businessId_slug" | "businessId_name">
 
 export type BusinessCategoryOrderByWithAggregationInput = {
@@ -275,6 +278,7 @@ export type BusinessCategoryCreateInput = {
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutCategoriesInput
   products?: Prisma.ProductCreateNestedManyWithoutBusinessCategoryInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutCollectionInput
 }
 
 export type BusinessCategoryUncheckedCreateInput = {
@@ -287,6 +291,7 @@ export type BusinessCategoryUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessCategoryInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutCollectionInput
 }
 
 export type BusinessCategoryUpdateInput = {
@@ -299,6 +304,7 @@ export type BusinessCategoryUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutCategoriesNestedInput
   products?: Prisma.ProductUpdateManyWithoutBusinessCategoryNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutCollectionNestedInput
 }
 
 export type BusinessCategoryUncheckedUpdateInput = {
@@ -311,6 +317,7 @@ export type BusinessCategoryUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessCategoryNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutCollectionNestedInput
 }
 
 export type BusinessCategoryCreateManyInput = {
@@ -459,6 +466,22 @@ export type BusinessCategoryUpdateOneWithoutProductsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessCategoryUpdateToOneWithWhereWithoutProductsInput, Prisma.BusinessCategoryUpdateWithoutProductsInput>, Prisma.BusinessCategoryUncheckedUpdateWithoutProductsInput>
 }
 
+export type BusinessCategoryCreateNestedOneWithoutStorefrontStoriesInput = {
+  create?: Prisma.XOR<Prisma.BusinessCategoryCreateWithoutStorefrontStoriesInput, Prisma.BusinessCategoryUncheckedCreateWithoutStorefrontStoriesInput>
+  connectOrCreate?: Prisma.BusinessCategoryCreateOrConnectWithoutStorefrontStoriesInput
+  connect?: Prisma.BusinessCategoryWhereUniqueInput
+}
+
+export type BusinessCategoryUpdateOneWithoutStorefrontStoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCategoryCreateWithoutStorefrontStoriesInput, Prisma.BusinessCategoryUncheckedCreateWithoutStorefrontStoriesInput>
+  connectOrCreate?: Prisma.BusinessCategoryCreateOrConnectWithoutStorefrontStoriesInput
+  upsert?: Prisma.BusinessCategoryUpsertWithoutStorefrontStoriesInput
+  disconnect?: Prisma.BusinessCategoryWhereInput | boolean
+  delete?: Prisma.BusinessCategoryWhereInput | boolean
+  connect?: Prisma.BusinessCategoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessCategoryUpdateToOneWithWhereWithoutStorefrontStoriesInput, Prisma.BusinessCategoryUpdateWithoutStorefrontStoriesInput>, Prisma.BusinessCategoryUncheckedUpdateWithoutStorefrontStoriesInput>
+}
+
 export type BusinessCategoryCreateWithoutBusinessInput = {
   id?: string
   name: string
@@ -468,6 +491,7 @@ export type BusinessCategoryCreateWithoutBusinessInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   products?: Prisma.ProductCreateNestedManyWithoutBusinessCategoryInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutCollectionInput
 }
 
 export type BusinessCategoryUncheckedCreateWithoutBusinessInput = {
@@ -479,6 +503,7 @@ export type BusinessCategoryUncheckedCreateWithoutBusinessInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessCategoryInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutCollectionInput
 }
 
 export type BusinessCategoryCreateOrConnectWithoutBusinessInput = {
@@ -530,6 +555,7 @@ export type BusinessCategoryCreateWithoutProductsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutCategoriesInput
+  storefrontStories?: Prisma.StorefrontStoryCreateNestedManyWithoutCollectionInput
 }
 
 export type BusinessCategoryUncheckedCreateWithoutProductsInput = {
@@ -541,6 +567,7 @@ export type BusinessCategoryUncheckedCreateWithoutProductsInput = {
   attributes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
+  storefrontStories?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutCollectionInput
 }
 
 export type BusinessCategoryCreateOrConnectWithoutProductsInput = {
@@ -568,6 +595,7 @@ export type BusinessCategoryUpdateWithoutProductsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutCategoriesNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutCollectionNestedInput
 }
 
 export type BusinessCategoryUncheckedUpdateWithoutProductsInput = {
@@ -579,6 +607,71 @@ export type BusinessCategoryUncheckedUpdateWithoutProductsInput = {
   attributes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutCollectionNestedInput
+}
+
+export type BusinessCategoryCreateWithoutStorefrontStoriesInput = {
+  id?: string
+  name: string
+  slug: string
+  templateKey?: string | null
+  attributes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutCategoriesInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessCategoryInput
+}
+
+export type BusinessCategoryUncheckedCreateWithoutStorefrontStoriesInput = {
+  id?: string
+  businessId: string
+  name: string
+  slug: string
+  templateKey?: string | null
+  attributes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessCategoryInput
+}
+
+export type BusinessCategoryCreateOrConnectWithoutStorefrontStoriesInput = {
+  where: Prisma.BusinessCategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCategoryCreateWithoutStorefrontStoriesInput, Prisma.BusinessCategoryUncheckedCreateWithoutStorefrontStoriesInput>
+}
+
+export type BusinessCategoryUpsertWithoutStorefrontStoriesInput = {
+  update: Prisma.XOR<Prisma.BusinessCategoryUpdateWithoutStorefrontStoriesInput, Prisma.BusinessCategoryUncheckedUpdateWithoutStorefrontStoriesInput>
+  create: Prisma.XOR<Prisma.BusinessCategoryCreateWithoutStorefrontStoriesInput, Prisma.BusinessCategoryUncheckedCreateWithoutStorefrontStoriesInput>
+  where?: Prisma.BusinessCategoryWhereInput
+}
+
+export type BusinessCategoryUpdateToOneWithWhereWithoutStorefrontStoriesInput = {
+  where?: Prisma.BusinessCategoryWhereInput
+  data: Prisma.XOR<Prisma.BusinessCategoryUpdateWithoutStorefrontStoriesInput, Prisma.BusinessCategoryUncheckedUpdateWithoutStorefrontStoriesInput>
+}
+
+export type BusinessCategoryUpdateWithoutStorefrontStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  templateKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attributes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutCategoriesNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessCategoryNestedInput
+}
+
+export type BusinessCategoryUncheckedUpdateWithoutStorefrontStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  templateKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attributes?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessCategoryNestedInput
 }
 
 export type BusinessCategoryCreateManyBusinessInput = {
@@ -600,6 +693,7 @@ export type BusinessCategoryUpdateWithoutBusinessInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUpdateManyWithoutBusinessCategoryNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUpdateManyWithoutCollectionNestedInput
 }
 
 export type BusinessCategoryUncheckedUpdateWithoutBusinessInput = {
@@ -611,6 +705,7 @@ export type BusinessCategoryUncheckedUpdateWithoutBusinessInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessCategoryNestedInput
+  storefrontStories?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutCollectionNestedInput
 }
 
 export type BusinessCategoryUncheckedUpdateManyWithoutBusinessInput = {
@@ -630,10 +725,12 @@ export type BusinessCategoryUncheckedUpdateManyWithoutBusinessInput = {
 
 export type BusinessCategoryCountOutputType = {
   products: number
+  storefrontStories: number
 }
 
 export type BusinessCategoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   products?: boolean | BusinessCategoryCountOutputTypeCountProductsArgs
+  storefrontStories?: boolean | BusinessCategoryCountOutputTypeCountStorefrontStoriesArgs
 }
 
 /**
@@ -653,6 +750,13 @@ export type BusinessCategoryCountOutputTypeCountProductsArgs<ExtArgs extends run
   where?: Prisma.ProductWhereInput
 }
 
+/**
+ * BusinessCategoryCountOutputType without action
+ */
+export type BusinessCategoryCountOutputTypeCountStorefrontStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StorefrontStoryWhereInput
+}
+
 
 export type BusinessCategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -665,6 +769,7 @@ export type BusinessCategorySelect<ExtArgs extends runtime.Types.Extensions.Inte
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   products?: boolean | Prisma.BusinessCategory$productsArgs<ExtArgs>
+  storefrontStories?: boolean | Prisma.BusinessCategory$storefrontStoriesArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["businessCategory"]>
 
@@ -707,6 +812,7 @@ export type BusinessCategoryOmit<ExtArgs extends runtime.Types.Extensions.Intern
 export type BusinessCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   products?: boolean | Prisma.BusinessCategory$productsArgs<ExtArgs>
+  storefrontStories?: boolean | Prisma.BusinessCategory$storefrontStoriesArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BusinessCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -721,6 +827,7 @@ export type $BusinessCategoryPayload<ExtArgs extends runtime.Types.Extensions.In
   objects: {
     business: Prisma.$BusinessPayload<ExtArgs>
     products: Prisma.$ProductPayload<ExtArgs>[]
+    storefrontStories: Prisma.$StorefrontStoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1127,6 +1234,7 @@ export interface Prisma__BusinessCategoryClient<T, Null = never, ExtArgs extends
   readonly [Symbol.toStringTag]: "PrismaPromise"
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   products<T extends Prisma.BusinessCategory$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessCategory$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  storefrontStories<T extends Prisma.BusinessCategory$storefrontStoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessCategory$storefrontStoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorefrontStoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1586,6 +1694,30 @@ export type BusinessCategory$productsArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
+}
+
+/**
+ * BusinessCategory.storefrontStories
+ */
+export type BusinessCategory$storefrontStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StorefrontStory
+   */
+  select?: Prisma.StorefrontStorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StorefrontStory
+   */
+  omit?: Prisma.StorefrontStoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StorefrontStoryInclude<ExtArgs> | null
+  where?: Prisma.StorefrontStoryWhereInput
+  orderBy?: Prisma.StorefrontStoryOrderByWithRelationInput | Prisma.StorefrontStoryOrderByWithRelationInput[]
+  cursor?: Prisma.StorefrontStoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StorefrontStoryScalarFieldEnum | Prisma.StorefrontStoryScalarFieldEnum[]
 }
 
 /**

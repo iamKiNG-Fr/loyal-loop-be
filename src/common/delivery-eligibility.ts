@@ -45,6 +45,7 @@ type DeliveryCoverageInput = {
   administrativeArea1?: string | null;
   countryCode?: string | null;
   deliveryAreas?: string[] | null;
+  deliveryCountries?: string[] | null;
   deliveryStates?: string[] | null;
 };
 
@@ -55,7 +56,9 @@ export type DeliveryCoverageResult = {
 
 export function assessDeliveryCoverage(input: DeliveryCoverageInput): DeliveryCoverageResult {
   const countryCode = input.countryCode?.trim().toUpperCase();
-  if (countryCode && countryCode !== "NG") return { status: "OUTSIDE_AREA" };
+  const allowedCountries = [...new Set((input.deliveryCountries ?? ["NG"]).map((value) => value.trim().toUpperCase()).filter(Boolean))];
+  if (countryCode && !allowedCountries.includes(countryCode)) return { status: "OUTSIDE_AREA" };
+  if (countryCode && countryCode !== "NG") return { status: "ELIGIBLE" };
 
   const state = canonicalNigerianState(input.administrativeArea1)
     ?? stateFromAddress(input.address);

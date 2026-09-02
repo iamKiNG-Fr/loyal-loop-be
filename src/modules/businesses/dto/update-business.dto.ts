@@ -171,6 +171,14 @@ export class UpdateBusinessPreferencesDto {
   deliveryStates?: string[];
 
   @IsOptional()
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(40)
+  @IsString({ each: true })
+  @Matches(/^[A-Za-z]{2}$/, { each: true })
+  deliveryCountries?: string[];
+
+  @IsOptional()
   @IsBoolean()
   protectedPaymentEnabled?: boolean;
 
@@ -207,6 +215,13 @@ export class UpdateBusinessPreferencesDto {
   @IsString({ each: true })
   @Length(1, 80, { each: true })
   featuredCollectionIds?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(20)
+  @IsString({ each: true })
+  @Length(1, 80, { each: true })
+  collectionOrder?: string[];
 
   @IsOptional()
   @IsArray()

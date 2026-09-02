@@ -32,6 +32,11 @@ export class AddCartItemDto {
   quantity = 1;
 }
 
+export class AddShowcaseBundleDto {
+  @IsString()
+  showcaseId!: string;
+}
+
 export class UpdateCartItemDto {
   @Type(() => Number)
   @IsInt()

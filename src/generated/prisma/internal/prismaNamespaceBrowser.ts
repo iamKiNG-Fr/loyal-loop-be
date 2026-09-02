@@ -98,6 +98,7 @@ export const ModelName = {
   ProductMedia: 'ProductMedia',
   Showcase: 'Showcase',
   ShowcaseHotspot: 'ShowcaseHotspot',
+  StorefrontStory: 'StorefrontStory',
   SavedShowcase: 'SavedShowcase',
   ShopFollow: 'ShopFollow',
   WishlistItem: 'WishlistItem',
@@ -541,6 +542,8 @@ export const BusinessPickupLocationScalarFieldEnum = {
   googlePlaceId: 'googlePlaceId',
   latitude: 'latitude',
   longitude: 'longitude',
+  countryCode: 'countryCode',
+  regionCode: 'regionCode',
   isDefault: 'isDefault',
   isActive: 'isActive',
   createdAt: 'createdAt',
@@ -567,6 +570,8 @@ export const BusinessPreferencesScalarFieldEnum = {
   allowedFulfillmentMethods: 'allowedFulfillmentMethods',
   deliveryAreas: 'deliveryAreas',
   deliveryStates: 'deliveryStates',
+  deliveryCountries: 'deliveryCountries',
+  collectionOrder: 'collectionOrder',
   protectedPaymentEnabled: 'protectedPaymentEnabled',
   receiptDeliveryLine: 'receiptDeliveryLine',
   receiptFooter: 'receiptFooter',
@@ -997,6 +1002,8 @@ export const ShowcaseScalarFieldEnum = {
   caption: 'caption',
   status: 'status',
   featured: 'featured',
+  commerceMode: 'commerceMode',
+  bundlePrice: 'bundlePrice',
   contentRating: 'contentRating',
   publishedAt: 'publishedAt',
   createdAt: 'createdAt',
@@ -1017,6 +1024,27 @@ export const ShowcaseHotspotScalarFieldEnum = {
 } as const
 
 export type ShowcaseHotspotScalarFieldEnum = (typeof ShowcaseHotspotScalarFieldEnum)[keyof typeof ShowcaseHotspotScalarFieldEnum]
+
+
+export const StorefrontStoryScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  kind: 'kind',
+  sortOrder: 'sortOrder',
+  productId: 'productId',
+  collectionId: 'collectionId',
+  showcaseId: 'showcaseId',
+  assetId: 'assetId',
+  title: 'title',
+  caption: 'caption',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  linkUrl: 'linkUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StorefrontStoryScalarFieldEnum = (typeof StorefrontStoryScalarFieldEnum)[keyof typeof StorefrontStoryScalarFieldEnum]
 
 
 export const SavedShowcaseScalarFieldEnum = {
@@ -1106,6 +1134,7 @@ export const CustomerCartGroupScalarFieldEnum = {
   recipientName: 'recipientName',
   recipientPhone: 'recipientPhone',
   whatsappUpdatesConsent: 'whatsappUpdatesConsent',
+  sourceShowcaseId: 'sourceShowcaseId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

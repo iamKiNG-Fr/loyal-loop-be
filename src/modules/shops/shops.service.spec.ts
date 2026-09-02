@@ -240,6 +240,48 @@ describe("ShopsService.getPublicShop", () => {
       products: [product],
     });
   });
+
+  it("keeps a locked shop identifiable without exposing its catalogue", async () => {
+    const service = new ShopsService(
+      {
+        business: { findFirst: vi.fn().mockResolvedValue({
+          _count: { products: 2 },
+          contacts: [],
+          coverAsset: null,
+          id: "business-1",
+          launchProduct: null,
+          logoAsset: null,
+          name: "Locked Shop",
+          preferences: null,
+          products: [{ id: "product-1" }],
+          publicCardId: "LL-LOCKED",
+          showcases: [{ id: "showcase-1" }],
+          slug: "locked-shop",
+          storefrontStories: [{ id: "story-1" }],
+          storeStatus: "CLOSED",
+        }) },
+      } as never,
+      {} as never,
+      {} as never,
+      { summary: vi.fn().mockResolvedValue({ level: 1 }) } as never,
+      {} as never,
+      {
+        reconcileScheduledLaunch: vi.fn().mockResolvedValue(false),
+        resolveShopSlug: vi.fn().mockResolvedValue({ id: "business-1", redirectedFrom: null }),
+      } as never,
+      {} as never,
+      {} as never,
+    );
+
+    await expect(service.getPublicShop("locked-shop")).resolves.toMatchObject({
+      business: { name: "Locked Shop", storeStatus: "CLOSED" },
+      canRequest: false,
+      catalog: { total: 0, totalPages: 0 },
+      featuredStories: [],
+      products: [],
+      showcases: [],
+    });
+  });
 });
 
 describe("ShopsService.getPublicProduct", () => {

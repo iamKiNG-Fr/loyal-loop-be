@@ -462,6 +462,7 @@ export type MediaAssetWhereInput = {
   productPosters?: Prisma.ProductMediaListRelationFilter
   showcaseImages?: Prisma.ShowcaseListRelationFilter
   showcasePosters?: Prisma.ShowcaseListRelationFilter
+  storefrontStoryAssets?: Prisma.StorefrontStoryListRelationFilter
   paymentProof?: Prisma.XOR<Prisma.PaymentProofNullableScalarRelationFilter, Prisma.PaymentProofWhereInput> | null
   deliveryHandoffs?: Prisma.DeliveryListRelationFilter
   moderationReviews?: Prisma.MediaModerationReviewListRelationFilter
@@ -512,6 +513,7 @@ export type MediaAssetOrderByWithRelationInput = {
   productPosters?: Prisma.ProductMediaOrderByRelationAggregateInput
   showcaseImages?: Prisma.ShowcaseOrderByRelationAggregateInput
   showcasePosters?: Prisma.ShowcaseOrderByRelationAggregateInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryOrderByRelationAggregateInput
   paymentProof?: Prisma.PaymentProofOrderByWithRelationInput
   deliveryHandoffs?: Prisma.DeliveryOrderByRelationAggregateInput
   moderationReviews?: Prisma.MediaModerationReviewOrderByRelationAggregateInput
@@ -565,6 +567,7 @@ export type MediaAssetWhereUniqueInput = Prisma.AtLeast<{
   productPosters?: Prisma.ProductMediaListRelationFilter
   showcaseImages?: Prisma.ShowcaseListRelationFilter
   showcasePosters?: Prisma.ShowcaseListRelationFilter
+  storefrontStoryAssets?: Prisma.StorefrontStoryListRelationFilter
   paymentProof?: Prisma.XOR<Prisma.PaymentProofNullableScalarRelationFilter, Prisma.PaymentProofWhereInput> | null
   deliveryHandoffs?: Prisma.DeliveryListRelationFilter
   moderationReviews?: Prisma.MediaModerationReviewListRelationFilter
@@ -695,6 +698,7 @@ export type MediaAssetCreateInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -743,6 +747,7 @@ export type MediaAssetUncheckedCreateInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -791,6 +796,7 @@ export type MediaAssetUpdateInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -839,6 +845,7 @@ export type MediaAssetUncheckedUpdateInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -1334,6 +1341,22 @@ export type MediaAssetUpdateOneWithoutShowcasePostersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.MediaAssetUpdateToOneWithWhereWithoutShowcasePostersInput, Prisma.MediaAssetUpdateWithoutShowcasePostersInput>, Prisma.MediaAssetUncheckedUpdateWithoutShowcasePostersInput>
 }
 
+export type MediaAssetCreateNestedOneWithoutStorefrontStoryAssetsInput = {
+  create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutStorefrontStoryAssetsInput, Prisma.MediaAssetUncheckedCreateWithoutStorefrontStoryAssetsInput>
+  connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutStorefrontStoryAssetsInput
+  connect?: Prisma.MediaAssetWhereUniqueInput
+}
+
+export type MediaAssetUpdateOneWithoutStorefrontStoryAssetsNestedInput = {
+  create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutStorefrontStoryAssetsInput, Prisma.MediaAssetUncheckedCreateWithoutStorefrontStoryAssetsInput>
+  connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutStorefrontStoryAssetsInput
+  upsert?: Prisma.MediaAssetUpsertWithoutStorefrontStoryAssetsInput
+  disconnect?: Prisma.MediaAssetWhereInput | boolean
+  delete?: Prisma.MediaAssetWhereInput | boolean
+  connect?: Prisma.MediaAssetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MediaAssetUpdateToOneWithWhereWithoutStorefrontStoryAssetsInput, Prisma.MediaAssetUpdateWithoutStorefrontStoryAssetsInput>, Prisma.MediaAssetUncheckedUpdateWithoutStorefrontStoryAssetsInput>
+}
+
 export type MediaAssetCreateNestedOneWithoutPaymentProofInput = {
   create?: Prisma.XOR<Prisma.MediaAssetCreateWithoutPaymentProofInput, Prisma.MediaAssetUncheckedCreateWithoutPaymentProofInput>
   connectOrCreate?: Prisma.MediaAssetCreateOrConnectWithoutPaymentProofInput
@@ -1406,6 +1429,7 @@ export type MediaAssetCreateWithoutUploadedByInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -1453,6 +1477,7 @@ export type MediaAssetUncheckedCreateWithoutUploadedByInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -1510,6 +1535,7 @@ export type MediaAssetCreateWithoutAvatarForInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -1557,6 +1583,7 @@ export type MediaAssetUncheckedCreateWithoutAvatarForInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -1676,6 +1703,7 @@ export type MediaAssetUpdateWithoutAvatarForInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -1723,6 +1751,7 @@ export type MediaAssetUncheckedUpdateWithoutAvatarForInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -1770,6 +1799,7 @@ export type MediaAssetCreateWithoutLogoForInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -1817,6 +1847,7 @@ export type MediaAssetUncheckedCreateWithoutLogoForInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -1869,6 +1900,7 @@ export type MediaAssetCreateWithoutCoverForInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -1916,6 +1948,7 @@ export type MediaAssetUncheckedCreateWithoutCoverForInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -1968,6 +2001,7 @@ export type MediaAssetCreateWithoutBusinessInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -2015,6 +2049,7 @@ export type MediaAssetUncheckedCreateWithoutBusinessInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -2083,6 +2118,7 @@ export type MediaAssetUpdateWithoutLogoForInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -2130,6 +2166,7 @@ export type MediaAssetUncheckedUpdateWithoutLogoForInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -2188,6 +2225,7 @@ export type MediaAssetUpdateWithoutCoverForInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -2235,6 +2273,7 @@ export type MediaAssetUncheckedUpdateWithoutCoverForInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -2299,6 +2338,7 @@ export type MediaAssetCreateWithoutModerationReviewsInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
 }
@@ -2346,6 +2386,7 @@ export type MediaAssetUncheckedCreateWithoutModerationReviewsInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
 }
@@ -2409,6 +2450,7 @@ export type MediaAssetUpdateWithoutModerationReviewsInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
 }
@@ -2456,6 +2498,7 @@ export type MediaAssetUncheckedUpdateWithoutModerationReviewsInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
 }
@@ -2502,6 +2545,7 @@ export type MediaAssetCreateWithoutProductImagesInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -2549,6 +2593,7 @@ export type MediaAssetUncheckedCreateWithoutProductImagesInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -2612,6 +2657,7 @@ export type MediaAssetUpdateWithoutProductImagesInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -2659,6 +2705,7 @@ export type MediaAssetUncheckedUpdateWithoutProductImagesInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -2706,6 +2753,7 @@ export type MediaAssetCreateWithoutProductMediaInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -2753,6 +2801,7 @@ export type MediaAssetUncheckedCreateWithoutProductMediaInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -2805,6 +2854,7 @@ export type MediaAssetCreateWithoutProductPostersInput = {
   productMedia?: Prisma.ProductMediaCreateNestedManyWithoutAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -2852,6 +2902,7 @@ export type MediaAssetUncheckedCreateWithoutProductPostersInput = {
   productMedia?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -2915,6 +2966,7 @@ export type MediaAssetUpdateWithoutProductMediaInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -2962,6 +3014,7 @@ export type MediaAssetUncheckedUpdateWithoutProductMediaInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -3020,6 +3073,7 @@ export type MediaAssetUpdateWithoutProductPostersInput = {
   productMedia?: Prisma.ProductMediaUpdateManyWithoutAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -3067,6 +3121,7 @@ export type MediaAssetUncheckedUpdateWithoutProductPostersInput = {
   productMedia?: Prisma.ProductMediaUncheckedUpdateManyWithoutAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -3114,6 +3169,7 @@ export type MediaAssetCreateWithoutShowcaseImagesInput = {
   productMedia?: Prisma.ProductMediaCreateNestedManyWithoutAssetInput
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -3161,6 +3217,7 @@ export type MediaAssetUncheckedCreateWithoutShowcaseImagesInput = {
   productMedia?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutAssetInput
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -3213,6 +3270,7 @@ export type MediaAssetCreateWithoutShowcasePostersInput = {
   productMedia?: Prisma.ProductMediaCreateNestedManyWithoutAssetInput
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
@@ -3260,6 +3318,7 @@ export type MediaAssetUncheckedCreateWithoutShowcasePostersInput = {
   productMedia?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutAssetInput
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
@@ -3323,6 +3382,7 @@ export type MediaAssetUpdateWithoutShowcaseImagesInput = {
   productMedia?: Prisma.ProductMediaUpdateManyWithoutAssetNestedInput
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -3370,6 +3430,7 @@ export type MediaAssetUncheckedUpdateWithoutShowcaseImagesInput = {
   productMedia?: Prisma.ProductMediaUncheckedUpdateManyWithoutAssetNestedInput
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -3428,6 +3489,7 @@ export type MediaAssetUpdateWithoutShowcasePostersInput = {
   productMedia?: Prisma.ProductMediaUpdateManyWithoutAssetNestedInput
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -3475,6 +3537,215 @@ export type MediaAssetUncheckedUpdateWithoutShowcasePostersInput = {
   productMedia?: Prisma.ProductMediaUncheckedUpdateManyWithoutAssetNestedInput
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
+  deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
+}
+
+export type MediaAssetCreateWithoutStorefrontStoryAssetsInput = {
+  id?: string
+  provider?: string
+  deliveryType?: string
+  publicId: string
+  secureUrl: string
+  resourceType?: string
+  mimeType?: string | null
+  format: string
+  width?: number | null
+  height?: number | null
+  durationSeconds?: number | null
+  bytes: number
+  version?: string | null
+  originalFilename?: string | null
+  purpose: $Enums.MediaPurpose
+  status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  business: Prisma.BusinessCreateNestedOneWithoutAssetsInput
+  uploadedBy?: Prisma.UserCreateNestedOneWithoutUploadedAssetsInput
+  logoFor?: Prisma.BusinessCreateNestedOneWithoutLogoAssetInput
+  coverFor?: Prisma.BusinessCreateNestedOneWithoutCoverAssetInput
+  avatarFor?: Prisma.UserCreateNestedOneWithoutAvatarAssetInput
+  productImages?: Prisma.ProductImageCreateNestedManyWithoutAssetInput
+  productMedia?: Prisma.ProductMediaCreateNestedManyWithoutAssetInput
+  productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
+  showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
+  showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
+  deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
+}
+
+export type MediaAssetUncheckedCreateWithoutStorefrontStoryAssetsInput = {
+  id?: string
+  businessId: string
+  uploadedById?: string | null
+  provider?: string
+  deliveryType?: string
+  publicId: string
+  secureUrl: string
+  resourceType?: string
+  mimeType?: string | null
+  format: string
+  width?: number | null
+  height?: number | null
+  durationSeconds?: number | null
+  bytes: number
+  version?: string | null
+  originalFilename?: string | null
+  purpose: $Enums.MediaPurpose
+  status?: $Enums.MediaStatus
+  qualityStatus?: $Enums.MediaQualityStatus
+  moderationStatus?: $Enums.MediaModerationStatus
+  contentRating?: $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: string | null
+  moderationModelVersion?: string | null
+  moderationEventId?: string | null
+  moderationNotifiedAt?: Date | string | null
+  exactHash?: string | null
+  perceptualHash?: string | null
+  assessedAt?: Date | string | null
+  appealedAt?: Date | string | null
+  appealReason?: string | null
+  createdAt?: Date | string
+  deletedAt?: Date | string | null
+  logoFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutLogoAssetInput
+  coverFor?: Prisma.BusinessUncheckedCreateNestedOneWithoutCoverAssetInput
+  avatarFor?: Prisma.UserUncheckedCreateNestedOneWithoutAvatarAssetInput
+  productImages?: Prisma.ProductImageUncheckedCreateNestedManyWithoutAssetInput
+  productMedia?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutAssetInput
+  productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
+  showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
+  showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
+  deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
+  moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
+}
+
+export type MediaAssetCreateOrConnectWithoutStorefrontStoryAssetsInput = {
+  where: Prisma.MediaAssetWhereUniqueInput
+  create: Prisma.XOR<Prisma.MediaAssetCreateWithoutStorefrontStoryAssetsInput, Prisma.MediaAssetUncheckedCreateWithoutStorefrontStoryAssetsInput>
+}
+
+export type MediaAssetUpsertWithoutStorefrontStoryAssetsInput = {
+  update: Prisma.XOR<Prisma.MediaAssetUpdateWithoutStorefrontStoryAssetsInput, Prisma.MediaAssetUncheckedUpdateWithoutStorefrontStoryAssetsInput>
+  create: Prisma.XOR<Prisma.MediaAssetCreateWithoutStorefrontStoryAssetsInput, Prisma.MediaAssetUncheckedCreateWithoutStorefrontStoryAssetsInput>
+  where?: Prisma.MediaAssetWhereInput
+}
+
+export type MediaAssetUpdateToOneWithWhereWithoutStorefrontStoryAssetsInput = {
+  where?: Prisma.MediaAssetWhereInput
+  data: Prisma.XOR<Prisma.MediaAssetUpdateWithoutStorefrontStoryAssetsInput, Prisma.MediaAssetUncheckedUpdateWithoutStorefrontStoryAssetsInput>
+}
+
+export type MediaAssetUpdateWithoutStorefrontStoryAssetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  resourceType?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  bytes?: Prisma.IntFieldUpdateOperationsInput | number
+  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
+  status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  business?: Prisma.BusinessUpdateOneRequiredWithoutAssetsNestedInput
+  uploadedBy?: Prisma.UserUpdateOneWithoutUploadedAssetsNestedInput
+  logoFor?: Prisma.BusinessUpdateOneWithoutLogoAssetNestedInput
+  coverFor?: Prisma.BusinessUpdateOneWithoutCoverAssetNestedInput
+  avatarFor?: Prisma.UserUpdateOneWithoutAvatarAssetNestedInput
+  productImages?: Prisma.ProductImageUpdateManyWithoutAssetNestedInput
+  productMedia?: Prisma.ProductMediaUpdateManyWithoutAssetNestedInput
+  productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
+  showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
+  showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
+  deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
+  moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
+}
+
+export type MediaAssetUncheckedUpdateWithoutStorefrontStoryAssetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  uploadedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryType?: Prisma.StringFieldUpdateOperationsInput | string
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  secureUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  resourceType?: Prisma.StringFieldUpdateOperationsInput | string
+  mimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  width?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  durationSeconds?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  bytes?: Prisma.IntFieldUpdateOperationsInput | number
+  version?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalFilename?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  purpose?: Prisma.EnumMediaPurposeFieldUpdateOperationsInput | $Enums.MediaPurpose
+  status?: Prisma.EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+  qualityStatus?: Prisma.EnumMediaQualityStatusFieldUpdateOperationsInput | $Enums.MediaQualityStatus
+  moderationStatus?: Prisma.EnumMediaModerationStatusFieldUpdateOperationsInput | $Enums.MediaModerationStatus
+  contentRating?: Prisma.EnumMediaContentRatingFieldUpdateOperationsInput | $Enums.MediaContentRating
+  qualityMetrics?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationLabels?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  moderationProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationModelVersion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationEventId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  moderationNotifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  exactHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  perceptualHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assessedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  appealReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  logoFor?: Prisma.BusinessUncheckedUpdateOneWithoutLogoAssetNestedInput
+  coverFor?: Prisma.BusinessUncheckedUpdateOneWithoutCoverAssetNestedInput
+  avatarFor?: Prisma.UserUncheckedUpdateOneWithoutAvatarAssetNestedInput
+  productImages?: Prisma.ProductImageUncheckedUpdateManyWithoutAssetNestedInput
+  productMedia?: Prisma.ProductMediaUncheckedUpdateManyWithoutAssetNestedInput
+  productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
+  showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
+  showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -3523,6 +3794,7 @@ export type MediaAssetCreateWithoutPaymentProofInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
@@ -3570,6 +3842,7 @@ export type MediaAssetUncheckedCreateWithoutPaymentProofInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedCreateNestedManyWithoutHandoffAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
@@ -3633,6 +3906,7 @@ export type MediaAssetUpdateWithoutPaymentProofInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
@@ -3680,6 +3954,7 @@ export type MediaAssetUncheckedUpdateWithoutPaymentProofInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
@@ -3727,6 +4002,7 @@ export type MediaAssetCreateWithoutDeliveryHandoffsInput = {
   productPosters?: Prisma.ProductMediaCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutAssetInput
   moderationReviews?: Prisma.MediaModerationReviewCreateNestedManyWithoutAssetInput
 }
@@ -3774,6 +4050,7 @@ export type MediaAssetUncheckedCreateWithoutDeliveryHandoffsInput = {
   productPosters?: Prisma.ProductMediaUncheckedCreateNestedManyWithoutPosterAssetInput
   showcaseImages?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutAssetInput
   showcasePosters?: Prisma.ShowcaseUncheckedCreateNestedManyWithoutPosterAssetInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedCreateNestedManyWithoutAssetInput
   paymentProof?: Prisma.PaymentProofUncheckedCreateNestedOneWithoutAssetInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedCreateNestedManyWithoutAssetInput
 }
@@ -3837,6 +4114,7 @@ export type MediaAssetUpdateWithoutDeliveryHandoffsInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
 }
@@ -3884,6 +4162,7 @@ export type MediaAssetUncheckedUpdateWithoutDeliveryHandoffsInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
 }
@@ -3966,6 +4245,7 @@ export type MediaAssetUpdateWithoutUploadedByInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -4013,6 +4293,7 @@ export type MediaAssetUncheckedUpdateWithoutUploadedByInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -4132,6 +4413,7 @@ export type MediaAssetUpdateWithoutBusinessInput = {
   productPosters?: Prisma.ProductMediaUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUpdateManyWithoutAssetNestedInput
@@ -4179,6 +4461,7 @@ export type MediaAssetUncheckedUpdateWithoutBusinessInput = {
   productPosters?: Prisma.ProductMediaUncheckedUpdateManyWithoutPosterAssetNestedInput
   showcaseImages?: Prisma.ShowcaseUncheckedUpdateManyWithoutAssetNestedInput
   showcasePosters?: Prisma.ShowcaseUncheckedUpdateManyWithoutPosterAssetNestedInput
+  storefrontStoryAssets?: Prisma.StorefrontStoryUncheckedUpdateManyWithoutAssetNestedInput
   paymentProof?: Prisma.PaymentProofUncheckedUpdateOneWithoutAssetNestedInput
   deliveryHandoffs?: Prisma.DeliveryUncheckedUpdateManyWithoutHandoffAssetNestedInput
   moderationReviews?: Prisma.MediaModerationReviewUncheckedUpdateManyWithoutAssetNestedInput
@@ -4231,6 +4514,7 @@ export type MediaAssetCountOutputType = {
   productPosters: number
   showcaseImages: number
   showcasePosters: number
+  storefrontStoryAssets: number
   deliveryHandoffs: number
   moderationReviews: number
 }
@@ -4241,6 +4525,7 @@ export type MediaAssetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extens
   productPosters?: boolean | MediaAssetCountOutputTypeCountProductPostersArgs
   showcaseImages?: boolean | MediaAssetCountOutputTypeCountShowcaseImagesArgs
   showcasePosters?: boolean | MediaAssetCountOutputTypeCountShowcasePostersArgs
+  storefrontStoryAssets?: boolean | MediaAssetCountOutputTypeCountStorefrontStoryAssetsArgs
   deliveryHandoffs?: boolean | MediaAssetCountOutputTypeCountDeliveryHandoffsArgs
   moderationReviews?: boolean | MediaAssetCountOutputTypeCountModerationReviewsArgs
 }
@@ -4288,6 +4573,13 @@ export type MediaAssetCountOutputTypeCountShowcaseImagesArgs<ExtArgs extends run
  */
 export type MediaAssetCountOutputTypeCountShowcasePostersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ShowcaseWhereInput
+}
+
+/**
+ * MediaAssetCountOutputType without action
+ */
+export type MediaAssetCountOutputTypeCountStorefrontStoryAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StorefrontStoryWhereInput
 }
 
 /**
@@ -4350,6 +4642,7 @@ export type MediaAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   productPosters?: boolean | Prisma.MediaAsset$productPostersArgs<ExtArgs>
   showcaseImages?: boolean | Prisma.MediaAsset$showcaseImagesArgs<ExtArgs>
   showcasePosters?: boolean | Prisma.MediaAsset$showcasePostersArgs<ExtArgs>
+  storefrontStoryAssets?: boolean | Prisma.MediaAsset$storefrontStoryAssetsArgs<ExtArgs>
   paymentProof?: boolean | Prisma.MediaAsset$paymentProofArgs<ExtArgs>
   deliveryHandoffs?: boolean | Prisma.MediaAsset$deliveryHandoffsArgs<ExtArgs>
   moderationReviews?: boolean | Prisma.MediaAsset$moderationReviewsArgs<ExtArgs>
@@ -4483,6 +4776,7 @@ export type MediaAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   productPosters?: boolean | Prisma.MediaAsset$productPostersArgs<ExtArgs>
   showcaseImages?: boolean | Prisma.MediaAsset$showcaseImagesArgs<ExtArgs>
   showcasePosters?: boolean | Prisma.MediaAsset$showcasePostersArgs<ExtArgs>
+  storefrontStoryAssets?: boolean | Prisma.MediaAsset$storefrontStoryAssetsArgs<ExtArgs>
   paymentProof?: boolean | Prisma.MediaAsset$paymentProofArgs<ExtArgs>
   deliveryHandoffs?: boolean | Prisma.MediaAsset$deliveryHandoffsArgs<ExtArgs>
   moderationReviews?: boolean | Prisma.MediaAsset$moderationReviewsArgs<ExtArgs>
@@ -4510,6 +4804,7 @@ export type $MediaAssetPayload<ExtArgs extends runtime.Types.Extensions.Internal
     productPosters: Prisma.$ProductMediaPayload<ExtArgs>[]
     showcaseImages: Prisma.$ShowcasePayload<ExtArgs>[]
     showcasePosters: Prisma.$ShowcasePayload<ExtArgs>[]
+    storefrontStoryAssets: Prisma.$StorefrontStoryPayload<ExtArgs>[]
     paymentProof: Prisma.$PaymentProofPayload<ExtArgs> | null
     deliveryHandoffs: Prisma.$DeliveryPayload<ExtArgs>[]
     moderationReviews: Prisma.$MediaModerationReviewPayload<ExtArgs>[]
@@ -4953,6 +5248,7 @@ export interface Prisma__MediaAssetClient<T, Null = never, ExtArgs extends runti
   productPosters<T extends Prisma.MediaAsset$productPostersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$productPostersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   showcaseImages<T extends Prisma.MediaAsset$showcaseImagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$showcaseImagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShowcasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   showcasePosters<T extends Prisma.MediaAsset$showcasePostersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$showcasePostersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShowcasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  storefrontStoryAssets<T extends Prisma.MediaAsset$storefrontStoryAssetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$storefrontStoryAssetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StorefrontStoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentProof<T extends Prisma.MediaAsset$paymentProofArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$paymentProofArgs<ExtArgs>>): Prisma.Prisma__PaymentProofClient<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   deliveryHandoffs<T extends Prisma.MediaAsset$deliveryHandoffsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$deliveryHandoffsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   moderationReviews<T extends Prisma.MediaAsset$moderationReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MediaAsset$moderationReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MediaModerationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -5613,6 +5909,30 @@ export type MediaAsset$showcasePostersArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.ShowcaseScalarFieldEnum | Prisma.ShowcaseScalarFieldEnum[]
+}
+
+/**
+ * MediaAsset.storefrontStoryAssets
+ */
+export type MediaAsset$storefrontStoryAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StorefrontStory
+   */
+  select?: Prisma.StorefrontStorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StorefrontStory
+   */
+  omit?: Prisma.StorefrontStoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StorefrontStoryInclude<ExtArgs> | null
+  where?: Prisma.StorefrontStoryWhereInput
+  orderBy?: Prisma.StorefrontStoryOrderByWithRelationInput | Prisma.StorefrontStoryOrderByWithRelationInput[]
+  cursor?: Prisma.StorefrontStoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StorefrontStoryScalarFieldEnum | Prisma.StorefrontStoryScalarFieldEnum[]
 }
 
 /**
