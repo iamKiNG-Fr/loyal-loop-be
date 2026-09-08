@@ -36,10 +36,8 @@ export class FoundingCircleService {
   ) {}
 
   accessRequired() {
-    const productionDefault = this.config.get<string>("NODE_ENV", "development") === "production"
-      ? "true"
-      : "false";
-    return this.config.get<string>("FOUNDING_ACCESS_REQUIRED", productionDefault) === "true";
+    // Invitation-only in every environment unless an operator explicitly opens it.
+    return this.config.get<string>("FOUNDING_ACCESS_REQUIRED", "true") !== "false";
   }
 
   async createApplication(dto: CreateFoundingApplicationDto) {
@@ -184,7 +182,16 @@ export class FoundingCircleService {
       });
     }
     const payload = this.verifyGrant(rawGrant);
-    return payload.invitationId === "access-not-required" ? null : payload;
+    if (payload.invitationId === "access-not-required") {
+      if (this.accessRequired()) {
+        throw new ForbiddenException({
+          error: "FOUNDING_ACCESS_REQUIRED",
+          message: "A valid Founding Circle invitation is required to create a business",
+        });
+      }
+      return null;
+    }
+    return payload;
   }
 
   async redeemInTransaction(

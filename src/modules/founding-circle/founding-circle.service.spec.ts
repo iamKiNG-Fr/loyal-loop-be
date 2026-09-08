@@ -5,7 +5,7 @@ import {
   normalizeInvitationCode,
 } from "./founding-circle.service";
 
-function fixture() {
+function fixture(overrides: Record<string, string | undefined> = {}) {
   const prisma = {
     foundingAccessApplication: {
       create: vi.fn(),
@@ -16,18 +16,21 @@ function fixture() {
       update: vi.fn(),
     },
   };
-  const config = {
-    get: vi.fn((key: string, fallback?: string) => ({
+  const settings: Record<string, string | undefined> = {
       FOUNDING_ACCESS_REQUIRED: "true",
       FOUNDING_GRANT_SECRET: "grant-secret-with-enough-entropy",
       FOUNDING_INVITATION_HASH_SECRET: "hash-secret-with-enough-entropy",
-    })[key] ?? fallback),
+      ...overrides,
+  };
+  const config = {
+    get: vi.fn((key: string, fallback?: string) => settings[key] ?? fallback),
   };
   const messaging = {
     grantFoundingAccessConsent: vi.fn(),
   };
   return {
     prisma,
+    settings,
     messaging,
     service: new FoundingCircleService(
       prisma as never,
@@ -38,6 +41,31 @@ function fixture() {
 }
 
 describe("Founding Circle invitations", () => {
+  it("requires invitations by default in development and production", async () => {
+    for (const NODE_ENV of ["development", "production", "test"]) {
+      const { service } = fixture({ NODE_ENV, FOUNDING_ACCESS_REQUIRED: undefined });
+      expect(service.accessRequired()).toBe(true);
+      expect(await service.grantStatus()).toMatchObject({ required: true, valid: false });
+      expect(() => service.resolveRegistrationGrant()).toThrow("A valid Founding Circle invitation");
+    }
+  });
+
+  it("only disables access for an explicit false setting", () => {
+    for (const value of ["", "TRUE", "invalid", "true"]) {
+      expect(fixture({ FOUNDING_ACCESS_REQUIRED: value }).service.accessRequired()).toBe(true);
+    }
+    expect(fixture({ FOUNDING_ACCESS_REQUIRED: "false" }).service.accessRequired()).toBe(false);
+  });
+
+  it("rejects an earlier open-mode grant after invitation gating is enabled", async () => {
+    const { service, settings } = fixture({ FOUNDING_ACCESS_REQUIRED: "false" });
+    const openGrant = await service.validateAccess("unused-in-open-mode");
+    expect(service.resolveRegistrationGrant(openGrant.grantToken)).toBeNull();
+    settings.FOUNDING_ACCESS_REQUIRED = "true";
+    expect(() => service.resolveRegistrationGrant(openGrant.grantToken)).toThrow("A valid Founding Circle invitation");
+    expect(await service.grantStatus(openGrant.grantToken)).toMatchObject({ required: true, valid: false });
+  });
+
   it("creates human-readable codes without ambiguous characters", () => {
     const code = createInvitationCode();
     expect(code).toMatch(/^LL-[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}$/);
