@@ -223,7 +223,7 @@ export class DeliveryService {
               ? new Date()
               : undefined,
           handoffCodeIssuedAt:
-            dto.status === "READY_FOR_PICKUP" && method !== "CUSTOMER_RIDER" && !delivery.handoffCodeIssuedAt
+            ["READY_FOR_PICKUP", "IN_TRANSIT", "DELIVERED"].includes(dto.status) && method !== "CUSTOMER_RIDER" && !delivery.handoffCodeIssuedAt
               ? new Date()
               : undefined,
           riderDetailsAddedAt:
@@ -328,7 +328,7 @@ export class DeliveryService {
       });
     return {
       ...sanitizePublicDelivery(this.protectDelivery(record)),
-      handoffCode: record.handoffCodeIssuedAt && record.journeyMethod !== "CUSTOMER_RIDER"
+      handoffCode: record.handoffCodeIssuedAt && record.journeyMethod !== "CUSTOMER_RIDER" && ["READY_FOR_PICKUP", "IN_TRANSIT", "DELIVERED"].includes(record.status)
         ? this.handoffCode(record.id)
         : null,
     };
@@ -559,13 +559,13 @@ export class DeliveryService {
   }
 
   private async completeDelivery(
-    delivery: { id: string; businessId: string; customerId: string; saleId: string },
+    delivery: { id: string; businessId: string; customerId: string; saleId: string; status: DeliveryStatus },
     actorId: string | undefined,
     note: string,
   ) {
     const updated = await this.prisma.$transaction(async (tx) => {
       const updated = await tx.delivery.update({
-        where: { id: delivery.id },
+        where: { id: delivery.id, status: delivery.status },
         data: {
           status: "CONFIRMED",
           confirmedAt: new Date(),

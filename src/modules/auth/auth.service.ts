@@ -1,4 +1,5 @@
 import { randomInt, randomUUID, timingSafeEqual } from "node:crypto";
+import { businessRegions } from "../../common/business-currency";
 import {
   BadRequestException,
   ConflictException,
@@ -242,6 +243,8 @@ export class AuthService {
             preferences: {
               create: {
                 theme: dto.theme ?? "LOYAL_PURPLE",
+                ...businessRegions[dto.countryCode ?? "NG"],
+                deliveryCountries: [dto.countryCode ?? "NG"],
                 allowedPaymentMethods: dto.allowedPaymentMethods,
                 defaultPaymentMethod: dto.defaultPaymentMethod,
               },
@@ -759,6 +762,7 @@ export class AuthService {
             contacts: true,
             logoAsset: true,
             coverAsset: true,
+            pickupLocations: { where: { isActive: true }, orderBy: [{ isDefault: "desc" }, { createdAt: "asc" }] },
           },
         },
       },

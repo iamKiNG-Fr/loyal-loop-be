@@ -5,6 +5,7 @@ import {
   IsBoolean,
   IsEmail,
   IsEnum,
+  IsIn,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -29,6 +30,10 @@ export class RegisterBusinessContactDto {
 }
 
 export class RegisterOwnerDto {
+  @IsOptional()
+  @IsIn(["NG", "GH", "KE", "ZA"])
+  countryCode?: "NG" | "GH" | "KE" | "ZA";
+
   @IsString()
   @Length(2, 100)
   ownerName!: string;

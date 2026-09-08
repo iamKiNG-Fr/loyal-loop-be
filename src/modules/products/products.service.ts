@@ -1,3 +1,4 @@
+import { assertSameCurrency, businessCurrency } from "../../common/business-currency";
 import {
   BadRequestException,
   ConflictException,
@@ -268,6 +269,9 @@ export class ProductsService {
       || [...assets, ...media.flatMap((item) => [item.asset, item.posterAsset].filter(Boolean))]
         .some(asset => mediaAssetNeedsReview(asset));
     return this.prisma.$transaction(async (tx) => {
+      const preferences = await tx.businessPreferences.findUnique({ where: { businessId: auth.businessId } });
+      const currency = businessCurrency(preferences?.currency ?? "NGN");
+      if (dto.currency) assertSameCurrency(currency, businessCurrency(dto.currency));
       const product = await tx.product.create({
         data: {
           businessId: auth.businessId,
@@ -275,7 +279,7 @@ export class ProductsService {
           name: dto.name.trim(),
           description: dto.description?.trim(),
           price: dto.price,
-          currency: dto.currency?.toUpperCase() ?? "NGN",
+          currency,
           category: dto.category?.trim(),
           categoryId: collection?.id,
           attributes: dto.attributes as Prisma.InputJsonValue | undefined,
@@ -336,7 +340,7 @@ export class ProductsService {
         tx,
       );
       return withListingReadiness(product);
-    });
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
   }
 
   async update(

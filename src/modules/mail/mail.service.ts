@@ -1,6 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Resend } from "resend";
+import { mailSender } from "./mail-sender";
 
 @Injectable()
 export class MailService {
@@ -27,10 +28,7 @@ export class MailService {
       "APP_URL",
       "https://www.useloyalloop.com",
     );
-    const from = this.configService.get<string>(
-      "EMAIL_FROM",
-      "Francis King <francis@mail.useloyalloop.com>",
-    );
+    const { from } = mailSender(this.configService, "FOUNDER");
     const replyTo = this.configService.get<string>(
       "EMAIL_REPLY_TO",
       "support@useloyalloop.com",
@@ -95,20 +93,14 @@ export class MailService {
       throw new Error("Onboarding email verification provider is not configured");
     }
 
-    const from = this.configService.get<string>(
-      "EMAIL_FROM",
-      "Francis King <francis@mail.useloyalloop.com>",
-    );
+    const { from, replyTo } = mailSender(this.configService, "SECURITY");
     const logoUrl = getEmailImageUrl(
       this.configService.get<string>("EMAIL_LOGO_URL"),
     );
     const result = await this.resend.emails.send({
       from,
       to: params.to,
-      replyTo: this.configService.get<string>(
-        "EMAIL_REPLY_TO",
-        "support@useloyalloop.com",
-      ),
+      replyTo,
       subject: `${params.code} is your Loyal Loop verification code`,
       text: buildOnboardingEmailVerificationText(params),
       html: buildOnboardingEmailVerificationEmail({
@@ -138,10 +130,7 @@ export class MailService {
       .get<string>("APP_URL", "https://www.useloyalloop.com")
       .replace(/\/$/, "");
     const resetUrl = `${appUrl}/auth/reset-password#token=${encodeURIComponent(params.token)}`;
-    const from = this.configService.get<string>(
-      "EMAIL_FROM",
-      "Francis King <francis@mail.useloyalloop.com>",
-    );
+    const { from, replyTo } = mailSender(this.configService, "SECURITY");
     const logoUrl = getEmailImageUrl(
       this.configService.get<string>("EMAIL_LOGO_URL"),
     );
@@ -152,10 +141,7 @@ export class MailService {
     const result = await this.resend.emails.send({
       from,
       to: params.to,
-      replyTo: this.configService.get<string>(
-        "EMAIL_REPLY_TO",
-        "support@useloyalloop.com",
-      ),
+      replyTo,
       subject: "Reset your Loyal Loop password",
       text: buildPasswordResetText({ name: params.name, resetUrl }),
       html: buildPasswordResetEmail({

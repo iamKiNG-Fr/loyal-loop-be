@@ -1,3 +1,4 @@
+import { businessCurrency } from "../../common/business-currency";
 import {
   BadRequestException,
   ConflictException,
@@ -534,6 +535,11 @@ export class BusinessesService {
     auth: OwnerAuthContext,
     dto: UpdateBusinessPreferencesDto,
   ) {
+    if (dto.currency !== undefined) dto.currency = businessCurrency(dto.currency);
+    if (dto.timezone !== undefined) {
+      try { new Intl.DateTimeFormat("en", { timeZone: dto.timezone }); }
+      catch { throw new BadRequestException("Choose a valid time zone"); }
+    }
     if (dto.allowedFulfillmentMethods?.some((method) => method === "NOT_REQUIRED")) {
       throw new BadRequestException("Customer collection methods can only be delivery, pickup, or decide with shop");
     }
@@ -590,11 +596,26 @@ export class BusinessesService {
         ? [...new Set(dto.tickerItems.map((item) => item.trim()).filter(Boolean))]
         : undefined,
     };
-    return this.prisma.businessPreferences.upsert({
+    const write = (tx: Prisma.TransactionClient) => tx.businessPreferences.upsert({
       where: { businessId: auth.businessId },
       create: { businessId: auth.businessId, ...data },
       update: data,
     });
+    if (dto.currency === undefined) return write(this.prisma);
+    return this.prisma.$transaction(async (tx) => {
+      const current = await tx.businessPreferences.findUnique({ where: { businessId: auth.businessId } });
+      if (dto.currency !== (current?.currency ?? "NGN")) {
+        const where = { businessId: auth.businessId };
+        const counts = await Promise.all([
+          tx.product.count({ where }), tx.sale.count({ where }),
+          tx.orderRequest.count({ where }), tx.businessPaymentAccount.count({ where }),
+        ]);
+        if (counts.some(count => count > 0)) {
+          throw new BadRequestException("Choose your currency before adding products, orders or payment details. Existing amounts cannot be converted by changing this setting.");
+        }
+      }
+      return write(tx);
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
   }
 
   storefrontStories(auth: OwnerAuthContext) {

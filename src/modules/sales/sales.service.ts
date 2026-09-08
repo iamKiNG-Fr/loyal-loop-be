@@ -1,3 +1,4 @@
+import { assertSameCurrency } from "../../common/business-currency";
 import {
   BadRequestException,
   Injectable,
@@ -318,6 +319,9 @@ export class SalesService {
       const preferences = await tx.businessPreferences.findUnique({
         where: { businessId: auth.businessId },
       });
+      const currency = preferences?.currency ?? "NGN";
+      products.forEach(product => assertSameCurrency(currency, product.currency));
+      assertSameCurrency(currency, paymentAccount?.currency);
       await consumeSaleInventory(tx, inventoryClaims);
       const created = await tx.sale.create({
         data: {
@@ -330,7 +334,7 @@ export class SalesService {
           protectedPayment: false,
           channel: dto.channel ?? "OTHER",
           fulfillment,
-          currency: preferences?.currency ?? "NGN",
+          currency,
           subtotal,
           discount,
           deliveryFee,
@@ -485,7 +489,7 @@ export class SalesService {
       };
       sale = transaction
         ? await createSale(transaction)
-        : await this.prisma.$transaction(createSale);
+        : await this.prisma.$transaction(createSale, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
     } catch (error) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&

@@ -25,6 +25,7 @@ import {
   UpdateDeliveryDto,
 } from "./dto/delivery.dto";
 import { DeliveryService } from "./delivery.service";
+import { minutes, Throttle } from "@nestjs/throttler";
 
 @Controller("deliveries")
 @UseGuards(OwnerAuthGuard, RolesGuard, CapabilitiesGuard)
@@ -81,6 +82,7 @@ export class DeliveryController {
   }
 
   @Post(":id/confirm-handoff")
+  @Throttle({ default: { limit: 6, ttl: minutes(15) } })
   @Capabilities(BusinessCapability.DELIVERY_WRITE)
   @Roles("OWNER", "MANAGER", "SALES", "DELIVERY")
   confirmHandoff(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string, @Body() dto: ConfirmDeliveryHandoffDto) {

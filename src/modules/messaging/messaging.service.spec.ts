@@ -170,7 +170,7 @@ describe("Commerce journey WhatsApp payloads", () => {
 
     const create = outboxUpsert.mock.calls[0]?.[0]?.create;
     expect(create.payload["4"]).toBe(
-      "In transit with Shop delivery. Rider: Tobi, +2348012345678.",
+      "In transit with Shop delivery. Rider: Tobi, +2348012345678. Open your order page for the private handoff code. Share it only after receiving your package.",
     );
     expect(create.payload["5"]).toMatch(/^https:\/\/www\.useloyalloop\.com\/delivery\/[A-Za-z0-9_-]+$/);
   });

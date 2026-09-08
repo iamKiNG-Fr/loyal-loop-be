@@ -959,6 +959,7 @@ function orderRequestMessage(status: string, cancellationReason: string | null) 
 }
 
 function deliveryStatusMessage(delivery: {
+  journeyMethod?: string;
   courierName: string | null;
   courierPhone: string | null;
   courierService: string | null;
@@ -969,13 +970,18 @@ function deliveryStatusMessage(delivery: {
     const rider = [delivery.courierName, delivery.courierPhone]
       .filter(Boolean)
       .join(", ");
-    return `In transit with ${service}${rider ? `. Rider: ${rider}` : ""}.`;
+    return delivery.journeyMethod === "CUSTOMER_RIDER"
+      ? `Handed to your rider${rider ? `: ${rider}` : ""}. Confirm on your order page after it reaches you.`
+      : `In transit with ${service}${rider ? `. Rider: ${rider}` : ""}. Open your order page for the private handoff code. Share it only after receiving your package.`;
   }
   if (delivery.status === "DELIVERED") {
-    return "Delivered. Please confirm when it reaches you.";
+    return "The rider has arrived. Confirm on your order page or share your private handoff code only after your package is safely with you.";
   }
   if (delivery.status === "CONFIRMED") return "Received and confirmed—thank you.";
-  if (delivery.status === "READY_FOR_PICKUP") return "Ready for pickup.";
+  if (delivery.status === "READY_FOR_PICKUP") return delivery.journeyMethod === "SHOP_DELIVERY"
+    ? "Packed and ready for dispatch. Your order page will show the rider details when delivery starts."
+    : delivery.journeyMethod === "CUSTOMER_RIDER" ? "Ready for your rider. Add their details on your order page."
+      : "Ready for pickup. Open your order page for the pickup address and private handoff code.";
   if (delivery.status === "PREPARING") return "Being prepared.";
   if (delivery.status === "AWAITING_PAYMENT") return "Waiting for payment.";
   if (delivery.status === "ISSUE") return "Paused because it needs attention.";

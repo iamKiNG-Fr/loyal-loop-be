@@ -50,23 +50,27 @@ export class PaymentsService {
     });
   }
 
-  upsertPaymentAccount(
+  async upsertPaymentAccount(
     auth: OwnerAuthContext,
     dto: UpsertPaymentAccountDto,
   ) {
-    const data = {
-      accountName: dto.accountName.trim(),
-      accountNumber: dto.accountNumber.trim(),
-      bankCode: dto.bankCode?.trim(),
-      bankName: dto.bankName.trim(),
-      instructions: dto.instructions?.trim(),
-      isActive: true,
-    };
-    return this.prisma.businessPaymentAccount.upsert({
-      where: { businessId: auth.businessId },
-      create: { ...data, businessId: auth.businessId },
-      update: data,
-    });
+    return this.prisma.$transaction(async (tx) => {
+      const preferences = await tx.businessPreferences.findUnique({ where: { businessId: auth.businessId } });
+      const data = {
+        currency: preferences?.currency ?? "NGN",
+        accountName: dto.accountName.trim(),
+        accountNumber: dto.accountNumber.trim(),
+        bankCode: dto.bankCode?.trim(),
+        bankName: dto.bankName.trim(),
+        instructions: dto.instructions?.trim(),
+        isActive: true,
+      };
+      return tx.businessPaymentAccount.upsert({
+        where: { businessId: auth.businessId },
+        create: { ...data, businessId: auth.businessId },
+        update: data,
+      });
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
   }
 
   async removePaymentAccount(auth: OwnerAuthContext) {

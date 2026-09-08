@@ -57,6 +57,7 @@ export class AttentionService {
       lowStock,
       recentActivity,
       recentCareActivity,
+      productCount,
     ] = await Promise.all([
       this.prisma.customerIssue.findMany({
         where: { businessId: auth.businessId, status: "OPEN" },
@@ -134,6 +135,7 @@ export class AttentionService {
         select: { createdAt: true, type: true },
         orderBy: { createdAt: "asc" },
       }),
+      this.prisma.product.count({ where: { businessId: auth.businessId, status: "ACTIVE" } }),
     ]);
 
     const rawTasks: Omit<AttentionItem, "seen" | "snoozedUntil">[] = [];
@@ -226,7 +228,7 @@ export class AttentionService {
     const todaysCare = recentCareActivity.filter((entry) => businessDay(entry.createdAt, timezone) === today);
     const inventoryComplete = todaysCare.some((entry) => entry.type === "INVENTORY_CHECKED");
     const customerCareCompleted = todaysCare.some((entry) => entry.type !== "INVENTORY_CHECKED");
-    if (!inventoryComplete) {
+    if (productCount > 0 && !inventoryComplete) {
       rawTasks.push(task({
         key: `inventory:${today}`,
         kind: "INVENTORY",
@@ -238,6 +240,11 @@ export class AttentionService {
       }));
     }
 
+    if (productCount === 0) {
+      rawTasks.push(task({ key: "setup:first-product", kind: "INVENTORY", priority: "ROUTINE",
+        title: "Add your first product", detail: "Give customers something to discover and share.",
+        to: "/dashboard/products?action=add-product", createdAt: now }));
+    }
     const relevantKeys = [
       ...rawTasks.map((item) => item.key),
       ...recentActivity.map((event) => `activity:${event.id}`),
@@ -295,7 +302,7 @@ export class AttentionService {
         complete: careCompleted >= careTarget,
         inventoryComplete,
         customerCareComplete: customerCareCompleted,
-        message: hasCustomerWork
+        message: productCount === 0 ? "Start your shop with one product." : hasCustomerWork
           ? "Complete one customer-facing action and confirm inventory."
           : "Confirm inventory to complete today's care goal.",
       },

@@ -120,7 +120,7 @@ export class DiscoveryService {
         ? { category: { equals: category, mode: "insensitive" } }
         : {}),
       ...(minPrice !== undefined || maxPrice !== undefined
-        ? { price: { gte: minPrice, lte: maxPrice } }
+        ? { currency: "NGN", price: { gte: minPrice, lte: maxPrice } }
         : {}),
       ...(inStock ? { stockCount: { gt: 0 } } : {}),
       ...(color
