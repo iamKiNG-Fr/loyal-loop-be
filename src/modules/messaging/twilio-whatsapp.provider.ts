@@ -74,19 +74,14 @@ export class TwilioWhatsAppProvider
 
   sendReceipt(phone: string, variables: Record<string, string>) {
     if (this.mode() === "sandbox") {
-      const greeting = socialCopyVariant(phone, [
-        `Hey ${variables["1"] || "there"} 👋 Your receipt from ${variables["2"] || "the shop"} just landed.`,
-        `Quick update, ${variables["1"] || "friend"} ✨ ${variables["2"] || "the shop"} shared your receipt.`,
-        `Receipt drop 🧾 ${variables["2"] || "the shop"} has confirmed your payment record.`,
-      ]);
       return this.sendSandboxMessage(
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          greeting,
-          `Receipt ${variables["3"] || ""}`,
-          `View the live details: ${variables["4"] || ""}`,
-        ].join("\n"),
+          `Hi ${variables["1"] || "there"} 👋`,
+          `Your receipt from ${variables["2"] || "the shop"} is ready.\nReceipt ${variables["3"] || ""}`,
+          `View your receipt:\n${variables["4"] || ""}`,
+        ].join("\n\n"),
         variables["5"],
       );
     }
@@ -95,18 +90,14 @@ export class TwilioWhatsAppProvider
 
   sendDeliveryUpdate(phone: string, variables: Record<string, string>) {
     if (this.mode() === "sandbox") {
-      const update = socialCopyVariant(`${phone}:${variables["4"]}`, [
-        `Hey ${variables["1"] || "there"} 👋 ${variables["2"] || "your shop"} moved ${variables["3"] || "your order"} to ${variables["4"] || "the next step"}.`,
-        `Psst, order update 📦 ${variables["3"] || "Your order"} is now ${variables["4"] || "updated"}.`,
-        `${variables["2"] || "Your shop"} just checked in ✨ ${variables["3"] || "Your order"} is ${variables["4"] || "moving along"}.`,
-      ]);
       return this.sendSandboxMessage(
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          update,
-          `Stay with the journey: ${variables["5"] || ""}`,
-        ].join("\n"),
+          `Hi ${variables["1"] || "there"} 👋`,
+          `${variables["2"] || "Your shop"} has an update.\nOrder ${variables["3"] || "update"}: ${variables["4"] || "Check the latest status below."}`,
+          `Track your order:\n${variables["5"] || ""}`,
+        ].join("\n\n"),
       );
     }
     return this.sendProductionTemplate(phone, "delivery", variables);
@@ -114,17 +105,13 @@ export class TwilioWhatsAppProvider
 
   sendOrderUpdate(phone: string, variables: Record<string, string>) {
     if (this.mode() === "sandbox") {
-      const update = socialCopyVariant(`${phone}:${variables["4"]}`, [
-        `Hey ${variables["1"] || "there"} 👋 We let ${variables["2"] || "the shop"} know about ${variables["3"] || "your request"}.`,
-        `Psst, ${variables["2"] || "the shop"} has an order update for you 📦`,
-        `Quick Loyal Loop check-in ✨ ${variables["3"] || "Your request"} has moved forward.`,
-      ]);
       return this.sendSandboxMessage(phone, [
         "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-        update,
+        `Hi ${variables["1"] || "there"} 👋`,
+        `${variables["2"] || "Your shop"} · Order ${variables["3"] || "update"}`,
         variables["4"] || "The shop is reviewing your request.",
-        `Follow it here: ${variables["5"] || ""}`,
-      ].join("\n"));
+        `View your order:\n${variables["5"] || ""}`,
+      ].join("\n\n"));
     }
     return this.sendProductionTemplate(phone, "delivery", variables);
   }
@@ -135,9 +122,10 @@ export class TwilioWhatsAppProvider
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          `Hey ${variables["1"] || "there"} 👋 ${variables["2"] || "a shop you know"} left you a quick reminder:`,
+          `Hi ${variables["1"] || "there"} 👋`,
+          `A quick reminder from ${variables["2"] || "your shop"}:`,
           variables["3"] || "You have a reminder from Loyal Loop.",
-        ].join("\n"),
+        ].join("\n\n"),
       );
     }
     return this.sendProductionTemplate(phone, "reminder", variables);
@@ -149,10 +137,11 @@ export class TwilioWhatsAppProvider
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          `Hi ${variables["1"] || "there"}, your Loyal Loop Founding Circle invitation for ${variables["2"] || "your business"} is ready.`,
-          `Complete your business setup before ${variables["4"] || "the invitation expires"}: ${variables["3"] || ""}`,
+          `Hi ${variables["1"] || "there"} 👋`,
+          `You're invited! Bring ${variables["2"] || "your business"} into the Loyal Loop Founding Circle.`,
+          `Set up your shop before ${variables["4"] || "the invitation expires"}:\n${variables["3"] || ""}`,
           "If now isn’t the right time, no action is needed.",
-        ].join("\n"),
+        ].join("\n\n"),
       );
     }
     return this.sendProductionTemplate(phone, "founding_access", variables);
@@ -164,12 +153,11 @@ export class TwilioWhatsAppProvider
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          `Good morning ${variables["1"] || "there"}. Here is your Loyal Loop update for ${variables["2"] || "your business"}.`,
-          `Today's summary: ${variables["3"] || "Your business checklist is ready."}`,
-          "Open your workspace to review the details and decide what to handle next.",
+          `Morning ${variables["1"] || "there"} 👋`,
+          `Here's today at ${variables["2"] || "your business"}:\n${variables["3"] || "Your business checklist is ready."}`,
           variables["4"] || "Open Loyal Loop to review today's work.",
           "Reply STOP to stop these updates.",
-        ].join("\n"),
+        ].join("\n\n"),
       );
     }
     return this.sendProductionTemplate(phone, "owner_digest", variables);
@@ -181,9 +169,10 @@ export class TwilioWhatsAppProvider
         phone,
         [
           "[LOYAL LOOP DEVELOPMENT SANDBOX]",
-          `Hi ${variables["1"] || "there"}, ${variables["2"] || "your customer"}'s delivery is confirmed ✅`,
-          "Press and hold this message, tap Reply, then type one useful customer note. Reply SKIP if there is nothing to save.",
-        ].join("\n"),
+          `Hi ${variables["1"] || "there"} 👋\n${variables["2"] || "Your customer"}'s delivery is confirmed ✅`,
+          "Anything to remember for next time?",
+          "Press and hold this message, tap Reply, then add a quick customer note.\nReply SKIP if there is nothing to save.",
+        ].join("\n\n"),
         this.customerMemoryGuideUrl(),
       );
     }
@@ -721,11 +710,6 @@ function safeEqual(left: string, right: string) {
   const a = Buffer.from(left);
   const b = Buffer.from(right);
   return a.length === b.length && timingSafeEqual(a, b);
-}
-
-function socialCopyVariant(seed: string, variants: string[]) {
-  const score = [...seed].reduce((total, character) => total + character.charCodeAt(0), 0);
-  return variants[score % variants.length] || variants[0] || "Loyal Loop update";
 }
 
 function basicAuth(accountSid: string, authToken: string) {

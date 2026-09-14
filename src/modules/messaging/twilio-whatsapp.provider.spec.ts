@@ -39,6 +39,9 @@ describe("TwilioWhatsAppProvider modes", () => {
       "https://www.useloyalloop.com/receipt/opaque-token",
     );
     expect(body.has("ContentSid")).toBe(false);
+    expect(body.get("Body")).toContain("King's Store");
+    expect(body.get("Body")).toContain("RCPT-123");
+    expect(body.get("Body")).not.toMatch(/payment.*confirmed/i);
   });
 
   it("does not call Twilio for a Sandbox recipient not recorded as joined", async () => {

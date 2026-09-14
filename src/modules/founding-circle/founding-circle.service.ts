@@ -431,7 +431,7 @@ export function foundingInviteMessage(
   inviteUrl: string,
   expiresAt: Date,
 ) {
-  return `Hi ${recipientName} 👋 ${businessName} has been invited to the Loyal Loop Founding Circle. Start your business setup before ${expiresAt.toLocaleDateString("en-NG")}: ${inviteUrl}`;
+  return `Hi ${recipientName} 👋\n\nYou're invited! Bring ${businessName} into the Loyal Loop Founding Circle.\n\nSet up your shop before ${expiresAt.toLocaleDateString("en-NG")}:\n${inviteUrl}`;
 }
 
 function safeEqual(left: string, right: string) {
