@@ -57,6 +57,7 @@ describe("DeliveryService customer journey access", () => {
     const updated = { ...delivery, status: "CONFIRMED" };
     const tx = {
       delivery: { update: vi.fn().mockResolvedValue(updated) },
+      sale: { findUniqueOrThrow: vi.fn().mockResolvedValue({ amountPaid: new Prisma.Decimal(100), total: new Prisma.Decimal(100), paymentStatus: 'PAID' }) },
     };
     const prisma = {
       delivery: { findFirst: vi.fn().mockResolvedValue(delivery) },

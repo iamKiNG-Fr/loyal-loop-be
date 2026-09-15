@@ -9,7 +9,7 @@ import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import { customerOrderRequestTokenWhere } from "../../common/customer-order-request-token";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { cancelSaleAndRestoreInventory } from "../../common/sale-inventory";
-import type { DeliveryStatus, MediaPurpose } from "../../generated/prisma/client";
+import type { DeliveryStatus, MediaPurpose, Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { MessagingService } from "../messaging/messaging.service";
 import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
@@ -315,6 +315,18 @@ export class DeliveryService {
     return updated;
   }
 
+  async createCustomerReceiptLink(customerAccountId: string, token: string) {
+    const delivery = await this.findByToken(customerAccountId, token);
+    const receipt = await this.prisma.receipt.findFirst({
+      where: { saleId: delivery.saleId, status: { not: "VOID" }, OR: [{ customer: { accountId: customerAccountId } }, { sale: { sourceRequest: { customerAccountId } } }] },
+      select: { id: true },
+    });
+    if (!receipt) throw new NotFoundException("Receipt not available for this account");
+    const generated = createOpaqueToken();
+    await this.prisma.receiptShareToken.create({ data: { receiptId: receipt.id, tokenHash: generated.tokenHash } });
+    return { token: generated.token };
+  }
+
   async getPublic(customerAccountId: string, token: string) {
     const delivery = await this.findByToken(customerAccountId, token);
     const record = await this.prisma.delivery.findUniqueOrThrow({
@@ -350,8 +362,9 @@ export class DeliveryService {
       throw new BadRequestException("The merchant must complete the handoff step first");
     }
     const updated = await this.prisma.$transaction(async (tx) => {
+      await this.assertPaymentSettled(tx, delivery.saleId);
       const updated = await tx.delivery.update({
-        where: { id: delivery.id },
+        where: { id: delivery.id, status: delivery.status, sale: { paymentStatus: "PAID" } },
         data: {
           status: "CONFIRMED",
           confirmedAt: new Date(),
@@ -564,8 +577,9 @@ export class DeliveryService {
     note: string,
   ) {
     const updated = await this.prisma.$transaction(async (tx) => {
+      await this.assertPaymentSettled(tx, delivery.saleId);
       const updated = await tx.delivery.update({
-        where: { id: delivery.id, status: delivery.status },
+        where: { id: delivery.id, status: delivery.status, sale: { paymentStatus: "PAID" } },
         data: {
           status: "CONFIRMED",
           confirmedAt: new Date(),
@@ -586,6 +600,13 @@ export class DeliveryService {
       return updated;
     });
     return this.protectDelivery(updated);
+  }
+
+  private async assertPaymentSettled(tx: Prisma.TransactionClient, saleId: string) {
+    const sale = await tx.sale.findUniqueOrThrow({ where: { id: saleId }, select: { amountPaid: true, total: true, paymentStatus: true } });
+    if (sale.paymentStatus !== "PAID" || sale.amountPaid.lessThan(sale.total)) {
+      throw new BadRequestException("Record or verify the remaining payment before confirming this order");
+    }
   }
 
   private protectDelivery<T extends {
@@ -661,6 +682,8 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
     sale: {
       amountPaid: unknown;
       currency: string;
+      subtotal: unknown;
+      deliveryFee: unknown;
       id: string;
       sourceRequestId: string | null;
       items: Array<{
@@ -748,6 +771,8 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
     sale: {
       amountPaid: value.sale.amountPaid,
       currency: value.sale.currency,
+      subtotal: value.sale.subtotal,
+      deliveryFee: value.sale.deliveryFee,
       id: value.sale.id,
       sourceRequestId: value.sale.sourceRequestId,
       items: value.sale.items.map((item) => ({

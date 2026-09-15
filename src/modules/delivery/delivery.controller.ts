@@ -120,6 +120,12 @@ export class PublicDeliveryController {
       .then((data) => ok(data, "Delivery confirmed"));
   }
 
+  @Post(":token/receipt-link")
+  @Throttle({ default: { limit: 20, ttl: minutes(1) } })
+  receiptLink(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
+    return this.deliveries.createCustomerReceiptLink(customer.customerAccountId, token).then((data) => ok(data));
+  }
+
   @Patch(":token/pickup-method")
   switchPickupMethod(
     @CurrentCustomer() customer: CustomerAuthContext,

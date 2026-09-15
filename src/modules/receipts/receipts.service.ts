@@ -157,6 +157,14 @@ export class ReceiptsService {
     return sanitizePublicReceipt(receipt);
   }
 
+  async createCustomerOrderLink(customerAccountId: string, token: string) {
+    const receipt = await this.findByToken(customerAccountId, token);
+    if (!receipt.sale.delivery) throw new NotFoundException("This receipt has no fulfilment journey");
+    const generated = createOpaqueToken();
+    await this.prisma.deliveryShareToken.create({ data: { deliveryId: receipt.sale.delivery.id, tokenHash: generated.tokenHash } });
+    return { token: generated.token };
+  }
+
   async acknowledge(customerAccountId: string, token: string) {
     const receipt = await this.findByToken(customerAccountId, token);
     if (receipt.acknowledgedAt) return { acknowledgedAt: receipt.acknowledgedAt };
@@ -228,8 +236,9 @@ export class ReceiptsService {
 
   private async findPublicReceipt(customerAccountId: string, token: string) {
     const tokenHash = hashToken(token);
+    const access = { OR: [{ customer: { accountId: customerAccountId } }, { sale: { sourceRequest: { customerAccountId } } }] };
     const receipt = await this.prisma.receipt.findFirst({
-      where: { tokenHash, customer: { accountId: customerAccountId } },
+      where: { tokenHash, ...access },
       include: receiptInclude,
     });
     if (receipt) return receipt;
@@ -237,7 +246,7 @@ export class ReceiptsService {
       where: {
         tokenHash,
         revokedAt: null,
-        receipt: { customer: { accountId: customerAccountId } },
+        receipt: access,
       },
       include: {
         receipt: { include: receiptInclude },
@@ -250,7 +259,7 @@ export class ReceiptsService {
           code: token,
           kind: "RECEIPT",
           receiptId: { not: null },
-          receipt: { customer: { accountId: customerAccountId } },
+          receipt: access,
           revokedAt: null,
           OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
         },

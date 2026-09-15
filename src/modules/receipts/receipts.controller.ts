@@ -14,6 +14,7 @@ import { OwnerAuthGuard } from "../../common/auth/owner-auth.guard";
 import { Roles } from "../../common/auth/roles.decorator";
 import { RolesGuard } from "../../common/auth/roles.guard";
 import { ok } from "../../common/api-response";
+import { Throttle, minutes } from "@nestjs/throttler";
 import type { CustomerAuthContext, OwnerAuthContext } from "../../common/request-context";
 import { CreateReceiptIssueDto, UpdateReceiptDto } from "./dto/receipt.dto";
 import { ReceiptsService } from "./receipts.service";
@@ -98,5 +99,11 @@ export class PublicReceiptMediaController {
     @Query("signature") signature: string,
   ) {
     return this.receipts.getMessagePreview(id, Number(expires), signature).then((data) => ok(data));
+  }
+
+  @Post(":token/order-link")
+  @Throttle({ default: { limit: 20, ttl: minutes(1) } })
+  orderLink(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
+    return this.receipts.createCustomerOrderLink(customer.customerAccountId, token).then((data) => ok(data));
   }
 }
