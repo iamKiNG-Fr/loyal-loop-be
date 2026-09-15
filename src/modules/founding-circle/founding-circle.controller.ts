@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Header,
   Post,
   Req,
   Res,
@@ -18,6 +19,7 @@ import { ok } from "../../common/api-response";
 import {
   CreateFoundingApplicationDto,
   ValidateFoundingAccessDto,
+  SaveOnboardingDraftDto,
 } from "./dto/founding-circle.dto";
 import { FoundingCircleService } from "./founding-circle.service";
 
@@ -67,5 +69,18 @@ export class FoundingCircleController {
   clear(@Res({ passthrough: true }) response: Response) {
     clearSessionCookie(response, ONBOARDING_GRANT_COOKIE);
     return ok(null, "Founding access cleared");
+  }
+
+  @Get("onboarding-draft")
+  @Header("Cache-Control", "no-store")
+  async draft(@Req() request: Request) {
+    return ok(await this.founding.readOnboardingDraft(readCookie(request.headers.cookie, ONBOARDING_GRANT_COOKIE)));
+  }
+
+  @Post("onboarding-draft")
+  @Header("Cache-Control", "no-store")
+  @Throttle({ default: { limit: 60, ttl: minutes(1) } })
+  async saveDraft(@Req() request: Request, @Body() dto: SaveOnboardingDraftDto) {
+    return ok(await this.founding.saveOnboardingDraft(readCookie(request.headers.cookie, ONBOARDING_GRANT_COOKIE), dto));
   }
 }

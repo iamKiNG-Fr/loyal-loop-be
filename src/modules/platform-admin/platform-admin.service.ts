@@ -656,6 +656,9 @@ export class PlatformAdminService {
         revokedByAdminId: auth.platformAdminId,
         revokeReason: reason,
         encryptedToken: null,
+        draftCiphertext: null,
+        draftExpiresAt: null,
+        draftRevision: { increment: 1 },
       },
     });
     if (before.messageOutboxId) {
@@ -670,7 +673,7 @@ export class PlatformAdminService {
         },
       });
     }
-    await this.audit(auth, "FOUNDING_INVITATION_REVOKED", "OnboardingInvitation", id, reason, before, invitation);
+    await this.audit(auth, "FOUNDING_INVITATION_REVOKED", "OnboardingInvitation", id, reason, this.founding.safeInvitation(before), this.founding.safeInvitation(invitation));
     return this.founding.safeInvitation(invitation);
   }
 

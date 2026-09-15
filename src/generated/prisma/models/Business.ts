@@ -1513,14 +1513,6 @@ export type EnumBusinessPlatformStatusFieldUpdateOperationsInput = {
   set?: $Enums.BusinessPlatformStatus
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type BusinessCreateNestedOneWithoutSlugHistoryInput = {
   create?: Prisma.XOR<Prisma.BusinessCreateWithoutSlugHistoryInput, Prisma.BusinessUncheckedCreateWithoutSlugHistoryInput>
   connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutSlugHistoryInput

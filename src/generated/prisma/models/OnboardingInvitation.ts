@@ -27,11 +27,15 @@ export type AggregateOnboardingInvitation = {
 }
 
 export type OnboardingInvitationAvgAggregateOutputType = {
+  draftRevision: number | null
+  onboardingStep: number | null
   maxUses: number | null
   useCount: number | null
 }
 
 export type OnboardingInvitationSumAggregateOutputType = {
+  draftRevision: number | null
+  onboardingStep: number | null
   maxUses: number | null
   useCount: number | null
 }
@@ -43,6 +47,12 @@ export type OnboardingInvitationMinAggregateOutputType = {
   codeHash: string | null
   codeSuffix: string | null
   encryptedToken: string | null
+  draftCiphertext: string | null
+  draftRevision: number | null
+  draftSavedAt: Date | null
+  draftExpiresAt: Date | null
+  onboardingStartedAt: Date | null
+  onboardingStep: number | null
   recipientName: string | null
   businessName: string | null
   phone: string | null
@@ -71,6 +81,12 @@ export type OnboardingInvitationMaxAggregateOutputType = {
   codeHash: string | null
   codeSuffix: string | null
   encryptedToken: string | null
+  draftCiphertext: string | null
+  draftRevision: number | null
+  draftSavedAt: Date | null
+  draftExpiresAt: Date | null
+  onboardingStartedAt: Date | null
+  onboardingStep: number | null
   recipientName: string | null
   businessName: string | null
   phone: string | null
@@ -99,6 +115,12 @@ export type OnboardingInvitationCountAggregateOutputType = {
   codeHash: number
   codeSuffix: number
   encryptedToken: number
+  draftCiphertext: number
+  draftRevision: number
+  draftSavedAt: number
+  draftExpiresAt: number
+  onboardingStartedAt: number
+  onboardingStep: number
   recipientName: number
   businessName: number
   phone: number
@@ -123,11 +145,15 @@ export type OnboardingInvitationCountAggregateOutputType = {
 
 
 export type OnboardingInvitationAvgAggregateInputType = {
+  draftRevision?: true
+  onboardingStep?: true
   maxUses?: true
   useCount?: true
 }
 
 export type OnboardingInvitationSumAggregateInputType = {
+  draftRevision?: true
+  onboardingStep?: true
   maxUses?: true
   useCount?: true
 }
@@ -139,6 +165,12 @@ export type OnboardingInvitationMinAggregateInputType = {
   codeHash?: true
   codeSuffix?: true
   encryptedToken?: true
+  draftCiphertext?: true
+  draftRevision?: true
+  draftSavedAt?: true
+  draftExpiresAt?: true
+  onboardingStartedAt?: true
+  onboardingStep?: true
   recipientName?: true
   businessName?: true
   phone?: true
@@ -167,6 +199,12 @@ export type OnboardingInvitationMaxAggregateInputType = {
   codeHash?: true
   codeSuffix?: true
   encryptedToken?: true
+  draftCiphertext?: true
+  draftRevision?: true
+  draftSavedAt?: true
+  draftExpiresAt?: true
+  onboardingStartedAt?: true
+  onboardingStep?: true
   recipientName?: true
   businessName?: true
   phone?: true
@@ -195,6 +233,12 @@ export type OnboardingInvitationCountAggregateInputType = {
   codeHash?: true
   codeSuffix?: true
   encryptedToken?: true
+  draftCiphertext?: true
+  draftRevision?: true
+  draftSavedAt?: true
+  draftExpiresAt?: true
+  onboardingStartedAt?: true
+  onboardingStep?: true
   recipientName?: true
   businessName?: true
   phone?: true
@@ -310,6 +354,12 @@ export type OnboardingInvitationGroupByOutputType = {
   codeHash: string
   codeSuffix: string
   encryptedToken: string | null
+  draftCiphertext: string | null
+  draftRevision: number
+  draftSavedAt: Date | null
+  draftExpiresAt: Date | null
+  onboardingStartedAt: Date | null
+  onboardingStep: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -361,6 +411,12 @@ export type OnboardingInvitationWhereInput = {
   codeHash?: Prisma.StringFilter<"OnboardingInvitation"> | string
   codeSuffix?: Prisma.StringFilter<"OnboardingInvitation"> | string
   encryptedToken?: Prisma.StringNullableFilter<"OnboardingInvitation"> | string | null
+  draftCiphertext?: Prisma.StringNullableFilter<"OnboardingInvitation"> | string | null
+  draftRevision?: Prisma.IntFilter<"OnboardingInvitation"> | number
+  draftSavedAt?: Prisma.DateTimeNullableFilter<"OnboardingInvitation"> | Date | string | null
+  draftExpiresAt?: Prisma.DateTimeNullableFilter<"OnboardingInvitation"> | Date | string | null
+  onboardingStartedAt?: Prisma.DateTimeNullableFilter<"OnboardingInvitation"> | Date | string | null
+  onboardingStep?: Prisma.IntNullableFilter<"OnboardingInvitation"> | number | null
   recipientName?: Prisma.StringFilter<"OnboardingInvitation"> | string
   businessName?: Prisma.StringFilter<"OnboardingInvitation"> | string
   phone?: Prisma.StringFilter<"OnboardingInvitation"> | string
@@ -395,6 +451,12 @@ export type OnboardingInvitationOrderByWithRelationInput = {
   codeHash?: Prisma.SortOrder
   codeSuffix?: Prisma.SortOrder
   encryptedToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  draftCiphertext?: Prisma.SortOrderInput | Prisma.SortOrder
+  draftRevision?: Prisma.SortOrder
+  draftSavedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  draftExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardingStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardingStep?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   businessName?: Prisma.SortOrder
   phone?: Prisma.SortOrder
@@ -434,6 +496,12 @@ export type OnboardingInvitationWhereUniqueInput = Prisma.AtLeast<{
   cohortId?: Prisma.StringNullableFilter<"OnboardingInvitation"> | string | null
   codeSuffix?: Prisma.StringFilter<"OnboardingInvitation"> | string
   encryptedToken?: Prisma.StringNullableFilter<"OnboardingInvitation"> | string | null
+  draftCiphertext?: Prisma.StringNullableFilter<"OnboardingInvitation"> | string | null
+  draftRevision?: Prisma.IntFilter<"OnboardingInvitation"> | number
+  draftSavedAt?: Prisma.DateTimeNullableFilter<"OnboardingInvitation"> | Date | string | null
+  draftExpiresAt?: Prisma.DateTimeNullableFilter<"OnboardingInvitation"> | Date | string | null
+  onboardingStartedAt?: Prisma.DateTimeNullableFilter<"OnboardingInvitation"> | Date | string | null
+  onboardingStep?: Prisma.IntNullableFilter<"OnboardingInvitation"> | number | null
   recipientName?: Prisma.StringFilter<"OnboardingInvitation"> | string
   businessName?: Prisma.StringFilter<"OnboardingInvitation"> | string
   phone?: Prisma.StringFilter<"OnboardingInvitation"> | string
@@ -466,6 +534,12 @@ export type OnboardingInvitationOrderByWithAggregationInput = {
   codeHash?: Prisma.SortOrder
   codeSuffix?: Prisma.SortOrder
   encryptedToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  draftCiphertext?: Prisma.SortOrderInput | Prisma.SortOrder
+  draftRevision?: Prisma.SortOrder
+  draftSavedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  draftExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardingStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardingStep?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   businessName?: Prisma.SortOrder
   phone?: Prisma.SortOrder
@@ -502,6 +576,12 @@ export type OnboardingInvitationScalarWhereWithAggregatesInput = {
   codeHash?: Prisma.StringWithAggregatesFilter<"OnboardingInvitation"> | string
   codeSuffix?: Prisma.StringWithAggregatesFilter<"OnboardingInvitation"> | string
   encryptedToken?: Prisma.StringNullableWithAggregatesFilter<"OnboardingInvitation"> | string | null
+  draftCiphertext?: Prisma.StringNullableWithAggregatesFilter<"OnboardingInvitation"> | string | null
+  draftRevision?: Prisma.IntWithAggregatesFilter<"OnboardingInvitation"> | number
+  draftSavedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"OnboardingInvitation"> | Date | string | null
+  draftExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"OnboardingInvitation"> | Date | string | null
+  onboardingStartedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"OnboardingInvitation"> | Date | string | null
+  onboardingStep?: Prisma.IntNullableWithAggregatesFilter<"OnboardingInvitation"> | number | null
   recipientName?: Prisma.StringWithAggregatesFilter<"OnboardingInvitation"> | string
   businessName?: Prisma.StringWithAggregatesFilter<"OnboardingInvitation"> | string
   phone?: Prisma.StringWithAggregatesFilter<"OnboardingInvitation"> | string
@@ -528,6 +608,12 @@ export type OnboardingInvitationCreateInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -559,6 +645,12 @@ export type OnboardingInvitationUncheckedCreateInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -586,6 +678,12 @@ export type OnboardingInvitationUpdateInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -617,6 +715,12 @@ export type OnboardingInvitationUncheckedUpdateInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -646,6 +750,12 @@ export type OnboardingInvitationCreateManyInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -672,6 +782,12 @@ export type OnboardingInvitationUpdateManyMutationInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -697,6 +813,12 @@ export type OnboardingInvitationUncheckedUpdateManyInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -740,6 +862,12 @@ export type OnboardingInvitationCountOrderByAggregateInput = {
   codeHash?: Prisma.SortOrder
   codeSuffix?: Prisma.SortOrder
   encryptedToken?: Prisma.SortOrder
+  draftCiphertext?: Prisma.SortOrder
+  draftRevision?: Prisma.SortOrder
+  draftSavedAt?: Prisma.SortOrder
+  draftExpiresAt?: Prisma.SortOrder
+  onboardingStartedAt?: Prisma.SortOrder
+  onboardingStep?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   businessName?: Prisma.SortOrder
   phone?: Prisma.SortOrder
@@ -762,6 +890,8 @@ export type OnboardingInvitationCountOrderByAggregateInput = {
 }
 
 export type OnboardingInvitationAvgOrderByAggregateInput = {
+  draftRevision?: Prisma.SortOrder
+  onboardingStep?: Prisma.SortOrder
   maxUses?: Prisma.SortOrder
   useCount?: Prisma.SortOrder
 }
@@ -773,6 +903,12 @@ export type OnboardingInvitationMaxOrderByAggregateInput = {
   codeHash?: Prisma.SortOrder
   codeSuffix?: Prisma.SortOrder
   encryptedToken?: Prisma.SortOrder
+  draftCiphertext?: Prisma.SortOrder
+  draftRevision?: Prisma.SortOrder
+  draftSavedAt?: Prisma.SortOrder
+  draftExpiresAt?: Prisma.SortOrder
+  onboardingStartedAt?: Prisma.SortOrder
+  onboardingStep?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   businessName?: Prisma.SortOrder
   phone?: Prisma.SortOrder
@@ -801,6 +937,12 @@ export type OnboardingInvitationMinOrderByAggregateInput = {
   codeHash?: Prisma.SortOrder
   codeSuffix?: Prisma.SortOrder
   encryptedToken?: Prisma.SortOrder
+  draftCiphertext?: Prisma.SortOrder
+  draftRevision?: Prisma.SortOrder
+  draftSavedAt?: Prisma.SortOrder
+  draftExpiresAt?: Prisma.SortOrder
+  onboardingStartedAt?: Prisma.SortOrder
+  onboardingStep?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   businessName?: Prisma.SortOrder
   phone?: Prisma.SortOrder
@@ -823,6 +965,8 @@ export type OnboardingInvitationMinOrderByAggregateInput = {
 }
 
 export type OnboardingInvitationSumOrderByAggregateInput = {
+  draftRevision?: Prisma.SortOrder
+  onboardingStep?: Prisma.SortOrder
   maxUses?: Prisma.SortOrder
   useCount?: Prisma.SortOrder
 }
@@ -904,6 +1048,14 @@ export type OnboardingInvitationUncheckedUpdateManyWithoutCohortNestedInput = {
   update?: Prisma.OnboardingInvitationUpdateWithWhereUniqueWithoutCohortInput | Prisma.OnboardingInvitationUpdateWithWhereUniqueWithoutCohortInput[]
   updateMany?: Prisma.OnboardingInvitationUpdateManyWithWhereWithoutCohortInput | Prisma.OnboardingInvitationUpdateManyWithWhereWithoutCohortInput[]
   deleteMany?: Prisma.OnboardingInvitationScalarWhereInput | Prisma.OnboardingInvitationScalarWhereInput[]
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type EnumOnboardingInvitationStatusFieldUpdateOperationsInput = {
@@ -1045,6 +1197,12 @@ export type OnboardingInvitationCreateWithoutApplicationInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1074,6 +1232,12 @@ export type OnboardingInvitationUncheckedCreateWithoutApplicationInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1117,6 +1281,12 @@ export type OnboardingInvitationUpdateWithoutApplicationInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1146,6 +1316,12 @@ export type OnboardingInvitationUncheckedUpdateWithoutApplicationInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1173,6 +1349,12 @@ export type OnboardingInvitationCreateWithoutCohortInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1202,6 +1384,12 @@ export type OnboardingInvitationUncheckedCreateWithoutCohortInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1260,6 +1448,12 @@ export type OnboardingInvitationScalarWhereInput = {
   codeHash?: Prisma.StringFilter<"OnboardingInvitation"> | string
   codeSuffix?: Prisma.StringFilter<"OnboardingInvitation"> | string
   encryptedToken?: Prisma.StringNullableFilter<"OnboardingInvitation"> | string | null
+  draftCiphertext?: Prisma.StringNullableFilter<"OnboardingInvitation"> | string | null
+  draftRevision?: Prisma.IntFilter<"OnboardingInvitation"> | number
+  draftSavedAt?: Prisma.DateTimeNullableFilter<"OnboardingInvitation"> | Date | string | null
+  draftExpiresAt?: Prisma.DateTimeNullableFilter<"OnboardingInvitation"> | Date | string | null
+  onboardingStartedAt?: Prisma.DateTimeNullableFilter<"OnboardingInvitation"> | Date | string | null
+  onboardingStep?: Prisma.IntNullableFilter<"OnboardingInvitation"> | number | null
   recipientName?: Prisma.StringFilter<"OnboardingInvitation"> | string
   businessName?: Prisma.StringFilter<"OnboardingInvitation"> | string
   phone?: Prisma.StringFilter<"OnboardingInvitation"> | string
@@ -1286,6 +1480,12 @@ export type OnboardingInvitationCreateWithoutEnrollmentInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1316,6 +1516,12 @@ export type OnboardingInvitationUncheckedCreateWithoutEnrollmentInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1358,6 +1564,12 @@ export type OnboardingInvitationUpdateWithoutEnrollmentInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1388,6 +1600,12 @@ export type OnboardingInvitationUncheckedUpdateWithoutEnrollmentInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1414,6 +1632,12 @@ export type OnboardingInvitationCreateWithoutCreatedByInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1444,6 +1668,12 @@ export type OnboardingInvitationUncheckedCreateWithoutCreatedByInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1480,6 +1710,12 @@ export type OnboardingInvitationCreateWithoutRevokedByInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1510,6 +1746,12 @@ export type OnboardingInvitationUncheckedCreateWithoutRevokedByInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1578,6 +1820,12 @@ export type OnboardingInvitationCreateWithoutMessageOutboxInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1608,6 +1856,12 @@ export type OnboardingInvitationUncheckedCreateWithoutMessageOutboxInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1650,6 +1904,12 @@ export type OnboardingInvitationUpdateWithoutMessageOutboxInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1680,6 +1940,12 @@ export type OnboardingInvitationUncheckedUpdateWithoutMessageOutboxInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1707,6 +1973,12 @@ export type OnboardingInvitationCreateManyCohortInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1733,6 +2005,12 @@ export type OnboardingInvitationUpdateWithoutCohortInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1762,6 +2040,12 @@ export type OnboardingInvitationUncheckedUpdateWithoutCohortInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1790,6 +2074,12 @@ export type OnboardingInvitationUncheckedUpdateManyWithoutCohortInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1818,6 +2108,12 @@ export type OnboardingInvitationCreateManyCreatedByInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1845,6 +2141,12 @@ export type OnboardingInvitationCreateManyRevokedByInput = {
   codeHash: string
   codeSuffix: string
   encryptedToken?: string | null
+  draftCiphertext?: string | null
+  draftRevision?: number
+  draftSavedAt?: Date | string | null
+  draftExpiresAt?: Date | string | null
+  onboardingStartedAt?: Date | string | null
+  onboardingStep?: number | null
   recipientName: string
   businessName: string
   phone: string
@@ -1870,6 +2172,12 @@ export type OnboardingInvitationUpdateWithoutCreatedByInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1900,6 +2208,12 @@ export type OnboardingInvitationUncheckedUpdateWithoutCreatedByInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1928,6 +2242,12 @@ export type OnboardingInvitationUncheckedUpdateManyWithoutCreatedByInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1953,6 +2273,12 @@ export type OnboardingInvitationUpdateWithoutRevokedByInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1983,6 +2309,12 @@ export type OnboardingInvitationUncheckedUpdateWithoutRevokedByInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2011,6 +2343,12 @@ export type OnboardingInvitationUncheckedUpdateManyWithoutRevokedByInput = {
   codeHash?: Prisma.StringFieldUpdateOperationsInput | string
   codeSuffix?: Prisma.StringFieldUpdateOperationsInput | string
   encryptedToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftCiphertext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  draftRevision?: Prisma.IntFieldUpdateOperationsInput | number
+  draftSavedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  draftExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingStep?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   recipientName?: Prisma.StringFieldUpdateOperationsInput | string
   businessName?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2040,6 +2378,12 @@ export type OnboardingInvitationSelect<ExtArgs extends runtime.Types.Extensions.
   codeHash?: boolean
   codeSuffix?: boolean
   encryptedToken?: boolean
+  draftCiphertext?: boolean
+  draftRevision?: boolean
+  draftSavedAt?: boolean
+  draftExpiresAt?: boolean
+  onboardingStartedAt?: boolean
+  onboardingStep?: boolean
   recipientName?: boolean
   businessName?: boolean
   phone?: boolean
@@ -2074,6 +2418,12 @@ export type OnboardingInvitationSelectCreateManyAndReturn<ExtArgs extends runtim
   codeHash?: boolean
   codeSuffix?: boolean
   encryptedToken?: boolean
+  draftCiphertext?: boolean
+  draftRevision?: boolean
+  draftSavedAt?: boolean
+  draftExpiresAt?: boolean
+  onboardingStartedAt?: boolean
+  onboardingStep?: boolean
   recipientName?: boolean
   businessName?: boolean
   phone?: boolean
@@ -2107,6 +2457,12 @@ export type OnboardingInvitationSelectUpdateManyAndReturn<ExtArgs extends runtim
   codeHash?: boolean
   codeSuffix?: boolean
   encryptedToken?: boolean
+  draftCiphertext?: boolean
+  draftRevision?: boolean
+  draftSavedAt?: boolean
+  draftExpiresAt?: boolean
+  onboardingStartedAt?: boolean
+  onboardingStep?: boolean
   recipientName?: boolean
   businessName?: boolean
   phone?: boolean
@@ -2140,6 +2496,12 @@ export type OnboardingInvitationSelectScalar = {
   codeHash?: boolean
   codeSuffix?: boolean
   encryptedToken?: boolean
+  draftCiphertext?: boolean
+  draftRevision?: boolean
+  draftSavedAt?: boolean
+  draftExpiresAt?: boolean
+  onboardingStartedAt?: boolean
+  onboardingStep?: boolean
   recipientName?: boolean
   businessName?: boolean
   phone?: boolean
@@ -2161,7 +2523,7 @@ export type OnboardingInvitationSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OnboardingInvitationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "applicationId" | "cohortId" | "codeHash" | "codeSuffix" | "encryptedToken" | "recipientName" | "businessName" | "phone" | "email" | "status" | "expiresAt" | "maxUses" | "useCount" | "validatedAt" | "redeemedAt" | "redeemedByUserId" | "resultingBusinessId" | "messageOutboxId" | "createdByAdminId" | "revokedByAdminId" | "revokedAt" | "revokeReason" | "createdAt" | "updatedAt", ExtArgs["result"]["onboardingInvitation"]>
+export type OnboardingInvitationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "applicationId" | "cohortId" | "codeHash" | "codeSuffix" | "encryptedToken" | "draftCiphertext" | "draftRevision" | "draftSavedAt" | "draftExpiresAt" | "onboardingStartedAt" | "onboardingStep" | "recipientName" | "businessName" | "phone" | "email" | "status" | "expiresAt" | "maxUses" | "useCount" | "validatedAt" | "redeemedAt" | "redeemedByUserId" | "resultingBusinessId" | "messageOutboxId" | "createdByAdminId" | "revokedByAdminId" | "revokedAt" | "revokeReason" | "createdAt" | "updatedAt", ExtArgs["result"]["onboardingInvitation"]>
 export type OnboardingInvitationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   application?: boolean | Prisma.OnboardingInvitation$applicationArgs<ExtArgs>
   cohort?: boolean | Prisma.OnboardingInvitation$cohortArgs<ExtArgs>
@@ -2202,6 +2564,12 @@ export type $OnboardingInvitationPayload<ExtArgs extends runtime.Types.Extension
     codeHash: string
     codeSuffix: string
     encryptedToken: string | null
+    draftCiphertext: string | null
+    draftRevision: number
+    draftSavedAt: Date | null
+    draftExpiresAt: Date | null
+    onboardingStartedAt: Date | null
+    onboardingStep: number | null
     recipientName: string
     businessName: string
     phone: string
@@ -2656,6 +3024,12 @@ export interface OnboardingInvitationFieldRefs {
   readonly codeHash: Prisma.FieldRef<"OnboardingInvitation", 'String'>
   readonly codeSuffix: Prisma.FieldRef<"OnboardingInvitation", 'String'>
   readonly encryptedToken: Prisma.FieldRef<"OnboardingInvitation", 'String'>
+  readonly draftCiphertext: Prisma.FieldRef<"OnboardingInvitation", 'String'>
+  readonly draftRevision: Prisma.FieldRef<"OnboardingInvitation", 'Int'>
+  readonly draftSavedAt: Prisma.FieldRef<"OnboardingInvitation", 'DateTime'>
+  readonly draftExpiresAt: Prisma.FieldRef<"OnboardingInvitation", 'DateTime'>
+  readonly onboardingStartedAt: Prisma.FieldRef<"OnboardingInvitation", 'DateTime'>
+  readonly onboardingStep: Prisma.FieldRef<"OnboardingInvitation", 'Int'>
   readonly recipientName: Prisma.FieldRef<"OnboardingInvitation", 'String'>
   readonly businessName: Prisma.FieldRef<"OnboardingInvitation", 'String'>
   readonly phone: Prisma.FieldRef<"OnboardingInvitation", 'String'>

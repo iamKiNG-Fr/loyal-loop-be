@@ -5,6 +5,7 @@ import {
   IsIn,
   IsInt,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   Length,
@@ -55,6 +56,22 @@ export class ValidateFoundingAccessDto {
   @IsString()
   @Length(8, 40)
   code!: string;
+}
+
+export class SaveOnboardingDraftDto {
+  @IsInt()
+  @Min(0)
+  @Max(2147483646)
+  revision!: number;
+
+  @IsInt()
+  @Min(0)
+  @Max(2)
+  currentStep!: number;
+
+  // Only the explicit non-secret allowlist in safeOnboardingForm is persisted.
+  @IsObject()
+  form!: Record<string, unknown>;
 }
 
 export class CreateFoundingCohortDto {

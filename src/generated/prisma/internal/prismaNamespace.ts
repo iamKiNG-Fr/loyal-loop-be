@@ -7401,6 +7401,12 @@ export const OnboardingInvitationScalarFieldEnum = {
   codeHash: 'codeHash',
   codeSuffix: 'codeSuffix',
   encryptedToken: 'encryptedToken',
+  draftCiphertext: 'draftCiphertext',
+  draftRevision: 'draftRevision',
+  draftSavedAt: 'draftSavedAt',
+  draftExpiresAt: 'draftExpiresAt',
+  onboardingStartedAt: 'onboardingStartedAt',
+  onboardingStep: 'onboardingStep',
   recipientName: 'recipientName',
   businessName: 'businessName',
   phone: 'phone',
@@ -9831,28 +9837,28 @@ export type ListEnumShowcaseStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
  * Reference to a field of type 'ShowcaseCommerceMode'
  */
 export type EnumShowcaseCommerceModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShowcaseCommerceMode'>
-
+    
 
 
 /**
  * Reference to a field of type 'ShowcaseCommerceMode[]'
  */
 export type ListEnumShowcaseCommerceModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShowcaseCommerceMode[]'>
-
+    
 
 
 /**
  * Reference to a field of type 'StorefrontStoryKind'
  */
 export type EnumStorefrontStoryKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StorefrontStoryKind'>
-
+    
 
 
 /**
  * Reference to a field of type 'StorefrontStoryKind[]'
  */
 export type ListEnumStorefrontStoryKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StorefrontStoryKind[]'>
-
+    
 
 
 /**
@@ -10524,3 +10530,4 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
+

@@ -21,7 +21,9 @@ import { PrismaService } from "../prisma/prisma.service";
 import type {
   CreateFoundingApplicationDto,
   CreateFoundingInvitationDto,
+  SaveOnboardingDraftDto,
 } from "./dto/founding-circle.dto";
+import { safeOnboardingForm } from "./onboarding-draft";
 
 const CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
@@ -194,6 +196,56 @@ export class FoundingCircleService {
     return payload;
   }
 
+  private async draftInvitation(rawGrant?: string) {
+    if (!rawGrant) throw new UnauthorizedException("Open your invitation to resume setup");
+    const grant = this.verifyGrant(rawGrant);
+    const invitation = await this.prisma.onboardingInvitation.findUnique({ where: { id: grant.invitationId } });
+    if (!invitation || invitation.status !== "ISSUED" || invitation.expiresAt.getTime() <= Date.now() || invitation.useCount >= invitation.maxUses) {
+      throw new ForbiddenException("This invitation is no longer available");
+    }
+    return invitation;
+  }
+
+  async readOnboardingDraft(rawGrant?: string) {
+    const invitation = await this.draftInvitation(rawGrant);
+    if (invitation.draftCiphertext && (!invitation.draftExpiresAt || invitation.draftExpiresAt.getTime() <= Date.now())) {
+      const cleared = await this.prisma.onboardingInvitation.updateMany({
+        where: { id: invitation.id, draftRevision: invitation.draftRevision },
+        data: { draftCiphertext: null, draftExpiresAt: null, draftRevision: { increment: 1 } },
+      });
+      if (cleared.count !== 1) throw new ConflictException("Your saved draft changed. Reload it to continue.");
+      return { draft: null, revision: invitation.draftRevision + 1 };
+    }
+    if (!invitation.draftCiphertext) return { draft: null, revision: invitation.draftRevision };
+    const saved = JSON.parse(this.decrypt(invitation.draftCiphertext, `onboarding-draft:${invitation.id}`));
+    return {
+      revision: invitation.draftRevision,
+      draft: {
+        version: 3, savedAt: invitation.draftSavedAt!.getTime(),
+        currentStep: invitation.onboardingStep ?? 0, resumeStep: invitation.onboardingStep ?? 0,
+        form: safeOnboardingForm(saved),
+      },
+    };
+  }
+
+  async saveOnboardingDraft(rawGrant: string | undefined, dto: SaveOnboardingDraftDto) {
+    const invitation = await this.draftInvitation(rawGrant);
+    if (dto.revision !== invitation.draftRevision) throw new ConflictException("Your saved draft changed. Reload it to continue.");
+    const now = new Date();
+    const expiresAt = new Date(Math.min(invitation.expiresAt.getTime(), now.getTime() + 7 * 86_400_000));
+    const updated = await this.prisma.onboardingInvitation.updateMany({
+      where: { id: invitation.id, draftRevision: dto.revision, status: "ISSUED", expiresAt: { gt: now }, useCount: { lt: invitation.maxUses } },
+      data: {
+        draftCiphertext: this.encrypt(JSON.stringify(safeOnboardingForm(dto.form)), `onboarding-draft:${invitation.id}`),
+        draftRevision: { increment: 1 }, draftSavedAt: now, draftExpiresAt: expiresAt,
+        onboardingStartedAt: invitation.onboardingStartedAt ?? now,
+        onboardingStep: Math.max(invitation.onboardingStep ?? 0, dto.currentStep),
+      },
+    });
+    if (updated.count !== 1) throw new ConflictException("Your saved draft changed. Reload it to continue.");
+    return { revision: dto.revision + 1, savedAt: now.getTime(), expiresAt };
+  }
+
   async redeemInTransaction(
     tx: Prisma.TransactionClient,
     grant: GrantPayload | null,
@@ -232,6 +284,10 @@ export class FoundingCircleService {
         redeemedByUserId: input.userId,
         resultingBusinessId: input.businessId,
         encryptedToken: null,
+        draftCiphertext: null,
+        draftExpiresAt: null,
+        draftRevision: { increment: 1 },
+        onboardingStep: 2,
       },
     });
     if (claimed.count !== 1) {
@@ -344,7 +400,7 @@ export class FoundingCircleService {
   }
 
   safeInvitation<T extends Record<string, unknown>>(invitation: T) {
-    const { codeHash: _codeHash, encryptedToken: _encryptedToken, ...safe } = invitation;
+    const { codeHash: _codeHash, encryptedToken: _encryptedToken, draftCiphertext: _draftCiphertext, ...safe } = invitation;
     return safe;
   }
 
@@ -377,19 +433,21 @@ export class FoundingCircleService {
     return payload;
   }
 
-  private encrypt(value: string) {
+  private encrypt(value: string, context?: string) {
     const iv = randomBytes(12);
     const cipher = createCipheriv("aes-256-gcm", this.encryptionKey(), iv);
+    if (context) cipher.setAAD(Buffer.from(context));
     const encrypted = Buffer.concat([cipher.update(value, "utf8"), cipher.final()]);
     return [iv, cipher.getAuthTag(), encrypted]
       .map((part) => part.toString("base64url"))
       .join(".");
   }
 
-  private decrypt(value: string) {
+  private decrypt(value: string, context?: string) {
     const [iv, tag, encrypted] = value.split(".").map((part) => Buffer.from(part, "base64url"));
     if (!iv || !tag || !encrypted) throw new BadRequestException("Invitation delivery token is invalid");
     const decipher = createDecipheriv("aes-256-gcm", this.encryptionKey(), iv);
+    if (context) decipher.setAAD(Buffer.from(context));
     decipher.setAuthTag(tag);
     return Buffer.concat([decipher.update(encrypted), decipher.final()]).toString("utf8");
   }

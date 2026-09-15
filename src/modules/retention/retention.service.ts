@@ -34,7 +34,9 @@ export class RetentionService {
     const batchSize = this.days('RETENTION_MEDIA_BATCH_SIZE', 100, 500);
 
     const candidates = await this.candidateCounts(authCutoff, telemetryCutoff, mediaCutoff);
-    if (!enabled) return { candidates, mode: 'report' as const, purged: null };
+    const expiredDrafts = { draftCiphertext: { not: null }, draftExpiresAt: { lte: now } };
+    const onboardingDrafts = await this.prisma.onboardingInvitation.count({ where: expiredDrafts });
+    if (!enabled) return { candidates: { ...candidates, onboardingDrafts }, mode: 'report' as const, purged: null };
 
     const [ownerSessions, customerSessions, ownerOtpChallenges, customerOtpChallenges, onboardingEmailChallenges, passwordRecoveryTokens, discoveryTelemetry] = await this.prisma.$transaction([
       this.prisma.ownerSession.deleteMany({
@@ -51,6 +53,10 @@ export class RetentionService {
     ]);
 
     const assetIds = await this.sensitiveAssetIds(mediaCutoff, batchSize);
+    const clearedDrafts = await this.prisma.onboardingInvitation.updateMany({
+      where: expiredDrafts,
+      data: { draftCiphertext: null, draftExpiresAt: null, draftRevision: { increment: 1 } },
+    });
     let sensitiveMedia = 0;
     let mediaFailures = 0;
     for (const assetId of assetIds) {
@@ -62,7 +68,7 @@ export class RetentionService {
     }
 
     return {
-      candidates,
+      candidates: { ...candidates, onboardingDrafts },
       mode: 'enforce' as const,
       purged: {
         customerOtpChallenges: customerOtpChallenges.count,
@@ -70,6 +76,7 @@ export class RetentionService {
         discoveryTelemetry: discoveryTelemetry.count,
         mediaFailures,
         onboardingEmailChallenges: onboardingEmailChallenges.count,
+        onboardingDrafts: clearedDrafts.count,
         ownerOtpChallenges: ownerOtpChallenges.count,
         ownerSessions: ownerSessions.count,
         passwordRecoveryTokens: passwordRecoveryTokens.count,

@@ -670,6 +670,12 @@ model OnboardingInvitation {
   codeHash            String                     @unique
   codeSuffix          String
   encryptedToken      String?
+  draftCiphertext     String?
+  draftRevision       Int                        @default(0)
+  draftSavedAt        DateTime?
+  draftExpiresAt      DateTime?
+  onboardingStartedAt DateTime?
+  onboardingStep      Int?
   recipientName       String
   businessName        String
   phone               String
@@ -699,6 +705,7 @@ model OnboardingInvitation {
   @@index([status, expiresAt])
   @@index([phone, status])
   @@index([cohortId, createdAt])
+  @@index([draftExpiresAt])
   @@map("onboarding_invitations")
 }
 
