@@ -69,6 +69,12 @@ export class PublicReceiptsController {
     return this.receipts.getPublic(customer.customerAccountId, token).then((data) => ok(data));
   }
 
+  @Post(":token/order-link")
+  @Throttle({ default: { limit: 20, ttl: minutes(1) } })
+  orderLink(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
+    return this.receipts.createCustomerOrderLink(customer.customerAccountId, token).then((data) => ok(data));
+  }
+
   @Post(":token/acknowledge")
   acknowledge(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
     return this.receipts
@@ -101,9 +107,4 @@ export class PublicReceiptMediaController {
     return this.receipts.getMessagePreview(id, Number(expires), signature).then((data) => ok(data));
   }
 
-  @Post(":token/order-link")
-  @Throttle({ default: { limit: 20, ttl: minutes(1) } })
-  orderLink(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
-    return this.receipts.createCustomerOrderLink(customer.customerAccountId, token).then((data) => ok(data));
-  }
 }

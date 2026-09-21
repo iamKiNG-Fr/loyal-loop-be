@@ -33,4 +33,12 @@ describe('private customer order and receipt navigation', () => {
     await expect(service.createCustomerReceiptLink('account', 'private-token')).rejects.toThrow(/not available/);
     expect(prisma.receiptShareToken.create).not.toHaveBeenCalled();
   });
+  it('exposes the stored delivery fee and subtotal without leaking receipt tokens', async () => {
+    const record = { id: 'delivery', business: { id: 'shop', name: 'Shop', contacts: [], logoAsset: null }, events: [], feedback: [], issues: [], sale: { amountPaid: '0', subtotal: '30000', deliveryFee: '2500', total: '32500', currency: 'NGN', items: [{ id: 'one', name: 'Item one', quantity: 1, total: '25000' }, { id: 'two', name: 'Item two', quantity: 1, total: '5000' }], paymentInstruction: null, paymentProofs: [], receipt: { tokenHash: 'private' }, tokenHash: 'private' } };
+    const prisma = { delivery: { findFirst: vi.fn().mockResolvedValue({ id: 'delivery' }), findUniqueOrThrow: vi.fn().mockResolvedValue(record) } };
+    const service = new DeliveryService(prisma as never, {} as never, {} as never, {} as never, {} as never, {} as never);
+    const result = await service.getPublic('account', 'token');
+    expect(result.sale).toMatchObject({ subtotal: '30000', deliveryFee: '2500', total: '32500' });
+    expect(JSON.stringify(result)).not.toContain('private');
+  });
 });
