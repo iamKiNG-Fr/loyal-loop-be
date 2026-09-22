@@ -14,6 +14,7 @@ import { ActivityService } from "../activity/activity.service";
 import { MessagingService } from "../messaging/messaging.service";
 import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
 import { MediaService } from "../media/media.service";
+import { customerHandoffCodeAvailable, deliveryStageLabel } from "./delivery-labels";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   CreateDeliveryIssueDto,
@@ -133,7 +134,7 @@ export class DeliveryService {
     }
     if (dto.status !== delivery.status && !transitions[delivery.status].includes(dto.status)) {
       throw new BadRequestException(
-        `Delivery cannot move from ${delivery.status} to ${dto.status}`,
+        `Delivery cannot move from “${deliveryStageLabel(delivery.status, delivery.journeyMethod)}” to “${deliveryStageLabel(dto.status, delivery.journeyMethod)}”`,
       );
     }
     const courierService = updatedOptionalText(dto.courierService, delivery.courierService);
@@ -163,7 +164,7 @@ export class DeliveryService {
       && ![...journeyTransitions, "ISSUE", "CANCELED"].includes(dto.status)
     ) {
       throw new BadRequestException(
-        `This ${method.toLowerCase().replaceAll("_", " ")} journey cannot move from ${delivery.status} to ${dto.status}`,
+        `This ${method.toLowerCase().replaceAll("_", " ")} journey cannot move from “${deliveryStageLabel(delivery.status, method)}” to “${deliveryStageLabel(dto.status, method)}”. Complete the current step first.`,
       );
     }
     if (method === "CUSTOMER_PICKUP" && ["IN_TRANSIT", "DELIVERED"].includes(dto.status)) {
@@ -223,7 +224,7 @@ export class DeliveryService {
               ? new Date()
               : undefined,
           handoffCodeIssuedAt:
-            ["READY_FOR_PICKUP", "IN_TRANSIT", "DELIVERED"].includes(dto.status) && method !== "CUSTOMER_RIDER" && !delivery.handoffCodeIssuedAt
+            customerHandoffCodeAvailable(method, dto.status) && !delivery.handoffCodeIssuedAt
               ? new Date()
               : undefined,
           riderDetailsAddedAt:
@@ -340,7 +341,7 @@ export class DeliveryService {
       });
     return {
       ...sanitizePublicDelivery(this.protectDelivery(record)),
-      handoffCode: record.handoffCodeIssuedAt && record.journeyMethod !== "CUSTOMER_RIDER" && ["READY_FOR_PICKUP", "IN_TRANSIT", "DELIVERED"].includes(record.status)
+      handoffCode: record.handoffCodeIssuedAt && customerHandoffCodeAvailable(record.journeyMethod, record.status)
         ? this.handoffCode(record.id)
         : null,
     };
