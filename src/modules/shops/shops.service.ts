@@ -25,6 +25,7 @@ import { BusinessesService } from "../businesses/businesses.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { MessagingService } from "../messaging/messaging.service";
 import { publicMediaAssetWhere } from "../media/public-media";
+import { publicOgThumbnailUrl } from "../media/og-thumbnail";
 import { SalesService } from "../sales/sales.service";
 import { TrustService } from "../trust/trust.service";
 import { PromotionsService } from "../promotions/promotions.service";
@@ -243,6 +244,28 @@ export class ShopsService {
       query,
     );
     return product;
+  }
+
+  /** Crawler metadata is bounded to one public cover and never records a view. */
+  async getPublicProductPreview(slug: string, productSlug: string) {
+    const resolved = await this.businesses.resolveShopSlug(slug);
+    if (!resolved) throw new NotFoundException("Product not found");
+    await this.businesses.reconcileScheduledLaunch(resolved.id);
+    const product = await this.prisma.product.findFirst({
+      where: {
+        ...publicProductWhere,
+        OR: [{ id: productSlug }, { slug: productSlug }, { name: { equals: productSlug, mode: "insensitive" } }],
+        business: { id: resolved.id, storeStatus: { in: ["OPEN", "PAUSED"] }, platformStatus: "ACTIVE" },
+      },
+      select: {
+        id: true, slug: true, name: true, description: true, category: true, price: true,
+        currency: true, launchAt: true, stockCount: true, updatedAt: true,
+        business: { select: { name: true, slug: true } },
+        images: { where: { asset: { is: publicMediaAssetWhere } }, orderBy: [{ isPrimary: "desc" }, { sortOrder: "asc" }], take: 1, select: { asset: { select: { secureUrl: true } } } },
+      },
+    });
+    if (!product) throw new NotFoundException("Product not found");
+    return { ...product, thumbnailUrl: publicOgThumbnailUrl(product.images[0]?.asset.secureUrl || '') };
   }
 
   async createRequest(

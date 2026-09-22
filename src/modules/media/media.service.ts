@@ -20,6 +20,7 @@ import {
   Prisma,
 } from "../../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
+import { OG_THUMBNAIL_TRANSFORM } from "./og-thumbnail";
 import {
   AppealMediaAssetDto,
   CreateUploadSignatureDto,
@@ -506,6 +507,10 @@ export class MediaService {
     // stored image itself, not only from the derived storefront rendition.
     if (resourceType === "image") parameters.transformation = "fl_strip_profile";
     if (!isPublicCatalogPurpose(purpose)) return parameters;
+    if (resourceType === "image") {
+      parameters.eager = OG_THUMBNAIL_TRANSFORM;
+      parameters.eager_async = "true";
+    }
     if (
       resourceType === "image" &&
       this.config.get<string>("MEDIA_QUALITY_ANALYSIS_ENABLED") === "true"

@@ -93,6 +93,12 @@ export class PublicShopsController {
       .then((data) => ok(data));
   }
 
+  @Get(":slug/products/:productSlug/preview")
+  @Header("Cache-Control", "public, max-age=60, s-maxage=300")
+  getProductPreview(@Param("slug") slug: string, @Param("productSlug") productSlug: string) {
+    return this.shops.getPublicProductPreview(slug, productSlug).then((data) => ok(data));
+  }
+
   @Post(":slug/requests")
   @UseGuards(CustomerAuthGuard)
   createRequest(

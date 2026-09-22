@@ -2,6 +2,7 @@ import { ConfigService } from "@nestjs/config";
 import { createHash } from "node:crypto";
 import { describe, expect, it, vi } from "vitest";
 import { assessModeration, MediaService } from "./media.service";
+import { OG_THUMBNAIL_TRANSFORM } from "./og-thumbnail";
 
 describe("MediaService", () => {
   it("fails closed while provider moderation is unavailable or still processing", () => {
@@ -49,7 +50,7 @@ describe("MediaService", () => {
     expect(result.folder).toMatch(/^loyal-loop\/v2\/public\/[a-f0-9]{24}\/product_image$/);
     expect(result.folder).not.toContain("business-1");
     expect(result.publicId).toMatch(/^[a-f0-9]{24}$/);
-    expect(result.uploadParameters).toEqual({ transformation: "fl_strip_profile" });
+    expect(result.uploadParameters).toEqual({ transformation: "fl_strip_profile", eager: OG_THUMBNAIL_TRANSFORM, eager_async: "true" });
     expect(result).not.toHaveProperty("apiSecret");
     expect(result.signature).toMatch(/^[a-f0-9]{40}$/);
   });
@@ -113,6 +114,8 @@ describe("MediaService", () => {
     );
 
     expect(result.uploadParameters).toEqual({
+      eager: OG_THUMBNAIL_TRANSFORM,
+      eager_async: "true",
       moderation: "aws_rek",
       notification_url: "https://api.example.com/api/v1/media/webhooks/cloudinary",
       transformation: "fl_strip_profile",
