@@ -174,6 +174,46 @@ describe("Commerce journey WhatsApp payloads", () => {
     );
     expect(create.payload["5"]).toMatch(/^https:\/\/www\.useloyalloop\.com\/delivery\/[A-Za-z0-9_-]+$/);
   });
+  it.each(["CUSTOMER_PICKUP", "CUSTOMER_RIDER"])("queues pickup-ready context for %s", async (journeyMethod) => {
+    const outboxUpsert = vi.fn().mockResolvedValue({ id: "outbox-2", status: "SUPPRESSED" });
+    const service = new MessagingService(
+      {
+        delivery: {
+          findFirst: vi.fn().mockResolvedValue({
+            business: { name: "King's Store" },
+            businessId: "business-1",
+            courierName: "Tobi",
+            courierPhone: "+2348012345678",
+            courierService: "Shop delivery",
+            customer: { accountId: "account-1", name: "Ada", phone: "+2348099999999" },
+            id: "delivery-1",
+            sale: { referenceCode: "LL-ORDER-1" },
+            status: "READY_FOR_PICKUP",
+            journeyMethod,
+            updatedAt: new Date("2026-08-24T08:00:00.000Z"),
+          }),
+        },
+        deliveryShareToken: { create: vi.fn().mockResolvedValue({ id: "token-2" }) },
+        messageOutbox: { upsert: outboxUpsert },
+        messagingConsent: { findUnique: vi.fn().mockResolvedValue(null) },
+        messagingSuppression: { findUnique: vi.fn().mockResolvedValue(null) },
+      } as never,
+      utilityConfig() as never,
+      {} as never,
+      {} as never,
+    );
+
+    await service.enqueueDelivery(
+      { businessId: "business-1", userId: "owner-1" },
+      "delivery-1",
+    );
+
+    const create = outboxUpsert.mock.calls[0]?.[0]?.create;
+    expect(create.payload["4"]).toContain(journeyMethod === "CUSTOMER_PICKUP" ? "Ready for pickup" : "Ready for your rider");
+    expect(create.payload["4"]).not.toContain("In transit");
+    expect(create.templateKey).toBe("delivery");
+    expect(create.payload["5"]).toMatch(/^https:\/\/www\.useloyalloop\.com\/delivery\/[A-Za-z0-9_-]+$/);
+  });
 });
 
 describe("WhatsApp inbound replies", () => {

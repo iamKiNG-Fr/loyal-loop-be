@@ -16,6 +16,7 @@ import { FoundingValueFeedbackService } from "../founding-value-feedback/foundin
 import { MediaService } from "../media/media.service";
 import { customerHandoffCodeAvailable, deliveryStageLabel } from "./delivery-labels";
 import { paymentEvidenceSelect } from "../../common/payment-evidence";
+import { RECIPIENT_PHONE_PATTERN } from "../../common/gift-recipient";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   CreateDeliveryIssueDto,
@@ -278,26 +279,34 @@ export class DeliveryService {
     if (!["CUSTOMER_PICKUP", "CUSTOMER_RIDER"].includes(dto.method)) {
       throw new BadRequestException("Pickup can only switch between personal pickup and customer rider");
     }
-    if (!["PREPARING", "READY_FOR_PICKUP"].includes(delivery.status) || delivery.handedOffAt) {
+    if (!["CUSTOMER_PICKUP", "CUSTOMER_RIDER"].includes(delivery.journeyMethod)) {
+      throw new BadRequestException("Only pickup orders can change their collector");
+    }
+    if (!["AWAITING_PAYMENT", "PREPARING", "READY_FOR_PICKUP"].includes(delivery.status) || delivery.handedOffAt) {
       throw new BadRequestException("Pickup method can no longer be changed after handoff");
     }
     const riderDetails = dto.method === "CUSTOMER_RIDER"
       && Boolean(dto.riderName?.trim() && dto.riderPhone?.trim());
-    const updated = await this.prisma.delivery.update({
-      where: { id: delivery.id },
-      data: {
-        journeyMethod: dto.method,
-        courierService: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.riderService) : null,
-        courierName: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.riderName) : null,
-        courierPhone: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.riderPhone) : null,
-        trackingUrl: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.trackingUrl) : null,
-        riderDetailsAddedAt: riderDetails ? new Date() : null,
-        handoffCodeIssuedAt: dto.method === "CUSTOMER_PICKUP" && delivery.status === "READY_FOR_PICKUP" ? new Date() : null,
-        events: { create: { status: delivery.status, note: dto.method === "CUSTOMER_RIDER" ? "Customer will send a rider" : "Customer will collect personally" } },
-      },
-      include: deliveryInclude,
+    if (dto.method === "CUSTOMER_RIDER" && (!riderDetails || !RECIPIENT_PHONE_PATTERN.test(dto.riderPhone!.trim()))) {
+      throw new BadRequestException("Add the rider’s name and a valid phone number (7–15 digits)");
+    }
+    await this.prisma.$transaction(async (tx) => {
+      const updated = await tx.delivery.updateMany({
+        where: { id: delivery.id, status: delivery.status, journeyMethod: delivery.journeyMethod, handedOffAt: null },
+        data: {
+          journeyMethod: dto.method,
+          courierService: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.riderService) : null,
+          courierName: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.riderName) : null,
+          courierPhone: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.riderPhone) : null,
+          trackingUrl: dto.method === "CUSTOMER_RIDER" ? optionalText(dto.trackingUrl) : null,
+          riderDetailsAddedAt: riderDetails ? new Date() : null,
+          handoffCodeIssuedAt: dto.method === "CUSTOMER_PICKUP" && delivery.status === "READY_FOR_PICKUP" ? new Date() : null,
+        },
+      });
+      if (updated.count !== 1) throw new BadRequestException("The order changed. Refresh its journey before changing collection details.");
+      await tx.deliveryEvent.create({ data: { deliveryId: delivery.id, status: delivery.status, note: dto.method === "CUSTOMER_RIDER" ? "Customer will send a rider" : "Customer will collect personally" } });
     });
-    return this.protectDelivery(updated);
+    return this.getPublic(customerAccountId, token);
   }
 
   async confirmHandoff(auth: OwnerAuthContext, deliveryId: string, dto: ConfirmDeliveryHandoffDto) {
