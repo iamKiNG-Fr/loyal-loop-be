@@ -1,3 +1,4 @@
+import { validateGiftRecipient } from "../../common/gift-recipient";
 import {
   BadRequestException,
   Injectable,
@@ -235,6 +236,7 @@ export class CartsService {
             pickupMethod: group.pickupMethod,
             note: group.note,
             paymentPreference: group.paymentPreference,
+            giftOccasion: group.giftOccasion,
             isGift: group.isGift,
             recipientName: group.recipientName,
             recipientPhone: group.recipientPhone,
@@ -323,6 +325,7 @@ export class CartsService {
         if (group.isGift && (group.fulfillment !== "DELIVERY" || !group.recipientName?.trim() || !group.recipientPhone?.trim())) {
           throw new BadRequestException("Gift delivery needs the recipient name and phone");
         }
+        validateGiftRecipient(group);
         if (group.whatsappUpdatesConsent) {
           await Promise.all([
             this.messaging.grantPhoneConsent(account.phone, "DELIVERY", "order-request", auth.customerAccountId),
@@ -376,6 +379,7 @@ export class CartsService {
               deliveryNotes: address?.deliveryNotes,
               note: group.note,
               requestedPaymentMethod: group.paymentPreference,
+              giftOccasion: group.isGift ? group.giftOccasion?.trim() : undefined,
               isGift: group.isGift,
               recipientName: group.isGift ? group.recipientName?.trim() : undefined,
               recipientPhone: group.isGift ? group.recipientPhone?.trim() : undefined,

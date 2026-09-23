@@ -1898,6 +1898,7 @@ model CustomerCartGroup {
   isGift                 Boolean          @default(false)
   recipientName          String?
   recipientPhone         String?
+  giftOccasion       String?
   whatsappUpdatesConsent Boolean          @default(false)
   sourceShowcaseId       String?
   createdAt              DateTime         @default(now())
@@ -1993,6 +1994,7 @@ model OrderRequest {
   isGift                      Boolean                     @default(false)
   recipientName               String?
   recipientPhone              String?
+  giftOccasion       String?
   note                        String?
   cancellationReasonCode      String?
   cancellationReason          String?
@@ -2423,6 +2425,7 @@ model Delivery {
   isGift              Boolean                  @default(false)
   recipientName       String?
   recipientPhone      String?
+  giftOccasion       String?
   courier             String?
   courierService      String?
   courierName         String?

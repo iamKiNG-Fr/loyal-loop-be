@@ -1,3 +1,4 @@
+import { validateGiftRecipient } from "../../common/gift-recipient";
 import {
   BadRequestException,
   Injectable,
@@ -358,6 +359,7 @@ export class ShopsService {
         : business.preferences?.deliveryAreas ?? [];
       throw new BadRequestException(`This shop currently delivers to ${areas.join(", ")}`);
     }
+    validateGiftRecipient(dto);
     if (
       dto.isGift &&
       (fulfillment !== "DELIVERY" ||
@@ -432,6 +434,7 @@ export class ShopsService {
           deliveryLocality,
           deliveryEligibility: coverage.status === "OUTSIDE_AREA" ? "NEEDS_REVIEW" : coverage.status,
           deliveryNotes: savedAddress?.deliveryNotes?.trim() || dto.deliveryNotes?.trim(),
+          giftOccasion: dto.isGift ? dto.giftOccasion?.trim() : undefined,
           isGift: dto.isGift ?? false,
           recipientName: dto.isGift ? dto.recipientName?.trim() : undefined,
           recipientPhone: dto.isGift ? dto.recipientPhone?.trim() : undefined,
@@ -922,10 +925,11 @@ export class ShopsService {
               deliveryLatitude: request.deliveryLatitude ?? undefined,
               deliveryLongitude: request.deliveryLongitude ?? undefined,
               deliveryNotes: request.deliveryNotes ?? undefined,
+              giftOccasion: request.giftOccasion ?? undefined,
               isGift: request.isGift,
               recipientName: request.recipientName ?? undefined,
               recipientPhone: request.recipientPhone ?? undefined,
-              notes: dto.notes,
+              notes: dto.notes ?? request.note ?? undefined,
               paymentAccountId: dto.paymentAccountId,
               paymentAccountName: dto.paymentAccountName,
               paymentAccountNumber: dto.paymentAccountNumber,

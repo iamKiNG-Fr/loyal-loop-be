@@ -1,3 +1,4 @@
+import { OPTIONAL_RECIPIENT_PHONE_PATTERN, RECIPIENT_PHONE_MESSAGE } from "../../../common/gift-recipient";
 import { Type } from "class-transformer";
 import {
   ArrayMaxSize,
@@ -189,7 +190,13 @@ export class CreateSaleDto {
   @IsOptional()
   @IsString()
   @Length(5, 30)
+  @Matches(OPTIONAL_RECIPIENT_PHONE_PATTERN, { message: RECIPIENT_PHONE_MESSAGE })
   recipientPhone?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  giftOccasion?: string;
 }
 
 export class RecordPaymentDto {

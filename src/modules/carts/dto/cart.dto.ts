@@ -1,3 +1,4 @@
+import { OPTIONAL_RECIPIENT_PHONE_PATTERN, RECIPIENT_PHONE_MESSAGE } from "../../../common/gift-recipient";
 import { Type } from "class-transformer";
 import {
   ArrayMaxSize,
@@ -6,6 +7,7 @@ import {
   IsEnum,
   IsInt,
   IsOptional,
+  Matches,
   IsString,
   Length,
   Max,
@@ -79,7 +81,13 @@ export class UpdateCartGroupDto {
   @IsOptional()
   @IsString()
   @Length(0, 30)
+  @Matches(OPTIONAL_RECIPIENT_PHONE_PATTERN, { message: RECIPIENT_PHONE_MESSAGE })
   recipientPhone?: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(0, 120)
+  giftOccasion?: string;
 
   @IsOptional()
   @IsBoolean()

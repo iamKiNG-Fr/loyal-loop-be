@@ -66,6 +66,7 @@ export type OrderRequestMinAggregateOutputType = {
   isGift: boolean | null
   recipientName: string | null
   recipientPhone: string | null
+  giftOccasion: string | null
   note: string | null
   cancellationReasonCode: string | null
   cancellationReason: string | null
@@ -106,6 +107,7 @@ export type OrderRequestMaxAggregateOutputType = {
   isGift: boolean | null
   recipientName: string | null
   recipientPhone: string | null
+  giftOccasion: string | null
   note: string | null
   cancellationReasonCode: string | null
   cancellationReason: string | null
@@ -146,6 +148,7 @@ export type OrderRequestCountAggregateOutputType = {
   isGift: number
   recipientName: number
   recipientPhone: number
+  giftOccasion: number
   note: number
   cancellationReasonCode: number
   cancellationReason: number
@@ -198,6 +201,7 @@ export type OrderRequestMinAggregateInputType = {
   isGift?: true
   recipientName?: true
   recipientPhone?: true
+  giftOccasion?: true
   note?: true
   cancellationReasonCode?: true
   cancellationReason?: true
@@ -238,6 +242,7 @@ export type OrderRequestMaxAggregateInputType = {
   isGift?: true
   recipientName?: true
   recipientPhone?: true
+  giftOccasion?: true
   note?: true
   cancellationReasonCode?: true
   cancellationReason?: true
@@ -278,6 +283,7 @@ export type OrderRequestCountAggregateInputType = {
   isGift?: true
   recipientName?: true
   recipientPhone?: true
+  giftOccasion?: true
   note?: true
   cancellationReasonCode?: true
   cancellationReason?: true
@@ -405,6 +411,7 @@ export type OrderRequestGroupByOutputType = {
   isGift: boolean
   recipientName: string | null
   recipientPhone: string | null
+  giftOccasion: string | null
   note: string | null
   cancellationReasonCode: string | null
   cancellationReason: string | null
@@ -468,6 +475,7 @@ export type OrderRequestWhereInput = {
   isGift?: Prisma.BoolFilter<"OrderRequest"> | boolean
   recipientName?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  giftOccasion?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   note?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   cancellationReasonCode?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   cancellationReason?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
@@ -522,6 +530,7 @@ export type OrderRequestOrderByWithRelationInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   cancellationReasonCode?: Prisma.SortOrderInput | Prisma.SortOrder
   cancellationReason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -580,6 +589,7 @@ export type OrderRequestWhereUniqueInput = Prisma.AtLeast<{
   isGift?: Prisma.BoolFilter<"OrderRequest"> | boolean
   recipientName?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  giftOccasion?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   note?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   cancellationReasonCode?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   cancellationReason?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
@@ -634,6 +644,7 @@ export type OrderRequestOrderByWithAggregationInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   cancellationReasonCode?: Prisma.SortOrderInput | Prisma.SortOrder
   cancellationReason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -682,6 +693,7 @@ export type OrderRequestScalarWhereWithAggregatesInput = {
   isGift?: Prisma.BoolWithAggregatesFilter<"OrderRequest"> | boolean
   recipientName?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   recipientPhone?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
+  giftOccasion?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   note?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   cancellationReasonCode?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
   cancellationReason?: Prisma.StringNullableWithAggregatesFilter<"OrderRequest"> | string | null
@@ -717,6 +729,7 @@ export type OrderRequestCreateInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -771,6 +784,7 @@ export type OrderRequestUncheckedCreateInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -815,6 +829,7 @@ export type OrderRequestUpdateInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -869,6 +884,7 @@ export type OrderRequestUncheckedUpdateInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -918,6 +934,7 @@ export type OrderRequestCreateManyInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -953,6 +970,7 @@ export type OrderRequestUpdateManyMutationInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -993,6 +1011,7 @@ export type OrderRequestUncheckedUpdateManyInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1053,6 +1072,7 @@ export type OrderRequestCountOrderByAggregateInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrder
   note?: Prisma.SortOrder
   cancellationReasonCode?: Prisma.SortOrder
   cancellationReason?: Prisma.SortOrder
@@ -1098,6 +1118,7 @@ export type OrderRequestMaxOrderByAggregateInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrder
   note?: Prisma.SortOrder
   cancellationReasonCode?: Prisma.SortOrder
   cancellationReason?: Prisma.SortOrder
@@ -1138,6 +1159,7 @@ export type OrderRequestMinOrderByAggregateInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrder
   note?: Prisma.SortOrder
   cancellationReasonCode?: Prisma.SortOrder
   cancellationReason?: Prisma.SortOrder
@@ -1541,6 +1563,7 @@ export type OrderRequestCreateWithoutBusinessInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -1593,6 +1616,7 @@ export type OrderRequestUncheckedCreateWithoutBusinessInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -1671,6 +1695,7 @@ export type OrderRequestScalarWhereInput = {
   isGift?: Prisma.BoolFilter<"OrderRequest"> | boolean
   recipientName?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
+  giftOccasion?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   note?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   cancellationReasonCode?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
   cancellationReason?: Prisma.StringNullableFilter<"OrderRequest"> | string | null
@@ -1706,6 +1731,7 @@ export type OrderRequestCreateWithoutCustomerAccountInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -1758,6 +1784,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAccountInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -1828,6 +1855,7 @@ export type OrderRequestCreateWithoutCustomerInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -1880,6 +1908,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -1950,6 +1979,7 @@ export type OrderRequestCreateWithoutCustomerAddressInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2002,6 +2032,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerAddressInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2072,6 +2103,7 @@ export type OrderRequestCreateWithoutSourceShowcaseInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2124,6 +2156,7 @@ export type OrderRequestUncheckedCreateWithoutSourceShowcaseInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2194,6 +2227,7 @@ export type OrderRequestCreateWithoutPromotionReservationsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2247,6 +2281,7 @@ export type OrderRequestUncheckedCreateWithoutPromotionReservationsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2306,6 +2341,7 @@ export type OrderRequestUpdateWithoutPromotionReservationsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2359,6 +2395,7 @@ export type OrderRequestUncheckedUpdateWithoutPromotionReservationsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2402,6 +2439,7 @@ export type OrderRequestCreateWithoutReportsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2455,6 +2493,7 @@ export type OrderRequestUncheckedCreateWithoutReportsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2514,6 +2553,7 @@ export type OrderRequestUpdateWithoutReportsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2567,6 +2607,7 @@ export type OrderRequestUncheckedUpdateWithoutReportsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2610,6 +2651,7 @@ export type OrderRequestCreateWithoutTermChangesInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2663,6 +2705,7 @@ export type OrderRequestUncheckedCreateWithoutTermChangesInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2722,6 +2765,7 @@ export type OrderRequestUpdateWithoutTermChangesInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2775,6 +2819,7 @@ export type OrderRequestUncheckedUpdateWithoutTermChangesInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2818,6 +2863,7 @@ export type OrderRequestCreateWithoutCustomerNoticesInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2871,6 +2917,7 @@ export type OrderRequestUncheckedCreateWithoutCustomerNoticesInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -2930,6 +2977,7 @@ export type OrderRequestUpdateWithoutCustomerNoticesInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2983,6 +3031,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerNoticesInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3026,6 +3075,7 @@ export type OrderRequestCreateWithoutShareTokensInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3079,6 +3129,7 @@ export type OrderRequestUncheckedCreateWithoutShareTokensInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3138,6 +3189,7 @@ export type OrderRequestUpdateWithoutShareTokensInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3191,6 +3243,7 @@ export type OrderRequestUncheckedUpdateWithoutShareTokensInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3234,6 +3287,7 @@ export type OrderRequestCreateWithoutItemsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3287,6 +3341,7 @@ export type OrderRequestUncheckedCreateWithoutItemsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3346,6 +3401,7 @@ export type OrderRequestUpdateWithoutItemsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3399,6 +3455,7 @@ export type OrderRequestUncheckedUpdateWithoutItemsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3442,6 +3499,7 @@ export type OrderRequestCreateWithoutPaymentChangesInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3495,6 +3553,7 @@ export type OrderRequestUncheckedCreateWithoutPaymentChangesInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3554,6 +3613,7 @@ export type OrderRequestUpdateWithoutPaymentChangesInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3607,6 +3667,7 @@ export type OrderRequestUncheckedUpdateWithoutPaymentChangesInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3650,6 +3711,7 @@ export type OrderRequestCreateWithoutEventsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3703,6 +3765,7 @@ export type OrderRequestUncheckedCreateWithoutEventsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3762,6 +3825,7 @@ export type OrderRequestUpdateWithoutEventsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3815,6 +3879,7 @@ export type OrderRequestUncheckedUpdateWithoutEventsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3858,6 +3923,7 @@ export type OrderRequestCreateWithoutConvertedSaleInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3911,6 +3977,7 @@ export type OrderRequestUncheckedCreateWithoutConvertedSaleInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -3970,6 +4037,7 @@ export type OrderRequestUpdateWithoutConvertedSaleInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4023,6 +4091,7 @@ export type OrderRequestUncheckedUpdateWithoutConvertedSaleInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4070,6 +4139,7 @@ export type OrderRequestCreateManyBusinessInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -4105,6 +4175,7 @@ export type OrderRequestUpdateWithoutBusinessInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4157,6 +4228,7 @@ export type OrderRequestUncheckedUpdateWithoutBusinessInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4205,6 +4277,7 @@ export type OrderRequestUncheckedUpdateManyWithoutBusinessInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4244,6 +4317,7 @@ export type OrderRequestCreateManyCustomerAccountInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -4279,6 +4353,7 @@ export type OrderRequestUpdateWithoutCustomerAccountInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4331,6 +4406,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAccountInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4379,6 +4455,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAccountInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4418,6 +4495,7 @@ export type OrderRequestCreateManyCustomerInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -4453,6 +4531,7 @@ export type OrderRequestUpdateWithoutCustomerInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4505,6 +4584,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4553,6 +4633,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4592,6 +4673,7 @@ export type OrderRequestCreateManyCustomerAddressInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -4627,6 +4709,7 @@ export type OrderRequestUpdateWithoutCustomerAddressInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4679,6 +4762,7 @@ export type OrderRequestUncheckedUpdateWithoutCustomerAddressInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4727,6 +4811,7 @@ export type OrderRequestUncheckedUpdateManyWithoutCustomerAddressInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4766,6 +4851,7 @@ export type OrderRequestCreateManySourceShowcaseInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   note?: string | null
   cancellationReasonCode?: string | null
   cancellationReason?: string | null
@@ -4801,6 +4887,7 @@ export type OrderRequestUpdateWithoutSourceShowcaseInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4853,6 +4940,7 @@ export type OrderRequestUncheckedUpdateWithoutSourceShowcaseInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -4901,6 +4989,7 @@ export type OrderRequestUncheckedUpdateManyWithoutSourceShowcaseInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReasonCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cancellationReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -5035,6 +5124,7 @@ export type OrderRequestSelect<ExtArgs extends runtime.Types.Extensions.Internal
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   note?: boolean
   cancellationReasonCode?: boolean
   cancellationReason?: boolean
@@ -5090,6 +5180,7 @@ export type OrderRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   note?: boolean
   cancellationReasonCode?: boolean
   cancellationReason?: boolean
@@ -5135,6 +5226,7 @@ export type OrderRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   note?: boolean
   cancellationReasonCode?: boolean
   cancellationReason?: boolean
@@ -5180,6 +5272,7 @@ export type OrderRequestSelectScalar = {
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   note?: boolean
   cancellationReasonCode?: boolean
   cancellationReason?: boolean
@@ -5190,7 +5283,7 @@ export type OrderRequestSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "agreedFulfillment" | "pickupMethod" | "customerAddressId" | "sourceShowcaseId" | "requestedPaymentMethod" | "agreedPaymentMethod" | "clientIdempotencyKey" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryCountryCode" | "deliveryAdministrativeArea1" | "deliveryLocality" | "deliveryEligibility" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "note" | "cancellationReasonCode" | "cancellationReason" | "canceledBy" | "status" | "ownerReadAt" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
+export type OrderRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerAccountId" | "customerId" | "referenceCode" | "tokenHash" | "customerName" | "customerPhone" | "channel" | "fulfillment" | "agreedFulfillment" | "pickupMethod" | "customerAddressId" | "sourceShowcaseId" | "requestedPaymentMethod" | "agreedPaymentMethod" | "clientIdempotencyKey" | "deliveryAddress" | "deliveryPlaceId" | "deliveryLatitude" | "deliveryLongitude" | "deliveryCountryCode" | "deliveryAdministrativeArea1" | "deliveryLocality" | "deliveryEligibility" | "deliveryNotes" | "isGift" | "recipientName" | "recipientPhone" | "giftOccasion" | "note" | "cancellationReasonCode" | "cancellationReason" | "canceledBy" | "status" | "ownerReadAt" | "createdAt" | "updatedAt", ExtArgs["result"]["orderRequest"]>
 export type OrderRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerAccount?: boolean | Prisma.OrderRequest$customerAccountArgs<ExtArgs>
@@ -5271,6 +5364,7 @@ export type $OrderRequestPayload<ExtArgs extends runtime.Types.Extensions.Intern
     isGift: boolean
     recipientName: string | null
     recipientPhone: string | null
+    giftOccasion: string | null
     note: string | null
     cancellationReasonCode: string | null
     cancellationReason: string | null
@@ -5745,6 +5839,7 @@ export interface OrderRequestFieldRefs {
   readonly isGift: Prisma.FieldRef<"OrderRequest", 'Boolean'>
   readonly recipientName: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly recipientPhone: Prisma.FieldRef<"OrderRequest", 'String'>
+  readonly giftOccasion: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly note: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly cancellationReasonCode: Prisma.FieldRef<"OrderRequest", 'String'>
   readonly cancellationReason: Prisma.FieldRef<"OrderRequest", 'String'>

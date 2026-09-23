@@ -640,6 +640,10 @@ function safeCodeEqual(expected: string, actual: string) {
 function sanitizePublicDelivery(delivery: Record<string, unknown>) {
   const value = delivery as {
     address: string | null;
+    isGift: boolean;
+    recipientName: string | null;
+    recipientPhone: string | null;
+    giftOccasion: string | null;
     business: {
       id: string;
       contacts: Array<{
@@ -737,6 +741,10 @@ function sanitizePublicDelivery(delivery: Record<string, unknown>) {
         ? { secureUrl: value.business.logoAsset.secureUrl }
         : null,
     },
+    isGift: value.isGift,
+    recipientName: value.isGift ? value.recipientName : null,
+    recipientPhone: value.isGift ? value.recipientPhone : null,
+    giftOccasion: value.isGift ? value.giftOccasion : null,
     confirmedAt: value.confirmedAt,
     journeyMethod: value.journeyMethod,
     pickupLabel: value.pickupLabel,

@@ -1,3 +1,4 @@
+import { validateGiftRecipient } from "../../common/gift-recipient";
 import { assertSameCurrency } from "../../common/business-currency";
 import {
   BadRequestException,
@@ -300,6 +301,7 @@ export class SalesService {
     const deliveryToken = createOpaqueToken();
     const referenceCode = createReference("LL");
     const receiptCode = createReference("RCP");
+    validateGiftRecipient(dto);
     const fulfillment = dto.fulfillment ?? "NOT_REQUIRED";
     const createsDeliveryJourney = fulfillment === "DELIVERY" || fulfillment === "PICKUP";
     const journeyMethod = fulfillment === "DELIVERY"
@@ -413,6 +415,7 @@ export class SalesService {
             googlePlaceId: dto.deliveryPlaceId?.trim(),
             latitude: dto.deliveryLatitude,
             longitude: dto.deliveryLongitude,
+            giftOccasion: dto.isGift ? dto.giftOccasion?.trim() : undefined,
             isGift: dto.isGift ?? false,
             recipientName: dto.isGift ? dto.recipientName?.trim() : undefined,
             recipientPhone: dto.isGift ? dto.recipientPhone?.trim() : undefined,

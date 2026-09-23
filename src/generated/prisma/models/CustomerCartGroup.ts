@@ -36,6 +36,7 @@ export type CustomerCartGroupMinAggregateOutputType = {
   isGift: boolean | null
   recipientName: string | null
   recipientPhone: string | null
+  giftOccasion: string | null
   whatsappUpdatesConsent: boolean | null
   sourceShowcaseId: string | null
   createdAt: Date | null
@@ -54,6 +55,7 @@ export type CustomerCartGroupMaxAggregateOutputType = {
   isGift: boolean | null
   recipientName: string | null
   recipientPhone: string | null
+  giftOccasion: string | null
   whatsappUpdatesConsent: boolean | null
   sourceShowcaseId: string | null
   createdAt: Date | null
@@ -72,6 +74,7 @@ export type CustomerCartGroupCountAggregateOutputType = {
   isGift: number
   recipientName: number
   recipientPhone: number
+  giftOccasion: number
   whatsappUpdatesConsent: number
   sourceShowcaseId: number
   createdAt: number
@@ -92,6 +95,7 @@ export type CustomerCartGroupMinAggregateInputType = {
   isGift?: true
   recipientName?: true
   recipientPhone?: true
+  giftOccasion?: true
   whatsappUpdatesConsent?: true
   sourceShowcaseId?: true
   createdAt?: true
@@ -110,6 +114,7 @@ export type CustomerCartGroupMaxAggregateInputType = {
   isGift?: true
   recipientName?: true
   recipientPhone?: true
+  giftOccasion?: true
   whatsappUpdatesConsent?: true
   sourceShowcaseId?: true
   createdAt?: true
@@ -128,6 +133,7 @@ export type CustomerCartGroupCountAggregateInputType = {
   isGift?: true
   recipientName?: true
   recipientPhone?: true
+  giftOccasion?: true
   whatsappUpdatesConsent?: true
   sourceShowcaseId?: true
   createdAt?: true
@@ -219,6 +225,7 @@ export type CustomerCartGroupGroupByOutputType = {
   isGift: boolean
   recipientName: string | null
   recipientPhone: string | null
+  giftOccasion: string | null
   whatsappUpdatesConsent: boolean
   sourceShowcaseId: string | null
   createdAt: Date
@@ -258,6 +265,7 @@ export type CustomerCartGroupWhereInput = {
   isGift?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
   recipientName?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
+  giftOccasion?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   whatsappUpdatesConsent?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
   sourceShowcaseId?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
@@ -280,6 +288,7 @@ export type CustomerCartGroupOrderByWithRelationInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrderInput | Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -306,6 +315,7 @@ export type CustomerCartGroupWhereUniqueInput = Prisma.AtLeast<{
   isGift?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
   recipientName?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
+  giftOccasion?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   whatsappUpdatesConsent?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
   sourceShowcaseId?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
@@ -328,6 +338,7 @@ export type CustomerCartGroupOrderByWithAggregationInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrderInput | Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -352,6 +363,7 @@ export type CustomerCartGroupScalarWhereWithAggregatesInput = {
   isGift?: Prisma.BoolWithAggregatesFilter<"CustomerCartGroup"> | boolean
   recipientName?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
   recipientPhone?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
+  giftOccasion?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
   whatsappUpdatesConsent?: Prisma.BoolWithAggregatesFilter<"CustomerCartGroup"> | boolean
   sourceShowcaseId?: Prisma.StringNullableWithAggregatesFilter<"CustomerCartGroup"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CustomerCartGroup"> | Date | string
@@ -367,6 +379,7 @@ export type CustomerCartGroupCreateInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -388,6 +401,7 @@ export type CustomerCartGroupUncheckedCreateInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: string | null
   createdAt?: Date | string
@@ -403,6 +417,7 @@ export type CustomerCartGroupUpdateInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -424,6 +439,7 @@ export type CustomerCartGroupUncheckedUpdateInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -442,6 +458,7 @@ export type CustomerCartGroupCreateManyInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: string | null
   createdAt?: Date | string
@@ -457,6 +474,7 @@ export type CustomerCartGroupUpdateManyMutationInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -474,6 +492,7 @@ export type CustomerCartGroupUncheckedUpdateManyInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -507,6 +526,7 @@ export type CustomerCartGroupCountOrderByAggregateInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -525,6 +545,7 @@ export type CustomerCartGroupMaxOrderByAggregateInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -543,6 +564,7 @@ export type CustomerCartGroupMinOrderByAggregateInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrder
   whatsappUpdatesConsent?: Prisma.SortOrder
   sourceShowcaseId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -734,6 +756,7 @@ export type CustomerCartGroupCreateWithoutBusinessInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -753,6 +776,7 @@ export type CustomerCartGroupUncheckedCreateWithoutBusinessInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: string | null
   createdAt?: Date | string
@@ -800,6 +824,7 @@ export type CustomerCartGroupScalarWhereInput = {
   isGift?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
   recipientName?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
+  giftOccasion?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   whatsappUpdatesConsent?: Prisma.BoolFilter<"CustomerCartGroup"> | boolean
   sourceShowcaseId?: Prisma.StringNullableFilter<"CustomerCartGroup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CustomerCartGroup"> | Date | string
@@ -815,6 +840,7 @@ export type CustomerCartGroupCreateWithoutCustomerAddressInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -834,6 +860,7 @@ export type CustomerCartGroupUncheckedCreateWithoutCustomerAddressInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: string | null
   createdAt?: Date | string
@@ -875,6 +902,7 @@ export type CustomerCartGroupCreateWithoutSourceShowcaseInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -895,6 +923,7 @@ export type CustomerCartGroupUncheckedCreateWithoutSourceShowcaseInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -935,6 +964,7 @@ export type CustomerCartGroupCreateWithoutCartInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -954,6 +984,7 @@ export type CustomerCartGroupUncheckedCreateWithoutCartInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: string | null
   createdAt?: Date | string
@@ -997,6 +1028,7 @@ export type CustomerCartGroupCreateManyBusinessInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: string | null
   createdAt?: Date | string
@@ -1012,6 +1044,7 @@ export type CustomerCartGroupUpdateWithoutBusinessInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1031,6 +1064,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutBusinessInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1048,6 +1082,7 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutBusinessInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1065,6 +1100,7 @@ export type CustomerCartGroupCreateManyCustomerAddressInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: string | null
   createdAt?: Date | string
@@ -1080,6 +1116,7 @@ export type CustomerCartGroupUpdateWithoutCustomerAddressInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1099,6 +1136,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutCustomerAddressInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1116,6 +1154,7 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutCustomerAddressInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1134,6 +1173,7 @@ export type CustomerCartGroupCreateManySourceShowcaseInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1148,6 +1188,7 @@ export type CustomerCartGroupUpdateWithoutSourceShowcaseInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1168,6 +1209,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutSourceShowcaseInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1185,6 +1227,7 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutSourceShowcaseInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1201,6 +1244,7 @@ export type CustomerCartGroupCreateManyCartInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: string | null
   createdAt?: Date | string
@@ -1216,6 +1260,7 @@ export type CustomerCartGroupUpdateWithoutCartInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1235,6 +1280,7 @@ export type CustomerCartGroupUncheckedUpdateWithoutCartInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1252,6 +1298,7 @@ export type CustomerCartGroupUncheckedUpdateManyWithoutCartInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   whatsappUpdatesConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sourceShowcaseId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1272,6 +1319,7 @@ export type CustomerCartGroupSelect<ExtArgs extends runtime.Types.Extensions.Int
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: boolean
   createdAt?: boolean
@@ -1294,6 +1342,7 @@ export type CustomerCartGroupSelectCreateManyAndReturn<ExtArgs extends runtime.T
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: boolean
   createdAt?: boolean
@@ -1316,6 +1365,7 @@ export type CustomerCartGroupSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: boolean
   createdAt?: boolean
@@ -1338,13 +1388,14 @@ export type CustomerCartGroupSelectScalar = {
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   whatsappUpdatesConsent?: boolean
   sourceShowcaseId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CustomerCartGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "businessId" | "customerAddressId" | "fulfillment" | "pickupMethod" | "note" | "paymentPreference" | "isGift" | "recipientName" | "recipientPhone" | "whatsappUpdatesConsent" | "sourceShowcaseId" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartGroup"]>
+export type CustomerCartGroupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "businessId" | "customerAddressId" | "fulfillment" | "pickupMethod" | "note" | "paymentPreference" | "isGift" | "recipientName" | "recipientPhone" | "giftOccasion" | "whatsappUpdatesConsent" | "sourceShowcaseId" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartGroup"]>
 export type CustomerCartGroupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -1384,6 +1435,7 @@ export type $CustomerCartGroupPayload<ExtArgs extends runtime.Types.Extensions.I
     isGift: boolean
     recipientName: string | null
     recipientPhone: string | null
+    giftOccasion: string | null
     whatsappUpdatesConsent: boolean
     sourceShowcaseId: string | null
     createdAt: Date
@@ -1826,6 +1878,7 @@ export interface CustomerCartGroupFieldRefs {
   readonly isGift: Prisma.FieldRef<"CustomerCartGroup", 'Boolean'>
   readonly recipientName: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly recipientPhone: Prisma.FieldRef<"CustomerCartGroup", 'String'>
+  readonly giftOccasion: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly whatsappUpdatesConsent: Prisma.FieldRef<"CustomerCartGroup", 'Boolean'>
   readonly sourceShowcaseId: Prisma.FieldRef<"CustomerCartGroup", 'String'>
   readonly createdAt: Prisma.FieldRef<"CustomerCartGroup", 'DateTime'>

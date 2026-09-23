@@ -62,6 +62,7 @@ export type DeliveryMinAggregateOutputType = {
   isGift: boolean | null
   recipientName: string | null
   recipientPhone: string | null
+  giftOccasion: string | null
   courier: string | null
   courierService: string | null
   courierName: string | null
@@ -99,6 +100,7 @@ export type DeliveryMaxAggregateOutputType = {
   isGift: boolean | null
   recipientName: string | null
   recipientPhone: string | null
+  giftOccasion: string | null
   courier: string | null
   courierService: string | null
   courierName: string | null
@@ -136,6 +138,7 @@ export type DeliveryCountAggregateOutputType = {
   isGift: number
   recipientName: number
   recipientPhone: number
+  giftOccasion: number
   courier: number
   courierService: number
   courierName: number
@@ -189,6 +192,7 @@ export type DeliveryMinAggregateInputType = {
   isGift?: true
   recipientName?: true
   recipientPhone?: true
+  giftOccasion?: true
   courier?: true
   courierService?: true
   courierName?: true
@@ -226,6 +230,7 @@ export type DeliveryMaxAggregateInputType = {
   isGift?: true
   recipientName?: true
   recipientPhone?: true
+  giftOccasion?: true
   courier?: true
   courierService?: true
   courierName?: true
@@ -263,6 +268,7 @@ export type DeliveryCountAggregateInputType = {
   isGift?: true
   recipientName?: true
   recipientPhone?: true
+  giftOccasion?: true
   courier?: true
   courierService?: true
   courierName?: true
@@ -387,6 +393,7 @@ export type DeliveryGroupByOutputType = {
   isGift: boolean
   recipientName: string | null
   recipientPhone: string | null
+  giftOccasion: string | null
   courier: string | null
   courierService: string | null
   courierName: string | null
@@ -447,6 +454,7 @@ export type DeliveryWhereInput = {
   isGift?: Prisma.BoolFilter<"Delivery"> | boolean
   recipientName?: Prisma.StringNullableFilter<"Delivery"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  giftOccasion?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courierService?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courierName?: Prisma.StringNullableFilter<"Delivery"> | string | null
@@ -494,6 +502,7 @@ export type DeliveryOrderByWithRelationInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrderInput | Prisma.SortOrder
   courier?: Prisma.SortOrderInput | Prisma.SortOrder
   courierService?: Prisma.SortOrderInput | Prisma.SortOrder
   courierName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -544,6 +553,7 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   isGift?: Prisma.BoolFilter<"Delivery"> | boolean
   recipientName?: Prisma.StringNullableFilter<"Delivery"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  giftOccasion?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courierService?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courierName?: Prisma.StringNullableFilter<"Delivery"> | string | null
@@ -591,6 +601,7 @@ export type DeliveryOrderByWithAggregationInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrderInput | Prisma.SortOrder
   recipientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrderInput | Prisma.SortOrder
   courier?: Prisma.SortOrderInput | Prisma.SortOrder
   courierService?: Prisma.SortOrderInput | Prisma.SortOrder
   courierName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -636,6 +647,7 @@ export type DeliveryScalarWhereWithAggregatesInput = {
   isGift?: Prisma.BoolWithAggregatesFilter<"Delivery"> | boolean
   recipientName?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   recipientPhone?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  giftOccasion?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   courierService?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   courierName?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
@@ -668,6 +680,7 @@ export type DeliveryCreateInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -715,6 +728,7 @@ export type DeliveryUncheckedCreateInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -752,6 +766,7 @@ export type DeliveryUpdateInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -799,6 +814,7 @@ export type DeliveryUncheckedUpdateInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -841,6 +857,7 @@ export type DeliveryCreateManyInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -873,6 +890,7 @@ export type DeliveryUpdateManyMutationInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -910,6 +928,7 @@ export type DeliveryUncheckedUpdateManyInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -962,6 +981,7 @@ export type DeliveryCountOrderByAggregateInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrder
   courier?: Prisma.SortOrder
   courierService?: Prisma.SortOrder
   courierName?: Prisma.SortOrder
@@ -1006,6 +1026,7 @@ export type DeliveryMaxOrderByAggregateInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrder
   courier?: Prisma.SortOrder
   courierService?: Prisma.SortOrder
   courierName?: Prisma.SortOrder
@@ -1043,6 +1064,7 @@ export type DeliveryMinOrderByAggregateInput = {
   isGift?: Prisma.SortOrder
   recipientName?: Prisma.SortOrder
   recipientPhone?: Prisma.SortOrder
+  giftOccasion?: Prisma.SortOrder
   courier?: Prisma.SortOrder
   courierService?: Prisma.SortOrder
   courierName?: Prisma.SortOrder
@@ -1371,6 +1393,7 @@ export type DeliveryCreateWithoutBusinessInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1416,6 +1439,7 @@ export type DeliveryUncheckedCreateWithoutBusinessInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1487,6 +1511,7 @@ export type DeliveryScalarWhereInput = {
   isGift?: Prisma.BoolFilter<"Delivery"> | boolean
   recipientName?: Prisma.StringNullableFilter<"Delivery"> | string | null
   recipientPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  giftOccasion?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courier?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courierService?: Prisma.StringNullableFilter<"Delivery"> | string | null
   courierName?: Prisma.StringNullableFilter<"Delivery"> | string | null
@@ -1519,6 +1544,7 @@ export type DeliveryCreateWithoutPickupLocationInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1564,6 +1590,7 @@ export type DeliveryUncheckedCreateWithoutPickupLocationInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1627,6 +1654,7 @@ export type DeliveryCreateWithoutHandoffAssetInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1672,6 +1700,7 @@ export type DeliveryUncheckedCreateWithoutHandoffAssetInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1735,6 +1764,7 @@ export type DeliveryCreateWithoutCustomerInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1780,6 +1810,7 @@ export type DeliveryUncheckedCreateWithoutCustomerInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1843,6 +1874,7 @@ export type DeliveryCreateWithoutSaleInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1888,6 +1920,7 @@ export type DeliveryUncheckedCreateWithoutSaleInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -1941,6 +1974,7 @@ export type DeliveryUpdateWithoutSaleInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1986,6 +2020,7 @@ export type DeliveryUncheckedUpdateWithoutSaleInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2023,6 +2058,7 @@ export type DeliveryCreateWithoutShareTokensInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2069,6 +2105,7 @@ export type DeliveryUncheckedCreateWithoutShareTokensInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2121,6 +2158,7 @@ export type DeliveryUpdateWithoutShareTokensInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2167,6 +2205,7 @@ export type DeliveryUncheckedUpdateWithoutShareTokensInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2203,6 +2242,7 @@ export type DeliveryCreateWithoutEventsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2249,6 +2289,7 @@ export type DeliveryUncheckedCreateWithoutEventsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2301,6 +2342,7 @@ export type DeliveryUpdateWithoutEventsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2347,6 +2389,7 @@ export type DeliveryUncheckedUpdateWithoutEventsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2383,6 +2426,7 @@ export type DeliveryCreateWithoutActivityEventsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2429,6 +2473,7 @@ export type DeliveryUncheckedCreateWithoutActivityEventsInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2481,6 +2526,7 @@ export type DeliveryUpdateWithoutActivityEventsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2527,6 +2573,7 @@ export type DeliveryUncheckedUpdateWithoutActivityEventsInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2563,6 +2610,7 @@ export type DeliveryCreateWithoutFeedbackInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2609,6 +2657,7 @@ export type DeliveryUncheckedCreateWithoutFeedbackInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2661,6 +2710,7 @@ export type DeliveryUpdateWithoutFeedbackInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2707,6 +2757,7 @@ export type DeliveryUncheckedUpdateWithoutFeedbackInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2743,6 +2794,7 @@ export type DeliveryCreateWithoutIssuesInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2789,6 +2841,7 @@ export type DeliveryUncheckedCreateWithoutIssuesInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2841,6 +2894,7 @@ export type DeliveryUpdateWithoutIssuesInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2887,6 +2941,7 @@ export type DeliveryUncheckedUpdateWithoutIssuesInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2927,6 +2982,7 @@ export type DeliveryCreateManyBusinessInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -2959,6 +3015,7 @@ export type DeliveryUpdateWithoutBusinessInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3004,6 +3061,7 @@ export type DeliveryUncheckedUpdateWithoutBusinessInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3045,6 +3103,7 @@ export type DeliveryUncheckedUpdateManyWithoutBusinessInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3081,6 +3140,7 @@ export type DeliveryCreateManyPickupLocationInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -3113,6 +3173,7 @@ export type DeliveryUpdateWithoutPickupLocationInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3158,6 +3219,7 @@ export type DeliveryUncheckedUpdateWithoutPickupLocationInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3199,6 +3261,7 @@ export type DeliveryUncheckedUpdateManyWithoutPickupLocationInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3235,6 +3298,7 @@ export type DeliveryCreateManyHandoffAssetInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -3267,6 +3331,7 @@ export type DeliveryUpdateWithoutHandoffAssetInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3312,6 +3377,7 @@ export type DeliveryUncheckedUpdateWithoutHandoffAssetInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3353,6 +3419,7 @@ export type DeliveryUncheckedUpdateManyWithoutHandoffAssetInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3389,6 +3456,7 @@ export type DeliveryCreateManyCustomerInput = {
   isGift?: boolean
   recipientName?: string | null
   recipientPhone?: string | null
+  giftOccasion?: string | null
   courier?: string | null
   courierService?: string | null
   courierName?: string | null
@@ -3421,6 +3489,7 @@ export type DeliveryUpdateWithoutCustomerInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3466,6 +3535,7 @@ export type DeliveryUncheckedUpdateWithoutCustomerInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3507,6 +3577,7 @@ export type DeliveryUncheckedUpdateManyWithoutCustomerInput = {
   isGift?: Prisma.BoolFieldUpdateOperationsInput | boolean
   recipientName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recipientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  giftOccasion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierService?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3611,6 +3682,7 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   courier?: boolean
   courierService?: boolean
   courierName?: boolean
@@ -3659,6 +3731,7 @@ export type DeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   courier?: boolean
   courierService?: boolean
   courierName?: boolean
@@ -3701,6 +3774,7 @@ export type DeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   courier?: boolean
   courierService?: boolean
   courierName?: boolean
@@ -3743,6 +3817,7 @@ export type DeliverySelectScalar = {
   isGift?: boolean
   recipientName?: boolean
   recipientPhone?: boolean
+  giftOccasion?: boolean
   courier?: boolean
   courierService?: boolean
   courierName?: boolean
@@ -3758,7 +3833,7 @@ export type DeliverySelectScalar = {
   updatedAt?: boolean
 }
 
-export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "saleId" | "tokenHash" | "status" | "journeyMethod" | "pickupLocationId" | "pickupLabel" | "pickupAddress" | "pickupGooglePlaceId" | "pickupLatitude" | "pickupLongitude" | "handoffAssetId" | "address" | "googlePlaceId" | "latitude" | "longitude" | "isGift" | "recipientName" | "recipientPhone" | "courier" | "courierService" | "courierName" | "courierPhone" | "trackingCode" | "trackingUrl" | "riderDetailsAddedAt" | "handedOffAt" | "handoffCodeIssuedAt" | "deliveredAt" | "confirmedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["delivery"]>
+export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerId" | "saleId" | "tokenHash" | "status" | "journeyMethod" | "pickupLocationId" | "pickupLabel" | "pickupAddress" | "pickupGooglePlaceId" | "pickupLatitude" | "pickupLongitude" | "handoffAssetId" | "address" | "googlePlaceId" | "latitude" | "longitude" | "isGift" | "recipientName" | "recipientPhone" | "giftOccasion" | "courier" | "courierService" | "courierName" | "courierPhone" | "trackingCode" | "trackingUrl" | "riderDetailsAddedAt" | "handedOffAt" | "handoffCodeIssuedAt" | "deliveredAt" | "confirmedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["delivery"]>
 export type DeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
@@ -3823,6 +3898,7 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     isGift: boolean
     recipientName: string | null
     recipientPhone: string | null
+    giftOccasion: string | null
     courier: string | null
     courierService: string | null
     courierName: string | null
@@ -4290,6 +4366,7 @@ export interface DeliveryFieldRefs {
   readonly isGift: Prisma.FieldRef<"Delivery", 'Boolean'>
   readonly recipientName: Prisma.FieldRef<"Delivery", 'String'>
   readonly recipientPhone: Prisma.FieldRef<"Delivery", 'String'>
+  readonly giftOccasion: Prisma.FieldRef<"Delivery", 'String'>
   readonly courier: Prisma.FieldRef<"Delivery", 'String'>
   readonly courierService: Prisma.FieldRef<"Delivery", 'String'>
   readonly courierName: Prisma.FieldRef<"Delivery", 'String'>
