@@ -15,6 +15,7 @@ import { MessagingService } from "../messaging/messaging.service";
 import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
 import { MediaService } from "../media/media.service";
 import { customerHandoffCodeAvailable, deliveryStageLabel } from "./delivery-labels";
+import { paymentEvidenceSelect } from "../../common/payment-evidence";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   CreateDeliveryIssueDto,
@@ -334,6 +335,7 @@ export class DeliveryService {
         where: { id: delivery.id },
         include: {
           ...deliveryInclude,
+          sale: { include: { ...deliveryInclude.sale.include, payments: { where: { type: "REFUND" }, include: { evidenceAsset: { select: paymentEvidenceSelect } }, orderBy: { createdAt: "desc" } } } },
           business: {
             include: { logoAsset: true, contacts: true, preferences: true },
           },
@@ -341,7 +343,11 @@ export class DeliveryService {
       });
     return {
       ...sanitizePublicDelivery(this.protectDelivery(record)),
-      handoffCode: record.handoffCodeIssuedAt && customerHandoffCodeAvailable(record.journeyMethod, record.status)
+      refunds: (record.sale.payments || []).filter(payment => payment.type === "REFUND").map(payment => ({
+        id: payment.id, amount: payment.amount, createdAt: payment.createdAt,
+        evidence: payment.evidenceAsset ? { secureUrl: this.media.protectAsset(payment.evidenceAsset).secureUrl } : null,
+      })),
+      handoffCode: record.sale.paymentStatus !== "REFUNDED" && record.handoffCodeIssuedAt && customerHandoffCodeAvailable(record.journeyMethod, record.status)
         ? this.handoffCode(record.id)
         : null,
     };

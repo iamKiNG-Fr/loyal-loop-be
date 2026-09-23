@@ -3,6 +3,12 @@ import { customerHandoffCodeAvailable } from './delivery-labels';
 import { DeliveryService } from './delivery.service';
 
 describe('delivery feedback and private code timing', () => {
+  it('uses readable labels for the exact page 9 rejected transition', async () => {
+    const prisma = { delivery: { findFirst: vi.fn().mockResolvedValue({ id: 'delivery', status: 'READY_FOR_PICKUP', journeyMethod: 'SHOP_DELIVERY' }) }, $transaction: vi.fn() };
+    const service = new DeliveryService(prisma as never, {} as never, {} as never, {} as never, {} as never, {} as never);
+    await expect(service.update({ businessId: 'shop' } as never, 'delivery', { status: 'AWAITING_PAYMENT' })).rejects.toThrow('“Ready for dispatch” to “Waiting for payment”');
+    expect(prisma.$transaction).not.toHaveBeenCalled();
+  });
   it('uses customer-facing stage names for a rejected skip', async () => {
     const prisma = { delivery: { findFirst: vi.fn().mockResolvedValue({ id: 'delivery-1', businessId: 'shop-1', status: 'PREPARING', journeyMethod: 'SHOP_DELIVERY' }) }, $transaction: vi.fn() };
     const service = new DeliveryService(prisma as never, {} as never, {} as never, {} as never, {} as never, {} as never);

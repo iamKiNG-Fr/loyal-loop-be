@@ -200,6 +200,11 @@ export class CreateSaleDto {
 }
 
 export class RecordPaymentDto {
+  @IsOptional()
+  @IsString()
+  @Length(1, 100)
+  evidenceAssetId?: string;
+
   @IsEnum(PaymentEntryType)
   type!: PaymentEntryType;
 

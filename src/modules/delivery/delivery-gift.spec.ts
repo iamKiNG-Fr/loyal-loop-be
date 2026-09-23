@@ -2,6 +2,20 @@ import { describe, expect, it, vi } from 'vitest';
 import { DeliveryService } from './delivery.service';
 
 describe('gift and payment journey context', () => {
+  it('returns signed refund evidence without private ledger notes or payment images', async () => {
+    const record = { id: 'delivery', handoffAsset: null, status: 'IN_TRANSIT', journeyMethod: 'SHOP_DELIVERY', handoffCodeIssuedAt: new Date(), business: { id: 'shop', contacts: [], logoAsset: null }, events: [], feedback: [], issues: [], sale: { paymentStatus: 'REFUNDED', items: [], paymentProofs: [], payments: [
+      { id: 'refund', type: 'REFUND', amount: '100', createdAt: new Date(), note: 'private shop note', evidenceAsset: { secureUrl: 'unsigned-private-url' } },
+      { id: 'payment', type: 'PAYMENT', evidenceAsset: { secureUrl: 'payer-bank-image' } },
+    ] } };
+    const prisma = { delivery: { findFirst: vi.fn().mockResolvedValue(record), findUniqueOrThrow: vi.fn().mockResolvedValue(record) } };
+    const media = { protectAsset: vi.fn(() => ({ secureUrl: 'signed-expiring-url' })) };
+    const service = new DeliveryService(prisma as never, {} as never, {} as never, {} as never, {} as never, media as never);
+    const result = await service.getPublic('buyer-account', 'private-token');
+    expect(result.refunds).toEqual([{ id: 'refund', amount: '100', createdAt: record.sale.payments[0].createdAt, evidence: { secureUrl: 'signed-expiring-url' } }]);
+    expect(result.handoffCode).toBeNull();
+    expect(JSON.stringify(result)).not.toContain('private shop note');
+    expect(JSON.stringify(result)).not.toContain('payer-bank-image');
+  });
   it.each([true, false])('serializes gift details only for gift orders (%s) while retaining bank instructions', async isGift => {
     const record = {
       id: 'delivery', isGift, recipientName: 'Amina', recipientPhone: '+2348033334444', giftOccasion: 'Birthday',

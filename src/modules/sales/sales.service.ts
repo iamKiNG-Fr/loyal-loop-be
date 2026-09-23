@@ -1,4 +1,5 @@
 import { validateGiftRecipient } from "../../common/gift-recipient";
+import { paymentEvidenceSelect, type PaymentEvidenceAsset } from "../../common/payment-evidence";
 import { assertSameCurrency } from "../../common/business-currency";
 import {
   BadRequestException,
@@ -30,7 +31,7 @@ import {
 const saleInclude = {
   customer: true,
   items: true,
-  payments: { orderBy: { createdAt: "asc" as const } },
+  payments: { include: { evidenceAsset: { select: paymentEvidenceSelect } }, orderBy: { createdAt: "asc" as const } },
   paymentInstruction: true,
   paymentProofs: {
     select: {
@@ -540,6 +541,16 @@ export class SalesService {
     });
     if (!sale) throw new NotFoundException("Sale not found");
     const amount = new Prisma.Decimal(dto.amount);
+    if (!amount.isFinite() || !amount.greaterThan(0)) throw new BadRequestException("Enter an amount greater than zero");
+    if (dto.type === "REFUND" && !dto.evidenceAssetId) throw new BadRequestException("Attach proof of the refund before recording it");
+    if (dto.evidenceAssetId) {
+      const evidence = await this.prisma.mediaAsset.findFirst({ where: {
+        id: dto.evidenceAssetId, businessId: auth.businessId, purpose: "PAYMENT_PROOF",
+        status: "ACTIVE", deliveryType: "authenticated", resourceType: "image",
+        paymentProof: null, paymentEvidence: null,
+      } });
+      if (!evidence) throw new BadRequestException("Choose an unused private payment image uploaded for this business");
+    }
     const nextPaid =
       dto.type === "REFUND"
         ? sale.amountPaid.sub(amount)
@@ -548,6 +559,12 @@ export class SalesService {
       throw new BadRequestException("Payment would produce an invalid balance");
     }
     const updated = await this.prisma.$transaction(async (tx) => {
+      // A concurrent payment/refund must be reviewed against its new balance.
+      const changed = await tx.sale.updateMany({
+        where: { id: saleId, businessId: auth.businessId, amountPaid: sale.amountPaid },
+        data: { amountPaid: nextPaid, paymentStatus: dto.type === "REFUND" && nextPaid.equals(0) ? "REFUNDED" : statusFromAmounts(nextPaid, sale.total) },
+      });
+      if (changed.count !== 1) throw new BadRequestException("This payment record changed. Refresh the sale and check the balance before trying again");
       await tx.paymentEntry.create({
         data: {
           saleId,
@@ -556,17 +573,8 @@ export class SalesService {
           amount,
           note: dto.note?.trim(),
           reference: dto.reference?.trim(),
+          evidenceAssetId: dto.evidenceAssetId,
         },
-      });
-      const updated = await tx.sale.update({
-        where: { id: saleId },
-        data: {
-          amountPaid: nextPaid,
-          paymentStatus: dto.type === "REFUND" && nextPaid.equals(0)
-            ? "REFUNDED"
-            : statusFromAmounts(nextPaid, sale.total),
-        },
-        include: saleInclude,
       });
       if (dto.type === "PAYMENT" && nextPaid.greaterThan(0)) {
         const unlocked = await tx.delivery.updateMany({
@@ -601,12 +609,13 @@ export class SalesService {
         tx,
       );
       await this.valueFeedback.captureIfQualified(tx, auth.businessId, saleId);
-      return updated;
+      return tx.sale.findUniqueOrThrow({ where: { id: saleId }, include: saleInclude });
     });
     return this.protectSale(updated, this.canViewPaymentProofs(auth));
   }
 
   private protectSale<T extends {
+    payments?: Array<{ evidenceAsset?: PaymentEvidenceAsset | null }>;
     paymentProofs: Array<{
       asset: {
         deliveryType: string;
@@ -621,6 +630,7 @@ export class SalesService {
   }>(sale: T, canViewPaymentProofs: boolean) {
     return {
       ...sale,
+      payments: (sale.payments || []).map(payment => ({ ...payment, evidenceAsset: canViewPaymentProofs && payment.evidenceAsset ? this.media.protectAsset(payment.evidenceAsset) : null })),
       paymentProofs: canViewPaymentProofs
         ? sale.paymentProofs.map((proof) => ({
             ...proof,

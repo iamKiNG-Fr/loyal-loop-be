@@ -1446,6 +1446,7 @@ export const PaymentEntryScalarFieldEnum = {
   saleId: 'saleId',
   recordedById: 'recordedById',
   paymentProofId: 'paymentProofId',
+  evidenceAssetId: 'evidenceAssetId',
   type: 'type',
   amount: 'amount',
   note: 'note',

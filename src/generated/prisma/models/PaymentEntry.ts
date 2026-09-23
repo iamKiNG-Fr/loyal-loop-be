@@ -39,6 +39,7 @@ export type PaymentEntryMinAggregateOutputType = {
   saleId: string | null
   recordedById: string | null
   paymentProofId: string | null
+  evidenceAssetId: string | null
   type: $Enums.PaymentEntryType | null
   amount: runtime.Decimal | null
   note: string | null
@@ -51,6 +52,7 @@ export type PaymentEntryMaxAggregateOutputType = {
   saleId: string | null
   recordedById: string | null
   paymentProofId: string | null
+  evidenceAssetId: string | null
   type: $Enums.PaymentEntryType | null
   amount: runtime.Decimal | null
   note: string | null
@@ -63,6 +65,7 @@ export type PaymentEntryCountAggregateOutputType = {
   saleId: number
   recordedById: number
   paymentProofId: number
+  evidenceAssetId: number
   type: number
   amount: number
   note: number
@@ -85,6 +88,7 @@ export type PaymentEntryMinAggregateInputType = {
   saleId?: true
   recordedById?: true
   paymentProofId?: true
+  evidenceAssetId?: true
   type?: true
   amount?: true
   note?: true
@@ -97,6 +101,7 @@ export type PaymentEntryMaxAggregateInputType = {
   saleId?: true
   recordedById?: true
   paymentProofId?: true
+  evidenceAssetId?: true
   type?: true
   amount?: true
   note?: true
@@ -109,6 +114,7 @@ export type PaymentEntryCountAggregateInputType = {
   saleId?: true
   recordedById?: true
   paymentProofId?: true
+  evidenceAssetId?: true
   type?: true
   amount?: true
   note?: true
@@ -208,6 +214,7 @@ export type PaymentEntryGroupByOutputType = {
   saleId: string
   recordedById: string | null
   paymentProofId: string | null
+  evidenceAssetId: string | null
   type: $Enums.PaymentEntryType
   amount: runtime.Decimal
   note: string | null
@@ -243,6 +250,7 @@ export type PaymentEntryWhereInput = {
   saleId?: Prisma.StringFilter<"PaymentEntry"> | string
   recordedById?: Prisma.StringNullableFilter<"PaymentEntry"> | string | null
   paymentProofId?: Prisma.StringNullableFilter<"PaymentEntry"> | string | null
+  evidenceAssetId?: Prisma.StringNullableFilter<"PaymentEntry"> | string | null
   type?: Prisma.EnumPaymentEntryTypeFilter<"PaymentEntry"> | $Enums.PaymentEntryType
   amount?: Prisma.DecimalFilter<"PaymentEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringNullableFilter<"PaymentEntry"> | string | null
@@ -251,6 +259,7 @@ export type PaymentEntryWhereInput = {
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
   recordedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   paymentProof?: Prisma.XOR<Prisma.PaymentProofNullableScalarRelationFilter, Prisma.PaymentProofWhereInput> | null
+  evidenceAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
 }
 
 export type PaymentEntryOrderByWithRelationInput = {
@@ -258,6 +267,7 @@ export type PaymentEntryOrderByWithRelationInput = {
   saleId?: Prisma.SortOrder
   recordedById?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentProofId?: Prisma.SortOrderInput | Prisma.SortOrder
+  evidenceAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -266,11 +276,13 @@ export type PaymentEntryOrderByWithRelationInput = {
   sale?: Prisma.SaleOrderByWithRelationInput
   recordedBy?: Prisma.UserOrderByWithRelationInput
   paymentProof?: Prisma.PaymentProofOrderByWithRelationInput
+  evidenceAsset?: Prisma.MediaAssetOrderByWithRelationInput
 }
 
 export type PaymentEntryWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   paymentProofId?: string
+  evidenceAssetId?: string
   AND?: Prisma.PaymentEntryWhereInput | Prisma.PaymentEntryWhereInput[]
   OR?: Prisma.PaymentEntryWhereInput[]
   NOT?: Prisma.PaymentEntryWhereInput | Prisma.PaymentEntryWhereInput[]
@@ -284,13 +296,15 @@ export type PaymentEntryWhereUniqueInput = Prisma.AtLeast<{
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
   recordedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   paymentProof?: Prisma.XOR<Prisma.PaymentProofNullableScalarRelationFilter, Prisma.PaymentProofWhereInput> | null
-}, "id" | "paymentProofId">
+  evidenceAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
+}, "id" | "paymentProofId" | "evidenceAssetId">
 
 export type PaymentEntryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   recordedById?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentProofId?: Prisma.SortOrderInput | Prisma.SortOrder
+  evidenceAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -311,6 +325,7 @@ export type PaymentEntryScalarWhereWithAggregatesInput = {
   saleId?: Prisma.StringWithAggregatesFilter<"PaymentEntry"> | string
   recordedById?: Prisma.StringNullableWithAggregatesFilter<"PaymentEntry"> | string | null
   paymentProofId?: Prisma.StringNullableWithAggregatesFilter<"PaymentEntry"> | string | null
+  evidenceAssetId?: Prisma.StringNullableWithAggregatesFilter<"PaymentEntry"> | string | null
   type?: Prisma.EnumPaymentEntryTypeWithAggregatesFilter<"PaymentEntry"> | $Enums.PaymentEntryType
   amount?: Prisma.DecimalWithAggregatesFilter<"PaymentEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringNullableWithAggregatesFilter<"PaymentEntry"> | string | null
@@ -328,6 +343,7 @@ export type PaymentEntryCreateInput = {
   sale: Prisma.SaleCreateNestedOneWithoutPaymentsInput
   recordedBy?: Prisma.UserCreateNestedOneWithoutPaymentsRecordedInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutPaymentEntryInput
+  evidenceAsset?: Prisma.MediaAssetCreateNestedOneWithoutPaymentEvidenceInput
 }
 
 export type PaymentEntryUncheckedCreateInput = {
@@ -335,6 +351,7 @@ export type PaymentEntryUncheckedCreateInput = {
   saleId: string
   recordedById?: string | null
   paymentProofId?: string | null
+  evidenceAssetId?: string | null
   type: $Enums.PaymentEntryType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
@@ -352,6 +369,7 @@ export type PaymentEntryUpdateInput = {
   sale?: Prisma.SaleUpdateOneRequiredWithoutPaymentsNestedInput
   recordedBy?: Prisma.UserUpdateOneWithoutPaymentsRecordedNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutPaymentEntryNestedInput
+  evidenceAsset?: Prisma.MediaAssetUpdateOneWithoutPaymentEvidenceNestedInput
 }
 
 export type PaymentEntryUncheckedUpdateInput = {
@@ -359,6 +377,7 @@ export type PaymentEntryUncheckedUpdateInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentProofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  evidenceAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPaymentEntryTypeFieldUpdateOperationsInput | $Enums.PaymentEntryType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -371,6 +390,7 @@ export type PaymentEntryCreateManyInput = {
   saleId: string
   recordedById?: string | null
   paymentProofId?: string | null
+  evidenceAssetId?: string | null
   type: $Enums.PaymentEntryType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
@@ -392,6 +412,7 @@ export type PaymentEntryUncheckedUpdateManyInput = {
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentProofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  evidenceAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPaymentEntryTypeFieldUpdateOperationsInput | $Enums.PaymentEntryType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -409,11 +430,17 @@ export type PaymentEntryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type PaymentEntryNullableScalarRelationFilter = {
+  is?: Prisma.PaymentEntryWhereInput | null
+  isNot?: Prisma.PaymentEntryWhereInput | null
+}
+
 export type PaymentEntryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   paymentProofId?: Prisma.SortOrder
+  evidenceAssetId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrder
@@ -430,6 +457,7 @@ export type PaymentEntryMaxOrderByAggregateInput = {
   saleId?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   paymentProofId?: Prisma.SortOrder
+  evidenceAssetId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrder
@@ -442,6 +470,7 @@ export type PaymentEntryMinOrderByAggregateInput = {
   saleId?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   paymentProofId?: Prisma.SortOrder
+  evidenceAssetId?: Prisma.SortOrder
   type?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   note?: Prisma.SortOrder
@@ -451,11 +480,6 @@ export type PaymentEntryMinOrderByAggregateInput = {
 
 export type PaymentEntrySumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
-}
-
-export type PaymentEntryNullableScalarRelationFilter = {
-  is?: Prisma.PaymentEntryWhereInput | null
-  isNot?: Prisma.PaymentEntryWhereInput | null
 }
 
 export type PaymentEntryCreateNestedManyWithoutRecordedByInput = {
@@ -498,6 +522,38 @@ export type PaymentEntryUncheckedUpdateManyWithoutRecordedByNestedInput = {
   update?: Prisma.PaymentEntryUpdateWithWhereUniqueWithoutRecordedByInput | Prisma.PaymentEntryUpdateWithWhereUniqueWithoutRecordedByInput[]
   updateMany?: Prisma.PaymentEntryUpdateManyWithWhereWithoutRecordedByInput | Prisma.PaymentEntryUpdateManyWithWhereWithoutRecordedByInput[]
   deleteMany?: Prisma.PaymentEntryScalarWhereInput | Prisma.PaymentEntryScalarWhereInput[]
+}
+
+export type PaymentEntryCreateNestedOneWithoutEvidenceAssetInput = {
+  create?: Prisma.XOR<Prisma.PaymentEntryCreateWithoutEvidenceAssetInput, Prisma.PaymentEntryUncheckedCreateWithoutEvidenceAssetInput>
+  connectOrCreate?: Prisma.PaymentEntryCreateOrConnectWithoutEvidenceAssetInput
+  connect?: Prisma.PaymentEntryWhereUniqueInput
+}
+
+export type PaymentEntryUncheckedCreateNestedOneWithoutEvidenceAssetInput = {
+  create?: Prisma.XOR<Prisma.PaymentEntryCreateWithoutEvidenceAssetInput, Prisma.PaymentEntryUncheckedCreateWithoutEvidenceAssetInput>
+  connectOrCreate?: Prisma.PaymentEntryCreateOrConnectWithoutEvidenceAssetInput
+  connect?: Prisma.PaymentEntryWhereUniqueInput
+}
+
+export type PaymentEntryUpdateOneWithoutEvidenceAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.PaymentEntryCreateWithoutEvidenceAssetInput, Prisma.PaymentEntryUncheckedCreateWithoutEvidenceAssetInput>
+  connectOrCreate?: Prisma.PaymentEntryCreateOrConnectWithoutEvidenceAssetInput
+  upsert?: Prisma.PaymentEntryUpsertWithoutEvidenceAssetInput
+  disconnect?: Prisma.PaymentEntryWhereInput | boolean
+  delete?: Prisma.PaymentEntryWhereInput | boolean
+  connect?: Prisma.PaymentEntryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PaymentEntryUpdateToOneWithWhereWithoutEvidenceAssetInput, Prisma.PaymentEntryUpdateWithoutEvidenceAssetInput>, Prisma.PaymentEntryUncheckedUpdateWithoutEvidenceAssetInput>
+}
+
+export type PaymentEntryUncheckedUpdateOneWithoutEvidenceAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.PaymentEntryCreateWithoutEvidenceAssetInput, Prisma.PaymentEntryUncheckedCreateWithoutEvidenceAssetInput>
+  connectOrCreate?: Prisma.PaymentEntryCreateOrConnectWithoutEvidenceAssetInput
+  upsert?: Prisma.PaymentEntryUpsertWithoutEvidenceAssetInput
+  disconnect?: Prisma.PaymentEntryWhereInput | boolean
+  delete?: Prisma.PaymentEntryWhereInput | boolean
+  connect?: Prisma.PaymentEntryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PaymentEntryUpdateToOneWithWhereWithoutEvidenceAssetInput, Prisma.PaymentEntryUpdateWithoutEvidenceAssetInput>, Prisma.PaymentEntryUncheckedUpdateWithoutEvidenceAssetInput>
 }
 
 export type PaymentEntryCreateNestedManyWithoutSaleInput = {
@@ -587,12 +643,14 @@ export type PaymentEntryCreateWithoutRecordedByInput = {
   createdAt?: Date | string
   sale: Prisma.SaleCreateNestedOneWithoutPaymentsInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutPaymentEntryInput
+  evidenceAsset?: Prisma.MediaAssetCreateNestedOneWithoutPaymentEvidenceInput
 }
 
 export type PaymentEntryUncheckedCreateWithoutRecordedByInput = {
   id?: string
   saleId: string
   paymentProofId?: string | null
+  evidenceAssetId?: string | null
   type: $Enums.PaymentEntryType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
@@ -634,11 +692,76 @@ export type PaymentEntryScalarWhereInput = {
   saleId?: Prisma.StringFilter<"PaymentEntry"> | string
   recordedById?: Prisma.StringNullableFilter<"PaymentEntry"> | string | null
   paymentProofId?: Prisma.StringNullableFilter<"PaymentEntry"> | string | null
+  evidenceAssetId?: Prisma.StringNullableFilter<"PaymentEntry"> | string | null
   type?: Prisma.EnumPaymentEntryTypeFilter<"PaymentEntry"> | $Enums.PaymentEntryType
   amount?: Prisma.DecimalFilter<"PaymentEntry"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringNullableFilter<"PaymentEntry"> | string | null
   reference?: Prisma.StringNullableFilter<"PaymentEntry"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PaymentEntry"> | Date | string
+}
+
+export type PaymentEntryCreateWithoutEvidenceAssetInput = {
+  id?: string
+  type: $Enums.PaymentEntryType
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: string | null
+  reference?: string | null
+  createdAt?: Date | string
+  sale: Prisma.SaleCreateNestedOneWithoutPaymentsInput
+  recordedBy?: Prisma.UserCreateNestedOneWithoutPaymentsRecordedInput
+  paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutPaymentEntryInput
+}
+
+export type PaymentEntryUncheckedCreateWithoutEvidenceAssetInput = {
+  id?: string
+  saleId: string
+  recordedById?: string | null
+  paymentProofId?: string | null
+  type: $Enums.PaymentEntryType
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: string | null
+  reference?: string | null
+  createdAt?: Date | string
+}
+
+export type PaymentEntryCreateOrConnectWithoutEvidenceAssetInput = {
+  where: Prisma.PaymentEntryWhereUniqueInput
+  create: Prisma.XOR<Prisma.PaymentEntryCreateWithoutEvidenceAssetInput, Prisma.PaymentEntryUncheckedCreateWithoutEvidenceAssetInput>
+}
+
+export type PaymentEntryUpsertWithoutEvidenceAssetInput = {
+  update: Prisma.XOR<Prisma.PaymentEntryUpdateWithoutEvidenceAssetInput, Prisma.PaymentEntryUncheckedUpdateWithoutEvidenceAssetInput>
+  create: Prisma.XOR<Prisma.PaymentEntryCreateWithoutEvidenceAssetInput, Prisma.PaymentEntryUncheckedCreateWithoutEvidenceAssetInput>
+  where?: Prisma.PaymentEntryWhereInput
+}
+
+export type PaymentEntryUpdateToOneWithWhereWithoutEvidenceAssetInput = {
+  where?: Prisma.PaymentEntryWhereInput
+  data: Prisma.XOR<Prisma.PaymentEntryUpdateWithoutEvidenceAssetInput, Prisma.PaymentEntryUncheckedUpdateWithoutEvidenceAssetInput>
+}
+
+export type PaymentEntryUpdateWithoutEvidenceAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumPaymentEntryTypeFieldUpdateOperationsInput | $Enums.PaymentEntryType
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  sale?: Prisma.SaleUpdateOneRequiredWithoutPaymentsNestedInput
+  recordedBy?: Prisma.UserUpdateOneWithoutPaymentsRecordedNestedInput
+  paymentProof?: Prisma.PaymentProofUpdateOneWithoutPaymentEntryNestedInput
+}
+
+export type PaymentEntryUncheckedUpdateWithoutEvidenceAssetInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
+  recordedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentProofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  type?: Prisma.EnumPaymentEntryTypeFieldUpdateOperationsInput | $Enums.PaymentEntryType
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reference?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PaymentEntryCreateWithoutSaleInput = {
@@ -650,12 +773,14 @@ export type PaymentEntryCreateWithoutSaleInput = {
   createdAt?: Date | string
   recordedBy?: Prisma.UserCreateNestedOneWithoutPaymentsRecordedInput
   paymentProof?: Prisma.PaymentProofCreateNestedOneWithoutPaymentEntryInput
+  evidenceAsset?: Prisma.MediaAssetCreateNestedOneWithoutPaymentEvidenceInput
 }
 
 export type PaymentEntryUncheckedCreateWithoutSaleInput = {
   id?: string
   recordedById?: string | null
   paymentProofId?: string | null
+  evidenceAssetId?: string | null
   type: $Enums.PaymentEntryType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
@@ -698,12 +823,14 @@ export type PaymentEntryCreateWithoutPaymentProofInput = {
   createdAt?: Date | string
   sale: Prisma.SaleCreateNestedOneWithoutPaymentsInput
   recordedBy?: Prisma.UserCreateNestedOneWithoutPaymentsRecordedInput
+  evidenceAsset?: Prisma.MediaAssetCreateNestedOneWithoutPaymentEvidenceInput
 }
 
 export type PaymentEntryUncheckedCreateWithoutPaymentProofInput = {
   id?: string
   saleId: string
   recordedById?: string | null
+  evidenceAssetId?: string | null
   type: $Enums.PaymentEntryType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
@@ -736,12 +863,14 @@ export type PaymentEntryUpdateWithoutPaymentProofInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sale?: Prisma.SaleUpdateOneRequiredWithoutPaymentsNestedInput
   recordedBy?: Prisma.UserUpdateOneWithoutPaymentsRecordedNestedInput
+  evidenceAsset?: Prisma.MediaAssetUpdateOneWithoutPaymentEvidenceNestedInput
 }
 
 export type PaymentEntryUncheckedUpdateWithoutPaymentProofInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  evidenceAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPaymentEntryTypeFieldUpdateOperationsInput | $Enums.PaymentEntryType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -753,6 +882,7 @@ export type PaymentEntryCreateManyRecordedByInput = {
   id?: string
   saleId: string
   paymentProofId?: string | null
+  evidenceAssetId?: string | null
   type: $Enums.PaymentEntryType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
@@ -769,12 +899,14 @@ export type PaymentEntryUpdateWithoutRecordedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sale?: Prisma.SaleUpdateOneRequiredWithoutPaymentsNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutPaymentEntryNestedInput
+  evidenceAsset?: Prisma.MediaAssetUpdateOneWithoutPaymentEvidenceNestedInput
 }
 
 export type PaymentEntryUncheckedUpdateWithoutRecordedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   paymentProofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  evidenceAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPaymentEntryTypeFieldUpdateOperationsInput | $Enums.PaymentEntryType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -786,6 +918,7 @@ export type PaymentEntryUncheckedUpdateManyWithoutRecordedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   paymentProofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  evidenceAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPaymentEntryTypeFieldUpdateOperationsInput | $Enums.PaymentEntryType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -797,6 +930,7 @@ export type PaymentEntryCreateManySaleInput = {
   id?: string
   recordedById?: string | null
   paymentProofId?: string | null
+  evidenceAssetId?: string | null
   type: $Enums.PaymentEntryType
   amount: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
@@ -813,12 +947,14 @@ export type PaymentEntryUpdateWithoutSaleInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recordedBy?: Prisma.UserUpdateOneWithoutPaymentsRecordedNestedInput
   paymentProof?: Prisma.PaymentProofUpdateOneWithoutPaymentEntryNestedInput
+  evidenceAsset?: Prisma.MediaAssetUpdateOneWithoutPaymentEvidenceNestedInput
 }
 
 export type PaymentEntryUncheckedUpdateWithoutSaleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentProofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  evidenceAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPaymentEntryTypeFieldUpdateOperationsInput | $Enums.PaymentEntryType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -830,6 +966,7 @@ export type PaymentEntryUncheckedUpdateManyWithoutSaleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paymentProofId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  evidenceAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumPaymentEntryTypeFieldUpdateOperationsInput | $Enums.PaymentEntryType
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -844,6 +981,7 @@ export type PaymentEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   saleId?: boolean
   recordedById?: boolean
   paymentProofId?: boolean
+  evidenceAssetId?: boolean
   type?: boolean
   amount?: boolean
   note?: boolean
@@ -852,6 +990,7 @@ export type PaymentEntrySelect<ExtArgs extends runtime.Types.Extensions.Internal
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.PaymentEntry$recordedByArgs<ExtArgs>
   paymentProof?: boolean | Prisma.PaymentEntry$paymentProofArgs<ExtArgs>
+  evidenceAsset?: boolean | Prisma.PaymentEntry$evidenceAssetArgs<ExtArgs>
 }, ExtArgs["result"]["paymentEntry"]>
 
 export type PaymentEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -859,6 +998,7 @@ export type PaymentEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   saleId?: boolean
   recordedById?: boolean
   paymentProofId?: boolean
+  evidenceAssetId?: boolean
   type?: boolean
   amount?: boolean
   note?: boolean
@@ -867,6 +1007,7 @@ export type PaymentEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.PaymentEntry$recordedByArgs<ExtArgs>
   paymentProof?: boolean | Prisma.PaymentEntry$paymentProofArgs<ExtArgs>
+  evidenceAsset?: boolean | Prisma.PaymentEntry$evidenceAssetArgs<ExtArgs>
 }, ExtArgs["result"]["paymentEntry"]>
 
 export type PaymentEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -874,6 +1015,7 @@ export type PaymentEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   saleId?: boolean
   recordedById?: boolean
   paymentProofId?: boolean
+  evidenceAssetId?: boolean
   type?: boolean
   amount?: boolean
   note?: boolean
@@ -882,6 +1024,7 @@ export type PaymentEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.PaymentEntry$recordedByArgs<ExtArgs>
   paymentProof?: boolean | Prisma.PaymentEntry$paymentProofArgs<ExtArgs>
+  evidenceAsset?: boolean | Prisma.PaymentEntry$evidenceAssetArgs<ExtArgs>
 }, ExtArgs["result"]["paymentEntry"]>
 
 export type PaymentEntrySelectScalar = {
@@ -889,6 +1032,7 @@ export type PaymentEntrySelectScalar = {
   saleId?: boolean
   recordedById?: boolean
   paymentProofId?: boolean
+  evidenceAssetId?: boolean
   type?: boolean
   amount?: boolean
   note?: boolean
@@ -896,21 +1040,24 @@ export type PaymentEntrySelectScalar = {
   createdAt?: boolean
 }
 
-export type PaymentEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "saleId" | "recordedById" | "paymentProofId" | "type" | "amount" | "note" | "reference" | "createdAt", ExtArgs["result"]["paymentEntry"]>
+export type PaymentEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "saleId" | "recordedById" | "paymentProofId" | "evidenceAssetId" | "type" | "amount" | "note" | "reference" | "createdAt", ExtArgs["result"]["paymentEntry"]>
 export type PaymentEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.PaymentEntry$recordedByArgs<ExtArgs>
   paymentProof?: boolean | Prisma.PaymentEntry$paymentProofArgs<ExtArgs>
+  evidenceAsset?: boolean | Prisma.PaymentEntry$evidenceAssetArgs<ExtArgs>
 }
 export type PaymentEntryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.PaymentEntry$recordedByArgs<ExtArgs>
   paymentProof?: boolean | Prisma.PaymentEntry$paymentProofArgs<ExtArgs>
+  evidenceAsset?: boolean | Prisma.PaymentEntry$evidenceAssetArgs<ExtArgs>
 }
 export type PaymentEntryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.PaymentEntry$recordedByArgs<ExtArgs>
   paymentProof?: boolean | Prisma.PaymentEntry$paymentProofArgs<ExtArgs>
+  evidenceAsset?: boolean | Prisma.PaymentEntry$evidenceAssetArgs<ExtArgs>
 }
 
 export type $PaymentEntryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -919,12 +1066,14 @@ export type $PaymentEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
     sale: Prisma.$SalePayload<ExtArgs>
     recordedBy: Prisma.$UserPayload<ExtArgs> | null
     paymentProof: Prisma.$PaymentProofPayload<ExtArgs> | null
+    evidenceAsset: Prisma.$MediaAssetPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     saleId: string
     recordedById: string | null
     paymentProofId: string | null
+    evidenceAssetId: string | null
     type: $Enums.PaymentEntryType
     amount: runtime.Decimal
     note: string | null
@@ -1327,6 +1476,7 @@ export interface Prisma__PaymentEntryClient<T, Null = never, ExtArgs extends run
   sale<T extends Prisma.SaleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleDefaultArgs<ExtArgs>>): Prisma.Prisma__SaleClient<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   recordedBy<T extends Prisma.PaymentEntry$recordedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PaymentEntry$recordedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   paymentProof<T extends Prisma.PaymentEntry$paymentProofArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PaymentEntry$paymentProofArgs<ExtArgs>>): Prisma.Prisma__PaymentProofClient<runtime.Types.Result.GetResult<Prisma.$PaymentProofPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  evidenceAsset<T extends Prisma.PaymentEntry$evidenceAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PaymentEntry$evidenceAssetArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1360,6 +1510,7 @@ export interface PaymentEntryFieldRefs {
   readonly saleId: Prisma.FieldRef<"PaymentEntry", 'String'>
   readonly recordedById: Prisma.FieldRef<"PaymentEntry", 'String'>
   readonly paymentProofId: Prisma.FieldRef<"PaymentEntry", 'String'>
+  readonly evidenceAssetId: Prisma.FieldRef<"PaymentEntry", 'String'>
   readonly type: Prisma.FieldRef<"PaymentEntry", 'PaymentEntryType'>
   readonly amount: Prisma.FieldRef<"PaymentEntry", 'Decimal'>
   readonly note: Prisma.FieldRef<"PaymentEntry", 'String'>
@@ -1801,6 +1952,25 @@ export type PaymentEntry$paymentProofArgs<ExtArgs extends runtime.Types.Extensio
    */
   include?: Prisma.PaymentProofInclude<ExtArgs> | null
   where?: Prisma.PaymentProofWhereInput
+}
+
+/**
+ * PaymentEntry.evidenceAsset
+ */
+export type PaymentEntry$evidenceAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MediaAsset
+   */
+  select?: Prisma.MediaAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MediaAsset
+   */
+  omit?: Prisma.MediaAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MediaAssetInclude<ExtArgs> | null
+  where?: Prisma.MediaAssetWhereInput
 }
 
 /**
