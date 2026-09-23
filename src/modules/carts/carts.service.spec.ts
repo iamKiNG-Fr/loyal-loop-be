@@ -6,6 +6,20 @@ import { CartsService } from "./carts.service";
 const auth = { customerAccountId: "account-1", sessionId: "session-1" };
 
 describe("CartsService", () => {
+  it("accepts made-to-order quantities while retaining the normal per-item cap", async () => {
+    const prisma = basePrisma();
+    prisma.product.findFirst.mockResolvedValue({
+      businessId: "business-1", business: { preferences: null }, id: "meal", name: "Lunch bowl", price: "4000", stockCount: null,
+      attributes: { madeToOrder: true }, variants: [{ id: "portion", stockCount: null }], promotions: [],
+    });
+    prisma.customerCart.findUniqueOrThrow.mockResolvedValue({ groups: [], items: [], id: "cart-1", status: "ACTIVE", updatedAt: new Date() });
+    const service = new CartsService(prisma as unknown as PrismaService, promotions() as never);
+    await service.addAccountItem(auth, { productId: "meal", quantity: 10 });
+    expect(prisma.customerCartItem.upsert.mock.calls[0][0].create).toMatchObject({ quantity: 10, stockSnapshot: null, productId: "meal" });
+    prisma.customerCartItem.findUnique.mockResolvedValue({ quantity: 100 });
+    await expect(service.addAccountItem(auth, { productId: "meal", quantity: 1 })).rejects.toThrow("Cart quantity cannot exceed 100");
+  });
+
   it("does not add a product before its launch time", async () => {
     const prisma = basePrisma();
     prisma.product.findFirst.mockResolvedValue({

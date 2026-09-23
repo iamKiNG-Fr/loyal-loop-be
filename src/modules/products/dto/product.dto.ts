@@ -33,6 +33,10 @@ export class ProductAnalyticsQueryDto {
 }
 
 export class CreateProductDto {
+  @IsOptional()
+  @IsBoolean()
+  madeToOrder?: boolean;
+
   @IsString()
   @Length(1, 160)
   name!: string;
@@ -114,6 +118,10 @@ export class CreateProductDto {
 }
 
 export class UpdateProductDto {
+  @IsOptional()
+  @IsBoolean()
+  madeToOrder?: boolean;
+
   @IsOptional()
   @IsString()
   @Length(1, 160)

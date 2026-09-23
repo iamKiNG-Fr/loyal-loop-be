@@ -1,3 +1,4 @@
+import { isMadeToOrder } from "../../common/product-supply";
 import {
   BadRequestException,
   Injectable,
@@ -951,6 +952,7 @@ function productCard(product: DiscoveryProduct, saved = false) {
     })),
     slug: product.slug,
     stockCount: product.stockCount,
+    madeToOrder: isMadeToOrder(product.attributes),
     variants: product.variants.map((variant) => ({
       active: variant.active,
       id: variant.id,

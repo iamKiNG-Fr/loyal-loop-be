@@ -1,3 +1,4 @@
+import { isMadeToOrder, productSupply } from "../../common/product-supply";
 import { assertSameCurrency, businessCurrency } from "../../common/business-currency";
 import {
   BadRequestException,
@@ -44,6 +45,7 @@ const publicAssetReviewFields = {
 } as const;
 
 const categoryTemplates = [
+  { key: "chef", label: "Chef", attributes: ["portion", "ingredients", "preparationTime"] },
   { key: "fashion", label: "Fashion", attributes: ["size", "color", "material", "measurements"] },
   { key: "beauty", label: "Beauty & fragrance", attributes: ["shade", "size", "ingredients"] },
   { key: "electronics", label: "Electronics", attributes: ["model", "capacity", "color"] },
@@ -239,7 +241,8 @@ export class ProductsService {
   }
 
   async create(auth: OwnerAuthContext, dto: CreateProductDto) {
-    this.validateVariantStock(dto.stockCount, dto.variants);
+    const supply = productSupply(dto);
+    if (!supply.madeToOrder) this.validateVariantStock(dto.stockCount, dto.variants);
     const assets = await this.validateAssets(
       auth.businessId,
       dto.imageAssetIds ?? [],
@@ -282,12 +285,12 @@ export class ProductsService {
           currency,
           category: dto.category?.trim(),
           categoryId: collection?.id,
-          attributes: dto.attributes as Prisma.InputJsonValue | undefined,
+          attributes: supply.attributes as Prisma.InputJsonValue,
           status: moderationHold ? "DRAFT" : dto.status,
           placement: dto.placement,
           visibility: moderationHold ? "PRIVATE" : dto.visibility,
           contentRating: contentSafety.rating,
-          stockCount: dto.stockCount,
+          stockCount: supply.stockCount,
           launchAt: dto.launchAt ? new Date(dto.launchAt) : undefined,
           images: assets.length
             ? {
@@ -318,7 +321,7 @@ export class ProductsService {
               priceOverride: variant.priceOverride,
               sku: variant.sku?.trim(),
               active: variant.active ?? true,
-              stockCount: variant.stockCount,
+              stockCount: supply.madeToOrder ? null : variant.stockCount,
               sortOrder: index,
             })),
           },
@@ -352,7 +355,8 @@ export class ProductsService {
     if (product.status === "ARCHIVED" && dto.status && dto.status !== "ARCHIVED") {
       return this.restore(auth, productId);
     }
-    if (dto.variants || dto.stockCount !== undefined) {
+    const supply = productSupply(dto, product);
+    if (!supply.madeToOrder && (dto.variants || dto.stockCount !== undefined)) {
       this.validateVariantStock(dto.stockCount ?? product.stockCount, dto.variants ?? product.variants);
     }
     const hasCollectionUpdate = dto.categoryId !== undefined;
@@ -360,7 +364,7 @@ export class ProductsService {
       ? await this.resolveCategory(auth, dto.categoryId)
       : undefined;
     const contentSafety = assessProductTextModeration({
-      attributes: dto.attributes ?? product.attributes,
+      attributes: supply.attributes,
       category: dto.category === undefined ? product.category : dto.category,
       description: dto.description === undefined ? product.description : dto.description,
       name: dto.name ?? product.name,
@@ -386,7 +390,7 @@ export class ProductsService {
           price: dto.price,
           category: dto.category === undefined ? undefined : dto.category.trim() || null,
           categoryId: hasCollectionUpdate ? collection?.id ?? null : undefined,
-          attributes: dto.attributes as Prisma.InputJsonValue | undefined,
+          attributes: supply.attributes as Prisma.InputJsonValue,
           status: remainsArchived ? "ARCHIVED" : safetyHold ? "DRAFT" : dto.status,
           placement: dto.placement,
           visibility: remainsArchived ? "PRIVATE" : safetyHold ? "PRIVATE" : dto.visibility,
@@ -401,7 +405,7 @@ export class ProductsService {
               ? "PRIVATE"
               : undefined,
           contentRating: contentSafety.rating,
-          stockCount: dto.stockCount,
+          stockCount: supply.stockCount,
           launchAt: dto.launchAt === null ? null : dto.launchAt ? new Date(dto.launchAt) : undefined,
           variants: dto.variants
             ? {
@@ -412,11 +416,11 @@ export class ProductsService {
                   priceOverride: variant.priceOverride,
                   sku: variant.sku?.trim(),
                   active: variant.active ?? true,
-                  stockCount: variant.stockCount,
+                  stockCount: supply.madeToOrder ? null : variant.stockCount,
                   sortOrder: index,
                 })),
               }
-            : undefined,
+            : supply.madeToOrder ? { updateMany: { where: {}, data: { stockCount: null } } } : undefined,
         },
         include: productInclude,
       });
@@ -790,7 +794,7 @@ function withListingReadiness<T extends {
     {
       key: "availability",
       label: "Availability is clear",
-      passed: product.stockCount !== null || product.variants.some(item => item.active && item.stockCount !== null),
+      passed: isMadeToOrder(product.attributes) || product.stockCount !== null || product.variants.some(item => item.active && item.stockCount !== null),
       weight: 10,
     },
     {
