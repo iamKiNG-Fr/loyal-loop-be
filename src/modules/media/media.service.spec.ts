@@ -5,6 +5,17 @@ import { assessModeration, MediaService } from "./media.service";
 import { OG_THUMBNAIL_TRANSFORM } from "./og-thumbnail";
 
 describe("MediaService", () => {
+  it("keeps rental receipt and return photos private and scoped to the shop, item and stage", () => {
+    const service = new MediaService({} as never, new ConfigService({ CLOUDINARY_CLOUD_NAME: "loyal-loop-test", CLOUDINARY_API_KEY: "public-key", CLOUDINARY_API_SECRET: "private-secret", ANALYTICS_HMAC_SECRET: "media-path-secret" }));
+    const receive = service.createRentalUploadSignature("shop", "item", "receive");
+    const returned = service.createRentalUploadSignature("shop", "item", "return");
+    const foreign = service.createRentalUploadSignature("other-shop", "item", "receive");
+    expect(receive.folder).toContain("/private/"); expect(receive.folder).toContain("/rental_evidence/");
+    expect(new Set([receive.folder, returned.folder, foreign.folder]).size).toBe(3);
+    expect(receive.uploadParameters).toEqual({ transformation: "fl_strip_profile", type: "authenticated" });
+    const asset = service.protectAsset({ purpose: "RENTAL_EVIDENCE", deliveryType: "authenticated", resourceType: "image", format: "jpg", publicId: `${receive.folder}/image`, secureUrl: "https://example.com/raw.jpg", status: "ACTIVE" });
+    expect(asset.secureUrl).toContain("expires_at="); expect(asset.secureUrl).not.toContain("raw.jpg");
+  });
   it("fails closed while provider moderation is unavailable or still processing", () => {
     expect(assessModeration({ mode: "enforce", providerAvailable: false })).toMatchObject({
       rating: "SENSITIVE_18",

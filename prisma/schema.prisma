@@ -387,6 +387,7 @@ enum MediaPurpose {
   SHOWCASE_POSTER
   USER_AVATAR
   PAYMENT_PROOF
+  RENTAL_EVIDENCE
   DELIVERY_HANDOFF
   TRUST_CARD
   RECEIPT_EXPORT
@@ -1143,6 +1144,9 @@ model BusinessPickupLocation {
 }
 
 model BusinessPreferences {
+  rentalPolicy                 String?
+  rentalLateUnit               String              @default("DAY")
+  rentalLateRate               Decimal             @default(0) @db.Decimal(12, 2)
   businessId                   String              @id
   currency                     String              @default("NGN")
   numberFormat                 NumberFormat        @default(COMMA_DECIMAL)
@@ -1326,6 +1330,8 @@ model MediaAsset {
   showcasePosters        Showcase[]              @relation("ShowcasePoster")
   storefrontStoryAssets  StorefrontStory[]       @relation("StorefrontStoryAsset")
   paymentProof           PaymentProof?
+  rentalReceiveEvidence SaleItem? @relation("RentalReceiveEvidence")
+  rentalReturnEvidence  SaleItem? @relation("RentalReturnEvidence")
   paymentEvidence        PaymentEntry?           @relation("PaymentEvidence")
   deliveryHandoffs       Delivery[]              @relation("DeliveryHandoffAsset")
   moderationReviews      MediaModerationReview[]
@@ -1865,6 +1871,8 @@ model CustomerCart {
 }
 
 model CustomerCartItem {
+  rentalStartAt DateTime?
+  rentalEndAt   DateTime?
   id                  String          @id @default(cuid())
   cartId              String
   businessId          String
@@ -2115,6 +2123,7 @@ model OrderRequestShareToken {
 }
 
 model OrderRequestItem {
+  rental Json?
   id                String            @id @default(cuid())
   orderRequestId    String
   productId         String?
@@ -2273,6 +2282,19 @@ model SalePaymentInstruction {
 }
 
 model SaleItem {
+  rental                Json?
+  rentalStartAt         DateTime?
+  rentalEndAt           DateTime?
+  rentalDispatchedAt    DateTime?
+  rentalReceivedAt      DateTime?
+  rentalReturnedAt      DateTime?
+  rentalReceiveAssetId  String? @unique
+  rentalReturnAssetId   String? @unique
+  rentalLateFee         Decimal? @db.Decimal(12, 2)
+  rentalReceiveAsset    MediaAsset? @relation("RentalReceiveEvidence", fields: [rentalReceiveAssetId], references: [id], onDelete: Restrict)
+  rentalReturnAsset     MediaAsset? @relation("RentalReturnEvidence", fields: [rentalReturnAssetId], references: [id], onDelete: Restrict)
+
+  @@index([productId, rentalStartAt, rentalEndAt])
   id                    String                   @id @default(cuid())
   saleId                String
   productId             String?

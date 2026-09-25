@@ -1,0 +1,13 @@
+# Rentals (Batch 85 / source report 38)
+
+The shop sets an hourly or daily rate on each rental listing and a finite inventory count. Customers choose start/return times in the bag. Partial units round up; a day means 24 elapsed hours. The server calculates decimal prices and preserves the agreed dates, rate, return policy and late-fee terms on requests and sale items. Converting a request cannot change its rental quantity or silently reprice it.
+
+Bookings reserve time periods when the shop confirms the request. Serializable transactions lock products in a stable order and compare peak overlapping quantities, including multiple lines in one order. Renting never permanently consumes sale stock. Returned items release capacity; overdue items already dispatched or received remain unavailable until returned. Sale promotions/bundles do not apply to rental rates. Different rental item types use separate listings.
+
+Business preferences hold return instructions and a late rate/unit. These changes affect new requests only. Customers add a private receipt photo at the paid handoff stage before final confirmation. The shop records all items returned with another photo. Signed upload folders are scoped to business, item and handoff stage; images use authenticated delivery and expiring links. Photo evidence cannot be deleted while attached.
+
+An owner/manager/sales member with both sale-write and delivery-write capabilities can confirm a return. A calculated late fee starts unselected and is added only after explicit review of its current amount. Return time, photo, fee item and sale total update in one serializable transaction. Replays cannot add a second fee. Canceled/refunded orders can record a return without a fee. Existing payment/refund recording handles the resulting balance; no automatic money movement occurs.
+
+`20260924000000_rentals` was applied with the other three pending mission migrations after explicit owner authorization and isolated rehearsal. See `MIGRATION_APPLICATION_2026_09_24.md`. SQL is immutable after application.
+
+Verification: 340 backend tests and the production build/TypeScript compilation pass. Rental tests cover decimal/time-zone pricing, period validation, overlapping/adjacent reservations, overdue/dispatched/returned inventory, changed rates, immutable request terms, forged prices, business/account/item scoping, required photos, signed private URLs, fee review/waiver/replay/refund guards and safe availability failures. Migration rehearsal matches the intended schema. Provider upload acceptance uses mocks and local UI fixtures; no live Cloudinary upload or external message was sent.

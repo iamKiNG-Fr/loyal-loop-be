@@ -331,6 +331,7 @@ function sanitizePublicReceipt(receipt: Awaited<ReturnType<ReceiptsService["get"
         quantity: item.quantity,
         total: item.total,
         unitPrice: item.unitPrice,
+        rental: item.rental,
       })),
       payments: receipt.sale.payments.map((payment) => ({
         amount: payment.amount,

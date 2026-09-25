@@ -86,6 +86,14 @@ export class MediaService {
     return this.createSignature(folder, PAYMENT_PROOF_MAX_BYTES, IMAGE_FORMATS, "image", "PAYMENT_PROOF");
   }
 
+  createRentalUploadSignature(businessId: string, itemId: string, stage: "receive" | "return") {
+    return this.createSignature(this.folder(businessId, "RENTAL_EVIDENCE", `${itemId}/${stage}`), PAYMENT_PROOF_MAX_BYTES, IMAGE_FORMATS, "image", "RENTAL_EVIDENCE");
+  }
+
+  registerRentalAsset(businessId: string, itemId: string, stage: "receive" | "return", dto: RegisteredUpload) {
+    return this.registerForBusiness(businessId, undefined, dto, this.folder(businessId, "RENTAL_EVIDENCE", `${itemId}/${stage}`), "RENTAL_EVIDENCE", PAYMENT_PROOF_MAX_BYTES);
+  }
+
   private createSignature(folder: string, maxBytes: number, formats: string[], resourceType: "image" | "video", purpose: MediaPurpose) {
     const timestamp = Math.floor(Date.now() / 1000);
     const publicId = randomBytes(12).toString("hex");
@@ -263,7 +271,7 @@ export class MediaService {
       where: {
         businessId: auth.businessId,
         status: "ACTIVE",
-        purpose: { notIn: ["PAYMENT_PROOF", "DELIVERY_HANDOFF"] },
+        purpose: { notIn: ["PAYMENT_PROOF", "DELIVERY_HANDOFF", "RENTAL_EVIDENCE"] },
       },
       orderBy: { createdAt: "desc" },
     });
@@ -453,10 +461,10 @@ export class MediaService {
   async remove(auth: OwnerAuthContext, assetId: string) {
     const asset = await this.prisma.mediaAsset.findFirst({
       where: { id: assetId, businessId: auth.businessId, status: "ACTIVE" },
-      include: { productImages: true, productMedia: true, productPosters: true, showcaseImages: true, showcasePosters: true, logoFor: true, coverFor: true, avatarFor: true, deliveryHandoffs: true, paymentProof: true, paymentEvidence: true },
+      include: { productImages: true, productMedia: true, productPosters: true, showcaseImages: true, showcasePosters: true, logoFor: true, coverFor: true, avatarFor: true, deliveryHandoffs: true, paymentProof: true, paymentEvidence: true, rentalReceiveEvidence: true, rentalReturnEvidence: true },
     });
     if (!asset) throw new NotFoundException("Asset not found");
-    if (asset.productImages.length || asset.productMedia.length || asset.productPosters.length || asset.showcaseImages.length || asset.showcasePosters.length || asset.deliveryHandoffs.length || asset.logoFor || asset.coverFor || asset.avatarFor || asset.paymentProof || asset.paymentEvidence) {
+    if (asset.productImages.length || asset.productMedia.length || asset.productPosters.length || asset.showcaseImages.length || asset.showcasePosters.length || asset.deliveryHandoffs.length || asset.logoFor || asset.coverFor || asset.avatarFor || asset.paymentProof || asset.paymentEvidence || asset.rentalReceiveEvidence || asset.rentalReturnEvidence) {
       throw new BadRequestException("Asset is still in use");
     }
     await this.destroyAtProvider(asset.publicId, asset.resourceType, asset.deliveryType);
@@ -764,7 +772,7 @@ function isPublicCatalogPurpose(purpose: MediaPurpose) {
 }
 
 function isSensitivePurpose(purpose: MediaPurpose) {
-  return purpose === "PAYMENT_PROOF" || purpose === "DELIVERY_HANDOFF";
+  return purpose === "PAYMENT_PROOF" || purpose === "DELIVERY_HANDOFF" || purpose === "RENTAL_EVIDENCE";
 }
 
 function readNumber(value: unknown) {
@@ -812,7 +820,7 @@ function mediaConstraints(purpose: MediaPurpose) {
   if (purpose === "PRODUCT_VIDEO" || purpose === "SHOWCASE_VIDEO") {
     return { formats: VIDEO_FORMATS, maxBytes: 50 * 1024 * 1024, resourceType: "video" as const };
   }
-  if (purpose === "PAYMENT_PROOF") {
+  if (purpose === "PAYMENT_PROOF" || purpose === "RENTAL_EVIDENCE") {
     return { formats: IMAGE_FORMATS, maxBytes: PAYMENT_PROOF_MAX_BYTES, resourceType: "image" as const };
   }
   return { formats: IMAGE_FORMATS, maxBytes: 10 * 1024 * 1024, resourceType: "image" as const };

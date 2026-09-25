@@ -7,6 +7,7 @@ import {
   IsEnum,
   IsInt,
   IsOptional,
+  IsDateString,
   Matches,
   IsString,
   Length,
@@ -40,6 +41,14 @@ export class AddShowcaseBundleDto {
 }
 
 export class UpdateCartItemDto {
+  @IsOptional()
+  @IsDateString()
+  rentalStartAt?: string;
+
+  @IsOptional()
+  @IsDateString()
+  rentalEndAt?: string;
+
   @Type(() => Number)
   @IsInt()
   @Min(1)

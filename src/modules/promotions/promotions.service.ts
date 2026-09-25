@@ -1,3 +1,4 @@
+import { rentalUnit } from "../../common/rental";
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { Prisma, type PromotionStatus } from "../../generated/prisma/client";
@@ -31,6 +32,7 @@ export class PromotionsService {
       include: { variants: true },
     });
     if (!product) throw new NotFoundException("Product not found");
+    if (rentalUnit(product.attributes)) throw new BadRequestException("Set the rental rate on the listing; sale offers do not apply to rentals");
     const variant = dto.variantId ? product.variants.find((item) => item.id === dto.variantId) : undefined;
     if (dto.variantId && !variant) throw new BadRequestException("That variant does not belong to this product");
     const basePrice = variant?.priceOverride ?? product.price;
@@ -97,6 +99,7 @@ export class PromotionsService {
       include: { variants: true, promotions: { where: { status: "ACTIVE" }, orderBy: { createdAt: "desc" } } },
     });
     if (!product) throw new BadRequestException("Product is unavailable");
+    if (rentalUnit(product.attributes)) throw new BadRequestException("Choose rental dates in your bag to calculate the total");
     const variant = input.variantId ? product.variants.find((item) => item.id === input.variantId && item.active) : undefined;
     if (input.variantId && !variant) throw new BadRequestException("Product variant is unavailable");
     const currentStock = variant?.stockCount ?? product.stockCount;

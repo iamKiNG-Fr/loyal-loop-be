@@ -1,3 +1,4 @@
+import { quoteRental, rentalUnit, rentalPeriod, rentalAvailability } from "../../common/rental";
 import { validateGiftRecipient } from "../../common/gift-recipient";
 import {
   BadRequestException,
@@ -15,6 +16,7 @@ import {
   AddCartItemDto,
   SubmitCartDto,
   UpdateCartGroupDto,
+  UpdateCartItemDto,
 } from "./dto/cart.dto";
 
 const cartInclude = {
@@ -83,10 +85,10 @@ export class CartsService {
     return this.accountCart(auth);
   }
 
-  async updateItem(cartId: string, itemId: string, quantity: number) {
+  async updateItem(cartId: string, itemId: string, quantity: number, dates?: UpdateCartItemDto) {
     const item = await this.prisma.customerCartItem.findFirst({
       where: { id: itemId, cartId },
-      select: { businessId: true, productId: true },
+      include: { product: true, business: { select: { preferences: true } } },
     });
     if (!item) throw new NotFoundException("Cart item not found");
     const bundleGroup = await this.prisma.customerCartGroup.findUnique({
@@ -96,9 +98,17 @@ export class CartsService {
     if (quantity !== 1 && bundleGroup?.sourceShowcase?.hotspots.some((hotspot) => hotspot.productId === item.productId)) {
       throw new BadRequestException("Products inside a set stay at quantity one. Remove the set before changing them");
     }
+    let rentalDates: { rentalStartAt?: Date; rentalEndAt?: Date; priceSnapshot?: string } = {};
+    if (dates?.rentalStartAt !== undefined || dates?.rentalEndAt !== undefined) {
+      const unit = rentalUnit(item.product.attributes);
+      if (!unit) throw new BadRequestException("Only rentals need a start and return time");
+      const terms = quoteRental(unit, item.product.price, dates.rentalStartAt ?? item.rentalStartAt, dates.rentalEndAt ?? item.rentalEndAt, item.business.preferences ?? {});
+      if (new Date(terms.startAt) <= new Date()) throw new BadRequestException("Choose a rental start time in the future");
+      rentalDates = { rentalStartAt: new Date(terms.startAt), rentalEndAt: new Date(terms.endAt), priceSnapshot: terms.unitPrice };
+    }
     const changed = await this.prisma.customerCartItem.updateMany({
       where: { id: itemId, cartId },
-      data: { quantity },
+      data: { quantity, ...rentalDates },
     });
     if (!changed.count) throw new NotFoundException("Cart item not found");
   }
@@ -132,9 +142,9 @@ export class CartsService {
     });
   }
 
-  async updateAccountItem(auth: CustomerAuthContext, itemId: string, quantity: number) {
+  async updateAccountItem(auth: CustomerAuthContext, itemId: string, quantity: number, dates?: UpdateCartItemDto) {
     const cart = await this.getOrCreateAccountCart(auth.customerAccountId);
-    await this.updateItem(cart.id, itemId, quantity);
+    await this.updateItem(cart.id, itemId, quantity, dates);
     return this.accountCart(auth);
   }
 
@@ -144,9 +154,9 @@ export class CartsService {
     return this.accountCart(auth);
   }
 
-  async updateDeviceItem(deviceKey: string, itemId: string, quantity: number) {
+  async updateDeviceItem(deviceKey: string, itemId: string, quantity: number, dates?: UpdateCartItemDto) {
     const cart = await this.getOrCreateDeviceCart(this.validDeviceKey(deviceKey));
-    await this.updateItem(cart.id, itemId, quantity);
+    await this.updateItem(cart.id, itemId, quantity, dates);
     return this.deviceCart(deviceKey);
   }
 
@@ -205,6 +215,9 @@ export class CartsService {
         const existing = await tx.customerCartItem.findUnique({
           where: { cartId_productId_variantKey: { cartId: accountCart.id, productId: item.productId, variantKey: item.variantKey } },
         });
+        if (existing && (item.rentalStartAt?.getTime() !== existing.rentalStartAt?.getTime() || item.rentalEndAt?.getTime() !== existing.rentalEndAt?.getTime())) {
+          throw new BadRequestException("This rental has different dates in your saved bag. Review the saved bag before merging");
+        }
         await tx.customerCartItem.upsert({
           where: {
             cartId_productId_variantKey: {
@@ -220,6 +233,8 @@ export class CartsService {
             variantId: item.variantId,
             variantKey: item.variantKey,
             quantity: Math.min(item.quantity, 100),
+            rentalStartAt: item.rentalStartAt,
+            rentalEndAt: item.rentalEndAt,
             priceSnapshot: item.priceSnapshot,
             stockSnapshot: item.stockSnapshot,
           },
@@ -276,6 +291,7 @@ export class CartsService {
         if (unavailable.length) {
           const details = unavailable.map((item) => {
             const label = `${item.product.name}${item.variant?.name ? ` (${item.variant.name})` : ""}`;
+            if (item.rentalError) return `${label}: ${item.rentalError}`;
             if (item.currentStock === 0) return `${label} is out of stock`;
             if (item.currentStock !== null && item.currentStock < item.quantity) return `${label} has only ${item.currentStock} available`;
             return `${label} is no longer available`;
@@ -337,8 +353,12 @@ export class CartsService {
           const customerKey = `account:${auth.customerAccountId}`;
           const quotedItems = [];
           for (const item of groupItems) {
-            const quote = await this.promotions.quote(tx, { businessId: group.business.id, customerKey, productId: item.productId, quantity: item.quantity, variantId: item.variantId });
-            quotedItems.push({ item, quote });
+            const unit = rentalUnit(item.product.attributes);
+            const rental = unit ? quoteRental(unit, item.product.price, item.rentalStartAt, item.rentalEndAt, group.business.preferences ?? {}) : undefined;
+            const quote = rental
+              ? { unitPrice: new Prisma.Decimal(rental.unitPrice), originalUnitPrice: new Prisma.Decimal(rental.unitPrice), promotionId: undefined, promotionSnapshot: undefined }
+              : await this.promotions.quote(tx, { businessId: group.business.id, customerKey, productId: item.productId, quantity: item.quantity, variantId: item.variantId });
+            quotedItems.push({ item, quote, rental });
           }
           const bundleProductIds = new Set(group.sourceShowcase?.commerceMode === "BUNDLE"
             ? group.sourceShowcase.hotspots.map((hotspot) => hotspot.productId)
@@ -384,10 +404,11 @@ export class CartsService {
               recipientName: group.isGift ? group.recipientName?.trim() : undefined,
               recipientPhone: group.isGift ? group.recipientPhone?.trim() : undefined,
               items: {
-                create: quotedItems.map(({ item, quote }) => {
+                create: quotedItems.map(({ item, quote, rental }) => {
                   const bundleUnitPrice = bundlePrices.get(item.productId);
                   const unitPrice = bundleUnitPrice ?? quote.unitPrice;
                   return ({
+                  rental,
                   productId: item.productId,
                   variantId: item.variantId,
                   variantName: item.variant?.name,
@@ -448,7 +469,7 @@ export class CartsService {
       : product.variants.length === 1 ? product.variants[0] : undefined;
     if (dto.variantId && !variant) throw new BadRequestException("Product variant is unavailable");
     if (!dto.variantId && product.variants.length > 1) throw new BadRequestException("Choose a product variant");
-    const price = displayPromotionPrice(product, variant?.id, variant?.priceOverride ?? product.price).price;
+    const price = rentalUnit(product.attributes) ? product.price : displayPromotionPrice(product, variant?.id, variant?.priceOverride ?? product.price).price;
     const stock = variant?.stockCount ?? product.stockCount;
     if (stock !== null && stock < dto.quantity) throw new BadRequestException("Requested quantity is not in stock");
     const variantKey = variant?.id ?? "default";
@@ -522,6 +543,7 @@ export class CartsService {
         },
       },
     });
+    if (showcase?.hotspots.some(({ product }) => rentalUnit(product.attributes))) throw new BadRequestException("Add rentals separately so you can choose their dates");
     if (!showcase?.bundlePrice || showcase.hotspots.length < 2) throw new NotFoundException("This set is unavailable");
     if (showcase.hotspots.some(({ product }) => product.status !== "ACTIVE" || product.visibility !== "PUBLIC" || product.stockCount === 0 || product.variants.length > 1 || product.variants[0]?.stockCount === 0)) {
       throw new BadRequestException("One or more products in this set are currently unavailable");
@@ -575,7 +597,7 @@ export class CartsService {
 
   private async read(cart: { id: string }) {
     const full = await this.prisma.customerCart.findUniqueOrThrow({ where: { id: cart.id }, include: cartInclude });
-    return cartPayload(full);
+    return cartPayload(full, this.prisma);
   }
 
   private getOrCreateAccountCart(customerAccountId: string) {
@@ -603,12 +625,25 @@ export class CartsService {
   }
 }
 
-function cartPayload(cart: CartWithItems) {
-  const items = cart.items.map((item) => {
+async function cartPayload(cart: CartWithItems, db: Prisma.TransactionClient) {
+  const items = await Promise.all(cart.items.map(async (item) => {
     const priced = displayPromotionPrice(item.product, item.variantId, item.variant?.priceOverride ?? item.product.price);
-    const currentPrice = priced.price.toString();
-    const currentStock = item.variant?.stockCount ?? item.product.stockCount;
+    const unit = rentalUnit(item.product.attributes);
+    let rental: ReturnType<typeof quoteRental> | undefined;
+    let rentalError: string | null = null;
+    let currentStock = unit ? item.product.stockCount : item.variant?.stockCount ?? item.product.stockCount;
+    if (unit) {
+      try {
+        rental = quoteRental(unit, item.product.price, item.rentalStartAt, item.rentalEndAt, item.business.preferences ?? {});
+        const period = rentalPeriod(rental.startAt, rental.endAt);
+        if (period.startAt <= new Date()) rentalError = "Choose a start time in the future";
+        currentStock = await rentalAvailability(db, item.productId, currentStock ?? 0, period.startAt, period.endAt);
+        if (currentStock < item.quantity) rentalError = `Only ${currentStock} available for these dates`;
+      } catch (error) { rentalError = error instanceof BadRequestException ? error.message : "Rental availability could not be checked. Please try again."; }
+    }
+    const currentPrice = rental?.unitPrice ?? (unit ? item.product.price.toString() : priced.price.toString());
     const available = item.product.status === "ACTIVE"
+      && !rentalError
       && item.product.visibility === "PUBLIC"
       && item.business.storeStatus === "OPEN"
       && item.business.platformStatus === "ACTIVE"
@@ -617,14 +652,18 @@ function cartPayload(cart: CartWithItems) {
     return {
       ...item,
       available,
+      rental,
+      rentalUnit: unit,
+      rentalRate: unit ? item.product.price.toString() : null,
+      rentalError,
       currentPrice,
-      originalPrice: priced.promotion ? priced.originalPrice.toString() : null,
-      promotion: priced.promotion,
+      originalPrice: !unit && priced.promotion ? priced.originalPrice.toString() : null,
+      promotion: unit ? null : priced.promotion,
       currentStock,
       priceChanged: !new Prisma.Decimal(currentPrice).equals(item.priceSnapshot),
       stockChanged: currentStock !== item.stockSnapshot,
     };
-  });
+  }));
   const groups = cart.groups
     .map((group) => ({
       ...group,

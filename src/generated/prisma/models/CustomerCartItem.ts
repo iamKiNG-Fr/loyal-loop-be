@@ -39,6 +39,8 @@ export type CustomerCartItemSumAggregateOutputType = {
 }
 
 export type CustomerCartItemMinAggregateOutputType = {
+  rentalStartAt: Date | null
+  rentalEndAt: Date | null
   id: string | null
   cartId: string | null
   businessId: string | null
@@ -54,6 +56,8 @@ export type CustomerCartItemMinAggregateOutputType = {
 }
 
 export type CustomerCartItemMaxAggregateOutputType = {
+  rentalStartAt: Date | null
+  rentalEndAt: Date | null
   id: string | null
   cartId: string | null
   businessId: string | null
@@ -69,6 +73,8 @@ export type CustomerCartItemMaxAggregateOutputType = {
 }
 
 export type CustomerCartItemCountAggregateOutputType = {
+  rentalStartAt: number
+  rentalEndAt: number
   id: number
   cartId: number
   businessId: number
@@ -98,6 +104,8 @@ export type CustomerCartItemSumAggregateInputType = {
 }
 
 export type CustomerCartItemMinAggregateInputType = {
+  rentalStartAt?: true
+  rentalEndAt?: true
   id?: true
   cartId?: true
   businessId?: true
@@ -113,6 +121,8 @@ export type CustomerCartItemMinAggregateInputType = {
 }
 
 export type CustomerCartItemMaxAggregateInputType = {
+  rentalStartAt?: true
+  rentalEndAt?: true
   id?: true
   cartId?: true
   businessId?: true
@@ -128,6 +138,8 @@ export type CustomerCartItemMaxAggregateInputType = {
 }
 
 export type CustomerCartItemCountAggregateInputType = {
+  rentalStartAt?: true
+  rentalEndAt?: true
   id?: true
   cartId?: true
   businessId?: true
@@ -230,6 +242,8 @@ export type CustomerCartItemGroupByArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 export type CustomerCartItemGroupByOutputType = {
+  rentalStartAt: Date | null
+  rentalEndAt: Date | null
   id: string
   cartId: string
   businessId: string
@@ -268,6 +282,8 @@ export type CustomerCartItemWhereInput = {
   AND?: Prisma.CustomerCartItemWhereInput | Prisma.CustomerCartItemWhereInput[]
   OR?: Prisma.CustomerCartItemWhereInput[]
   NOT?: Prisma.CustomerCartItemWhereInput | Prisma.CustomerCartItemWhereInput[]
+  rentalStartAt?: Prisma.DateTimeNullableFilter<"CustomerCartItem"> | Date | string | null
+  rentalEndAt?: Prisma.DateTimeNullableFilter<"CustomerCartItem"> | Date | string | null
   id?: Prisma.StringFilter<"CustomerCartItem"> | string
   cartId?: Prisma.StringFilter<"CustomerCartItem"> | string
   businessId?: Prisma.StringFilter<"CustomerCartItem"> | string
@@ -287,6 +303,8 @@ export type CustomerCartItemWhereInput = {
 }
 
 export type CustomerCartItemOrderByWithRelationInput = {
+  rentalStartAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrderInput | Prisma.SortOrder
   id?: Prisma.SortOrder
   cartId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
@@ -311,6 +329,8 @@ export type CustomerCartItemWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.CustomerCartItemWhereInput | Prisma.CustomerCartItemWhereInput[]
   OR?: Prisma.CustomerCartItemWhereInput[]
   NOT?: Prisma.CustomerCartItemWhereInput | Prisma.CustomerCartItemWhereInput[]
+  rentalStartAt?: Prisma.DateTimeNullableFilter<"CustomerCartItem"> | Date | string | null
+  rentalEndAt?: Prisma.DateTimeNullableFilter<"CustomerCartItem"> | Date | string | null
   cartId?: Prisma.StringFilter<"CustomerCartItem"> | string
   businessId?: Prisma.StringFilter<"CustomerCartItem"> | string
   productId?: Prisma.StringFilter<"CustomerCartItem"> | string
@@ -329,6 +349,8 @@ export type CustomerCartItemWhereUniqueInput = Prisma.AtLeast<{
 }, "id" | "cartId_productId_variantKey">
 
 export type CustomerCartItemOrderByWithAggregationInput = {
+  rentalStartAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrderInput | Prisma.SortOrder
   id?: Prisma.SortOrder
   cartId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
@@ -352,6 +374,8 @@ export type CustomerCartItemScalarWhereWithAggregatesInput = {
   AND?: Prisma.CustomerCartItemScalarWhereWithAggregatesInput | Prisma.CustomerCartItemScalarWhereWithAggregatesInput[]
   OR?: Prisma.CustomerCartItemScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CustomerCartItemScalarWhereWithAggregatesInput | Prisma.CustomerCartItemScalarWhereWithAggregatesInput[]
+  rentalStartAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CustomerCartItem"> | Date | string | null
+  rentalEndAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CustomerCartItem"> | Date | string | null
   id?: Prisma.StringWithAggregatesFilter<"CustomerCartItem"> | string
   cartId?: Prisma.StringWithAggregatesFilter<"CustomerCartItem"> | string
   businessId?: Prisma.StringWithAggregatesFilter<"CustomerCartItem"> | string
@@ -367,6 +391,8 @@ export type CustomerCartItemScalarWhereWithAggregatesInput = {
 }
 
 export type CustomerCartItemCreateInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   variantKey?: string
   quantity?: number
@@ -382,6 +408,8 @@ export type CustomerCartItemCreateInput = {
 }
 
 export type CustomerCartItemUncheckedCreateInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   cartId: string
   businessId: string
@@ -397,6 +425,8 @@ export type CustomerCartItemUncheckedCreateInput = {
 }
 
 export type CustomerCartItemUpdateInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantKey?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -412,6 +442,8 @@ export type CustomerCartItemUpdateInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -427,6 +459,8 @@ export type CustomerCartItemUncheckedUpdateInput = {
 }
 
 export type CustomerCartItemCreateManyInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   cartId: string
   businessId: string
@@ -442,6 +476,8 @@ export type CustomerCartItemCreateManyInput = {
 }
 
 export type CustomerCartItemUpdateManyMutationInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantKey?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -453,6 +489,8 @@ export type CustomerCartItemUpdateManyMutationInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateManyInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -484,6 +522,8 @@ export type CustomerCartItemCartIdProductIdVariantKeyCompoundUniqueInput = {
 }
 
 export type CustomerCartItemCountOrderByAggregateInput = {
+  rentalStartAt?: Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrder
   id?: Prisma.SortOrder
   cartId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
@@ -505,6 +545,8 @@ export type CustomerCartItemAvgOrderByAggregateInput = {
 }
 
 export type CustomerCartItemMaxOrderByAggregateInput = {
+  rentalStartAt?: Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrder
   id?: Prisma.SortOrder
   cartId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
@@ -520,6 +562,8 @@ export type CustomerCartItemMaxOrderByAggregateInput = {
 }
 
 export type CustomerCartItemMinOrderByAggregateInput = {
+  rentalStartAt?: Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrder
   id?: Prisma.SortOrder
   cartId?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
@@ -709,6 +753,8 @@ export type CustomerCartItemUncheckedUpdateManyWithoutCartNestedInput = {
 }
 
 export type CustomerCartItemCreateWithoutBusinessInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   variantKey?: string
   quantity?: number
@@ -723,6 +769,8 @@ export type CustomerCartItemCreateWithoutBusinessInput = {
 }
 
 export type CustomerCartItemUncheckedCreateWithoutBusinessInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   cartId: string
   productId: string
@@ -766,6 +814,8 @@ export type CustomerCartItemScalarWhereInput = {
   AND?: Prisma.CustomerCartItemScalarWhereInput | Prisma.CustomerCartItemScalarWhereInput[]
   OR?: Prisma.CustomerCartItemScalarWhereInput[]
   NOT?: Prisma.CustomerCartItemScalarWhereInput | Prisma.CustomerCartItemScalarWhereInput[]
+  rentalStartAt?: Prisma.DateTimeNullableFilter<"CustomerCartItem"> | Date | string | null
+  rentalEndAt?: Prisma.DateTimeNullableFilter<"CustomerCartItem"> | Date | string | null
   id?: Prisma.StringFilter<"CustomerCartItem"> | string
   cartId?: Prisma.StringFilter<"CustomerCartItem"> | string
   businessId?: Prisma.StringFilter<"CustomerCartItem"> | string
@@ -781,6 +831,8 @@ export type CustomerCartItemScalarWhereInput = {
 }
 
 export type CustomerCartItemCreateWithoutProductInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   variantKey?: string
   quantity?: number
@@ -795,6 +847,8 @@ export type CustomerCartItemCreateWithoutProductInput = {
 }
 
 export type CustomerCartItemUncheckedCreateWithoutProductInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   cartId: string
   businessId: string
@@ -835,6 +889,8 @@ export type CustomerCartItemUpdateManyWithWhereWithoutProductInput = {
 }
 
 export type CustomerCartItemCreateWithoutVariantInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   variantKey?: string
   quantity?: number
@@ -849,6 +905,8 @@ export type CustomerCartItemCreateWithoutVariantInput = {
 }
 
 export type CustomerCartItemUncheckedCreateWithoutVariantInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   cartId: string
   businessId: string
@@ -889,6 +947,8 @@ export type CustomerCartItemUpdateManyWithWhereWithoutVariantInput = {
 }
 
 export type CustomerCartItemCreateWithoutCartInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   variantKey?: string
   quantity?: number
@@ -903,6 +963,8 @@ export type CustomerCartItemCreateWithoutCartInput = {
 }
 
 export type CustomerCartItemUncheckedCreateWithoutCartInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   businessId: string
   productId: string
@@ -943,6 +1005,8 @@ export type CustomerCartItemUpdateManyWithWhereWithoutCartInput = {
 }
 
 export type CustomerCartItemCreateManyBusinessInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   cartId: string
   productId: string
@@ -957,6 +1021,8 @@ export type CustomerCartItemCreateManyBusinessInput = {
 }
 
 export type CustomerCartItemUpdateWithoutBusinessInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantKey?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -971,6 +1037,8 @@ export type CustomerCartItemUpdateWithoutBusinessInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateWithoutBusinessInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -985,6 +1053,8 @@ export type CustomerCartItemUncheckedUpdateWithoutBusinessInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateManyWithoutBusinessInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -999,6 +1069,8 @@ export type CustomerCartItemUncheckedUpdateManyWithoutBusinessInput = {
 }
 
 export type CustomerCartItemCreateManyProductInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   cartId: string
   businessId: string
@@ -1013,6 +1085,8 @@ export type CustomerCartItemCreateManyProductInput = {
 }
 
 export type CustomerCartItemUpdateWithoutProductInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantKey?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1027,6 +1101,8 @@ export type CustomerCartItemUpdateWithoutProductInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateWithoutProductInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1041,6 +1117,8 @@ export type CustomerCartItemUncheckedUpdateWithoutProductInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateManyWithoutProductInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1055,6 +1133,8 @@ export type CustomerCartItemUncheckedUpdateManyWithoutProductInput = {
 }
 
 export type CustomerCartItemCreateManyVariantInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   cartId: string
   businessId: string
@@ -1069,6 +1149,8 @@ export type CustomerCartItemCreateManyVariantInput = {
 }
 
 export type CustomerCartItemUpdateWithoutVariantInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantKey?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1083,6 +1165,8 @@ export type CustomerCartItemUpdateWithoutVariantInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateWithoutVariantInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1097,6 +1181,8 @@ export type CustomerCartItemUncheckedUpdateWithoutVariantInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateManyWithoutVariantInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   cartId?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1111,6 +1197,8 @@ export type CustomerCartItemUncheckedUpdateManyWithoutVariantInput = {
 }
 
 export type CustomerCartItemCreateManyCartInput = {
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
   id?: string
   businessId: string
   productId: string
@@ -1125,6 +1213,8 @@ export type CustomerCartItemCreateManyCartInput = {
 }
 
 export type CustomerCartItemUpdateWithoutCartInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantKey?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1139,6 +1229,8 @@ export type CustomerCartItemUpdateWithoutCartInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateWithoutCartInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1153,6 +1245,8 @@ export type CustomerCartItemUncheckedUpdateWithoutCartInput = {
 }
 
 export type CustomerCartItemUncheckedUpdateManyWithoutCartInput = {
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1169,6 +1263,8 @@ export type CustomerCartItemUncheckedUpdateManyWithoutCartInput = {
 
 
 export type CustomerCartItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  rentalStartAt?: boolean
+  rentalEndAt?: boolean
   id?: boolean
   cartId?: boolean
   businessId?: boolean
@@ -1188,6 +1284,8 @@ export type CustomerCartItemSelect<ExtArgs extends runtime.Types.Extensions.Inte
 }, ExtArgs["result"]["customerCartItem"]>
 
 export type CustomerCartItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  rentalStartAt?: boolean
+  rentalEndAt?: boolean
   id?: boolean
   cartId?: boolean
   businessId?: boolean
@@ -1207,6 +1305,8 @@ export type CustomerCartItemSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
 }, ExtArgs["result"]["customerCartItem"]>
 
 export type CustomerCartItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  rentalStartAt?: boolean
+  rentalEndAt?: boolean
   id?: boolean
   cartId?: boolean
   businessId?: boolean
@@ -1226,6 +1326,8 @@ export type CustomerCartItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
 }, ExtArgs["result"]["customerCartItem"]>
 
 export type CustomerCartItemSelectScalar = {
+  rentalStartAt?: boolean
+  rentalEndAt?: boolean
   id?: boolean
   cartId?: boolean
   businessId?: boolean
@@ -1240,7 +1342,7 @@ export type CustomerCartItemSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CustomerCartItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "businessId" | "productId" | "variantId" | "variantKey" | "quantity" | "priceSnapshot" | "stockSnapshot" | "availabilityChanged" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartItem"]>
+export type CustomerCartItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"rentalStartAt" | "rentalEndAt" | "id" | "cartId" | "businessId" | "productId" | "variantId" | "variantKey" | "quantity" | "priceSnapshot" | "stockSnapshot" | "availabilityChanged" | "createdAt" | "updatedAt", ExtArgs["result"]["customerCartItem"]>
 export type CustomerCartItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cart?: boolean | Prisma.CustomerCartDefaultArgs<ExtArgs>
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -1269,6 +1371,8 @@ export type $CustomerCartItemPayload<ExtArgs extends runtime.Types.Extensions.In
     variant: Prisma.$ProductVariantPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
+    rentalStartAt: Date | null
+    rentalEndAt: Date | null
     id: string
     cartId: string
     businessId: string
@@ -1364,8 +1468,8 @@ export interface CustomerCartItemDelegate<ExtArgs extends runtime.Types.Extensio
    * // Get first 10 CustomerCartItems
    * const customerCartItems = await prisma.customerCartItem.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const customerCartItemWithIdOnly = await prisma.customerCartItem.findMany({ select: { id: true } })
+   * // Only select the `rentalStartAt`
+   * const customerCartItemWithRentalStartAtOnly = await prisma.customerCartItem.findMany({ select: { rentalStartAt: true } })
    * 
    */
   findMany<T extends CustomerCartItemFindManyArgs>(args?: Prisma.SelectSubset<T, CustomerCartItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerCartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1409,9 +1513,9 @@ export interface CustomerCartItemDelegate<ExtArgs extends runtime.Types.Extensio
    *   ]
    * })
    * 
-   * // Create many CustomerCartItems and only return the `id`
-   * const customerCartItemWithIdOnly = await prisma.customerCartItem.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many CustomerCartItems and only return the `rentalStartAt`
+   * const customerCartItemWithRentalStartAtOnly = await prisma.customerCartItem.createManyAndReturn({
+   *   select: { rentalStartAt: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -1500,9 +1604,9 @@ export interface CustomerCartItemDelegate<ExtArgs extends runtime.Types.Extensio
    *   ]
    * })
    * 
-   * // Update zero or more CustomerCartItems and only return the `id`
-   * const customerCartItemWithIdOnly = await prisma.customerCartItem.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more CustomerCartItems and only return the `rentalStartAt`
+   * const customerCartItemWithRentalStartAtOnly = await prisma.customerCartItem.updateManyAndReturn({
+   *   select: { rentalStartAt: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1708,6 +1812,8 @@ export interface Prisma__CustomerCartItemClient<T, Null = never, ExtArgs extends
  * Fields of the CustomerCartItem model
  */
 export interface CustomerCartItemFieldRefs {
+  readonly rentalStartAt: Prisma.FieldRef<"CustomerCartItem", 'DateTime'>
+  readonly rentalEndAt: Prisma.FieldRef<"CustomerCartItem", 'DateTime'>
   readonly id: Prisma.FieldRef<"CustomerCartItem", 'String'>
   readonly cartId: Prisma.FieldRef<"CustomerCartItem", 'String'>
   readonly businessId: Prisma.FieldRef<"CustomerCartItem", 'String'>

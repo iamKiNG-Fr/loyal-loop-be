@@ -24,6 +24,7 @@ import {
   SubmitDeliveryFeedbackDto,
   UpdateDeliveryDto,
 } from "./dto/delivery.dto";
+import { RentalPhotoDto, ReturnRentalDto } from "./dto/rental.dto";
 import { DeliveryService } from "./delivery.service";
 import { minutes, Throttle } from "@nestjs/throttler";
 
@@ -41,6 +42,25 @@ export class DeliveryController {
   @Get(":id")
   get(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
     return this.deliveries.get(auth, id).then((data) => ok(data));
+  }
+
+  @Get(":id/rentals")
+  rentals(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string) {
+    return this.deliveries.getRentalItems(auth, id).then(data => ok(data));
+  }
+
+  @Post(":id/rentals/:itemId/return/signature")
+  @Capabilities(BusinessCapability.SALE_WRITE, BusinessCapability.DELIVERY_WRITE)
+  @Roles("OWNER", "MANAGER", "SALES")
+  returnSignature(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string, @Param("itemId") itemId: string) {
+    return this.deliveries.rentalReturnSignature(auth, id, itemId).then(data => ok(data));
+  }
+
+  @Post(":id/rentals/:itemId/return")
+  @Capabilities(BusinessCapability.SALE_WRITE, BusinessCapability.DELIVERY_WRITE)
+  @Roles("OWNER", "MANAGER", "SALES")
+  returnRental(@CurrentAuth() auth: OwnerAuthContext, @Param("id") id: string, @Param("itemId") itemId: string, @Body() dto: ReturnRentalDto) {
+    return this.deliveries.returnRental(auth, id, itemId, dto).then(data => ok(data, "Rental return recorded"));
   }
 
   @Patch(":id")
@@ -111,6 +131,16 @@ export class PublicDeliveryController {
   @Get(":token")
   get(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string) {
     return this.deliveries.getPublic(customer.customerAccountId, token).then((data) => ok(data));
+  }
+
+  @Post(":token/rentals/:itemId/receive/signature")
+  receiveSignature(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string, @Param("itemId") itemId: string) {
+    return this.deliveries.rentalReceiveSignature(customer.customerAccountId, token, itemId).then(data => ok(data));
+  }
+
+  @Post(":token/rentals/:itemId/receive")
+  receiveRental(@CurrentCustomer() customer: CustomerAuthContext, @Param("token") token: string, @Param("itemId") itemId: string, @Body() dto: RentalPhotoDto) {
+    return this.deliveries.receiveRental(customer.customerAccountId, token, itemId, dto).then(data => ok(data, "Rental receipt photo saved"));
   }
 
   @Post(":token/confirm")

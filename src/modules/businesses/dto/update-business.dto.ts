@@ -5,6 +5,7 @@ import {
   IsArray,
   IsBoolean,
   IsEnum,
+  IsIn,
   IsOptional,
   IsString,
   Length,
@@ -118,6 +119,20 @@ export class OwnerPledgeDto {
 }
 
 export class UpdateBusinessPreferencesDto {
+  @IsOptional()
+  @IsString()
+  @Length(0, 2000)
+  rentalPolicy?: string;
+
+  @IsOptional()
+  @IsIn(["HOUR", "DAY"])
+  rentalLateUnit?: "HOUR" | "DAY";
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{1,8}(?:\.\d{1,2})?$/)
+  rentalLateRate?: string;
+
   @IsOptional()
   @IsString()
   @Length(3, 3)

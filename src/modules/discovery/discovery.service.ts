@@ -1,3 +1,4 @@
+import { rentalUnit } from "../../common/rental";
 import { isMadeToOrder } from "../../common/product-supply";
 import {
   BadRequestException,
@@ -940,7 +941,7 @@ function productCard(product: DiscoveryProduct, saved = false) {
     name: product.name,
     placement: product.placement,
     price: product.price,
-    promotions: product.promotions.map((promotion) => ({
+    promotions: (rentalUnit(product.attributes) ? [] : product.promotions).map((promotion) => ({
       endsAt: promotion.endsAt,
       id: promotion.id,
       name: promotion.name,
@@ -953,6 +954,7 @@ function productCard(product: DiscoveryProduct, saved = false) {
     slug: product.slug,
     stockCount: product.stockCount,
     madeToOrder: isMadeToOrder(product.attributes),
+    rentalUnit: rentalUnit(product.attributes),
     variants: product.variants.map((variant) => ({
       active: variant.active,
       id: variant.id,

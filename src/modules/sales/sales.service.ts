@@ -1,3 +1,4 @@
+import { quoteRental, rentalUnit, readRentalTerms, reserveRentalCapacity } from "../../common/rental";
 import { validateGiftRecipient } from "../../common/gift-recipient";
 import { paymentEvidenceSelect, type PaymentEvidenceAsset } from "../../common/payment-evidence";
 import { assertSameCurrency } from "../../common/business-currency";
@@ -216,12 +217,16 @@ export class SalesService {
           businessId: auth.businessId,
           status: { notIn: ["CONVERTED", "CANCELED"] },
         },
+        include: { items: true },
       })
       : null;
     if (dto.sourceRequestId && !sourceRequest) {
       throw new BadRequestException("Order request cannot be converted");
     }
 
+    const rentalPreferences = products.some(product => rentalUnit(product.attributes))
+      ? await db.businessPreferences.findUnique({ where: { businessId: auth.businessId } }) : null;
+    const matchedRentalItems = new Set<string>();
     const lines = dto.items.map((item) => {
       const product = item.productId
         ? products.find((entry) => entry.id === item.productId)
@@ -237,22 +242,34 @@ export class SalesService {
       if (item.variantId && !variant) {
         throw new BadRequestException("Product variant is unavailable");
       }
-      const unitPrice = new Prisma.Decimal(item.unitPrice);
+      const unit = rentalUnit(product?.attributes);
+      const requestItem = sourceRequest?.items.find(entry => entry.productId === product?.id && (entry.variantId ?? undefined) === variant?.id);
+      const agreedRental = readRentalTerms(requestItem?.rental);
+      if (sourceRequest && (unit || agreedRental)) {
+        if (!requestItem || !agreedRental || requestItem.quantity !== item.quantity || matchedRentalItems.has(requestItem.id)) throw new BadRequestException("Rental items must match the customer-approved request");
+        matchedRentalItems.add(requestItem.id);
+      }
+      const rental = agreedRental ?? (unit ? quoteRental(unit, product!.price, item.rentalStartAt, item.rentalEndAt, rentalPreferences ?? {}) : undefined);
+      if (!rental && (item.rentalStartAt || item.rentalEndAt)) throw new BadRequestException("Choose a rental listing before adding rental dates");
+      const unitPrice = new Prisma.Decimal(rental?.unitPrice ?? item.unitPrice);
       const catalogUnitPrice = variant?.priceOverride ?? product?.price;
       const adjusted = catalogUnitPrice
         ? !unitPrice.equals(catalogUnitPrice)
         : false;
-      if (adjusted && !dto.sourceRequestId && !item.priceAdjustmentReason?.trim()) {
+      if (adjusted && !rental && !dto.sourceRequestId && !item.priceAdjustmentReason?.trim()) {
         throw new BadRequestException(
           `A price adjustment reason is required for ${product!.name}`,
         );
       }
-      const inventorySource = variant?.stockCount !== null && variant?.stockCount !== undefined
+      const inventorySource = rental ? undefined : variant?.stockCount !== null && variant?.stockCount !== undefined
         ? "VARIANT" as const
         : product?.stockCount !== null && product?.stockCount !== undefined
           ? "PRODUCT" as const
           : undefined;
       return {
+        rental,
+        rentalStartAt: rental ? new Date(rental.startAt) : undefined,
+        rentalEndAt: rental ? new Date(rental.endAt) : undefined,
         productId: product?.id,
         variantId: variant?.id,
         variantName: variant?.name,
@@ -275,6 +292,7 @@ export class SalesService {
         total: unitPrice.mul(item.quantity),
       };
     });
+    if (sourceRequest?.items.some(item => readRentalTerms(item.rental) && !matchedRentalItems.has(item.id))) throw new BadRequestException("Include every rental item from the customer-approved request");
     const inventoryClaims = lines.flatMap((line): InventoryClaim[] => {
       if (!line.productId || !line.inventorySource) return [];
       return [{
@@ -305,6 +323,7 @@ export class SalesService {
     validateGiftRecipient(dto);
     const fulfillment = dto.fulfillment ?? "NOT_REQUIRED";
     const createsDeliveryJourney = fulfillment === "DELIVERY" || fulfillment === "PICKUP";
+    if (lines.some(line => line.rental) && !createsDeliveryJourney) throw new BadRequestException("Choose pickup or delivery to track rental receipt and return");
     const journeyMethod = fulfillment === "DELIVERY"
       ? "SHOP_DELIVERY" as const
       : dto.journeyMethod ?? sourceRequest?.pickupMethod ?? "CUSTOMER_PICKUP" as const;
@@ -325,6 +344,7 @@ export class SalesService {
       const currency = preferences?.currency ?? "NGN";
       products.forEach(product => assertSameCurrency(currency, product.currency));
       assertSameCurrency(currency, paymentAccount?.currency);
+      await reserveRentalCapacity(tx, lines, !sourceRequest);
       await consumeSaleInventory(tx, inventoryClaims);
       const created = await tx.sale.create({
         data: {
@@ -561,7 +581,7 @@ export class SalesService {
     const updated = await this.prisma.$transaction(async (tx) => {
       // A concurrent payment/refund must be reviewed against its new balance.
       const changed = await tx.sale.updateMany({
-        where: { id: saleId, businessId: auth.businessId, amountPaid: sale.amountPaid },
+        where: { id: saleId, businessId: auth.businessId, amountPaid: sale.amountPaid, total: sale.total },
         data: { amountPaid: nextPaid, paymentStatus: dto.type === "REFUND" && nextPaid.equals(0) ? "REFUNDED" : statusFromAmounts(nextPaid, sale.total) },
       });
       if (changed.count !== 1) throw new BadRequestException("This payment record changed. Refresh the sale and check the balance before trying again");

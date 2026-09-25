@@ -9,7 +9,9 @@ import { createOpaqueToken, hashToken } from "../../common/crypto.util";
 import { customerOrderRequestTokenWhere } from "../../common/customer-order-request-token";
 import type { OwnerAuthContext } from "../../common/request-context";
 import { cancelSaleAndRestoreInventory } from "../../common/sale-inventory";
-import type { DeliveryStatus, MediaPurpose, Prisma } from "../../generated/prisma/client";
+import { readRentalTerms, rentalLateFee } from "../../common/rental";
+import { RentalPhotoDto, ReturnRentalDto } from "./dto/rental.dto";
+import { DeliveryStatus, MediaPurpose, Prisma } from "../../generated/prisma/client";
 import { ActivityService } from "../activity/activity.service";
 import { MessagingService } from "../messaging/messaging.service";
 import { FoundingValueFeedbackService } from "../founding-value-feedback/founding-value-feedback.service";
@@ -247,6 +249,9 @@ export class DeliveryService {
         },
         include: deliveryInclude,
       });
+      if (dto.status === "IN_TRANSIT" && updated.sale?.items?.some(item => item.rentalStartAt)) {
+        await tx.saleItem.updateMany({ where: { saleId: delivery.saleId, rentalStartAt: { not: null }, rentalDispatchedAt: null }, data: { rentalDispatchedAt: new Date() } });
+      }
       if (dto.status === "CANCELED") {
         await cancelSaleAndRestoreInventory(tx, delivery.saleId);
       }
@@ -352,6 +357,7 @@ export class DeliveryService {
       });
     return {
       ...sanitizePublicDelivery(this.protectDelivery(record)),
+      rentals: record.sale.items.some(item => item.rentalStartAt) ? await this.rentalItems(record.saleId) : [],
       refunds: (record.sale.payments || []).filter(payment => payment.type === "REFUND").map(payment => ({
         id: payment.id, amount: payment.amount, createdAt: payment.createdAt,
         evidence: payment.evidenceAsset ? { secureUrl: this.media.protectAsset(payment.evidenceAsset).secureUrl } : null,
@@ -543,6 +549,96 @@ export class DeliveryService {
     return delivery;
   }
 
+  async getRentalItems(auth: OwnerAuthContext, deliveryId: string) {
+    const delivery = await this.prisma.delivery.findFirst({ where: { id: deliveryId, businessId: auth.businessId } });
+    if (!delivery) throw new NotFoundException("Order journey not found");
+    return this.rentalItems(delivery.saleId);
+  }
+
+  private async rentalItems(saleId: string) {
+    const items = await this.prisma.saleItem.findMany({ where: { saleId, rentalStartAt: { not: null } },
+      include: { rentalReceiveAsset: { select: paymentEvidenceSelect }, rentalReturnAsset: { select: paymentEvidenceSelect } } });
+    return items.map(item => {
+      const terms = readRentalTerms(item.rental)!;
+      return { id: item.id, name: item.name, quantity: item.quantity, terms,
+        dispatchedAt: item.rentalDispatchedAt, receivedAt: item.rentalReceivedAt, returnedAt: item.rentalReturnedAt,
+        lateFee: item.rentalLateFee,
+        calculatedLateFee: rentalLateFee(terms, item.quantity, item.rentalReturnedAt ?? new Date()).amount.toFixed(2),
+        receivePhoto: item.rentalReceiveAsset ? this.media.protectAsset(item.rentalReceiveAsset).secureUrl : null,
+        returnPhoto: item.rentalReturnAsset ? this.media.protectAsset(item.rentalReturnAsset).secureUrl : null,
+      };
+    });
+  }
+
+  private async rentalForCustomer(customerAccountId: string, token: string, itemId: string) {
+    const delivery = await this.findByToken(customerAccountId, token);
+    const item = await this.prisma.saleItem.findFirst({ where: { id: itemId, saleId: delivery.saleId, rentalStartAt: { not: null } }, include: { sale: true } });
+    if (!item) throw new NotFoundException("Rental not found");
+    const ready = delivery.journeyMethod === "CUSTOMER_PICKUP" ? delivery.status === "READY_FOR_PICKUP"
+      : delivery.journeyMethod === "CUSTOMER_RIDER" ? delivery.status === "IN_TRANSIT" : delivery.status === "DELIVERED";
+    if (!ready || item.sale.status === "CANCELED" || item.sale.paymentStatus !== "PAID") throw new BadRequestException("Complete payment and wait for the rental handoff before adding your receipt photo");
+    return { delivery, item };
+  }
+
+  async rentalReceiveSignature(customerAccountId: string, token: string, itemId: string) {
+    const { delivery, item } = await this.rentalForCustomer(customerAccountId, token, itemId);
+    if (item.rentalReceivedAt) throw new BadRequestException("The receipt photo is already recorded");
+    return this.media.createRentalUploadSignature(delivery.businessId, itemId, "receive");
+  }
+
+  async receiveRental(customerAccountId: string, token: string, itemId: string, dto: RentalPhotoDto) {
+    const { delivery, item } = await this.rentalForCustomer(customerAccountId, token, itemId);
+    if (item.rentalReceivedAt) return this.rentalItems(item.saleId);
+    const asset = await this.media.registerRentalAsset(delivery.businessId, itemId, "receive", dto);
+    await this.prisma.$transaction(async tx => {
+      const current = await tx.delivery.findUniqueOrThrow({ where: { id: delivery.id }, include: { sale: true } });
+      if (current.status !== delivery.status || current.sale.status === "CANCELED" || current.sale.paymentStatus !== "PAID") throw new BadRequestException("This order changed. Refresh before confirming receipt");
+      const changed = await tx.saleItem.updateMany({ where: { id: itemId, rentalReceivedAt: null }, data: { rentalReceivedAt: new Date(), rentalReceiveAssetId: asset.id } });
+      if (changed.count) await tx.deliveryEvent.create({ data: { deliveryId: delivery.id, status: current.status, note: `Customer photographed receipt of ${item.name}` } });
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+    return this.rentalItems(item.saleId);
+  }
+
+  private async rentalForOwner(auth: OwnerAuthContext, deliveryId: string, itemId: string) {
+    const delivery = await this.prisma.delivery.findFirst({ where: { id: deliveryId, businessId: auth.businessId } });
+    if (!delivery) throw new NotFoundException("Order journey not found");
+    const item = await this.prisma.saleItem.findFirst({ where: { id: itemId, saleId: delivery.saleId, rentalStartAt: { not: null } } });
+    if (!item) throw new NotFoundException("Rental not found");
+    if (!item.rentalReceivedAt && !item.rentalDispatchedAt) throw new BadRequestException("This rental has not been handed out yet");
+    return { delivery, item };
+  }
+
+  async rentalReturnSignature(auth: OwnerAuthContext, deliveryId: string, itemId: string) {
+    const { item } = await this.rentalForOwner(auth, deliveryId, itemId);
+    if (item.rentalReturnedAt) throw new BadRequestException("This rental is already returned");
+    return this.media.createRentalUploadSignature(auth.businessId, itemId, "return");
+  }
+
+  async returnRental(auth: OwnerAuthContext, deliveryId: string, itemId: string, dto: ReturnRentalDto) {
+    const { delivery, item } = await this.rentalForOwner(auth, deliveryId, itemId);
+    if (item.rentalReturnedAt) return this.rentalItems(item.saleId);
+    const asset = await this.media.registerRentalAsset(auth.businessId, itemId, "return", dto);
+    await this.prisma.$transaction(async tx => {
+      const current = await tx.saleItem.findUniqueOrThrow({ where: { id: item.id } });
+      if (current.rentalReturnedAt) return;
+      const sale = await tx.sale.findUniqueOrThrow({ where: { id: item.saleId } });
+      const returnedAt = new Date();
+      const calculated = rentalLateFee(readRentalTerms(current.rental)!, current.quantity, returnedAt).amount;
+      if (dto.applyLateFee && (sale.status === "CANCELED" || sale.paymentStatus === "REFUNDED")) throw new BadRequestException("Record the return without a late fee for a canceled or refunded order");
+      if (dto.applyLateFee && (!dto.expectedLateFee || !calculated.equals(dto.expectedLateFee))) throw new BadRequestException("The late fee changed. Refresh and review the current amount");
+      const fee = dto.applyLateFee ? calculated : new Prisma.Decimal(0);
+      const total = sale.total.add(fee);
+      if (total.greaterThan("9999999999.99")) throw new BadRequestException("The late fee exceeds the supported order total. Record the return without a fee");
+      await tx.saleItem.update({ where: { id: item.id }, data: { rentalReturnedAt: returnedAt, rentalReturnAssetId: asset.id, rentalLateFee: fee } });
+      if (fee.greaterThan(0)) {
+        await tx.sale.update({ where: { id: sale.id }, data: { total, subtotal: sale.subtotal.add(fee), paymentStatus: sale.amountPaid.greaterThan(0) ? "PARTIAL" : "UNPAID" } });
+        await tx.saleItem.create({ data: { saleId: sale.id, name: `Late return fee — ${item.name}`, quantity: 1, unitPrice: fee, total: fee, priceAdjustmentReason: "Agreed rental policy; shop confirmed late return" } });
+      }
+      await tx.deliveryEvent.create({ data: { deliveryId, actorId: auth.userId, status: delivery.status, note: `${item.name} returned${fee.greaterThan(0) ? `; late fee ${sale.currency} ${fee.toFixed(2)} added` : "; no late fee charged"}` } });
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+    return this.rentalItems(item.saleId);
+  }
+
   private async findByToken(customerAccountId: string, token: string) {
     const tokenHash = hashToken(token);
     const delivery = await this.prisma.delivery.findFirst({
@@ -619,7 +715,8 @@ export class DeliveryService {
   }
 
   private async assertPaymentSettled(tx: Prisma.TransactionClient, saleId: string) {
-    const sale = await tx.sale.findUniqueOrThrow({ where: { id: saleId }, select: { amountPaid: true, total: true, paymentStatus: true } });
+    const sale = await tx.sale.findUniqueOrThrow({ where: { id: saleId }, select: { amountPaid: true, total: true, paymentStatus: true, items: { select: { rentalStartAt: true, rentalReceiveAssetId: true } } } });
+    if (sale.items?.some(item => item.rentalStartAt && !item.rentalReceiveAssetId)) throw new BadRequestException("The customer must add a photo of each rental before confirming receipt");
     if (sale.paymentStatus !== "PAID" || sale.amountPaid.lessThan(sale.total)) {
       throw new BadRequestException("Record or verify the remaining payment before confirming this order");
     }

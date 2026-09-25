@@ -34,6 +34,10 @@ export class ProductAnalyticsQueryDto {
 
 export class CreateProductDto {
   @IsOptional()
+  @IsIn(["HOUR", "DAY", "NONE"])
+  rentalUnit?: "HOUR" | "DAY" | "NONE";
+
+  @IsOptional()
   @IsBoolean()
   madeToOrder?: boolean;
 
@@ -118,6 +122,10 @@ export class CreateProductDto {
 }
 
 export class UpdateProductDto {
+  @IsOptional()
+  @IsIn(["HOUR", "DAY", "NONE"])
+  rentalUnit?: "HOUR" | "DAY" | "NONE";
+
   @IsOptional()
   @IsBoolean()
   madeToOrder?: boolean;

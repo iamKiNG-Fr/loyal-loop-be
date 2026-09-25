@@ -30,6 +30,14 @@ import { PaginationDto } from "../../../common/pagination.dto";
 
 export class CreateSaleItemDto {
   @IsOptional()
+  @IsDateString()
+  rentalStartAt?: string;
+
+  @IsOptional()
+  @IsDateString()
+  rentalEndAt?: string;
+
+  @IsOptional()
   @IsString()
   productId?: string;
 

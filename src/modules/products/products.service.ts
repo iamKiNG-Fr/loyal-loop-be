@@ -1,3 +1,4 @@
+import { rentalUnit } from "../../common/rental";
 import { isMadeToOrder, productSupply } from "../../common/product-supply";
 import { assertSameCurrency, businessCurrency } from "../../common/business-currency";
 import {
@@ -45,6 +46,7 @@ const publicAssetReviewFields = {
 } as const;
 
 const categoryTemplates = [
+  { key: "rentals", label: "Rentals", attributes: ["dimensions", "material", "includedItems"] },
   { key: "chef", label: "Chef", attributes: ["portion", "ingredients", "preparationTime"] },
   { key: "fashion", label: "Fashion", attributes: ["size", "color", "material", "measurements"] },
   { key: "beauty", label: "Beauty & fragrance", attributes: ["shade", "size", "ingredients"] },
@@ -242,7 +244,8 @@ export class ProductsService {
 
   async create(auth: OwnerAuthContext, dto: CreateProductDto) {
     const supply = productSupply(dto);
-    if (!supply.madeToOrder) this.validateVariantStock(dto.stockCount, dto.variants);
+    if (supply.rentalUnit && (dto.variants?.length ?? 0) > 1) throw new BadRequestException("Create a separate rental listing for each item type");
+    if (!supply.madeToOrder && !supply.rentalUnit) this.validateVariantStock(dto.stockCount, dto.variants);
     const assets = await this.validateAssets(
       auth.businessId,
       dto.imageAssetIds ?? [],
@@ -318,10 +321,10 @@ export class ProductsService {
             create: variants.map((variant, index) => ({
               name: variant.name?.trim() || this.variantName(variant.optionValues),
               optionValues: variant.optionValues as Prisma.InputJsonValue,
-              priceOverride: variant.priceOverride,
+              priceOverride: supply.rentalUnit ? null : variant.priceOverride,
               sku: variant.sku?.trim(),
               active: variant.active ?? true,
-              stockCount: supply.madeToOrder ? null : variant.stockCount,
+              stockCount: supply.madeToOrder || supply.rentalUnit ? null : variant.stockCount,
               sortOrder: index,
             })),
           },
@@ -356,7 +359,8 @@ export class ProductsService {
       return this.restore(auth, productId);
     }
     const supply = productSupply(dto, product);
-    if (!supply.madeToOrder && (dto.variants || dto.stockCount !== undefined)) {
+    if (supply.rentalUnit && (dto.variants ?? product.variants).length > 1) throw new BadRequestException("Create a separate rental listing for each item type");
+    if (!supply.madeToOrder && !supply.rentalUnit && (dto.variants || dto.stockCount !== undefined)) {
       this.validateVariantStock(dto.stockCount ?? product.stockCount, dto.variants ?? product.variants);
     }
     const hasCollectionUpdate = dto.categoryId !== undefined;
@@ -379,6 +383,13 @@ export class ProductsService {
       await this.assertProductMediaReadyForPublic(auth.businessId, product.id);
     }
     return this.prisma.$transaction(async (tx) => {
+      if (rentalUnit(product.attributes) && (dto.rentalUnit !== undefined || dto.stockCount !== undefined)) {
+        const committed = await tx.saleItem.count({ where: { productId: product.id, rentalStartAt: { not: null }, rentalReturnedAt: null,
+          OR: [{ sale: { status: { not: "CANCELED" } } }, { rentalReceivedAt: { not: null } }, { rentalDispatchedAt: { not: null } }] } });
+        if (committed && (dto.rentalUnit === "NONE" || (dto.stockCount !== undefined && dto.stockCount < (product.stockCount ?? 0)))) {
+          throw new BadRequestException("Return or cancel existing rental bookings before reducing inventory or changing this to a sale listing");
+        }
+      }
       const updated = await tx.product.update({
         where: { id: product.id },
         data: {
@@ -413,14 +424,14 @@ export class ProductsService {
                 create: dto.variants.map((variant, index) => ({
                   name: variant.name?.trim() || this.variantName(variant.optionValues),
                   optionValues: variant.optionValues as Prisma.InputJsonValue,
-                  priceOverride: variant.priceOverride,
+                  priceOverride: supply.rentalUnit ? null : variant.priceOverride,
                   sku: variant.sku?.trim(),
                   active: variant.active ?? true,
-                  stockCount: supply.madeToOrder ? null : variant.stockCount,
+                  stockCount: supply.madeToOrder || supply.rentalUnit ? null : variant.stockCount,
                   sortOrder: index,
                 })),
               }
-            : supply.madeToOrder ? { updateMany: { where: {}, data: { stockCount: null } } } : undefined,
+            : supply.madeToOrder || supply.rentalUnit ? { updateMany: { where: {}, data: { stockCount: null, ...(supply.rentalUnit ? { priceOverride: null } : {}) } } } : undefined,
         },
         include: productInclude,
       });
@@ -440,7 +451,7 @@ export class ProductsService {
         tx,
       );
       return withListingReadiness(updated);
-    });
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
   }
 
   async replaceImages(

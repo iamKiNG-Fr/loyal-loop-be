@@ -42,7 +42,7 @@ export class DeviceCartController {
 
   @Patch("items/:id")
   update(@Headers("x-cart-device") key: string, @Param("id") id: string, @Body() dto: UpdateCartItemDto) {
-    return this.carts.updateDeviceItem(key, id, dto.quantity).then((data) => ok(data));
+    return this.carts.updateDeviceItem(key, id, dto.quantity, dto).then((data) => ok(data));
   }
 
   @Delete("items/:id")
@@ -71,7 +71,7 @@ export class CustomerCartController {
 
   @Patch("items/:id")
   update(@CurrentCustomer() auth: CustomerAuthContext, @Param("id") id: string, @Body() dto: UpdateCartItemDto) {
-    return this.carts.updateAccountItem(auth, id, dto.quantity).then((data) => ok(data));
+    return this.carts.updateAccountItem(auth, id, dto.quantity, dto).then((data) => ok(data));
   }
 
   @Delete("items/:id")

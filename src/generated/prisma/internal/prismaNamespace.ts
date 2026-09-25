@@ -7741,6 +7741,9 @@ export type BusinessPickupLocationScalarFieldEnum = (typeof BusinessPickupLocati
 
 
 export const BusinessPreferencesScalarFieldEnum = {
+  rentalPolicy: 'rentalPolicy',
+  rentalLateUnit: 'rentalLateUnit',
+  rentalLateRate: 'rentalLateRate',
   businessId: 'businessId',
   currency: 'currency',
   numberFormat: 'numberFormat',
@@ -8291,6 +8294,8 @@ export type CustomerCartScalarFieldEnum = (typeof CustomerCartScalarFieldEnum)[k
 
 
 export const CustomerCartItemScalarFieldEnum = {
+  rentalStartAt: 'rentalStartAt',
+  rentalEndAt: 'rentalEndAt',
   id: 'id',
   cartId: 'cartId',
   businessId: 'businessId',
@@ -8484,6 +8489,7 @@ export type OrderRequestShareTokenScalarFieldEnum = (typeof OrderRequestShareTok
 
 
 export const OrderRequestItemScalarFieldEnum = {
+  rental: 'rental',
   id: 'id',
   orderRequestId: 'orderRequestId',
   productId: 'productId',
@@ -8603,6 +8609,15 @@ export type SalePaymentInstructionScalarFieldEnum = (typeof SalePaymentInstructi
 
 
 export const SaleItemScalarFieldEnum = {
+  rental: 'rental',
+  rentalStartAt: 'rentalStartAt',
+  rentalEndAt: 'rentalEndAt',
+  rentalDispatchedAt: 'rentalDispatchedAt',
+  rentalReceivedAt: 'rentalReceivedAt',
+  rentalReturnedAt: 'rentalReturnedAt',
+  rentalReceiveAssetId: 'rentalReceiveAssetId',
+  rentalReturnAssetId: 'rentalReturnAssetId',
+  rentalLateFee: 'rentalLateFee',
   id: 'id',
   saleId: 'saleId',
   productId: 'productId',

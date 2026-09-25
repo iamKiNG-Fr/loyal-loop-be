@@ -38,7 +38,7 @@ describe("made-to-order supply", () => {
   });
 
   it("preserves supply mode and other attributes on partial metadata edits", () => {
-    expect(productSupply({ attributes: { searchTags: "lunch" } }, { attributes: { madeToOrder: true, ingredients: "rice" } })).toEqual({ madeToOrder: true, stockCount: null, attributes: { madeToOrder: true, ingredients: "rice", searchTags: "lunch" } });
+    expect(productSupply({ attributes: { searchTags: "lunch" } }, { attributes: { madeToOrder: true, ingredients: "rice" } })).toEqual({ rentalUnit: null, madeToOrder: true, stockCount: null, attributes: { rentalUnit: "NONE", madeToOrder: true, ingredients: "rice", searchTags: "lunch" } });
     expect(productSupply({ attributes: { madeToOrder: true }, stockCount: 3 }).madeToOrder).toBe(false);
   });
 

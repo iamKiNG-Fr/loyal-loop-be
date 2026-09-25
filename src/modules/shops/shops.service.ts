@@ -1,3 +1,4 @@
+import { quoteRental, rentalUnit, rentalAvailability, rentalPeriod } from "../../common/rental";
 import { validateGiftRecipient } from "../../common/gift-recipient";
 import {
   BadRequestException,
@@ -403,14 +404,23 @@ export class ShopsService {
         if (!item.variantId && product.variants.length > 1) {
           throw new BadRequestException("Choose a product variant");
         }
-        const quote = await this.promotions.quote(tx, {
+        const unit = rentalUnit(product.attributes);
+        const rental = unit ? quoteRental(unit, product.price, item.rentalStartAt, item.rentalEndAt, business.preferences ?? {}) : undefined;
+        if (rental) {
+          const period = rentalPeriod(rental.startAt, rental.endAt);
+          if (period.startAt <= new Date()) throw new BadRequestException("Choose a rental start time in the future");
+          const available = await rentalAvailability(tx, product.id, product.stockCount ?? 0, period.startAt, period.endAt);
+          if (available < item.quantity) throw new BadRequestException("Not enough rental items are available for these dates");
+          if (dto.sourceShowcaseId) throw new BadRequestException("Add rental items separately with their dates");
+        }
+        const quote = rental ? { unitPrice: new Prisma.Decimal(rental.unitPrice), originalUnitPrice: new Prisma.Decimal(rental.unitPrice), promotionId: undefined, promotionSnapshot: undefined } : await this.promotions.quote(tx, {
           businessId: business.id,
           customerKey,
           productId: product.id,
           quantity: item.quantity,
           variantId: variant?.id,
         });
-        quotedItems.push({ item, product, quote, variant });
+        quotedItems.push({ item, product, quote, variant, rental });
       }
       const created = await tx.orderRequest.create({
         data: {
@@ -440,7 +450,8 @@ export class ShopsService {
           recipientPhone: dto.isGift ? dto.recipientPhone?.trim() : undefined,
           note: dto.note?.trim(),
           items: {
-            create: quotedItems.map(({ item, product, quote, variant }) => ({
+            create: quotedItems.map(({ item, product, quote, variant, rental }) => ({
+              rental,
               productId: product.id,
               variantId: variant?.id,
               variantName: variant?.name,

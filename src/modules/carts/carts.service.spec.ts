@@ -6,6 +6,21 @@ import { CartsService } from "./carts.service";
 const auth = { customerAccountId: "account-1", sessionId: "session-1" };
 
 describe("CartsService", () => {
+  it("does not expose database errors when checking rental availability", async () => {
+    const prisma = basePrisma();
+    prisma.saleItem = { findMany: vi.fn().mockRejectedValue(new Error("Database relation internal_name is missing")) };
+    prisma.customerCart.findUniqueOrThrow.mockResolvedValue({ id: "cart-1", groups: [], items: [{
+      id: "rental-item", productId: "chairs", quantity: 1, priceSnapshot: "100", stockSnapshot: 2,
+      rentalStartAt: new Date("2099-01-01T10:00:00Z"), rentalEndAt: new Date("2099-01-02T10:00:00Z"),
+      product: { attributes: { rentalUnit: "DAY" }, price: "100", stockCount: 2, status: "ACTIVE", visibility: "PUBLIC", promotions: [] },
+      business: { preferences: {}, storeStatus: "OPEN", platformStatus: "ACTIVE" },
+    }] });
+    const service = new CartsService(prisma as unknown as PrismaService, promotions() as never, {} as never);
+    const result = await service.accountCart(auth);
+    expect(result.items[0].available).toBe(false);
+    expect(result.items[0].rentalError).toBe("Rental availability could not be checked. Please try again.");
+    expect(JSON.stringify(result)).not.toContain("internal_name");
+  });
   it("accepts made-to-order quantities while retaining the normal per-item cap", async () => {
     const prisma = basePrisma();
     prisma.product.findFirst.mockResolvedValue({

@@ -27,16 +27,21 @@ export type AggregateBusinessPreferences = {
 }
 
 export type BusinessPreferencesAvgAggregateOutputType = {
+  rentalLateRate: runtime.Decimal | null
   lowStockThreshold: number | null
   dailyDigestWeekdays: number | null
 }
 
 export type BusinessPreferencesSumAggregateOutputType = {
+  rentalLateRate: runtime.Decimal | null
   lowStockThreshold: number | null
   dailyDigestWeekdays: number[]
 }
 
 export type BusinessPreferencesMinAggregateOutputType = {
+  rentalPolicy: string | null
+  rentalLateUnit: string | null
+  rentalLateRate: runtime.Decimal | null
   businessId: string | null
   currency: string | null
   numberFormat: $Enums.NumberFormat | null
@@ -74,6 +79,9 @@ export type BusinessPreferencesMinAggregateOutputType = {
 }
 
 export type BusinessPreferencesMaxAggregateOutputType = {
+  rentalPolicy: string | null
+  rentalLateUnit: string | null
+  rentalLateRate: runtime.Decimal | null
   businessId: string | null
   currency: string | null
   numberFormat: $Enums.NumberFormat | null
@@ -111,6 +119,9 @@ export type BusinessPreferencesMaxAggregateOutputType = {
 }
 
 export type BusinessPreferencesCountAggregateOutputType = {
+  rentalPolicy: number
+  rentalLateUnit: number
+  rentalLateRate: number
   businessId: number
   currency: number
   numberFormat: number
@@ -159,16 +170,21 @@ export type BusinessPreferencesCountAggregateOutputType = {
 
 
 export type BusinessPreferencesAvgAggregateInputType = {
+  rentalLateRate?: true
   lowStockThreshold?: true
   dailyDigestWeekdays?: true
 }
 
 export type BusinessPreferencesSumAggregateInputType = {
+  rentalLateRate?: true
   lowStockThreshold?: true
   dailyDigestWeekdays?: true
 }
 
 export type BusinessPreferencesMinAggregateInputType = {
+  rentalPolicy?: true
+  rentalLateUnit?: true
+  rentalLateRate?: true
   businessId?: true
   currency?: true
   numberFormat?: true
@@ -206,6 +222,9 @@ export type BusinessPreferencesMinAggregateInputType = {
 }
 
 export type BusinessPreferencesMaxAggregateInputType = {
+  rentalPolicy?: true
+  rentalLateUnit?: true
+  rentalLateRate?: true
   businessId?: true
   currency?: true
   numberFormat?: true
@@ -243,6 +262,9 @@ export type BusinessPreferencesMaxAggregateInputType = {
 }
 
 export type BusinessPreferencesCountAggregateInputType = {
+  rentalPolicy?: true
+  rentalLateUnit?: true
+  rentalLateRate?: true
   businessId?: true
   currency?: true
   numberFormat?: true
@@ -376,6 +398,9 @@ export type BusinessPreferencesGroupByArgs<ExtArgs extends runtime.Types.Extensi
 }
 
 export type BusinessPreferencesGroupByOutputType = {
+  rentalPolicy: string | null
+  rentalLateUnit: string
+  rentalLateRate: runtime.Decimal
   businessId: string
   currency: string
   numberFormat: $Enums.NumberFormat
@@ -445,6 +470,9 @@ export type BusinessPreferencesWhereInput = {
   AND?: Prisma.BusinessPreferencesWhereInput | Prisma.BusinessPreferencesWhereInput[]
   OR?: Prisma.BusinessPreferencesWhereInput[]
   NOT?: Prisma.BusinessPreferencesWhereInput | Prisma.BusinessPreferencesWhereInput[]
+  rentalPolicy?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
+  rentalLateUnit?: Prisma.StringFilter<"BusinessPreferences"> | string
+  rentalLateRate?: Prisma.DecimalFilter<"BusinessPreferences"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   businessId?: Prisma.StringFilter<"BusinessPreferences"> | string
   currency?: Prisma.StringFilter<"BusinessPreferences"> | string
   numberFormat?: Prisma.EnumNumberFormatFilter<"BusinessPreferences"> | $Enums.NumberFormat
@@ -492,6 +520,9 @@ export type BusinessPreferencesWhereInput = {
 }
 
 export type BusinessPreferencesOrderByWithRelationInput = {
+  rentalPolicy?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalLateUnit?: Prisma.SortOrder
+  rentalLateRate?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   numberFormat?: Prisma.SortOrder
@@ -543,6 +574,9 @@ export type BusinessPreferencesWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.BusinessPreferencesWhereInput | Prisma.BusinessPreferencesWhereInput[]
   OR?: Prisma.BusinessPreferencesWhereInput[]
   NOT?: Prisma.BusinessPreferencesWhereInput | Prisma.BusinessPreferencesWhereInput[]
+  rentalPolicy?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
+  rentalLateUnit?: Prisma.StringFilter<"BusinessPreferences"> | string
+  rentalLateRate?: Prisma.DecimalFilter<"BusinessPreferences"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFilter<"BusinessPreferences"> | string
   numberFormat?: Prisma.EnumNumberFormatFilter<"BusinessPreferences"> | $Enums.NumberFormat
   timezone?: Prisma.StringFilter<"BusinessPreferences"> | string
@@ -589,6 +623,9 @@ export type BusinessPreferencesWhereUniqueInput = Prisma.AtLeast<{
 }, "businessId">
 
 export type BusinessPreferencesOrderByWithAggregationInput = {
+  rentalPolicy?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalLateUnit?: Prisma.SortOrder
+  rentalLateRate?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   numberFormat?: Prisma.SortOrder
@@ -643,6 +680,9 @@ export type BusinessPreferencesScalarWhereWithAggregatesInput = {
   AND?: Prisma.BusinessPreferencesScalarWhereWithAggregatesInput | Prisma.BusinessPreferencesScalarWhereWithAggregatesInput[]
   OR?: Prisma.BusinessPreferencesScalarWhereWithAggregatesInput[]
   NOT?: Prisma.BusinessPreferencesScalarWhereWithAggregatesInput | Prisma.BusinessPreferencesScalarWhereWithAggregatesInput[]
+  rentalPolicy?: Prisma.StringNullableWithAggregatesFilter<"BusinessPreferences"> | string | null
+  rentalLateUnit?: Prisma.StringWithAggregatesFilter<"BusinessPreferences"> | string
+  rentalLateRate?: Prisma.DecimalWithAggregatesFilter<"BusinessPreferences"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   businessId?: Prisma.StringWithAggregatesFilter<"BusinessPreferences"> | string
   currency?: Prisma.StringWithAggregatesFilter<"BusinessPreferences"> | string
   numberFormat?: Prisma.EnumNumberFormatWithAggregatesFilter<"BusinessPreferences"> | $Enums.NumberFormat
@@ -689,6 +729,9 @@ export type BusinessPreferencesScalarWhereWithAggregatesInput = {
 }
 
 export type BusinessPreferencesCreateInput = {
+  rentalPolicy?: string | null
+  rentalLateUnit?: string
+  rentalLateRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   numberFormat?: $Enums.NumberFormat
   timezone?: string
@@ -735,6 +778,9 @@ export type BusinessPreferencesCreateInput = {
 }
 
 export type BusinessPreferencesUncheckedCreateInput = {
+  rentalPolicy?: string | null
+  rentalLateUnit?: string
+  rentalLateRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   businessId: string
   currency?: string
   numberFormat?: $Enums.NumberFormat
@@ -781,6 +827,9 @@ export type BusinessPreferencesUncheckedCreateInput = {
 }
 
 export type BusinessPreferencesUpdateInput = {
+  rentalPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  rentalLateRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   numberFormat?: Prisma.EnumNumberFormatFieldUpdateOperationsInput | $Enums.NumberFormat
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -827,6 +876,9 @@ export type BusinessPreferencesUpdateInput = {
 }
 
 export type BusinessPreferencesUncheckedUpdateInput = {
+  rentalPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  rentalLateRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   numberFormat?: Prisma.EnumNumberFormatFieldUpdateOperationsInput | $Enums.NumberFormat
@@ -873,6 +925,9 @@ export type BusinessPreferencesUncheckedUpdateInput = {
 }
 
 export type BusinessPreferencesCreateManyInput = {
+  rentalPolicy?: string | null
+  rentalLateUnit?: string
+  rentalLateRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   businessId: string
   currency?: string
   numberFormat?: $Enums.NumberFormat
@@ -919,6 +974,9 @@ export type BusinessPreferencesCreateManyInput = {
 }
 
 export type BusinessPreferencesUpdateManyMutationInput = {
+  rentalPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  rentalLateRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   numberFormat?: Prisma.EnumNumberFormatFieldUpdateOperationsInput | $Enums.NumberFormat
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -964,6 +1022,9 @@ export type BusinessPreferencesUpdateManyMutationInput = {
 }
 
 export type BusinessPreferencesUncheckedUpdateManyInput = {
+  rentalPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  rentalLateRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   businessId?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   numberFormat?: Prisma.EnumNumberFormatFieldUpdateOperationsInput | $Enums.NumberFormat
@@ -1039,6 +1100,9 @@ export type IntNullableListFilter<$PrismaModel = never> = {
 }
 
 export type BusinessPreferencesCountOrderByAggregateInput = {
+  rentalPolicy?: Prisma.SortOrder
+  rentalLateUnit?: Prisma.SortOrder
+  rentalLateRate?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   numberFormat?: Prisma.SortOrder
@@ -1085,11 +1149,15 @@ export type BusinessPreferencesCountOrderByAggregateInput = {
 }
 
 export type BusinessPreferencesAvgOrderByAggregateInput = {
+  rentalLateRate?: Prisma.SortOrder
   lowStockThreshold?: Prisma.SortOrder
   dailyDigestWeekdays?: Prisma.SortOrder
 }
 
 export type BusinessPreferencesMaxOrderByAggregateInput = {
+  rentalPolicy?: Prisma.SortOrder
+  rentalLateUnit?: Prisma.SortOrder
+  rentalLateRate?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   numberFormat?: Prisma.SortOrder
@@ -1127,6 +1195,9 @@ export type BusinessPreferencesMaxOrderByAggregateInput = {
 }
 
 export type BusinessPreferencesMinOrderByAggregateInput = {
+  rentalPolicy?: Prisma.SortOrder
+  rentalLateUnit?: Prisma.SortOrder
+  rentalLateRate?: Prisma.SortOrder
   businessId?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   numberFormat?: Prisma.SortOrder
@@ -1164,6 +1235,7 @@ export type BusinessPreferencesMinOrderByAggregateInput = {
 }
 
 export type BusinessPreferencesSumOrderByAggregateInput = {
+  rentalLateRate?: Prisma.SortOrder
   lowStockThreshold?: Prisma.SortOrder
   dailyDigestWeekdays?: Prisma.SortOrder
 }
@@ -1234,6 +1306,14 @@ export type BusinessPreferencesCreatecollectionOrderInput = {
 
 export type BusinessPreferencesCreatedailyDigestWeekdaysInput = {
   set: number[]
+}
+
+export type DecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type EnumNumberFormatFieldUpdateOperationsInput = {
@@ -1310,6 +1390,9 @@ export type EnumRetentionPolicyFieldUpdateOperationsInput = {
 }
 
 export type BusinessPreferencesCreateWithoutBusinessInput = {
+  rentalPolicy?: string | null
+  rentalLateUnit?: string
+  rentalLateRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   numberFormat?: $Enums.NumberFormat
   timezone?: string
@@ -1355,6 +1438,9 @@ export type BusinessPreferencesCreateWithoutBusinessInput = {
 }
 
 export type BusinessPreferencesUncheckedCreateWithoutBusinessInput = {
+  rentalPolicy?: string | null
+  rentalLateUnit?: string
+  rentalLateRate?: runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: string
   numberFormat?: $Enums.NumberFormat
   timezone?: string
@@ -1416,6 +1502,9 @@ export type BusinessPreferencesUpdateToOneWithWhereWithoutBusinessInput = {
 }
 
 export type BusinessPreferencesUpdateWithoutBusinessInput = {
+  rentalPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  rentalLateRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   numberFormat?: Prisma.EnumNumberFormatFieldUpdateOperationsInput | $Enums.NumberFormat
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1461,6 +1550,9 @@ export type BusinessPreferencesUpdateWithoutBusinessInput = {
 }
 
 export type BusinessPreferencesUncheckedUpdateWithoutBusinessInput = {
+  rentalPolicy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateUnit?: Prisma.StringFieldUpdateOperationsInput | string
+  rentalLateRate?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   numberFormat?: Prisma.EnumNumberFormatFieldUpdateOperationsInput | $Enums.NumberFormat
   timezone?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1508,6 +1600,9 @@ export type BusinessPreferencesUncheckedUpdateWithoutBusinessInput = {
 
 
 export type BusinessPreferencesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  rentalPolicy?: boolean
+  rentalLateUnit?: boolean
+  rentalLateRate?: boolean
   businessId?: boolean
   currency?: boolean
   numberFormat?: boolean
@@ -1555,6 +1650,9 @@ export type BusinessPreferencesSelect<ExtArgs extends runtime.Types.Extensions.I
 }, ExtArgs["result"]["businessPreferences"]>
 
 export type BusinessPreferencesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  rentalPolicy?: boolean
+  rentalLateUnit?: boolean
+  rentalLateRate?: boolean
   businessId?: boolean
   currency?: boolean
   numberFormat?: boolean
@@ -1602,6 +1700,9 @@ export type BusinessPreferencesSelectCreateManyAndReturn<ExtArgs extends runtime
 }, ExtArgs["result"]["businessPreferences"]>
 
 export type BusinessPreferencesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  rentalPolicy?: boolean
+  rentalLateUnit?: boolean
+  rentalLateRate?: boolean
   businessId?: boolean
   currency?: boolean
   numberFormat?: boolean
@@ -1649,6 +1750,9 @@ export type BusinessPreferencesSelectUpdateManyAndReturn<ExtArgs extends runtime
 }, ExtArgs["result"]["businessPreferences"]>
 
 export type BusinessPreferencesSelectScalar = {
+  rentalPolicy?: boolean
+  rentalLateUnit?: boolean
+  rentalLateRate?: boolean
   businessId?: boolean
   currency?: boolean
   numberFormat?: boolean
@@ -1694,7 +1798,7 @@ export type BusinessPreferencesSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "featuredCollectionIds" | "tickerItems" | "defaultPaymentStatus" | "allowedPaymentMethods" | "defaultPaymentMethod" | "allowedFulfillmentMethods" | "deliveryAreas" | "deliveryStates" | "deliveryCountries" | "collectionOrder" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "lowStockThreshold" | "dailyDigestWhatsapp" | "dailyDigestTime" | "dailyDigestWeekdays" | "dailyDigestPhone" | "dailyDigestConsentAt" | "dailyDigestConsentVersion" | "dailyDigestPausedAt" | "lastDailyDigestAt" | "customerMemoryWhatsapp" | "customerMemoryPhone" | "customerMemoryConsentAt" | "customerMemoryConsentVersion" | "pushNotificationsEnabled" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
+export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"rentalPolicy" | "rentalLateUnit" | "rentalLateRate" | "businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "featuredCollectionIds" | "tickerItems" | "defaultPaymentStatus" | "allowedPaymentMethods" | "defaultPaymentMethod" | "allowedFulfillmentMethods" | "deliveryAreas" | "deliveryStates" | "deliveryCountries" | "collectionOrder" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "lowStockThreshold" | "dailyDigestWhatsapp" | "dailyDigestTime" | "dailyDigestWeekdays" | "dailyDigestPhone" | "dailyDigestConsentAt" | "dailyDigestConsentVersion" | "dailyDigestPausedAt" | "lastDailyDigestAt" | "customerMemoryWhatsapp" | "customerMemoryPhone" | "customerMemoryConsentAt" | "customerMemoryConsentVersion" | "pushNotificationsEnabled" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
 export type BusinessPreferencesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
 }
@@ -1711,6 +1815,9 @@ export type $BusinessPreferencesPayload<ExtArgs extends runtime.Types.Extensions
     business: Prisma.$BusinessPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
+    rentalPolicy: string | null
+    rentalLateUnit: string
+    rentalLateRate: runtime.Decimal
     businessId: string
     currency: string
     numberFormat: $Enums.NumberFormat
@@ -1837,8 +1944,8 @@ export interface BusinessPreferencesDelegate<ExtArgs extends runtime.Types.Exten
    * // Get first 10 BusinessPreferences
    * const businessPreferences = await prisma.businessPreferences.findMany({ take: 10 })
    * 
-   * // Only select the `businessId`
-   * const businessPreferencesWithBusinessIdOnly = await prisma.businessPreferences.findMany({ select: { businessId: true } })
+   * // Only select the `rentalPolicy`
+   * const businessPreferencesWithRentalPolicyOnly = await prisma.businessPreferences.findMany({ select: { rentalPolicy: true } })
    * 
    */
   findMany<T extends BusinessPreferencesFindManyArgs>(args?: Prisma.SelectSubset<T, BusinessPreferencesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessPreferencesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1882,9 +1989,9 @@ export interface BusinessPreferencesDelegate<ExtArgs extends runtime.Types.Exten
    *   ]
    * })
    * 
-   * // Create many BusinessPreferences and only return the `businessId`
-   * const businessPreferencesWithBusinessIdOnly = await prisma.businessPreferences.createManyAndReturn({
-   *   select: { businessId: true },
+   * // Create many BusinessPreferences and only return the `rentalPolicy`
+   * const businessPreferencesWithRentalPolicyOnly = await prisma.businessPreferences.createManyAndReturn({
+   *   select: { rentalPolicy: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -1973,9 +2080,9 @@ export interface BusinessPreferencesDelegate<ExtArgs extends runtime.Types.Exten
    *   ]
    * })
    * 
-   * // Update zero or more BusinessPreferences and only return the `businessId`
-   * const businessPreferencesWithBusinessIdOnly = await prisma.businessPreferences.updateManyAndReturn({
-   *   select: { businessId: true },
+   * // Update zero or more BusinessPreferences and only return the `rentalPolicy`
+   * const businessPreferencesWithRentalPolicyOnly = await prisma.businessPreferences.updateManyAndReturn({
+   *   select: { rentalPolicy: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -2178,6 +2285,9 @@ export interface Prisma__BusinessPreferencesClient<T, Null = never, ExtArgs exte
  * Fields of the BusinessPreferences model
  */
 export interface BusinessPreferencesFieldRefs {
+  readonly rentalPolicy: Prisma.FieldRef<"BusinessPreferences", 'String'>
+  readonly rentalLateUnit: Prisma.FieldRef<"BusinessPreferences", 'String'>
+  readonly rentalLateRate: Prisma.FieldRef<"BusinessPreferences", 'Decimal'>
   readonly businessId: Prisma.FieldRef<"BusinessPreferences", 'String'>
   readonly currency: Prisma.FieldRef<"BusinessPreferences", 'String'>
   readonly numberFormat: Prisma.FieldRef<"BusinessPreferences", 'NumberFormat'>

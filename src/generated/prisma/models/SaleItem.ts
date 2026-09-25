@@ -27,6 +27,7 @@ export type AggregateSaleItem = {
 }
 
 export type SaleItemAvgAggregateOutputType = {
+  rentalLateFee: runtime.Decimal | null
   quantity: number | null
   catalogUnitPrice: runtime.Decimal | null
   unitPrice: runtime.Decimal | null
@@ -34,6 +35,7 @@ export type SaleItemAvgAggregateOutputType = {
 }
 
 export type SaleItemSumAggregateOutputType = {
+  rentalLateFee: runtime.Decimal | null
   quantity: number | null
   catalogUnitPrice: runtime.Decimal | null
   unitPrice: runtime.Decimal | null
@@ -41,6 +43,14 @@ export type SaleItemSumAggregateOutputType = {
 }
 
 export type SaleItemMinAggregateOutputType = {
+  rentalStartAt: Date | null
+  rentalEndAt: Date | null
+  rentalDispatchedAt: Date | null
+  rentalReceivedAt: Date | null
+  rentalReturnedAt: Date | null
+  rentalReceiveAssetId: string | null
+  rentalReturnAssetId: string | null
+  rentalLateFee: runtime.Decimal | null
   id: string | null
   saleId: string | null
   productId: string | null
@@ -57,6 +67,14 @@ export type SaleItemMinAggregateOutputType = {
 }
 
 export type SaleItemMaxAggregateOutputType = {
+  rentalStartAt: Date | null
+  rentalEndAt: Date | null
+  rentalDispatchedAt: Date | null
+  rentalReceivedAt: Date | null
+  rentalReturnedAt: Date | null
+  rentalReceiveAssetId: string | null
+  rentalReturnAssetId: string | null
+  rentalLateFee: runtime.Decimal | null
   id: string | null
   saleId: string | null
   productId: string | null
@@ -73,6 +91,15 @@ export type SaleItemMaxAggregateOutputType = {
 }
 
 export type SaleItemCountAggregateOutputType = {
+  rental: number
+  rentalStartAt: number
+  rentalEndAt: number
+  rentalDispatchedAt: number
+  rentalReceivedAt: number
+  rentalReturnedAt: number
+  rentalReceiveAssetId: number
+  rentalReturnAssetId: number
+  rentalLateFee: number
   id: number
   saleId: number
   productId: number
@@ -92,6 +119,7 @@ export type SaleItemCountAggregateOutputType = {
 
 
 export type SaleItemAvgAggregateInputType = {
+  rentalLateFee?: true
   quantity?: true
   catalogUnitPrice?: true
   unitPrice?: true
@@ -99,6 +127,7 @@ export type SaleItemAvgAggregateInputType = {
 }
 
 export type SaleItemSumAggregateInputType = {
+  rentalLateFee?: true
   quantity?: true
   catalogUnitPrice?: true
   unitPrice?: true
@@ -106,6 +135,14 @@ export type SaleItemSumAggregateInputType = {
 }
 
 export type SaleItemMinAggregateInputType = {
+  rentalStartAt?: true
+  rentalEndAt?: true
+  rentalDispatchedAt?: true
+  rentalReceivedAt?: true
+  rentalReturnedAt?: true
+  rentalReceiveAssetId?: true
+  rentalReturnAssetId?: true
+  rentalLateFee?: true
   id?: true
   saleId?: true
   productId?: true
@@ -122,6 +159,14 @@ export type SaleItemMinAggregateInputType = {
 }
 
 export type SaleItemMaxAggregateInputType = {
+  rentalStartAt?: true
+  rentalEndAt?: true
+  rentalDispatchedAt?: true
+  rentalReceivedAt?: true
+  rentalReturnedAt?: true
+  rentalReceiveAssetId?: true
+  rentalReturnAssetId?: true
+  rentalLateFee?: true
   id?: true
   saleId?: true
   productId?: true
@@ -138,6 +183,15 @@ export type SaleItemMaxAggregateInputType = {
 }
 
 export type SaleItemCountAggregateInputType = {
+  rental?: true
+  rentalStartAt?: true
+  rentalEndAt?: true
+  rentalDispatchedAt?: true
+  rentalReceivedAt?: true
+  rentalReturnedAt?: true
+  rentalReceiveAssetId?: true
+  rentalReturnAssetId?: true
+  rentalLateFee?: true
   id?: true
   saleId?: true
   productId?: true
@@ -242,6 +296,15 @@ export type SaleItemGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 export type SaleItemGroupByOutputType = {
+  rental: runtime.JsonValue | null
+  rentalStartAt: Date | null
+  rentalEndAt: Date | null
+  rentalDispatchedAt: Date | null
+  rentalReceivedAt: Date | null
+  rentalReturnedAt: Date | null
+  rentalReceiveAssetId: string | null
+  rentalReturnAssetId: string | null
+  rentalLateFee: runtime.Decimal | null
   id: string
   saleId: string
   productId: string | null
@@ -282,6 +345,15 @@ export type SaleItemWhereInput = {
   AND?: Prisma.SaleItemWhereInput | Prisma.SaleItemWhereInput[]
   OR?: Prisma.SaleItemWhereInput[]
   NOT?: Prisma.SaleItemWhereInput | Prisma.SaleItemWhereInput[]
+  rental?: Prisma.JsonNullableFilter<"SaleItem">
+  rentalStartAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalEndAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalDispatchedAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalReceivedAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalReturnedAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalReceiveAssetId?: Prisma.StringNullableFilter<"SaleItem"> | string | null
+  rentalReturnAssetId?: Prisma.StringNullableFilter<"SaleItem"> | string | null
+  rentalLateFee?: Prisma.DecimalNullableFilter<"SaleItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFilter<"SaleItem"> | string
   saleId?: Prisma.StringFilter<"SaleItem"> | string
   productId?: Prisma.StringNullableFilter<"SaleItem"> | string | null
@@ -296,12 +368,23 @@ export type SaleItemWhereInput = {
   unitPrice?: Prisma.DecimalFilter<"SaleItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: Prisma.StringNullableFilter<"SaleItem"> | string | null
   total?: Prisma.DecimalFilter<"SaleItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
+  rentalReturnAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
 }
 
 export type SaleItemOrderByWithRelationInput = {
+  rental?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalStartAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalDispatchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalReceivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalReturnedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalReceiveAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalReturnAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalLateFee?: Prisma.SortOrderInput | Prisma.SortOrder
   id?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   productId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -316,16 +399,27 @@ export type SaleItemOrderByWithRelationInput = {
   unitPrice?: Prisma.SortOrder
   priceAdjustmentReason?: Prisma.SortOrderInput | Prisma.SortOrder
   total?: Prisma.SortOrder
+  rentalReceiveAsset?: Prisma.MediaAssetOrderByWithRelationInput
+  rentalReturnAsset?: Prisma.MediaAssetOrderByWithRelationInput
   sale?: Prisma.SaleOrderByWithRelationInput
   product?: Prisma.ProductOrderByWithRelationInput
   variant?: Prisma.ProductVariantOrderByWithRelationInput
 }
 
 export type SaleItemWhereUniqueInput = Prisma.AtLeast<{
+  rentalReceiveAssetId?: string
+  rentalReturnAssetId?: string
   id?: string
   AND?: Prisma.SaleItemWhereInput | Prisma.SaleItemWhereInput[]
   OR?: Prisma.SaleItemWhereInput[]
   NOT?: Prisma.SaleItemWhereInput | Prisma.SaleItemWhereInput[]
+  rental?: Prisma.JsonNullableFilter<"SaleItem">
+  rentalStartAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalEndAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalDispatchedAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalReceivedAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalReturnedAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalLateFee?: Prisma.DecimalNullableFilter<"SaleItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   saleId?: Prisma.StringFilter<"SaleItem"> | string
   productId?: Prisma.StringNullableFilter<"SaleItem"> | string | null
   variantId?: Prisma.StringNullableFilter<"SaleItem"> | string | null
@@ -339,12 +433,23 @@ export type SaleItemWhereUniqueInput = Prisma.AtLeast<{
   unitPrice?: Prisma.DecimalFilter<"SaleItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: Prisma.StringNullableFilter<"SaleItem"> | string | null
   total?: Prisma.DecimalFilter<"SaleItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
+  rentalReturnAsset?: Prisma.XOR<Prisma.MediaAssetNullableScalarRelationFilter, Prisma.MediaAssetWhereInput> | null
   sale?: Prisma.XOR<Prisma.SaleScalarRelationFilter, Prisma.SaleWhereInput>
   product?: Prisma.XOR<Prisma.ProductNullableScalarRelationFilter, Prisma.ProductWhereInput> | null
   variant?: Prisma.XOR<Prisma.ProductVariantNullableScalarRelationFilter, Prisma.ProductVariantWhereInput> | null
-}, "id">
+}, "id" | "rentalReceiveAssetId" | "rentalReturnAssetId">
 
 export type SaleItemOrderByWithAggregationInput = {
+  rental?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalStartAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalDispatchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalReceivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalReturnedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalReceiveAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalReturnAssetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rentalLateFee?: Prisma.SortOrderInput | Prisma.SortOrder
   id?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   productId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -370,6 +475,15 @@ export type SaleItemScalarWhereWithAggregatesInput = {
   AND?: Prisma.SaleItemScalarWhereWithAggregatesInput | Prisma.SaleItemScalarWhereWithAggregatesInput[]
   OR?: Prisma.SaleItemScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SaleItemScalarWhereWithAggregatesInput | Prisma.SaleItemScalarWhereWithAggregatesInput[]
+  rental?: Prisma.JsonNullableWithAggregatesFilter<"SaleItem">
+  rentalStartAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SaleItem"> | Date | string | null
+  rentalEndAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SaleItem"> | Date | string | null
+  rentalDispatchedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SaleItem"> | Date | string | null
+  rentalReceivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SaleItem"> | Date | string | null
+  rentalReturnedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SaleItem"> | Date | string | null
+  rentalReceiveAssetId?: Prisma.StringNullableWithAggregatesFilter<"SaleItem"> | string | null
+  rentalReturnAssetId?: Prisma.StringNullableWithAggregatesFilter<"SaleItem"> | string | null
+  rentalLateFee?: Prisma.DecimalNullableWithAggregatesFilter<"SaleItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringWithAggregatesFilter<"SaleItem"> | string
   saleId?: Prisma.StringWithAggregatesFilter<"SaleItem"> | string
   productId?: Prisma.StringNullableWithAggregatesFilter<"SaleItem"> | string | null
@@ -387,6 +501,13 @@ export type SaleItemScalarWhereWithAggregatesInput = {
 }
 
 export type SaleItemCreateInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   variantName?: string | null
   variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -398,12 +519,23 @@ export type SaleItemCreateInput = {
   unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: string | null
   total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReceiveEvidenceInput
+  rentalReturnAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReturnEvidenceInput
   sale: Prisma.SaleCreateNestedOneWithoutItemsInput
   product?: Prisma.ProductCreateNestedOneWithoutSaleItemsInput
   variant?: Prisma.ProductVariantCreateNestedOneWithoutSaleItemsInput
 }
 
 export type SaleItemUncheckedCreateInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReceiveAssetId?: string | null
+  rentalReturnAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   saleId: string
   productId?: string | null
@@ -421,6 +553,13 @@ export type SaleItemUncheckedCreateInput = {
 }
 
 export type SaleItemUpdateInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -432,12 +571,23 @@ export type SaleItemUpdateInput = {
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReceiveEvidenceNestedInput
+  rentalReturnAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReturnEvidenceNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutItemsNestedInput
   product?: Prisma.ProductUpdateOneWithoutSaleItemsNestedInput
   variant?: Prisma.ProductVariantUpdateOneWithoutSaleItemsNestedInput
 }
 
 export type SaleItemUncheckedUpdateInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceiveAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalReturnAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -455,6 +605,15 @@ export type SaleItemUncheckedUpdateInput = {
 }
 
 export type SaleItemCreateManyInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReceiveAssetId?: string | null
+  rentalReturnAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   saleId: string
   productId?: string | null
@@ -472,6 +631,13 @@ export type SaleItemCreateManyInput = {
 }
 
 export type SaleItemUpdateManyMutationInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -486,6 +652,15 @@ export type SaleItemUpdateManyMutationInput = {
 }
 
 export type SaleItemUncheckedUpdateManyInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceiveAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalReturnAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -502,6 +677,11 @@ export type SaleItemUncheckedUpdateManyInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type SaleItemNullableScalarRelationFilter = {
+  is?: Prisma.SaleItemWhereInput | null
+  isNot?: Prisma.SaleItemWhereInput | null
+}
+
 export type SaleItemListRelationFilter = {
   every?: Prisma.SaleItemWhereInput
   some?: Prisma.SaleItemWhereInput
@@ -513,6 +693,15 @@ export type SaleItemOrderByRelationAggregateInput = {
 }
 
 export type SaleItemCountOrderByAggregateInput = {
+  rental?: Prisma.SortOrder
+  rentalStartAt?: Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrder
+  rentalDispatchedAt?: Prisma.SortOrder
+  rentalReceivedAt?: Prisma.SortOrder
+  rentalReturnedAt?: Prisma.SortOrder
+  rentalReceiveAssetId?: Prisma.SortOrder
+  rentalReturnAssetId?: Prisma.SortOrder
+  rentalLateFee?: Prisma.SortOrder
   id?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   productId?: Prisma.SortOrder
@@ -530,6 +719,7 @@ export type SaleItemCountOrderByAggregateInput = {
 }
 
 export type SaleItemAvgOrderByAggregateInput = {
+  rentalLateFee?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   catalogUnitPrice?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
@@ -537,6 +727,14 @@ export type SaleItemAvgOrderByAggregateInput = {
 }
 
 export type SaleItemMaxOrderByAggregateInput = {
+  rentalStartAt?: Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrder
+  rentalDispatchedAt?: Prisma.SortOrder
+  rentalReceivedAt?: Prisma.SortOrder
+  rentalReturnedAt?: Prisma.SortOrder
+  rentalReceiveAssetId?: Prisma.SortOrder
+  rentalReturnAssetId?: Prisma.SortOrder
+  rentalLateFee?: Prisma.SortOrder
   id?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   productId?: Prisma.SortOrder
@@ -553,6 +751,14 @@ export type SaleItemMaxOrderByAggregateInput = {
 }
 
 export type SaleItemMinOrderByAggregateInput = {
+  rentalStartAt?: Prisma.SortOrder
+  rentalEndAt?: Prisma.SortOrder
+  rentalDispatchedAt?: Prisma.SortOrder
+  rentalReceivedAt?: Prisma.SortOrder
+  rentalReturnedAt?: Prisma.SortOrder
+  rentalReceiveAssetId?: Prisma.SortOrder
+  rentalReturnAssetId?: Prisma.SortOrder
+  rentalLateFee?: Prisma.SortOrder
   id?: Prisma.SortOrder
   saleId?: Prisma.SortOrder
   productId?: Prisma.SortOrder
@@ -569,10 +775,75 @@ export type SaleItemMinOrderByAggregateInput = {
 }
 
 export type SaleItemSumOrderByAggregateInput = {
+  rentalLateFee?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   catalogUnitPrice?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   total?: Prisma.SortOrder
+}
+
+export type SaleItemCreateNestedOneWithoutRentalReceiveAssetInput = {
+  create?: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReceiveAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReceiveAssetInput>
+  connectOrCreate?: Prisma.SaleItemCreateOrConnectWithoutRentalReceiveAssetInput
+  connect?: Prisma.SaleItemWhereUniqueInput
+}
+
+export type SaleItemCreateNestedOneWithoutRentalReturnAssetInput = {
+  create?: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReturnAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReturnAssetInput>
+  connectOrCreate?: Prisma.SaleItemCreateOrConnectWithoutRentalReturnAssetInput
+  connect?: Prisma.SaleItemWhereUniqueInput
+}
+
+export type SaleItemUncheckedCreateNestedOneWithoutRentalReceiveAssetInput = {
+  create?: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReceiveAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReceiveAssetInput>
+  connectOrCreate?: Prisma.SaleItemCreateOrConnectWithoutRentalReceiveAssetInput
+  connect?: Prisma.SaleItemWhereUniqueInput
+}
+
+export type SaleItemUncheckedCreateNestedOneWithoutRentalReturnAssetInput = {
+  create?: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReturnAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReturnAssetInput>
+  connectOrCreate?: Prisma.SaleItemCreateOrConnectWithoutRentalReturnAssetInput
+  connect?: Prisma.SaleItemWhereUniqueInput
+}
+
+export type SaleItemUpdateOneWithoutRentalReceiveAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReceiveAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReceiveAssetInput>
+  connectOrCreate?: Prisma.SaleItemCreateOrConnectWithoutRentalReceiveAssetInput
+  upsert?: Prisma.SaleItemUpsertWithoutRentalReceiveAssetInput
+  disconnect?: Prisma.SaleItemWhereInput | boolean
+  delete?: Prisma.SaleItemWhereInput | boolean
+  connect?: Prisma.SaleItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SaleItemUpdateToOneWithWhereWithoutRentalReceiveAssetInput, Prisma.SaleItemUpdateWithoutRentalReceiveAssetInput>, Prisma.SaleItemUncheckedUpdateWithoutRentalReceiveAssetInput>
+}
+
+export type SaleItemUpdateOneWithoutRentalReturnAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReturnAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReturnAssetInput>
+  connectOrCreate?: Prisma.SaleItemCreateOrConnectWithoutRentalReturnAssetInput
+  upsert?: Prisma.SaleItemUpsertWithoutRentalReturnAssetInput
+  disconnect?: Prisma.SaleItemWhereInput | boolean
+  delete?: Prisma.SaleItemWhereInput | boolean
+  connect?: Prisma.SaleItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SaleItemUpdateToOneWithWhereWithoutRentalReturnAssetInput, Prisma.SaleItemUpdateWithoutRentalReturnAssetInput>, Prisma.SaleItemUncheckedUpdateWithoutRentalReturnAssetInput>
+}
+
+export type SaleItemUncheckedUpdateOneWithoutRentalReceiveAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReceiveAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReceiveAssetInput>
+  connectOrCreate?: Prisma.SaleItemCreateOrConnectWithoutRentalReceiveAssetInput
+  upsert?: Prisma.SaleItemUpsertWithoutRentalReceiveAssetInput
+  disconnect?: Prisma.SaleItemWhereInput | boolean
+  delete?: Prisma.SaleItemWhereInput | boolean
+  connect?: Prisma.SaleItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SaleItemUpdateToOneWithWhereWithoutRentalReceiveAssetInput, Prisma.SaleItemUpdateWithoutRentalReceiveAssetInput>, Prisma.SaleItemUncheckedUpdateWithoutRentalReceiveAssetInput>
+}
+
+export type SaleItemUncheckedUpdateOneWithoutRentalReturnAssetNestedInput = {
+  create?: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReturnAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReturnAssetInput>
+  connectOrCreate?: Prisma.SaleItemCreateOrConnectWithoutRentalReturnAssetInput
+  upsert?: Prisma.SaleItemUpsertWithoutRentalReturnAssetInput
+  disconnect?: Prisma.SaleItemWhereInput | boolean
+  delete?: Prisma.SaleItemWhereInput | boolean
+  connect?: Prisma.SaleItemWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SaleItemUpdateToOneWithWhereWithoutRentalReturnAssetInput, Prisma.SaleItemUpdateWithoutRentalReturnAssetInput>, Prisma.SaleItemUncheckedUpdateWithoutRentalReturnAssetInput>
 }
 
 export type SaleItemCreateNestedManyWithoutProductInput = {
@@ -705,7 +976,14 @@ export type NullableEnumSaleItemInventorySourceFieldUpdateOperationsInput = {
   set?: $Enums.SaleItemInventorySource | null
 }
 
-export type SaleItemCreateWithoutProductInput = {
+export type SaleItemCreateWithoutRentalReceiveAssetInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   variantName?: string | null
   variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -717,11 +995,254 @@ export type SaleItemCreateWithoutProductInput = {
   unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: string | null
   total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReturnAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReturnEvidenceInput
+  sale: Prisma.SaleCreateNestedOneWithoutItemsInput
+  product?: Prisma.ProductCreateNestedOneWithoutSaleItemsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutSaleItemsInput
+}
+
+export type SaleItemUncheckedCreateWithoutRentalReceiveAssetInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReturnAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id?: string
+  saleId: string
+  productId?: string | null
+  variantId?: string | null
+  variantName?: string | null
+  variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  inventorySource?: $Enums.SaleItemInventorySource | null
+  name: string
+  imageUrl?: string | null
+  quantity?: number
+  catalogUnitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  priceAdjustmentReason?: string | null
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type SaleItemCreateOrConnectWithoutRentalReceiveAssetInput = {
+  where: Prisma.SaleItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReceiveAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReceiveAssetInput>
+}
+
+export type SaleItemCreateWithoutRentalReturnAssetInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id?: string
+  variantName?: string | null
+  variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  inventorySource?: $Enums.SaleItemInventorySource | null
+  name: string
+  imageUrl?: string | null
+  quantity?: number
+  catalogUnitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  priceAdjustmentReason?: string | null
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReceiveEvidenceInput
+  sale: Prisma.SaleCreateNestedOneWithoutItemsInput
+  product?: Prisma.ProductCreateNestedOneWithoutSaleItemsInput
+  variant?: Prisma.ProductVariantCreateNestedOneWithoutSaleItemsInput
+}
+
+export type SaleItemUncheckedCreateWithoutRentalReturnAssetInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReceiveAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id?: string
+  saleId: string
+  productId?: string | null
+  variantId?: string | null
+  variantName?: string | null
+  variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  inventorySource?: $Enums.SaleItemInventorySource | null
+  name: string
+  imageUrl?: string | null
+  quantity?: number
+  catalogUnitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  priceAdjustmentReason?: string | null
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type SaleItemCreateOrConnectWithoutRentalReturnAssetInput = {
+  where: Prisma.SaleItemWhereUniqueInput
+  create: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReturnAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReturnAssetInput>
+}
+
+export type SaleItemUpsertWithoutRentalReceiveAssetInput = {
+  update: Prisma.XOR<Prisma.SaleItemUpdateWithoutRentalReceiveAssetInput, Prisma.SaleItemUncheckedUpdateWithoutRentalReceiveAssetInput>
+  create: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReceiveAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReceiveAssetInput>
+  where?: Prisma.SaleItemWhereInput
+}
+
+export type SaleItemUpdateToOneWithWhereWithoutRentalReceiveAssetInput = {
+  where?: Prisma.SaleItemWhereInput
+  data: Prisma.XOR<Prisma.SaleItemUpdateWithoutRentalReceiveAssetInput, Prisma.SaleItemUncheckedUpdateWithoutRentalReceiveAssetInput>
+}
+
+export type SaleItemUpdateWithoutRentalReceiveAssetInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  variantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  inventorySource?: Prisma.NullableEnumSaleItemInventorySourceFieldUpdateOperationsInput | $Enums.SaleItemInventorySource | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  catalogUnitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  priceAdjustmentReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReturnAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReturnEvidenceNestedInput
+  sale?: Prisma.SaleUpdateOneRequiredWithoutItemsNestedInput
+  product?: Prisma.ProductUpdateOneWithoutSaleItemsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutSaleItemsNestedInput
+}
+
+export type SaleItemUncheckedUpdateWithoutRentalReceiveAssetInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  inventorySource?: Prisma.NullableEnumSaleItemInventorySourceFieldUpdateOperationsInput | $Enums.SaleItemInventorySource | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  catalogUnitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  priceAdjustmentReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type SaleItemUpsertWithoutRentalReturnAssetInput = {
+  update: Prisma.XOR<Prisma.SaleItemUpdateWithoutRentalReturnAssetInput, Prisma.SaleItemUncheckedUpdateWithoutRentalReturnAssetInput>
+  create: Prisma.XOR<Prisma.SaleItemCreateWithoutRentalReturnAssetInput, Prisma.SaleItemUncheckedCreateWithoutRentalReturnAssetInput>
+  where?: Prisma.SaleItemWhereInput
+}
+
+export type SaleItemUpdateToOneWithWhereWithoutRentalReturnAssetInput = {
+  where?: Prisma.SaleItemWhereInput
+  data: Prisma.XOR<Prisma.SaleItemUpdateWithoutRentalReturnAssetInput, Prisma.SaleItemUncheckedUpdateWithoutRentalReturnAssetInput>
+}
+
+export type SaleItemUpdateWithoutRentalReturnAssetInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  variantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  inventorySource?: Prisma.NullableEnumSaleItemInventorySourceFieldUpdateOperationsInput | $Enums.SaleItemInventorySource | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  catalogUnitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  priceAdjustmentReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReceiveEvidenceNestedInput
+  sale?: Prisma.SaleUpdateOneRequiredWithoutItemsNestedInput
+  product?: Prisma.ProductUpdateOneWithoutSaleItemsNestedInput
+  variant?: Prisma.ProductVariantUpdateOneWithoutSaleItemsNestedInput
+}
+
+export type SaleItemUncheckedUpdateWithoutRentalReturnAssetInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceiveAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  saleId?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  inventorySource?: Prisma.NullableEnumSaleItemInventorySourceFieldUpdateOperationsInput | $Enums.SaleItemInventorySource | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quantity?: Prisma.IntFieldUpdateOperationsInput | number
+  catalogUnitPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  priceAdjustmentReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type SaleItemCreateWithoutProductInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  id?: string
+  variantName?: string | null
+  variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  inventorySource?: $Enums.SaleItemInventorySource | null
+  name: string
+  imageUrl?: string | null
+  quantity?: number
+  catalogUnitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
+  priceAdjustmentReason?: string | null
+  total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReceiveEvidenceInput
+  rentalReturnAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReturnEvidenceInput
   sale: Prisma.SaleCreateNestedOneWithoutItemsInput
   variant?: Prisma.ProductVariantCreateNestedOneWithoutSaleItemsInput
 }
 
 export type SaleItemUncheckedCreateWithoutProductInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReceiveAssetId?: string | null
+  rentalReturnAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   saleId: string
   variantId?: string | null
@@ -767,6 +1288,15 @@ export type SaleItemScalarWhereInput = {
   AND?: Prisma.SaleItemScalarWhereInput | Prisma.SaleItemScalarWhereInput[]
   OR?: Prisma.SaleItemScalarWhereInput[]
   NOT?: Prisma.SaleItemScalarWhereInput | Prisma.SaleItemScalarWhereInput[]
+  rental?: Prisma.JsonNullableFilter<"SaleItem">
+  rentalStartAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalEndAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalDispatchedAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalReceivedAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalReturnedAt?: Prisma.DateTimeNullableFilter<"SaleItem"> | Date | string | null
+  rentalReceiveAssetId?: Prisma.StringNullableFilter<"SaleItem"> | string | null
+  rentalReturnAssetId?: Prisma.StringNullableFilter<"SaleItem"> | string | null
+  rentalLateFee?: Prisma.DecimalNullableFilter<"SaleItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFilter<"SaleItem"> | string
   saleId?: Prisma.StringFilter<"SaleItem"> | string
   productId?: Prisma.StringNullableFilter<"SaleItem"> | string | null
@@ -784,6 +1314,13 @@ export type SaleItemScalarWhereInput = {
 }
 
 export type SaleItemCreateWithoutVariantInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   variantName?: string | null
   variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -795,11 +1332,22 @@ export type SaleItemCreateWithoutVariantInput = {
   unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: string | null
   total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReceiveEvidenceInput
+  rentalReturnAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReturnEvidenceInput
   sale: Prisma.SaleCreateNestedOneWithoutItemsInput
   product?: Prisma.ProductCreateNestedOneWithoutSaleItemsInput
 }
 
 export type SaleItemUncheckedCreateWithoutVariantInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReceiveAssetId?: string | null
+  rentalReturnAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   saleId: string
   productId?: string | null
@@ -842,6 +1390,13 @@ export type SaleItemUpdateManyWithWhereWithoutVariantInput = {
 }
 
 export type SaleItemCreateWithoutSaleInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   variantName?: string | null
   variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -853,11 +1408,22 @@ export type SaleItemCreateWithoutSaleInput = {
   unitPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: string | null
   total: runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReceiveEvidenceInput
+  rentalReturnAsset?: Prisma.MediaAssetCreateNestedOneWithoutRentalReturnEvidenceInput
   product?: Prisma.ProductCreateNestedOneWithoutSaleItemsInput
   variant?: Prisma.ProductVariantCreateNestedOneWithoutSaleItemsInput
 }
 
 export type SaleItemUncheckedCreateWithoutSaleInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReceiveAssetId?: string | null
+  rentalReturnAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   productId?: string | null
   variantId?: string | null
@@ -900,6 +1466,15 @@ export type SaleItemUpdateManyWithWhereWithoutSaleInput = {
 }
 
 export type SaleItemCreateManyProductInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReceiveAssetId?: string | null
+  rentalReturnAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   saleId: string
   variantId?: string | null
@@ -916,6 +1491,13 @@ export type SaleItemCreateManyProductInput = {
 }
 
 export type SaleItemUpdateWithoutProductInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -927,11 +1509,22 @@ export type SaleItemUpdateWithoutProductInput = {
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReceiveEvidenceNestedInput
+  rentalReturnAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReturnEvidenceNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutItemsNestedInput
   variant?: Prisma.ProductVariantUpdateOneWithoutSaleItemsNestedInput
 }
 
 export type SaleItemUncheckedUpdateWithoutProductInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceiveAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalReturnAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -948,6 +1541,15 @@ export type SaleItemUncheckedUpdateWithoutProductInput = {
 }
 
 export type SaleItemUncheckedUpdateManyWithoutProductInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceiveAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalReturnAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -964,6 +1566,15 @@ export type SaleItemUncheckedUpdateManyWithoutProductInput = {
 }
 
 export type SaleItemCreateManyVariantInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReceiveAssetId?: string | null
+  rentalReturnAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   saleId: string
   productId?: string | null
@@ -980,6 +1591,13 @@ export type SaleItemCreateManyVariantInput = {
 }
 
 export type SaleItemUpdateWithoutVariantInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -991,11 +1609,22 @@ export type SaleItemUpdateWithoutVariantInput = {
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReceiveEvidenceNestedInput
+  rentalReturnAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReturnEvidenceNestedInput
   sale?: Prisma.SaleUpdateOneRequiredWithoutItemsNestedInput
   product?: Prisma.ProductUpdateOneWithoutSaleItemsNestedInput
 }
 
 export type SaleItemUncheckedUpdateWithoutVariantInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceiveAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalReturnAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1012,6 +1641,15 @@ export type SaleItemUncheckedUpdateWithoutVariantInput = {
 }
 
 export type SaleItemUncheckedUpdateManyWithoutVariantInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceiveAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalReturnAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   saleId?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1028,6 +1666,15 @@ export type SaleItemUncheckedUpdateManyWithoutVariantInput = {
 }
 
 export type SaleItemCreateManySaleInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Date | string | null
+  rentalEndAt?: Date | string | null
+  rentalDispatchedAt?: Date | string | null
+  rentalReceivedAt?: Date | string | null
+  rentalReturnedAt?: Date | string | null
+  rentalReceiveAssetId?: string | null
+  rentalReturnAssetId?: string | null
+  rentalLateFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: string
   productId?: string | null
   variantId?: string | null
@@ -1044,6 +1691,13 @@ export type SaleItemCreateManySaleInput = {
 }
 
 export type SaleItemUpdateWithoutSaleInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   variantName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variantSnapshot?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
@@ -1055,11 +1709,22 @@ export type SaleItemUpdateWithoutSaleInput = {
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   priceAdjustmentReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  rentalReceiveAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReceiveEvidenceNestedInput
+  rentalReturnAsset?: Prisma.MediaAssetUpdateOneWithoutRentalReturnEvidenceNestedInput
   product?: Prisma.ProductUpdateOneWithoutSaleItemsNestedInput
   variant?: Prisma.ProductVariantUpdateOneWithoutSaleItemsNestedInput
 }
 
 export type SaleItemUncheckedUpdateWithoutSaleInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceiveAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalReturnAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1076,6 +1741,15 @@ export type SaleItemUncheckedUpdateWithoutSaleInput = {
 }
 
 export type SaleItemUncheckedUpdateManyWithoutSaleInput = {
+  rental?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  rentalStartAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalEndAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalDispatchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReturnedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rentalReceiveAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalReturnAssetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rentalLateFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   variantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1094,6 +1768,15 @@ export type SaleItemUncheckedUpdateManyWithoutSaleInput = {
 
 
 export type SaleItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  rental?: boolean
+  rentalStartAt?: boolean
+  rentalEndAt?: boolean
+  rentalDispatchedAt?: boolean
+  rentalReceivedAt?: boolean
+  rentalReturnedAt?: boolean
+  rentalReceiveAssetId?: boolean
+  rentalReturnAssetId?: boolean
+  rentalLateFee?: boolean
   id?: boolean
   saleId?: boolean
   productId?: boolean
@@ -1108,12 +1791,23 @@ export type SaleItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   unitPrice?: boolean
   priceAdjustmentReason?: boolean
   total?: boolean
+  rentalReceiveAsset?: boolean | Prisma.SaleItem$rentalReceiveAssetArgs<ExtArgs>
+  rentalReturnAsset?: boolean | Prisma.SaleItem$rentalReturnAssetArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   product?: boolean | Prisma.SaleItem$productArgs<ExtArgs>
   variant?: boolean | Prisma.SaleItem$variantArgs<ExtArgs>
 }, ExtArgs["result"]["saleItem"]>
 
 export type SaleItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  rental?: boolean
+  rentalStartAt?: boolean
+  rentalEndAt?: boolean
+  rentalDispatchedAt?: boolean
+  rentalReceivedAt?: boolean
+  rentalReturnedAt?: boolean
+  rentalReceiveAssetId?: boolean
+  rentalReturnAssetId?: boolean
+  rentalLateFee?: boolean
   id?: boolean
   saleId?: boolean
   productId?: boolean
@@ -1128,12 +1822,23 @@ export type SaleItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   unitPrice?: boolean
   priceAdjustmentReason?: boolean
   total?: boolean
+  rentalReceiveAsset?: boolean | Prisma.SaleItem$rentalReceiveAssetArgs<ExtArgs>
+  rentalReturnAsset?: boolean | Prisma.SaleItem$rentalReturnAssetArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   product?: boolean | Prisma.SaleItem$productArgs<ExtArgs>
   variant?: boolean | Prisma.SaleItem$variantArgs<ExtArgs>
 }, ExtArgs["result"]["saleItem"]>
 
 export type SaleItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  rental?: boolean
+  rentalStartAt?: boolean
+  rentalEndAt?: boolean
+  rentalDispatchedAt?: boolean
+  rentalReceivedAt?: boolean
+  rentalReturnedAt?: boolean
+  rentalReceiveAssetId?: boolean
+  rentalReturnAssetId?: boolean
+  rentalLateFee?: boolean
   id?: boolean
   saleId?: boolean
   productId?: boolean
@@ -1148,12 +1853,23 @@ export type SaleItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   unitPrice?: boolean
   priceAdjustmentReason?: boolean
   total?: boolean
+  rentalReceiveAsset?: boolean | Prisma.SaleItem$rentalReceiveAssetArgs<ExtArgs>
+  rentalReturnAsset?: boolean | Prisma.SaleItem$rentalReturnAssetArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   product?: boolean | Prisma.SaleItem$productArgs<ExtArgs>
   variant?: boolean | Prisma.SaleItem$variantArgs<ExtArgs>
 }, ExtArgs["result"]["saleItem"]>
 
 export type SaleItemSelectScalar = {
+  rental?: boolean
+  rentalStartAt?: boolean
+  rentalEndAt?: boolean
+  rentalDispatchedAt?: boolean
+  rentalReceivedAt?: boolean
+  rentalReturnedAt?: boolean
+  rentalReceiveAssetId?: boolean
+  rentalReturnAssetId?: boolean
+  rentalLateFee?: boolean
   id?: boolean
   saleId?: boolean
   productId?: boolean
@@ -1170,18 +1886,24 @@ export type SaleItemSelectScalar = {
   total?: boolean
 }
 
-export type SaleItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "saleId" | "productId" | "variantId" | "variantName" | "variantSnapshot" | "inventorySource" | "name" | "imageUrl" | "quantity" | "catalogUnitPrice" | "unitPrice" | "priceAdjustmentReason" | "total", ExtArgs["result"]["saleItem"]>
+export type SaleItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"rental" | "rentalStartAt" | "rentalEndAt" | "rentalDispatchedAt" | "rentalReceivedAt" | "rentalReturnedAt" | "rentalReceiveAssetId" | "rentalReturnAssetId" | "rentalLateFee" | "id" | "saleId" | "productId" | "variantId" | "variantName" | "variantSnapshot" | "inventorySource" | "name" | "imageUrl" | "quantity" | "catalogUnitPrice" | "unitPrice" | "priceAdjustmentReason" | "total", ExtArgs["result"]["saleItem"]>
 export type SaleItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  rentalReceiveAsset?: boolean | Prisma.SaleItem$rentalReceiveAssetArgs<ExtArgs>
+  rentalReturnAsset?: boolean | Prisma.SaleItem$rentalReturnAssetArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   product?: boolean | Prisma.SaleItem$productArgs<ExtArgs>
   variant?: boolean | Prisma.SaleItem$variantArgs<ExtArgs>
 }
 export type SaleItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  rentalReceiveAsset?: boolean | Prisma.SaleItem$rentalReceiveAssetArgs<ExtArgs>
+  rentalReturnAsset?: boolean | Prisma.SaleItem$rentalReturnAssetArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   product?: boolean | Prisma.SaleItem$productArgs<ExtArgs>
   variant?: boolean | Prisma.SaleItem$variantArgs<ExtArgs>
 }
 export type SaleItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  rentalReceiveAsset?: boolean | Prisma.SaleItem$rentalReceiveAssetArgs<ExtArgs>
+  rentalReturnAsset?: boolean | Prisma.SaleItem$rentalReturnAssetArgs<ExtArgs>
   sale?: boolean | Prisma.SaleDefaultArgs<ExtArgs>
   product?: boolean | Prisma.SaleItem$productArgs<ExtArgs>
   variant?: boolean | Prisma.SaleItem$variantArgs<ExtArgs>
@@ -1190,11 +1912,22 @@ export type SaleItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type $SaleItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SaleItem"
   objects: {
+    rentalReceiveAsset: Prisma.$MediaAssetPayload<ExtArgs> | null
+    rentalReturnAsset: Prisma.$MediaAssetPayload<ExtArgs> | null
     sale: Prisma.$SalePayload<ExtArgs>
     product: Prisma.$ProductPayload<ExtArgs> | null
     variant: Prisma.$ProductVariantPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
+    rental: runtime.JsonValue | null
+    rentalStartAt: Date | null
+    rentalEndAt: Date | null
+    rentalDispatchedAt: Date | null
+    rentalReceivedAt: Date | null
+    rentalReturnedAt: Date | null
+    rentalReceiveAssetId: string | null
+    rentalReturnAssetId: string | null
+    rentalLateFee: runtime.Decimal | null
     id: string
     saleId: string
     productId: string | null
@@ -1292,8 +2025,8 @@ export interface SaleItemDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    * // Get first 10 SaleItems
    * const saleItems = await prisma.saleItem.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const saleItemWithIdOnly = await prisma.saleItem.findMany({ select: { id: true } })
+   * // Only select the `rental`
+   * const saleItemWithRentalOnly = await prisma.saleItem.findMany({ select: { rental: true } })
    * 
    */
   findMany<T extends SaleItemFindManyArgs>(args?: Prisma.SelectSubset<T, SaleItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SaleItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1337,9 +2070,9 @@ export interface SaleItemDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    *   ]
    * })
    * 
-   * // Create many SaleItems and only return the `id`
-   * const saleItemWithIdOnly = await prisma.saleItem.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many SaleItems and only return the `rental`
+   * const saleItemWithRentalOnly = await prisma.saleItem.createManyAndReturn({
+   *   select: { rental: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -1428,9 +2161,9 @@ export interface SaleItemDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    *   ]
    * })
    * 
-   * // Update zero or more SaleItems and only return the `id`
-   * const saleItemWithIdOnly = await prisma.saleItem.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more SaleItems and only return the `rental`
+   * const saleItemWithRentalOnly = await prisma.saleItem.updateManyAndReturn({
+   *   select: { rental: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1603,6 +2336,8 @@ readonly fields: SaleItemFieldRefs;
  */
 export interface Prisma__SaleItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  rentalReceiveAsset<T extends Prisma.SaleItem$rentalReceiveAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleItem$rentalReceiveAssetArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  rentalReturnAsset<T extends Prisma.SaleItem$rentalReturnAssetArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleItem$rentalReturnAssetArgs<ExtArgs>>): Prisma.Prisma__MediaAssetClient<runtime.Types.Result.GetResult<Prisma.$MediaAssetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   sale<T extends Prisma.SaleDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleDefaultArgs<ExtArgs>>): Prisma.Prisma__SaleClient<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   product<T extends Prisma.SaleItem$productArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleItem$productArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   variant<T extends Prisma.SaleItem$variantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SaleItem$variantArgs<ExtArgs>>): Prisma.Prisma__ProductVariantClient<runtime.Types.Result.GetResult<Prisma.$ProductVariantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1635,6 +2370,15 @@ export interface Prisma__SaleItemClient<T, Null = never, ExtArgs extends runtime
  * Fields of the SaleItem model
  */
 export interface SaleItemFieldRefs {
+  readonly rental: Prisma.FieldRef<"SaleItem", 'Json'>
+  readonly rentalStartAt: Prisma.FieldRef<"SaleItem", 'DateTime'>
+  readonly rentalEndAt: Prisma.FieldRef<"SaleItem", 'DateTime'>
+  readonly rentalDispatchedAt: Prisma.FieldRef<"SaleItem", 'DateTime'>
+  readonly rentalReceivedAt: Prisma.FieldRef<"SaleItem", 'DateTime'>
+  readonly rentalReturnedAt: Prisma.FieldRef<"SaleItem", 'DateTime'>
+  readonly rentalReceiveAssetId: Prisma.FieldRef<"SaleItem", 'String'>
+  readonly rentalReturnAssetId: Prisma.FieldRef<"SaleItem", 'String'>
+  readonly rentalLateFee: Prisma.FieldRef<"SaleItem", 'Decimal'>
   readonly id: Prisma.FieldRef<"SaleItem", 'String'>
   readonly saleId: Prisma.FieldRef<"SaleItem", 'String'>
   readonly productId: Prisma.FieldRef<"SaleItem", 'String'>
@@ -2047,6 +2791,44 @@ export type SaleItemDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many SaleItems to delete.
    */
   limit?: number
+}
+
+/**
+ * SaleItem.rentalReceiveAsset
+ */
+export type SaleItem$rentalReceiveAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MediaAsset
+   */
+  select?: Prisma.MediaAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MediaAsset
+   */
+  omit?: Prisma.MediaAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MediaAssetInclude<ExtArgs> | null
+  where?: Prisma.MediaAssetWhereInput
+}
+
+/**
+ * SaleItem.rentalReturnAsset
+ */
+export type SaleItem$rentalReturnAssetArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MediaAsset
+   */
+  select?: Prisma.MediaAssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MediaAsset
+   */
+  omit?: Prisma.MediaAssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MediaAssetInclude<ExtArgs> | null
+  where?: Prisma.MediaAssetWhereInput
 }
 
 /**

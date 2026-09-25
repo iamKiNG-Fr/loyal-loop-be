@@ -10,6 +10,7 @@ import {
   IsIn,
   IsNumber,
   IsOptional,
+  IsDateString,
   IsString,
   Length,
   Matches,
@@ -62,6 +63,14 @@ export class PublicShopCatalogDto {
 }
 
 export class PublicRequestItemDto {
+  @IsOptional()
+  @IsDateString()
+  rentalStartAt?: string;
+
+  @IsOptional()
+  @IsDateString()
+  rentalEndAt?: string;
+
   @IsString()
   productId!: string;
 
