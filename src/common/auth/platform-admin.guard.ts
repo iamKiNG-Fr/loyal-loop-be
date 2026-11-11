@@ -71,7 +71,7 @@ export class PlatformAdminGuard implements CanActivate {
       void this.prisma.platformAdminSession.update({
         where: { id: platformSession.id },
         data: { lastUsedAt: new Date() },
-      });
+      }).catch(() => undefined);
     }
     return true;
   }

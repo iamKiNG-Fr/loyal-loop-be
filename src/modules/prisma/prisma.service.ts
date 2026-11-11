@@ -16,6 +16,9 @@ export class PrismaService
 
     super({
       adapter: new PrismaPg({ connectionString }),
+      // Prisma's 5 s default is too tight for multi-step writes on a remote
+      // database; a sale alone runs ~50 statements. Callers may still override.
+      transactionOptions: { maxWait: 10_000, timeout: 20_000 },
     });
   }
 

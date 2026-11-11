@@ -85,7 +85,7 @@ export class OwnerAuthGuard implements CanActivate {
       void this.prisma.ownerSession.update({
         where: { id: session.id },
         data: { lastUsedAt: new Date() },
-      });
+      }).catch(() => undefined);
     }
 
     return true;
