@@ -56,6 +56,8 @@ export type BusinessPreferencesMinAggregateOutputType = {
   receiptDeliveryLine: $Enums.ReceiptDeliveryLine | null
   receiptFooter: string | null
   feedbackResponseTime: string | null
+  bioAnnouncement: string | null
+  bioPreviewImage: string | null
   notifyFollowUps: boolean | null
   notifyReceiptViews: boolean | null
   notifyDeliveryUpdates: boolean | null
@@ -96,6 +98,8 @@ export type BusinessPreferencesMaxAggregateOutputType = {
   receiptDeliveryLine: $Enums.ReceiptDeliveryLine | null
   receiptFooter: string | null
   feedbackResponseTime: string | null
+  bioAnnouncement: string | null
+  bioPreviewImage: string | null
   notifyFollowUps: boolean | null
   notifyReceiptViews: boolean | null
   notifyDeliveryUpdates: boolean | null
@@ -144,6 +148,10 @@ export type BusinessPreferencesCountAggregateOutputType = {
   receiptDeliveryLine: number
   receiptFooter: number
   feedbackResponseTime: number
+  bioAnnouncement: number
+  bioFeaturedProductIds: number
+  bioHiddenSections: number
+  bioPreviewImage: number
   notifyFollowUps: number
   notifyReceiptViews: number
   notifyDeliveryUpdates: number
@@ -199,6 +207,8 @@ export type BusinessPreferencesMinAggregateInputType = {
   receiptDeliveryLine?: true
   receiptFooter?: true
   feedbackResponseTime?: true
+  bioAnnouncement?: true
+  bioPreviewImage?: true
   notifyFollowUps?: true
   notifyReceiptViews?: true
   notifyDeliveryUpdates?: true
@@ -239,6 +249,8 @@ export type BusinessPreferencesMaxAggregateInputType = {
   receiptDeliveryLine?: true
   receiptFooter?: true
   feedbackResponseTime?: true
+  bioAnnouncement?: true
+  bioPreviewImage?: true
   notifyFollowUps?: true
   notifyReceiptViews?: true
   notifyDeliveryUpdates?: true
@@ -287,6 +299,10 @@ export type BusinessPreferencesCountAggregateInputType = {
   receiptDeliveryLine?: true
   receiptFooter?: true
   feedbackResponseTime?: true
+  bioAnnouncement?: true
+  bioFeaturedProductIds?: true
+  bioHiddenSections?: true
+  bioPreviewImage?: true
   notifyFollowUps?: true
   notifyReceiptViews?: true
   notifyDeliveryUpdates?: true
@@ -423,6 +439,10 @@ export type BusinessPreferencesGroupByOutputType = {
   receiptDeliveryLine: $Enums.ReceiptDeliveryLine
   receiptFooter: string | null
   feedbackResponseTime: string
+  bioAnnouncement: string | null
+  bioFeaturedProductIds: string[]
+  bioHiddenSections: string[]
+  bioPreviewImage: string
   notifyFollowUps: boolean
   notifyReceiptViews: boolean
   notifyDeliveryUpdates: boolean
@@ -495,6 +515,10 @@ export type BusinessPreferencesWhereInput = {
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFilter<"BusinessPreferences"> | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
   feedbackResponseTime?: Prisma.StringFilter<"BusinessPreferences"> | string
+  bioAnnouncement?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
+  bioFeaturedProductIds?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  bioHiddenSections?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  bioPreviewImage?: Prisma.StringFilter<"BusinessPreferences"> | string
   notifyFollowUps?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   notifyReceiptViews?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   notifyDeliveryUpdates?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
@@ -545,6 +569,10 @@ export type BusinessPreferencesOrderByWithRelationInput = {
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrderInput | Prisma.SortOrder
   feedbackResponseTime?: Prisma.SortOrder
+  bioAnnouncement?: Prisma.SortOrderInput | Prisma.SortOrder
+  bioFeaturedProductIds?: Prisma.SortOrder
+  bioHiddenSections?: Prisma.SortOrder
+  bioPreviewImage?: Prisma.SortOrder
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
@@ -598,6 +626,10 @@ export type BusinessPreferencesWhereUniqueInput = Prisma.AtLeast<{
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFilter<"BusinessPreferences"> | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
   feedbackResponseTime?: Prisma.StringFilter<"BusinessPreferences"> | string
+  bioAnnouncement?: Prisma.StringNullableFilter<"BusinessPreferences"> | string | null
+  bioFeaturedProductIds?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  bioHiddenSections?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  bioPreviewImage?: Prisma.StringFilter<"BusinessPreferences"> | string
   notifyFollowUps?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   notifyReceiptViews?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
   notifyDeliveryUpdates?: Prisma.BoolFilter<"BusinessPreferences"> | boolean
@@ -648,6 +680,10 @@ export type BusinessPreferencesOrderByWithAggregationInput = {
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrderInput | Prisma.SortOrder
   feedbackResponseTime?: Prisma.SortOrder
+  bioAnnouncement?: Prisma.SortOrderInput | Prisma.SortOrder
+  bioFeaturedProductIds?: Prisma.SortOrder
+  bioHiddenSections?: Prisma.SortOrder
+  bioPreviewImage?: Prisma.SortOrder
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
@@ -705,6 +741,10 @@ export type BusinessPreferencesScalarWhereWithAggregatesInput = {
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineWithAggregatesFilter<"BusinessPreferences"> | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.StringNullableWithAggregatesFilter<"BusinessPreferences"> | string | null
   feedbackResponseTime?: Prisma.StringWithAggregatesFilter<"BusinessPreferences"> | string
+  bioAnnouncement?: Prisma.StringNullableWithAggregatesFilter<"BusinessPreferences"> | string | null
+  bioFeaturedProductIds?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  bioHiddenSections?: Prisma.StringNullableListFilter<"BusinessPreferences">
+  bioPreviewImage?: Prisma.StringWithAggregatesFilter<"BusinessPreferences"> | string
   notifyFollowUps?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
   notifyReceiptViews?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
   notifyDeliveryUpdates?: Prisma.BoolWithAggregatesFilter<"BusinessPreferences"> | boolean
@@ -753,6 +793,10 @@ export type BusinessPreferencesCreateInput = {
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
   feedbackResponseTime?: string
+  bioAnnouncement?: string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesCreatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesCreatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: string
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
@@ -803,6 +847,10 @@ export type BusinessPreferencesUncheckedCreateInput = {
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
   feedbackResponseTime?: string
+  bioAnnouncement?: string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesCreatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesCreatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: string
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
@@ -851,6 +899,10 @@ export type BusinessPreferencesUpdateInput = {
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackResponseTime?: Prisma.StringFieldUpdateOperationsInput | string
+  bioAnnouncement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesUpdatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesUpdatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: Prisma.StringFieldUpdateOperationsInput | string
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -901,6 +953,10 @@ export type BusinessPreferencesUncheckedUpdateInput = {
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackResponseTime?: Prisma.StringFieldUpdateOperationsInput | string
+  bioAnnouncement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesUpdatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesUpdatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: Prisma.StringFieldUpdateOperationsInput | string
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -950,6 +1006,10 @@ export type BusinessPreferencesCreateManyInput = {
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
   feedbackResponseTime?: string
+  bioAnnouncement?: string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesCreatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesCreatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: string
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
@@ -998,6 +1058,10 @@ export type BusinessPreferencesUpdateManyMutationInput = {
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackResponseTime?: Prisma.StringFieldUpdateOperationsInput | string
+  bioAnnouncement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesUpdatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesUpdatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: Prisma.StringFieldUpdateOperationsInput | string
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1047,6 +1111,10 @@ export type BusinessPreferencesUncheckedUpdateManyInput = {
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackResponseTime?: Prisma.StringFieldUpdateOperationsInput | string
+  bioAnnouncement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesUpdatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesUpdatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: Prisma.StringFieldUpdateOperationsInput | string
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1125,6 +1193,10 @@ export type BusinessPreferencesCountOrderByAggregateInput = {
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrder
   feedbackResponseTime?: Prisma.SortOrder
+  bioAnnouncement?: Prisma.SortOrder
+  bioFeaturedProductIds?: Prisma.SortOrder
+  bioHiddenSections?: Prisma.SortOrder
+  bioPreviewImage?: Prisma.SortOrder
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
@@ -1172,6 +1244,8 @@ export type BusinessPreferencesMaxOrderByAggregateInput = {
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrder
   feedbackResponseTime?: Prisma.SortOrder
+  bioAnnouncement?: Prisma.SortOrder
+  bioPreviewImage?: Prisma.SortOrder
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
@@ -1212,6 +1286,8 @@ export type BusinessPreferencesMinOrderByAggregateInput = {
   receiptDeliveryLine?: Prisma.SortOrder
   receiptFooter?: Prisma.SortOrder
   feedbackResponseTime?: Prisma.SortOrder
+  bioAnnouncement?: Prisma.SortOrder
+  bioPreviewImage?: Prisma.SortOrder
   notifyFollowUps?: Prisma.SortOrder
   notifyReceiptViews?: Prisma.SortOrder
   notifyDeliveryUpdates?: Prisma.SortOrder
@@ -1304,6 +1380,14 @@ export type BusinessPreferencesCreatecollectionOrderInput = {
   set: string[]
 }
 
+export type BusinessPreferencesCreatebioFeaturedProductIdsInput = {
+  set: string[]
+}
+
+export type BusinessPreferencesCreatebioHiddenSectionsInput = {
+  set: string[]
+}
+
 export type BusinessPreferencesCreatedailyDigestWeekdaysInput = {
   set: number[]
 }
@@ -1376,6 +1460,16 @@ export type EnumReceiptDeliveryLineFieldUpdateOperationsInput = {
   set?: $Enums.ReceiptDeliveryLine
 }
 
+export type BusinessPreferencesUpdatebioFeaturedProductIdsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type BusinessPreferencesUpdatebioHiddenSectionsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type BusinessPreferencesUpdatedailyDigestWeekdaysInput = {
   set?: number[]
   push?: number | number[]
@@ -1414,6 +1508,10 @@ export type BusinessPreferencesCreateWithoutBusinessInput = {
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
   feedbackResponseTime?: string
+  bioAnnouncement?: string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesCreatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesCreatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: string
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
@@ -1462,6 +1560,10 @@ export type BusinessPreferencesUncheckedCreateWithoutBusinessInput = {
   receiptDeliveryLine?: $Enums.ReceiptDeliveryLine
   receiptFooter?: string | null
   feedbackResponseTime?: string
+  bioAnnouncement?: string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesCreatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesCreatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: string
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
@@ -1526,6 +1628,10 @@ export type BusinessPreferencesUpdateWithoutBusinessInput = {
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackResponseTime?: Prisma.StringFieldUpdateOperationsInput | string
+  bioAnnouncement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesUpdatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesUpdatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: Prisma.StringFieldUpdateOperationsInput | string
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1574,6 +1680,10 @@ export type BusinessPreferencesUncheckedUpdateWithoutBusinessInput = {
   receiptDeliveryLine?: Prisma.EnumReceiptDeliveryLineFieldUpdateOperationsInput | $Enums.ReceiptDeliveryLine
   receiptFooter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   feedbackResponseTime?: Prisma.StringFieldUpdateOperationsInput | string
+  bioAnnouncement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bioFeaturedProductIds?: Prisma.BusinessPreferencesUpdatebioFeaturedProductIdsInput | string[]
+  bioHiddenSections?: Prisma.BusinessPreferencesUpdatebioHiddenSectionsInput | string[]
+  bioPreviewImage?: Prisma.StringFieldUpdateOperationsInput | string
   notifyFollowUps?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyReceiptViews?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notifyDeliveryUpdates?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1625,6 +1735,10 @@ export type BusinessPreferencesSelect<ExtArgs extends runtime.Types.Extensions.I
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
   feedbackResponseTime?: boolean
+  bioAnnouncement?: boolean
+  bioFeaturedProductIds?: boolean
+  bioHiddenSections?: boolean
+  bioPreviewImage?: boolean
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
@@ -1675,6 +1789,10 @@ export type BusinessPreferencesSelectCreateManyAndReturn<ExtArgs extends runtime
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
   feedbackResponseTime?: boolean
+  bioAnnouncement?: boolean
+  bioFeaturedProductIds?: boolean
+  bioHiddenSections?: boolean
+  bioPreviewImage?: boolean
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
@@ -1725,6 +1843,10 @@ export type BusinessPreferencesSelectUpdateManyAndReturn<ExtArgs extends runtime
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
   feedbackResponseTime?: boolean
+  bioAnnouncement?: boolean
+  bioFeaturedProductIds?: boolean
+  bioHiddenSections?: boolean
+  bioPreviewImage?: boolean
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
@@ -1775,6 +1897,10 @@ export type BusinessPreferencesSelectScalar = {
   receiptDeliveryLine?: boolean
   receiptFooter?: boolean
   feedbackResponseTime?: boolean
+  bioAnnouncement?: boolean
+  bioFeaturedProductIds?: boolean
+  bioHiddenSections?: boolean
+  bioPreviewImage?: boolean
   notifyFollowUps?: boolean
   notifyReceiptViews?: boolean
   notifyDeliveryUpdates?: boolean
@@ -1798,7 +1924,7 @@ export type BusinessPreferencesSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"rentalPolicy" | "rentalLateUnit" | "rentalLateRate" | "businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "featuredCollectionIds" | "tickerItems" | "defaultPaymentStatus" | "allowedPaymentMethods" | "defaultPaymentMethod" | "allowedFulfillmentMethods" | "deliveryAreas" | "deliveryStates" | "deliveryCountries" | "collectionOrder" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "lowStockThreshold" | "dailyDigestWhatsapp" | "dailyDigestTime" | "dailyDigestWeekdays" | "dailyDigestPhone" | "dailyDigestConsentAt" | "dailyDigestConsentVersion" | "dailyDigestPausedAt" | "lastDailyDigestAt" | "customerMemoryWhatsapp" | "customerMemoryPhone" | "customerMemoryConsentAt" | "customerMemoryConsentVersion" | "pushNotificationsEnabled" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
+export type BusinessPreferencesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"rentalPolicy" | "rentalLateUnit" | "rentalLateRate" | "businessId" | "currency" | "numberFormat" | "timezone" | "theme" | "shelfMode" | "showRecommended" | "showLatest" | "featuredCollectionIds" | "tickerItems" | "defaultPaymentStatus" | "allowedPaymentMethods" | "defaultPaymentMethod" | "allowedFulfillmentMethods" | "deliveryAreas" | "deliveryStates" | "deliveryCountries" | "collectionOrder" | "protectedPaymentEnabled" | "receiptDeliveryLine" | "receiptFooter" | "feedbackResponseTime" | "bioAnnouncement" | "bioFeaturedProductIds" | "bioHiddenSections" | "bioPreviewImage" | "notifyFollowUps" | "notifyReceiptViews" | "notifyDeliveryUpdates" | "lowStockThreshold" | "dailyDigestWhatsapp" | "dailyDigestTime" | "dailyDigestWeekdays" | "dailyDigestPhone" | "dailyDigestConsentAt" | "dailyDigestConsentVersion" | "dailyDigestPausedAt" | "lastDailyDigestAt" | "customerMemoryWhatsapp" | "customerMemoryPhone" | "customerMemoryConsentAt" | "customerMemoryConsentVersion" | "pushNotificationsEnabled" | "exportAccess" | "retentionPolicy" | "createdAt" | "updatedAt", ExtArgs["result"]["businessPreferences"]>
 export type BusinessPreferencesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
 }
@@ -1840,6 +1966,10 @@ export type $BusinessPreferencesPayload<ExtArgs extends runtime.Types.Extensions
     receiptDeliveryLine: $Enums.ReceiptDeliveryLine
     receiptFooter: string | null
     feedbackResponseTime: string
+    bioAnnouncement: string | null
+    bioFeaturedProductIds: string[]
+    bioHiddenSections: string[]
+    bioPreviewImage: string
     notifyFollowUps: boolean
     notifyReceiptViews: boolean
     notifyDeliveryUpdates: boolean
@@ -2310,6 +2440,10 @@ export interface BusinessPreferencesFieldRefs {
   readonly receiptDeliveryLine: Prisma.FieldRef<"BusinessPreferences", 'ReceiptDeliveryLine'>
   readonly receiptFooter: Prisma.FieldRef<"BusinessPreferences", 'String'>
   readonly feedbackResponseTime: Prisma.FieldRef<"BusinessPreferences", 'String'>
+  readonly bioAnnouncement: Prisma.FieldRef<"BusinessPreferences", 'String'>
+  readonly bioFeaturedProductIds: Prisma.FieldRef<"BusinessPreferences", 'String[]'>
+  readonly bioHiddenSections: Prisma.FieldRef<"BusinessPreferences", 'String[]'>
+  readonly bioPreviewImage: Prisma.FieldRef<"BusinessPreferences", 'String'>
   readonly notifyFollowUps: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
   readonly notifyReceiptViews: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>
   readonly notifyDeliveryUpdates: Prisma.FieldRef<"BusinessPreferences", 'Boolean'>

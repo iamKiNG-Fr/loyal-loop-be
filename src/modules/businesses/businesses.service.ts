@@ -571,8 +571,24 @@ export class BusinessesService {
         throw new BadRequestException("One or more shop collections are unavailable");
       }
     }
+    const bioProductIds = dto.bioFeaturedProductIds
+      ? [...new Set(dto.bioFeaturedProductIds.map((item) => item.trim()).filter(Boolean))]
+      : undefined;
+    if (bioProductIds?.length) {
+      const available = await this.prisma.product.count({
+        where: { businessId: auth.businessId, id: { in: bioProductIds } },
+      });
+      if (available !== bioProductIds.length) {
+        throw new BadRequestException("One or more chosen products are unavailable");
+      }
+    }
     const data = {
       ...dto,
+      bioAnnouncement: dto.bioAnnouncement === undefined
+        ? undefined
+        : dto.bioAnnouncement.replace(/\s+/g, " ").trim() || null,
+      bioFeaturedProductIds: bioProductIds,
+      bioHiddenSections: dto.bioHiddenSections ? [...new Set(dto.bioHiddenSections)] : undefined,
       allowedPaymentMethods: dto.allowedPaymentMethods
         ? [...new Set(dto.allowedPaymentMethods)]
         : undefined,

@@ -145,7 +145,18 @@ export class ShopsService {
     const open = business.storeStatus === "OPEN";
     const browseable = ["OPEN", "PAUSED"].includes(business.storeStatus);
     const productTotal = browseable ? business._count.products : 0;
+    // Products the owner chose for the link-in-bio page may sit beyond the
+    // first catalogue page, so they are loaded by id, in the chosen order.
+    const bioIds = browseable ? business.preferences?.bioFeaturedProductIds ?? [] : [];
+    const bioFound = bioIds.length
+      ? await timed("bio", () => this.prisma.product.findMany({
+          where: { ...publicProductWhere, businessId: business.id, id: { in: bioIds } },
+          include: publicProductInclude,
+        }), timing)
+      : [];
+    const bioProducts = bioIds.flatMap((id) => bioFound.filter((product) => product.id === id));
     return {
+      bioProducts,
       business: sanitizeBusiness(business),
       catalog: {
         page: 1,
@@ -1236,6 +1247,10 @@ function sanitizeBusiness(business: Record<string, unknown>) {
       showLatest?: boolean;
       featuredCollectionIds?: string[];
       tickerItems?: string[];
+      bioAnnouncement?: string | null;
+      bioFeaturedProductIds?: string[];
+      bioHiddenSections?: string[];
+      bioPreviewImage?: string;
       feedbackResponseTime?: string;
       allowedPaymentMethods?: string[];
       defaultPaymentMethod?: string | null;
@@ -1298,6 +1313,10 @@ function sanitizeBusiness(business: Record<string, unknown>) {
           showLatest: source.preferences.showLatest,
           featuredCollectionIds: source.preferences.featuredCollectionIds,
           tickerItems: source.preferences.tickerItems,
+          bioAnnouncement: source.preferences.bioAnnouncement ?? null,
+          bioFeaturedProductIds: source.preferences.bioFeaturedProductIds ?? [],
+          bioHiddenSections: source.preferences.bioHiddenSections ?? [],
+          bioPreviewImage: source.preferences.bioPreviewImage ?? "COVER",
           feedbackResponseTime: source.preferences.feedbackResponseTime,
           allowedPaymentMethods: source.preferences.allowedPaymentMethods,
           defaultPaymentMethod: source.preferences.defaultPaymentMethod,

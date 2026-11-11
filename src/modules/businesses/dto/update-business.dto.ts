@@ -246,6 +246,29 @@ export class UpdateBusinessPreferencesDto {
   @Length(1, 50, { each: true })
   tickerItems?: string[];
 
+  // Link-in-bio page (myloop.fyi/<shop>). An empty announcement clears it.
+  @IsOptional()
+  @IsString()
+  @Length(0, 140)
+  bioAnnouncement?: string;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(6)
+  @IsString({ each: true })
+  @Length(1, 80, { each: true })
+  bioFeaturedProductIds?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(4)
+  @IsIn(["ANNOUNCEMENT", "INFO", "PICKS", "TICKER"], { each: true })
+  bioHiddenSections?: string[];
+
+  @IsOptional()
+  @IsIn(["COVER", "PRODUCT"])
+  bioPreviewImage?: string;
+
   @IsOptional()
   @IsBoolean()
   notifyFollowUps?: boolean;

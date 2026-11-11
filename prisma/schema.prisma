@@ -1169,6 +1169,10 @@ model BusinessPreferences {
   receiptDeliveryLine          ReceiptDeliveryLine @default(OPTIONAL)
   receiptFooter                String?
   feedbackResponseTime         String              @default("Within one business day")
+  bioAnnouncement              String?
+  bioFeaturedProductIds        String[]            @default([])
+  bioHiddenSections            String[]            @default([])
+  bioPreviewImage              String              @default("COVER")
   notifyFollowUps              Boolean             @default(true)
   notifyReceiptViews           Boolean             @default(false)
   notifyDeliveryUpdates        Boolean             @default(true)
