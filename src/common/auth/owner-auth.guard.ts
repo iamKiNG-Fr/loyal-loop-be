@@ -20,24 +20,15 @@ export class OwnerAuthGuard implements CanActivate {
     const rawToken = readCookie(request.headers.cookie, OWNER_SESSION_COOKIE);
     if (!rawToken) throw new UnauthorizedException("Sign in required");
 
+    // This guard runs on every owner request, so its cost is paid everywhere.
+    // It used to be one nested read, which Prisma sends as five statements one
+    // after another. It is now two waits: the session, then the three things
+    // that depend only on the session's user, read side by side.
     const session = await this.prisma.ownerSession.findUnique({
       where: { tokenHash: hashToken(rawToken) },
-      include: {
-        user: {
-          include: {
-            memberships: {
-              where: { status: "ACTIVE" },
-              orderBy: { createdAt: "asc" },
-              include: {
-                permissionOverrides: true,
-                business: { select: { platformStatus: true } },
-              },
-            },
-          },
-        },
-      },
     });
 
+    // Nothing else is read for a missing, revoked or expired session.
     if (
       !session ||
       session.revokedAt ||
@@ -46,21 +37,36 @@ export class OwnerAuthGuard implements CanActivate {
       throw new UnauthorizedException("Session expired");
     }
 
+    const activeMember = { userId: session.userId, status: "ACTIVE" as const };
+    const [memberships, overrides, businesses] = await Promise.all([
+      this.prisma.businessMember.findMany({
+        where: activeMember,
+        orderBy: { createdAt: "asc" },
+      }),
+      this.prisma.memberPermissionOverride.findMany({
+        where: { member: activeMember },
+        select: { memberId: true, capability: true, allowed: true },
+      }),
+      this.prisma.business.findMany({
+        where: { members: { some: activeMember } },
+        select: { id: true, platformStatus: true },
+      }),
+    ]);
+
     const requestedBusinessId = request.header("x-business-id");
     const membership = requestedBusinessId
-      ? session.user.memberships.find(
-          (entry) => entry.businessId === requestedBusinessId,
-        )
-      : session.user.memberships[0];
+      ? memberships.find((entry) => entry.businessId === requestedBusinessId)
+      : memberships[0];
     if (!membership) {
       throw new UnauthorizedException("No active business membership");
     }
+    const business = businesses.find((entry) => entry.id === membership.businessId);
     const requestPath = request.path || request.originalUrl || "";
     const suspensionSafePath = ["/auth/me", "/auth/logout"].some((path) =>
       requestPath.endsWith(path),
     );
     if (
-      membership.business?.platformStatus === "SUSPENDED" &&
+      business?.platformStatus === "SUSPENDED" &&
       !suspensionSafePath
     ) {
       throw new ForbiddenException({
@@ -75,9 +81,11 @@ export class OwnerAuthGuard implements CanActivate {
       businessId: membership.businessId,
       memberId: membership.id,
       role: membership.role,
+      // Only this membership's overrides: the read above covers every
+      // business the user belongs to.
       capabilities: resolveCapabilities(
         membership.role,
-        membership.permissionOverrides,
+        overrides.filter((entry) => entry.memberId === membership.id),
       ),
     };
 

@@ -32,6 +32,9 @@ type ActivityInput = {
   description?: string;
   metadata?: Prisma.InputJsonValue;
   awardTrust?: boolean;
+  // Set when an earlier entry in the same transaction already marked this
+  // customer's insight summary stale.
+  skipInsightRefresh?: boolean;
 };
 
 type ActivityClient = Pick<
@@ -69,7 +72,7 @@ export class ActivityService {
         },
       });
     }
-    if (input.customerId) {
+    if (input.customerId && !input.skipInsightRefresh) {
       await client.customerInsightSummary.updateMany({
         where: {
           businessId: input.businessId,

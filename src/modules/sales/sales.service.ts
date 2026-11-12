@@ -59,6 +59,16 @@ const saleInclude = {
   delivery: { include: { events: { orderBy: { createdAt: "asc" as const } } } },
 };
 
+// The same shape as saleInclude for a sale that was created a moment ago.
+const newSaleInclude = {
+  customer: true,
+  items: true,
+  payments: { orderBy: { createdAt: "asc" as const } },
+  paymentInstruction: true,
+  receipt: true,
+  delivery: { include: { events: { orderBy: { createdAt: "asc" as const } } } },
+};
+
 @Injectable()
 export class SalesService {
   constructor(
@@ -149,32 +159,38 @@ export class SalesService {
     transaction?: Prisma.TransactionClient,
   ) {
     const db = transaction ?? this.prisma;
-    if (idempotencyKey) {
-      const existing = await db.sale.findFirst({
-        where: { businessId: auth.businessId, idempotencyKey },
-        include: saleInclude,
-      });
-      if (existing) return { sale: this.protectSale(existing, this.canViewPaymentProofs(auth)) };
-    }
-    const customer = await db.customer.findFirst({
-      where: { id: dto.customerId, businessId: auth.businessId },
-    });
-    if (!customer) throw new NotFoundException("Customer not found");
-
     const productIds = dto.items
       .map((item) => item.productId)
       .filter((id): id is string => Boolean(id));
-    const products = await db.product.findMany({
-      where: { id: { in: productIds }, businessId: auth.businessId },
-      include: {
-        images: {
-          where: { isPrimary: true },
-          include: { asset: true },
-          take: 1,
+    // These three reads do not depend on each other. Outside a transaction
+    // they run on separate connections, so the wait is the slowest one, not
+    // the sum. The duplicate check asks for the id only: loading the full
+    // sale costs ten more statements even when nothing matches.
+    const [duplicate, customer, products] = await Promise.all([
+      idempotencyKey
+        ? db.sale.findFirst({ where: { businessId: auth.businessId, idempotencyKey }, select: { id: true } })
+        : null,
+      db.customer.findFirst({
+        where: { id: dto.customerId, businessId: auth.businessId },
+      }),
+      db.product.findMany({
+        where: { id: { in: productIds }, businessId: auth.businessId },
+        include: {
+          images: {
+            where: { isPrimary: true },
+            include: { asset: true },
+            take: 1,
+          },
+          variants: { where: { active: true } },
         },
-        variants: { where: { active: true } },
-      },
-    });
+      }),
+    ]);
+    if (duplicate) {
+      const existing = await db.sale.findUniqueOrThrow({ where: { id: duplicate.id }, include: saleInclude });
+      return { sale: this.protectSale(existing, this.canViewPaymentProofs(auth)) };
+    }
+    if (!customer) throw new NotFoundException("Customer not found");
+
     if (products.length !== new Set(productIds).size) {
       throw new BadRequestException("One or more products are invalid");
     }
@@ -366,6 +382,7 @@ export class SalesService {
           notes: dto.notes?.trim(),
           items: { create: lines },
         },
+        select: { id: true },
       });
       await tx.salePaymentInstruction.create({
         data: {
@@ -452,6 +469,7 @@ export class SalesService {
               },
             },
           },
+          select: { id: true, status: true },
         });
       }
       await tx.customer.update({
@@ -498,18 +516,30 @@ export class SalesService {
           type: "RECEIPT_CREATED",
           title: `Created receipt ${receiptCode}`,
           awardTrust: false,
+          skipInsightRefresh: true,
         },
         tx,
       );
-      await this.valueFeedback.captureIfQualified(
-        tx,
-        auth.businessId,
-        created.id,
-      );
-      return tx.sale.findUniqueOrThrow({
+      // C: a sale only qualifies for value feedback when it is fully paid and
+      // needs no delivery; anything else cannot qualify at creation.
+      if (paymentStatus === "PAID" && fulfillment === "NOT_REQUIRED") {
+        await this.valueFeedback.captureIfQualified(
+          tx,
+          auth.businessId,
+          created.id,
+        );
+      }
+      // E: a new sale has no payment proofs and no payment evidence yet, so
+      // those relations are not queried; they are filled in as empty.
+      const fresh = await tx.sale.findUniqueOrThrow({
         where: { id: created.id },
-        include: saleInclude,
+        include: newSaleInclude,
       });
+      return {
+        ...fresh,
+        payments: (fresh.payments ?? []).map((payment) => ({ ...payment, evidenceAsset: null })),
+        paymentProofs: [],
+      };
       };
       sale = transaction
         ? await createSale(transaction)
@@ -538,7 +568,9 @@ export class SalesService {
       throw error;
     }
     if (!transaction && sale.delivery?.id) {
-      await this.messaging
+      // Best effort, as before, but no longer awaited: it is about eleven
+      // statements the owner was waiting on after the sale was already saved.
+      void this.messaging
         .enqueueDelivery(auth, sale.delivery.id)
         .catch(() => undefined);
     }
