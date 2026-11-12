@@ -14,6 +14,7 @@ import {
   CustomerReportStatus,
   PlatformAdminStatus,
   PlatformRole,
+  SupportRequestKind,
   SupportRequestStatus,
 } from "../../../generated/prisma/client";
 
@@ -50,6 +51,10 @@ export class AdminListQueryDto {
   @Transform(({ value }) => value === true || value === "true")
   @IsBoolean()
   includeDemo?: boolean;
+
+  @IsOptional()
+  @IsEnum(SupportRequestKind)
+  kind?: SupportRequestKind;
 }
 
 export class SuspendBusinessDto {

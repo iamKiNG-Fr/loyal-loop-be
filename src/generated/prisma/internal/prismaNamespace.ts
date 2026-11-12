@@ -8891,6 +8891,7 @@ export const SupportRequestScalarFieldEnum = {
   topic: 'topic',
   message: 'message',
   status: 'status',
+  kind: 'kind',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -10245,6 +10246,20 @@ export type EnumSupportRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputT
  * Reference to a field of type 'SupportRequestStatus[]'
  */
 export type ListEnumSupportRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportRequestStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SupportRequestKind'
+ */
+export type EnumSupportRequestKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportRequestKind'>
+    
+
+
+/**
+ * Reference to a field of type 'SupportRequestKind[]'
+ */
+export type ListEnumSupportRequestKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportRequestKind[]'>
     
 
 

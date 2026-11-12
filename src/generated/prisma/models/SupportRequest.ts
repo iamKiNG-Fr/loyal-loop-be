@@ -31,6 +31,7 @@ export type SupportRequestMinAggregateOutputType = {
   topic: string | null
   message: string | null
   status: $Enums.SupportRequestStatus | null
+  kind: $Enums.SupportRequestKind | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -42,6 +43,7 @@ export type SupportRequestMaxAggregateOutputType = {
   topic: string | null
   message: string | null
   status: $Enums.SupportRequestStatus | null
+  kind: $Enums.SupportRequestKind | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,6 +55,7 @@ export type SupportRequestCountAggregateOutputType = {
   topic: number
   message: number
   status: number
+  kind: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -66,6 +69,7 @@ export type SupportRequestMinAggregateInputType = {
   topic?: true
   message?: true
   status?: true
+  kind?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,6 +81,7 @@ export type SupportRequestMaxAggregateInputType = {
   topic?: true
   message?: true
   status?: true
+  kind?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +93,7 @@ export type SupportRequestCountAggregateInputType = {
   topic?: true
   message?: true
   status?: true
+  kind?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -172,6 +178,7 @@ export type SupportRequestGroupByOutputType = {
   topic: string
   message: string
   status: $Enums.SupportRequestStatus
+  kind: $Enums.SupportRequestKind
   createdAt: Date
   updatedAt: Date
   _count: SupportRequestCountAggregateOutputType | null
@@ -204,6 +211,7 @@ export type SupportRequestWhereInput = {
   topic?: Prisma.StringFilter<"SupportRequest"> | string
   message?: Prisma.StringFilter<"SupportRequest"> | string
   status?: Prisma.EnumSupportRequestStatusFilter<"SupportRequest"> | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFilter<"SupportRequest"> | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -217,6 +225,7 @@ export type SupportRequestOrderByWithRelationInput = {
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
@@ -233,6 +242,7 @@ export type SupportRequestWhereUniqueInput = Prisma.AtLeast<{
   topic?: Prisma.StringFilter<"SupportRequest"> | string
   message?: Prisma.StringFilter<"SupportRequest"> | string
   status?: Prisma.EnumSupportRequestStatusFilter<"SupportRequest"> | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFilter<"SupportRequest"> | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
@@ -246,6 +256,7 @@ export type SupportRequestOrderByWithAggregationInput = {
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SupportRequestCountOrderByAggregateInput
@@ -263,6 +274,7 @@ export type SupportRequestScalarWhereWithAggregatesInput = {
   topic?: Prisma.StringWithAggregatesFilter<"SupportRequest"> | string
   message?: Prisma.StringWithAggregatesFilter<"SupportRequest"> | string
   status?: Prisma.EnumSupportRequestStatusWithAggregatesFilter<"SupportRequest"> | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindWithAggregatesFilter<"SupportRequest"> | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"SupportRequest"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"SupportRequest"> | Date | string
 }
@@ -272,6 +284,7 @@ export type SupportRequestCreateInput = {
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
+  kind?: $Enums.SupportRequestKind
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutSupportRequestsInput
@@ -285,6 +298,7 @@ export type SupportRequestUncheckedCreateInput = {
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
+  kind?: $Enums.SupportRequestKind
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -294,6 +308,7 @@ export type SupportRequestUpdateInput = {
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFieldUpdateOperationsInput | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutSupportRequestsNestedInput
@@ -307,6 +322,7 @@ export type SupportRequestUncheckedUpdateInput = {
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFieldUpdateOperationsInput | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -318,6 +334,7 @@ export type SupportRequestCreateManyInput = {
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
+  kind?: $Enums.SupportRequestKind
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -327,6 +344,7 @@ export type SupportRequestUpdateManyMutationInput = {
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFieldUpdateOperationsInput | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -338,6 +356,7 @@ export type SupportRequestUncheckedUpdateManyInput = {
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFieldUpdateOperationsInput | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -364,6 +383,7 @@ export type SupportRequestCountOrderByAggregateInput = {
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -375,6 +395,7 @@ export type SupportRequestMaxOrderByAggregateInput = {
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -386,6 +407,7 @@ export type SupportRequestMinOrderByAggregateInput = {
   topic?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  kind?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -468,11 +490,16 @@ export type EnumSupportRequestStatusFieldUpdateOperationsInput = {
   set?: $Enums.SupportRequestStatus
 }
 
+export type EnumSupportRequestKindFieldUpdateOperationsInput = {
+  set?: $Enums.SupportRequestKind
+}
+
 export type SupportRequestCreateWithoutBusinessInput = {
   id?: string
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
+  kind?: $Enums.SupportRequestKind
   createdAt?: Date | string
   updatedAt?: Date | string
   customerIssue?: Prisma.CustomerIssueCreateNestedOneWithoutSupportRequestInput
@@ -484,6 +511,7 @@ export type SupportRequestUncheckedCreateWithoutBusinessInput = {
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
+  kind?: $Enums.SupportRequestKind
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -524,6 +552,7 @@ export type SupportRequestScalarWhereInput = {
   topic?: Prisma.StringFilter<"SupportRequest"> | string
   message?: Prisma.StringFilter<"SupportRequest"> | string
   status?: Prisma.EnumSupportRequestStatusFilter<"SupportRequest"> | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFilter<"SupportRequest"> | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"SupportRequest"> | Date | string
 }
@@ -533,6 +562,7 @@ export type SupportRequestCreateWithoutCustomerIssueInput = {
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
+  kind?: $Enums.SupportRequestKind
   createdAt?: Date | string
   updatedAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutSupportRequestsInput
@@ -544,6 +574,7 @@ export type SupportRequestUncheckedCreateWithoutCustomerIssueInput = {
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
+  kind?: $Enums.SupportRequestKind
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -569,6 +600,7 @@ export type SupportRequestUpdateWithoutCustomerIssueInput = {
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFieldUpdateOperationsInput | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutSupportRequestsNestedInput
@@ -580,6 +612,7 @@ export type SupportRequestUncheckedUpdateWithoutCustomerIssueInput = {
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFieldUpdateOperationsInput | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -590,6 +623,7 @@ export type SupportRequestCreateManyBusinessInput = {
   topic: string
   message: string
   status?: $Enums.SupportRequestStatus
+  kind?: $Enums.SupportRequestKind
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -599,6 +633,7 @@ export type SupportRequestUpdateWithoutBusinessInput = {
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFieldUpdateOperationsInput | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customerIssue?: Prisma.CustomerIssueUpdateOneWithoutSupportRequestNestedInput
@@ -610,6 +645,7 @@ export type SupportRequestUncheckedUpdateWithoutBusinessInput = {
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFieldUpdateOperationsInput | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -620,6 +656,7 @@ export type SupportRequestUncheckedUpdateManyWithoutBusinessInput = {
   topic?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumSupportRequestStatusFieldUpdateOperationsInput | $Enums.SupportRequestStatus
+  kind?: Prisma.EnumSupportRequestKindFieldUpdateOperationsInput | $Enums.SupportRequestKind
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -633,6 +670,7 @@ export type SupportRequestSelect<ExtArgs extends runtime.Types.Extensions.Intern
   topic?: boolean
   message?: boolean
   status?: boolean
+  kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -646,6 +684,7 @@ export type SupportRequestSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   topic?: boolean
   message?: boolean
   status?: boolean
+  kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -659,6 +698,7 @@ export type SupportRequestSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   topic?: boolean
   message?: boolean
   status?: boolean
+  kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
@@ -672,11 +712,12 @@ export type SupportRequestSelectScalar = {
   topic?: boolean
   message?: boolean
   status?: boolean
+  kind?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SupportRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerIssueId" | "topic" | "message" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["supportRequest"]>
+export type SupportRequestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "customerIssueId" | "topic" | "message" | "status" | "kind" | "createdAt" | "updatedAt", ExtArgs["result"]["supportRequest"]>
 export type SupportRequestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   customerIssue?: boolean | Prisma.SupportRequest$customerIssueArgs<ExtArgs>
@@ -703,6 +744,7 @@ export type $SupportRequestPayload<ExtArgs extends runtime.Types.Extensions.Inte
     topic: string
     message: string
     status: $Enums.SupportRequestStatus
+    kind: $Enums.SupportRequestKind
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["supportRequest"]>
@@ -1136,6 +1178,7 @@ export interface SupportRequestFieldRefs {
   readonly topic: Prisma.FieldRef<"SupportRequest", 'String'>
   readonly message: Prisma.FieldRef<"SupportRequest", 'String'>
   readonly status: Prisma.FieldRef<"SupportRequest", 'SupportRequestStatus'>
+  readonly kind: Prisma.FieldRef<"SupportRequest", 'SupportRequestKind'>
   readonly createdAt: Prisma.FieldRef<"SupportRequest", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"SupportRequest", 'DateTime'>
 }

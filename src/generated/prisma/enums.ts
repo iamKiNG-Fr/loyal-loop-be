@@ -803,6 +803,14 @@ export const SupportRequestStatus = {
 export type SupportRequestStatus = (typeof SupportRequestStatus)[keyof typeof SupportRequestStatus]
 
 
+export const SupportRequestKind = {
+  SUPPORT: 'SUPPORT',
+  FEEDBACK: 'FEEDBACK'
+} as const
+
+export type SupportRequestKind = (typeof SupportRequestKind)[keyof typeof SupportRequestKind]
+
+
 export const ExportAccess = {
   OWNER_ONLY: 'OWNER_ONLY',
   OWNER_AND_MANAGERS: 'OWNER_AND_MANAGERS'

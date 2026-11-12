@@ -579,6 +579,11 @@ enum SupportRequestStatus {
   RESOLVED
 }
 
+enum SupportRequestKind {
+  SUPPORT
+  FEEDBACK
+}
+
 enum ExportAccess {
   OWNER_ONLY
   OWNER_AND_MANAGERS
@@ -2641,12 +2646,14 @@ model SupportRequest {
   topic           String
   message         String
   status          SupportRequestStatus @default(OPEN)
+  kind            SupportRequestKind   @default(SUPPORT)
   createdAt       DateTime             @default(now())
   updatedAt       DateTime             @updatedAt
   business        Business             @relation(fields: [businessId], references: [id], onDelete: Cascade)
   customerIssue   CustomerIssue?       @relation(fields: [customerIssueId], references: [id], onDelete: SetNull)
 
   @@index([businessId, status, createdAt])
+  @@index([kind, status, createdAt])
   @@map("support_requests")
 }
 

@@ -1823,6 +1823,13 @@ export type EnumSupportRequestStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumSupportRequestStatusFilter<$PrismaModel> | $Enums.SupportRequestStatus
 }
 
+export type EnumSupportRequestKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.SupportRequestKind | Prisma.EnumSupportRequestKindFieldRefInput<$PrismaModel>
+  in?: $Enums.SupportRequestKind[] | Prisma.ListEnumSupportRequestKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SupportRequestKind[] | Prisma.ListEnumSupportRequestKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSupportRequestKindFilter<$PrismaModel> | $Enums.SupportRequestKind
+}
+
 export type EnumSupportRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.SupportRequestStatus | Prisma.EnumSupportRequestStatusFieldRefInput<$PrismaModel>
   in?: $Enums.SupportRequestStatus[] | Prisma.ListEnumSupportRequestStatusFieldRefInput<$PrismaModel>
@@ -1831,6 +1838,16 @@ export type EnumSupportRequestStatusWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumSupportRequestStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumSupportRequestStatusFilter<$PrismaModel>
+}
+
+export type EnumSupportRequestKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SupportRequestKind | Prisma.EnumSupportRequestKindFieldRefInput<$PrismaModel>
+  in?: $Enums.SupportRequestKind[] | Prisma.ListEnumSupportRequestKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SupportRequestKind[] | Prisma.ListEnumSupportRequestKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSupportRequestKindWithAggregatesFilter<$PrismaModel> | $Enums.SupportRequestKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSupportRequestKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSupportRequestKindFilter<$PrismaModel>
 }
 
 export type EnumMessagePurposeFilter<$PrismaModel = never> = {
@@ -3630,6 +3647,13 @@ export type NestedEnumSupportRequestStatusFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumSupportRequestStatusFilter<$PrismaModel> | $Enums.SupportRequestStatus
 }
 
+export type NestedEnumSupportRequestKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.SupportRequestKind | Prisma.EnumSupportRequestKindFieldRefInput<$PrismaModel>
+  in?: $Enums.SupportRequestKind[] | Prisma.ListEnumSupportRequestKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SupportRequestKind[] | Prisma.ListEnumSupportRequestKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSupportRequestKindFilter<$PrismaModel> | $Enums.SupportRequestKind
+}
+
 export type NestedEnumSupportRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.SupportRequestStatus | Prisma.EnumSupportRequestStatusFieldRefInput<$PrismaModel>
   in?: $Enums.SupportRequestStatus[] | Prisma.ListEnumSupportRequestStatusFieldRefInput<$PrismaModel>
@@ -3638,6 +3662,16 @@ export type NestedEnumSupportRequestStatusWithAggregatesFilter<$PrismaModel = ne
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumSupportRequestStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumSupportRequestStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumSupportRequestKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SupportRequestKind | Prisma.EnumSupportRequestKindFieldRefInput<$PrismaModel>
+  in?: $Enums.SupportRequestKind[] | Prisma.ListEnumSupportRequestKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.SupportRequestKind[] | Prisma.ListEnumSupportRequestKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumSupportRequestKindWithAggregatesFilter<$PrismaModel> | $Enums.SupportRequestKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSupportRequestKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSupportRequestKindFilter<$PrismaModel>
 }
 
 export type NestedEnumMessagePurposeFilter<$PrismaModel = never> = {

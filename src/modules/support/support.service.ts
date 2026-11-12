@@ -13,6 +13,7 @@ export class SupportService {
         businessId: auth.businessId,
         topic: dto.topic.trim(),
         message: dto.message.trim(),
+        kind: dto.kind ?? "SUPPORT",
       },
     });
   }

@@ -1710,6 +1710,7 @@ export const SupportRequestScalarFieldEnum = {
   topic: 'topic',
   message: 'message',
   status: 'status',
+  kind: 'kind',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

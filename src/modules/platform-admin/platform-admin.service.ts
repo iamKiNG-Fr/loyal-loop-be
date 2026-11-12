@@ -881,6 +881,7 @@ export class PlatformAdminService {
   async supportRequests(query: AdminListQueryDto) {
     const { page, pageSize, skip } = paging(query);
     const where: Prisma.SupportRequestWhereInput = {
+      ...(query.kind ? { kind: query.kind } : {}),
       ...(query.status ? { status: query.status as never } : {}),
       ...(query.search
         ? {
