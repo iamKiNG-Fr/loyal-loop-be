@@ -571,6 +571,11 @@ export class SalesService {
       } });
       if (!evidence) throw new BadRequestException("Choose an unused private payment image uploaded for this business");
     }
+    // Money going back to a customer must say why, for the shop's own record
+    // and for any later review.
+    if (dto.type === "REFUND" && (dto.note?.trim().length ?? 0) < 3) {
+      throw new BadRequestException("Add the reason for this refund before recording it");
+    }
     const nextPaid =
       dto.type === "REFUND"
         ? sale.amountPaid.sub(amount)

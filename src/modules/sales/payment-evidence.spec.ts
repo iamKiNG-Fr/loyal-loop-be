@@ -29,16 +29,23 @@ describe('recording payment and refund evidence', () => {
   });
   it('records a full refund and evidence atomically, signs the image and never unlocks fulfilment', async () => {
     const { service, tx } = harness();
-    const result = await service.recordPayment(auth, 'sale', { type: 'REFUND', amount: '100', evidenceAssetId: 'proof' });
+    const result = await service.recordPayment(auth, 'sale', { type: 'REFUND', amount: '100', evidenceAssetId: 'proof', note: ' Order canceled ' });
+    expect(tx.paymentEntry.create.mock.calls[0][0].data.note).toBe('Order canceled');
     expect(tx.sale.updateMany.mock.calls[0][0].data.paymentStatus).toBe('REFUNDED');
     expect(tx.sale.updateMany.mock.calls[0][0].data.amountPaid.toString()).toBe('0');
     expect(tx.paymentEntry.create.mock.calls[0][0].data).toMatchObject({ evidenceAssetId: 'proof', saleId: 'sale', recordedById: 'owner', type: 'REFUND' });
     expect(result.payments[0].evidenceAsset?.secureUrl).toBe('signed-expiring-url');
     expect(tx.delivery.updateMany).not.toHaveBeenCalled();
   });
+  it('refuses a refund without a reason and writes nothing', async () => {
+    const { service, prisma } = harness();
+    await expect(service.recordPayment(auth, 'sale', { type: 'REFUND', amount: '40', evidenceAssetId: 'proof' })).rejects.toThrow('reason for this refund');
+    await expect(service.recordPayment(auth, 'sale', { type: 'REFUND', amount: '40', evidenceAssetId: 'proof', note: '  ' })).rejects.toThrow('reason for this refund');
+    expect(prisma.$transaction).not.toHaveBeenCalled();
+  });
   it('keeps a partial refund amount distinct from the remaining recorded payment', async () => {
     const { service, tx } = harness();
-    await service.recordPayment(auth, 'sale', { type: 'REFUND', amount: '40', evidenceAssetId: 'proof' });
+    await service.recordPayment(auth, 'sale', { type: 'REFUND', amount: '40', evidenceAssetId: 'proof', note: 'Customer overpaid' });
     expect(tx.sale.updateMany.mock.calls[0][0].data.amountPaid.toString()).toBe('60');
     expect(tx.sale.updateMany.mock.calls[0][0].data.paymentStatus).toBe('PARTIAL');
   });
@@ -49,19 +56,19 @@ describe('recording payment and refund evidence', () => {
   });
   it('does not expose evidence to staff without payment-review permission', async () => {
     const { service, media } = harness();
-    const result = await service.recordPayment({ businessId: 'shop', userId: 'staff', capabilities: [] } as never, 'sale', { type: 'REFUND', amount: '40', evidenceAssetId: 'proof' });
+    const result = await service.recordPayment({ businessId: 'shop', userId: 'staff', capabilities: [] } as never, 'sale', { type: 'REFUND', amount: '40', evidenceAssetId: 'proof', note: 'Customer overpaid' });
     expect(result.payments[0].evidenceAsset).toBeNull();
     expect(media.protectAsset).not.toHaveBeenCalled();
   });
   it('rejects an outdated balance before creating a second ledger entry', async () => {
     const { service, tx } = harness();
     tx.sale.updateMany.mockResolvedValue({ count: 0 });
-    await expect(service.recordPayment(auth, 'sale', { type: 'REFUND', amount: '40', evidenceAssetId: 'proof' })).rejects.toThrow('record changed');
+    await expect(service.recordPayment(auth, 'sale', { type: 'REFUND', amount: '40', evidenceAssetId: 'proof', note: 'Customer overpaid' })).rejects.toThrow('record changed');
     expect(tx.paymentEntry.create).not.toHaveBeenCalled();
   });
   it.each(['0', '-1', '101'])('rejects an invalid refund amount: %s', async amount => {
     const { service, prisma } = harness();
-    await expect(service.recordPayment(auth, 'sale', { type: 'REFUND', amount, evidenceAssetId: 'proof' })).rejects.toThrow();
+    await expect(service.recordPayment(auth, 'sale', { type: 'REFUND', amount, evidenceAssetId: 'proof', note: 'Customer overpaid' })).rejects.toThrow();
     expect(prisma.$transaction).not.toHaveBeenCalled();
   });
   it('prevents deletion of an attached receipt image', async () => {
